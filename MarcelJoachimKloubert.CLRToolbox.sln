@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 2.0", ".NET 2.0", "{DB188B00-7360-4799-860C-95355B9D4FE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.20", "MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.20.csproj", "{231DBA7A-C365-4712-BBED-19700F464CAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 3.0", ".NET 3.0", "{8FBB811B-B61F-4214-85C6-36DC93CE57B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.30", "MarcelJoachimKloubert.CLRToolbox.30\MarcelJoachimKloubert.CLRToolbox.30.csproj", "{E2D40F51-27C6-4D57-9697-680EE8AE6D89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 3.5", ".NET 3.5", "{83487190-5280-4CB7-B0D1-4ED98349D91D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.35", "MarcelJoachimKloubert.CLRToolbox.35\MarcelJoachimKloubert.CLRToolbox.35.csproj", "{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 4.0", ".NET 4.0", "{47A0F0A8-EC02-4890-93E8-BF3E1960E7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40", "MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj", "{50E0CDB2-BC51-4C46-949A-387E3534041F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 4.5", ".NET 4.5", "{897F5390-5D7D-4D96-8D20-AEC53706F681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45", "MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj", "{C24AE28B-5BE0-44A7-9232-11E090AA0641}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{231DBA7A-C365-4712-BBED-19700F464CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231DBA7A-C365-4712-BBED-19700F464CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231DBA7A-C365-4712-BBED-19700F464CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231DBA7A-C365-4712-BBED-19700F464CAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2D40F51-27C6-4D57-9697-680EE8AE6D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2D40F51-27C6-4D57-9697-680EE8AE6D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2D40F51-27C6-4D57-9697-680EE8AE6D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2D40F51-27C6-4D57-9697-680EE8AE6D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{231DBA7A-C365-4712-BBED-19700F464CAB} = {DB188B00-7360-4799-860C-95355B9D4FE3}
+		{E2D40F51-27C6-4D57-9697-680EE8AE6D89} = {8FBB811B-B61F-4214-85C6-36DC93CE57B7}
+		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE} = {83487190-5280-4CB7-B0D1-4ED98349D91D}
+		{50E0CDB2-BC51-4C46-949A-387E3534041F} = {47A0F0A8-EC02-4890-93E8-BF3E1960E7D2}
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641} = {897F5390-5D7D-4D96-8D20-AEC53706F681}
+	EndGlobalSection
+EndGlobal

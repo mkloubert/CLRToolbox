@@ -50,6 +50,10 @@
     <Compile Include="Helpers\CollectionHelper.ToArray.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.IsNullOrWhiteSpace.cs">
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="ITNObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TNObject.cs" />

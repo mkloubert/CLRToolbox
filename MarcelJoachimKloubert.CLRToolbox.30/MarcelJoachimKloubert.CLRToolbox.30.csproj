@@ -44,6 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
+      <Link>ComponentModel\INotificationObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
+      <Link>ComponentModel\NotificationObjectBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AsArray.cs">
       <Link>Helpers\CollectionHelper.AsArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>

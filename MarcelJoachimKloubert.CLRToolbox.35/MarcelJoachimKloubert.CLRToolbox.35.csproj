@@ -7,8 +7,8 @@
     <ProjectGuid>{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MarcelJoachimKloubert.CLRToolbox._35</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.35</AssemblyName>
+    <RootNamespace>MarcelJoachimKloubert.CLRToolbox</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.35.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +46,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
+      <Link>ComponentModel\INotificationObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
+      <Link>ComponentModel\NotificationObjectBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.AsArray.cs">
       <Link>Helpers\CollectionHelper.AsArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -66,6 +76,7 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TNObject.cs">
       <Link>TNObject.cs</Link>
     </Compile>
+    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange35.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
     <Compile Include="Extensions\Collections.cs" />
     <Compile Include="Extensions\Collections.AsArray.cs">

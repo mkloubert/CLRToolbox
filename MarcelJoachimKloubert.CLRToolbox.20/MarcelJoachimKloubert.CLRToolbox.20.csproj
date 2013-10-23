@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentModel\INotificationObject.cs" />
+    <Compile Include="ComponentModel\NotificationObjectBase.cs" />
+    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange.cs">
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\CollectionHelper.AsArray.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>

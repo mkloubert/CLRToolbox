@@ -7,8 +7,8 @@
     <ProjectGuid>{C24AE28B-5BE0-44A7-9232-11E090AA0641}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MarcelJoachimKloubert.CLRToolbox._45</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.45</AssemblyName>
+    <RootNamespace>MarcelJoachimKloubert.CLRToolbox</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.45.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +54,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\componentmodel\INotificationObject.cs">
+      <Link>ComponentModel\INotificationObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
+      <Link>ComponentModel\NotificationObjectBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.AsArray.cs">
       <Link>Helpers\CollectionHelper.AsArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -73,6 +83,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TNObject.cs">
       <Link>TNObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\ComponentModel\NotificationObjectBase.PropertyChange35.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChange35.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ClrToolboxExtensionMethods.cs">
       <Link>Extensions\ClrToolboxExtensionMethods.cs</Link>
@@ -103,6 +117,7 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange45.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

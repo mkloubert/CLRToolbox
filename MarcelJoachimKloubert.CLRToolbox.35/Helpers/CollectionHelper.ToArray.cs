@@ -18,6 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// 
         /// </summary>
         /// <see cref="Enumerable.ToArray{T}(IEnumerable{T})" />
+        /// <remarks>Replaced in .NET 3.5 for .NET 2.0</remarks>
         public static T[] ToArray<T>(IEnumerable<T> seq)
         {
             return Enumerable.ToArray<T>(seq);

@@ -41,9 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITNObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TNObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\README.md">
+      <Link>README.md</Link>
+    </EmbeddedResource>
     <None Include="MarcelJoachimKloubert.CLRToolbox.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

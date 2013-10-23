@@ -18,7 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         /// 
         /// </summary>
         /// <see cref="StringHelper.IsNullOrWhiteSpace(IEnumerable{char})" />
-        public static bool IsNullOrWhiteSpace(IEnumerable<char> chars)
+        public static bool IsNullOrWhiteSpace(this IEnumerable<char> chars)
         {
             return StringHelper.IsNullOrWhiteSpace(chars);
         }

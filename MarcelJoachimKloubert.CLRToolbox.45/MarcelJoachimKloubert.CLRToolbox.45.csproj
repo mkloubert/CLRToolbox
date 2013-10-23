@@ -61,6 +61,10 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
+      <Link>Helpers\StringHelper.AsString.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>
     </Compile>
@@ -79,6 +83,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.cs">
       <Link>Extensions\Collections.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.AsString.cs">
+      <Link>Extensions\Strings.AsString.cs</Link>
+      <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.cs">
       <Link>Extensions\Strings.cs</Link>

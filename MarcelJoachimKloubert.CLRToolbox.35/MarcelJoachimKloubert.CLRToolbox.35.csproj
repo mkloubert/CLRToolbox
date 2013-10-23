@@ -53,6 +53,10 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
+      <Link>Helpers\StringHelper.AsString.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>
     </Compile>
@@ -66,6 +70,9 @@
     <Compile Include="Extensions\Collections.cs" />
     <Compile Include="Extensions\Collections.AsArray.cs">
       <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Strings.AsString.cs">
+      <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Strings.IsNullOrWhiteSpace.cs">
       <DependentUpon>Strings.cs</DependentUpon>

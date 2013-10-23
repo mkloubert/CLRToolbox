@@ -55,6 +55,10 @@
       <Link>Helpers\CollectionHelper.ToArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
+      <Link>Helpers\StringHelper.AsString.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>
     </Compile>

@@ -47,6 +47,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\collections\generic\DelegateEqualityComparer.cs">
+      <Link>Collections\Generic\DelegateEqualityComparer.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
       <Link>ComponentModel\INotificationObject.cs</Link>
     </Compile>

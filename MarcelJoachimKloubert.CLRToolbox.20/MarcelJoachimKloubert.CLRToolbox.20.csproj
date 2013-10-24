@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Generic\DelegateEqualityComparer.cs" />
     <Compile Include="ComponentModel\INotificationObject.cs" />
     <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
       <DependentUpon>INotificationObject.cs</DependentUpon>

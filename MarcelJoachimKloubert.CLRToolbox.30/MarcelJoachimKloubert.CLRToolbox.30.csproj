@@ -76,11 +76,11 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITNObject.cs">
-      <Link>ITNObject.cs</Link>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
+      <Link>ITMObject.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TNObject.cs">
-      <Link>TNObject.cs</Link>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
+      <Link>TMObject.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

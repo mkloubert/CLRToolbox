@@ -62,9 +62,9 @@
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="ITNObject.cs" />
+    <Compile Include="ITMObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TNObject.cs" />
+    <Compile Include="TMObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\LICENSE">

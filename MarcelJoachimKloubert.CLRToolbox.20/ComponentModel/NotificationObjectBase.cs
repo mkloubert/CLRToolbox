@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
@@ -10,15 +11,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     /// <summary>
     /// A basic notification object.
     /// </summary>
-    public abstract partial class NotificationObjectBase : TNObject,
+    public abstract partial class NotificationObjectBase : TMObject,
                                                            INotificationObject
     {
-        #region Fields (1)
+        #region Fields (2)
 
         /// <summary>
         /// An unique object for sync operations.
         /// </summary>
         protected readonly object _SYNC = new object();
+        private object _tag;
 
         #endregion Fields
 
@@ -48,6 +50,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         }
 
         #endregion Constructors
+
+        #region Properties (1)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="TMObject.Tag" />
+        public override object Tag
+        {
+            get { return this._tag; }
+
+            set
+            {
+                if (!EqualityComparer<object>.Default.Equals(this._tag, value))
+                {
+                    this.OnPropertyChanging("Tag");
+                    this._tag = value;
+                    this.OnPropertyChanged("Tag");
+                }
+            }
+        }
+
+        #endregion Properties
 
         #region Delegates and Events (2)
 

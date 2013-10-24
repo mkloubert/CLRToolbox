@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     /// <summary>
     /// Describes a notification object.
     /// </summary>
-    public interface INotificationObject : ITNObject,
+    public interface INotificationObject : ITMObject,
                                            INotifyPropertyChanged,
                                            INotifyPropertyChanging
     {

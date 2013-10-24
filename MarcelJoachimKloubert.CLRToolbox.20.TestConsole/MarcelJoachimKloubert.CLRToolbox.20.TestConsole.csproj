@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{231DBA7A-C365-4712-BBED-19700F464CAB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{81A57560-63B9-4B2E-8363-7F5DD50AF8A3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MarcelJoachimKloubert.CLRToolbox</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox</AssemblyName>
+    <RootNamespace>MarcelJoachimKloubert.CLRToolbox._20.TestConsole</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.20.TestConsole</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,10 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.XML</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,50 +31,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MarcelJoachimKloubert.CLRToolbox.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentModel\INotificationObject.cs" />
-    <Compile Include="ComponentModel\NotificationObjectBase.cs" />
-    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange.cs">
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\CollectionHelper.cs" />
-    <Compile Include="Helpers\CollectionHelper.AsArray.cs">
-      <DependentUpon>CollectionHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\CollectionHelper.ToArray.cs">
-      <DependentUpon>CollectionHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\StringHelper.AsString.cs">
-      <DependentUpon>StringHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\StringHelper.IsNullOrWhiteSpace.cs">
-      <DependentUpon>StringHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="ITMObject.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TMConsole.cs" />
-    <Compile Include="TMObject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\LICENSE">
-      <Link>LICENSE</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\README.md">
-      <Link>README.md</Link>
-    </EmbeddedResource>
-    <None Include="MarcelJoachimKloubert.CLRToolbox.snk" />
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.20.csproj">
+      <Project>{231dba7a-c365-4712-bbed-19700f464cab}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.20</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

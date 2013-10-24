@@ -3,7 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
@@ -49,12 +48,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         }
 
         #endregion Constructors
-
-        #region Properties (1)
-
-
-
-        #endregion Properties
 
         #region Delegates and Events (1)
 

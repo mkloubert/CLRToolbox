@@ -187,18 +187,21 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// Describes an action for invokation in console context.
         /// </summary>
         public delegate void ConsoleAction();
+
         /// <summary>
         /// Describes an action for invokation in console context.
         /// </summary>
         /// <typeparam name="S">Type of <paramref name="state" />.</typeparam>
         /// <param name="state">The additional object for the action.</param>
         public delegate void ConsoleActionWithState<S>(S state);
+
         /// <summary>
         /// Describes a function for invokation in console context.
         /// </summary>
         /// <typeparam name="R">Type of the result.</typeparam>
         /// <returns>The result of the function.</returns>
         public delegate R ConsoleFunc<R>();
+
         /// <summary>
         /// Describes an action for invokation in console context.
         /// </summary>
@@ -207,21 +210,25 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <param name="state">The additional object for the action.</param>
         /// <returns>The result of the function.</returns>
         public delegate R ConsoleFuncWithState<S, R>(S state);
+
         /// <summary>
         /// Describes a function or method to receive a console color.
         /// </summary>
         /// <returns>The console color.</returns>
         public delegate ConsoleColor? GetConsoleColorHandler();
+
         /// <summary>
         /// Describes a function or method that returns the value for <see cref="TMConsole.NewLine" /> property.
         /// </summary>
         /// <returns>The new line value.</returns>
         public delegate IEnumerable<char> NewLineHandler();
+
         /// <summary>
         /// Describes a function or method to set a console color.
         /// </summary>
         /// <param name="newColor">The new value.</param>
         public delegate void SetConsoleColorHandler(ConsoleColor? newColor);
+
         /// <summary>
         /// Describes a function or method that handles writing text to a console.
         /// </summary>

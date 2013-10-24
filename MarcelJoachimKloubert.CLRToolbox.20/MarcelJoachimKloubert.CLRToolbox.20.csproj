@@ -58,6 +58,9 @@
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChanging.cs">
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.AddRange.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\CollectionHelper.AsArray.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>

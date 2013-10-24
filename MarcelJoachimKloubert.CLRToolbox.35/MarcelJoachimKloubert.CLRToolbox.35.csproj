@@ -71,6 +71,10 @@
       <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AddRange.cs">
+      <Link>Helpers\CollectionHelper.AddRange.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.AsArray.cs">
       <Link>Helpers\CollectionHelper.AsArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -96,6 +100,9 @@
     </Compile>
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange35.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
+    <Compile Include="Extensions\Collections.AddRange.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Collections.cs" />
     <Compile Include="Extensions\Collections.AsArray.cs">
       <DependentUpon>Collections.cs</DependentUpon>

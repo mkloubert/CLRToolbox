@@ -12,6 +12,12 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public partial class TMObject : MarshalByRefObject, ITMObject
     {
+        #region Fields (1)
+
+        private object _tag;
+
+        #endregion Fields
+
         #region Properties (1)
 
         /// <summary>
@@ -20,8 +26,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <see cref="ITMObject.Tag" />
         public virtual object Tag
         {
-            get;
-            set;
+            get { return this._tag; }
+
+            set { this._tag = value; }
         }
 
         #endregion Properties

@@ -14,13 +14,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     public abstract partial class NotificationObjectBase : TMObject,
                                                            INotificationObject
     {
-        #region Fields (2)
+        #region Fields (1)
 
         /// <summary>
         /// An unique object for sync operations.
         /// </summary>
         protected readonly object _SYNC = new object();
-        private object _tag;
 
         #endregion Fields
 
@@ -59,14 +58,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <see cref="TMObject.Tag" />
         public override object Tag
         {
-            get { return this._tag; }
+            get { return base.Tag; }
 
             set
             {
-                if (!EqualityComparer<object>.Default.Equals(this._tag, value))
+                if (!EqualityComparer<object>.Default.Equals(base.Tag, value))
                 {
                     this.OnPropertyChanging("Tag");
-                    this._tag = value;
+                    base.Tag = value;
                     this.OnPropertyChanged("Tag");
                 }
             }

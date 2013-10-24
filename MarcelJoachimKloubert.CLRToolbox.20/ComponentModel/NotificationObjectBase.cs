@@ -52,42 +52,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #region Properties (1)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="TMObject.Tag" />
-        public override object Tag
-        {
-            get { return base.Tag; }
 
-            set
-            {
-                if (!EqualityComparer<object>.Default.Equals(base.Tag, value))
-                {
-                    this.OnPropertyChanging("Tag");
-                    base.Tag = value;
-                    this.OnPropertyChanged("Tag");
-                }
-            }
-        }
 
         #endregion Properties
 
-        #region Delegates and Events (2)
+        #region Delegates and Events (1)
 
-        // Events (2) 
+        // Events (1) 
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="INotifyPropertyChanged.PropertyChanged" />
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="INotifyPropertyChanging.PropertyChanging" />
-        public event PropertyChangingEventHandler PropertyChanging;
 
         #endregion Delegates and Events
 

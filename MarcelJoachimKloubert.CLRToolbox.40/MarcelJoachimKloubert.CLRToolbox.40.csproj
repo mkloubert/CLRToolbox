@@ -50,11 +50,23 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
       <Link>ComponentModel\INotificationObject.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
+      <Link>ComponentModel\INotificationObject.INotifyPropertyChanging.cs</Link>
+      <DependentUpon>INotificationObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
       <Link>ComponentModel\NotificationObjectBase.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
       <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChanging.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChanging.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.Tag.cs">
+      <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.AsArray.cs">

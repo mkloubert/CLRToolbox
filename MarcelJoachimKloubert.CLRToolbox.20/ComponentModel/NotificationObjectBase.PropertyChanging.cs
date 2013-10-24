@@ -7,17 +7,28 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
-
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 {
     partial class NotificationObjectBase
     {
+        #region Delegates and Events (1)
+
+        // Events (1) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="INotifyPropertyChanging.PropertyChanging" />
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        #endregion Delegates and Events
+
         #region Methods (1)
 
         // Protected Methods (1) 
 
         /// <summary>
-        /// Raises the <see cref="NotificationObjectBase.PropertyChanged" /> event.
+        /// Raises the <see cref="NotificationObjectBase.PropertyChanging" /> event.
         /// </summary>
         /// <param name="propertyName">The name of the property to raise the event for.</param>
         /// <returns>Event was raised or not because no delegate is linked with it.</returns>
@@ -25,7 +36,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <exception cref="ArgumentNullException">
         /// <paramref name="propertyName" /> has an invalid format.
         /// </exception>
-        protected bool OnPropertyChanged(IEnumerable<char> propertyName)
+        protected bool OnPropertyChanging(IEnumerable<char> propertyName)
         {
             if (propertyName == null)
             {
@@ -38,10 +49,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                 throw new ArgumentException("propertyName");
             }
 
-            PropertyChangedEventHandler handler = this.PropertyChanged;
+            PropertyChangingEventHandler handler = this.PropertyChanging;
             if (handler != null)
             {
-                handler(this, new PropertyChangedEventArgs(pn));
+                handler(this, new PropertyChangingEventArgs(pn));
                 return true;
             }
 

@@ -44,8 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentModel\INotificationObject.cs" />
+    <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
+      <DependentUpon>INotificationObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentModel\NotificationObjectBase.Tag.cs">
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComponentModel\NotificationObjectBase.cs" />
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange.cs">
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChanging.cs">
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.cs" />

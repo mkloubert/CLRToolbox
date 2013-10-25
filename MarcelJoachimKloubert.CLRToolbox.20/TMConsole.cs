@@ -345,13 +345,13 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// Invokes an action for a specific console color. After invokation the old color values are restored.
         /// </summary>
         /// <param name="action">The logic to invoke.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
         /// <exception cref="ArgumentNullException"><paramref name="action" /> is <see langword="null" />.</exception>
         public static void InvokeOnConsole(ConsoleAction action,
-                                           ConsoleColor? foregroundColor)
+                                           ConsoleColor? fgColor)
         {
             InvokeOnConsole(action,
-                            foregroundColor,
+                            fgColor,
                             BackgroundColor);
         }
 
@@ -360,14 +360,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </summary>
         /// <typeparam name="R">The result type.</typeparam>
         /// <param name="func">The logic to invoke.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
         /// <returns>The result of <paramref name="func" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
         public static R InvokeOnConsole<R>(ConsoleFunc<R> func,
-                                           ConsoleColor? foregroundColor)
+                                           ConsoleColor? fgColor)
         {
             return InvokeOnConsole<R>(func,
-                                      foregroundColor,
+                                      fgColor,
                                       BackgroundColor);
         }
 
@@ -389,12 +389,12 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// Invokes an action for a specific console color. After invokation the old color values are restored.
         /// </summary>
         /// <param name="action">The logic to invoke.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
-        /// <param name="backgroundColor">The background color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
+        /// <param name="bgColor">The background color to set.</param>
         /// <exception cref="ArgumentNullException"><paramref name="action" /> is <see langword="null" />.</exception>
         public static void InvokeOnConsole(ConsoleAction action,
-                                           ConsoleColor? foregroundColor,
-                                           ConsoleColor? backgroundColor)
+                                           ConsoleColor? fgColor,
+                                           ConsoleColor? bgColor)
         {
             if (action == null)
             {
@@ -405,7 +405,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 {
                     action();
                 }), null
-                  , foregroundColor, backgroundColor);
+                  , fgColor, bgColor);
         }
 
         /// <summary>
@@ -413,13 +413,13 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </summary>
         /// <typeparam name="R">The result type.</typeparam>
         /// <param name="func">The logic to invoke.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
-        /// <param name="backgroundColor">The background color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
+        /// <param name="bgColor">The background color to set.</param>
         /// <returns>The result of <paramref name="func" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
         public static R InvokeOnConsole<R>(ConsoleFunc<R> func,
-                                           ConsoleColor? foregroundColor,
-                                           ConsoleColor? backgroundColor)
+                                           ConsoleColor? fgColor,
+                                           ConsoleColor? bgColor)
         {
             if (func == null)
             {
@@ -430,7 +430,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 {
                     return func();
                 }), null
-                  , foregroundColor, backgroundColor);
+                  , fgColor, bgColor);
         }
 
         /// <summary>
@@ -439,13 +439,13 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <typeparam name="S">Type of <paramref name="state" />.</typeparam>
         /// <param name="action">The logic to invoke.</param>
         /// <param name="state">The value for the first parameter of <paramref name="action" />.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
         /// <exception cref="ArgumentNullException"><paramref name="action" /> is <see langword="null" />.</exception>
         public static void InvokeOnConsole<S>(ConsoleActionWithState<S> action, S state,
-                                              ConsoleColor? foregroundColor)
+                                              ConsoleColor? fgColor)
         {
             InvokeOnConsole<S>(action, state,
-                               foregroundColor,
+                               fgColor,
                                BackgroundColor);
         }
 
@@ -471,12 +471,12 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <typeparam name="S">Type of <paramref name="state" />.</typeparam>
         /// <param name="action">The logic to invoke.</param>
         /// <param name="state">The value for the first parameter of <paramref name="action" />.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
-        /// <param name="backgroundColor">The background color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
+        /// <param name="bgColor">The background color to set.</param>
         /// <exception cref="ArgumentNullException"><paramref name="action" /> is <see langword="null" />.</exception>
         public static void InvokeOnConsole<S>(ConsoleActionWithState<S> action, S state,
-                                              ConsoleColor? foregroundColor,
-                                              ConsoleColor? backgroundColor)
+                                              ConsoleColor? fgColor,
+                                              ConsoleColor? bgColor)
         {
             if (action == null)
             {
@@ -488,7 +488,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                     action(actionState);
                     return null;
                 }), state
-                  , foregroundColor, backgroundColor);
+                  , fgColor, bgColor);
         }
 
         /// <summary>
@@ -498,14 +498,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <typeparam name="R">The result type.</typeparam>
         /// <param name="func">The logic to invoke.</param>
         /// <param name="state">The value for the first parameter of <paramref name="func" />.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
         /// <returns>The result of <paramref name="func" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
         public static R InvokeOnConsole<S, R>(ConsoleFuncWithState<S, R> func, S state,
-                                              ConsoleColor? foregroundColor)
+                                              ConsoleColor? fgColor)
         {
             return InvokeOnConsole<S, R>(func, state,
-                                         foregroundColor,
+                                         fgColor,
                                          BackgroundColor);
         }
 
@@ -516,13 +516,13 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <typeparam name="R">The result type.</typeparam>
         /// <param name="func">The logic to invoke.</param>
         /// <param name="state">The value for the first parameter of <paramref name="func" />.</param>
-        /// <param name="foregroundColor">The foreground color to set.</param>
-        /// <param name="backgroundColor">The background color to set.</param>
+        /// <param name="fgColor">The foreground color to set.</param>
+        /// <param name="bgColor">The background color to set.</param>
         /// <returns>The result of <paramref name="func" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
         public static R InvokeOnConsole<S, R>(ConsoleFuncWithState<S, R> func, S state,
-                                              ConsoleColor? foregroundColor,
-                                              ConsoleColor? backgroundColor)
+                                              ConsoleColor? fgColor,
+                                              ConsoleColor? bgColor)
         {
             if (func == null)
             {
@@ -534,8 +534,8 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
             try
             {
-                ForegroundColor = foregroundColor;
-                BackgroundColor = backgroundColor;
+                ForegroundColor = fgColor;
+                BackgroundColor = bgColor;
 
                 return func(state);
             }

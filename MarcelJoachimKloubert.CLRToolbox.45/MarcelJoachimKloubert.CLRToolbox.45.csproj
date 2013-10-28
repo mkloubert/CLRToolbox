@@ -143,6 +143,9 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Helpers\TaskHelper.cs">
+      <Link>Helpers\TaskHelper.cs</Link>
+    </Compile>
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange45.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

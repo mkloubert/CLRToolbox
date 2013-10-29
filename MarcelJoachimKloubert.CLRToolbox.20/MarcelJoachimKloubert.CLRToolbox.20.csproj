@@ -59,6 +59,19 @@
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChanging.cs">
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diagnostics\Execution\ILogCommand.cs" />
+    <Compile Include="Diagnostics\Execution\ILogCommandExecutionContext.cs" />
+    <Compile Include="Diagnostics\Execution\ILogCommandExecutionResult.cs" />
+    <Compile Include="Diagnostics\Execution\LogCommandBase.cs" />
+    <Compile Include="Diagnostics\Execution\LogCommandBase.Execute.cs">
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Execution\LogCommandBase.LogCommandExecutionContext.cs">
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Execution\LogCommandBase.LogCommandExecutionResult.cs">
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diagnostics\ILoggerFacade.cs" />
     <Compile Include="Diagnostics\ILogMessage.cs" />
     <Compile Include="Diagnostics\Impl\AggregateLogger.cs" />
@@ -79,6 +92,10 @@
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\LoggerFacadeWrapperBase.cs" />
+    <Compile Include="Execution\CommandBase.cs" />
+    <Compile Include="Execution\ExecutionErrorEventArgs.cs" />
+    <Compile Include="Execution\ICommand.cs" />
+    <Compile Include="Execution\Impl\DelegateCommand.cs" />
     <Compile Include="Helpers\CollectionHelper.AddRange.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>

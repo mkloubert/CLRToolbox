@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
+using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
@@ -65,7 +67,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
                 listOfCategories.Sort();
 
-                this._ON_LOG_ACTION(new LogMessage()
+                LogMessage orgMsg = new LogMessage()
                     {
                         Assembly = asm,
                         Categories = listOfCategories.ToArray(),
@@ -77,7 +79,48 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                         Tag = StringHelper.AsString(tag),
                         Thread = thread,
                         Time = time,
-                    });
+                    };
+
+                ILogMessage messageToLog = orgMsg;
+
+                ILogCommand logCmd = msg as ILogCommand;
+                if (logCmd != null)
+                {
+                    // logic to execute
+
+                    messageToLog = null;
+                    if (logCmd.CanExecute(orgMsg))
+                    {
+                        ILogCommandExecutionResult result = logCmd.Execute(orgMsg);
+                        if (result != null)
+                        {
+                            if (result.DoLogMessage)
+                            {
+                                // send 'result.MessageValueToLog'
+                                // to "real" logger logic
+
+                                messageToLog = CreateCopyOfLogMessage(orgMsg,
+                                                                      result.MessageValueToLog);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ICommand<ILogMessage> cmd = msg as ICommand<ILogMessage>;
+                    if (cmd != null)
+                    {
+                        // general command
+
+                        messageToLog = null;
+                        if (cmd.CanExecute(orgMsg))
+                        {
+                            cmd.Execute(orgMsg);
+                        }
+                    }
+                }
+
+                this._ON_LOG_ACTION(messageToLog);
             }
             catch
             {

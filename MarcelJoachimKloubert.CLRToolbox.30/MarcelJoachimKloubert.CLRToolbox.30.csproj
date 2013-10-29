@@ -69,6 +69,30 @@
       <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommand.cs">
+      <Link>Diagnostics\Execution\ILogCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommandExecutionContext.cs">
+      <Link>Diagnostics\Execution\ILogCommandExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommandExecutionResult.cs">
+      <Link>Diagnostics\Execution\ILogCommandExecutionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.Execute.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.Execute.cs</Link>
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.LogCommandExecutionContext.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.LogCommandExecutionContext.cs</Link>
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.LogCommandExecutionResult.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.LogCommandExecutionResult.cs</Link>
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\ILoggerFacade.cs">
       <Link>Diagnostics\ILoggerFacade.cs</Link>
     </Compile>
@@ -108,6 +132,18 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
       <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\CommandBase.cs">
+      <Link>Execution\CommandBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ExecutionErrorEventArgs.cs">
+      <Link>Execution\ExecutionErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ICommand.cs">
+      <Link>Execution\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Impl\DelegateCommand.cs">
+      <Link>Execution\Impl\DelegateCommand.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AddRange.cs">
       <Link>Helpers\CollectionHelper.AddRange.cs</Link>

@@ -39,7 +39,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             }
             else
             {
-                this._ON_LOG_ACTION = this.OnLog;
+                this._ON_LOG_ACTION = this.OnLog_NonThreadSafe;
             }
         }
 
@@ -55,7 +55,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         #endregion Constructors
 
-        #region Methods (7)
+        #region Methods (10)
 
         // Public Methods (5) 
 
@@ -124,20 +124,79 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                           StringHelper.AsString(tag),
                           msg);
         }
-        // Protected Methods (1) 
+        // Protected Methods (3) 
+
+        /// <summary>
+        /// Creates a copy of a <see cref="ILogMessage" /> object with a new ID.
+        /// </summary>
+        /// <param name="src">The source.</param>
+        /// <returns>
+        /// The copy of <paramref name="src" /> or <see langword="null" /> if
+        /// <paramref name="src" /> is also <see langword="null" />.
+        /// </returns>
+        protected static ILogMessage CreateCopyOfLogMessage(ILogMessage src)
+        {
+            if (src != null)
+            {
+                return CreateCopyOfLogMessage(src, src.Message);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Creates a copy of a <see cref="ILogMessage" /> object with a new ID and a new value.
+        /// </summary>
+        /// <param name="src">The source.</param>
+        /// <param name="msgVal">The value for the <see cref="ILogMessage.Message" /> property of the copy.</param>
+        /// <returns>
+        /// The copy of <paramref name="src" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="src" /> is <see langword="null" />.</exception>
+        protected static ILogMessage CreateCopyOfLogMessage(ILogMessage src, object msgVal)
+        {
+            if (src == null)
+            {
+                throw new ArgumentNullException("src");
+            }
+
+            LogMessage result = new LogMessage();
+            result.Assembly = src.Assembly;
+            result.Categories = src.Categories;
+            result.Context = src.Context;
+            result.Id = Guid.NewGuid();
+            result.Member = src.Member;
+            result.Message = msgVal;
+            result.Principal = src.Principal;
+            result.Tag = src.Tag;
+            result.Thread = src.Thread;
+            result.Time = src.Time;
+
+            return result;
+        }
 
         /// <summary>
         /// Contains the logic of logging.
         /// </summary>
         /// <param name="msg">The message to log.</param>
         protected abstract void OnLog(ILogMessage msg);
-        // Private Methods (1) 
+        // Private Methods (2) 
+
+        private void OnLog_NonThreadSafe(ILogMessage msg)
+        {
+            if (msg != null)
+            {
+                this.OnLog(msg);
+            }
+        }
 
         private void OnLog_ThreadSafe(ILogMessage msg)
         {
             lock (this._SYNC)
             {
-                this.OnLog(msg);
+                this.OnLog_NonThreadSafe(msg);
             }
         }
 

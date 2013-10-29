@@ -24,13 +24,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
                 return null;
             }
 
-            LogCommandExecutionResult result = new LogCommandExecutionResult();
+            var result = new LogCommandExecutionResult();
             result.Command = this;
             result.Message = orgMsg;
 
             try
             {
-                LogCommandExecutionContext ctx = this.CreateBasicExecutionContext(orgMsg);
+                var ctx = this.CreateBasicExecutionContext(orgMsg);
 
                 this.OnExecute(ctx);
 

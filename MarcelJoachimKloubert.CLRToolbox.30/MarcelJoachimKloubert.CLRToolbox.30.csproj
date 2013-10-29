@@ -69,6 +69,46 @@
       <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\ILoggerFacade.cs">
+      <Link>Diagnostics\ILoggerFacade.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\ILogMessage.cs">
+      <Link>Diagnostics\ILogMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AggregateLogger.cs">
+      <Link>Diagnostics\Impl\AggregateLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.cs">
+      <Link>Diagnostics\Impl\AsyncLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.ctor.cs">
+      <Link>Diagnostics\Impl\AsyncLogger.ctor.cs</Link>
+      <DependentUpon>AsyncLogger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.OnLog.cs">
+      <Link>Diagnostics\Impl\AsyncLogger.OnLog.cs</Link>
+      <DependentUpon>AsyncLogger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DelegateLogger.cs">
+      <Link>Diagnostics\Impl\DelegateLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerCategories.cs">
+      <Link>Diagnostics\LoggerCategories.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.cs">
+      <Link>Diagnostics\LoggerFacadeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogInner.cs">
+      <Link>Diagnostics\LoggerFacadeBase.LogInner.cs</Link>
+      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.cs">
+      <Link>Diagnostics\LoggerFacadeBase.LogMessage.cs</Link>
+      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
+      <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AddRange.cs">
       <Link>Helpers\CollectionHelper.AddRange.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -94,6 +134,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.IsNullOrWhiteSpace.cs">
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IIdentifiable.cs">
+      <Link>IIdentifiable.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>

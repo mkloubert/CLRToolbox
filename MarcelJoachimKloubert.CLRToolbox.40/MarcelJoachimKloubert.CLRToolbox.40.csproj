@@ -203,7 +203,7 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Diagnostics\Execution\LogCommandBase.Executa.cs" />
+    <Compile Include="Diagnostics\Execution\LogCommandBase.Execute.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.ctor.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.OnLog.cs" />
     <Compile Include="Helpers\TaskHelper.cs" />

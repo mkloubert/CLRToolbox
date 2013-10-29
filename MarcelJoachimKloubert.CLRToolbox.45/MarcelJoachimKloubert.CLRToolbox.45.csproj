@@ -211,7 +211,7 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Diagnostics\Execution\LogCommandBase.Executa.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Diagnostics\Execution\LogCommandBase.Execute.cs">
       <Link>Diagnostics\Execution\LogCommandBase.Executa.cs</Link>
       <DependentUpon>LogCommandBase.cs</DependentUpon>
     </Compile>

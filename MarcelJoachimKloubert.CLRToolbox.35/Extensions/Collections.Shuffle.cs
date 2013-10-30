@@ -22,6 +22,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         /// <exception cref="ArgumentNullException">
         /// <paramref name="list" /> is <see langword="null" />.
         /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// <paramref name="list" /> is read only.
+        /// </exception>
         public static void Shuffle<T>(this IList<T> list)
         {
             Shuffle<T>(list, new Random());
@@ -36,6 +39,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         /// <exception cref="ArgumentNullException">
         /// <paramref name="list" /> and/or <paramref name="r" /> are <see langword="null" />.
         /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// <paramref name="list" /> is read only.
+        /// </exception>
         public static void Shuffle<T>(this IList<T> list, Random r)
         {
             if (list == null)
@@ -46,6 +52,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
             if (r == null)
             {
                 throw new ArgumentNullException("r");
+            }
+
+            if (list.IsReadOnly)
+            {
+                throw new InvalidOperationException();
             }
 
             for (var i = 0; i < list.Count; i++)

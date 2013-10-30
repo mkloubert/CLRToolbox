@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution.Impl
 
         private readonly object[] _ARGUMENTS;
         private readonly CanExecuteLogCommandHandler _CAN_EXECUTE_LOG_MESSAGE;
-        private ExecuteLogCommandHandler _EXECUTE_LOG_MESSAGE;
+        private readonly ExecuteLogCommandHandler _EXECUTE_LOG_MESSAGE;
 
         #endregion Fields
 

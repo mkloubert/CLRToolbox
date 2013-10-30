@@ -51,6 +51,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution.Impl
         /// <param name="orgMsg">The original message.</param>
         /// <returns>Command can be executed with the parameter in <paramref name="orgMsg" /> or not.</returns>
         public delegate bool CanExecuteLogCommandHandler(ILogMessage orgMsg);
+
         /// <summary>
         /// Describes a predicate for the <see cref="DelegateLogCommand.OnExecute(ILogCommandExecutionContext)" /> method.
         /// </summary>

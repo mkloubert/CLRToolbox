@@ -59,6 +59,7 @@
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChanging.cs">
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diagnostics\Execution\Impl\DelegateLogCommand.cs" />
     <Compile Include="Diagnostics\Execution\ILogCommand.cs" />
     <Compile Include="Diagnostics\Execution\ILogCommandExecutionContext.cs" />
     <Compile Include="Diagnostics\Execution\ILogCommandExecutionResult.cs" />

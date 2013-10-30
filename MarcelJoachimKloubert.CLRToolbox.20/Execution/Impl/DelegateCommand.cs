@@ -17,8 +17,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
     {
         #region Fields (2)
 
-        private CanExecuteHandler _canExecutePredicate;
-        private ExecuteHandler _executeAction;
+        private readonly CanExecutePredicate _CAN_EXECUTE_PREDICATE;
+        private readonly ExecuteHandler _EXECUTE_ACTION;
 
         #endregion Fields
 
@@ -33,15 +33,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         /// <paramref name="executeAction" /> is <see langword="null" />.
         /// </exception>
         public DelegateCommand(ExecuteHandler executeAction,
-                               CanExecuteHandler canExecutePredicate)
+                               CanExecutePredicate canExecutePredicate)
         {
             if (executeAction == null)
             {
                 throw new ArgumentNullException("executeAction");
             }
 
-            this._executeAction = executeAction;
-            this._canExecutePredicate = canExecutePredicate ?? base.CanExecute;
+            this._EXECUTE_ACTION = executeAction;
+            this._CAN_EXECUTE_PREDICATE = canExecutePredicate ?? base.CanExecute;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         /// </summary>
         /// <param name="param">The parameter.</param>
         /// <returns>Command can be executed with the parameter in <paramref name="param" /> or not.</returns>
-        public delegate bool CanExecuteHandler(TParam param);
+        public delegate bool CanExecutePredicate(TParam param);
 
         /// <summary>
         /// Describes a predicate for the <see cref="DelegateCommand{TParam}.OnExecute(TParam)" /> method.
@@ -88,7 +88,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         /// <see cref="CommandBase{TParam}.CanExecute(TParam)" />
         public override bool CanExecute(TParam param)
         {
-            return this._canExecutePredicate(param);
+            return this._CAN_EXECUTE_PREDICATE(param);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         /// <see cref="CommandBase{TParam}.OnExecute(TParam)" />
         protected override sealed void OnExecute(TParam param)
         {
-            this._executeAction(param);
+            this._EXECUTE_ACTION(param);
         }
 
         #endregion Methods
@@ -124,7 +124,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         /// <paramref name="executeAction" /> is <see langword="null" />.
         /// </exception>
         public DelegateCommand(ExecuteHandler executeAction,
-                               CanExecuteHandler canExecutePredicate)
+                               CanExecutePredicate canExecutePredicate)
             : base(executeAction, canExecutePredicate)
         {
 
@@ -187,7 +187,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="DelegateCommand{TParam}.CanExecuteHandler" />.
+        /// <see cref="DelegateCommand{TParam}.CanExecutePredicate" />.
         public delegate bool CanExecuteHandlerNoParameter();
 
         /// <summary>

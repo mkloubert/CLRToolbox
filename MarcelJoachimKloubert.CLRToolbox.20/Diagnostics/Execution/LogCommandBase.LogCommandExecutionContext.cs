@@ -11,7 +11,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 
         private sealed class LogCommandExecutionContext : ILogCommandExecutionContext
         {
-            #region Properties (4)
+            #region Properties (5)
+
+            public object[] Arguments
+            {
+                get;
+                internal set;
+            }
 
             public ILogCommand Command
             {

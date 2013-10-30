@@ -10,7 +10,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
     /// </summary>
     public interface ILogCommandExecutionContext
     {
-        #region Data Members (4)
+        #region Data Members (5)
+
+        /// <summary>
+        /// Gets the list of arguments for the execution.
+        /// </summary>
+        object[] Arguments { get; }
 
         /// <summary>
         /// Gets the underlying command.

@@ -78,6 +78,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommandExecutionResult.cs">
       <Link>Diagnostics\Execution\ILogCommandExecutionResult.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\Impl\DelegateLogCommand.cs">
+      <Link>Diagnostics\Execution\Impl\DelegateLogCommand.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.cs">
       <Link>Diagnostics\Execution\LogCommandBase.cs</Link>
     </Compile>

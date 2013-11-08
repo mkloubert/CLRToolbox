@@ -115,9 +115,24 @@
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="IIdentifiable.cs" />
+    <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripting\IScriptExecutionContext.cs" />
+    <Compile Include="Scripting\IScriptExecutor.cs" />
+    <Compile Include="Scripting\ScriptExecutorBase.Collections.cs" />
+    <Compile Include="Scripting\ScriptExecutorBase.cs" />
+    <Compile Include="Scripting\ScriptExecutorBase.Interface.cs">
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptExecutorBase.OnExecuteContext.cs">
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="TMConsole.cs" />
+    <Compile Include="TMDisposableBase.cs" />
     <Compile Include="TMObject.cs" />
   </ItemGroup>
   <ItemGroup>

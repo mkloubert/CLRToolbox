@@ -171,11 +171,42 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IIdentifiable.cs">
       <Link>IIdentifiable.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMDisposable.cs">
+      <Link>ITMDisposable.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\IScriptExecutionContext.cs">
+      <Link>Scripting\IScriptExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\IScriptExecutor.cs">
+      <Link>Scripting\IScriptExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.Collections.cs">
+      <Link>Scripting\ScriptExecutorBase.Collections.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\ScriptExecutorBase.cs">
+      <Link>Scripting\ScriptExecutorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.Interface.cs">
+      <Link>Scripting\ScriptExecutorBase.Interface.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.OnExecuteContext.cs">
+      <Link>Scripting\ScriptExecutorBase.OnExecuteContext.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
+      <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
       <Link>TMConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMDisposableBase.cs">
+      <Link>TMDisposableBase.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>

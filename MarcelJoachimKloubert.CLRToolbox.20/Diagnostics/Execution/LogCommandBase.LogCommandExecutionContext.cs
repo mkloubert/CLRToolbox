@@ -11,36 +11,51 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 
         private sealed class LogCommandExecutionContext : ILogCommandExecutionContext
         {
+            #region Fields (5)
+
+            private object[] _arguments;
+            private ILogCommand _command;
+            private bool _doLogMessage;
+            private ILogMessage _message;
+            private object _messageValueToLog;
+
+            #endregion Fields
+
             #region Properties (5)
 
             public object[] Arguments
             {
-                get;
-                internal set;
+                get { return this._arguments; }
+
+                set { this._arguments = value; }
             }
 
             public ILogCommand Command
             {
-                get;
-                internal set;
+                get { return this._command; }
+
+                set { this._command = value; }
             }
 
             public bool DoLogMessage
             {
-                get;
-                set;
+                get { return this._doLogMessage; }
+
+                set { this._doLogMessage = value; }
             }
 
             public ILogMessage Message
             {
-                get;
-                set;
+                get { return this._message; }
+
+                set { this._message = value; }
             }
 
             public object MessageValueToLog
             {
-                get;
-                set;
+                get { return this._messageValueToLog; }
+
+                set { this._messageValueToLog = value; }
             }
 
             #endregion Properties

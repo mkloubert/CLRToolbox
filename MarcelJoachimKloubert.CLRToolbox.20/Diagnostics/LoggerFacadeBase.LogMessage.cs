@@ -16,69 +16,95 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     {
         #region Nested Classes (1)
 
+
         [Serializable]
         private sealed class LogMessage : MarshalByRefObject, ILogMessage
         {
+            #region Fields (10)
+
+            private Assembly _assembly;
+            private IList<LoggerFacadeCategories> _categories;
+            private Context _context;
+            private Guid _id;
+            private MemberInfo _member;
+            private object _message;
+            private IPrincipal _principal;
+            private string _tag;
+            private Thread _thread;
+            private DateTimeOffset _time;
+
+            #endregion Fields
+
             #region Properties (10)
 
             public Assembly Assembly
             {
-                get;
-                internal set;
+                get { return this._assembly; }
+
+                set { this._assembly = value; }
             }
 
             public IList<LoggerFacadeCategories> Categories
             {
-                get;
-                internal set;
+                get { return this._categories; }
+
+                set { this._categories = value; }
             }
 
             public Context Context
             {
-                get;
-                internal set;
+                get { return this._context; }
+
+                set { this._context = value; }
             }
 
             public Guid Id
             {
-                get;
-                internal set;
+                get { return this._id; }
+
+                set { this._id = value; }
             }
 
             public MemberInfo Member
             {
-                get;
-                internal set;
+                get { return this._member; }
+
+                set { this._member = value; }
             }
 
             public object Message
             {
-                get;
-                internal set;
+                get { return this._message; }
+
+                set { this._message = value; }
             }
 
             public IPrincipal Principal
             {
-                get;
-                internal set;
+                get { return this._principal; }
+
+                set { this._principal = value; }
             }
 
             public string Tag
             {
-                get;
-                internal set;
+                get { return this._tag; }
+
+                set { this._tag = value; }
             }
 
             public Thread Thread
             {
-                get;
-                internal set;
+                get { return this._thread; }
+
+                set { this._thread = value; }
             }
 
             public DateTimeOffset Time
             {
-                get;
-                internal set;
+                get { return this._time; }
+
+                set { this._time = value; }
             }
 
             #endregion Properties

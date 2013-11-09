@@ -14,24 +14,37 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 
         private sealed class LogCommandExecutionResult : ILogCommandExecutionResult
         {
+            #region Fields (5)
+
+            private ILogCommand _command;
+            private bool _doLogMessage;
+            private IList<Exception> _errors;
+            private ILogMessage _message;
+            private object _messageValueToLog;
+
+            #endregion Fields
+
             #region Properties (6)
 
             public ILogCommand Command
             {
-                get;
-                internal set;
+                get { return this._command; }
+
+                set { this._command = value; }
             }
 
             public bool DoLogMessage
             {
-                get;
-                internal set;
+                get { return this._doLogMessage; }
+
+                set { this._doLogMessage = value; }
             }
 
             public IList<Exception> Errors
             {
-                get;
-                internal set;
+                get { return this._errors; }
+
+                set { this._errors = value; }
             }
 
             public bool HasFailed
@@ -41,14 +54,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 
             public ILogMessage Message
             {
-                get;
-                internal set;
+                get { return this._message; }
+
+                set { this._message = value; }
             }
 
             public object MessageValueToLog
             {
-                get;
-                internal set;
+                get { return this._messageValueToLog; }
+
+                set { this._messageValueToLog = value; }
             }
 
             #endregion Properties

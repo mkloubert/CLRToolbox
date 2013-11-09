@@ -178,6 +178,33 @@
       <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
       <DependentUpon>MethodHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.cs">
+      <Link>Helpers\ScriptHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetAction.cs">
+      <Link>Helpers\ScriptHelper.SetAction.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetPredicate.cs">
+      <Link>Helpers\ScriptHelper.SetPredicate.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimpleAction.cs">
+      <Link>Helpers\ScriptHelper.SetSimpleAction.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimpleFunc.cs">
+      <Link>Helpers\ScriptHelper.SetSimpleFunc.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimplePredicate.cs">
+      <Link>Helpers\ScriptHelper.SetSimplePredicate.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimplePredicateWrapper.cs">
+      <Link>Helpers\ScriptHelper.SetSimplePredicateWrapper.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -197,6 +224,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\CommonScriptFunctionSetup.cs">
+      <Link>Scripting\CommonScriptFunctionSetup.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\Export\ExportScriptFuncAttribute.cs">
       <Link>Export\ExportScriptFuncAttribute.cs</Link>

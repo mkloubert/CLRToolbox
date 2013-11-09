@@ -16,7 +16,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     {
         #region Nested Classes (1)
 
-
         [Serializable]
         private sealed class LogMessage : MarshalByRefObject, ILogMessage
         {

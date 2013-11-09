@@ -172,6 +172,33 @@
       <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
       <DependentUpon>MethodHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.cs">
+      <Link>Helpers\ScriptHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetAction.cs">
+      <Link>Helpers\ScriptHelper.SetAction.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetPredicate.cs">
+      <Link>Helpers\ScriptHelper.SetPredicate.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimpleAction.cs">
+      <Link>Helpers\ScriptHelper.SetSimpleAction.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimpleFunc.cs">
+      <Link>Helpers\ScriptHelper.SetSimpleFunc.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimplePredicate.cs">
+      <Link>Helpers\ScriptHelper.SetSimplePredicate.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimplePredicateWrapper.cs">
+      <Link>Helpers\ScriptHelper.SetSimplePredicateWrapper.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -187,6 +214,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\CommonScriptFunctionSetup.cs">
+      <Link>Scripting\CommonScriptFunctionSetup.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\export\ExportScriptFuncAttribute.cs">
       <Link>Scripting\Export\ExportScriptFuncAttribute.cs</Link>
@@ -242,6 +272,28 @@
     </Compile>
     <Compile Include="Extensions\Collections.Shuffle.cs">
       <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.SetSimplePredicateWrapper.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.SetFunc.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.SetAction.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.cs" />
+    <Compile Include="Extensions\Scripting.SetPredicate.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.SetSimpleAction.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.SetSimpleFunc.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Scripting.SetSimplePredicate.cs">
+      <DependentUpon>Scripting.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Strings.AsString.cs">
       <DependentUpon>Strings.cs</DependentUpon>

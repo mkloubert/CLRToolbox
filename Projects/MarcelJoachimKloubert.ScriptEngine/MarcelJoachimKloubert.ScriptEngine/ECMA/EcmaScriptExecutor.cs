@@ -46,8 +46,39 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (4)
 
+        // Public Methods (2) 
+
+        /// <summary>
+        /// Creates a instance of a <see cref="EcmaScriptExecutor" /> that is set upped with a
+        /// <see cref="CommonScriptFunctionSetup{TExecutor}" /> instance.
+        /// </summary>
+        /// <returns>The created instance.</returns>
+        public static EcmaScriptExecutor CreateCommonInstance()
+        {
+            CommonScriptFunctionSetup<EcmaScriptExecutor> setup;
+            return CreateCommonInstance(out setup);
+        }
+
+        /// <summary>
+        /// Creates a instance of a <see cref="EcmaScriptExecutor" /> that is set upped with a
+        /// <see cref="CommonScriptFunctionSetup{TExecutor}" /> instance.
+        /// </summary>
+        /// <param name="setup">
+        /// The variable where to write the <see cref="CommonScriptFunctionSetup{TExecutor}" /> instance
+        /// that is / was used to setup the result <see cref="EcmaScriptExecutor" /> object.
+        /// </param>
+        /// <returns>The created instance.</returns>
+        public static EcmaScriptExecutor CreateCommonInstance(out CommonScriptFunctionSetup<EcmaScriptExecutor> setup)
+        {
+            var result = new EcmaScriptExecutor();
+
+            setup = CommonScriptFunctionSetup.Create(result)
+                                             .SetupAll();
+
+            return result;
+        }
         // Protected Methods (2) 
 
         /// <summary>
@@ -141,7 +172,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                     {
                         comp.Globals
                             .SetVariable(NAME_INCLUDE,
-                                         new SimpleFunc((args) =>
+                                         new SimplePredicate((args) =>
                                          {
                                              try
                                              {
@@ -166,7 +197,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                     {
                         comp.Globals
                             .SetVariable(NAME_INCLUDE_FILES,
-                                         new SimpleFunc((args) =>
+                                         new SimplePredicate((args) =>
                                          {
                                              try
                                              {
@@ -194,7 +225,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                     {
                         comp.Globals
                             .SetVariable(NAME_LOAD_MODULES,
-                                         new SimpleFunc((args) =>
+                                         new SimplePredicate((args) =>
                                          {
                                              try
                                              {
@@ -216,8 +247,9 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                                                      foreach (var item in typesToExpose)
                                                      {
                                                          string name = item.Value;
-                                                         if (name != null)
+                                                         if (name == null)
                                                          {
+                                                             // use type name
                                                              name = item.Key.Name;
                                                          }
 

@@ -42,9 +42,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
         #endregion Constructors
 
-        #region Delegates and Events (2)
+        #region Delegates and Events (3)
 
-        // Delegates (2) 
+        // Delegates (3) 
 
         /// <summary>
         /// Describes a procedure with a variable number of parameters.
@@ -58,6 +58,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <param name="args">The parameters for the function.</param>
         /// <returns>The result of the function.</returns>
         public delegate object SimpleFunc(params object[] args);
+
+        /// <summary>
+        /// Describes a function with a variable number of parameters and a nullable <see cref="bool" /> as result type.
+        /// </summary>
+        /// <param name="args">The parameters for the function.</param>
+        /// <returns>The result of the function.</returns>
+        public delegate bool? SimplePredicate(params object[] args);
 
         #endregion Delegates and Events
 
@@ -268,7 +275,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                                                       false);
                 if (allExpTypeAttribs.LongLength > 0)
                 {
-                    ExportScriptTypeAttribute expTypeAttrib = (ExportScriptTypeAttribute)allExpTypeAttribs[0];
+                    ExportScriptTypeAttribute expTypeAttrib = (ExportScriptTypeAttribute)allExpTypeAttribs[allExpTypeAttribs.LongLength - 1];
                     if (StringHelper.IsNullOrWhiteSpace(expTypeAttrib.Alias))
                     {
                         exportedTypes[type] = null;
@@ -326,7 +333,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                                             method);
                     }
 
-                    ExportScriptFuncAttribute expFuncAttrib = (ExportScriptFuncAttribute)allExpFuncAttribs[0];
+                    ExportScriptFuncAttribute expFuncAttrib = (ExportScriptFuncAttribute)allExpFuncAttribs[allExpFuncAttribs.LongLength - 1];
                     if (StringHelper.IsNullOrWhiteSpace(expFuncAttrib.Alias))
                     {
                         exportedFuncs[method.Name] = @delegate;

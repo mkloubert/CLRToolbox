@@ -163,6 +163,21 @@
       <Link>Helpers\CollectionHelper.ToArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.Constructor.cs">
+      <Link>Helpers\MethodHelper.Constructor.cs</Link>
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.cs">
+      <Link>Helpers\MethodHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.IsDelegate.cs">
+      <Link>Helpers\MethodHelper.IsDelegate.cs</Link>
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs">
+      <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -182,6 +197,12 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\Export\ExportScriptFuncAttribute.cs">
+      <Link>Export\ExportScriptFuncAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\Export\ExportScriptTypeAttribute.cs">
+      <Link>Export\ExportScriptTypeAttribute.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\IScriptExecutionContext.cs">
       <Link>Scripting\IScriptExecutionContext.cs</Link>
@@ -230,6 +251,7 @@
       <Link>README.md</Link>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

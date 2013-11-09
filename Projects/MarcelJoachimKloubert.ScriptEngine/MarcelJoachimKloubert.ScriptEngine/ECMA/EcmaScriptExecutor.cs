@@ -4,6 +4,10 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Scripting;
@@ -25,7 +29,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
         /// <exception cref="ArgumentNullException">
         /// <paramref name="syncRoot" /> is <see langword="null" />.
         /// </exception>
-        protected EcmaScriptExecutor(object syncRoot)
+        public EcmaScriptExecutor(object syncRoot)
             : base(syncRoot)
         {
 
@@ -34,7 +38,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
         /// <summary>
         /// Initializes a new instance of the <see cref="EcmaScriptExecutor" /> class.
         /// </summary>
-        protected EcmaScriptExecutor()
+        public EcmaScriptExecutor()
             : base()
         {
 
@@ -65,11 +69,37 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
             {
                 try
                 {
-                    if (StringHelper.IsNullOrWhiteSpace(comp.Source))
+                    if (StringHelper.IsNullOrWhiteSpace(context.Source))
                     {
                         // nothing to do
                         return;
                     }
+
+                    const string NAME_INCLUDE = "include";
+                    const string NAME_INCLUDE_FILES = "include_files";
+                    const string NAME_LOAD_MODULES = "load_modules";
+
+                    var hasCustomInclude = false;
+                    var hasCustomIncludeFiles = false;
+                    var hasCustomLoadModules = false;
+
+                    Action<string> checkForDefaultFuncNames = (name) =>
+                        {
+                            switch (name)
+                            {
+                                case NAME_INCLUDE:
+                                    hasCustomInclude = true;
+                                    break;
+
+                                case NAME_INCLUDE_FILES:
+                                    hasCustomIncludeFiles = true;
+                                    break;
+
+                                case NAME_LOAD_MODULES:
+                                    hasCustomLoadModules = true;
+                                    break;
+                            }
+                        };
 
                     // exposed types
                     foreach (var item in this._EXPOSED_TYPES)
@@ -85,6 +115,8 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                     foreach (var item in this._VARS)
                     {
                         var varName = item.Key;
+                        checkForDefaultFuncNames(varName);
+
                         var value = item.Value;
 
                         comp.Globals
@@ -96,6 +128,8 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                     foreach (var item in this._FUNCS)
                     {
                         var funcName = item.Key;
+                        checkForDefaultFuncNames(funcName);
+
                         var func = item.Value;
 
                         comp.Globals
@@ -103,7 +137,113 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                                          func);
                     }
 
-                    comp.Source = comp.Source;
+                    if (!hasCustomInclude)
+                    {
+                        comp.Globals
+                            .SetVariable(NAME_INCLUDE,
+                                         new SimpleFunc((args) =>
+                                         {
+                                             try
+                                             {
+                                                 // each argument is script code to include
+                                                 foreach (var a in args)
+                                                 {
+                                                     var src = StringHelper.AsString(a, true);
+                                                     comp.Include(null, src);
+                                                 }
+
+                                                 return true;
+                                             }
+                                             catch
+                                             {
+                                                 return false;
+                                             }
+                                         }));
+                    }
+
+                    // include_files
+                    if (!hasCustomIncludeFiles)
+                    {
+                        comp.Globals
+                            .SetVariable(NAME_INCLUDE_FILES,
+                                         new SimpleFunc((args) =>
+                                         {
+                                             try
+                                             {
+                                                 // each argument is a script file
+                                                 foreach (var a in args)
+                                                 {
+                                                     var srcFile = StringHelper.AsString(a, true);
+                                                     var file = new FileInfo(srcFile);
+
+                                                     var src = File.ReadAllText(file.FullName, Encoding.UTF8);
+                                                     comp.Include(file.FullName, StringHelper.AsString(src, true));
+                                                 }
+
+                                                 return true;
+                                             }
+                                             catch
+                                             {
+                                                 return false;
+                                             }
+                                         }));
+                    }
+
+                    // load_modules
+                    if (!hasCustomLoadModules)
+                    {
+                        comp.Globals
+                            .SetVariable(NAME_LOAD_MODULES,
+                                         new SimpleFunc((args) =>
+                                         {
+                                             try
+                                             {
+                                                 // each argument is a module file
+                                                 foreach (var a in args)
+                                                 {
+                                                     var modFile = StringHelper.AsString(a, true);
+                                                     var asmFile = new FileInfo(modFile);
+
+                                                     var asm = Assembly.LoadFile(asmFile.FullName);
+
+                                                     var functionsToRegister = new Dictionary<string, Delegate>();
+                                                     var typesToExpose = new Dictionary<Type, string>();
+                                                     this.ExportTypesAndFunctions(asm,
+                                                                                  out functionsToRegister,
+                                                                                  out typesToExpose);
+
+                                                     // expose types
+                                                     foreach (var item in typesToExpose)
+                                                     {
+                                                         string name = item.Value;
+                                                         if (name != null)
+                                                         {
+                                                             name = item.Key.Name;
+                                                         }
+
+                                                         comp.ExposeType(item.Key,
+                                                                         name);
+                                                     }
+
+                                                     // register functions
+                                                     foreach (var item in functionsToRegister)
+                                                     {
+                                                         comp.Globals
+                                                             .SetVariable(item.Key,
+                                                                          item.Value);
+                                                     }
+                                                 }
+
+                                                 return true;
+                                             }
+                                             catch
+                                             {
+                                                 return false;
+                                             }
+                                         }));
+                    }
+
+                    comp.Source = context.Source;
                     comp.Run();
                 }
                 finally

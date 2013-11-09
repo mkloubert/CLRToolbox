@@ -107,6 +107,16 @@
     <Compile Include="Helpers\CollectionHelper.ToArray.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MethodHelper.Constructor.cs">
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MethodHelper.IsDelegate.cs">
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MethodHelper.cs" />
+    <Compile Include="Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs">
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\StringHelper.AsString.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
@@ -118,6 +128,8 @@
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripting\Export\ExportScriptFuncAttribute.cs" />
+    <Compile Include="Scripting\Export\ExportScriptTypeAttribute.cs" />
     <Compile Include="Scripting\IScriptExecutionContext.cs" />
     <Compile Include="Scripting\IScriptExecutor.cs" />
     <Compile Include="Scripting\ScriptExecutorBase.Collections.cs" />

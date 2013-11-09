@@ -212,7 +212,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                     this.Exceptions = null;
 
-                    var handler = this.OnSucceed;
+                    ScriptExecutionSucceedHandler handler = this.OnSucceed;
                     if (handler != null)
                     {
                         handler(this);
@@ -222,7 +222,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 {
                     this.Exceptions = new Exception[] { ex };
 
-                    var handler = this.OnFailed;
+                    ScriptExecutionFailedHandler handler = this.OnFailed;
                     if (handler != null)
                     {
                         handler(this);
@@ -232,7 +232,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 {
                     this.IsExecuting = false;
 
-                    var handler = this.OnCompleted;
+                    ScriptExecutionCompletedHandler handler = this.OnCompleted;
                     if (handler != null)
                     {
                         handler(this);

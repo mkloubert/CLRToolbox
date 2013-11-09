@@ -161,6 +161,17 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.cs">
+      <Link>Helpers\MethodHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.IsDelegate.cs">
+      <Link>Helpers\MethodHelper.IsDelegate.cs</Link>
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs">
+      <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
+      <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -176,6 +187,12 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\export\ExportScriptFuncAttribute.cs">
+      <Link>Scripting\Export\ExportScriptFuncAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\export\ExportScriptTypeAttribute.cs">
+      <Link>Scripting\Export\ExportScriptTypeAttribute.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\scripting\IScriptExecutionContext.cs">
       <Link>Scripting\IScriptExecutionContext.cs</Link>
@@ -233,6 +250,7 @@
       <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Strings.cs" />
+    <Compile Include="Helpers\MethodHelper.Constructor.cs" />
     <Compile Include="Helpers\StringHelper.IsNullOrWhiteSpace.cs" />
     <Compile Include="Helpers\CollectionHelper.ToArray.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

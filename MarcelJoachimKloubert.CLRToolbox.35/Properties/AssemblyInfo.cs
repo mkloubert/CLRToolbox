@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Marcel Joachim Kloubert")]
 [assembly: AssemblyProduct("MarcelJoachimKloubert.CLRToolbox")]
-[assembly: AssemblyCopyright("Copyright © 2013 Marcel Joachim Kloubert <marcek.kloubert@gmx.net>")]
+[assembly: AssemblyCopyright("Copyright © 2013 Marcel Joachim Kloubert <marcel.kloubert@gmx.net>")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

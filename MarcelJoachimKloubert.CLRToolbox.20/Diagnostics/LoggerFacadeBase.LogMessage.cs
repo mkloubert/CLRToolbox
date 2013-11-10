@@ -17,7 +17,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         #region Nested Classes (1)
 
         [Serializable]
-        private sealed class LogMessage : MarshalByRefObject, ILogMessage
+        private sealed class LogMessage : TMObject, ILogMessage
         {
             #region Fields (10)
 
@@ -25,10 +25,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             private IList<LoggerFacadeCategories> _categories;
             private Context _context;
             private Guid _id;
+            private string _logTag;
             private MemberInfo _member;
             private object _message;
             private IPrincipal _principal;
-            private string _tag;
             private Thread _thread;
             private DateTimeOffset _time;
 
@@ -64,6 +64,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 set { this._id = value; }
             }
 
+            public string LogTag
+            {
+                get { return this._logTag; }
+
+                set { this._logTag = value; }
+            }
+
             public MemberInfo Member
             {
                 get { return this._member; }
@@ -83,13 +90,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 get { return this._principal; }
 
                 set { this._principal = value; }
-            }
-
-            public string Tag
-            {
-                get { return this._tag; }
-
-                set { this._tag = value; }
             }
 
             public Thread Thread

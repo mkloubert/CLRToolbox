@@ -212,6 +212,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMDisposable.cs">
       <Link>ITMDisposable.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMEquatable.cs">
+      <Link>ITMEquatable.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
     </Compile>

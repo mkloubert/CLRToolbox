@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
     /// A basic command.
     /// </summary>
     /// <typeparam name="TParam">Type of the parameters.</typeparam>
-    public abstract class CommandBase<TParam> : ICommand<TParam>
+    public abstract class CommandBase<TParam> : TMObject, ICommand<TParam>
     {
         #region Fields (1)
 

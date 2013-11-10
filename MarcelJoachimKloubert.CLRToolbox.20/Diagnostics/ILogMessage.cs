@@ -35,6 +35,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         Context Context { get; }
 
         /// <summary>
+        /// Gets the tag.
+        /// </summary>
+        string LogTag { get; }
+
+        /// <summary>
         /// Gets the calling member.
         /// </summary>
         MemberInfo Member { get; }
@@ -48,11 +53,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// Gets the underlying principal.
         /// </summary>
         IPrincipal Principal { get; }
-
-        /// <summary>
-        /// Gets the tag.
-        /// </summary>
-        string Tag { get; }
 
         /// <summary>
         /// Gets the thread that has written that object.

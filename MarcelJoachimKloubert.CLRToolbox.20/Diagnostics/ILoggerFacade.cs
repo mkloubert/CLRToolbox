@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     /// <summary>
     /// Describes a logger.
     /// </summary>
-    public interface ILoggerFacade
+    public interface ILoggerFacade : ITMObject
     {
         #region Operations (5)
 

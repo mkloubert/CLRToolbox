@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
     /// Describes a command.
     /// </summary>
     /// <typeparam name="TParam">Type of the parameters.</typeparam>
-    public interface ICommand<TParam>
+    public interface ICommand<TParam> : ITMObject
     {
         #region Delegates and Events (2)
 

@@ -10,8 +10,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <summary>
     /// Describes an object that is identifiable by an ID.
     /// </summary>
-    public interface IIdentifiable : IEquatable<IIdentifiable>,
-                                     IEquatable<Guid>
+    public interface IIdentifiable : ITMObject,
+                                     ITMEquatable<IIdentifiable>,
+                                     ITMEquatable<Guid>
     {
         #region Data Members (1)
 

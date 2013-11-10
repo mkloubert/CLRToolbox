@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     /// <summary>
     /// Describes an object that executes a script.
     /// </summary>
-    public interface IScriptExecutor : IDisposable
+    public interface IScriptExecutor : ITMDisposable
     {
         #region Operations (7)
 

@@ -13,7 +13,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     /// <summary>
     /// A basic logger.
     /// </summary>
-    public abstract partial class LoggerFacadeBase : ILoggerFacade
+    public abstract partial class LoggerFacadeBase : TMObject, ILoggerFacade
     {
         #region Fields (2)
 

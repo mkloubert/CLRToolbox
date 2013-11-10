@@ -168,6 +168,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
                                          func);
                     }
 
+                    // include
                     if (!hasCustomInclude)
                     {
                         comp.Globals

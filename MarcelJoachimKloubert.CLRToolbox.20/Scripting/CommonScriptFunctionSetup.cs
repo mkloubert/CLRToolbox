@@ -17,9 +17,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     public class CommonScriptFunctionSetup<TExecutor>
         where TExecutor : global::MarcelJoachimKloubert.CLRToolbox.Scripting.IScriptExecutor
     {
-        #region Fields (5)
+        #region Fields (6)
 
         private TExecutor _executor;
+
+        /// <summary>
+        /// The common name of a function that shows an alert message at the standard output.
+        /// </summary>
+        public const string COMMON_FUNCNAME_ALERT = "alert";
 
         /// <summary>
         /// The common name of a function that clears the standard output.
@@ -72,6 +77,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// Describes an action without parameters.
         /// </summary>
         public delegate void NoParamAction();
+
         /// <summary>
         /// Describes a function without parameters.
         /// </summary>
@@ -81,9 +87,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
         #endregion Delegates and Events
 
-        #region Methods (7)
+        #region Methods (8)
 
-        // Public Methods (7) 
+        // Public Methods (8) 
 
         /// <summary>
         /// Creates a new instance.
@@ -135,6 +141,44 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// Sets the logic to clear the standard output.
         /// </summary>
         /// <returns>That instance.</returns>
+        public virtual CommonScriptFunctionSetup<TExecutor> SetAlertFunc()
+        {
+            this.Executor
+                .SetFunction(COMMON_FUNCNAME_ALERT,
+                             new ScriptExecutorBase.SimpleAction(delegate(object[] args)
+                             {
+                                 if (args == null)
+                                 {
+                                     return;
+                                 }
+
+                                 foreach (var a in args)
+                                 {
+                                     ConsoleColor oldTxtColor = Console.ForegroundColor;
+                                     ConsoleColor oldBgColor = Console.BackgroundColor;
+
+                                     try
+                                     {
+                                         Console.ForegroundColor = ConsoleColor.White;
+                                         Console.BackgroundColor = ConsoleColor.Black;
+
+                                         global::System.Console.WriteLine(StringHelper.AsString(a, true));
+                                     }
+                                     finally
+                                     {
+                                         Console.BackgroundColor = oldBgColor;
+                                         Console.ForegroundColor = oldTxtColor;
+                                     }
+                                 }
+                             }));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the logic to clear the standard output.
+        /// </summary>
+        /// <returns>That instance.</returns>
         public virtual CommonScriptFunctionSetup<TExecutor> SetClearScreenFunc()
         {
             this.Executor
@@ -169,7 +213,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <returns>That instance.</returns>
         public virtual CommonScriptFunctionSetup<TExecutor> SetupAll()
         {
-            return this.SetClearScreenFunc()
+            return this.SetAlertFunc()
+                       .SetClearScreenFunc()
                        .SetReadLineFunc()
                        .SetWriteFunc()
                        .SetWriteLineFunc();

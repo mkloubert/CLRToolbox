@@ -1,5 +1,7 @@
 ﻿
-include_files('test2.inc.js');
+// include_files('test2.inc.js');
+
+include('alert("abcd"); ', 'alert("OK"); readline(); ');
 
 // load_modules('MarcelJoachimKloubert.ScriptEngine.TestExport.dll');
 
@@ -10,13 +12,6 @@ include_files('test2.inc.js');
 //write_line(trim('  Trim   '));
 //Write(TrimLeft('  TrimLeft   '));
 
-write('Input text: ');
-var a = readline();
-writeline(a);
-
-writeline();
-writeline('Press enter to continue');
-readline();
 
 //Write(wurst2("   TrimRight     "));
 //write_line('WriteLine2');

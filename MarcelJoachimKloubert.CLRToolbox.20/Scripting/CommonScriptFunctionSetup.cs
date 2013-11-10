@@ -192,14 +192,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  if (args.Length == 1)
                                  {
-                                     global::System.Console.Write(args[0]);
+                                     global::System.Console.Write(StringHelper.AsString(args[0], true));
                                  }
                                  else if (args.Length > 1)
                                  {
                                      string format = StringHelper.AsString(args[0], true);
 
                                      object[] formatArgs = new object[args.Length - 1];
-                                     Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
+                                     for (int i = 1; i < args.Length; i++)
+                                     {
+                                         formatArgs[i - 1] = StringHelper.AsString(args[i], true);
+                                     }
 
                                      global::System.Console.Write(format, formatArgs);
                                  }
@@ -229,14 +232,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                  }
                                  else if (args.Length == 1)
                                  {
-                                     global::System.Console.WriteLine(args[0]);
+                                     global::System.Console.WriteLine(StringHelper.AsString(args[0], true));
                                  }
                                  else if (args.Length > 1)
                                  {
                                      string format = StringHelper.AsString(args[0], true);
 
                                      object[] formatArgs = new object[args.Length - 1];
-                                     Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
+                                     for (int i = 1; i < args.Length; i++)
+                                     {
+                                         formatArgs[i - 1] = StringHelper.AsString(args[i], true);
+                                     }
 
                                      global::System.Console.WriteLine(format, formatArgs);
                                  }

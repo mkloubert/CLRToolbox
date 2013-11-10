@@ -232,10 +232,10 @@
       <Link>Scripting\CommonScriptFunctionSetup.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\Export\ExportScriptFuncAttribute.cs">
-      <Link>Export\ExportScriptFuncAttribute.cs</Link>
+      <Link>Scripting\Export\ExportScriptFuncAttribute.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\Export\ExportScriptTypeAttribute.cs">
-      <Link>Export\ExportScriptTypeAttribute.cs</Link>
+      <Link>Scripting\Export\ExportScriptTypeAttribute.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\IScriptExecutionContext.cs">
       <Link>Scripting\IScriptExecutionContext.cs</Link>

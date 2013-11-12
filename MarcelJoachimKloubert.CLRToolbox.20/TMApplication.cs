@@ -144,7 +144,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                     stringBuilder.Append('"');
                 }
 
-                ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
+                ProcessStartInfo startInfo = Process.StartInfo;
                 startInfo.FileName = Path.GetFullPath(entryAsm.Location);
 
                 if (stringBuilder.Length > 0)

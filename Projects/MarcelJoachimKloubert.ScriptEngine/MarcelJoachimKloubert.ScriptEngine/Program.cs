@@ -7,7 +7,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.ScriptEngine.ECMA;
 
 namespace MarcelJoachimKloubert.ScriptEngine
@@ -49,11 +48,6 @@ namespace MarcelJoachimKloubert.ScriptEngine
                                 break;
                         }
                     }
-
-                    Console.WriteLine("Do it....");
-                    Console.ReadLine();
-
-                    TMApplication.Restart();
 
                     foreach (var a in args.Select(arg => arg.TrimStart()))
                     {

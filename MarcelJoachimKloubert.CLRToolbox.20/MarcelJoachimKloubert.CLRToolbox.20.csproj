@@ -166,6 +166,7 @@
     <Compile Include="Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="TMApplication.cs" />
     <Compile Include="TMConsole.cs" />
     <Compile Include="TMDisposableBase.cs" />
     <Compile Include="TMObject.cs" />

@@ -252,6 +252,9 @@
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
+      <Link>TMApplication.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
       <Link>TMConsole.cs</Link>
     </Compile>

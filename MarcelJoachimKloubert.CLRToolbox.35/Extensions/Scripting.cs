@@ -8,10 +8,7 @@ using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
-    /// <summary>
-    /// Extension methods for scripting operations.
-    /// </summary>
-    public static partial class ScriptingExtensionMethods
+    static partial class ClrToolboxExtensionMethods
     {
         #region Methods (1)
 

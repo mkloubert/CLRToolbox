@@ -10,7 +10,7 @@ using MarcelJoachimKloubert.CLRToolbox.Scripting;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
-    partial class ScriptingExtensionMethods
+    static partial class ClrToolboxExtensionMethods
     {
         #region Methods (3)
 

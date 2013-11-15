@@ -229,7 +229,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// </summary>
         /// <param name="category">The name of the category.</param>
         /// <returns>The dictionary of the category or <see langword="null" /> if no category should be created.</returns>
-        protected virtual IDictionary<string, object> CreateEmptyDictionaryForCategory(IEnumerable<char> category)
+        protected virtual IDictionary<string, object> CreateEmptyDictionaryForCategory(string category)
         {
             return new Dictionary<string, object>();
         }

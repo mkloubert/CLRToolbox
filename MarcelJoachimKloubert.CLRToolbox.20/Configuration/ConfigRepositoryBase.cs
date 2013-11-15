@@ -250,7 +250,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                 input = null;
             }
 
-            return input != null ? (T)input : default(T);
+            if (input is T)
+            {
+                return (T)input;
+            }
+
+            return input != null ? (T)global::System.Convert.ChangeType(input, typeof(T)) : default(T);
         }
 
         /// <summary>

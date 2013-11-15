@@ -107,7 +107,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <param name="value">The variable where to found value to.</param>
         /// <param name="category">The optional category.</param>
         /// <param name="defaultVal">
-        /// the value that is written to <paramref name="value" /> if not found.
+        /// The value that is written to <paramref name="value" /> if not found.
         /// </param>
         /// <returns>Value was found or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
@@ -123,7 +123,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <param name="value">The variable where to found value to.</param>
         /// <param name="category">The optional category.</param>
         /// <param name="defaultVal">
-        /// the value that is written to <paramref name="value" /> if not found.
+        /// The value that is written to <paramref name="value" /> if not found.
         /// </param>
         /// <returns>Value was found or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>

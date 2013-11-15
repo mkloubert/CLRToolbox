@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -75,6 +77,47 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             {
                 // read text to end
                 return ((TextReader)obj).ReadToEnd();
+            }
+            else if (obj is IEnumerable<byte>)
+            {
+                // handle blob as UTF-8 string
+                return Encoding.UTF8.GetString(CollectionHelper.AsArray(obj as IEnumerable<byte>));
+            }
+            else if (obj is Stream)
+            {
+                // handle blob as UTF-8 string data
+                using (StreamReader reader = new StreamReader((Stream)obj, Encoding.UTF8, true))
+                {
+                    return AsString(reader, true);
+                }
+            }
+            else if (obj is IXmlSerializable)
+            {
+                IXmlSerializable xmlObj = (IXmlSerializable)obj;
+
+                StringBuilder xml = new StringBuilder();
+
+                using (StringWriter strWriter = new StringWriter(xml))
+                {
+                    using (XmlWriter xmlWriter = XmlWriter.Create(strWriter))
+                    {
+                        xmlObj.WriteXml(xmlWriter);
+
+                        xmlWriter.Flush();
+                        xmlWriter.Close();
+                    }
+                }
+
+                return AsString(xml, true);
+            }
+            else if (obj is XmlReader)
+            {
+                XmlReader xmlReader = (XmlReader)obj;
+
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(xmlReader);
+
+                return AsString(xmlDoc, true);
             }
 
             // use default

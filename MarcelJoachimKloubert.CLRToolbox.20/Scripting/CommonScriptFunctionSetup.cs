@@ -152,7 +152,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                      return;
                                  }
 
-                                 foreach (var a in args)
+                                 foreach (object a in args)
                                  {
                                      ConsoleColor oldTxtColor = Console.ForegroundColor;
                                      ConsoleColor oldBgColor = Console.BackgroundColor;

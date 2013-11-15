@@ -69,6 +69,15 @@
       <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
+      <Link>Configuration\ConfigRepositoryBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\IConfigRepository.cs">
+      <Link>Configuration\IConfigRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\KeyValuePairConfigRepository.cs">
+      <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommand.cs">
       <Link>Diagnostics\Execution\ILogCommand.cs</Link>
     </Compile>

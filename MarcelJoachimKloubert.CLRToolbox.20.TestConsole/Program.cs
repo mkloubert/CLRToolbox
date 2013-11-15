@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MarcelJoachimKloubert.CLRToolbox._20.TestConsole
 {

@@ -111,12 +111,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
     /// <summary>
     /// A command that uses delegates.
     /// </summary>
-    public sealed class DelegateCommand : DelegateCommand<object>
+    public class DelegateCommand : DelegateCommand<object>
     {
         #region Constructors (4)
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand{TParam}"/> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
         /// </summary>
         /// <param name="executeAction">The logic for <see cref="DelegateCommand{TParam}.OnExecute(TParam)" />.</param>
         /// <param name="canExecutePredicate">The logic for <see cref="DelegateCommand{TParam}.CanExecute(TParam)" />.</param>
@@ -131,7 +131,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand{TParam}" /> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand" /> class.
         /// </summary>
         /// <param name="executeAction">The logic for <see cref="DelegateCommand{TParam}.OnExecute(TParam)" />.</param>
         /// <param name="canExecutePredicate">The logic for <see cref="DelegateCommand{TParam}.CanExecute(TParam)" />.</param>
@@ -150,7 +150,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand{TParam}" /> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand" /> class.
         /// </summary>
         /// <param name="executeAction">The logic for <see cref="DelegateCommand{TParam}.OnExecute(TParam)" />.</param>
         /// <exception cref="ArgumentNullException">
@@ -163,7 +163,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand{TParam}" /> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand" /> class.
         /// </summary>
         /// <param name="executeAction">The logic for <see cref="DelegateCommand{TParam}.OnExecute(TParam)" />.</param>
         /// <exception cref="ArgumentNullException">

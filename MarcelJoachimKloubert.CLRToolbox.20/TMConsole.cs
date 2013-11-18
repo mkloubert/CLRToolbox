@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
@@ -14,14 +15,17 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public static partial class TMConsole
     {
-        #region Fields (6)
+        #region Fields (9)
 
-        private static GetConsoleColorHandler _getBackgroundColorProvider;
-        private static GetConsoleColorHandler _getForegroundColorProvider;
-        private static NewLineHandler _newLineProvider;
+        private static ClearScreenAction _clearAction;
+        private static GetConsoleColorFunc _getBackgroundColorProvider;
+        private static GetConsoleColorFunc _getForegroundColorProvider;
+        private static NewLineFunc _newLineProvider;
         private static WriteToConsoleHandler _out;
+        private static ReadLineFunc _readLineProvider;
         private static SetConsoleColorHandler _setBackgroundColorProvider;
         private static SetConsoleColorHandler _setForegroundColorProvider;
+        private static ToFormatArrayFunc _toFormatArray;
 
         #endregion Fields
 
@@ -33,18 +37,24 @@ namespace MarcelJoachimKloubert.CLRToolbox
         static TMConsole()
         {
             Out = new WriteToConsoleHandler(DefaultOut);
-            NewLineProvider = DefaultNewLineProvider;
+            NewLineProvider = new NewLineFunc(DefaultNewLineProvider);
 
-            GetForegroundColorProvider = DefaultGetForegroundColorProvider;
-            SetForegroundColorProvider = DefaultSetForegroundColorProvider;
+            GetForegroundColorProvider = new GetConsoleColorFunc(DefaultGetForegroundColorProvider);
+            SetForegroundColorProvider = new SetConsoleColorHandler(DefaultSetForegroundColorProvider);
 
-            GetBackgroundColorProvider = DefaultGetBackgroundColorProvider;
-            SetBackgroundColorProvider = DefaultSetBackgroundColorProvider;
+            GetBackgroundColorProvider = new GetConsoleColorFunc(DefaultGetBackgroundColorProvider);
+            SetBackgroundColorProvider = new SetConsoleColorHandler(DefaultSetBackgroundColorProvider);
+
+            ToFormatArray = new ToFormatArrayFunc(DefaultToFormatArray);
+
+            ReadLineProvider = new ReadLineFunc(DefaultReadLine);
+
+            ClearAction = new ClearScreenAction(DefaultClear);
         }
 
         #endregion Constructors
 
-        #region Properties (9)
+        #region Properties (12)
 
         /// <summary>
         /// Gets or sets the current console background color.
@@ -53,7 +63,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             get
             {
-                GetConsoleColorHandler handler = GetBackgroundColorProvider;
+                GetConsoleColorFunc handler = GetBackgroundColorProvider;
                 if (handler != null)
                 {
                     return handler();
@@ -73,13 +83,23 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
+        /// Gets or sets the action that clears the console.
+        /// </summary>
+        public static ClearScreenAction ClearAction
+        {
+            get { return _clearAction; }
+
+            set { _clearAction = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the current console text color.
         /// </summary>
         public static ConsoleColor? ForegroundColor
         {
             get
             {
-                GetConsoleColorHandler handler = GetForegroundColorProvider;
+                GetConsoleColorFunc handler = GetForegroundColorProvider;
                 if (handler != null)
                 {
                     return handler();
@@ -101,7 +121,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <summary>
         /// Gets or sets the logic to receive the background console color.
         /// </summary>
-        public static GetConsoleColorHandler GetBackgroundColorProvider
+        public static GetConsoleColorFunc GetBackgroundColorProvider
         {
             get { return _getBackgroundColorProvider; }
 
@@ -111,7 +131,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <summary>
         /// Gets or sets the logic to receive the text console color.
         /// </summary>
-        public static GetConsoleColorHandler GetForegroundColorProvider
+        public static GetConsoleColorFunc GetForegroundColorProvider
         {
             get { return _getForegroundColorProvider; }
 
@@ -125,7 +145,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             get
             {
-                NewLineHandler provider = NewLineProvider;
+                NewLineFunc provider = NewLineProvider;
                 if (provider != null)
                 {
                     return StringHelper.AsString(provider());
@@ -140,7 +160,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <summary>
         /// Gets or sets the provider that return the value for <see cref="TMConsole.NewLine" /> property.
         /// </summary>
-        public static NewLineHandler NewLineProvider
+        public static NewLineFunc NewLineProvider
         {
             get { return _newLineProvider; }
 
@@ -155,6 +175,16 @@ namespace MarcelJoachimKloubert.CLRToolbox
             get { return _out; }
 
             set { _out = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the function to read a line from user inpu.
+        /// </summary>
+        public static ReadLineFunc ReadLineProvider
+        {
+            get { return _readLineProvider; }
+
+            set { _readLineProvider = value; }
         }
 
         /// <summary>
@@ -177,11 +207,27 @@ namespace MarcelJoachimKloubert.CLRToolbox
             set { _setForegroundColorProvider = value; }
         }
 
+        /// <summary>
+        /// Gets the logic that converts an object array and its values
+        /// to values that should be used in a format string as parameters.
+        /// </summary>
+        public static ToFormatArrayFunc ToFormatArray
+        {
+            get { return _toFormatArray; }
+
+            set { _toFormatArray = value; }
+        }
+
         #endregion Properties
 
-        #region Delegates and Events (8)
+        #region Delegates and Events (11)
 
-        // Delegates (8) 
+        // Delegates (11) 
+
+        /// <summary>
+        /// Describes an action that clears the console.
+        /// </summary>
+        public delegate void ClearScreenAction();
 
         /// <summary>
         /// Describes an action for invokation in console context.
@@ -215,19 +261,33 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// Describes a function or method to receive a console color.
         /// </summary>
         /// <returns>The console color.</returns>
-        public delegate ConsoleColor? GetConsoleColorHandler();
+        public delegate ConsoleColor? GetConsoleColorFunc();
 
         /// <summary>
         /// Describes a function or method that returns the value for <see cref="TMConsole.NewLine" /> property.
         /// </summary>
         /// <returns>The new line value.</returns>
-        public delegate IEnumerable<char> NewLineHandler();
+        public delegate IEnumerable<char> NewLineFunc();
+
+        /// <summary>
+        /// Describes logic for reading a line from user input.
+        /// </summary>
+        /// <returns>The read line.</returns>
+        public delegate IEnumerable<char> ReadLineFunc();
 
         /// <summary>
         /// Describes a function or method to set a console color.
         /// </summary>
         /// <param name="newColor">The new value.</param>
         public delegate void SetConsoleColorHandler(ConsoleColor? newColor);
+
+        /// <summary>
+        /// Describes the method or function that converts an object array and its values
+        /// to values that should be used in a format string as parameters.
+        /// </summary>
+        /// <param name="args">The input arguments.</param>
+        /// <returns>The converted items of <paramref name="args" />.</returns>
+        public delegate IEnumerable ToFormatArrayFunc(object[] args);
 
         /// <summary>
         /// Describes a function or method that handles writing text to a console.
@@ -239,9 +299,30 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Delegates and Events
 
-        #region Methods (26)
+        #region Methods (33)
 
-        // Public Methods (25) 
+        // Public Methods (31) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="Console.Clear()" />
+        public static void Clear()
+        {
+            ClearScreenAction action = ClearAction;
+            if (action != null)
+            {
+                action();
+            }
+        }
+
+        /// <summary>
+        /// Default action to clear the console.
+        /// </summary>
+        public static void DefaultClear()
+        {
+            Console.Clear();
+        }
 
         /// <summary>
         /// Default logic to get the background color.
@@ -292,6 +373,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
+        /// Default logic to read a line from the user input.
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<char> DefaultReadLine()
+        {
+            return Console.ReadLine();
+        }
+
+        /// <summary>
         /// Default logic to set the background color.
         /// </summary>
         /// <param name="newColor">The new value.</param>
@@ -313,6 +403,27 @@ namespace MarcelJoachimKloubert.CLRToolbox
             {
                 Console.ForegroundColor = newColor.Value;
             }
+        }
+
+        /// <summary>
+        /// The default handler for <see cref="TMConsole.ToFormatArray" /> property.
+        /// </summary>
+        /// <param name="args">The input arguments.</param>
+        /// <returns>The converted arguments.</returns>
+        public static IEnumerable DefaultToFormatArray(object[] args)
+        {
+            if (args == null)
+            {
+                return null;
+            }
+
+            List<object> result = new List<object>();
+            foreach (var a in args)
+            {
+                result.Add(StringHelper.AsString(a, true));
+            }
+
+            return result.ToArray();
         }
 
         /// <summary>
@@ -547,12 +658,27 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="Console.ReadLine()" />
+        public static string ReadLine()
+        {
+            ReadLineFunc provider = ReadLineProvider;
+            if (provider != null)
+            {
+                return StringHelper.AsString(provider());
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Sets the value for <see cref="TMConsole.NewLine" /> property.
         /// </summary>
         /// <param name="value">The new value.</param>
         public static void SetNewLine(IEnumerable<char> value)
         {
-            NewLineProvider = new NewLineHandler(delegate()
+            NewLineProvider = new NewLineFunc(delegate()
                 {
                     return value;
                 });
@@ -564,8 +690,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <see cref="Console.Write(object)" />
         public static void Write(object obj)
         {
-            Write(string.Format("{0}",
-                                obj is IEnumerable<char> ? StringHelper.AsString(obj) : obj));
+            Write("{0}", new object[] { obj });
         }
 
         /// <summary>
@@ -584,7 +709,16 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public static void Write(IEnumerable<char> format, params object[] args)
         {
             Write(string.Format(StringHelper.AsString(format),
-                                args ?? new object[] { null }));
+                                ConvertToFormatArray(args ?? new object[] { null })));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="Console.WriteLine()" />
+        public static void WriteLine()
+        {
+            Write(NewLine);
         }
 
         /// <summary>
@@ -593,9 +727,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <see cref="Console.WriteLine(object)" />
         public static void WriteLine(object obj)
         {
-            Write((object)string.Format("{0}",
-                                        obj is IEnumerable<char> ? StringHelper.AsString(obj) : obj,
-                                        NewLine));
+            WriteLine("{0}", new object[] { obj });
         }
 
         /// <summary>
@@ -616,9 +748,36 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public static void WriteLine(IEnumerable<char> format, params object[] args)
         {
             WriteLine(string.Format(StringHelper.AsString(format),
-                                    args ?? new object[] { null }));
+                                    ConvertToFormatArray(args ?? new object[] { null })));
         }
-        // Private Methods (1) 
+        // Private Methods (2) 
+
+        private static object[] ConvertToFormatArray(object[] input)
+        {
+            ToFormatArrayFunc handler = ToFormatArray;
+            if (handler == null)
+            {
+                return null;
+            }
+
+            IEnumerable result = handler(input);
+            if (result == null)
+            {
+                return null;
+            }
+
+            object[] resultArray = result as object[];
+            if (resultArray == null)
+            {
+                List<object> temp = new List<object>();
+                foreach (object a in result)
+                {
+                    temp.Add(a);
+                }
+            }
+
+            return resultArray;
+        }
 
         private static void WriteToConsole(string text)
         {

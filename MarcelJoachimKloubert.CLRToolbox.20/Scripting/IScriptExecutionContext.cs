@@ -45,7 +45,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     /// </summary>
     public interface IScriptExecutionContext
     {
-        #region Data Members (11)
+        #region Data Members (12)
+
+        /// <summary>
+        /// Gets the time the execution has been ended.
+        /// </summary>
+        DateTimeOffset? EndTime { get; }
 
         /// <summary>
         /// Gets the list of occured exceptions or <see langword="null" /> if execution has not been finished yet.

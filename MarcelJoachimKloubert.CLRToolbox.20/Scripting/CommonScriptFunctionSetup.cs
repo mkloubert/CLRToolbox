@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     #region CLASS:CommonScriptFunctionSetup<TExecutor>
 
     /// <summary>
-    /// A helper class for setup a <see cref="IScriptExecutor" /> with command functions.
+    /// A helper class for setup a <see cref="IScriptExecutor" /> with common functions.
     /// </summary>
     /// <typeparam name="TExecutor">Type of the underlying executor.</typeparam>
     public class CommonScriptFunctionSetup<TExecutor>
@@ -154,20 +154,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  foreach (object a in args)
                                  {
-                                     ConsoleColor oldTxtColor = Console.ForegroundColor;
-                                     ConsoleColor oldBgColor = Console.BackgroundColor;
+                                     ConsoleColor? oldTxtColor = TMConsole.ForegroundColor;
+                                     ConsoleColor? oldBgColor = TMConsole.BackgroundColor;
 
                                      try
                                      {
-                                         Console.ForegroundColor = ConsoleColor.White;
-                                         Console.BackgroundColor = ConsoleColor.Black;
+                                         TMConsole.ForegroundColor = ConsoleColor.White;
+                                         TMConsole.BackgroundColor = ConsoleColor.Black;
 
-                                         global::System.Console.WriteLine(StringHelper.AsString(a, true));
+                                         TMConsole.WriteLine(a);
                                      }
                                      finally
                                      {
-                                         Console.BackgroundColor = oldBgColor;
-                                         Console.ForegroundColor = oldTxtColor;
+                                         TMConsole.BackgroundColor = oldBgColor;
+                                         TMConsole.ForegroundColor = oldTxtColor;
                                      }
                                  }
                              }));
@@ -185,7 +185,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 .SetFunction(COMMON_FUNCNAME_CLEAR_SCREEN,
                              new NoParamAction(delegate()
                              {
-                                 global::System.Console.Clear();
+                                 TMConsole.Clear();
                              }));
 
             return this;
@@ -201,7 +201,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 .SetFunction(COMMON_FUNCNAME_READ_LINE,
                              new NoParamFunc<string>(delegate()
                              {
-                                 return global::System.Console.ReadLine();
+                                 return TMConsole.ReadLine();
                              }));
 
             return this;
@@ -237,19 +237,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  if (args.Length == 1)
                                  {
-                                     global::System.Console.Write(StringHelper.AsString(args[0], true));
+                                     TMConsole.Write(args[0]);
                                  }
                                  else if (args.Length > 1)
                                  {
                                      string format = StringHelper.AsString(args[0], true);
 
                                      object[] formatArgs = new object[args.Length - 1];
-                                     for (int i = 1; i < args.Length; i++)
-                                     {
-                                         formatArgs[i - 1] = StringHelper.AsString(args[i], true);
-                                     }
+                                     Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
 
-                                     global::System.Console.Write(format, formatArgs);
+                                     TMConsole.Write(format, formatArgs);
                                  }
                              }));
 
@@ -273,23 +270,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  if (args.Length < 1)
                                  {
-                                     global::System.Console.WriteLine();
+                                     TMConsole.WriteLine();
                                  }
                                  else if (args.Length == 1)
                                  {
-                                     global::System.Console.WriteLine(StringHelper.AsString(args[0], true));
+                                     TMConsole.Write(args[0]);
                                  }
                                  else if (args.Length > 1)
                                  {
                                      string format = StringHelper.AsString(args[0], true);
 
                                      object[] formatArgs = new object[args.Length - 1];
-                                     for (int i = 1; i < args.Length; i++)
-                                     {
-                                         formatArgs[i - 1] = StringHelper.AsString(args[i], true);
-                                     }
+                                     Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
 
-                                     global::System.Console.WriteLine(format, formatArgs);
+                                     TMConsole.Write(format, formatArgs);
                                  }
                              }));
 

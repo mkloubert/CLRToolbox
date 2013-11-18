@@ -139,7 +139,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         protected override void PrepareCategoryAndName(IEnumerable<char> category, IEnumerable<char> name,
                                                        out string newCategory, out string newName)
         {
-            base.PrepareCategoryAndName(category, name, out newCategory, out newName);
+            base.PrepareCategoryAndName(category, name,
+                                        out newCategory, out newName);
 
             if (newCategory == null)
             {
@@ -170,8 +171,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnGetCategoryNames(IList{IEnumerable{char}})" />
-        protected override sealed void OnGetCategoryNames(IList<IEnumerable<char>> names)
+        /// <see cref="ConfigRepositoryBase.OnGetCategoryNames(ICollection{IEnumerable{char}})" />
+        protected override sealed void OnGetCategoryNames(ICollection<IEnumerable<char>> names)
         {
             foreach (string name in this._CONFIG_VALUES.Keys)
             {

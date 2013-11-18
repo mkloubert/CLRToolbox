@@ -294,7 +294,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// The logic for <see cref="ConfigRepositoryBase.GetCategoryNames()" />
         /// </summary>
         /// <param name="names">The target list where the names should be stored.</param>
-        protected abstract void OnGetCategoryNames(IList<IEnumerable<char>> names);
+        protected abstract void OnGetCategoryNames(ICollection<IEnumerable<char>> names);
 
         /// <summary>
         /// Stores the logic for <see cref="ConfigRepositoryBase.SetValue{T}(IEnumerable{char}, T, IEnumerable{char})" /> method.

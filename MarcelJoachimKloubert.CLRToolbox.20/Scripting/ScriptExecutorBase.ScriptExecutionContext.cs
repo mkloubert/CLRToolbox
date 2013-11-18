@@ -12,14 +12,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     {
         #region Nested Classes (1)
 
-
         /// <summary>
         /// Simple implementation of <see cref="IScriptExecutionContext" /> interface.
         /// </summary>
         protected sealed class ScriptExecutionContext : IScriptExecutionContext
         {
-            #region Fields (11)
+            #region Fields (12)
 
+            private DateTimeOffset? _endTime;
             private IList<Exception> _exceptions;
             private ScriptExecutorBase _executor;
             private bool _isDebug;
@@ -35,6 +35,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
             #endregion Fields
 
             #region Properties (13)
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <see cref="IScriptExecutionContext.Exceptions" />
+            public DateTimeOffset? EndTime
+            {
+                get { return this._endTime; }
+
+                private set { this._endTime = value; }
+            }
 
             /// <summary>
             /// 
@@ -58,6 +69,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 internal set { this._executor = value; }
             }
 
+            IScriptExecutor IScriptExecutionContext.Executor
+            {
+                get { return this.Executor; }
+            }
+
             /// <summary>
             /// 
             /// </summary>
@@ -71,11 +87,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                     return exList != null &&
                            exList.Count > 0;
                 }
-            }
-
-            IScriptExecutor IScriptExecutionContext.Executor
-            {
-                get { return this.Executor; }
             }
 
             /// <summary>
@@ -201,8 +212,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
             {
                 try
                 {
-                    this.IsExecuting = true;
                     this.StartTime = DateTimeOffset.Now;
+                    this.IsExecuting = true;
 
                     StartActionHandler action = this.StartAction;
                     if (action != null)
@@ -230,6 +241,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 }
                 finally
                 {
+                    this.EndTime = DateTimeOffset.Now;
                     this.IsExecuting = false;
 
                     ScriptExecutionCompletedHandler handler = this.OnCompleted;

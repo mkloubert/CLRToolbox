@@ -1,7 +1,17 @@
 ﻿
 // include_files('test2.inc.js');
 
-include('alert("abcd"); ', 'alert("OK"); readline(); ');
+write('a: ')
+var test = readline();
+writeline("TEST: " + test);
+
+cls();
+
+write('b: ')
+var test2 = readline();
+writeline("TEST2: " + test2);
+
+readline();
 
 // load_modules('MarcelJoachimKloubert.ScriptEngine.TestExport.dll');
 

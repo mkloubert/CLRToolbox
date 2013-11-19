@@ -48,6 +48,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ValueConverterBase.cs" />
+    <Compile Include="Data\ValueConverterBase.Interface.cs">
+      <DependentUpon>ValueConverterBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Input\SimpleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

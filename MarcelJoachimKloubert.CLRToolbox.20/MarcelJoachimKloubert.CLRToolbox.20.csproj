@@ -169,8 +169,16 @@
     <Compile Include="Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceLocation\IServiceLocator.cs" />
+    <Compile Include="ServiceLocation\ServiceActivationException.cs" />
+    <Compile Include="ServiceLocation\ServiceLocator.cs" />
+    <Compile Include="ServiceLocation\ServiceLocatorBase.cs" />
+    <Compile Include="ServiceLocation\ServiceLocatorBase.Interface.cs">
+      <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="TMApplication.cs" />
     <Compile Include="TMConsole.cs" />
+    <Compile Include="TMConvert.cs" />
     <Compile Include="TMDisposableBase.cs" />
     <Compile Include="TMObject.cs" />
   </ItemGroup>

@@ -271,11 +271,30 @@
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\IServiceLocator.cs">
+      <Link>ServiceLocation\IServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceActivationException.cs">
+      <Link>ServiceLocation\ServiceActivationException.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocator.cs">
+      <Link>ServiceLocation\ServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.Interface.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.Interface.cs</Link>
+      <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
       <Link>TMConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConvert.cs">
+      <Link>TMConvert.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMDisposableBase.cs">
       <Link>TMDisposableBase.cs</Link>

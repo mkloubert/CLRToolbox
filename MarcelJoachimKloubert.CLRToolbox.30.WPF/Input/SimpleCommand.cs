@@ -49,33 +49,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
 
         #endregion Constructors
 
-        #region Methods (3)
+        #region Methods (1)
 
-        // Private Methods (3) 
+        // Private Methods (1) 
 
         bool global::System.Windows.Input.ICommand.CanExecute(object parameter)
         {
-            return this.CanExecute(ToTypedParameterValue(parameter));
+            return this.CanExecute(TMConvert.ChangeType<TParam>(parameter));
         }
 
         void global::System.Windows.Input.ICommand.Execute(object parameter)
         {
-            this.Execute(ToTypedParameterValue(parameter));
-        }
-
-        private static TParam ToTypedParameterValue(object parameter)
-        {
-            if (parameter is TParam)
-            {
-                return (TParam)parameter;
-            }
-
-            return parameter == null ? default(TParam) : (TParam)global::System.Convert.ChangeType(parameter, typeof(TParam));
+            this.Execute(TMConvert.ChangeType<TParam>(parameter));
         }
 
         #endregion Methods
-
-
     }
 
     #endregion

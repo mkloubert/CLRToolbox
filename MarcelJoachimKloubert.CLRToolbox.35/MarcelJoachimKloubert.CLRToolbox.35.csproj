@@ -261,11 +261,30 @@
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\IServiceLocator.cs">
+      <Link>ServiceLocation\IServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\ServiceActivationException.cs">
+      <Link>ServiceLocation\ServiceActivationException.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\ServiceLocator.cs">
+      <Link>ServiceLocation\ServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\ServiceLocatorBase.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\ServiceLocatorBase.Interface.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.Interface.cs</Link>
+      <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
       <Link>TMConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConvert.cs">
+      <Link>TMConvert.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMDisposableBase.cs">
       <Link>TMDisposableBase.cs</Link>
@@ -288,6 +307,10 @@
     <Compile Include="Extensions\Collections.Shuffle.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\LinqExpressions.GetMemberName.cs">
+      <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\LinqExpressions.cs" />
     <Compile Include="Extensions\Scripting.SetSimplePredicateWrapper.cs">
       <DependentUpon>Scripting.cs</DependentUpon>
     </Compile>

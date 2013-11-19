@@ -418,7 +418,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             }
 
             List<object> result = new List<object>();
-            foreach (var a in args)
+            foreach (object a in args)
             {
                 result.Add(StringHelper.AsString(a, true));
             }

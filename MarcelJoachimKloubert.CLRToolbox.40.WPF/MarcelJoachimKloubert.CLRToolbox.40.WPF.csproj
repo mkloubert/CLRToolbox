@@ -50,6 +50,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\ValueConverterBase.cs">
+      <Link>Data\ValueConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\ValueConverterBase.Interface.cs">
+      <Link>Data\ValueConverterBase.Interface.cs</Link>
+      <DependentUpon>ValueConverterBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.30.wpf\input\SimpleCommand.cs">
       <Link>Input\SimpleCommand.cs</Link>
     </Compile>

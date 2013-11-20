@@ -79,7 +79,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
             {
                 // handle as extended composition container
 
-                // find 'GetExportedValues' without parameter
+                // find 'GetExportedValues' without parameters
                 // create typed version for 'serviceType' and invoke
                 return ((IEnumerable)container.GetType()
                                               .GetMethods()

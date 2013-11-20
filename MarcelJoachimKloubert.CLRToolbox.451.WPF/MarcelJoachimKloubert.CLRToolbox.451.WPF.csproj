@@ -52,6 +52,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\CommandValueConverterBase.cs">
+      <Link>Data\CommandValueConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\Impl\CommandValueConverter.cs">
+      <Link>Data\Impl\CommandValueConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.30.wpf\data\impl\DelegateToCommandValueConverter.cs">
+      <Link>Data\Impl\DelegateToCommandValueConverter.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.30.wpf\data\ValueConverterBase.cs">
       <Link>Data\ValueConverterBase.cs</Link>
     </Compile>

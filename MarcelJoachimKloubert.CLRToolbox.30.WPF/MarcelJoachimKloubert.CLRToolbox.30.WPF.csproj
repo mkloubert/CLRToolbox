@@ -48,6 +48,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\CommandValueConverterBase.cs" />
+    <Compile Include="Data\Impl\CommandValueConverter.cs" />
+    <Compile Include="Data\Impl\DelegateToCommandValueConverter.cs" />
     <Compile Include="Data\ValueConverterBase.cs" />
     <Compile Include="Data\ValueConverterBase.Interface.cs">
       <DependentUpon>ValueConverterBase.cs</DependentUpon>

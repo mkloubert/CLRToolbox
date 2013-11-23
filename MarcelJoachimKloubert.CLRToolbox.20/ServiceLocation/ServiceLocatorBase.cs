@@ -52,9 +52,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 
         #endregion Constructors
 
-        #region Methods (9)
+        #region Methods (11)
 
-        // Public Methods (6) 
+        // Public Methods (8) 
 
         /// <summary>
         /// 
@@ -62,7 +62,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// <see cref="IServiceLocator.GetAllInstances{S}()" />
         public IEnumerable<S> GetAllInstances<S>()
         {
-            foreach (object obj in this.GetAllInstances(typeof(S)))
+            return this.GetAllInstances<S>(null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IServiceLocator.GetAllInstances(Type)" />
+        public IEnumerable<object> GetAllInstances(Type serviceType)
+        {
+            return this.GetAllInstances(serviceType, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IServiceLocator.GetAllInstances{S}(object)" />
+        public IEnumerable<S> GetAllInstances<S>(object key)
+        {
+            foreach (object obj in this.GetAllInstances(typeof(S), key))
             {
                 yield return (S)obj;
             }
@@ -71,8 +89,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="IServiceLocator.GetAllInstances(Type)" />
-        public IEnumerable<object> GetAllInstances(Type serviceType)
+        /// <see cref="IServiceLocator.GetAllInstances(Type, object)" />
+        public IEnumerable<object> GetAllInstances(Type serviceType, object key)
         {
             if (serviceType == null)
             {
@@ -84,7 +102,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
             ServiceActivationException exceptionToThrow = null;
             try
             {
-                result = this.OnGetAllInstances(serviceType);
+                result = this.OnGetAllInstances(serviceType, key);
 
                 if (result == null)
                 {
@@ -184,11 +202,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// Stores the logic for the <see cref="ServiceLocatorBase.GetAllInstances(Type)" /> method.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
+        /// <param name="key">
+        /// The key of the service.
+        /// <see langword="null" /> indicates to locate the default service.
+        /// </param>
         /// <returns>The list of service instances.</returns>
         /// <exception cref="ServiceActivationException">
         /// Error while locating service instance, e.g. not found.
         /// </exception>
-        protected abstract IEnumerable<object> OnGetAllInstances(Type serviceType);
+        protected abstract IEnumerable<object> OnGetAllInstances(Type serviceType, object key);
 
         /// <summary>
         /// Stores the logic for the <see cref="ServiceLocatorBase.GetInstance(Type, object)" /> method.

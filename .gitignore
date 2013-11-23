@@ -43,3 +43,10 @@
 /MarcelJoachimKloubert.CLRToolbox.451.WPF/bin
 /Projects/MarcelJoachimKloubert.ScriptEngine/MarcelJoachimKloubert.ScriptEngine.Editor/obj
 /Projects/MarcelJoachimKloubert.ScriptEngine/MarcelJoachimKloubert.ScriptEngine.Editor/bin
+/Projects/MarcelJoachimKloubert.ApplicationServer/*.suo
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer/obj
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer/bin
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.TestHost/obj
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.TestHost/bin
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.SDK/obj
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.SDK/bin

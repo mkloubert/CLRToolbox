@@ -4,11 +4,11 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using System.Linq.Expressions;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
@@ -64,36 +64,38 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (3)
 
         // Protected Methods (2) 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="ServiceLocatorBase.OnGetAllInstances(Type)" />
-        protected override IEnumerable<object> OnGetAllInstances(Type serviceType)
+        /// <see cref="ServiceLocatorBase.OnGetAllInstances(Type, object)" />
+        protected override IEnumerable<object> OnGetAllInstances(Type serviceType, object key)
         {
+            var strKey = key.AsString(true);
+
             var container = this._PROVIDER as CompositionContainer;
             if (container != null)
             {
                 // handle as extended composition container
 
-                // find 'GetExportedValues' without parameters
-                // create typed version for 'serviceType' and invoke
-                return ((IEnumerable)container.GetType()
-                                              .GetMethods()
-                                              .Single(m => m.Name == container.GetMemberName(c => c.GetExportedValues<object>()) &&
-                                                           m.GetGenericArguments().Length == 1 &&
-                                                           m.GetParameters().Length == 0)
-                                              .MakeGenericMethod(serviceType)
-                                              .Invoke(container,
-                                                      new object[0])).OfType<object>();
+                return InvokeGetExportedValueMethod(c => c.GetExportedValues<object>(),
+                                                    container,
+                                                    serviceType,
+                                                    strKey);
             }
 
-            // old skool
+            // old skool ...
+
+            if (strKey == null)
+            {
+                strKey = AttributedModelServices.GetContractName(serviceType);
+            }
+
             return this._PROVIDER
-                       .GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
+                       .GetExportedValues<object>(strKey);
         }
 
         /// <summary>
@@ -109,34 +111,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
             {
                 // handle as extended composition container
 
-                // find 'GetExportedValue' methods
-                var getExportedValueMethods = container.GetType()
-                                                       .GetMethods()
-                                                       .Where(m => m.Name == container.GetMemberName(c => c.GetExportedValue<object>()) &&
-                                                                   m.GetGenericArguments().Length == 1);
-
-                object[] @params;
-                if (!string.IsNullOrWhiteSpace(strKey))
-                {
-                    // with key
-                    @params = new object[] { strKey };
-                }
-                else
-                {
-                    @params = new object[0];
-                }
-
-                // find matching method, create typed version for 'serviceType'
-                // and invoke with defined parameter(s)
-                return getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
-                                              .MakeGenericMethod(serviceType)
-                                              .Invoke(container,
-                                                      @params);
+                return InvokeGetExportedValueMethod(c => c.GetExportedValue<object>(),
+                                                    container,
+                                                    serviceType,
+                                                    strKey);
             }
 
             // old skool ...
 
-            if (string.IsNullOrWhiteSpace(strKey))
+            if (strKey == null)
             {
                 strKey = AttributedModelServices.GetContractName(serviceType);
             }
@@ -153,6 +136,36 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
             // not found
             return null;
+        }
+        // Private Methods (1) 
+
+        private static R InvokeGetExportedValueMethod<R>(Expression<Func<CompositionContainer, R>> expr,
+                                                         CompositionContainer container,
+                                                         Type serviceType,
+                                                         string key)
+        {
+            var method = (expr.Body as MethodCallExpression).Method;
+            var methodName = method.Name;
+
+            var getExportedValueMethods = container.GetType()
+                                                   .GetMethods()
+                                                   .Where(m => m.Name == methodName &&
+                                                               m.GetGenericArguments().Length == 1);
+
+            object[] @params;
+            if (key != null)
+            {
+                // with key
+                @params = new object[] { key };
+            }
+            else
+            {
+                @params = new object[0];
+            }
+
+            return TMConvert.ChangeType<R>(getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
+                                                                  .MakeGenericMethod(serviceType)
+                                                                  .Invoke(container, @params));
         }
 
         #endregion Methods

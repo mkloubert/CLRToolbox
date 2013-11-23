@@ -13,7 +13,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
     /// </summary>
     public interface IServiceLocator : IServiceProvider
     {
-        #region Operations (6)
+        #region Operations (8)
 
         /// <summary>
         /// Gets all instances of a service.
@@ -25,12 +25,37 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// <summary>
         /// Gets all instances of a service.
         /// </summary>
+        /// <typeparam name="S">Type of the service.</typeparam>
+        /// <param name="key">
+        /// Key of the service.
+        /// <see langword="null" /> indicates to get the default service.
+        /// </param>
+        /// <returns>All instances of the service.</returns>
+        IEnumerable<S> GetAllInstances<S>(object key);
+
+        /// <summary>
+        /// Gets all instances of a service.
+        /// </summary>
         /// <param name="serviceType">Typ des Dienstes.</param>
         /// <returns>All instances of the service.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="serviceType" /> is <see langword="null" />.
         /// </exception>
         IEnumerable<object> GetAllInstances(Type serviceType);
+
+        /// <summary>
+        /// Gets all instances of a service.
+        /// </summary>
+        /// <param name="serviceType">Typ des Dienstes.</param>
+        /// <param name="key">
+        /// Key of the service.
+        /// <see langword="null" /> indicates to get the default service.
+        /// </param>
+        /// <returns>All instances of the service.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="serviceType" /> is <see langword="null" />.
+        /// </exception>
+        IEnumerable<object> GetAllInstances(Type serviceType, object key);
 
         /// <summary>
         /// Gets a single instance of a default service.

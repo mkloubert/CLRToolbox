@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <remarks>Replaced in .NET 3.5 for .NET 2.0</remarks>
         public static T[] ToArray<T>(IEnumerable<T> seq)
         {
-            return Enumerable.ToArray<T>(seq);
+            return global::System.Linq.Enumerable.ToArray<T>(seq);
         }
 
         #endregion Methods

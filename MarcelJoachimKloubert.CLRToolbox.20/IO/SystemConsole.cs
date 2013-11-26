@@ -4,6 +4,7 @@
 
 
 using System;
+using System.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
@@ -81,5 +82,47 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         }
 
         #endregion Properties
+
+        #region Methods (4)
+
+        // Protected Methods (4) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ConsoleBase.GetNewLineForOutput()" />
+        protected override string GetNewLineForOutput()
+        {
+            return global::System.Console.Out.NewLine;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ConsoleBase.OnClear()" />
+        protected override void OnClear()
+        {
+            global::System.Console.Clear();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ConsoleBase.OnReadLine(TextWriter)" />
+        protected override void OnReadLine(TextWriter line)
+        {
+            line.Write(global::System.Console.ReadLine());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ConsoleBase.OnWrite(string)" />
+        protected override void OnWrite(string text)
+        {
+            global::System.Console.Write(text);
+        }
+
+        #endregion Methods
     }
 }

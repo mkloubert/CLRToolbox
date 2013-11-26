@@ -4,6 +4,7 @@
 
 
 using System;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Impl;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
@@ -55,12 +56,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
 
         bool global::System.Windows.Input.ICommand.CanExecute(object parameter)
         {
-            return this.CanExecute(Converter.Current.ChangeType<TParam>(parameter));
+            return this.CanExecute(GlobalConverter.Current
+                                                  .ChangeType<TParam>(parameter));
         }
 
         void global::System.Windows.Input.ICommand.Execute(object parameter)
         {
-            this.Execute(Converter.Current.ChangeType<TParam>(parameter));
+            this.Execute(GlobalConverter.Current
+                                        .ChangeType<TParam>(parameter));
         }
 
         #endregion Methods

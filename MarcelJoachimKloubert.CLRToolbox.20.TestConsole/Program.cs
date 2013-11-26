@@ -4,16 +4,15 @@ namespace MarcelJoachimKloubert.CLRToolbox._20.TestConsole
 {
     class Program
     {
+        #region Methods (1)
+
+        // Private Methods (1) 
+
         static void Main(string[] args)
         {
-            TMConsole.Out = delegate(string txt, ConsoleColor? fc, ConsoleColor? bg)
-            {
-                Console.WriteLine();
-            };
-
-            TMConsole.Write("wurst");
-
             Console.ReadLine();
         }
+
+        #endregion Methods
     }
 }

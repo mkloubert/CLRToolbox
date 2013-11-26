@@ -78,14 +78,14 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Converter.cs">
-      <Link>Converter.cs</Link>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\ConverterBase.cs">
       <Link>Data\ConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\GlobalConverter.cs">
+      <Link>Data\GlobalConverter.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IConverter.cs">
       <Link>Data\IConverter.cs</Link>
@@ -180,11 +180,23 @@
       <Link>Helpers\CollectionHelper.AsArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AsSequence.cs">
+      <Link>Helpers\CollectionHelper.AsSequence.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Cast.cs">
+      <Link>Helpers\CollectionHelper.Cast.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.cs">
       <Link>Helpers\CollectionHelper.ToArray.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
+      <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.Constructor.cs">
@@ -245,6 +257,13 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ConsoleBase.cs">
       <Link>IO\ConsoleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ConsoleBase.Interface.cs">
+      <Link>IO\ConsoleBase.Interface.cs</Link>
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\GlobalConsole.cs">
+      <Link>IO\GlobalConsole.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IConsole.cs">
       <Link>IO\IConsole.cs</Link>
@@ -313,9 +332,6 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
-      <Link>TMConsole.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>

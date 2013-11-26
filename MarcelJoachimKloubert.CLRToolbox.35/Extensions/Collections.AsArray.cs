@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections;
 using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
@@ -10,9 +11,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
     static partial class ClrToolboxExtensionMethods
     {
-        #region Methods (1)
+        #region Methods (2)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
 
         /// <summary>
         /// 
@@ -21,6 +22,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         public static T[] AsArray<T>(this IEnumerable<T> seq)
         {
             return CollectionHelper.AsArray<T>(seq);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.AsArray(IEnumerable)" />
+        public static object[] AsArray(this IEnumerable seq)
+        {
+            return CollectionHelper.AsArray(seq);
         }
 
         #endregion Methods

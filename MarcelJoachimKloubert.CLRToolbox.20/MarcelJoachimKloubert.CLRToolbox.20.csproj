@@ -65,7 +65,20 @@
     <Compile Include="Data\CommonConverter.cs" />
     <Compile Include="Data\ConverterBase.cs" />
     <Compile Include="Data\IConverter.cs" />
+    <Compile Include="Helpers\CollectionHelper.Cast.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.AsSequence.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.ToArray.IEnumerable.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\ConsoleBase.cs" />
+    <Compile Include="IO\ConsoleBase.Interface.cs">
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\GlobalConsole.cs" />
     <Compile Include="IO\IConsole.cs" />
     <Compile Include="Diagnostics\Execution\Impl\DelegateLogCommand.cs" />
     <Compile Include="Diagnostics\Execution\ILogCommand.cs" />
@@ -183,8 +196,7 @@
       <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
     </Compile>
     <Compile Include="TMApplication.cs" />
-    <Compile Include="TMConsole.cs" />
-    <Compile Include="Converter.cs" />
+    <Compile Include="Data\GlobalConverter.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="TMObject.cs" />
   </ItemGroup>

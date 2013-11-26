@@ -3,14 +3,12 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using MarcelJoachimKloubert.CLRToolbox.Data;
-
-namespace MarcelJoachimKloubert.CLRToolbox
+namespace MarcelJoachimKloubert.CLRToolbox.Data
 {
     /// <summary>
     /// Access to a global <see cref="IConverter" /> object.
     /// </summary>
-    public static partial class Converter
+    public static partial class GlobalConverter
     {
         #region Fields (1)
 
@@ -21,9 +19,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
         #region Constructors (1)
 
         /// <summary>
-        /// Initializes the <see cref="Converter" /> class.
+        /// Initializes the <see cref="GlobalConverter" /> class.
         /// </summary>
-        static Converter()
+        static GlobalConverter()
         {
             SetConverter(new CommonConverter());
         }
@@ -49,7 +47,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <summary>
         /// Describes the logic that returns the global converter.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The provided <see cref="IConverter" /> object.</returns>
         public delegate IConverter ConverterProvider();
 
         #endregion Delegates and Events
@@ -59,19 +57,19 @@ namespace MarcelJoachimKloubert.CLRToolbox
         // Public Methods (2) 
 
         /// <summary>
-        /// Sets the value for <see cref="Converter.Current" />.
+        /// Sets the value for <see cref="GlobalConverter.Current" />.
         /// </summary>
         /// <param name="newConverter">The new converter.</param>
         public static void SetConverter(IConverter newConverter)
         {
             SetConverterProvider(newConverter == null ? null : new ConverterProvider(delegate()
-                {
-                    return newConverter;
-                }));
+            {
+                return newConverter;
+            }));
         }
 
         /// <summary>
-        /// Sets the logic that returns the value for <see cref="Converter.Current" />.
+        /// Sets the logic that returns the value for <see cref="GlobalConverter.Current" />.
         /// </summary>
         /// <param name="newProvider">The new provider delegate.</param>
         public static void SetConverterProvider(ConverterProvider newProvider)

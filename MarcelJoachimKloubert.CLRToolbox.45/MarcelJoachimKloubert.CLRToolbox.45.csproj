@@ -90,14 +90,14 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\configuration\impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Converter.cs">
-      <Link>Converter.cs</Link>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\ConverterBase.cs">
       <Link>Data\ConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\GlobalConverter.cs">
+      <Link>Data\GlobalConverter.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\IConverter.cs">
       <Link>Data\IConverter.cs</Link>
@@ -180,8 +180,16 @@
       <Link>Helpers\CollectionHelper.AsArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AsSequence.cs">
+      <Link>Helpers\CollectionHelper.AsSequence.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
+      <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.cs">
       <Link>Helpers\MethodHelper.cs</Link>
@@ -233,6 +241,13 @@
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\ConsoleBase.cs">
       <Link>IO\ConsoleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ConsoleBase.Interface.cs">
+      <Link>IO\ConsoleBase.Interface.cs</Link>
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\GlobalConsole.cs">
+      <Link>IO\GlobalConsole.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\IConsole.cs">
       <Link>IO\IConsole.cs</Link>
@@ -298,9 +313,6 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
-      <Link>TMConsole.cs</Link>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>
     </Compile>
@@ -319,6 +331,10 @@
       <Link>Extensions\Collections.AsArray.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.AsSequence.cs">
+      <Link>Extensions\Collections.AsSequence.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.cs">
       <Link>Extensions\Collections.cs</Link>
     </Compile>
@@ -328,6 +344,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.Shuffle.cs">
       <Link>Extensions\Collections.Shuffle.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ToArray.cs">
+      <Link>Extensions\Collections.ToArray.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.cs">
@@ -378,6 +398,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.IsNullOrWhiteSpace.cs">
       <Link>Extensions\Strings.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>Strings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">
+      <Link>Helpers\CollectionHelper.Cast.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.ToArray.cs">
       <Link>Helpers\CollectionHelper.ToArray.cs</Link>

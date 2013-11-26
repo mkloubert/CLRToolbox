@@ -4,15 +4,16 @@
 
 
 
+using System.Collections;
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     static partial class CollectionHelper
     {
-        #region Methods (1)
+        #region Methods (2)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
 
         /// <summary>
         /// Converts or casts a sequence to an array.
@@ -37,6 +38,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
 
             return ToArray<T>(seq);
+        }
+
+        /// <summary>
+        /// Converts or casts a general sequence to an object array.
+        /// </summary>
+        /// <param name="seq">The sequence to convert / cast.</param>
+        /// <returns><paramref name="seq" /> as array.</returns>
+        /// <remarks>
+        /// If <paramref name="seq" /> is <see langword="null" /> the result will also be <see langword="null" />.
+        /// If <paramref name="seq" /> is already an array, it is simply casted.
+        /// </remarks>
+        public static object[] AsArray(IEnumerable seq)
+        {
+            return AsArray<object>(AsSequence<object>(seq));
         }
 
         #endregion Methods

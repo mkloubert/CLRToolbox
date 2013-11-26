@@ -5,6 +5,7 @@
 
 using System;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 {
@@ -154,20 +155,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  foreach (object a in args)
                                  {
-                                     ConsoleColor? oldTxtColor = TMConsole.ForegroundColor;
-                                     ConsoleColor? oldBgColor = TMConsole.BackgroundColor;
+                                     ConsoleColor? oldTxtColor = GlobalConsole.Current.ForegroundColor;
+                                     ConsoleColor? oldBgColor = GlobalConsole.Current.BackgroundColor;
 
                                      try
                                      {
-                                         TMConsole.ForegroundColor = ConsoleColor.White;
-                                         TMConsole.BackgroundColor = ConsoleColor.Black;
+                                         GlobalConsole.Current.ForegroundColor = ConsoleColor.White;
+                                         GlobalConsole.Current.BackgroundColor = ConsoleColor.Black;
 
-                                         TMConsole.WriteLine(a);
+                                         GlobalConsole.Current.WriteLine(a);
                                      }
                                      finally
                                      {
-                                         TMConsole.BackgroundColor = oldBgColor;
-                                         TMConsole.ForegroundColor = oldTxtColor;
+                                         GlobalConsole.Current.BackgroundColor = oldBgColor;
+                                         GlobalConsole.Current.ForegroundColor = oldTxtColor;
                                      }
                                  }
                              }));
@@ -185,7 +186,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 .SetFunction(COMMON_FUNCNAME_CLEAR_SCREEN,
                              new NoParamAction(delegate()
                              {
-                                 TMConsole.Clear();
+                                 GlobalConsole.Current.Clear();
                              }));
 
             return this;
@@ -201,7 +202,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                 .SetFunction(COMMON_FUNCNAME_READ_LINE,
                              new NoParamFunc<string>(delegate()
                              {
-                                 return TMConsole.ReadLine();
+                                 return GlobalConsole.Current.ReadLine();
                              }));
 
             return this;
@@ -237,7 +238,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  if (args.Length == 1)
                                  {
-                                     TMConsole.Write(args[0]);
+                                     GlobalConsole.Current.Write(args[0]);
                                  }
                                  else if (args.Length > 1)
                                  {
@@ -246,7 +247,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                      object[] formatArgs = new object[args.Length - 1];
                                      Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
 
-                                     TMConsole.Write(format, formatArgs);
+                                     GlobalConsole.Current.Write(format, formatArgs);
                                  }
                              }));
 
@@ -270,11 +271,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                                  if (args.Length < 1)
                                  {
-                                     TMConsole.WriteLine();
+                                     GlobalConsole.Current.WriteLine();
                                  }
                                  else if (args.Length == 1)
                                  {
-                                     TMConsole.WriteLine(args[0]);
+                                     GlobalConsole.Current.WriteLine(args[0]);
                                  }
                                  else if (args.Length > 1)
                                  {
@@ -283,7 +284,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                      object[] formatArgs = new object[args.Length - 1];
                                      Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
 
-                                     TMConsole.WriteLine(format, formatArgs);
+                                     GlobalConsole.Current.WriteLine(format, formatArgs);
                                  }
                              }));
 

@@ -9,6 +9,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Linq.Expressions;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
@@ -163,10 +164,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                 @params = new object[0];
             }
 
-            return Converter.Current
-                            .ChangeType<R>(getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
-                                                                  .MakeGenericMethod(serviceType)
-                                                                  .Invoke(container, @params));
+            return GlobalConverter.Current
+                                  .ChangeType<R>(getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
+                                                                        .MakeGenericMethod(serviceType)
+                                                                        .Invoke(container, @params));
         }
 
         #endregion Methods

@@ -10,50 +10,42 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <summary>
     /// A basic thread safe disposable object.
     /// </summary>
-    public abstract class TMDisposableBase : TMObject, ITMDisposable
+    public abstract class DisposableBase : TMObject, ITMDisposable
     {
-        #region Fields (2)
+        #region Fields (1)
 
         private bool _isDisposed;
-        /// <summary>
-        /// Stores an unique object for sync operations.
-        /// </summary>
-        protected readonly object _SYNC;
 
         #endregion Fields
 
         #region Constructors (3)
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TMDisposableBase" /> class.
+        /// Initializes a new instance of the <see cref="DisposableBase" /> class.
         /// </summary>
         /// <param name="syncRoot">The unique object for sync operations.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="syncRoot" /> is <see langword="null" />.
         /// </exception>
-        protected TMDisposableBase(object syncRoot)
-        {
-            if (syncRoot == null)
-            {
-                throw new ArgumentNullException("syncRoot");
-            }
-
-            this._SYNC = syncRoot;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TMDisposableBase" /> class.
-        /// </summary>
-        protected TMDisposableBase()
-            : this(new object())
+        protected DisposableBase(object syncRoot)
+            : base(syncRoot)
         {
 
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="TMDisposableBase" /> class.
+        /// Initializes a new instance of the <see cref="DisposableBase" /> class.
         /// </summary>
-        ~TMDisposableBase()
+        protected DisposableBase()
+            : base()
+        {
+
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="DisposableBase" /> class.
+        /// </summary>
+        ~DisposableBase()
         {
             this.DisposeInner(false);
         }
@@ -109,11 +101,11 @@ namespace MarcelJoachimKloubert.CLRToolbox
         // Protected Methods (3) 
 
         /// <summary>
-        /// The logic for the <see cref="TMDisposableBase.Dispose()" /> method
+        /// The logic for the <see cref="DisposableBase.Dispose()" /> method
         /// and the finalizer.
         /// </summary>
         /// <param name="disposing">
-        /// Is called from <see cref="TMDisposableBase.Dispose()" /> method (<see langword="true" />)
+        /// Is called from <see cref="DisposableBase.Dispose()" /> method (<see langword="true" />)
         /// or the finalizer (<see langword="false" />).
         /// </param>
         protected abstract void OnDispose(bool disposing);

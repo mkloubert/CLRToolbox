@@ -274,7 +274,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                  }
                                  else if (args.Length == 1)
                                  {
-                                     TMConsole.Write(args[0]);
+                                     TMConsole.WriteLine(args[0]);
                                  }
                                  else if (args.Length > 1)
                                  {
@@ -283,7 +283,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                      object[] formatArgs = new object[args.Length - 1];
                                      Array.Copy(args, 1, formatArgs, 0, formatArgs.Length);
 
-                                     TMConsole.Write(format, formatArgs);
+                                     TMConsole.WriteLine(format, formatArgs);
                                  }
                              }));
 

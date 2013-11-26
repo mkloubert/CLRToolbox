@@ -238,8 +238,8 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
 
                                                      var asm = Assembly.LoadFile(asmFile.FullName);
 
-                                                     var functionsToRegister = new Dictionary<string, Delegate>();
-                                                     var typesToExpose = new Dictionary<Type, string>();
+                                                     IDictionary<string, Delegate> functionsToRegister;
+                                                     IDictionary<Type, string> typesToExpose;
                                                      this.ExportTypesAndFunctions(asm,
                                                                                   out functionsToRegister,
                                                                                   out typesToExpose);

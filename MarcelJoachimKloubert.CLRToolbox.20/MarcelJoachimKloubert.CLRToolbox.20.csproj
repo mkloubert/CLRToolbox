@@ -62,6 +62,11 @@
     <Compile Include="Configuration\ConfigRepositoryBase.cs" />
     <Compile Include="Configuration\IConfigRepository.cs" />
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />
+    <Compile Include="Data\CommonConverter.cs" />
+    <Compile Include="Data\ConverterBase.cs" />
+    <Compile Include="Data\IConverter.cs" />
+    <Compile Include="IO\ConsoleBase.cs" />
+    <Compile Include="IO\IConsole.cs" />
     <Compile Include="Diagnostics\Execution\Impl\DelegateLogCommand.cs" />
     <Compile Include="Diagnostics\Execution\ILogCommand.cs" />
     <Compile Include="Diagnostics\Execution\ILogCommandExecutionContext.cs" />
@@ -147,6 +152,7 @@
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="IIdentifiable.cs" />
+    <Compile Include="IO\SystemConsole.cs" />
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
@@ -178,8 +184,8 @@
     </Compile>
     <Compile Include="TMApplication.cs" />
     <Compile Include="TMConsole.cs" />
-    <Compile Include="TMConvert.cs" />
-    <Compile Include="TMDisposableBase.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="DisposableBase.cs" />
     <Compile Include="TMObject.cs" />
   </ItemGroup>
   <ItemGroup>

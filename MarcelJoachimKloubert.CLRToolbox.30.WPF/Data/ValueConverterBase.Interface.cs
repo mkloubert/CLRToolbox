@@ -12,15 +12,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return this.Convert(TMConvert.ChangeType<TInput>(value),
-                                TMConvert.ChangeType<TParam>(parameter),
+            return this.Convert(Converter.Current.ChangeType<TInput>(value),
+                                Converter.Current.ChangeType<TParam>(parameter),
                                 culture);
         }
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return this.ConvertBack(TMConvert.ChangeType<TOutput>(value),
-                                    TMConvert.ChangeType<TParam>(parameter),
+            return this.ConvertBack(Converter.Current.ChangeType<TOutput>(value),
+                                    Converter.Current.ChangeType<TParam>(parameter),
                                     culture);
         }
 

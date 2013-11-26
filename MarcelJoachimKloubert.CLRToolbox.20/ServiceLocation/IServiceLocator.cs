@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
     /// <summary>
     /// Describes an object for locating service objects.
     /// </summary>
-    public interface IServiceLocator : IServiceProvider
+    public interface IServiceLocator : ITMObject, IServiceProvider
     {
         #region Operations (8)
 

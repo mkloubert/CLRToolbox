@@ -15,23 +15,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     /// </summary>
     public abstract partial class LoggerFacadeBase : TMObject, ILoggerFacade
     {
-        #region Fields (2)
+        #region Fields (1)
 
         private readonly Action<ILogMessage> _ON_LOG_ACTION;
-        /// <summary>
-        /// An unique object for thread-safe operations.
-        /// </summary>
-        protected readonly object _SYNC = new object();
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (4)
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoggerFacadeBase" /> class.
+        /// Initializes a new instance of the <see cref="LoggerFacadeBase"/> class.
         /// </summary>
-        /// <param name="isThreadSafe">Logging should be thread-safe or not.</param>
-        protected LoggerFacadeBase(bool isThreadSafe)
+        /// <param name="isThreadSafe">Object is thread safe or not.</param>
+        /// <param name="syncRoot">The unique object for sync operations.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        protected LoggerFacadeBase(bool isThreadSafe, object syncRoot)
+            : base(syncRoot)
         {
             if (isThreadSafe)
             {
@@ -44,9 +45,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoggerFacadeBase" /> class.
+        /// Initializes a new instance of the <see cref="LoggerFacadeBase"/> class.
         /// </summary>
-        /// <remarks>Logging is thread safe.</remarks>
+        /// <param name="isThreadSafe">Object is thread safe or not.</param>
+        protected LoggerFacadeBase(bool isThreadSafe)
+            : this(isThreadSafe, new object())
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoggerFacadeBase"/> class.
+        /// </summary>
+        /// <param name="syncRoot">The unique object for sync operations.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        protected LoggerFacadeBase(object syncRoot)
+            : this(true, syncRoot)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoggerFacadeBase"/> class.
+        /// </summary>
         protected LoggerFacadeBase()
             : this(true)
         {

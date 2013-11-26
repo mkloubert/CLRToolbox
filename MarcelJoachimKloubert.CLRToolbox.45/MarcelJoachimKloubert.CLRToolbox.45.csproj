@@ -90,6 +90,18 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\configuration\impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Converter.cs">
+      <Link>Converter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
+      <Link>Data\CommonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\ConverterBase.cs">
+      <Link>Data\ConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\IConverter.cs">
+      <Link>Data\IConverter.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\execution\ILogCommand.cs">
       <Link>Diagnostics\Execution\ILogCommand.cs</Link>
     </Compile>
@@ -144,6 +156,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
       <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\DisposableBase.cs">
+      <Link>DisposableBase.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\CommandBase.cs">
       <Link>Execution\CommandBase.cs</Link>
@@ -216,6 +231,15 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IIdentifiable.cs">
       <Link>IIdentifiable.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\ConsoleBase.cs">
+      <Link>IO\ConsoleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\IConsole.cs">
+      <Link>IO\IConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.cs">
+      <Link>IO\SystemConsole.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMDisposable.cs">
       <Link>ITMDisposable.cs</Link>
     </Compile>
@@ -276,12 +300,6 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConsole.cs">
       <Link>TMConsole.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMConvert.cs">
-      <Link>TMConvert.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMDisposableBase.cs">
-      <Link>TMDisposableBase.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>

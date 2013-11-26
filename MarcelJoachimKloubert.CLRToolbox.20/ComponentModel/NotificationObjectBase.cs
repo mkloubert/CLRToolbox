@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
 using System.ComponentModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
@@ -13,16 +14,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     public abstract partial class NotificationObjectBase : TMObject,
                                                            INotificationObject
     {
-        #region Fields (1)
+        #region Constructors (4)
 
         /// <summary>
-        /// An unique object for sync operations.
+        /// Initializes a new instance of the <see cref="NotificationObjectBase"/> class.
         /// </summary>
-        protected readonly object _SYNC = new object();
-
-        #endregion Fields
-
-        #region Constructors (2)
+        /// <param name="invokeOnConstructor">
+        /// Invoke <see cref="NotificationObjectBase.OnConstructor()" /> method or not.
+        /// </param>
+        /// <param name="syncRoot">The unique object for sync operations.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        protected NotificationObjectBase(bool invokeOnConstructor, object syncRoot)
+            : base(syncRoot)
+        {
+            if (invokeOnConstructor)
+            {
+                this.OnConstructor();
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationObjectBase"/> class.
@@ -31,11 +42,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// Invoke <see cref="NotificationObjectBase.OnConstructor()" /> method or not.
         /// </param>
         protected NotificationObjectBase(bool invokeOnConstructor)
+            : this(invokeOnConstructor, new object())
         {
-            if (invokeOnConstructor)
-            {
-                this.OnConstructor();
-            }
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotificationObjectBase"/> class.
+        /// </summary>
+        /// <param name="syncRoot">The unique object for sync operations.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        protected NotificationObjectBase(object syncRoot)
+            : this(true, syncRoot)
+        {
+
         }
 
         /// <summary>

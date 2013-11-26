@@ -14,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     /// <summary>
     /// A basic object for execute a script.
     /// </summary>
-    public abstract partial class ScriptExecutorBase : TMDisposableBase, IScriptExecutor
+    public abstract partial class ScriptExecutorBase : DisposableBase, IScriptExecutor
     {
         #region Constructors (2)
 
@@ -246,8 +246,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <paramref name="asm" /> is <see langword="null" />.
         /// </exception>
         protected virtual void ExportTypesAndFunctions(Assembly asm,
-                                                       out Dictionary<string, Delegate> exportedFuncs,
-                                                       out Dictionary<Type, string> exportedTypes)
+                                                       out IDictionary<string, Delegate> exportedFuncs,
+                                                       out IDictionary<Type, string> exportedTypes)
         {
             if (asm == null)
             {
@@ -354,7 +354,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <exception cref="ArgumentNullException">
         /// <paramref name="asm" /> is <see langword="null" />.
         /// </exception>
-        protected bool IsTrustedAssembly(Assembly asm)
+        protected virtual bool IsTrustedAssembly(Assembly asm)
         {
             if (asm == null)
             {
@@ -372,7 +372,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <exception cref="ArgumentNullException">
         /// <paramref name="method" /> is <see langword="null" />.
         /// </exception>
-        protected bool IsTrustedMethod(MethodBase method)
+        protected virtual bool IsTrustedMethod(MethodBase method)
         {
             if (method == null)
             {
@@ -400,7 +400,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <exception cref="ArgumentNullException">
         /// <paramref name="type" /> is <see langword="null" />.
         /// </exception>
-        protected bool IsTrustedType(Type type)
+        protected virtual bool IsTrustedType(Type type)
         {
             if (type == null)
             {

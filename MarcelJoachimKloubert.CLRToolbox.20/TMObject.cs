@@ -12,11 +12,47 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public partial class TMObject : MarshalByRefObject, ITMObject
     {
-        #region Fields (1)
+        #region Fields (2)
 
+        /// <summary>
+        /// An unique object for sync operations.
+        /// </summary>
+        [NonSerializedAttribute]
+        protected readonly object _SYNC;
+        [NonSerializedAttribute]
         private object _tag;
 
         #endregion Fields
+
+        #region Constructors (2)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TMObject" /> class.
+        /// </summary>
+        /// <param name="syncRoot">The value for <see cref="TMObject._SYNC" /> field..</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        public TMObject(object syncRoot)
+        {
+            if (syncRoot == null)
+            {
+                throw new ArgumentNullException("syncRoot");
+            }
+
+            this._SYNC = syncRoot;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TMObject" /> class.
+        /// </summary>
+        public TMObject()
+            : this(new object())
+        {
+
+        }
+
+        #endregion Constructors
 
         #region Properties (1)
 

@@ -11,41 +11,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
     /// <summary>
     /// A basic object that locates service instances.
     /// </summary>
-    public abstract partial class ServiceLocatorBase : IServiceLocator
+    public abstract partial class ServiceLocatorBase : TMObject, IServiceLocator
     {
-        #region Fields (1)
-
-        /// <summary>
-        /// Stores the object for thread safe operations.
-        /// </summary>
-        protected readonly object _SYNC;
-
-        #endregion Fields
-
         #region Constructors (2)
 
         /// /// <summary>
-        /// Initislaizes a new instance of the <see cref="ServiceLocatorBase" /> class.
+        /// Initializes a new instance of the <see cref="ServiceLocatorBase" /> class.
         /// </summary>
-        /// <param name="syncRoot">The value for the <see cref="ServiceLocatorBase._SYNC" /> field.</param>
+        /// <param name="syncRoot">The value for the <see cref="TMObject._SYNC" /> field.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="syncRoot" /> is <see langword="null" />.
         /// </exception>
         protected ServiceLocatorBase(object syncRoot)
+            : base(syncRoot)
         {
-            if (syncRoot == null)
-            {
-                throw new ArgumentNullException("syncRoot");
-            }
 
-            this._SYNC = syncRoot;
         }
 
         /// <summary>
-        /// Initislaizes a new instance of the <see cref="ServiceLocatorBase" /> class.
+        /// Initializes a new instance of the <see cref="ServiceLocatorBase" /> class.
         /// </summary>
         protected ServiceLocatorBase()
-            : this(new object())
+            : base()
         {
 
         }

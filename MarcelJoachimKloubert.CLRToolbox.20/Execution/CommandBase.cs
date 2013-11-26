@@ -13,21 +13,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
     /// <typeparam name="TParam">Type of the parameters.</typeparam>
     public abstract class CommandBase<TParam> : TMObject, ICommand<TParam>
     {
-        #region Fields (1)
+        #region Constructors (2)
 
         /// <summary>
-        /// An unique object for thread safe operations.
+        /// Initializes a new instance of the <see cref="CommandBase{TParam}" /> class.
         /// </summary>
-        protected readonly object _SYNC = new object();
+        /// <param name="syncRoot">The unique object for sync operations.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        protected CommandBase(object syncRoot)
+            : base(syncRoot)
+        {
 
-        #endregion Fields
-
-        #region Constructors (1)
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandBase{TParam}" /> class.
         /// </summary>
         protected CommandBase()
+            : base()
         {
 
         }

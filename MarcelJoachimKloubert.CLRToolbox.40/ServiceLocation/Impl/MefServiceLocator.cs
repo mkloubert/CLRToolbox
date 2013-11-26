@@ -33,7 +33,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
         /// initializes a new instance of the <see cref="ExportProviderServiceLocator" /> class.
         /// </summary>
         /// <param name="provider">The underlying <see cref="ExportProvider" />.</param>
-        /// <param name="sync">The value for the <see cref="ServiceLocatorBase._SYNC" /> field.</param>
+        /// <param name="sync">The value for the <see cref="TMObject._SYNC" /> field.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="provider" /> and/or <paramref name="sync" /> are <see langword="null" />.
         /// </exception>
@@ -163,7 +163,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                 @params = new object[0];
             }
 
-            return TMConvert.ChangeType<R>(getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
+            return Converter.Current
+                            .ChangeType<R>(getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
                                                                   .MakeGenericMethod(serviceType)
                                                                   .Invoke(container, @params));
         }

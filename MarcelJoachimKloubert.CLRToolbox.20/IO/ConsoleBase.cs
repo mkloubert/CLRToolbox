@@ -16,13 +16,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// </summary>
     public abstract partial class ConsoleBase : TMObject, IConsole
     {
-        #region Fields (2)
-
-        private ConsoleColor? _backgroundColor;
-        private ConsoleColor? _foregroundColor;
-
-        #endregion Fields
-
         #region Constructors (2)
 
         /// <summary>
@@ -49,48 +42,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Methods (13)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.BackgroundColor" />
-        public virtual ConsoleColor? BackgroundColor
-        {
-            get { return this._backgroundColor; }
-
-            set { this._backgroundColor = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.ForegroundColor" />
-        public virtual ConsoleColor? ForegroundColor
-        {
-            get { return this._foregroundColor; }
-
-            set { this._foregroundColor = value; }
-        }
-
-        #endregion Properties
-
-        #region Methods (15)
-
-        // Public Methods (9) 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.Clear()" />
-        public ConsoleBase Clear()
-        {
-            lock (this._SYNC)
-            {
-                this.OnClear();
-                return this;
-            }
-        }
+        // Public Methods (8) 
 
         /// <summary>
         /// 
@@ -184,7 +138,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                                                           this.ToConsoleArguments(CollectionHelper.AsArray(args))),
                                             this.GetNewLineForOutput()));
         }
-        // Protected Methods (6) 
+        // Protected Methods (5) 
 
         /// <summary>
         /// Returns the expression that represents a new line for console output.
@@ -194,11 +148,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         {
             return Environment.NewLine;
         }
-
-        /// <summary>
-        /// The logic for <see cref="ConsoleBase.Clear()" /> method.
-        /// </summary>
-        protected abstract void OnClear();
 
         /// <summary>
         /// The logic for <see cref="ConsoleBase.ReadLine()" /> method.

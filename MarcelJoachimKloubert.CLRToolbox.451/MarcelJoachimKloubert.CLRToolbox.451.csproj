@@ -225,6 +225,9 @@
       <Link>Helpers\StringHelper.AsString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsStringExtension.cs">
+      <Link>StringHelper.AsStringExtension.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>
     </Compile>
@@ -233,6 +236,10 @@
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\ConsoleBase.cs">
       <Link>IO\ConsoleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ConsoleBase.dotNET.cs">
+      <Link>IO\ConsoleBase.dotNET.cs</Link>
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ConsoleBase.Interface.cs">
       <Link>IO\ConsoleBase.Interface.cs</Link>
@@ -244,8 +251,16 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\IConsole.cs">
       <Link>IO\IConsole.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IConsole.dotNET.cs">
+      <Link>IO\IConsole.dotNET.cs</Link>
+      <DependentUpon>IConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.cs">
       <Link>IO\SystemConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.dotNET.cs">
+      <Link>IO\SystemConsole.dotNET.cs</Link>
+      <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMDisposable.cs">
       <Link>ITMDisposable.cs</Link>
@@ -307,6 +322,14 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.dotNET.cs">
+      <Link>TMObject.dotNET.cs</Link>
+      <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.Fields.cs">
+      <Link>TMObject.Fields.cs</Link>
+      <DependentUpon>TMObject.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\ComponentModel\NotificationObjectBase.PropertyChange35.cs">
       <Link>ComponentModel\NotificationObjectBase.PropertyChange35.cs</Link>

@@ -14,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     static partial class StringHelper
     {
-        #region Methods (2)
+        #region Methods (3)
 
         // Public Methods (2) 
 
@@ -68,11 +68,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 // char sequence / array
                 return new string(CollectionHelper.AsArray(obj as IEnumerable<char>));
             }
-            else if (obj is XmlNode)
-            {
-                // old skool XML
-                return ((XmlNode)obj).OuterXml;
-            }
             else if (obj is TextReader)
             {
                 // read text to end
@@ -81,7 +76,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             else if (obj is IEnumerable<byte>)
             {
                 // handle blob as UTF-8 string
-                return Encoding.UTF8.GetString(CollectionHelper.AsArray(obj as IEnumerable<byte>));
+                byte[] utf8Blob = CollectionHelper.AsArray(obj as IEnumerable<byte>);
+
+                return Encoding.UTF8.GetString(utf8Blob, 0, utf8Blob.Length);
             }
             else if (obj is Stream)
             {
@@ -110,19 +107,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                 return AsString(xml, true);
             }
-            else if (obj is XmlReader)
+
+            bool extensionHandled = false;
+            StringBuilder extensionResultBuilder = new StringBuilder();
+            AsStringExtension(obj,
+                              ref extensionHandled,
+                              ref extensionResultBuilder);
+
+            if (extensionHandled)
             {
-                XmlReader xmlReader = (XmlReader)obj;
-
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlReader);
-
-                return AsString(xmlDoc, true);
+                return extensionResultBuilder != null ? extensionResultBuilder.ToString() : null;
             }
 
             // use default
             return obj.ToString();
         }
+        // Private Methods (1) 
+
+        static partial void AsStringExtension(object obj, ref bool handled, ref StringBuilder result);
 
         #endregion Methods
     }

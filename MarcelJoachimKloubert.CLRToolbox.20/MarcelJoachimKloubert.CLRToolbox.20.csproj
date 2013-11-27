@@ -74,7 +74,13 @@
     <Compile Include="Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.AsStringExtension.cs">
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\ConsoleBase.cs" />
+    <Compile Include="IO\ConsoleBase.dotNET.cs">
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\ConsoleBase.Interface.cs">
       <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
@@ -165,7 +171,13 @@
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="IIdentifiable.cs" />
+    <Compile Include="IO\IConsole.dotNET.cs">
+      <DependentUpon>IConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\SystemConsole.cs" />
+    <Compile Include="IO\SystemConsole.dotNET.cs">
+      <DependentUpon>SystemConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
@@ -199,6 +211,12 @@
     <Compile Include="Data\GlobalConverter.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="TMObject.cs" />
+    <Compile Include="TMObject.dotNET.cs">
+      <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TMObject.Fields.cs">
+      <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\LICENSE">

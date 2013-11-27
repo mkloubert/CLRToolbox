@@ -13,7 +13,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
     /// </summary>
     public interface IScriptExecutor : ITMDisposable
     {
-        #region Operations (7)
+        #region Operations (9)
+
+        /// <summary>
+        /// Executes a script.
+        /// </summary>
+        /// <param name="src">The source code of the script.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ObjectDisposedException">Object has already been disposed.</exception>
+        /// <remarks>Script is automatically started and is NOT set to debug mode.</remarks>
+        IScriptExecutionContext Execute(IEnumerable<char> src);
+
+        /// <summary>
+        /// Executes a script.
+        /// </summary>
+        /// <param name="src">The source code of the script.</param>
+        /// <param name="autoStart">Start script execution automatically or not.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ObjectDisposedException">Object has already been disposed.</exception>
+        /// <remarks>Script is NOT set to debug mode.</remarks>
+        IScriptExecutionContext Execute(IEnumerable<char> src,
+                                        bool autoStart);
 
         /// <summary>
         /// Executes a script.
@@ -24,8 +44,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// <returns>The execution context.</returns>
         /// <exception cref="ObjectDisposedException">Object has already been disposed.</exception>
         IScriptExecutionContext Execute(IEnumerable<char> src,
-                                        bool autoStart = true,
-                                        bool debug = false);
+                                        bool autoStart,
+                                        bool debug);
 
         /// <summary>
         /// Exposes a type.

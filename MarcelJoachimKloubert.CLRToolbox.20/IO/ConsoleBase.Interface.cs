@@ -9,14 +9,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
     partial class ConsoleBase
     {
-        #region Methods (8)
+        #region Methods (7)
 
-        // Private Methods (8) 
-
-        IConsole IConsole.Clear()
-        {
-            return this.Clear();
-        }
+        // Private Methods (7) 
 
         IConsole IConsole.Write(object obj)
         {

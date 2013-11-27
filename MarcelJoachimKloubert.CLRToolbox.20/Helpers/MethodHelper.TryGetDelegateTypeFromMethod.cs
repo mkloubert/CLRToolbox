@@ -45,7 +45,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                 foreach (Type type in KNOWN_ACTION_TYPES)
                 {
-                    if (type.GetGenericArguments().LongLength == @params.LongLength)
+                    if (type.GetGenericArguments().Length == @params.Length)
                     {
                         delegateType = type;
                         break;
@@ -59,8 +59,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                 foreach (Type type in KNOWN_FUNC_TYPES)
                 {
-                    if (type.GetGenericArguments().LongLength ==
-                        @params.LongLength + 1)
+                    if (type.GetGenericArguments().Length ==
+                        @params.Length + 1)
                     {
                         delegateType = type;
                         break;

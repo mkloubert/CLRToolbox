@@ -10,20 +10,8 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <summary>
     /// The mother of all objects.
     /// </summary>
-    public partial class TMObject : MarshalByRefObject, ITMObject
+    public partial class TMObject : ITMObject
     {
-        #region Fields (2)
-
-        /// <summary>
-        /// An unique object for sync operations.
-        /// </summary>
-        [NonSerializedAttribute]
-        protected readonly object _SYNC;
-        [NonSerializedAttribute]
-        private object _tag;
-
-        #endregion Fields
-
         #region Constructors (2)
 
         /// <summary>

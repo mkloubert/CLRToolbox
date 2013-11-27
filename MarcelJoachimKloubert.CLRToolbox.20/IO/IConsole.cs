@@ -3,7 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System;
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.IO
@@ -11,29 +10,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// <summary>
     /// Describes a console.
     /// </summary>
-    public interface IConsole : ITMObject
+    public partial interface IConsole : ITMObject
     {
-        #region Data Members (2)
-
-        /// <summary>
-        /// Gets or sets the background color.
-        /// </summary>
-        ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text color.
-        /// </summary>
-        ConsoleColor? ForegroundColor { get; set; }
-
-        #endregion Data Members
-
-        #region Operations (9)
-
-        /// <summary>
-        /// Clears the console.
-        /// </summary>
-        /// <returns>That instance.</returns>
-        IConsole Clear();
+        #region Operations (8)
 
         /// <summary>
         /// Reads the current line of console input.

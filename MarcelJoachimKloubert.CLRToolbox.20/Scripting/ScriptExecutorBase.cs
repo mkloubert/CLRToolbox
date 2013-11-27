@@ -51,14 +51,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// </summary>
         /// <param name="args">The parameters for the procedure.</param>
         public delegate void SimpleAction(params object[] args);
-
         /// <summary>
         /// Describes a function with a variable number of parameters and a variable result type.
         /// </summary>
         /// <param name="args">The parameters for the function.</param>
         /// <returns>The result of the function.</returns>
         public delegate object SimpleFunc(params object[] args);
-
         /// <summary>
         /// Describes a function with a variable number of parameters and a nullable <see cref="bool" /> as result type.
         /// </summary>
@@ -68,17 +66,35 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
         #endregion Delegates and Events
 
-        #region Methods (12)
+        #region Methods (14)
 
-        // Public Methods (7) 
+        // Public Methods (9) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IScriptExecutor.Execute(IEnumerable{char})" />
+        public IScriptExecutionContext Execute(IEnumerable<char> src)
+        {
+            return this.Execute(src, true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IScriptExecutor.Execute(IEnumerable{char}, bool)" />
+        public IScriptExecutionContext Execute(IEnumerable<char> src, bool autoStart)
+        {
+            return this.Execute(src, autoStart, false);
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IScriptExecutor.Execute(IEnumerable{char}, bool, bool)" />
         public IScriptExecutionContext Execute(IEnumerable<char> src,
-                                               bool autoStart = true,
-                                               bool debug = false)
+                                               bool autoStart,
+                                               bool debug)
         {
             lock (this._SYNC)
             {
@@ -273,9 +289,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                 object[] allExpTypeAttribs = type.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Scripting.Export.ExportScriptTypeAttribute),
                                                                       false);
-                if (allExpTypeAttribs.LongLength > 0)
+                if (allExpTypeAttribs.Length > 0)
                 {
-                    ExportScriptTypeAttribute expTypeAttrib = (ExportScriptTypeAttribute)allExpTypeAttribs[allExpTypeAttribs.LongLength - 1];
+                    ExportScriptTypeAttribute expTypeAttrib = (ExportScriptTypeAttribute)allExpTypeAttribs[allExpTypeAttribs.Length - 1];
                     if (StringHelper.IsNullOrWhiteSpace(expTypeAttrib.Alias))
                     {
                         exportedTypes[type] = null;
@@ -303,7 +319,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
 
                     object[] allExpFuncAttribs = method.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Scripting.Export.ExportScriptFuncAttribute),
                                                                             false);
-                    if (allExpFuncAttribs.LongLength < 1)
+                    if (allExpFuncAttribs.Length < 1)
                     {
                         continue;
                     }
@@ -333,7 +349,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                                                             method);
                     }
 
-                    ExportScriptFuncAttribute expFuncAttrib = (ExportScriptFuncAttribute)allExpFuncAttribs[allExpFuncAttribs.LongLength - 1];
+                    ExportScriptFuncAttribute expFuncAttrib = (ExportScriptFuncAttribute)allExpFuncAttribs[allExpFuncAttribs.Length - 1];
                     if (StringHelper.IsNullOrWhiteSpace(expFuncAttrib.Alias))
                     {
                         exportedFuncs[method.Name] = @delegate;

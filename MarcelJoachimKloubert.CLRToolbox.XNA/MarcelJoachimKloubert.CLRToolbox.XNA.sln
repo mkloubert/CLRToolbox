@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.XNA.40", "MarcelJoachimKloubert.CLRToolbox.XNA.40\MarcelJoachimKloubert.CLRToolbox.XNA.40.csproj", "{4539ED98-7BD8-4090-BAF3-7176A8F9B25F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A0725A8B-388C-4325-9922-4A4FD00BDA7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGame1", "TestGame1\TestGame1\TestGame1.csproj", "{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TestGame1Content", "TestGame1\TestGame1Content\TestGame1Content.contentproj", "{B44E8778-DDB9-45BD-A1B4-B4EFF0C04966}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Windows Phone = Debug|Windows Phone
@@ -13,8 +19,20 @@ Global
 		{4539ED98-7BD8-4090-BAF3-7176A8F9B25F}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
 		{4539ED98-7BD8-4090-BAF3-7176A8F9B25F}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
 		{4539ED98-7BD8-4090-BAF3-7176A8F9B25F}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+		{B44E8778-DDB9-45BD-A1B4-B4EFF0C04966}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{B44E8778-DDB9-45BD-A1B4-B4EFF0C04966}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8AEE3A56-BF49-4F93-B97C-0B9B58ED5BFA} = {A0725A8B-388C-4325-9922-4A4FD00BDA7B}
+		{B44E8778-DDB9-45BD-A1B4-B4EFF0C04966} = {A0725A8B-388C-4325-9922-4A4FD00BDA7B}
 	EndGlobalSection
 EndGlobal

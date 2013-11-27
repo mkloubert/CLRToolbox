@@ -41,14 +41,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         /// 
         /// </summary>
         /// <see cref="ConverterBase.ChangeType{T}(object)" />
-        public override T ChangeType<T>(object value)
+        public override T ChangeType<T>(object value, IFormatProvider provider)
         {
             if (value is T)
             {
                 return (T)value;
             }
 
-            return value != null ? (T)global::System.Convert.ChangeType(value, typeof(T)) : default(T);
+            return value != null ? (T)global::System.Convert.ChangeType(value, typeof(T), provider) : default(T);
         }
 
         #endregion Methods

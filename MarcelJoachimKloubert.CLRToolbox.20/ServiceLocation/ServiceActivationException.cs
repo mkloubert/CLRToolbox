@@ -4,14 +4,13 @@
 
 
 using System;
-using System.Runtime.Serialization;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 {
     /// <summary>
     /// Is thrown if a service could be be located by a <see cref="IServiceLocator" /> object.
     /// </summary>
-    public class ServiceActivationException : Exception
+    public partial class ServiceActivationException : Exception
     {
         #region Fields (1)
 
@@ -22,7 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 
         #endregion Fields
 
-        #region Constructors (3)
+        #region Constructors (2)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceActivationException" /> class.
@@ -65,18 +64,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 
             this.ServiceType = serviceType;
             this.Key = key;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Exception.Exception(SerializationInfo, StreamingContext)" />
-        protected ServiceActivationException(SerializationInfo info,
-                                             StreamingContext context)
-            : base(info,
-                   context)
-        {
-
         }
 
         #endregion Constructors

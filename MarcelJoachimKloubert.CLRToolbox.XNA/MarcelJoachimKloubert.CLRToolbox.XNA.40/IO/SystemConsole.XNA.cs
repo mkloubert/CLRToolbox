@@ -1,10 +1,10 @@
-namespace MarcelJoachimKloubert.CLRToolbox.IO
+ï»¿namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
     partial class SystemConsole
     {
-        #region Methods (1)
+        #regionÂ MethodsÂ (1)
 
-        // Protected Methods (1) 
+        //Â ProtectedÂ MethodsÂ (1)Â 
 
         /// <summary>
         /// 
@@ -15,6 +15,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             // dummy
         }
 
-        #endregion Methods
+        #endregionÂ Methods
     }
 }

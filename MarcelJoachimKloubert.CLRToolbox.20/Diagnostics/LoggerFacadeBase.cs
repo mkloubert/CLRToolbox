@@ -78,7 +78,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         #endregion Constructors
 
-        #region Methods (10)
+        #region Methods (11)
 
         // Public Methods (5) 
 
@@ -188,7 +188,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             LogMessage result = new LogMessage();
             result.Assembly = src.Assembly;
             result.Categories = src.Categories;
-            result.Context = src.Context;
             result.Id = Guid.NewGuid();
             result.Member = src.Member;
             result.Message = msgVal;
@@ -196,6 +195,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             result.Tag = src.Tag;
             result.Thread = src.Thread;
             result.Time = src.Time;
+
+            CreateCopyOfLogMessageExtension(src, result, msgVal);
 
             return result;
         }
@@ -205,7 +206,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// </summary>
         /// <param name="msg">The message to log.</param>
         protected abstract void OnLog(ILogMessage msg);
-        // Private Methods (2) 
+        // Private Methods (3) 
+
+        static partial void CreateCopyOfLogMessageExtension(ILogMessage src, LogMessage copy, object msgVal);
 
         private void OnLog_NonThreadSafe(ILogMessage msg)
         {

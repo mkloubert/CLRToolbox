@@ -4,7 +4,6 @@
 
 
 using System;
-using System.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution
 {
@@ -13,10 +12,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
     /// with a parameter.
     /// </summary>
     /// <typeparam name="TParam">Type of the parameter.</typeparam>
-    public class ExecutionErrorEventArgs<TParam> : ErrorEventArgs
+    public class ExecutionErrorEventArgs<TParam> : EventArgs
     {
-        #region Fields (1)
+        #region Fields (2)
 
+        private Exception _exception;
         private TParam _parameter;
 
         #endregion Fields
@@ -30,15 +30,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         /// The value for <see cref="ExecutionErrorEventArgs{TParam}.Parameter" /> property.
         /// </param>
         /// <param name="exception">The exception that was thrown.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="exception" /> is <see langword="null" />.
+        /// </exception>
         public ExecutionErrorEventArgs(TParam param, Exception exception)
-            : base(exception)
         {
+            if (exception == null)
+            {
+                throw new ArgumentNullException("exception");
+            }
+
             this._parameter = param;
+            this._exception = exception;
         }
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
+
+        /// <summary>
+        /// Gets the underlying exception.
+        /// </summary>
+        public Exception Exception
+        {
+            get { return this._exception; }
+        }
 
         /// <summary>
         /// Gets the underlying parameter.

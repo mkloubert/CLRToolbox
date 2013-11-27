@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #endregion Data Members
 
-        #region Operations (9)
+        #region Operations (20)
 
         /// <summary>
         /// Clears all categories and values.
@@ -40,9 +40,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// Checks if a value exists.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="category">The optional category.</param>
         /// <returns>Value exists or not.</returns>
-        bool ContainsValue(IEnumerable<char> name, IEnumerable<char> category = null);
+        bool ContainsValue(IEnumerable<char> name);
+
+        /// <summary>
+        /// Checks if a value exists.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="category">The category.</param>
+        /// <returns>Value exists or not.</returns>
+        bool ContainsValue(IEnumerable<char> name, IEnumerable<char> category);
+
+        /// <summary>
+        /// Deletes a value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>Value was deleted or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
+        bool DeleteValue(IEnumerable<char> name);
 
         /// <summary>
         /// Deletes a value.
@@ -51,7 +66,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <param name="category">The optional category.</param>
         /// <returns>Value was deleted or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
-        bool DeleteValue(IEnumerable<char> name, IEnumerable<char> category = null);
+        bool DeleteValue(IEnumerable<char> name, IEnumerable<char> category);
 
         /// <summary>
         /// Returns the list of category names.
@@ -63,11 +78,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// Returns a config value.
         /// </summary>
         /// <param name="name">The name.</param>
+        /// <returns>The value.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Value does not exist.</exception>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        object GetValue(IEnumerable<char> name);
+
+        /// <summary>
+        /// Returns a config value strong typed.
+        /// </summary>
+        /// <typeparam name="T">The result type.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <returns>The value.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Value does not exist.</exception>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        T GetValue<T>(IEnumerable<char> name);
+
+        /// <summary>
+        /// Returns a config value.
+        /// </summary>
+        /// <param name="name">The name.</param>
         /// <param name="category">The optional category.</param>
         /// <returns>The value.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Value does not exist.</exception>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
-        object GetValue(IEnumerable<char> name, IEnumerable<char> category = null);
+        object GetValue(IEnumerable<char> name, IEnumerable<char> category);
 
         /// <summary>
         /// Returns a config value strong typed.
@@ -78,7 +112,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <returns>The value.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Value does not exist.</exception>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
-        T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category = null);
+        T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category);
+
+        /// <summary>
+        /// Sets a config value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value to set.</param>
+        /// <returns>Value was set (write operation was done) or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
+        bool SetValue(IEnumerable<char> name, object value);
+
+        /// <summary>
+        /// Sets a config value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value to set.</param>
+        /// <returns>Value was set (write operation was done) or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
+        bool SetValue<T>(IEnumerable<char> name, T value);
 
         /// <summary>
         /// Sets a config value.
@@ -88,7 +140,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <param name="category">The optional category.</param>
         /// <returns>Value was set (write operation was done) or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
-        bool SetValue(IEnumerable<char> name, object value, IEnumerable<char> category = null);
+        bool SetValue(IEnumerable<char> name, object value, IEnumerable<char> category);
 
         /// <summary>
         /// Sets a config value.
@@ -98,7 +150,47 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <param name="category">The optional category.</param>
         /// <returns>Value was set (write operation was done) or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
-        bool SetValue<T>(IEnumerable<char> name, T value, IEnumerable<char> category = null);
+        bool SetValue<T>(IEnumerable<char> name, T value, IEnumerable<char> category);
+
+        /// <summary>
+        /// Tries to return a config value.
+        /// </summary>
+        /// <typeparam name="T">The target type.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The variable where to found value to.</param>
+        /// <returns>Value was found or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        bool TryGetValue<T>(IEnumerable<char> name, out T value);
+
+        /// <summary>
+        /// Tries to return a config value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The variable where to found value to.</param>
+        /// <returns>Value was found or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        bool TryGetValue(IEnumerable<char> name, out object value);
+
+        /// <summary>
+        /// Tries to return a config value.
+        /// </summary>
+        /// <typeparam name="T">The target type.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The variable where to found value to.</param>
+        /// <param name="category">The optional category.</param>
+        /// <returns>Value was found or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category);
+
+        /// <summary>
+        /// Tries to return a config value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The variable where to found value to.</param>
+        /// <param name="category">The optional category.</param>
+        /// <returns>Value was found or not.</returns>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category);
 
         /// <summary>
         /// Tries to return a config value.
@@ -111,9 +203,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// </param>
         /// <returns>Value was found or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
-        bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category = null, object defaultVal = null);
-
-        #endregion Operations
+        bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category, object defaultVal);
 
         /// <summary>
         /// Tries to return a config value.
@@ -127,6 +217,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// </param>
         /// <returns>Value was found or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
-        bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category = null, T defaultVal = default(T));
+        bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, T defaultVal);
+
+        #endregion Operations
     }
 }

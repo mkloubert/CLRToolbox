@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.Remoting.Contexts;
 using System.Security.Principal;
 using System.Threading;
 
@@ -16,14 +15,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     {
         #region Nested Classes (1)
 
-        [Serializable]
-        private sealed class LogMessage : TMObject, ILogMessage
+        private sealed partial class LogMessage : TMObject, ILogMessage
         {
-            #region Fields (10)
+            #region Fields (9)
 
             private Assembly _assembly;
             private IList<LoggerFacadeCategories> _categories;
-            private Context _context;
             private Guid _id;
             private string _logTag;
             private MemberInfo _member;
@@ -34,7 +31,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
             #endregion Fields
 
-            #region Properties (10)
+            #region Properties (9)
 
             public Assembly Assembly
             {
@@ -48,13 +45,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 get { return this._categories; }
 
                 set { this._categories = value; }
-            }
-
-            public Context Context
-            {
-                get { return this._context; }
-
-                set { this._context = value; }
             }
 
             public Guid Id

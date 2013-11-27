@@ -21,27 +21,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         #region Fields (6)
 
         private TExecutor _executor;
-
         /// <summary>
         /// The common name of a function that shows an alert message at the standard output.
         /// </summary>
         public const string COMMON_FUNCNAME_ALERT = "alert";
-
         /// <summary>
         /// The common name of a function that clears the standard output.
         /// </summary>
         public const string COMMON_FUNCNAME_CLEAR_SCREEN = "cls";
-
         /// <summary>
         /// The common name of a function that reads a text line from the standard input.
         /// </summary>
         public const string COMMON_FUNCNAME_READ_LINE = "readline";
-
         /// <summary>
         /// The common name of a function that writes to the standard output.
         /// </summary>
         public const string COMMON_FUNCNAME_WRITE = "write";
-
         /// <summary>
         /// The common name of a function that writes to the standard output with adding a new line expression.
         /// </summary>
@@ -78,7 +73,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
         /// Describes an action without parameters.
         /// </summary>
         public delegate void NoParamAction();
-
         /// <summary>
         /// Describes a function without parameters.
         /// </summary>

@@ -65,6 +65,12 @@
     <Compile Include="Data\CommonConverter.cs" />
     <Compile Include="Data\ConverterBase.cs" />
     <Compile Include="Data\IConverter.cs" />
+    <Compile Include="Diagnostics\ILogMessage.dotNET.cs">
+      <DependentUpon>ILogMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
+      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.Cast.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -202,6 +208,9 @@
     </Compile>
     <Compile Include="ServiceLocation\IServiceLocator.cs" />
     <Compile Include="ServiceLocation\ServiceActivationException.cs" />
+    <Compile Include="ServiceLocation\ServiceActivationException.dotNET.cs">
+      <DependentUpon>ServiceActivationException.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServiceLocation\ServiceLocator.cs" />
     <Compile Include="ServiceLocation\ServiceLocatorBase.cs" />
     <Compile Include="ServiceLocation\ServiceLocatorBase.Interface.cs">

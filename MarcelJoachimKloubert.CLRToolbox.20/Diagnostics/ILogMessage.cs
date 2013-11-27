@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.Remoting.Contexts;
 using System.Security.Principal;
 using System.Threading;
 
@@ -15,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     /// <summary>
     /// Describes an object that stores the data of a log message.
     /// </summary>
-    public interface ILogMessage : IIdentifiable
+    public partial interface ILogMessage : IIdentifiable
     {
         #region Data Members (9)
 
@@ -28,11 +27,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// Gets the list of underlying categories.
         /// </summary>
         IList<LoggerFacadeCategories> Categories { get; }
-
-        /// <summary>
-        /// Gets the underyling context.
-        /// </summary>
-        Context Context { get; }
 
         /// <summary>
         /// Gets the tag.

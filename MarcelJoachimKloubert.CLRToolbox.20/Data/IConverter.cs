@@ -4,6 +4,7 @@
 
 
 
+using System;
 namespace MarcelJoachimKloubert.CLRToolbox.Data
 {
     /// <summary>
@@ -11,7 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
     /// </summary>
     public interface IConverter : ITMObject
     {
-        #region Operations (1)
+        #region Operations (2)
 
         /// <summary>
         /// Changes a value to a target type if needed.
@@ -19,6 +20,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         /// <param name="value">The value to cast / convert.</param>
         /// <returns>The converted / casted version of <paramref name="value" />.</returns>
         T ChangeType<T>(object value);
+
+        /// <summary>
+        /// Changes a value to a target type if needed.
+        /// </summary>
+        /// <param name="value">The value to cast / convert.</param>
+        /// <param name="provider">The format provider to use.</param>
+        /// <returns>The converted / casted version of <paramref name="value" />.</returns>
+        T ChangeType<T>(object value, IFormatProvider provider);
 
         #endregion Operations
     }

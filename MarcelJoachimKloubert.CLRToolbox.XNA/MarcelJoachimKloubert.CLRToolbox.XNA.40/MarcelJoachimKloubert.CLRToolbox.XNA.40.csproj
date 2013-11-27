@@ -60,8 +60,133 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\DelegateEqualityComparer.cs">
+      <Link>Collections\Generic\DelegateEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
+      <Link>ComponentModel\INotificationObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
+      <Link>ComponentModel\INotificationObject.INotifyPropertyChanging.cs</Link>
+      <DependentUpon>INotificationObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
+      <Link>ComponentModel\NotificationObjectBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChanging.cs">
+      <Link>ComponentModel\NotificationObjectBase.PropertyChanging.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.Tag.cs">
+      <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
+      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
+      <Link>Configuration\ConfigRepositoryBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\IConfigRepository.cs">
+      <Link>Configuration\IConfigRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\KeyValuePairConfigRepository.cs">
+      <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
+      <Link>Data\CommonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\ConverterBase.cs">
+      <Link>Data\ConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\GlobalConverter.cs">
+      <Link>Data\GlobalConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\IConverter.cs">
+      <Link>Data\IConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommand.cs">
+      <Link>Diagnostics\Execution\ILogCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommandExecutionContext.cs">
+      <Link>Diagnostics\Execution\ILogCommandExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\ILogCommandExecutionResult.cs">
+      <Link>Diagnostics\Execution\ILogCommandExecutionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\Impl\DelegateLogCommand.cs">
+      <Link>Diagnostics\Execution\Impl\DelegateLogCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.Execute.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.Execute.cs</Link>
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.LogCommandExecutionContext.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.LogCommandExecutionContext.cs</Link>
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Execution\LogCommandBase.LogCommandExecutionResult.cs">
+      <Link>Diagnostics\Execution\LogCommandBase.LogCommandExecutionResult.cs</Link>
+      <DependentUpon>LogCommandBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\ILoggerFacade.cs">
+      <Link>Diagnostics\ILoggerFacade.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\ILogMessage.cs">
+      <Link>Diagnostics\ILogMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AggregateLogger.cs">
+      <Link>Diagnostics\Impl\AggregateLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.cs">
+      <Link>Diagnostics\Impl\AsyncLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.ctor.cs">
+      <Link>Diagnostics\Impl\AsyncLogger.ctor.cs</Link>
+      <DependentUpon>AsyncLogger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.OnLog.cs">
+      <Link>Diagnostics\Impl\AsyncLogger.OnLog.cs</Link>
+      <DependentUpon>AsyncLogger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DelegateLogger.cs">
+      <Link>Diagnostics\Impl\DelegateLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerCategories.cs">
+      <Link>Diagnostics\LoggerCategories.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.cs">
+      <Link>Diagnostics\LoggerFacadeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogInner.cs">
+      <Link>Diagnostics\LoggerFacadeBase.LogInner.cs</Link>
+      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.cs">
+      <Link>Diagnostics\LoggerFacadeBase.LogMessage.cs</Link>
+      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
+      <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\DisposableBase.cs">
       <Link>DisposableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\CommandBase.cs">
+      <Link>Execution\CommandBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ExecutionErrorEventArgs.cs">
+      <Link>Execution\ExecutionErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ICommand.cs">
+      <Link>Execution\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Impl\DelegateCommand.cs">
+      <Link>Execution\Impl\DelegateCommand.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AddRange.cs">
       <Link>Helpers\CollectionHelper.AddRange.cs</Link>
@@ -92,6 +217,33 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs">
       <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
       <DependentUpon>MethodHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.cs">
+      <Link>Helpers\ScriptHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetAction.cs">
+      <Link>Helpers\ScriptHelper.SetAction.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetPredicate.cs">
+      <Link>Helpers\ScriptHelper.SetPredicate.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimpleAction.cs">
+      <Link>Helpers\ScriptHelper.SetSimpleAction.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimpleFunc.cs">
+      <Link>Helpers\ScriptHelper.SetSimpleFunc.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimplePredicate.cs">
+      <Link>Helpers\ScriptHelper.SetSimplePredicate.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.SetSimplePredicateWrapper.cs">
+      <Link>Helpers\ScriptHelper.SetSimplePredicateWrapper.cs</Link>
+      <DependentUpon>ScriptHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
@@ -153,21 +305,120 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.Collections.cs">
       <Link>Scripting\ScriptExecutorBase.Collections.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.cs">
       <Link>Scripting\ScriptExecutorBase.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.Interface.cs">
       <Link>Scripting\ScriptExecutorBase.Interface.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.OnExecuteContext.cs">
       <Link>Scripting\ScriptExecutorBase.OnExecuteContext.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
+      <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\IServiceLocator.cs">
+      <Link>ServiceLocation\IServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceActivationException.cs">
+      <Link>ServiceLocation\ServiceActivationException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocator.cs">
+      <Link>ServiceLocation\ServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.Interface.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.Interface.cs</Link>
+      <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ClrToolboxExtensionMethods.cs">
+      <Link>Extensions\ClrToolboxExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.AddRange.cs">
+      <Link>Extensions\Collections.AddRange.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.AsArray.cs">
+      <Link>Extensions\Collections.AsArray.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.AsSequence.cs">
+      <Link>Extensions\Collections.AsSequence.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.cs">
+      <Link>Extensions\Collections.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.Randomize.cs">
+      <Link>Extensions\Collections.Randomize.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.Shuffle.cs">
+      <Link>Extensions\Collections.Shuffle.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ToArray.cs">
+      <Link>Extensions\Collections.ToArray.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.cs">
+      <Link>Extensions\LinqExpressions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.GetMemberName.cs">
+      <Link>Extensions\LinqExpressions.GetMemberName.cs</Link>
+      <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.cs">
+      <Link>Extensions\Scripting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetAction.cs">
+      <Link>Extensions\Scripting.SetAction.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetFunc.cs">
+      <Link>Extensions\Scripting.SetFunc.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetPredicate.cs">
+      <Link>Extensions\Scripting.SetPredicate.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetSimpleAction.cs">
+      <Link>Extensions\Scripting.SetSimpleAction.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetSimpleFunc.cs">
+      <Link>Extensions\Scripting.SetSimpleFunc.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetSimplePredicate.cs">
+      <Link>Extensions\Scripting.SetSimplePredicate.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.SetSimplePredicateWrapper.cs">
+      <Link>Extensions\Scripting.SetSimplePredicateWrapper.cs</Link>
+      <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.AsString.cs">
+      <Link>Extensions\Strings.AsString.cs</Link>
+      <DependentUpon>Strings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.cs">
+      <Link>Extensions\Strings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.IsNullOrWhiteSpace.cs">
+      <Link>Extensions\Strings.IsNullOrWhiteSpace.cs</Link>
+      <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">
       <Link>Helpers\CollectionHelper.Cast.cs</Link>
@@ -186,7 +437,7 @@
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.AsStringExtension.cs" />
-    <Compile Include="IO\System.Console.XNA.cs" />
+    <Compile Include="IO\SystemConsole.XNA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TMObject.Fields.cs" />
     <Compile Include="_Compatibility\System\ConsoleColor.cs" />

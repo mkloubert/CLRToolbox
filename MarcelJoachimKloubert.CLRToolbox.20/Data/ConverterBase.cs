@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Threading;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data
 {
@@ -38,15 +39,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         #endregion Constructors
 
-        #region Methods (1)
+        #region Methods (2)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IConverter.ChangeType{T}(object)" />
-        public abstract T ChangeType<T>(object value);
+        public virtual T ChangeType<T>(object value)
+        {
+            return this.ChangeType<T>(value, Thread.CurrentThread.CurrentCulture);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConverter.ChangeType{T}(object, IFormatProvider)" />
+        public abstract T ChangeType<T>(object value, IFormatProvider provider);
 
         #endregion Methods
     }

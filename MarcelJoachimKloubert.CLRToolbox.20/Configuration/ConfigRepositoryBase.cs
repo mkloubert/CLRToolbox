@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Configuration
@@ -70,9 +71,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #endregion Properties
 
-        #region Methods (21)
+        #region Methods (32)
 
-        // Public Methods (9) 
+        // Public Methods (20) 
 
         /// <summary>
         /// 
@@ -94,8 +95,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IConfigRepository.ContainsValue(IEnumerable{char})" />
+        public bool ContainsValue(IEnumerable<char> name)
+        {
+            return this.ContainsValue(name, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IConfigRepository.ContainsValue(IEnumerable{char}, IEnumerable{char})" />
-        public bool ContainsValue(IEnumerable<char> name, IEnumerable<char> category = null)
+        public bool ContainsValue(IEnumerable<char> name, IEnumerable<char> category)
         {
             lock (this._SYNC)
             {
@@ -114,8 +124,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IConfigRepository.DeleteValue(IEnumerable{char})" />
+        public bool DeleteValue(IEnumerable<char> name)
+        {
+            return this.DeleteValue(name, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IConfigRepository.DeleteValue(IEnumerable{char}, IEnumerable{char})" />
-        public bool DeleteValue(IEnumerable<char> name, IEnumerable<char> category = null)
+        public bool DeleteValue(IEnumerable<char> name, IEnumerable<char> category)
         {
             lock (this._SYNC)
             {
@@ -157,8 +176,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IConfigRepository.GetValue(IEnumerable{char})" />
+        public object GetValue(IEnumerable<char> name)
+        {
+            return this.GetValue(name, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.GetValue{T}(IEnumerable{char})" />
+        public T GetValue<T>(IEnumerable<char> name)
+        {
+            return this.GetValue<T>(name, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IConfigRepository.GetValue(IEnumerable{char}, IEnumerable{char})" />
-        public object GetValue(IEnumerable<char> name, IEnumerable<char> category = null)
+        public object GetValue(IEnumerable<char> name, IEnumerable<char> category)
         {
             return this.GetValue<object>(name, category);
         }
@@ -167,7 +204,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// 
         /// </summary>
         /// <see cref="IConfigRepository.GetValue{T}(IEnumerable{char}, IEnumerable{char})" />
-        public T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category = null)
+        public T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category)
         {
             T result;
             if (!this.TryGetValue<T>(name, out result, category))
@@ -182,7 +219,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// 
         /// </summary>
         /// <see cref="IConfigRepository.SetValue(IEnumerable{char}, object, IEnumerable{char})" />
-        public bool SetValue(IEnumerable<char> name, object value, IEnumerable<char> category = null)
+        public bool SetValue(IEnumerable<char> name, object value)
+        {
+            return this.SetValue(name, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.SetValue{T}(IEnumerable{char}, T)" />
+        public bool SetValue<T>(IEnumerable<char> name, T value)
+        {
+            return this.SetValue<T>(name, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.SetValue(IEnumerable{char}, object, IEnumerable{char})" />
+        public bool SetValue(IEnumerable<char> name, object value, IEnumerable<char> category)
         {
             return this.SetValue<object>(name, value, category);
         }
@@ -191,7 +246,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// 
         /// </summary>
         /// <see cref="IConfigRepository.SetValue{T}(IEnumerable{char}, T, IEnumerable{char})" />
-        public bool SetValue<T>(IEnumerable<char> name, T value, IEnumerable<char> category = null)
+        public bool SetValue<T>(IEnumerable<char> name, T value, IEnumerable<char> category)
         {
             lock (this._SYNC)
             {
@@ -214,13 +269,85 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T)" />
+        public bool TryGetValue<T>(IEnumerable<char> name, out T value)
+        {
+            return this.TryGetValue<T>(name, out value, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.TryGetValue(IEnumerable{char}, out object)" />
+        public bool TryGetValue(IEnumerable<char> name, out object value)
+        {
+            return this.TryGetValue(name, out value, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T, IEnumerable{char})" />
+        public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category)
+        {
+            return this.TryGetValue<T>(name, out value, category, default(T));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.TryGetValue(IEnumerable{char}, out object, IEnumerable{char})" />
+        public bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category)
+        {
+            return this.TryGetValue(name, out value, category, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IConfigRepository.TryGetValue(IEnumerable{char}, out object, IEnumerable{char}, object)" />
-        public bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category = null, object defaultVal = null)
+        public bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category, object defaultVal)
         {
             return this.TryGetValue<object>(name,
                                             out value,
                                             category,
                                             defaultVal);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T, IEnumerable{char}, T)" />
+        public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, T defaultVal)
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfNotReadable();
+
+                bool result = false;
+
+                string configCategory;
+                string configName;
+                this.PrepareCategoryAndName(category, name,
+                                            out configCategory, out configName);
+
+                T foundValue = default(T);
+                this.OnTryGetValue<T>(configCategory, configName,
+                                      ref foundValue,
+                                      ref result);
+
+                if (result)
+                {
+                    value = foundValue;
+                }
+                else
+                {
+                    // not found => use default
+                    value = defaultVal;
+                }
+
+                return result;
+            }
         }
         // Protected Methods (12) 
 
@@ -250,12 +377,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                 input = null;
             }
 
-            if (input is T)
-            {
-                return (T)input;
-            }
-
-            return input != null ? (T)global::System.Convert.ChangeType(input, typeof(T)) : default(T);
+            return GlobalConverter.Current.ChangeType<T>(input);
         }
 
         /// <summary>
@@ -388,41 +510,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         }
 
         #endregion Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T, IEnumerable{char}, T)" />
-        public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category = null, T defaultVal = default(T))
-        {
-            lock (this._SYNC)
-            {
-                this.ThrowIfNotReadable();
-
-                bool result = false;
-
-                string configCategory;
-                string configName;
-                this.PrepareCategoryAndName(category, name,
-                                            out configCategory, out configName);
-
-                T foundValue = default(T);
-                this.OnTryGetValue<T>(configCategory, configName,
-                                      ref foundValue,
-                                      ref result);
-
-                if (result)
-                {
-                    value = foundValue;
-                }
-                else
-                {
-                    // not found => use default
-                    value = defaultVal;
-                }
-
-                return result;
-            }
-        }
     }
 }

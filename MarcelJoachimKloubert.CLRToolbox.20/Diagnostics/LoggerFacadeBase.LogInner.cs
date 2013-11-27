@@ -16,9 +16,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 {
     partial class LoggerFacadeBase
     {
-        #region Methods (1)
+        #region Methods (2)
 
-        // Private Methods (1) 
+        // Private Methods (2) 
 
         private void LogInner(DateTimeOffset time,
                               Assembly asm,
@@ -71,15 +71,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                     {
                         Assembly = asm,
                         Categories = listOfCategories.ToArray(),
-                        Context = Thread.CurrentContext,
                         Id = Guid.NewGuid(),
                         Member = member,
                         Message = msg,
-                        Principal = Thread.CurrentPrincipal,
                         Tag = StringHelper.AsString(tag),
                         Thread = thread,
                         Time = time,
                     };
+
+                this.LogInnerExtension(orgMsg,
+                                       time,
+                                       asm,
+                                       categories,
+                                       tag,
+                                       msg);
 
                 ILogMessage messageToLog = orgMsg;
 
@@ -127,6 +132,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 // ignore errors
             }
         }
+
+        partial void LogInnerExtension(LogMessage logMsg,
+                                       DateTimeOffset time,
+                                       Assembly asm,
+                                       LoggerFacadeCategories? categories,
+                                       string tag,
+                                       object msg);
 
         #endregion Methods
     }

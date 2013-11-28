@@ -77,6 +77,15 @@
     <Compile Include="Helpers\CollectionHelper.AsSequence.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.FirstOrDefault.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.OfType.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.Single.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -206,6 +215,10 @@
     <Compile Include="Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceLocation\Impl\DelegateServiceLocator.Classes.cs">
+      <DependentUpon>DelegateServiceLocator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceLocation\Impl\DelegateServiceLocator.cs" />
     <Compile Include="ServiceLocation\IServiceLocator.cs" />
     <Compile Include="ServiceLocation\ServiceActivationException.cs" />
     <Compile Include="ServiceLocation\ServiceActivationException.dotNET.cs">
@@ -234,6 +247,9 @@
     <EmbeddedResource Include="..\README.md">
       <Link>README.md</Link>
     </EmbeddedResource>
+    <Compile Include="Helpers\CollectionHelper.Empty.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <None Include="MarcelJoachimKloubert.CLRToolbox.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

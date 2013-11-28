@@ -51,10 +51,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj">
-      <Project>{c24ae28b-5be0-44a7-9232-11e090aa0641}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.45</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer\MarcelJoachimKloubert.ApplicationServer.csproj">
       <Project>{9f006f97-a3b2-48e5-ba64-7f2df3c59c82}</Project>
       <Name>MarcelJoachimKloubert.ApplicationServer</Name>

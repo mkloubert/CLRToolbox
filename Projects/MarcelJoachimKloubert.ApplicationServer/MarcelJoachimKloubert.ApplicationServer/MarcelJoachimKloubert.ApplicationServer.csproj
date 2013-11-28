@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MarcelJoachimKloubert.ApplicationServer</RootNamespace>
     <AssemblyName>MarcelJoachimKloubert.ApplicationServer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -51,9 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj">
-      <Project>{c24ae28b-5be0-44a7-9232-11e090aa0641}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.45</Name>
+    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
+      <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MarcelJoachimKloubert.ScriptEngine\MarcelJoachimKloubert.ScriptEngine\MarcelJoachimKloubert.ScriptEngine.csproj">
       <Project>{20f680d2-6e89-43f2-8943-f848a763e788}</Project>

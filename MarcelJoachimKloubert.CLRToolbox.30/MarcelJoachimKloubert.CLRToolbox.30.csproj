@@ -199,6 +199,22 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Empty.cs">
+      <Link>Helpers\CollectionHelper.Empty.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.FirstOrDefault.cs">
+      <Link>Helpers\CollectionHelper.FirstOrDefault.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.OfType.cs">
+      <Link>Helpers\CollectionHelper.OfType.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Single.cs">
+      <Link>Helpers\CollectionHelper.Single.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.cs">
       <Link>Helpers\CollectionHelper.ToArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -337,6 +353,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\Impl\DelegateServiceLocator.Classes.cs">
+      <Link>ServiceLocation\Impl\DelegateServiceLocator.Classes.cs</Link>
+      <DependentUpon>DelegateServiceLocator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\Impl\DelegateServiceLocator.cs">
+      <Link>ServiceLocation\Impl\DelegateServiceLocator.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\IServiceLocator.cs">
       <Link>ServiceLocation\IServiceLocator.cs</Link>

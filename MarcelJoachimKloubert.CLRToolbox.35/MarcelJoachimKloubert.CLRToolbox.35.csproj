@@ -324,6 +324,13 @@
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\impl\DelegateServiceLocator.Classes.cs">
+      <Link>ServiceLocation\Impl\DelegateServiceLocator.Classes.cs</Link>
+      <DependentUpon>DelegateServiceLocator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\impl\DelegateServiceLocator.cs">
+      <Link>ServiceLocation\Impl\DelegateServiceLocator.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\IServiceLocator.cs">
       <Link>ServiceLocation\IServiceLocator.cs</Link>
     </Compile>
@@ -413,6 +420,10 @@
     </Compile>
     <Compile Include="Extensions\Strings.cs" />
     <Compile Include="Helpers\CollectionHelper.Cast.cs" />
+    <Compile Include="Helpers\CollectionHelper.Empty.cs" />
+    <Compile Include="Helpers\CollectionHelper.FirstOrDefault.cs" />
+    <Compile Include="Helpers\CollectionHelper.OfType.cs" />
+    <Compile Include="Helpers\CollectionHelper.Single.cs" />
     <Compile Include="Helpers\MethodHelper.Constructor.cs" />
     <Compile Include="Helpers\StringHelper.IsNullOrWhiteSpace.cs" />
     <Compile Include="Helpers\CollectionHelper.ToArray.cs" />

@@ -309,6 +309,13 @@
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\impl\DelegateServiceLocator.Classes.cs">
+      <Link>ServiceLocation\Impl\DelegateServiceLocator.Classes.cs</Link>
+      <DependentUpon>DelegateServiceLocator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\impl\DelegateServiceLocator.cs">
+      <Link>ServiceLocation\Impl\DelegateServiceLocator.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\IServiceLocator.cs">
       <Link>ServiceLocation\IServiceLocator.cs</Link>
     </Compile>
@@ -428,6 +435,22 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">
       <Link>Helpers\CollectionHelper.Cast.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Empty.cs">
+      <Link>Helpers\CollectionHelper.Empty.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.FirstOrDefault.cs">
+      <Link>Helpers\CollectionHelper.FirstOrDefault.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.OfType.cs">
+      <Link>Helpers\CollectionHelper.OfType.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Single.cs">
+      <Link>Helpers\CollectionHelper.Single.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.ToArray.cs">

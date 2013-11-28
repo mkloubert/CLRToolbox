@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.ApplicationServer.TestHost", "MarcelJoachimKloubert.ApplicationServer.TestHost\MarcelJoachimKloubert.ApplicationServer.TestHost.csproj", "{47D84D67-1309-4056-8E76-14373E1F4F1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45", "..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj", "{C24AE28B-5BE0-44A7-9232-11E090AA0641}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.ApplicationServer.SDK", "MarcelJoachimKloubert.ApplicationServer.SDK\MarcelJoachimKloubert.ApplicationServer.SDK.csproj", "{F66C16A4-703B-4F09-A78D-2ABB90030354}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.ScriptEngine", "..\MarcelJoachimKloubert.ScriptEngine\MarcelJoachimKloubert.ScriptEngine\MarcelJoachimKloubert.ScriptEngine.csproj", "{20F680D2-6E89-43F2-8943-F848A763E788}"
@@ -16,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Script Engine", "Script Engine", "{EABA26BD-B4AB-41CF-8AB1-9295F89E627E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{E3FBD307-AA4D-4676-9633-961CAA4B4CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40", "..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj", "{50E0CDB2-BC51-4C46-949A-387E3534041F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{47D84D67-1309-4056-8E76-14373E1F4F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D84D67-1309-4056-8E76-14373E1F4F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D84D67-1309-4056-8E76-14373E1F4F1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F66C16A4-703B-4F09-A78D-2ABB90030354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F66C16A4-703B-4F09-A78D-2ABB90030354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66C16A4-703B-4F09-A78D-2ABB90030354}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,6 +43,10 @@ Global
 		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

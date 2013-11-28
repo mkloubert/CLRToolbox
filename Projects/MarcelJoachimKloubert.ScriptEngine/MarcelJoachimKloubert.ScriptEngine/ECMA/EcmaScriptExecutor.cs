@@ -84,7 +84,7 @@ namespace MarcelJoachimKloubert.ScriptEngine.ECMA
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="TMDisposableBase.OnDispose(bool)"/>
+        /// <see cref="DisposableBase.OnDispose(bool)"/>
         protected override void OnDispose(bool disposing)
         {
             // dummy

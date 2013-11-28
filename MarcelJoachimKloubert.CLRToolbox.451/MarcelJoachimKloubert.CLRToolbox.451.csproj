@@ -465,6 +465,15 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.40\composition\InstanceComposerBase.cs">
+      <Link>Composition\InstanceComposerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.40\composition\MultiInstanceComposer.cs">
+      <Link>Composition\MultiInstanceComposer.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.40\composition\SingleInstanceComposer.cs">
+      <Link>Composition\SingleInstanceComposer.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Diagnostics\Execution\LogCommandBase.Execute.cs">
       <Link>Diagnostics\Execution\LogCommandBase.Execute.cs</Link>
       <DependentUpon>LogCommandBase.cs</DependentUpon>

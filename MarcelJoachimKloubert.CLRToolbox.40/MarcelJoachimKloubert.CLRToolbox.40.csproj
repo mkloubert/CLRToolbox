@@ -466,6 +466,9 @@
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Composition\InstanceComposerBase.cs" />
+    <Compile Include="Composition\MultiInstanceComposer.cs" />
+    <Compile Include="Composition\SingleInstanceComposer.cs" />
     <Compile Include="Diagnostics\Execution\LogCommandBase.Execute.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.ctor.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.OnLog.cs" />

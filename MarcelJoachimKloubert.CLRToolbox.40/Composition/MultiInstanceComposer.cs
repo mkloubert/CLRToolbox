@@ -11,7 +11,7 @@ using System.ComponentModel.Composition.Hosting;
 namespace MarcelJoachimKloubert.CLRToolbox.Composition
 {
     /// <summary>
-    /// A helper class for compositing a list of instances of a sepcific service.
+    /// A helper class for compositing a list of instances of a specific service.
     /// </summary>
     /// <typeparam name="T">Type of the service.</typeparam>
     public sealed class MultiInstanceComposer<T> : InstanceComposerBase

@@ -10,7 +10,7 @@ using System.ComponentModel.Composition.Hosting;
 namespace MarcelJoachimKloubert.CLRToolbox.Composition
 {
     /// <summary>
-    /// A helper class for compositing a single instance of a sepcific service.
+    /// A helper class for compositing a single instance of a specific service.
     /// </summary>
     /// <typeparam name="T">Type of the service.</typeparam>
     public sealed class SingleInstanceComposer<T> : InstanceComposerBase

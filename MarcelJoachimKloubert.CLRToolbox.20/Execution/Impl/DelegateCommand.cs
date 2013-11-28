@@ -101,7 +101,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         }
 
         #endregion Methods
-
     }
 
     #endregion

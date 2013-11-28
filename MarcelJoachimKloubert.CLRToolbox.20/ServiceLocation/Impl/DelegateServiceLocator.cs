@@ -19,6 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
         private readonly IDictionary<Type, InstanceProvider> _MULTI_PROVIDERS = new Dictionary<Type, InstanceProvider>();
         private readonly IDictionary<Type, InstanceProvider> _SINGLE_PROVIDERS = new Dictionary<Type, InstanceProvider>();
+        private readonly IServiceLocator _BASE_LOCATOR;
 
         #endregion Fields
 
@@ -35,7 +36,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
         public DelegateServiceLocator(IServiceLocator baseLocator, object syncRoot)
             : base(syncRoot)
         {
-
+            this._BASE_LOCATOR = baseLocator;
         }
 
         /// <summary>
@@ -66,8 +67,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
         /// </summary>
         public IServiceLocator BaseLocator
         {
-            get;
-            private set;
+            get { return this._BASE_LOCATOR; }
         }
 
         #endregion Properties
@@ -253,11 +253,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
             if (result == null)
             {
-                if (this.BaseLocator != null)
+                if (this._BASE_LOCATOR != null)
                 {
                     // use base service locator instead
 
-                    result = this.BaseLocator
+                    result = this._BASE_LOCATOR
                                  .GetAllInstances(serviceType, key);
                 }
             }
@@ -287,11 +287,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
             if (result == null)
             {
-                if (this.BaseLocator != null)
+                if (this._BASE_LOCATOR != null)
                 {
                     // use base service locator instead
 
-                    result = this.BaseLocator
+                    result = this._BASE_LOCATOR
                                  .GetAllInstances(serviceType, key);
                 }
             }

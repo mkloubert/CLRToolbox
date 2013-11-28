@@ -106,7 +106,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 throw new ArgumentNullException("msgObj");
             }
 
-            this._ON_LOG_ACTION(msgObj);
+            try
+            {
+                this._ON_LOG_ACTION(msgObj);
+            }
+            catch
+            {
+                // ignore errors
+            }
         }
 
         /// <summary>

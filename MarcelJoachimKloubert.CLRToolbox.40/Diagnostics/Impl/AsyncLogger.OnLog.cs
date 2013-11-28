@@ -20,11 +20,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         protected override void OnLog(ILogMessage msg)
         {
             Task.Factory
-                 .StartNew(action: this.OnLogAsync,
-                           state: msg,
-                           cancellationToken: this._TOKEN,
-                           creationOptions: this._OPTIONS,
-                           scheduler: this._SCHEDULER);
+                .StartNew(action: this.OnLogAsync,
+                          state: msg,
+                          cancellationToken: this._TOKEN,
+                          creationOptions: this._OPTIONS,
+                          scheduler: this._SCHEDULER);
         }
 
         #endregion Methods

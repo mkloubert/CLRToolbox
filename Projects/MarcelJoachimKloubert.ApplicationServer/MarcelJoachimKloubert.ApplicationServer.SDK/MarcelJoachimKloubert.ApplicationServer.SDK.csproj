@@ -53,6 +53,12 @@
   <ItemGroup>
     <None Include="MarcelJoachimKloubert.ApplicationServer.SDK.snk" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
+      <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

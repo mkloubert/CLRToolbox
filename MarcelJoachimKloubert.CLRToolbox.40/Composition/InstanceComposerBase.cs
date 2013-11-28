@@ -133,6 +133,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
         }
 
         #endregion Methods
-
     }
 }

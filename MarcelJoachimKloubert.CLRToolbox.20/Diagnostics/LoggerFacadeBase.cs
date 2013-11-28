@@ -212,10 +212,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         private void OnLog_NonThreadSafe(ILogMessage msg)
         {
-            if (msg != null)
-            {
-                this.OnLog(msg);
-            }
+            this.OnLog(msg);
         }
 
         private void OnLog_ThreadSafe(ILogMessage msg)

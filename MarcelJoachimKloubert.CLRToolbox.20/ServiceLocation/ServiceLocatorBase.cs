@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 {
@@ -39,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 
         #endregion Constructors
 
-        #region Methods (11)
+        #region Methods (10)
 
         // Public Methods (8) 
 
@@ -67,10 +68,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// <see cref="IServiceLocator.GetAllInstances{S}(object)" />
         public IEnumerable<S> GetAllInstances<S>(object key)
         {
-            foreach (object obj in this.GetAllInstances(typeof(S), key))
-            {
-                yield return (S)obj;
-            }
+            IEnumerable<object> instances = this.GetAllInstances(typeof(S), key);
+            IEnumerable<S> castedInstances = CollectionHelper.Cast<S>(instances);
+
+            return CollectionHelper.OfType<S>(castedInstances);
         }
 
         /// <summary>
@@ -111,7 +112,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 
             foreach (object obj in result)
             {
-                yield return !DBNull.Value.Equals(obj) ? obj : null;
+                yield return ParseValue(obj);
             }
         }
 
@@ -213,18 +214,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// </exception>
         protected abstract object OnGetInstance(Type serviceType,
                                                 object key);
-        // Private Methods (1) 
-
-        private static object ParseValue(object value)
-        {
-            object result = value;
-            if (DBNull.Value.Equals(result))
-            {
-                result = null;
-            }
-
-            return result;
-        }
 
         #endregion Methods
     }

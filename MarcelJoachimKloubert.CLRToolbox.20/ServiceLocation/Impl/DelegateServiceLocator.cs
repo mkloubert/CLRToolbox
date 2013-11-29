@@ -15,11 +15,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
     /// </summary>
     public sealed partial class DelegateServiceLocator : ServiceLocatorBase
     {
-        #region Fields (2)
+        #region Fields (3)
 
+        private readonly IServiceLocator _BASE_LOCATOR;
         private readonly IDictionary<Type, InstanceProvider> _MULTI_PROVIDERS = new Dictionary<Type, InstanceProvider>();
         private readonly IDictionary<Type, InstanceProvider> _SINGLE_PROVIDERS = new Dictionary<Type, InstanceProvider>();
-        private readonly IServiceLocator _BASE_LOCATOR;
 
         #endregion Fields
 
@@ -262,7 +262,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                 }
             }
 
-            return result != null ? CollectionHelper.OfType<object>(result) : null;
+            return result;
         }
 
         /// <summary>

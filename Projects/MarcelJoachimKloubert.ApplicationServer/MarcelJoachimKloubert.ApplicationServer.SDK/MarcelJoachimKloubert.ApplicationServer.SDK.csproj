@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.ApplicationServer.SDK.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,7 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppServerBase.StartStopContext.cs">
+      <DependentUpon>AppServerBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppServerBase.cs" />
+    <Compile Include="Modules\AppServerModuleBase.StartStopContext.cs">
+      <DependentUpon>AppServerModuleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IAppServer.cs" />
+    <Compile Include="IAppServerContext.cs" />
+    <Compile Include="Modules\AppServerModuleBase.cs" />
+    <Compile Include="Modules\IAppServerModule.cs" />
+    <Compile Include="Modules\IAppServerModuleContext.cs" />
+    <Compile Include="Modules\SimpleAppServerModuleContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleAppServerContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MarcelJoachimKloubert.ApplicationServer.SDK.snk" />
@@ -58,6 +74,9 @@
       <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LICENSE" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

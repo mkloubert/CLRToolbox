@@ -1,11 +1,16 @@
-﻿using System;
+﻿// LICENSE: LGPL 3 - https://www.gnu.org/licenses/lgpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+
+using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data
 {
     /// <summary>
     /// Common implementation of an <see cref="IConverter" /> object.
     /// </summary>
-    public class CommonConverter : ConverterBase
+    public partial class CommonConverter : ConverterBase
     {
         #region Constructors (2)
 
@@ -33,7 +38,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         #endregion Constructors
 
-        #region Methods (1)
+        #region Methods (2)
 
         // Public Methods (1) 
 
@@ -43,6 +48,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         /// <see cref="ConverterBase.ChangeType{T}(object)" />
         public override T ChangeType<T>(object value, IFormatProvider provider)
         {
+            this.ParseInputValueForChangeType<T>(ref value, provider);
+
             if (value is T)
             {
                 return (T)value;
@@ -50,6 +57,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
             return value != null ? (T)global::System.Convert.ChangeType(value, typeof(T), provider) : default(T);
         }
+        // Private Methods (1) 
+
+        partial void ParseInputValueForChangeType<T>(ref object value, IFormatProvider provider);
 
         #endregion Methods
     }

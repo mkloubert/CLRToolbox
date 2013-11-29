@@ -81,6 +81,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.ParseInputValueForChangeType.cs">
+      <Link>Data\CommonConverter.ParseInputValueForChangeType.cs</Link>
+      <DependentUpon>CommonConverter.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\ConverterBase.cs">
       <Link>Data\ConverterBase.cs</Link>
     </Compile>
@@ -265,6 +269,10 @@
       <Link>Helpers\ScriptHelper.SetSimplePredicateWrapper.cs</Link>
       <DependentUpon>ScriptHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsHexString.cs">
+      <Link>Helpers\StringHelper.AsHexString.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -279,6 +287,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.IsNullOrWhiteSpace.cs">
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IHasName.cs">
+      <Link>IHasName.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IIdentifiable.cs">
       <Link>IIdentifiable.cs</Link>
@@ -311,6 +322,9 @@
       <Link>IO\SystemConsole.dotNET.cs</Link>
       <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IRunnable.cs">
+      <Link>IRunnable.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMDisposable.cs">
       <Link>ITMDisposable.cs</Link>
     </Compile>
@@ -319,6 +333,19 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\IdentifiableObjectContextBase.cs">
+      <Link>Objects\IdentifiableObjectContextBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\IObjectContext.cs">
+      <Link>Objects\IObjectContext.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ObjectContextBase.cs">
+      <Link>Objects\ObjectContextBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ObjectContextBase.dotNET.cs">
+      <Link>Objects\ObjectContextBase.dotNET.cs</Link>
+      <DependentUpon>ObjectContextBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\CommonScriptFunctionSetup.cs">
       <Link>Scripting\CommonScriptFunctionSetup.cs</Link>
@@ -381,6 +408,10 @@
       <Link>ServiceLocation\ServiceLocatorBase.Interface.cs</Link>
       <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.ParseValue.cs">
+      <Link>ServiceLocation\ServiceLocatorBase.ParseValue.cs</Link>
+      <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>
     </Compile>
@@ -394,6 +425,16 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.Fields.cs">
       <Link>TMObject.Fields.cs</Link>
       <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\AggregateException.cs">
+      <Link>_Compatibility\System\AggregateException.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\AggregateException.dotNET.cs">
+      <Link>_Compatibility\System\AggregateException.dotNET.cs</Link>
+      <DependentUpon>AggregateException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Func.cs">
+      <Link>_Compatibility\System\Func.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

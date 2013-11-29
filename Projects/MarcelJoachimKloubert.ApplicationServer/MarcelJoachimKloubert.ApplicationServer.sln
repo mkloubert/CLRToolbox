@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{E3FB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40", "..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj", "{50E0CDB2-BC51-4C46-949A-387E3534041F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Modules.RemoteComm", "MarcelJoachimKloubert.AppServer.Modules.RemoteComm\MarcelJoachimKloubert.AppServer.Modules.RemoteComm.csproj", "{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,5 +60,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE} = {EABA26BD-B4AB-41CF-8AB1-9295F89E627E}
 		{20F680D2-6E89-43F2-8943-F848A763E788} = {EABA26BD-B4AB-41CF-8AB1-9295F89E627E}
+		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A} = {E3FBD307-AA4D-4676-9633-961CAA4B4CCE}
 	EndGlobalSection
 EndGlobal

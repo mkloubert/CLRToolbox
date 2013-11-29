@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("Application Server SDK")]
-[assembly: AssemblyDescription("Software Development Kit for CLR Toolbox Application Server project (.NET 4.0 and above)")]
+[assembly: AssemblyTitle("MarcelJoachimKloubert.AppServer.Modules.RemoteComm")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Marcel Joachim Kloubert")]
-[assembly: AssemblyProduct("MarcelJoachimKloubert.ApplicationServer.SDK")]
-[assembly: AssemblyCopyright("Copyright © 2013 Marcel Joachim Kloubert <marcel.kloubert@gmx.net>")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("MarcelJoachimKloubert.AppServer.Modules.RemoteComm")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("8db9dda5-e11c-4ede-9537-f77ed5c52a01")]
+[assembly: Guid("15269924-2e1f-4381-ad72-faf777dcb8a2")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
@@ -31,5 +32,5 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.30319")]
-[assembly: AssemblyFileVersion("4.0.30319")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

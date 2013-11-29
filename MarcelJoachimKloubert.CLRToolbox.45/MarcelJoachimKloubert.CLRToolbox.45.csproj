@@ -59,6 +59,15 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\collections\generic\DelegateEqualityComparer.cs">
       <Link>Collections\Generic\DelegateEqualityComparer.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\ForAllItemExecutionException.cs">
+      <Link>Collections\Generic\ForAllItemExecutionException.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\IForAllItemExecutionContext.cs">
+      <Link>Collections\Generic\IForAllItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
+      <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\componentmodel\INotificationObject.cs">
       <Link>ComponentModel\INotificationObject.cs</Link>
     </Compile>
@@ -198,6 +207,14 @@
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAll.cs">
+      <Link>Helpers\CollectionHelper.ForAll.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAllAsync.cs">
+      <Link>Helpers\CollectionHelper.ForAllAsync.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
@@ -412,6 +429,14 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.cs">
       <Link>Extensions\Collections.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForAll.cs">
+      <Link>Extensions\Collections.ForAll.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForAllAsync.cs">
+      <Link>Extensions\Collections.ForAllAsync.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.Randomize.cs">
       <Link>Extensions\Collections.Randomize.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
@@ -537,6 +562,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Extensions\Scripting.SetFunc.4.cs">
       <Link>Extensions\Scripting.SetFunc.4.cs</Link>
       <DependentUpon>Scripting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Helpers\CollectionHelper.ForAllAsync.Impl.cs">
+      <Link>Helpers\CollectionHelper.ForAllAsync.Impl.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\Helpers\TaskHelper.cs">
       <Link>Helpers\TaskHelper.cs</Link>

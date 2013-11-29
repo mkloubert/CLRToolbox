@@ -47,6 +47,15 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\DelegateEqualityComparer.cs">
       <Link>Collections\Generic\DelegateEqualityComparer.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\ForAllItemExecutionException.cs">
+      <Link>Collections\Generic\ForAllItemExecutionException.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\IForAllItemExecutionContext.cs">
+      <Link>Collections\Generic\IForAllItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
+      <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
       <Link>ComponentModel\INotificationObject.cs</Link>
     </Compile>
@@ -209,6 +218,18 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.FirstOrDefault.cs">
       <Link>Helpers\CollectionHelper.FirstOrDefault.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAll.cs">
+      <Link>Helpers\CollectionHelper.ForAll.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAllAsync.cs">
+      <Link>Helpers\CollectionHelper.ForAllAsync.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAllAsync.Impl.cs">
+      <Link>Helpers\CollectionHelper.ForAllAsync.Impl.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.OfType.cs">
@@ -425,6 +446,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.Fields.cs">
       <Link>TMObject.Fields.cs</Link>
       <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Action.cs">
+      <Link>_Compatibility\System\Action.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\AggregateException.cs">
       <Link>_Compatibility\System\AggregateException.cs</Link>

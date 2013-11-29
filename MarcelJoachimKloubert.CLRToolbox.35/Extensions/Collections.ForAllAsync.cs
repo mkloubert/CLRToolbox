@@ -1,0 +1,101 @@
+﻿// LICENSE: LGPL 3 - https://www.gnu.org/licenses/lgpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+
+using System;
+using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
+
+namespace MarcelJoachimKloubert.CLRToolbox.Extensions
+{
+    static partial class ClrToolboxExtensionMethods
+    {
+        #region Methods (6)
+
+        // Public Methods (6) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.ForAllAsync{T}(IEnumerable{T}, Action{IForAllItemExecutionContext{T}})" />
+        public static AggregateException ForAllAsync<T>(this IEnumerable<T> items,
+                                                        Action<IForAllItemExecutionContext<T>> action)
+        {
+            return CollectionHelper.ForAllAsync<T>(items,
+                                                   action);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.ForAll{T}(IEnumerable{T}, Action{IForAllItemExecutionContext{T}}, bool)" />
+        public static AggregateException ForAllAsync<T>(this IEnumerable<T> items,
+                                                        Action<IForAllItemExecutionContext<T>> action,
+                                                        bool throwExceptions)
+        {
+            return CollectionHelper.ForAllAsync<T>(items,
+                                                   action,
+                                                   throwExceptions);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, S)" />
+        public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
+                                                           Action<IForAllItemExecutionContext<T, S>> action,
+                                                           S actionState)
+        {
+            return CollectionHelper.ForAllAsync<T, S>(items,
+                                                      action,
+                                                      actionState);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, Func{T, S})" />
+        public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
+                                                           Action<IForAllItemExecutionContext<T, S>> action,
+                                                           Func<T, S> actionStateFactory)
+        {
+            return CollectionHelper.ForAllAsync<T, S>(items,
+                                                      action,
+                                                      actionStateFactory);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, S, bool)" />
+        public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
+                                                           Action<IForAllItemExecutionContext<T, S>> action,
+                                                           S actionState,
+                                                           bool throwExceptions)
+        {
+            return CollectionHelper.ForAllAsync<T, S>(items,
+                                                      action,
+                                                      actionState,
+                                                      throwExceptions);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, Func{T, S}, bool)" />
+        public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
+                                                           Action<IForAllItemExecutionContext<T, S>> action,
+                                                           Func<T, S> actionStateFactory,
+                                                           bool throwExceptions)
+        {
+            return CollectionHelper.ForAllAsync<T, S>(items,
+                                                      action,
+                                                      actionStateFactory,
+                                                      throwExceptions);
+        }
+
+        #endregion Methods
+    }
+}

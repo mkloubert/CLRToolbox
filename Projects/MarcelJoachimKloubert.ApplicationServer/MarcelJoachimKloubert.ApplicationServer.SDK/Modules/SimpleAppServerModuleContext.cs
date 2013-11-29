@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
@@ -17,9 +18,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
     public sealed class SimpleAppServerModuleContext : IdentifiableObjectContextBase<IAppServerModule>,
                                                        IAppServerModuleContext
     {
-        #region Fields (2)
+        #region Fields (3)
 
         private byte[] _assemblyContent;
+        private string _assemblyFile;
         private Lazy<byte[]> _lazyHash;
 
         #endregion Fields
@@ -55,7 +57,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (3)
 
         /// <summary>
         /// Gets or sets the binary content of the underlying assembly file.
@@ -81,6 +83,15 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ObjectContextBase.AssemblyFile" />
+        public override string AssemblyFile
+        {
+            get { return this._assemblyFile; }
+        }
+
+        /// <summary>
         /// Gets or sets the inner service locator.
         /// </summary>
         public IServiceLocator InnerServiceLocator
@@ -91,8 +102,18 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Properties
 
-        #region Methods (4)
+        #region Methods (5)
 
+        // Public Methods (1) 
+
+        /// <summary>
+        /// Sets the value for <see cref="SimpleAppServerModuleContext.AssemblyFile" /> property.
+        /// </summary>
+        /// <param name="asmFile">The new value.</param>
+        public void SetAssemblyFile(IEnumerable<char> asmFile)
+        {
+            this._assemblyFile = asmFile.AsString();
+        }
         // Protected Methods (3) 
 
         /// <summary>

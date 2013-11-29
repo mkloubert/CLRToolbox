@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Generic\DelegateEqualityComparer.cs" />
+    <Compile Include="Collections\Generic\ForAllItemExecutionException.cs" />
+    <Compile Include="Collections\Generic\SimpleForAllItemExecutionContext.cs" />
     <Compile Include="ComponentModel\INotificationObject.cs" />
     <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
       <DependentUpon>INotificationObject.cs</DependentUpon>
@@ -83,6 +85,15 @@
     <Compile Include="Helpers\CollectionHelper.FirstOrDefault.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.ForAll.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.ForAllAsync.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.ForAllAsync.Impl.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.OfType.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -92,6 +103,7 @@
     <Compile Include="Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
     <Compile Include="Helpers\StringHelper.AsHexString.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
@@ -256,6 +268,7 @@
     <Compile Include="TMObject.Fields.cs">
       <DependentUpon>TMObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="_Compatibility\System\Action.cs" />
     <Compile Include="_Compatibility\System\AggregateException.cs" />
     <Compile Include="_Compatibility\System\AggregateException.dotNET.cs">
       <DependentUpon>AggregateException.cs</DependentUpon>

@@ -54,7 +54,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         {
             lock (this._SYNC)
             {
-                using (var writer = new StringWriter())
+                using (StringWriter writer = new StringWriter())
                 {
                     this.OnReadLine(writer);
 

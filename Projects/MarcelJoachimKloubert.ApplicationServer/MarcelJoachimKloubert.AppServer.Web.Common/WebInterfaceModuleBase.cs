@@ -4,8 +4,11 @@
 
 
 using System;
+using System.ComponentModel.Composition;
+using System.Net.Mime;
 using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
+using AppServerImpl = MarcelJoachimKloubert.ApplicationServer.ApplicationServer;
 
 namespace MarcelJoachimKloubert.AppServer.Web.Common
 {
@@ -27,6 +30,17 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common
 
         #endregion Constructors
 
+        #region Properties (1)
+
+        [Import]
+        public AppServerImpl Server
+        {
+            get;
+            protected set;
+        }
+
+        #endregion Properties
+
         #region Methods (1)
 
         // Protected Methods (1) 
@@ -35,7 +49,7 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common
         {
             context.HttpRequest
                    .Response
-                   .ContentType = "text/html";
+                   .ContentType = MediaTypeNames.Text.Html;
 
             context.HttpRequest
                    .Response

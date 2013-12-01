@@ -172,6 +172,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
             this.GlobalCompositionCatalog = compCatalog;
             this.GlobalCompositionContainer = compContainer;
 
+            compContainer.ComposeExportedValue<global::MarcelJoachimKloubert.ApplicationServer.ApplicationServer>(this);
+
             this.GlobalServiceLocator = serviceLocator;
             ServiceLocator.SetLocatorProvider(this.GetGlobalServiceLocator);
         }

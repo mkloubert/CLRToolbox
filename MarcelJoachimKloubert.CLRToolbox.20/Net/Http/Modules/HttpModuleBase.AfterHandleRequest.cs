@@ -7,8 +7,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 {
     partial class HttpModuleBase
     {
-
-
         #region INTERFACE: IAfterHandleRequestContext
 
         /// <summary>

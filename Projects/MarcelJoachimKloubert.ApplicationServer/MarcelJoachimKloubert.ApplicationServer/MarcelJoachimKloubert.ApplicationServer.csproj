@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ApplicationServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebInterface\WebInterfaceHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">

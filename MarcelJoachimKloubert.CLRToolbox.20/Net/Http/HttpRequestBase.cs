@@ -4,6 +4,9 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Principal;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -37,5 +40,66 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         }
 
         #endregion Constructors
+
+        #region Properties (5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.Address" />
+        public abstract Uri Address
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.Headers" />
+        public abstract IReadOnlyDictionary<string, string> Headers
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.Method" />
+        public abstract string Method
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.RemoteAddress" />
+        public abstract ITcpAddress RemoteAddress
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.User" />
+        public abstract IPrincipal User
+        {
+            get;
+        }
+
+        #endregion Properties
+
+        #region Methods (1)
+
+        // Public Methods (1) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.GetBody()" />
+        public abstract Stream GetBody();
+
+        #endregion Methods
     }
 }

@@ -75,7 +75,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
         #endregion Properties
 
-        #region Methods (6)
+        #region Methods (8)
 
         // Public Methods (4) 
 
@@ -130,7 +130,38 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
             try
             {
-                this.OnHandleRequest(context);
+                var beforeHandleCtx = new BeforeHandleRequestContext();
+                {
+                    beforeHandleCtx.HttpRequest = context;
+                    beforeHandleCtx.InvokeAfterHandleRequest = true;
+                    beforeHandleCtx.InvokeHandleRequest = true;
+
+                    this.OnBeforeHandleRequest(beforeHandleCtx);
+                }
+
+                var handleCtx = new HandleRequestContext();
+                var requestWasHandled = false;
+                {
+                    handleCtx.HttpRequest = context;
+                    handleCtx.InvokeAfterHandleRequest = beforeHandleCtx.InvokeAfterHandleRequest;
+
+                    if (beforeHandleCtx.InvokeHandleRequest)
+                    {
+                        this.OnHandleRequest(handleCtx);
+                        requestWasHandled = true;
+                    }
+                }
+
+                if (handleCtx.InvokeAfterHandleRequest)
+                {
+                    var afterHandleCtx = new AfterHandleRequestContext();
+                    afterHandleCtx.RequestWasHandled = requestWasHandled;
+                    {
+                        afterHandleCtx.HttpRequest = context;
+
+                        this.OnAfterHandleRequest(afterHandleCtx);
+                    }
+                }
 
                 result.Errors = new Exception[0];
             }
@@ -147,7 +178,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
             return result;
         }
-        // Protected Methods (2) 
+        // Protected Methods (4) 
+
+        /// <summary>
+        /// Is invoked AFTER <see cref="HttpModuleBase.OnHandleRequest(IHandleRequestContext)" /> has been called.
+        /// </summary>
+        /// <param name="context">The underlying context.</param>
+        protected virtual void OnAfterHandleRequest(IAfterHandleRequestContext context)
+        {
+            // dummy
+        }
+
+        /// <summary>
+        /// Is invoked BEFORE <see cref="HttpModuleBase.OnHandleRequest(IHandleRequestContext)" /> is called.
+        /// </summary>
+        /// <param name="context">The underlying context.</param>
+        protected virtual void OnBeforeHandleRequest(IBeforeHandleRequestContext context)
+        {
+            // dummy
+        }
 
         /// <summary>
         /// The logic for <see cref="HttpModuleBase.GetDisplayName(CultureInfo)" />.
@@ -163,7 +212,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         /// The logic for <see cref="HttpModuleBase.HandleRequest(IHttpRequestContext)" /> method.
         /// </summary>
         /// <param name="context">The underlying context.</param>
-        protected abstract void OnHandleRequest(IHttpRequestContext context);
+        protected abstract void OnHandleRequest(IHandleRequestContext context);
 
         #endregion Methods
     }

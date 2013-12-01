@@ -58,6 +58,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\collections\objectmodel\TMReadOnlyDictionary.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyDictionary.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
       <Link>ComponentModel\INotificationObject.cs</Link>
     </Compile>
@@ -195,6 +198,13 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\impl\DelegateCommand.cs">
       <Link>Execution\Impl\DelegateCommand.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\factories\EqualityComparerFactory.cs">
+      <Link>Factories\EqualityComparerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\factories\EqualityComparerFactory.Strings.cs">
+      <Link>Factories\EqualityComparerFactory.Strings.cs</Link>
+      <DependentUpon>EqualityComparerFactory.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AddRange.cs">
       <Link>Helpers\CollectionHelper.AddRange.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -328,11 +338,18 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpRequestBase.cs">
       <Link>Net\Http\HttpRequestBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpRequestErrorEventArgs.cs">
+      <Link>Net\Http\HttpRequestErrorEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpRequestEventArgs.cs">
       <Link>Net\Http\HttpRequestEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpResponseBase.cs">
       <Link>Net\Http\HttpResponseBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpResponseBase.Interface.cs">
+      <Link>Net\Http\HttpResponseBase.Interface.cs</Link>
+      <DependentUpon>HttpResponseBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\HttpServerBase.cs">
       <Link>Net\Http\HttpServerBase.cs</Link>
@@ -353,8 +370,23 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\IHttpServer.cs">
       <Link>Net\Http\IHttpServer.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\DefaultHttpModuleAttribute.cs">
+      <Link>Net\Http\Modules\DefaultHttpModuleAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\HttpModuleBase.AfterHandleRequest.cs">
+      <Link>Net\Http\Modules\HttpModuleBase.AfterHandleRequest.cs</Link>
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\HttpModuleBase.BeforeHandleRequest.cs">
+      <Link>Net\Http\Modules\HttpModuleBase.BeforeHandleRequest.cs</Link>
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\modules\HttpModuleBase.cs">
       <Link>Net\Http\Modules\HttpModuleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\HttpModuleBase.HandleRequestContext.cs">
+      <Link>Net\Http\Modules\HttpModuleBase.HandleRequestContext.cs</Link>
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\modules\HttpModuleBase.HttpModuleHandleRequestResult.cs">
       <Link>Net\Http\Modules\HttpModuleBase.HttpModuleHandleRequestResult.cs</Link>
@@ -368,6 +400,12 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\SimpleHttpRequestContext.cs">
       <Link>Net\Http\SimpleHttpRequestContext.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\ITcpAddress.cs">
+      <Link>Net\ITcpAddress.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\SimpleTcpAddress.cs">
+      <Link>Net\SimpleTcpAddress.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\objects\IdentifiableObjectContextBase.cs">
       <Link>Objects\IdentifiableObjectContextBase.cs</Link>
@@ -415,6 +453,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\UsernamePasswordValidator.cs">
+      <Link>Security\UsernamePasswordValidator.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\servicelocation\impl\DelegateServiceLocator.Classes.cs">
       <Link>ServiceLocation\Impl\DelegateServiceLocator.Classes.cs</Link>
@@ -467,6 +508,12 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\AggregateException.dotNET.cs">
       <Link>_Compatibility\System\AggregateException.dotNET.cs</Link>
       <DependentUpon>AggregateException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\collections\generic\IReadOnlyCollection.cs">
+      <Link>_Compatibility\System\Collections\Generic\IReadOnlyCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\collections\generic\IReadOnlyDictionary.cs">
+      <Link>_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs</Link>
     </Compile>
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange35.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />

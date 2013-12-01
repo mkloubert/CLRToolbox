@@ -4,6 +4,7 @@
 
 
 using System;
+using MarcelJoachimKloubert.CLRToolbox.Security;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -12,10 +13,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public abstract partial class HttpServerBase : DisposableBase, IHttpServer
     {
-        #region Fields (3)
+        #region Fields (6)
 
+        private UsernamePasswordValidator _credentialValidator;
         private bool _isRunning;
         private int _port = 80;
+        private HttpPrincipalProvider _principalFinder;
+        private HttpRequestValidator _requestValidator;
         /// <summary>
         /// The default port for HTTP requests.
         /// </summary>
@@ -49,7 +53,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (5)
+        #region Properties (8)
 
         /// <summary>
         /// 
@@ -81,6 +85,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IHttpServer.CredentialValidator" />
+        public UsernamePasswordValidator CredentialValidator
+        {
+            get { return this._credentialValidator; }
+
+            set { this._credentialValidator = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IRunnable.IsRunning" />
         public bool IsRunning
         {
@@ -100,11 +115,51 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._port = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.PrincipalFinder" />
+        public HttpPrincipalProvider PrincipalFinder
+        {
+            get { return this._principalFinder; }
+
+            set { this._principalFinder = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.RequestValidator" />
+        public HttpRequestValidator RequestValidator
+        {
+            get { return this._requestValidator; }
+
+            set { this._requestValidator = value; }
+        }
+
         #endregion Properties
 
-        #region Delegates and Events (1)
+        #region Delegates and Events (4)
 
-        // Events (1) 
+        // Events (4) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.HandleDocumentNotFound" />
+        public event EventHandler<HttpRequestEventArgs> HandleDocumentNotFound;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.HandleError" />
+        public event EventHandler<HttpRequestErrorEventArgs> HandleError;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.HandleForbidden" />
+        public event EventHandler<HttpRequestEventArgs> HandleForbidden;
 
         /// <summary>
         /// 
@@ -114,7 +169,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Delegates and Events
 
-        #region Methods (9)
+        #region Methods (13)
 
         // Public Methods (3) 
 
@@ -169,7 +224,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 this.StopInner(StartStopContext.Stop);
             }
         }
-        // Protected Methods (4) 
+        // Protected Methods (7) 
 
         /// <summary>
         /// The logic that disposes that server.
@@ -184,15 +239,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         }
 
         /// <summary>
-        /// Raises the <see cref="HttpServerBase.HandleRequest" /> event.
+        /// Raises the <see cref="HttpServerBase.HandleDocumentNotFound" /> event.
         /// </summary>
         /// <param name="req">The request context.</param>
         /// <param name="resp">The response context.</param>
         /// <returns>Event handler was raised or not.</returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="req" /> and/or <paramref name="resp" /> is <see langword="null" />.
+        /// <paramref name="req" /> and/or <paramref name="resp" /> are <see langword="null" />.
         /// </exception>
-        protected bool OnHandleRequest(IHttpRequest req, IHttpResponse resp)
+        protected bool OnHandleDocumentNotFound(IHttpRequest req, IHttpResponse resp)
+        {
+            return this.OnHandle(this.HandleDocumentNotFound,
+                                 req, resp);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="HttpServerBase.HandleError" /> event.
+        /// </summary>
+        /// <param name="req">The request context.</param>
+        /// <param name="resp">The response context.</param>
+        /// <param name="ex">The thrown exception.</param>
+        /// <returns>Event handler was raised or not.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="req" />, <paramref name="resp" /> and/or <paramref name="ex" /> are <see langword="null" />.
+        /// </exception>
+        protected bool OnHandleError(IHttpRequest req, IHttpResponse resp, Exception ex)
         {
             if (req == null)
             {
@@ -204,14 +275,52 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 throw new ArgumentNullException("resp");
             }
 
-            EventHandler<HttpRequestEventArgs> handler = this.HandleRequest;
-            if (handler != null)
+            if (ex == null)
             {
-                handler(this, new HttpRequestEventArgs(req, resp));
-                return true;
+                throw new ArgumentNullException("ex");
             }
 
-            return false;
+            HttpRequestErrorEventArgs e = new HttpRequestErrorEventArgs(req, resp, ex);
+            e.Handled = false;
+
+            EventHandler<HttpRequestErrorEventArgs> handler = this.HandleError;
+            if (handler != null)
+            {
+                e.Handled = true;
+                handler(this, new HttpRequestErrorEventArgs(req, resp, ex));
+            }
+
+            return e.Handled;
+        }
+
+        /// <summary>
+        /// Raises the <see cref="HttpServerBase.HandleForbidden" /> event.
+        /// </summary>
+        /// <param name="req">The request context.</param>
+        /// <param name="resp">The response context.</param>
+        /// <returns>Event handler was raised or not.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="req" /> and/or <paramref name="resp" /> are <see langword="null" />.
+        /// </exception>
+        protected bool OnHandleForbidden(IHttpRequest req, IHttpResponse resp)
+        {
+            return this.OnHandle(this.HandleForbidden,
+                                 req, resp);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="HttpServerBase.HandleRequest" /> event.
+        /// </summary>
+        /// <param name="req">The request context.</param>
+        /// <param name="resp">The response context.</param>
+        /// <returns>Event handler was raised or not.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="req" /> and/or <paramref name="resp" /> are <see langword="null" />.
+        /// </exception>
+        protected bool OnHandleRequest(IHttpRequest req, IHttpResponse resp)
+        {
+            return this.OnHandle(this.HandleRequest,
+                                 req, resp);
         }
 
         /// <summary>
@@ -237,7 +346,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// </param>
         protected abstract void OnStop(StartStopContext context,
                                        ref bool isRunning);
-        // Private Methods (2) 
+        // Private Methods (3) 
+
+        private bool OnHandle(EventHandler<HttpRequestEventArgs> handler, IHttpRequest req, IHttpResponse resp)
+        {
+            if (req == null)
+            {
+                throw new ArgumentNullException("req");
+            }
+
+            if (resp == null)
+            {
+                throw new ArgumentNullException("resp");
+            }
+
+            HttpRequestEventArgs e = new HttpRequestEventArgs(req, resp);
+            e.Handled = false;
+
+            if (handler != null)
+            {
+                e.Handled = true;
+                handler(this, e);
+            }
+
+            return e.Handled;
+        }
 
         private void StartInner(StartStopContext context)
         {

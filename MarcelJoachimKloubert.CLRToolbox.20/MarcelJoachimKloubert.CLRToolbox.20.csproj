@@ -47,6 +47,7 @@
     <Compile Include="Collections\Generic\DelegateEqualityComparer.cs" />
     <Compile Include="Collections\Generic\ForAllItemExecutionException.cs" />
     <Compile Include="Collections\Generic\SimpleForAllItemExecutionContext.cs" />
+    <Compile Include="Collections\ObjectModel\TMReadOnlyDictionary.cs" />
     <Compile Include="ComponentModel\INotificationObject.cs" />
     <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
       <DependentUpon>INotificationObject.cs</DependentUpon>
@@ -75,6 +76,10 @@
     </Compile>
     <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\EqualityComparerFactory.cs" />
+    <Compile Include="Factories\EqualityComparerFactory.Strings.cs">
+      <DependentUpon>EqualityComparerFactory.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Cast.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -216,9 +221,14 @@
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
+    <Compile Include="Net\Http\Modules\DefaultHttpModuleAttribute.cs" />
     <Compile Include="Net\Http\HttpRequestBase.cs" />
+    <Compile Include="Net\Http\HttpRequestErrorEventArgs.cs" />
     <Compile Include="Net\Http\HttpRequestEventArgs.cs" />
     <Compile Include="Net\Http\HttpResponseBase.cs" />
+    <Compile Include="Net\Http\HttpResponseBase.Interface.cs">
+      <DependentUpon>HttpResponseBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Net\Http\HttpServerBase.StartStopContext.cs">
       <DependentUpon>HttpServerBase.cs</DependentUpon>
     </Compile>
@@ -226,7 +236,16 @@
     <Compile Include="Net\Http\IHttpRequest.cs" />
     <Compile Include="Net\Http\IHttpRequestContext.cs" />
     <Compile Include="Net\Http\IHttpResponse.cs" />
+    <Compile Include="Net\Http\Modules\HttpModuleBase.AfterHandleRequest.cs">
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Net\Http\Modules\HttpModuleBase.BeforeHandleRequest.cs">
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Net\Http\Modules\HttpModuleBase.cs" />
+    <Compile Include="Net\Http\Modules\HttpModuleBase.HandleRequestContext.cs">
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Net\Http\Modules\HttpModuleBase.HttpModuleHandleRequestResult.cs">
       <DependentUpon>HttpModuleBase.cs</DependentUpon>
     </Compile>
@@ -234,6 +253,8 @@
     <Compile Include="Net\Http\IHttpServer.cs" />
     <Compile Include="Net\Http\Modules\IHttpModuleHandleRequestResult.cs" />
     <Compile Include="Net\Http\SimpleHttpRequestContext.cs" />
+    <Compile Include="Net\ITcpAddress.cs" />
+    <Compile Include="Net\SimpleTcpAddress.cs" />
     <Compile Include="Objects\IdentifiableObjectContextBase.cs" />
     <Compile Include="Objects\IObjectContext.cs" />
     <Compile Include="Objects\ObjectContextBase.cs" />
@@ -259,6 +280,7 @@
     <Compile Include="Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Security\UsernamePasswordValidator.cs" />
     <Compile Include="ServiceLocation\Impl\DelegateServiceLocator.Classes.cs">
       <DependentUpon>DelegateServiceLocator.cs</DependentUpon>
     </Compile>
@@ -291,6 +313,8 @@
     <Compile Include="_Compatibility\System\AggregateException.dotNET.cs">
       <DependentUpon>AggregateException.cs</DependentUpon>
     </Compile>
+    <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyCollection.cs" />
+    <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs" />
     <Compile Include="_Compatibility\System\Func.cs" />
   </ItemGroup>
   <ItemGroup>

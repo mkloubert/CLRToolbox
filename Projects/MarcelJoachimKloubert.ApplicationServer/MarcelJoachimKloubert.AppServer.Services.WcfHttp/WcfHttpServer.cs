@@ -8,6 +8,8 @@ using System.ComponentModel.Composition;
 using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using MarcelJoachimKloubert.AppServer.Services.WcfHttp.Wcf;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 
@@ -34,7 +36,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Properties
 
-        #region Methods (4)
+        #region Methods (7)
 
         // Protected Methods (2) 
 
@@ -53,11 +55,23 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
                 var transport = new HttpTransportBindingElement();
                 transport.KeepAliveEnabled = false;
-                transport.AuthenticationScheme = AuthenticationSchemes.Anonymous;
                 transport.TransferMode = TransferMode.Buffered;
                 transport.MaxReceivedMessageSize = int.MaxValue;
                 transport.MaxBufferPoolSize = int.MaxValue;
                 transport.MaxBufferSize = int.MaxValue;
+
+                var credValidator = this.CredentialValidator;
+                if (credValidator != null)
+                {
+                    transport.AuthenticationScheme = AuthenticationSchemes.Basic;
+
+                    newHost.Description.Behaviors.Remove<ServiceCredentials>();
+                    newHost.Description.Behaviors.Add(new PasswordCredentials(credValidator));
+                }
+                else
+                {
+                    transport.AuthenticationScheme = AuthenticationSchemes.Anonymous;
+                }
 
                 var binding = new CustomBinding(WcfHttpServerService.CreateWebMessageBindingEncoder(),
                                                 transport);
@@ -103,11 +117,26 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                          categories: LoggerFacadeCategories.Errors);
             }
         }
-        // Internal Methods (1) 
+        // Internal Methods (4) 
 
-        internal void RaiseHandleRequest(IHttpRequest req, IHttpResponse resp)
+        internal bool RaiseHandleDocumentNotFound(IHttpRequest req, IHttpResponse resp)
         {
-            this.OnHandleRequest(req, resp);
+            return this.OnHandleDocumentNotFound(req, resp);
+        }
+
+        internal bool RaiseHandleError(IHttpRequest req, IHttpResponse resp, Exception ex)
+        {
+            return this.OnHandleError(req, resp, ex);
+        }
+
+        internal bool RaiseHandleForbidden(IHttpRequest req, IHttpResponse resp)
+        {
+            return this.OnHandleForbidden(req, resp);
+        }
+
+        internal bool RaiseHandleRequest(IHttpRequest req, IHttpResponse resp)
+        {
+            return this.OnHandleRequest(req, resp);
         }
 
         #endregion Methods

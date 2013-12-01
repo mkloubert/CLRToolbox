@@ -4,13 +4,12 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Net.Mime;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
 
 namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 {
@@ -19,11 +18,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                      ConcurrencyMode = ConcurrencyMode.Multiple)]
     internal sealed class WcfHttpServerService : IWcfHttpServerService
     {
-        #region Fields (2)
+        #region Fields (1)
 
         private readonly WcfHttpServer _SERVER;
-        private readonly MessageEncoder _WEB_ENCODER = CreateWebMessageBindingEncoder().CreateMessageEncoderFactory()
-                                                                                       .Encoder;
 
         #endregion Fields
 
@@ -36,86 +33,129 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (3)
 
         // Public Methods (1) 
 
         public Message Request(Message message)
         {
+            var request = (HttpRequestMessageProperty)message.Properties[HttpRequestMessageProperty.Name];
+            var reqCtx = new HttpRequest(request, message, this._SERVER);
+
+            var isRequestInvalid = false;
+
+            // check if request data are valid
+            // and may be handled
+            var reqValidator = this._SERVER.RequestValidator;
+            if (reqValidator != null)
+            {
+                if (!reqValidator(reqCtx))
+                {
+                    isRequestInvalid = true;
+                }
+            }
+
             using (var uncompressedResponse = new MemoryStream())
             {
-                var request = (HttpRequestMessageProperty)message.Properties[HttpRequestMessageProperty.Name];
                 var response = new HttpResponseMessageProperty();
 
-                var reqCtx = new HttpRequest();
-                var respCtx = new HttpResponse();
-                this._SERVER.RaiseHandleRequest(reqCtx, respCtx);
-
-                // HTTP-Methode: bspw. GET oder POST
-                var method = request.Method;
-
-                // Kopfdaten der Anfrage
-                var requestHeaders = new Dictionary<string, string>();
-                foreach (var key in request.Headers.AllKeys)
+                var respCtx = new HttpResponse(response, uncompressedResponse)
                 {
-                    requestHeaders[key] = request.Headers[key];
-                }
+                    Compress = false,
+                    DocumentNotFound = false,
+                    IsForbidden = isRequestInvalid,
+                    StatusCode = HttpStatusCode.OK,
+                };
 
-                // Rohdaten der Anfrage (nur Body) ermitteln
-                byte[] requestBody;
-                using (var requestStream = new MemoryStream())
+                if (!respCtx.IsForbidden)
                 {
-                    this._WEB_ENCODER.WriteMessage(message, requestStream);
-
-                    requestBody = requestStream.ToArray();
-                }
-
-
-
-                // Beispiel: Antwort definieren
-                byte[] responseData;
-                {
-                    // eigene Kopfdaten definieren
+                    try
                     {
-                        //TODO: Dictionary füllen
-                        var responseHeaders = new Dictionary<string, string>();
-
-                        foreach (var item in responseHeaders)
+                        if (!this._SERVER.RaiseHandleRequest(reqCtx, respCtx))
                         {
-                            response.Headers[item.Key] = item.Value;
+                            // 501
+                            respCtx.StatusCode = HttpStatusCode.NotImplemented;
+
+                            respCtx.Clear();
+                            respCtx.Compress = false;
+                        }
+                        else
+                        {
+                            if (respCtx.IsForbidden)
+                            {
+                                // 403
+                                this.HandlerForbiddenError(reqCtx, respCtx);
+                            }
+                            else if (respCtx.DocumentNotFound)
+                            {
+                                // 400
+                                respCtx.StatusCode = HttpStatusCode.NotFound;
+
+                                if (!this._SERVER.RaiseHandleDocumentNotFound(reqCtx, respCtx))
+                                {
+                                    respCtx.Clear();
+                                    respCtx.Compress = false;
+                                }
+                            }
                         }
                     }
-
-                    // Beispiel HTML-Ausgabe
+                    catch (Exception ex)
                     {
-                        var html = new StringBuilder().Append("<html>")
-                                                      .Append("<body>")
-                                                      .AppendFormat("Hallo, es ist: {0}",
-                                                                    DateTimeOffset.Now)
-                                                      .Append("</body>")
-                                                      .Append("</html>");
+                        // 500
+                        respCtx.StatusCode = HttpStatusCode.InternalServerError;
 
-                        var utf8Html = Encoding.UTF8
-                                               .GetBytes(html.ToString());
+                        if (!this._SERVER.RaiseHandleError(reqCtx, respCtx, ex))
+                        {
+                            respCtx.Clear();
+                            respCtx.Compress = false;
+                        }
+                    }
+                }
+                else
+                {
+                    // 403
+                    this.HandlerForbiddenError(reqCtx, respCtx);
+                }
 
-                        uncompressedResponse.Write(utf8Html, 0, utf8Html.Length);
-
-                        response.Headers[HttpResponseHeader.ContentType]
-                            = "text/html; charset=utf-8";
+                // build response...
+                byte[] responseData;
+                {
+                    // response headers
+                    foreach (var item in respCtx.Headers)
+                    {
+                        response.Headers[item.Key] = item.Value;
                     }
 
-                    // komprimieren?
-                    var compress = true;
+                    // mime type
+                    {
+                        var contentType = (respCtx.ContentType ?? string.Empty).ToLower().Trim();
+                        if (contentType == string.Empty)
+                        {
+                            contentType = MediaTypeNames.Application.Octet;
+                        }
+
+                        // append charset?
+                        var charset = respCtx.Charset;
+                        if (charset != null)
+                        {
+                            contentType += "; charset=" + charset.WebName;
+                        }
+
+                        response.Headers[HttpResponseHeader.ContentType] = contentType;
+                    }
+
+                    // compress?
+                    var compress = respCtx.Compress;
                     if (compress)
                     {
-                        // mit GZIP komprimieren
+                        // compress with GZIP
 
                         using (var compressedResponse = new MemoryStream())
                         {
                             using (var gzip = new GZipStream(compressedResponse,
                                                              CompressionMode.Compress))
                             {
-                                long oldPos = uncompressedResponse.Position;
+                                var oldPos = uncompressedResponse.Position;
                                 try
                                 {
                                     uncompressedResponse.Position = 0;
@@ -142,14 +182,25 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                     }
                 }
 
-                // HTTP-Status Code (hier: 200)
-                response.StatusCode = HttpStatusCode.OK;
+                response.StatusCode = respCtx.StatusCode;
 
-                // WCF-Antwort erstellen
-                var responseMessage = new BinaryMessage(responseData);
-                responseMessage.Properties[HttpResponseMessageProperty.Name] = response;
+                // create WCF answer
+                var responseMsg = new BinaryMessage(responseData);
+                responseMsg.Properties[HttpResponseMessageProperty.Name] = response;
 
-                return responseMessage;
+                return responseMsg;
+            }
+        }
+        // Private Methods (1) 
+
+        private void HandlerForbiddenError(HttpRequest req, HttpResponse resp)
+        {
+            resp.StatusCode = HttpStatusCode.Forbidden;
+
+            if (!this._SERVER.RaiseHandleForbidden(req, resp))
+            {
+                resp.Clear();
+                resp.Compress = false;
             }
         }
         // Internal Methods (1) 

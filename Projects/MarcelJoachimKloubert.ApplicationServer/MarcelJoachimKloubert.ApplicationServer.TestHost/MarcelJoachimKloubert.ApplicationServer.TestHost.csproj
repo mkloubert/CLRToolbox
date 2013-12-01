@@ -75,6 +75,10 @@
       <Project>{a4b2abc9-3c13-46b0-afcf-5749d38c1af2}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.WcfHttp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Web.Common\MarcelJoachimKloubert.AppServer.Web.Common.csproj">
+      <Project>{4a4a902f-a150-4351-942b-583b7d8a3812}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Web.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="services\dummy.txt">
@@ -86,9 +90,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="web\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "$(TargetDir)services"</PostBuildEvent>
+    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "$(TargetDir)services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "$(TargetDir)web"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
+using MarcelJoachimKloubert.ApplicationServer.WebInterface;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
@@ -26,6 +27,12 @@ namespace MarcelJoachimKloubert.ApplicationServer
     /// </summary>
     public class ApplicationServer : AppServerBase
     {
+        #region Fields (1)
+
+        private WebInterfaceHandler _webHandler;
+
+        #endregion Fields
+
         #region Properties (9)
 
         /// <summary>
@@ -64,6 +71,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
             private set;
         }
 
+        /// <summary>
+        /// Gets the logger that handles logger delegates. This logger is part of <see cref="ApplicationServer.Logger" />.
+        /// </summary>
         public DelegateLogger LoggerFuncs
         {
             get;
@@ -89,9 +99,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
         }
 
         /// <summary>
-        /// Gets the HTTP server for the web interface.
+        /// Gets the composition catalog for the web interface modules.
         /// </summary>
-        public IHttpServer WebInterface
+        public AggregateCatalog WebInterfaceCompositionCatalog
         {
             get;
             private set;
@@ -107,7 +117,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (9)
 
         // Protected Methods (3) 
 
@@ -126,6 +136,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 compCatalog.Catalogs.Add(new AssemblyCatalog(this.GetType().Assembly));
                 compCatalog.Catalogs
                            .Add(this.ServiceCompositionCatalog = new AggregateCatalog());
+                compCatalog.Catalogs
+                           .Add(this.WebInterfaceCompositionCatalog = new AggregateCatalog());
 
                 compContainer = new CompositionContainer(compCatalog,
                                                          isThreadSafe: true);
@@ -207,76 +219,135 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     break;
             }
 
-            IList<Assembly> serviceAssemblies = new SynchronizedCollection<Assembly>();
-
-            var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services"));
-            if (serviceDir.Exists)
+            // assemblies with service
             {
-                ex = serviceDir.GetFiles("*.dll")
-                               .ForAllAsync(ctx =>
-                               {
-                                   var f = ctx.Item;
+                IList<Assembly> serviceAssemblies = new SynchronizedCollection<Assembly>();
 
-                                   var asmBlob = File.ReadAllBytes(f.FullName);
-                                   var asm = Assembly.Load(asmBlob);
+                var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services"));
+                if (serviceDir.Exists)
+                {
+                    ex = serviceDir.GetFiles("*.dll")
+                                   .ForAllAsync(ctx =>
+                                   {
+                                       var f = ctx.Item;
 
-                                   ctx.State
-                                      .Assemblies.Add(asm);
-                               }, actionState: new
-                               {
-                                   Assemblies = serviceAssemblies,
-                               }, throwExceptions: false);
+                                       var asmBlob = File.ReadAllBytes(f.FullName);
+                                       var asm = Assembly.Load(asmBlob);
 
-                if (ex != null)
+                                       ctx.State
+                                          .Assemblies.Add(asm);
+                                   }, actionState: new
+                                   {
+                                       Assemblies = serviceAssemblies,
+                                   }, throwExceptions: false);
+
+                    if (ex != null)
+                    {
+                        this.Logger
+                            .Log(msg: ex,
+                                 tag: LOG_TAG_PREFIX + "LoadServices",
+                                 categories: LoggerFacadeCategories.Errors);
+                    }
+                }
+
+                this.ServiceCompositionCatalog.Catalogs.Clear();
+                foreach (var asm in serviceAssemblies)
+                {
+                    this.ServiceCompositionCatalog
+                        .Catalogs
+                        .Add(new AssemblyCatalog(asm));
+                }
+
+                if (serviceAssemblies.Count > 0)
                 {
                     this.Logger
-                        .Log(msg: ex,
-                             tag: LOG_TAG_PREFIX + "LoadServices",
-                             categories: LoggerFacadeCategories.Errors);
+                        .Log(msg: string.Format("{0} services assemblies were loaded.", serviceAssemblies.Count),
+                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             categories: LoggerFacadeCategories.Information);
+                }
+                else
+                {
+                    this.Logger
+                        .Log(msg: "No service assembly was loaded.",
+                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             categories: LoggerFacadeCategories.Warnings);
                 }
             }
 
-            this.ServiceCompositionCatalog.Catalogs.Clear();
-            foreach (var asm in serviceAssemblies)
+            // web interface
             {
-                this.ServiceCompositionCatalog
-                    .Catalogs
-                    .Add(new AssemblyCatalog(asm));
-            }
+                IList<Assembly> webInterfaceAssemblies = new SynchronizedCollection<Assembly>();
 
-            if (serviceAssemblies.Count > 0)
-            {
-                this.Logger
-                    .Log(msg: string.Format("{0} services assemblies were loaded.", serviceAssemblies.Count),
-                         tag: LOG_TAG_PREFIX + "LoadModules",
-                         categories: LoggerFacadeCategories.Information);
-            }
-            else
-            {
-                this.Logger
-                    .Log(msg: "No service assembly was loaded.",
-                         tag: LOG_TAG_PREFIX + "LoadModules",
-                         categories: LoggerFacadeCategories.Warnings);
-            }
+                var webDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "web"));
+                if (webDir.Exists)
+                {
+                    ex = webDir.GetFiles("*.dll")
+                               .ForAllAsync(ctx =>
+                                            {
+                                                var f = ctx.Item;
 
-            try
-            {
-                this.DisposeOldWebInterfaceServer();
+                                                var asmBlob = File.ReadAllBytes(f.FullName);
+                                                var asm = Assembly.Load(asmBlob);
 
-                var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
-                newWebInterfaceServer.Port = 23979;
-                newWebInterfaceServer.HandleRequest += this.WebInterface_HandleRequest;
+                                                ctx.State
+                                                   .Assemblies.Add(asm);
+                                            }, actionState: new
+                                            {
+                                                Assemblies = webInterfaceAssemblies,
+                                            }, throwExceptions: false);
 
-                this.WebInterface = newWebInterfaceServer;
+                    if (ex != null)
+                    {
+                        this.Logger
+                            .Log(msg: ex,
+                                 tag: LOG_TAG_PREFIX + "LoadWebInterfaceModules",
+                                 categories: LoggerFacadeCategories.Errors);
+                    }
+                }
 
-                newWebInterfaceServer.Start();
-            }
-            catch (Exception e)
-            {
-                this.Logger
-                    .Log(msg: e.GetBaseException() ?? e,
-                         tag: LOG_TAG_PREFIX + "WebInterface",
-                         categories: LoggerFacadeCategories.Errors);
+                this.WebInterfaceCompositionCatalog.Catalogs.Clear();
+                foreach (var asm in webInterfaceAssemblies)
+                {
+                    this.WebInterfaceCompositionCatalog
+                        .Catalogs
+                        .Add(new AssemblyCatalog(asm));
+                }
+
+                if (webInterfaceAssemblies.Count > 0)
+                {
+                    this.Logger
+                        .Log(msg: string.Format("{0} web interface assemblies were loaded.", webInterfaceAssemblies.Count),
+                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             categories: LoggerFacadeCategories.Information);
+                }
+                else
+                {
+                    this.Logger
+                        .Log(msg: "No web interface assembly was loaded.",
+                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             categories: LoggerFacadeCategories.Warnings);
+                }
+
+                try
+                {
+                    this.DisposeOldWebInterfaceServer();
+
+                    var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
+                    newWebInterfaceServer.Port = 23979;
+
+                    this._webHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
+
+                    newWebInterfaceServer.Start();
+                }
+                catch (Exception e)
+                {
+                    this.Logger
+                        .Log(msg: e.GetBaseException() ?? e,
+                             tag: LOG_TAG_PREFIX + "WebInterface",
+                             categories: LoggerFacadeCategories.Errors);
+
+                    this.DisposeOldWebInterfaceServer();
+                }
             }
         }
 
@@ -312,7 +383,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                          categories: LoggerFacadeCategories.Errors);
             }
         }
-        // Private Methods (7) 
+        // Private Methods (6) 
 
         private static Func<IAppServerModule, bool> CreateWherePredicateForExtractingOtherModules(IAppServerModule module)
         {
@@ -326,14 +397,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
             try
             {
-                using (var srv = this.WebInterface)
+                using (var srv = this._webHandler)
                 {
-                    if (srv != null)
-                    {
-                        this.WebInterface = null;
-
-                        srv.HandleRequest -= this.WebInterface_HandleRequest;
-                    }
+                    this._webHandler = null;
                 }
             }
             catch (Exception ex)
@@ -494,23 +560,6 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     .Log(msg: "No module was loaded.",
                          tag: LOG_TAG_PREFIX + "LoadModules",
                          categories: LoggerFacadeCategories.Warnings);
-            }
-        }
-
-        private void WebInterface_HandleRequest(object sender, HttpRequestEventArgs e)
-        {
-            const string LOG_TAG_PREFIX = "ApplicationServer::WebInterface_HandleRequest::";
-
-            try
-            {
-                //TODO
-            }
-            catch (Exception ex)
-            {
-                this.Logger
-                    .Log(msg: ex.GetBaseException() ?? ex,
-                         tag: LOG_TAG_PREFIX + "HandleRequest",
-                         categories: LoggerFacadeCategories.Errors);
             }
         }
 

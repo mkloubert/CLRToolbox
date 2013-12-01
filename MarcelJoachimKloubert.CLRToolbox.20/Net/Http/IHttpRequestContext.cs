@@ -20,7 +20,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// The object that handles the response.
         /// </summary>
-        IHttpResponse Response { set; }
+        IHttpResponse Response { get; }
 
         #endregion Data Members
     }

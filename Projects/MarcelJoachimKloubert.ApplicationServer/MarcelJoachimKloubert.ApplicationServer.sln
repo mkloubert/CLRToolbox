@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Services.WcfHttp", "MarcelJoachimKloubert.AppServer.Services.WcfHttp\MarcelJoachimKloubert.AppServer.Services.WcfHttp.csproj", "{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebInterface", "WebInterface", "{EB7CFD94-4228-4BD8-A7F0-86FB5B850F4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Web.Common", "MarcelJoachimKloubert.AppServer.Web.Common\MarcelJoachimKloubert.AppServer.Web.Common.csproj", "{4A4A902F-A150-4351-942B-583B7D8A3812}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,10 @@ Global
 		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4A902F-A150-4351-942B-583B7D8A3812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4A902F-A150-4351-942B-583B7D8A3812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4A902F-A150-4351-942B-583B7D8A3812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4A902F-A150-4351-942B-583B7D8A3812}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,5 +69,6 @@ Global
 		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A} = {E3FBD307-AA4D-4676-9633-961CAA4B4CCE}
 		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
 		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
+		{4A4A902F-A150-4351-942B-583B7D8A3812} = {EB7CFD94-4228-4BD8-A7F0-86FB5B850F4C}
 	EndGlobalSection
 EndGlobal

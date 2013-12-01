@@ -12,8 +12,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public class HttpRequestEventArgs : EventArgs
     {
-        #region Fields (2)
+        #region Fields (3)
 
+        private bool _handled;
         private IHttpRequest _request;
         private IHttpResponse _response;
 
@@ -27,7 +28,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <param name="req">The value for the <see cref="HttpRequestEventArgs.Request" /> property.</param>
         /// <param name="resp">The value for the <see cref="HttpRequestEventArgs.Response" /> property.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="req" /> and/or <paramref name="resp" /> is <see langword="null" />.
+        /// <paramref name="req" /> and/or <paramref name="resp" /> are <see langword="null" />.
         /// </exception>
         public HttpRequestEventArgs(IHttpRequest req, IHttpResponse resp)
         {
@@ -47,21 +48,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (3)
 
         /// <summary>
-        /// 
+        /// Gets or sets if the request has been handled or not.
         /// </summary>
-        /// <see cref="IHttpRequestContext.Request" />
+        public bool Handled
+        {
+            get { return this._handled; }
+
+            set { this._handled = value; }
+        }
+
+        /// <summary>
+        /// Gets the underlying request context.
+        /// </summary>
         public IHttpRequest Request
         {
             get { return this._request; }
         }
 
         /// <summary>
-        /// 
+        /// Gets the underlying response context.
         /// </summary>
-        /// <see cref="IHttpRequestContext.Response" />
         public IHttpResponse Response
         {
             get { return this._response; }

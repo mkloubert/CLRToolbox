@@ -221,6 +221,7 @@
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
+    <Compile Include="Net\Http\HttpTransferMode.cs" />
     <Compile Include="Net\Http\Modules\DefaultHttpModuleAttribute.cs" />
     <Compile Include="Net\Http\HttpRequestBase.cs" />
     <Compile Include="Net\Http\HttpRequestErrorEventArgs.cs" />

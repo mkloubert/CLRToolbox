@@ -409,7 +409,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 this.Logger
                     .Log(msg: ex.GetBaseException() ?? ex,
                          tag: LOG_TAG_PREFIX + "Dispose",
-                         categories: LoggerFacadeCategories.Errors);
+                         categories: LoggerFacadeCategories.Errors | LoggerFacadeCategories.Debug);
             }
         }
 

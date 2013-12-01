@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="web\test.script" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
@@ -70,6 +71,10 @@
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Common\MarcelJoachimKloubert.AppServer.Services.Common.csproj">
       <Project>{b4c3feac-835c-4ddf-b5a0-a7d5a6d8ac5e}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Script\MarcelJoachimKloubert.AppServer.Services.Script.csproj">
+      <Project>{c5351e00-b43c-463a-b6c3-255020c8552d}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Services.Script</Name>
     </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.WcfHttp\MarcelJoachimKloubert.AppServer.Services.WcfHttp.csproj">
       <Project>{a4b2abc9-3c13-46b0-afcf-5749d38c1af2}</Project>
@@ -94,6 +99,28 @@
     <None Include="web\dummy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="web\css\test.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="web\js\jquery-2.0.3.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\jQuery\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="web\images\Edward_Snowden-2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_Libs\Edward Snowden\WikiPedia_de.url" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

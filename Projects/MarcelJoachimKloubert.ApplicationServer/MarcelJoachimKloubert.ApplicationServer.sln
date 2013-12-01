@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebInterface", "WebInterfac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Web.Common", "MarcelJoachimKloubert.AppServer.Web.Common\MarcelJoachimKloubert.AppServer.Web.Common.csproj", "{4A4A902F-A150-4351-942B-583B7D8A3812}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Script", "Script", "{A9155D1E-CADE-4E96-B89C-E2D4503F941D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Services.Script", "MarcelJoachimKloubert.AppServer.Services.Script\MarcelJoachimKloubert.AppServer.Services.Script.csproj", "{C5351E00-B43C-463A-B6C3-255020C8552D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{4A4A902F-A150-4351-942B-583B7D8A3812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A4A902F-A150-4351-942B-583B7D8A3812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A4A902F-A150-4351-942B-583B7D8A3812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5351E00-B43C-463A-B6C3-255020C8552D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5351E00-B43C-463A-B6C3-255020C8552D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5351E00-B43C-463A-B6C3-255020C8552D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5351E00-B43C-463A-B6C3-255020C8552D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +77,8 @@ Global
 		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A} = {E3FBD307-AA4D-4676-9633-961CAA4B4CCE}
 		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
 		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
+		{A9155D1E-CADE-4E96-B89C-E2D4503F941D} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
 		{4A4A902F-A150-4351-942B-583B7D8A3812} = {EB7CFD94-4228-4BD8-A7F0-86FB5B850F4C}
+		{C5351E00-B43C-463A-B6C3-255020C8552D} = {A9155D1E-CADE-4E96-B89C-E2D4503F941D}
 	EndGlobalSection
 EndGlobal

@@ -13,13 +13,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public abstract partial class HttpServerBase : DisposableBase, IHttpServer
     {
-        #region Fields (6)
+        #region Fields (7)
 
         private UsernamePasswordValidator _credentialValidator;
         private bool _isRunning;
         private int _port = 80;
         private HttpPrincipalProvider _principalFinder;
         private HttpRequestValidator _requestValidator;
+        private HttpTransferMode _transferMode;
         /// <summary>
         /// The default port for HTTP requests.
         /// </summary>
@@ -53,7 +54,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (8)
+        #region Properties (9)
 
         /// <summary>
         /// 
@@ -135,6 +136,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             get { return this._requestValidator; }
 
             set { this._requestValidator = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.TransferMode" />
+        public HttpTransferMode TransferMode
+        {
+            get { return this._transferMode; }
+
+            set { this._transferMode = value; }
         }
 
         #endregion Properties

@@ -12,6 +12,7 @@ using System.ServiceModel.Description;
 using MarcelJoachimKloubert.AppServer.Services.WcfHttp.Wcf;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
+using WcfTransferMode = System.ServiceModel.TransferMode;
 
 namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 {
@@ -19,6 +20,15 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
     [PartCreationPolicy(CreationPolicy.NonShared)]
     internal sealed class WcfHttpServer : HttpServerBase
     {
+        #region Constructors (1)
+
+        internal WcfHttpServer()
+        {
+            this.TransferMode = HttpTransferMode.Buffered;
+        }
+
+        #endregion Constructors
+
         #region Properties (2)
 
         internal ServiceHost Host
@@ -36,7 +46,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Properties
 
-        #region Methods (7)
+        #region Methods (8)
 
         // Protected Methods (2) 
 
@@ -55,7 +65,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
                 var transport = new HttpTransportBindingElement();
                 transport.KeepAliveEnabled = false;
-                transport.TransferMode = TransferMode.Buffered;
+                transport.TransferMode = ToWcfTransferMode(this.TransferMode);
                 transport.MaxReceivedMessageSize = int.MaxValue;
                 transport.MaxBufferPoolSize = int.MaxValue;
                 transport.MaxBufferSize = int.MaxValue;
@@ -96,7 +106,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
         {
             this.DisposeOldServiceHost();
         }
-        // Private Methods (1) 
+        // Private Methods (2) 
 
         private void DisposeOldServiceHost()
         {
@@ -114,8 +124,19 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                 this.Logger
                     .Log(msg: ex.GetBaseException() ?? ex,
                          tag: LOG_TAG_PREFIX + "Dispose",
-                         categories: LoggerFacadeCategories.Errors);
+                         categories: LoggerFacadeCategories.Errors | LoggerFacadeCategories.Debug);
             }
+        }
+
+        private static WcfTransferMode ToWcfTransferMode(HttpTransferMode mode)
+        {
+            WcfTransferMode result;
+            if (!Enum.TryParse<WcfTransferMode>(mode.ToString(), true, out result))
+            {
+                result = WcfTransferMode.Buffered;
+            }
+
+            return result;
         }
         // Internal Methods (4) 
 

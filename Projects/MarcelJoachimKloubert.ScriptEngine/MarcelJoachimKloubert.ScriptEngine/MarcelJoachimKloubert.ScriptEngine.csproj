@@ -33,6 +33,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MarcelJoachimKloubert.ScriptEngine.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="RemObjects.Script, Version=2.0.71.1093, Culture=neutral, PublicKeyToken=3df3cad1b7aa5098, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,6 +66,7 @@
     <EmbeddedResource Include="..\..\..\LICENSE">
       <Link>LICENSE</Link>
     </EmbeddedResource>
+    <None Include="MarcelJoachimKloubert.ScriptEngine.snk" />
     <None Include="RemObjects.Script.dll" />
   </ItemGroup>
   <ItemGroup>

@@ -5,21 +5,17 @@
 
 using System;
 using System.ComponentModel.Composition;
-using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
-using MarcelJoachimKloubert.CLRToolbox.Scripting;
-using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 {
     [Export(typeof(global::MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules.IHttpModule))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    [DefaultHttpModule]
-    internal sealed class index : WebInterfaceModuleBase
+    internal sealed class test : WebInterfaceModuleBase
     {
         #region Constructors (1)
 
-        internal index()
-            : base(new Guid("{E4CF7189-6EC2-4704-8389-B23C40150133}"))
+        internal test()
+            : base(new Guid("{DD9AA757-FBC8-423B-9839-AEFCBA9F818A}"))
         {
 
         }

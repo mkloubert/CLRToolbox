@@ -358,6 +358,9 @@
       <Link>Net\Http\HttpServerBase.StartStopContext.cs</Link>
       <DependentUpon>HttpServerBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpTransferMode.cs">
+      <Link>Net\Http\HttpTransferMode.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\IHttpRequest.cs">
       <Link>Net\Http\IHttpRequest.cs</Link>
     </Compile>

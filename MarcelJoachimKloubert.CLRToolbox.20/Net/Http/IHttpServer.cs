@@ -38,7 +38,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpServer : ITMDisposable, IRunnable
     {
-        #region Data Members (4)
+        #region Data Members (5)
 
         /// <summary>
         /// Gets or sets the validator that checks if the combination of a username and passsword matches.
@@ -59,6 +59,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// Gets or sets the validator that checks a <see cref="IHttpRequest" /> before handling it.
         /// </summary>
         HttpRequestValidator RequestValidator { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mode the data should be transfered.
+        /// </summary>
+        HttpTransferMode TransferMode { get; set; }
 
         #endregion Data Members
 

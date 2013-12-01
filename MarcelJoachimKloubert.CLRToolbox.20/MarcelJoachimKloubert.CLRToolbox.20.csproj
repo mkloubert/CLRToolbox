@@ -216,6 +216,24 @@
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
+    <Compile Include="Net\Http\HttpRequestBase.cs" />
+    <Compile Include="Net\Http\HttpRequestEventArgs.cs" />
+    <Compile Include="Net\Http\HttpResponseBase.cs" />
+    <Compile Include="Net\Http\HttpServerBase.StartStopContext.cs">
+      <DependentUpon>HttpServerBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Net\Http\HttpServerBase.cs" />
+    <Compile Include="Net\Http\IHttpRequest.cs" />
+    <Compile Include="Net\Http\IHttpRequestContext.cs" />
+    <Compile Include="Net\Http\IHttpResponse.cs" />
+    <Compile Include="Net\Http\Modules\HttpModuleBase.cs" />
+    <Compile Include="Net\Http\Modules\HttpModuleBase.HttpModuleHandleRequestResult.cs">
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Net\Http\Modules\IHttpModule.cs" />
+    <Compile Include="Net\Http\IHttpServer.cs" />
+    <Compile Include="Net\Http\Modules\IHttpModuleHandleRequestResult.cs" />
+    <Compile Include="Net\Http\SimpleHttpRequestContext.cs" />
     <Compile Include="Objects\IdentifiableObjectContextBase.cs" />
     <Compile Include="Objects\IObjectContext.cs" />
     <Compile Include="Objects\ObjectContextBase.cs" />

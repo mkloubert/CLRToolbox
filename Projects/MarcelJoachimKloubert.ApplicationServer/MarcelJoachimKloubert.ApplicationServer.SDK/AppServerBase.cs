@@ -5,14 +5,22 @@
 
 using System;
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 
 namespace MarcelJoachimKloubert.ApplicationServer
 {
     /// <summary>
     /// A basic application server.
     /// </summary>
-    public abstract partial class AppServerBase : DisposableBase, IAppServer
+    public abstract partial class AppServerBase : NotificationObjectBase, IAppServer
     {
+        #region Fields (2)
+
+        private IAppServerContext _context;
+        private bool _isDisposed;
+
+        #endregion Fields
+
         #region Constructors (2)
 
         /// <summary>
@@ -39,7 +47,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Constructors
 
-        #region Properties (4)
+        #region Properties (7)
 
         /// <summary>
         /// 
@@ -71,6 +79,57 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IAppServer.Context" />
+        public virtual IAppServerContext Context
+        {
+            get { return this._context; }
+
+            private set
+            {
+                if (!object.Equals(this._context, value))
+                {
+                    this.OnPropertyChanging(() => this.Context);
+                    this.OnPropertyChanging(() => this.IsInitialized);
+
+                    this._context = value;
+
+                    this.OnPropertyChanged(() => this.Context);
+                    this.OnPropertyChanged(() => this.IsInitialized);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ITMDisposable.IsDisposed" />
+        public bool IsDisposed
+        {
+            get { return this._isDisposed; }
+
+            private set
+            {
+                if (value != this._isDisposed)
+                {
+                    this.OnPropertyChanging(() => this.IsDisposed);
+                    this._isDisposed = value;
+                    this.OnPropertyChanged(() => this.IsDisposed);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServer.IsInitialized" />
+        public bool IsInitialized
+        {
+            get { return this.Context != null; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IRunnable.IsRunning" />
         public bool IsRunning
         {
@@ -80,9 +139,71 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (8)
+        #region Delegates and Events (2)
 
-        // Public Methods (3) 
+        // Events (2) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ITMDisposable.Disposed" />
+        public event EventHandler Disposed;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ITMDisposable.Disposing" />
+        public event EventHandler Disposing;
+
+        #endregion Delegates and Events
+
+        #region Methods (15)
+
+        // Public Methods (5) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IDisposable.Dispose()" />
+        public void Dispose()
+        {
+            this.DisposeInner(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServer.Initialize(IAppServerInitContext)" />
+        public void Initialize(IAppServerInitContext initContext)
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfDisposed();
+
+                if (initContext == null)
+                {
+                    throw new ArgumentNullException("initContext");
+                }
+
+                if (this.IsInitialized)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                var context = initContext.ServerContext;
+                if (context == null)
+                {
+                    throw new ArgumentException("initContext");
+                }
+
+                var isInitialized = true;
+                this.OnInitialize(initContext,
+                                  ref isInitialized);
+
+                this.Context = isInitialized ? context : null;
+            }
+        }
 
         /// <summary>
         /// 
@@ -93,6 +214,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             lock (this._SYNC)
             {
                 this.ThrowIfDisposed();
+                this.ThrowIfNotInitialized();
 
                 if (!this.CanRestart)
                 {
@@ -113,6 +235,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             lock (this._SYNC)
             {
                 this.ThrowIfDisposed();
+                this.ThrowIfNotInitialized();
 
                 if (!this.CanStart)
                 {
@@ -132,6 +255,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             lock (this._SYNC)
             {
                 this.ThrowIfDisposed();
+                this.ThrowIfNotInitialized();
 
                 if (!this.CanStop)
                 {
@@ -141,19 +265,27 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 this.StopInner(StartStopContext.Stop);
             }
         }
-        // Protected Methods (3) 
+        // Protected Methods (7) 
 
         /// <summary>
-        /// The logic for disposing or finalizing that server object.
+        /// 
         /// </summary>
-        /// /// <param name="disposing">
-        /// Is called from <see cref="DisposableBase.Dispose()" /> method (<see langword="true" />)
-        /// or the finalizer (<see langword="false" />).
-        /// </param>
-        protected virtual void DisposeServer(bool disposing)
+        /// <see cref="DisposableBase.OnDispose(bool)" />
+        protected virtual void OnDispose(bool disposing)
         {
             // dummy
         }
+
+        /// <summary>
+        /// The logic for the <see cref="AppServerBase.Initialize(IAppServerInitContext)" /> method.
+        /// </summary>
+        /// <param name="initContext">The context.</param>
+        /// <param name="isInitialized">
+        /// Defines if initilize operation was successful or not.
+        /// Is <see langword="true" /> at the beginning.
+        /// </param>
+        protected abstract void OnInitialize(IAppServerInitContext initContext,
+                                             ref bool isInitialized);
 
         /// <summary>
         /// The logic for <see cref="AppServerBase.Start()" /> and
@@ -178,7 +310,75 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// </param>
         protected abstract void OnStop(StartStopContext context,
                                        ref bool isRunning);
-        // Private Methods (2) 
+
+        /// <summary>
+        /// Raises an <see cref="EventHandler" /> for this instance.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        /// <returns><paramref name="handler" /> was invoked or not.</returns>
+        protected bool RaiseEventHandler(EventHandler handler)
+        {
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Throws an exception if that object has already been disposed.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">That object has already been disposed.</exception>
+        protected void ThrowIfDisposed()
+        {
+            if (this.IsDisposed)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName);
+            }
+        }
+
+        /// <summary>
+        /// Throws an exception if that object has not been initialized yet.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Object has not been initialized yet.
+        /// </exception>
+        protected void ThrowIfNotInitialized()
+        {
+            if (!this.IsInitialized)
+            {
+                throw new InvalidOperationException("Object has not been initialized yet!");
+            }
+        }
+        // Private Methods (3) 
+
+        private void DisposeInner(bool disposing)
+        {
+            lock (this._SYNC)
+            {
+                if (disposing && this.IsDisposed)
+                {
+                    return;
+                }
+
+                this.StopInner(StartStopContext.Dispose);
+
+                if (disposing)
+                {
+                    this.RaiseEventHandler(this.Disposing);
+                }
+
+                this.OnDispose(disposing);
+
+                if (disposing)
+                {
+                    this.RaiseEventHandler(this.Disposed);
+                    this.IsDisposed = true;
+                }
+            }
+        }
 
         private void StartInner(StartStopContext context)
         {
@@ -217,16 +417,5 @@ namespace MarcelJoachimKloubert.ApplicationServer
         }
 
         #endregion Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="DisposableBase.OnDispose(bool)" />
-        protected override sealed void OnDispose(bool disposing)
-        {
-            this.StopInner(StartStopContext.Dispose);
-
-            this.DisposeServer(disposing);
-        }
     }
 }

@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
@@ -57,7 +58,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (3)
+        #region Properties (5)
 
         /// <summary>
         /// Gets or sets the binary content of the underlying assembly file.
@@ -100,11 +101,39 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerModuleContext.Logger" />
+        public ILoggerFacade Logger
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets the items for <see cref="SimpleAppServerModuleContext.GetOtherModules()" /> method.
+        /// </summary>
+        public IEnumerable<IAppServerModule> OtherModules
+        {
+            get;
+            set;
+        }
+
         #endregion Properties
 
-        #region Methods (5)
+        #region Methods (6)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerModuleContext.GetOtherModules()" />
+        public IList<IAppServerModule> GetOtherModules()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Sets the value for <see cref="SimpleAppServerModuleContext.AssemblyFile" /> property.

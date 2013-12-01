@@ -4,6 +4,7 @@
 
 
 using System;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 {
@@ -40,7 +41,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
             }
             catch (Exception ex)
             {
-                result.Errors = new Exception[] { ex };
+                var aggEx = ex as AggregateException;
+                if (aggEx == null)
+                {
+                    aggEx = new AggregateException(new Exception[] { ex });
+                }
+
+                result.Errors = CollectionHelper.AsArray(aggEx.Flatten().InnerExceptions);
 
                 result.DoLogMessage = false;
                 result.MessageValueToLog = null;

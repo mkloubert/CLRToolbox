@@ -37,7 +37,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                            CancellationToken token,
                            TaskCreationOptions options,
                            TaskScheduler scheduler)
-            : base(innerLogger: innerLogger)
+            : base(innerLogger: innerLogger,
+                   isThreadSafe: false)
         {
             this._TOKEN = token;
             this._OPTIONS = options;

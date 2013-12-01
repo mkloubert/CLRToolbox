@@ -54,17 +54,21 @@
       <DependentUpon>AppServerBase.cs</DependentUpon>
     </Compile>
     <Compile Include="AppServerBase.cs" />
+    <Compile Include="IAppServerInitContext.cs" />
     <Compile Include="Modules\AppServerModuleBase.StartStopContext.cs">
       <DependentUpon>AppServerModuleBase.cs</DependentUpon>
     </Compile>
     <Compile Include="IAppServer.cs" />
     <Compile Include="IAppServerContext.cs" />
     <Compile Include="Modules\AppServerModuleBase.cs" />
+    <Compile Include="Modules\IAppServerModuleInitContext.cs" />
     <Compile Include="Modules\IAppServerModule.cs" />
     <Compile Include="Modules\IAppServerModuleContext.cs" />
     <Compile Include="Modules\SimpleAppServerModuleContext.cs" />
+    <Compile Include="Modules\SimpleAppServerModuleInitContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleAppServerContext.cs" />
+    <Compile Include="SimpleAppServerInitContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MarcelJoachimKloubert.ApplicationServer.SDK.snk" />

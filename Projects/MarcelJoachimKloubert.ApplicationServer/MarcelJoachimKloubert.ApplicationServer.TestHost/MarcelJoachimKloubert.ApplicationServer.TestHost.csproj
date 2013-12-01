@@ -67,8 +67,20 @@
       <Project>{2a04af55-a6a7-4236-acaf-7a0f0211540a}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Modules.RemoteComm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Common\MarcelJoachimKloubert.AppServer.Services.Common.csproj">
+      <Project>{b4c3feac-835c-4ddf-b5a0-a7d5a6d8ac5e}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.WcfHttp\MarcelJoachimKloubert.AppServer.Services.WcfHttp.csproj">
+      <Project>{a4b2abc9-3c13-46b0-afcf-5749d38c1af2}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Services.WcfHttp</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="services\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <None Include="modules\dummy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -76,7 +88,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules"</PostBuildEvent>
+    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "$(TargetDir)services"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

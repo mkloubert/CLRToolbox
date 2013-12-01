@@ -7,17 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.ApplicationServer.SDK", "MarcelJoachimKloubert.ApplicationServer.SDK\MarcelJoachimKloubert.ApplicationServer.SDK.csproj", "{F66C16A4-703B-4F09-A78D-2ABB90030354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.ScriptEngine", "..\MarcelJoachimKloubert.ScriptEngine\MarcelJoachimKloubert.ScriptEngine\MarcelJoachimKloubert.ScriptEngine.csproj", "{20F680D2-6E89-43F2-8943-F848A763E788}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.35", "..\..\MarcelJoachimKloubert.CLRToolbox.35\MarcelJoachimKloubert.CLRToolbox.35.csproj", "{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Script Engine", "Script Engine", "{EABA26BD-B4AB-41CF-8AB1-9295F89E627E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{E3FBD307-AA4D-4676-9633-961CAA4B4CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40", "..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj", "{50E0CDB2-BC51-4C46-949A-387E3534041F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Modules.RemoteComm", "MarcelJoachimKloubert.AppServer.Modules.RemoteComm\MarcelJoachimKloubert.AppServer.Modules.RemoteComm.csproj", "{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{14326B8B-4923-430A-BF97-243D5BD59ADC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Services.Common", "MarcelJoachimKloubert.AppServer.Services.Common\MarcelJoachimKloubert.AppServer.Services.Common.csproj", "{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Services.WcfHttp", "MarcelJoachimKloubert.AppServer.Services.WcfHttp\MarcelJoachimKloubert.AppServer.Services.WcfHttp.csproj", "{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +37,6 @@ Global
 		{F66C16A4-703B-4F09-A78D-2ABB90030354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66C16A4-703B-4F09-A78D-2ABB90030354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66C16A4-703B-4F09-A78D-2ABB90030354}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20F680D2-6E89-43F2-8943-F848A763E788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20F680D2-6E89-43F2-8943-F848A763E788}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20F680D2-6E89-43F2-8943-F848A763E788}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20F680D2-6E89-43F2-8943-F848A763E788}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,13 +45,21 @@ Global
 		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DCD0A910-1D32-43F1-BC05-EDB6C19722AE} = {EABA26BD-B4AB-41CF-8AB1-9295F89E627E}
-		{20F680D2-6E89-43F2-8943-F848A763E788} = {EABA26BD-B4AB-41CF-8AB1-9295F89E627E}
 		{2A04AF55-A6A7-4236-ACAF-7A0F0211540A} = {E3FBD307-AA4D-4676-9633-961CAA4B4CCE}
+		{B4C3FEAC-835C-4DDF-B5A0-A7D5A6D8AC5E} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
+		{A4B2ABC9-3C13-46B0-AFCF-5749D38C1AF2} = {14326B8B-4923-430A-BF97-243D5BD59ADC}
 	EndGlobalSection
 EndGlobal

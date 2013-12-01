@@ -52,7 +52,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (8)
+        #region Properties (9)
 
         /// <summary>
         /// 
@@ -94,8 +94,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
                 if (!object.Equals(this._context, value))
                 {
                     this.OnPropertyChanging(() => this.Context);
+                    this.OnPropertyChanging(() => this.IsInitialized);
+
                     this._context = value;
+
                     this.OnPropertyChanged(() => this.Context);
+                    this.OnPropertyChanged(() => this.IsInitialized);
                 }
             }
         }
@@ -117,6 +121,15 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerModule.IsInitialized" />
+        public bool IsInitialized
+        {
+            get { return this.Context != null; }
         }
 
         /// <summary>
@@ -149,9 +162,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Properties
 
-        #region Methods (13)
+        #region Methods (16)
 
-        // Public Methods (8) 
+        // Public Methods (9) 
 
         /// <summary>
         /// 
@@ -216,11 +229,45 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IAppServerModule.Initialize(IAppServerModuleInitContext)" />
+        public void Initialize(IAppServerModuleInitContext initContext)
+        {
+            lock (this._SYNC)
+            {
+                if (initContext == null)
+                {
+                    throw new ArgumentNullException("initContext");
+                }
+
+                if (this.IsInitialized)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                var context = initContext.ModuleContext;
+                if (context == null)
+                {
+                    throw new ArgumentException("initContext");
+                }
+
+                var isInitialized = true;
+                this.OnInitialize(initContext,
+                                  ref isInitialized);
+
+                this.Context = isInitialized ? context : null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IRunnable.Restart()" />
         public void Restart()
         {
             lock (this._SYNC)
             {
+                this.ThrowIfNotInitialized();
+
                 if (!this.CanRestart)
                 {
                     throw new InvalidOperationException();
@@ -239,6 +286,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         {
             lock (this._SYNC)
             {
+                this.ThrowIfNotInitialized();
+
                 if (!this.CanStart)
                 {
                     throw new InvalidOperationException();
@@ -256,6 +305,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         {
             lock (this._SYNC)
             {
+                this.ThrowIfNotInitialized();
+
                 if (!this.CanStop)
                 {
                     throw new InvalidOperationException();
@@ -264,7 +315,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
                 this.StopInner(StartStopContext.Stop);
             }
         }
-        // Protected Methods (3) 
+        // Protected Methods (5) 
 
         /// <summary>
         /// The logic for <see cref="AppServerModuleBase.GetDisplayName(CultureInfo)" />.
@@ -275,6 +326,17 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         {
             return this.Name;
         }
+
+        /// <summary>
+        /// The logic for the <see cref="AppServerModuleBase.Initialize(IAppServerModuleInitContext)" /> method.
+        /// </summary>
+        /// <param name="initContext">The context.</param>
+        /// <param name="isInitialized">
+        /// Defines if initilize operation was successful or not.
+        /// Is <see langword="true" /> at the beginning.
+        /// </param>
+        protected abstract void OnInitialize(IAppServerModuleInitContext initContext,
+                                             ref bool isInitialized);
 
         /// <summary>
         /// The logic for <see cref="AppServerModuleBase.Start()" /> and
@@ -299,6 +361,20 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         /// </param>
         protected abstract void OnStop(StartStopContext context,
                                        ref bool isRunning);
+
+        /// <summary>
+        /// Throws an exception if that object has not been initialized yet.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Object has not been initialized yet.
+        /// </exception>
+        protected void ThrowIfNotInitialized()
+        {
+            if (!this.IsInitialized)
+            {
+                throw new InvalidOperationException("Object has not been initialized yet!");
+            }
+        }
         // Private Methods (2) 
 
         private void StartInner(StartStopContext context)

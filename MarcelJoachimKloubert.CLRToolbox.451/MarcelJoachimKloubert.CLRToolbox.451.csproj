@@ -310,6 +310,50 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpRequestBase.cs">
+      <Link>Net\Http\HttpRequestBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpRequestEventArgs.cs">
+      <Link>Net\Http\HttpRequestEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpResponseBase.cs">
+      <Link>Net\Http\HttpResponseBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\HttpServerBase.cs">
+      <Link>Net\Http\HttpServerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpServerBase.StartStopContext.cs">
+      <Link>Net\Http\HttpServerBase.StartStopContext.cs</Link>
+      <DependentUpon>HttpServerBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\IHttpRequest.cs">
+      <Link>Net\Http\IHttpRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\IHttpRequestContext.cs">
+      <Link>Net\Http\IHttpRequestContext.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\IHttpResponse.cs">
+      <Link>Net\Http\IHttpResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\IHttpServer.cs">
+      <Link>Net\Http\IHttpServer.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\modules\HttpModuleBase.cs">
+      <Link>Net\Http\Modules\HttpModuleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\modules\HttpModuleBase.HttpModuleHandleRequestResult.cs">
+      <Link>Net\Http\Modules\HttpModuleBase.HttpModuleHandleRequestResult.cs</Link>
+      <DependentUpon>HttpModuleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\modules\IHttpModule.cs">
+      <Link>Net\Http\Modules\IHttpModule.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\net\http\modules\IHttpModuleHandleRequestResult.cs">
+      <Link>Net\Http\Modules\IHttpModuleHandleRequestResult.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\SimpleHttpRequestContext.cs">
+      <Link>Net\Http\SimpleHttpRequestContext.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\objects\IdentifiableObjectContextBase.cs">
       <Link>Objects\IdentifiableObjectContextBase.cs</Link>
     </Compile>

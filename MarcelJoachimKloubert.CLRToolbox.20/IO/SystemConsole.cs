@@ -13,6 +13,32 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// </summary>
     public partial class SystemConsole : ConsoleBase
     {
+        #region Constructors (2)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemConsole" /> class.
+        /// </summary>
+        /// <param name="syncRoot">The value for <see cref="TMObject._SYNC" /> field..</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="syncRoot" /> is <see langword="null" />.
+        /// </exception>
+        public SystemConsole(object syncRoot)
+            : base(syncRoot)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemConsole" /> class.
+        /// </summary>
+        public SystemConsole()
+            : base()
+        {
+
+        }
+
+        #endregion Constructors
+
         #region Methods (3)
 
         // Protected Methods (3) 

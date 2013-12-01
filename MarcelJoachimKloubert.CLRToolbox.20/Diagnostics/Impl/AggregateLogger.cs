@@ -35,9 +35,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
         #endregion Constructors
 
-        #region Methods (5)
+        #region Methods (6)
 
-        // Public Methods (4) 
+        // Public Methods (5) 
 
         /// <summary>
         /// Adds a logger.
@@ -67,6 +67,36 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             lock (this._SYNC)
             {
                 this._LOGGERS.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Returns a flatten list of loggers and sub loggers that are part of this instance and its children.
+        /// </summary>
+        /// <returns>The flatten list.</returns>
+        public IEnumerable<ILoggerFacade> Flatten()
+        {
+            List<AggregateLogger> aggLogList = new List<AggregateLogger>();
+            aggLogList.Add(this);
+
+            int num = 0;
+            while (aggLogList.Count > num)
+            {
+                IList<ILoggerFacade> innerLoggers = aggLogList[num++].GetLoggers();
+                for (int i = 0; i < innerLoggers.Count; i++)
+                {
+                    ILoggerFacade logger = innerLoggers[i];
+
+                    AggregateLogger aggLog = logger as AggregateLogger;
+                    if (aggLog != null)
+                    {
+                        aggLogList.Add(aggLog);
+                    }
+                    else
+                    {
+                        yield return logger;
+                    }
+                }
             }
         }
 

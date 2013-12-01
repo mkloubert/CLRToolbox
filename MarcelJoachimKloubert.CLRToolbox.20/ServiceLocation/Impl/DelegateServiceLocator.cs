@@ -292,7 +292,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                     // use base service locator instead
 
                     result = this._BASE_LOCATOR
-                                 .GetAllInstances(serviceType, key);
+                                 .GetInstance(serviceType, key);
                 }
             }
 

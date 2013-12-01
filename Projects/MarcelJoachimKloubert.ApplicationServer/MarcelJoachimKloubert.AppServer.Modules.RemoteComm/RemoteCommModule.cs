@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
     /// Remote Application Server Communicatior module.
     /// </summary>
     [Export(typeof(global::MarcelJoachimKloubert.ApplicationServer.Modules.IAppServerModule))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public sealed class RemoteCommModule : AppServerModuleBase
     {
         #region Constructors (1)
@@ -44,9 +44,9 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (4)
 
-        // Protected Methods (3) 
+        // Protected Methods (4) 
 
         /// <summary>
         /// 
@@ -54,7 +54,17 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
         /// <see cref="AppServerModuleBase.OnGetDisplayName(CultureInfo)" />
         protected override IEnumerable<char> OnGetDisplayName(CultureInfo culture)
         {
-            return "Remote Application Server Communicatior";
+            return "Remote Application Server Communicator";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="AppServerModuleBase.OnInitialize(IAppServerModuleInitContext, ref bool)" />
+        protected override void OnInitialize(IAppServerModuleInitContext initContext,
+                                             ref bool isInitialized)
+        {
+
         }
 
         /// <summary>

@@ -3,7 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IdentityModel.Policy;
@@ -28,7 +27,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp.Wcf
 
         // Protected Methods (1) 
 
-        protected override ReadOnlyCollection<IAuthorizationPolicy> ValidateUserNamePasswordCore(String userName, String password)
+        protected override ReadOnlyCollection<IAuthorizationPolicy> ValidateUserNamePasswordCore(string userName, string password)
         {
             var newPolicies = new List<IAuthorizationPolicy>();
 

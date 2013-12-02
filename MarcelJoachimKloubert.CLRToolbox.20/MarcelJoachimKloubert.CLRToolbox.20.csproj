@@ -77,6 +77,14 @@
     <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Execution\Functions\FunctionBase.Classes.cs">
+      <DependentUpon>FunctionBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Execution\Functions\FunctionBase.cs" />
+    <Compile Include="Execution\Functions\FunctionLocatorBase.cs" />
+    <Compile Include="Execution\Functions\IFunction.cs" />
+    <Compile Include="Execution\Functions\IFunctionExecutionContext.cs" />
+    <Compile Include="Execution\Functions\IFunctionLocator.cs" />
     <Compile Include="Factories\EqualityComparerFactory.cs" />
     <Compile Include="Factories\EqualityComparerFactory.Strings.cs">
       <DependentUpon>EqualityComparerFactory.cs</DependentUpon>
@@ -221,6 +229,9 @@
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
+    <Compile Include="Net\Http\HttpServerBase.Interface.cs">
+      <DependentUpon>HttpServerBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Net\Http\HttpTransferMode.cs" />
     <Compile Include="Net\Http\Modules\DefaultHttpModuleAttribute.cs" />
     <Compile Include="Net\Http\HttpRequestBase.cs" />
@@ -250,9 +261,11 @@
     <Compile Include="Net\Http\Modules\HttpModuleBase.HttpModuleHandleRequestResult.cs">
       <DependentUpon>HttpModuleBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Net\Http\Modules\HttpModuleLocatorBase.cs" />
     <Compile Include="Net\Http\Modules\IHttpModule.cs" />
     <Compile Include="Net\Http\IHttpServer.cs" />
     <Compile Include="Net\Http\Modules\IHttpModuleHandleRequestResult.cs" />
+    <Compile Include="Net\Http\Modules\IHttpModuleLocator.cs" />
     <Compile Include="Net\Http\SimpleHttpRequestContext.cs" />
     <Compile Include="Net\ITcpAddress.cs" />
     <Compile Include="Net\SimpleTcpAddress.cs" />
@@ -263,6 +276,7 @@
       <DependentUpon>ObjectContextBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ResourceRootNamespaceAttribute.cs" />
     <Compile Include="Scripting\CommonScriptFunctionSetup.cs" />
     <Compile Include="Scripting\Export\ExportScriptFuncAttribute.cs" />
     <Compile Include="Scripting\Export\ExportScriptTypeAttribute.cs" />

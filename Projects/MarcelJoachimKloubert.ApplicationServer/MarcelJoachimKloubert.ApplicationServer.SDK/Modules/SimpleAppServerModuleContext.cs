@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
@@ -19,9 +20,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
     public sealed class SimpleAppServerModuleContext : IdentifiableObjectContextBase<IAppServerModule>,
                                                        IAppServerModuleContext
     {
-        #region Fields (3)
+        #region Fields (2)
 
-        private byte[] _assemblyContent;
         private string _assemblyFile;
         private Lazy<byte[]> _lazyHash;
 
@@ -40,7 +40,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         public SimpleAppServerModuleContext(IAppServerModule module, object syncRoot)
             : base(module, syncRoot)
         {
-            this.ResetLazyHash(this._assemblyContent);
+            this.ResetLazyHash();
         }
 
         /// <summary>
@@ -58,30 +58,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (5)
-
-        /// <summary>
-        /// Gets or sets the binary content of the underlying assembly file.
-        /// </summary>
-        public byte[] AssemblyContent
-        {
-            get
-            {
-                lock (this._SYNC)
-                {
-                    return this._assemblyContent;
-                }
-            }
-
-            set
-            {
-                lock (this._SYNC)
-                {
-                    this._assemblyContent = value;
-                    this.ResetLazyHash(value);
-                }
-            }
-        }
+        #region Properties (4)
 
         /// <summary>
         /// 
@@ -132,7 +109,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         /// <see cref="IAppServerModuleContext.GetOtherModules()" />
         public IList<IAppServerModule> GetOtherModules()
         {
-            throw new NotImplementedException();
+            var otherModules = this.OtherModules ?? Enumerable.Empty<IAppServerModule>();
+
+            return new List<IAppServerModule>(otherModules.OfType<IAppServerModule>());
         }
 
         /// <summary>
@@ -189,7 +168,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         }
         // Private Methods (1) 
 
-        private void ResetLazyHash(byte[] asmContent)
+        private void ResetLazyHash()
         {
             this._lazyHash = new Lazy<byte[]>(() =>
                 {
@@ -197,14 +176,6 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
                     try
                     {
                         base.OnCalculateHash(ref dataToHash);
-                        if (dataToHash != null)
-                        {
-                            if (asmContent != null)
-                            {
-                                dataToHash.Write(asmContent, 0, asmContent.Length);
-                            }
-                        }
-
                         return dataToHash != null ? dataToHash.ToArray() : null;
                     }
                     finally

@@ -4,6 +4,8 @@
 
 
 using System;
+using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Security;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
@@ -13,18 +15,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public abstract partial class HttpServerBase : DisposableBase, IHttpServer
     {
-        #region Fields (7)
+        #region Fields (9)
 
         private UsernamePasswordValidator _credentialValidator;
         private bool _isRunning;
-        private int _port = 80;
+        private int? _port;
         private HttpPrincipalProvider _principalFinder;
         private HttpRequestValidator _requestValidator;
         private HttpTransferMode _transferMode;
+        private bool _useSecureHttp;
         /// <summary>
         /// The default port for HTTP requests.
         /// </summary>
         public const int DEFAULT_PORT_HTTP = 80;
+        /// <summary>
+        /// The default port for secure HTTP requests.
+        /// </summary>
+        public const int DEFAULT_PORT_SECURE_HTTP = 443;
 
         #endregion Fields
 
@@ -54,7 +61,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (9)
+        #region Properties (11)
 
         /// <summary>
         /// 
@@ -109,7 +116,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// 
         /// </summary>
         /// <see cref="IHttpServer.Port" />
-        public int Port
+        public int? Port
         {
             get { return this._port; }
 
@@ -141,12 +148,32 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IHttpServer.SupportsSecureHttp" />
+        public virtual bool SupportsSecureHttp
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IHttpServer.TransferMode" />
         public HttpTransferMode TransferMode
         {
             get { return this._transferMode; }
 
             set { this._transferMode = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpServer.UseSecureHttp" />
+        public bool UseSecureHttp
+        {
+            get { return this._useSecureHttp; }
+
+            set { this._useSecureHttp = value; }
         }
 
         #endregion Properties
@@ -181,9 +208,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Delegates and Events
 
-        #region Methods (13)
+        #region Methods (15)
 
-        // Public Methods (3) 
+        // Public Methods (4) 
 
         /// <summary>
         /// 
@@ -206,6 +233,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IHttpServer.SetSslCertificateByThumbprint(IEnumerable{char})" />
+        public HttpServerBase SetSslCertificateByThumbprint(IEnumerable<char> thumbprint)
+        {
+            lock (this._SYNC)
+            {
+                if (!this.SupportsSecureHttp)
+                {
+                    // does not support HTTPs
+                    throw new NotSupportedException();
+                }
+
+                this.OnSetSslCertificateByThumbprint(StringHelper.AsString(thumbprint));
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IRunnable.Start()" />
         public void Start()
         {
@@ -214,6 +260,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 if (!this.CanStart)
                 {
                     throw new InvalidOperationException();
+                }
+
+                if (!this.SupportsSecureHttp &&
+                    this.UseSecureHttp)
+                {
+                    // does not support HTTPs
+                    throw new NotSupportedException();
                 }
 
                 this.StartInner(StartStopContext.Start);
@@ -236,7 +289,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 this.StopInner(StartStopContext.Stop);
             }
         }
-        // Protected Methods (7) 
+        // Protected Methods (8) 
 
         /// <summary>
         /// The logic that disposes that server.
@@ -333,6 +386,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         {
             return this.OnHandle(this.HandleRequest,
                                  req, resp);
+        }
+
+        /// <summary>
+        /// The logic for <see cref="HttpServerBase.SetSslCertificateByThumbprint(IEnumerable{char})" /> method.
+        /// </summary>
+        /// <param name="thumbprint">The thumbprint to search for.</param>
+        protected virtual void OnSetSslCertificateByThumbprint(string thumbprint)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

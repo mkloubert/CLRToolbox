@@ -12,6 +12,7 @@ using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Scripting;
 using RemObjects.Script;
+using AppServerImpl = MarcelJoachimKloubert.ApplicationServer.ApplicationServer;
 
 namespace MarcelJoachimKloubert.AppServer.Services.Script
 {
@@ -19,6 +20,22 @@ namespace MarcelJoachimKloubert.AppServer.Services.Script
     [PartCreationPolicy(CreationPolicy.NonShared)]
     internal sealed class JavaScriptEngine : ScriptExecutorBase
     {
+        #region Fields (1)
+
+        private readonly AppServerImpl _SERVER;
+
+        #endregion Fields
+
+        #region Constructors (1)
+
+        [ImportingConstructor]
+        internal JavaScriptEngine(AppServerImpl server)
+        {
+            this._SERVER = server;
+        }
+
+        #endregion Constructors
+
         #region Methods (2)
 
         // Protected Methods (2) 

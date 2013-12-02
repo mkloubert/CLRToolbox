@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
-using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.ApplicationServer.Modules
 {
@@ -209,12 +209,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         /// <see cref="IHasName.GetDisplayName(CultureInfo)" />
         public string GetDisplayName(CultureInfo culture)
         {
-            lock (this._SYNC)
+            if (culture == null)
             {
-                var result = (this.OnGetDisplayName(culture).AsString() ?? string.Empty).ToLower().Trim();
-
-                return result != string.Empty ? result : null;
+                throw new ArgumentNullException("culture");
             }
+
+            return StringHelper.AsString(this.OnGetDisplayName(culture));
         }
 
         /// <summary>

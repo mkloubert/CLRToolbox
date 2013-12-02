@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using MarcelJoachimKloubert.CLRToolbox.Security;
 
@@ -38,7 +39,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpServer : ITMDisposable, IRunnable
     {
-        #region Data Members (5)
+        #region Data Members (7)
 
         /// <summary>
         /// Gets or sets the validator that checks if the combination of a username and passsword matches.
@@ -47,8 +48,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         /// <summary>
         /// Gets or sets the TCP port to use.
+        /// <see langword="null" /> indicates to use the default.
         /// </summary>
-        int Port { get; set; }
+        int? Port { get; set; }
 
         /// <summary>
         /// Gets or sets the provider for finding an <see cref="IPrincipal" /> by an <see cref="IIdentity" />.
@@ -61,9 +63,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         HttpRequestValidator RequestValidator { get; set; }
 
         /// <summary>
+        /// Gets if that server supports SSL or not.
+        /// </summary>
+        bool SupportsSecureHttp { get; }
+
+        /// <summary>
         /// Gets or sets the mode the data should be transfered.
         /// </summary>
         HttpTransferMode TransferMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets if SSL should be used or not.
+        /// </summary>
+        bool UseSecureHttp { get; set; }
 
         #endregion Data Members
 
@@ -92,6 +104,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         event EventHandler<HttpRequestEventArgs> HandleRequest;
 
         #endregion Delegates and Events
+
+        #region Operations (1)
+
+        /// <summary>
+        /// Sets the SSL certificate for the HTTPs connections by thumbprint.
+        /// </summary>
+        /// <param name="thumbprint">The thumbprint of the certificate as HEX string.</param>
+        /// <returns>That instance.</returns>
+        IHttpServer SetSslCertificateByThumbprint(IEnumerable<char> thumbprint);
+
+        #endregion Operations
     }
 
     #endregion

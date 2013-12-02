@@ -4,11 +4,13 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.Resources;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Objects
@@ -79,9 +81,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (4)
 
-        // Public Methods (2) 
+        // Public Methods (3) 
 
         /// <summary>
         /// 
@@ -123,6 +125,46 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         public string GetHashAsHexString()
         {
             return StringHelper.AsHexString(this.CalculateHash());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IObjectContext.TryGetResourceStream(IEnumerable{char})" />
+        public Stream TryGetResourceStream(IEnumerable<char> resourceName)
+        {
+            string @namespace = null;
+
+            object[] attribList = this.Assembly
+                                      .GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Resources.ResourceRootNamespaceAttribute),
+                                                           false);
+
+            if (attribList.Length > 0)
+            {
+                IEnumerable<ResourceRootNamespaceAttribute> castedAttribs = CollectionHelper.Cast<ResourceRootNamespaceAttribute>(attribList);
+
+                ResourceRootNamespaceAttribute attrib = CollectionHelper.Single(castedAttribs);
+                @namespace = attrib.Namespace;
+            }
+            else
+            {
+                @namespace = this.Object.GetType().Namespace;
+                if (!StringHelper.IsNullOrWhiteSpace(@namespace))
+                {
+                    @namespace += ".";
+                }
+
+                @namespace += "Resources";
+            }
+
+            string fullResName = StringHelper.AsString(resourceName);
+            if (!StringHelper.IsNullOrWhiteSpace(@namespace))
+            {
+                fullResName = @namespace.Trim() + "." + fullResName;
+            }
+
+            return this.Assembly
+                       .GetManifestResourceStream(fullResName);
         }
         // Protected Methods (1) 
 

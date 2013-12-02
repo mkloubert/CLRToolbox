@@ -49,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="web\test.script" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
@@ -63,6 +62,10 @@
     <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer\MarcelJoachimKloubert.ApplicationServer.csproj">
       <Project>{9f006f97-a3b2-48e5-ba64-7f2df3c59c82}</Project>
       <Name>MarcelJoachimKloubert.ApplicationServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Funcs.Common\MarcelJoachimKloubert.AppServer.Funcs.Common.csproj">
+      <Project>{e1e0c026-ee71-45a2-a2bf-5ce6fcecccd0}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Funcs.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Modules.RemoteComm\MarcelJoachimKloubert.AppServer.Modules.RemoteComm.csproj">
       <Project>{2a04af55-a6a7-4236-acaf-7a0f0211540a}</Project>
@@ -100,7 +103,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="funcs\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <None Include="web\css\test.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -124,7 +131,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "$(TargetDir)services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "$(TargetDir)web"</PostBuildEvent>
+    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "$(TargetDir)services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "$(TargetDir)web" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Funcs.*" "$(TargetDir)funcs"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

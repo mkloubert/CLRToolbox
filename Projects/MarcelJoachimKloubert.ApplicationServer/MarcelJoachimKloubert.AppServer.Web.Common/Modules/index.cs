@@ -4,9 +4,11 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Functions;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
-using MarcelJoachimKloubert.CLRToolbox.Scripting;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
@@ -32,7 +34,20 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 
         protected override void OnHandleRequest(IHandleRequestContext context)
         {
+            var l = ServiceLocator.Current.GetInstance<IFunctionLocator>();
 
+            var func = l.GetAllFunctions().Single(f => f.Name == "Echo");
+
+            var p = new Dictionary<string, object>()
+                {
+                    { "a", 1 },
+                };
+
+            var r = func.Execute(p, false);
+
+            r.Start();
+
+            var a = r.ResultParameters["A"];
         }
 
         #endregion Methods

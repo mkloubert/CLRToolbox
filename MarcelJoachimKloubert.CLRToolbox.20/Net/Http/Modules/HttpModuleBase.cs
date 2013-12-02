@@ -15,6 +15,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
     /// </summary>
     public abstract partial class HttpModuleBase : TMObject, IHttpModule
     {
+        #region Fields (1)
+
+        private Guid _id;
+
+        #endregion Fields
+
         #region Constructors (2)
 
         /// <summary>
@@ -28,7 +34,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         protected HttpModuleBase(Guid id, object syncRoot)
             : base(syncRoot)
         {
-            this.Id = id;
+            this._id = id;
         }
 
         /// <summary>
@@ -60,8 +66,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         /// <see cref="IIdentifiable.Id" />
         public Guid Id
         {
-            get;
-            private set;
+            get { return this._id; }
         }
 
         /// <summary>
@@ -75,9 +80,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
         #endregion Properties
 
-        #region Methods (8)
+        #region Methods (10)
 
-        // Public Methods (4) 
+        // Public Methods (6) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="object.Equals(object)" />
+        public override bool Equals(object other)
+        {
+            if (other is IIdentifiable)
+            {
+                return this.Equals(other as IIdentifiable);
+            }
+
+            if (other is Guid)
+            {
+                return this.Equals((Guid)other);
+            }
+
+            return base.Equals(other);
+        }
 
         /// <summary>
         /// 
@@ -103,15 +127,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         /// <see cref="IHasName.GetDisplayName(CultureInfo)" />
         public string GetDisplayName(CultureInfo culture)
         {
-            lock (this._SYNC)
+            if (culture == null)
             {
-                if (culture == null)
-                {
-                    throw new ArgumentNullException("culture");
-                }
-
-                return StringHelper.AsString(this.OnGetDisplayName(culture));
+                throw new ArgumentNullException("culture");
             }
+
+            return StringHelper.AsString(this.OnGetDisplayName(culture));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="object.GetHashCode()"/>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         /// <summary>

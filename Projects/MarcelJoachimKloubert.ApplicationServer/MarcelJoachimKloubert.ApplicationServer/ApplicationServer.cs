@@ -16,6 +16,7 @@ using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl;
@@ -33,7 +34,16 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Fields
 
-        #region Properties (9)
+        #region Properties (10)
+
+        /// <summary>
+        /// Gets the composition catalog for server functions.
+        /// </summary>
+        public AggregateCatalog FunctionCompositionCatalog
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the global catalog for the instance of <see cref="ApplicationServer.GlobalCompositionContainer" />.
@@ -135,6 +145,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 compCatalog = new AggregateCatalog();
                 compCatalog.Catalogs.Add(new AssemblyCatalog(this.GetType().Assembly));
                 compCatalog.Catalogs
+                           .Add(this.FunctionCompositionCatalog = new AggregateCatalog());
+                compCatalog.Catalogs
                            .Add(this.ServiceCompositionCatalog = new AggregateCatalog());
                 compCatalog.Catalogs
                            .Add(this.WebInterfaceCompositionCatalog = new AggregateCatalog());
@@ -221,7 +233,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     break;
             }
 
-            // assemblies with service
+            // assemblies with services
             {
                 IList<Assembly> serviceAssemblies = new SynchronizedCollection<Assembly>();
 
@@ -264,14 +276,69 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 {
                     this.Logger
                         .Log(msg: string.Format("{0} services assemblies were loaded.", serviceAssemblies.Count),
-                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             tag: LOG_TAG_PREFIX + "LoadServices",
                              categories: LoggerFacadeCategories.Information);
                 }
                 else
                 {
                     this.Logger
                         .Log(msg: "No service assembly was loaded.",
-                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             tag: LOG_TAG_PREFIX + "LoadServices",
+                             categories: LoggerFacadeCategories.Warnings);
+                }
+            }
+
+            // assemblies with functions
+            {
+                IList<Assembly> funcAssemblies = new SynchronizedCollection<Assembly>();
+
+                var funcDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "funcs"));
+                if (funcDir.Exists)
+                {
+                    ex = funcDir.GetFiles("*.dll")
+                                .ForAllAsync(ctx =>
+                                 {
+                                     var f = ctx.Item;
+
+                                     var asmBlob = File.ReadAllBytes(f.FullName);
+                                     var asm = Assembly.Load(asmBlob);
+
+                                     ctx.State
+                                        .Assemblies.Add(asm);
+                                 }, actionState: new
+                                 {
+                                     Assemblies = funcAssemblies,
+                                 }, throwExceptions: false);
+
+                    if (ex != null)
+                    {
+                        this.Logger
+                            .Log(msg: ex,
+                                 tag: LOG_TAG_PREFIX + "LoadFunctions",
+                                 categories: LoggerFacadeCategories.Errors);
+                    }
+                }
+
+                this.FunctionCompositionCatalog.Catalogs.Clear();
+                foreach (var asm in funcAssemblies)
+                {
+                    this.FunctionCompositionCatalog
+                        .Catalogs
+                        .Add(new AssemblyCatalog(asm));
+                }
+
+                if (funcAssemblies.Count > 0)
+                {
+                    this.Logger
+                        .Log(msg: string.Format("{0} function assemblies were loaded.", funcAssemblies.Count),
+                             tag: LOG_TAG_PREFIX + "LoadFunctions",
+                             categories: LoggerFacadeCategories.Information);
+                }
+                else
+                {
+                    this.Logger
+                        .Log(msg: "No function assembly was loaded.",
+                             tag: LOG_TAG_PREFIX + "LoadFunctions",
                              categories: LoggerFacadeCategories.Warnings);
                 }
             }
@@ -319,14 +386,14 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 {
                     this.Logger
                         .Log(msg: string.Format("{0} web interface assemblies were loaded.", webInterfaceAssemblies.Count),
-                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             tag: LOG_TAG_PREFIX + "LoadWebInterfaceModules",
                              categories: LoggerFacadeCategories.Information);
                 }
                 else
                 {
                     this.Logger
                         .Log(msg: "No web interface assembly was loaded.",
-                             tag: LOG_TAG_PREFIX + "LoadModules",
+                             tag: LOG_TAG_PREFIX + "LoadWebInterfaceModules",
                              categories: LoggerFacadeCategories.Warnings);
                 }
 
@@ -335,7 +402,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     this.DisposeOldWebInterfaceServer();
 
                     var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
-                    newWebInterfaceServer.Port = 23979;
+                    newWebInterfaceServer.Port = 5979;
+                    newWebInterfaceServer.UseSecureHttp = true;
+                    newWebInterfaceServer.SetSslCertificateByThumbprint("‎7f 01 5f 4a fc a0 da 76 36 fa f0 a9 d6 e6 e8 cc 63 53 a9 bc");
 
                     this._webHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
 
@@ -484,18 +553,25 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                             var asmBlob = File.ReadAllBytes(f.FullName);
                                             var asm = Assembly.Load(asmBlob);
 
+                                            CompositionContainer container;
                                             DelegateServiceLocator serviceLocator;
                                             {
                                                 var catalog = new AggregateCatalog();
                                                 catalog.Catalogs.Add(new AssemblyCatalog(asm));
 
-                                                var container = new CompositionContainer(catalog,
-                                                                                         isThreadSafe: true);
+                                                container = new CompositionContainer(catalog,
+                                                                                     isThreadSafe: true);
 
                                                 serviceLocator = new DelegateServiceLocator(new ExportProviderServiceLocator(container));
                                             }
 
                                             var modules = serviceLocator.GetAllInstances<IAppServerModule>().AsArray();
+                                            if (modules.Length == 1)
+                                            {
+                                                CompositionHelper.ComposeExportedValueEx(container,
+                                                                                         modules[0]);
+                                            }
+
                                             modules.ForAll(ctx2 =>
                                                            {
                                                                var m = ctx2.Item;
@@ -509,7 +585,6 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                                                var logger = new AggregateLogger();
 
                                                                var moduleCtx = new SimpleAppServerModuleContext(m);
-                                                               moduleCtx.AssemblyContent = ctx2.State.AssemblyContent;
                                                                moduleCtx.InnerServiceLocator = ctx2.State.ServiceLocator;
                                                                moduleCtx.Logger = logger;
                                                                moduleCtx.OtherModules = ctx2.State.AllModules
@@ -527,7 +602,6 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                                            }, actionState: new
                                                            {
                                                                AllModules = modules,
-                                                               AssemblyContent = asmBlob,
                                                                AssemblyFile = f,
                                                                NewModules = ctx.State.NewModules,
                                                                ServiceLocator = serviceLocator,

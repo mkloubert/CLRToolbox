@@ -330,8 +330,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                     try
                     {
                         T instance = provider(baseLocator, key);
-
-                        return instance != null ? new T[] { instance } : null;
+                        if (instance != null)
+                        {
+                            return new T[] { instance };
+                        }
                     }
                     catch (ServiceActivationException saex)
                     {
@@ -339,9 +341,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                         {
                             throw;
                         }
-
-                        return CollectionHelper.Empty<T>();
                     }
+
+                    return CollectionHelper.Empty<T>();
                 });
         }
 

@@ -198,6 +198,25 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ExecutionErrorEventArgs.cs">
       <Link>Execution\ExecutionErrorEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\FunctionBase.Classes.cs">
+      <Link>Execution\Functions\FunctionBase.Classes.cs</Link>
+      <DependentUpon>FunctionBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\FunctionBase.cs">
+      <Link>Execution\Functions\FunctionBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\FunctionLocatorBase.cs">
+      <Link>Execution\Functions\FunctionLocatorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\IFunction.cs">
+      <Link>Execution\Functions\IFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\IFunctionExecutionContext.cs">
+      <Link>Execution\Functions\IFunctionExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\IFunctionLocator.cs">
+      <Link>Execution\Functions\IFunctionLocator.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ICommand.cs">
       <Link>Execution\ICommand.cs</Link>
     </Compile>
@@ -352,6 +371,10 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpServerBase.cs">
       <Link>Net\Http\HttpServerBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpServerBase.Interface.cs">
+      <Link>Net\Http\HttpServerBase.Interface.cs</Link>
+      <DependentUpon>HttpServerBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpServerBase.StartStopContext.cs">
       <Link>Net\Http\HttpServerBase.StartStopContext.cs</Link>
       <DependentUpon>HttpServerBase.cs</DependentUpon>
@@ -393,11 +416,17 @@
       <Link>Net\Http\Modules\HttpModuleBase.HttpModuleHandleRequestResult.cs</Link>
       <DependentUpon>HttpModuleBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\HttpModuleLocatorBase.cs">
+      <Link>Net\Http\Modules\HttpModuleLocatorBase.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\IHttpModule.cs">
       <Link>Net\Http\Modules\IHttpModule.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\IHttpModuleHandleRequestResult.cs">
       <Link>Net\Http\Modules\IHttpModuleHandleRequestResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\Modules\IHttpModuleLocator.cs">
+      <Link>Net\Http\Modules\IHttpModuleLocator.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Net\ITcpAddress.cs">
       <Link>Net\ITcpAddress.cs</Link>

@@ -3,6 +3,8 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
@@ -34,7 +36,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         #endregion Data Members
 
-        #region Operations (2)
+        #region Operations (3)
 
         /// <summary>
         /// Calculates the hash of that context.
@@ -47,6 +49,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         /// </summary>
         /// <returns>The value of <see cref="IObjectContext.CalculateHash()" /> as lower case hex string.</returns>
         string GetHashAsHexString();
+
+        /// <summary>
+        /// Tries to return the stream of a resource inside <see cref="IObjectContext.Assembly" />.
+        /// </summary>
+        /// <param name="resourceName">the name of the resource.</param>
+        /// <returns>The stream or <see langword="null" /> if not found.</returns>
+        Stream TryGetResourceStream(IEnumerable<char> resourceName);
 
         #endregion Operations
     }

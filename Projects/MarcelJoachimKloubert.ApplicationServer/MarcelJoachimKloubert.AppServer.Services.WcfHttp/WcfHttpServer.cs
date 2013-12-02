@@ -5,7 +5,9 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
@@ -29,7 +31,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (4)
 
         internal ServiceHost Host
         {
@@ -44,31 +46,77 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
             private set;
         }
 
+        internal X509Certificate2 SslCertificate
+        {
+            get;
+            set;
+        }
+
+        public override bool SupportsSecureHttp
+        {
+            get { return true; }
+        }
+
         #endregion Properties
 
-        #region Methods (8)
+        #region Methods (10)
 
-        // Protected Methods (2) 
+        // Protected Methods (3) 
+
+        protected override void OnSetSslCertificateByThumbprint(string thumbprint)
+        {
+            this.SetSslCertificate(StoreLocation.LocalMachine,
+                                   StoreName.My,
+                                   X509FindType.FindByThumbprint,
+                                   new string((thumbprint ?? string.Empty).Select(c => char.ToUpper(c))
+                                                                          .Where(c => (c >= 'A' && c <= 'F') ||
+                                                                                      (c >= '0' && c <= '9'))
+                                                                          .ToArray()));
+        }
 
         protected override void OnStart(HttpServerBase.StartStopContext context, ref bool isRunning)
         {
             this.DisposeOldServiceHost();
 
-            ServiceHost newHost = null;
+            ServiceHost newHost = new ServiceHost(new WcfHttpServerService(this));
             try
             {
-                newHost = new ServiceHost(new WcfHttpServerService(this));
+                var useHttps = this.UseSecureHttp;
 
-                var port = this.Port;
+                int port;
+                if (useHttps)
+                {
+                    port = this.Port ?? DEFAULT_PORT_SECURE_HTTP;
+                }
+                else
+                {
+                    port = this.Port ?? DEFAULT_PORT_HTTP;
+                }
 
-                var baseUrl = new Uri("http://localhost:" + port);
+                var baseUrl = new Uri(string.Format("http{0}://localhost:{1}",
+                                                    useHttps ? "s" : string.Empty,
+                                                    port));
 
-                var transport = new HttpTransportBindingElement();
+                HttpTransportBindingElement transport;
+                if (useHttps)
+                {
+                    transport = new HttpsTransportBindingElement();
+
+                    // SSL certificate
+                    newHost.Credentials
+                           .ClientCertificate
+                           .Certificate = this.SslCertificate;
+                }
+                else
+                {
+                    transport = new HttpTransportBindingElement();
+                }
+
                 transport.KeepAliveEnabled = false;
-                transport.TransferMode = ToWcfTransferMode(this.TransferMode);
-                transport.MaxReceivedMessageSize = int.MaxValue;
                 transport.MaxBufferPoolSize = int.MaxValue;
                 transport.MaxBufferSize = int.MaxValue;
+                transport.MaxReceivedMessageSize = int.MaxValue;
+                transport.TransferMode = ToWcfTransferMode(this.TransferMode);
 
                 var credValidator = this.CredentialValidator;
                 if (credValidator != null)
@@ -87,16 +135,14 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                                                 transport);
 
                 newHost.AddServiceEndpoint(typeof(IWcfHttpServerService), binding, baseUrl);
-                newHost.Open();
 
+                newHost.Open();
                 this.Host = newHost;
             }
             catch
             {
-                if (newHost != null)
-                {
-                    ((IDisposable)newHost).Dispose();
-                }
+                // dispose before rethrow exception
+                ((IDisposable)newHost).Dispose();
 
                 throw;
             }
@@ -106,7 +152,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
         {
             this.DisposeOldServiceHost();
         }
-        // Private Methods (2) 
+        // Private Methods (3) 
 
         private void DisposeOldServiceHost()
         {
@@ -126,6 +172,30 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                          tag: LOG_TAG_PREFIX + "Dispose",
                          categories: LoggerFacadeCategories.Errors | LoggerFacadeCategories.Debug);
             }
+        }
+
+        private void SetSslCertificate(StoreLocation storeLocation,
+                                       StoreName storeName,
+                                       X509FindType findType,
+                                       object findValue)
+        {
+            X509Certificate2Collection machtingCerts;
+
+            var store = new X509Store(storeName, storeLocation);
+            try
+            {
+                store.Open(OpenFlags.ReadOnly);
+
+                machtingCerts = store.Certificates
+                                     .Find(findType, findValue, false);
+            }
+            finally
+            {
+                store.Close();
+            }
+
+            this.SslCertificate = machtingCerts.Cast<X509Certificate2>()
+                                               .Single();
         }
 
         private static WcfTransferMode ToWcfTransferMode(HttpTransferMode mode)

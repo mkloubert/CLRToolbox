@@ -20,7 +20,7 @@ using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 {
-    internal sealed class WebInterfaceHandler : DisposableBase
+    internal sealed partial class WebInterfaceHandler : DisposableBase
     {
         #region Fields (9)
 
@@ -40,6 +40,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         internal WebInterfaceHandler(ApplicationServer appServer, IHttpServer httpServer)
         {
+            this.InitUrlHandlers();
+
             this._APP_SERVER = appServer;
             this._HTTP_SERVER = httpServer;
 
@@ -180,21 +182,23 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             }
             else
             {
-                Match match;
-
-                if ((match = _REGEX_MODULES.Match(addr)).Success)
+                foreach (var h in this._URL_HANDLERS)
                 {
-                    // module in root path
-
-                    var module = TryGetDefaultModule(ServiceLocator.Current
-                                                                   .GetAllInstances<IHttpModule>(), match.Groups[2].Value);
-                    if (module != null)
+                    h.Handle(e, ref found);
+                    if (found)
                     {
-                        found = true;
-                        this.HandleHttpModule(module, e);
+                        break;
                     }
                 }
-                else if ((match = _REGEX_CSS.Match(addr)).Success)
+
+                if (found)
+                {
+                    return;
+                }
+
+                Match match;
+
+                if ((match = _REGEX_CSS.Match(addr)).Success)
                 {
                     // CSS file in root directory
 
@@ -263,72 +267,6 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                             }
 
                             e.Response.ContentType = GetMimeTypeByFileExtension(imgFileExt);
-                        }
-                    }
-                }
-                else
-                {
-                    // inside app server module
-
-                    if ((match = _REGEX_DEFAULT_SERVER_MODULE.Match(addr)).Success)
-                    {
-                        // default HTTP module inside app server module
-
-                        var modHash = (match.Groups[2].Value ?? string.Empty).ToLower().Trim();
-
-                        var modCtx = this.TryFindAppModuleContextByHash(modHash);
-                        if (modCtx != null)
-                        {
-                            var defaultModule = TryGetDefaultModule(modCtx.GetAllInstances<IHttpModule>());
-                            if (defaultModule != null)
-                            {
-                                found = true;
-                                this.HandleHttpModule(defaultModule, e);
-                            }
-                        }
-                    }
-                    else if ((match = _REGEX_SERVER_MODULES.Match(addr)).Success)
-                    {
-                        // specific HTTP module 
-
-                        var modHash = (match.Groups[2].Value ?? string.Empty).ToLower().Trim();
-
-                        var modCtx = this.TryFindAppModuleContextByHash(modHash);
-                        if (modCtx != null)
-                        {
-                            var module = TryGetDefaultModule(modCtx.GetAllInstances<IHttpModule>(), match.Groups[4].Value);
-                            if (module != null)
-                            {
-                                found = true;
-                                this.HandleHttpModule(module, e);
-                            }
-                        }
-                    }
-                    else if ((match = _REGEX_FILES_SERVER_MODULE.Match(addr)).Success)
-                    {
-                        // file in web resources of the assembly of the app module
-
-                        var modHash = (match.Groups[2].Value ?? string.Empty).ToLower().Trim();
-
-                        var modCtx = this.TryFindAppModuleContextByHash(modHash);
-                        if (modCtx != null)
-                        {
-                            var fileName = (match.Groups[4].Value ?? string.Empty).Trim();
-                            var fileExt = (match.Groups[6].Value ?? string.Empty).Trim();
-
-                            using (var stream = modCtx.TryGetResourceStream(string.Format("Web.{0}{1}{2}",
-                                                                                          fileName,
-                                                                                          fileExt != string.Empty ? "." : string.Empty,
-                                                                                          fileExt)))
-                            {
-                                if (stream != null)
-                                {
-                                    found = true;
-
-                                    stream.CopyTo(e.Response.Stream);
-                                    e.Response.ContentType = GetMimeTypeByFileExtension(fileExt);
-                                }
-                            }
                         }
                     }
                 }

@@ -242,6 +242,10 @@
       <Link>Helpers\CollectionHelper.ForAllAsync.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SingleOrDefault.Predicate.cs">
+      <Link>Helpers\CollectionHelper.SingleOrDefault.Predicate.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -476,6 +480,33 @@
       <Link>Scripting\ScriptExecutorBase.ScriptExecutionContext.cs</Link>
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\accesscontrol\AccessControlListBase.cs">
+      <Link>Security\AccessControl\AccessControlListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\accesscontrol\AclPrincipalBase.cs">
+      <Link>Security\AccessControl\AclPrincipalBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\AccessControl\AclResourceBase.cs">
+      <Link>Security\AccessControl\AclResourceBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\AccessControl\AclRoleBase.cs">
+      <Link>Security\AccessControl\AclRoleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\accesscontrol\IAccessControlList.cs">
+      <Link>Security\AccessControl\IAccessControlList.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\AccessControl\IAclPrincipal.cs">
+      <Link>Security\AccessControl\IAclPrincipal.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\accesscontrol\IAclResource.cs">
+      <Link>Security\AccessControl\IAclResource.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\accesscontrol\IAclRole.cs">
+      <Link>Security\AccessControl\IAclRole.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\AccessControl\SimpleAcl.cs">
+      <Link>Security\AccessControl\SimpleAcl.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\UsernamePasswordValidator.cs">
       <Link>Security\UsernamePasswordValidator.cs</Link>
     </Compile>
@@ -637,6 +668,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Single.cs">
       <Link>Helpers\CollectionHelper.Single.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.SingleOrDefault.cs">
+      <Link>Helpers\CollectionHelper.SingleOrDefault.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.ToArray.cs">

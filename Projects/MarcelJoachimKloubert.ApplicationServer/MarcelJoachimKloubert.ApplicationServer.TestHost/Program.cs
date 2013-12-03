@@ -32,14 +32,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
                     {
                         GlobalConsole.Current.WriteLine("Initializing server... ");
 
-                        var ctx = new SimpleAppServerContext(server);
+                        var srvCtx = new SimpleAppServerContext(server);
 
                         var initCtx = new SimpleAppServerInitContext();
                         initCtx.Logger = logger;
-                        initCtx.ServerContext = ctx;
+                        initCtx.ServerContext = srvCtx;
 
                         server.Initialize(initCtx);
                         GlobalConsole.Current.WriteLine("Server has been initialized.");
+
+                        srvCtx.InnerServiceLocator = server.GlobalServiceLocator;
                     }
 
                     GlobalConsole.Current.WriteLine("Starting server... ");

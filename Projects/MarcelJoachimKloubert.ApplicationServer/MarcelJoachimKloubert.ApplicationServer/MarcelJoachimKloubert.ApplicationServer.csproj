@@ -59,7 +59,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Execution\Functions\FunctionLocator.cs" />
     <Compile Include="Services\Net\Http\Modules\HttpModuleLocator.cs" />
+    <Compile Include="WebInterface\UriHandler.cs" />
     <Compile Include="WebInterface\WebInterfaceHandler.cs" />
+    <Compile Include="WebInterface\WebInterfaceHandler.UrlHandlers.cs">
+      <DependentUpon>WebInterfaceHandler.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
@@ -80,6 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_Libs\RemObjects.Script\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Web\css\" />
+    <Folder Include="Resources\Web\images\" />
+    <Folder Include="Resources\Web\js\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

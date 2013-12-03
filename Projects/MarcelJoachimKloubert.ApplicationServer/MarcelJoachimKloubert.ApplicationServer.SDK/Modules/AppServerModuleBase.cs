@@ -17,10 +17,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
     /// </summary>
     public abstract partial class AppServerModuleBase : NotificationObjectBase, IAppServerModule
     {
-        #region Fields (2)
+        #region Fields (3)
 
         private IAppServerModuleContext _context;
         private bool _isRunning;
+        private string _rootDirectory;
 
         #endregion Fields
 
@@ -52,7 +53,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (9)
+        #region Properties (10)
 
         /// <summary>
         /// 
@@ -160,6 +161,24 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
             get;
         }
 
+        /// <summary>
+        /// Gets the root directory of that module.
+        /// </summary>
+        public string RootDirectory
+        {
+            get { return this._rootDirectory; }
+
+            private set
+            {
+                if (this._rootDirectory != value)
+                {
+                    this.OnPropertyChanging(() => this.RootDirectory);
+                    this._rootDirectory = value;
+                    this.OnPropertyChanged(() => this.RootDirectory);
+                }
+            }
+        }
+
         #endregion Properties
 
         #region Methods (16)
@@ -255,6 +274,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
                                   ref isInitialized);
 
                 this.Context = isInitialized ? context : null;
+                this.RootDirectory = initContext.RootDirectory;
             }
         }
 

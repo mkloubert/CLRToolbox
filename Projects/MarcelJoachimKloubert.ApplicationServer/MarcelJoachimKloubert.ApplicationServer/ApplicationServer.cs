@@ -593,6 +593,13 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
                                                                var moduleInitCtx = new SimpleAppServerModuleInitContext();
                                                                moduleInitCtx.ModuleContext = moduleCtx;
+                                                               moduleInitCtx.RootDirectory = Path.Combine(ctx2.State.ModuleDirectory,
+                                                                                                          m.Name);
+
+                                                               if (!Directory.Exists(moduleInitCtx.RootDirectory))
+                                                               {
+                                                                   Directory.CreateDirectory(moduleInitCtx.RootDirectory);
+                                                               }
 
                                                                m.Initialize(moduleInitCtx);
 
@@ -603,11 +610,13 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                                            {
                                                                AllModules = modules,
                                                                AssemblyFile = f,
+                                                               ModuleDirectory = ctx.State.ModuleDirectory,
                                                                NewModules = ctx.State.NewModules,
                                                                ServiceLocator = serviceLocator,
                                                            }, throwExceptions: true);
                                         }, actionState: new
                                         {
+                                            ModuleDirectory = modDir.FullName,
                                             NewModules = newModules,
                                         }, throwExceptions: false);
 

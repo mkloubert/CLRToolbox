@@ -10,12 +10,17 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
     /// </summary>
     public interface IAppServerModuleInitContext
     {
-        #region Data Members (1)
+        #region Data Members (2)
 
         /// <summary>
         /// Gets the underlying module context.
         /// </summary>
         IAppServerModuleContext ModuleContext { get; }
+
+        /// <summary>
+        /// Gets the root directory for the underlying module.
+        /// </summary>
+        string RootDirectory { get; }
 
         #endregion Data Members
     }

@@ -113,6 +113,12 @@
     <Compile Include="Helpers\CollectionHelper.Single.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.SingleOrDefault.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.SingleOrDefault.Predicate.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -295,6 +301,15 @@
     <Compile Include="Scripting\ScriptExecutorBase.ScriptExecutionContext.cs">
       <DependentUpon>ScriptExecutorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Security\AccessControl\AccessControlListBase.cs" />
+    <Compile Include="Security\AccessControl\AclPrincipalBase.cs" />
+    <Compile Include="Security\AccessControl\AclResourceBase.cs" />
+    <Compile Include="Security\AccessControl\AclRoleBase.cs" />
+    <Compile Include="Security\AccessControl\IAccessControlList.cs" />
+    <Compile Include="Security\AccessControl\IAclPrincipal.cs" />
+    <Compile Include="Security\AccessControl\IAclResource.cs" />
+    <Compile Include="Security\AccessControl\IAclRole.cs" />
+    <Compile Include="Security\AccessControl\SimpleAcl.cs" />
     <Compile Include="Security\UsernamePasswordValidator.cs" />
     <Compile Include="ServiceLocation\Impl\DelegateServiceLocator.Classes.cs">
       <DependentUpon>DelegateServiceLocator.cs</DependentUpon>

@@ -70,7 +70,11 @@
     <EmbeddedResource Include="Resources\Web\Goethe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Web\test.jpg" />
+    <EmbeddedResource Include="Resources\Web\images\Gina1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Web\css\" />
+    <Folder Include="Resources\Web\js\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

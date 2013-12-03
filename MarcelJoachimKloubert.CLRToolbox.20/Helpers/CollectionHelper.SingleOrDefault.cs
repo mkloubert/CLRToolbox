@@ -15,18 +15,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         // Public Methods (1) 
 
         /// <summary>
-        /// Returns the one and only element of a sequence.
+        /// Tries to return the one and only element of a sequence.
         /// </summary>
         /// <typeparam name="T">Type of the elements.</typeparam>
         /// <param name="seq">The sequence.</param>
-        /// <returns>The element.</returns>
+        /// <returns>The only element or the default value of the type if no element exists in the sequence.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="seq" /> is <see langword="null" />.
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// <paramref name="seq" /> does not exactly contain one element (none or more than one).
+        /// <paramref name="seq" /> contains more than one element.
         /// </exception>
-        public static T Single<T>(IEnumerable<T> seq)
+        public static T SingleOrDefault<T>(IEnumerable<T> seq)
         {
             if (seq == null)
             {
@@ -39,7 +39,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 switch (list.Count)
                 {
                     case 0:
-                        throw new InvalidOperationException(_ERR_MSG_SINGLE_NO_ELEMENTS);
+                        // no element => return default
+                        return default(T);
 
                     case 1:
                         return list[0];
@@ -51,7 +52,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 {
                     if (!enumerator.MoveNext())
                     {
-                        throw new InvalidOperationException(_ERR_MSG_SINGLE_NO_ELEMENTS);
+                        // no element => return default
+                        return default(T);
                     }
 
                     T result = enumerator.Current;

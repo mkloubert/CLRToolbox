@@ -10,13 +10,23 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
     /// </summary>
     public sealed class SimpleAppServerModuleInitContext : IAppServerModuleInitContext
     {
-        #region Properties (1)
+        #region Properties (2)
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IAppServerModuleInitContext.ModuleContext" />
         public IAppServerModuleContext ModuleContext
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerModuleInitContext.RootDirectory" />
+        public string RootDirectory
         {
             get;
             set;

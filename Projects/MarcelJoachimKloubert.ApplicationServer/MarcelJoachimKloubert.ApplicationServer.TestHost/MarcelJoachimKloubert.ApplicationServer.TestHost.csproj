@@ -71,6 +71,10 @@
       <Project>{2a04af55-a6a7-4236-acaf-7a0f0211540a}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Modules.RemoteComm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Modules.Torrent\MarcelJoachimKloubert.AppServer.Modules.Torrent.csproj">
+      <Project>{1798ac27-d012-467d-8668-9b7c39da419f}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Modules.Torrent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Common\MarcelJoachimKloubert.AppServer.Services.Common.csproj">
       <Project>{b4c3feac-835c-4ddf-b5a0-a7d5a6d8ac5e}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Common</Name>
@@ -79,6 +83,10 @@
       <Project>{c5351e00-b43c-463a-b6c3-255020c8552d}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Script</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Serialize\MarcelJoachimKloubert.AppServer.Services.Serialize.csproj">
+      <Project>{41ff33fb-ac6d-40f9-adbf-5ce3fb20fbb5}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Services.Serialize</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.WcfHttp\MarcelJoachimKloubert.AppServer.Services.WcfHttp.csproj">
       <Project>{a4b2abc9-3c13-46b0-afcf-5749d38c1af2}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.WcfHttp</Name>
@@ -86,6 +94,10 @@
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Web.Common\MarcelJoachimKloubert.AppServer.Web.Common.csproj">
       <Project>{4a4a902f-a150-4351-942b-583b7d8a3812}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MonoTorrent\MonoTorrent.csproj">
+      <Project>{411a9e0e-fdc6-4e25-828a-0c2cd1cd96f8}</Project>
+      <Name>MonoTorrent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,16 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Fields
 
-        #region Properties (10)
+        #region Properties (11)
+
+        /// <summary>
+        /// Gets the command line arguments of the server.
+        /// </summary>
+        public string[] Arguments
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the composition catalog for server functions.
@@ -122,7 +131,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// </summary>
         public string WorkingDirectory
         {
-            get { return Environment.CurrentDirectory; }
+            get;
+            private set;
         }
 
         #endregion Properties
@@ -137,6 +147,15 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// <see cref="AppServerBase.OnInitialize(IAppServerInitContext, ref bool)" />
         protected override void OnInitialize(IAppServerInitContext initContext, ref bool isInitialized)
         {
+            this.Arguments = (initContext.Arguments ?? Enumerable.Empty<string>()).OfType<string>()
+                                                                                  .ToArray();
+
+            this.WorkingDirectory = initContext.WorkingDirectory;
+            if (string.IsNullOrWhiteSpace(this.WorkingDirectory))
+            {
+                this.WorkingDirectory = Environment.CurrentDirectory;
+            }
+
             // service locator
             CompositionContainer compContainer;
             AggregateCatalog compCatalog;
@@ -645,6 +664,23 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     .Log(msg: "No module was loaded.",
                          tag: LOG_TAG_PREFIX + "LoadModules",
                          categories: LoggerFacadeCategories.Warnings);
+            }
+
+            ex = newModules.Where(m => m.CanStart &&
+                                       m.IsInitialized)
+                           .ForAllAsync(ctx =>
+                           {
+                               var m = ctx.Item;
+
+                               m.Start();
+                           }, throwExceptions: false);
+
+            if (ex != null)
+            {
+                this.Logger
+                    .Log(msg: ex,
+                         tag: LOG_TAG_PREFIX + "StartModules",
+                         categories: LoggerFacadeCategories.Errors);
             }
         }
 

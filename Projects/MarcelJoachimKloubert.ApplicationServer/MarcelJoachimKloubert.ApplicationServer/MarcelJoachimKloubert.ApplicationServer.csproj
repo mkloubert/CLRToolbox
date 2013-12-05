@@ -86,9 +86,16 @@
     <EmbeddedResource Include="_Libs\RemObjects.Script\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Web\img\_test\Gina2.jpg" />
+    <EmbeddedResource Include="Resources\Web\img\_test\d\gina3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Resources\Web\css\" />
-    <Folder Include="Resources\Web\images\" />
     <Folder Include="Resources\Web\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\__webinterface_footer.html" />
+    <EmbeddedResource Include="Resources\__webinterface_header.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

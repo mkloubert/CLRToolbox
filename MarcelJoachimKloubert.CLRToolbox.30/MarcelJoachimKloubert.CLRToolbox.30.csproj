@@ -490,6 +490,9 @@
       <Link>Objects\ObjectContextBase.dotNET.cs</Link>
       <DependentUpon>ObjectContextBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Resources\IResourceLocator.cs">
+      <Link>Resources\IResourceLocator.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Resources\ResourceRootNamespaceAttribute.cs">
       <Link>Resources\ResourceRootNamespaceAttribute.cs</Link>
     </Compile>
@@ -556,6 +559,22 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\UsernamePasswordValidator.cs">
       <Link>Security\UsernamePasswordValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Serialization\ISerializer.cs">
+      <Link>Serialization\ISerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Serialization\Json\JsonParameterResult.cs">
+      <Link>Serialization\Json\JsonParameterResult.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Serialization\Json\SimpleJsonResult.cs">
+      <Link>Serialization\Json\SimpleJsonResult.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Serialization\Json\SimpleJsonResult.dotNET.cs">
+      <Link>Serialization\Json\SimpleJsonResult.dotNET.cs</Link>
+      <DependentUpon>SimpleJsonResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Serialization\SerializerBase.cs">
+      <Link>Serialization\SerializerBase.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\Impl\DelegateServiceLocator.Classes.cs">
       <Link>ServiceLocation\Impl\DelegateServiceLocator.Classes.cs</Link>

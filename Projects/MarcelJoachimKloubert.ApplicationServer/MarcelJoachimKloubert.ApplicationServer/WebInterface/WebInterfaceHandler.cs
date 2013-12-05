@@ -8,12 +8,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
-using System.Text.RegularExpressions;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
@@ -22,17 +25,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 {
     internal sealed partial class WebInterfaceHandler : DisposableBase
     {
-        #region Fields (9)
+        #region Fields (3)
 
         private readonly ApplicationServer _APP_SERVER;
         private readonly IHttpServer _HTTP_SERVER;
-        private static readonly Regex _REGEX_CSS;
-        private static readonly Regex _REGEX_DEFAULT_SERVER_MODULE;
-        private static readonly Regex _REGEX_FILES_SERVER_MODULE;
-        private static readonly Regex _REGEX_IMAGES;
-        private static readonly Regex _REGEX_JAVASCRIPT;
-        private static readonly Regex _REGEX_MODULES;
-        private static readonly Regex _REGEX_SERVER_MODULES;
+        private static Assembly _RESOURCE_ASSEMBLY;
 
         #endregion Fields
 
@@ -40,10 +37,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         internal WebInterfaceHandler(ApplicationServer appServer, IHttpServer httpServer)
         {
-            this.InitUrlHandlers();
-
             this._APP_SERVER = appServer;
             this._HTTP_SERVER = httpServer;
+
+            this.InitUrlHandlers();
 
             this._HTTP_SERVER.RequestValidator = this.ValidateRequest;
             this._HTTP_SERVER.PrincipalFinder = this.FindPrincipal;
@@ -53,19 +50,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         static WebInterfaceHandler()
         {
-            const string REGEX_MODULE_EXT = "html";
-            const string REGEX_FILENAME = @"[A-Za-z0-9|_|\-|,|\.]+";
-            const string REGEX_SERVER_MODULE = @"^(/)([A-Za-z0-9]{2,})(/)";
-
-            _REGEX_CSS = new Regex(@"^(/)(" + REGEX_FILENAME + @")(\.)(css)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            _REGEX_IMAGES = new Regex(@"^(/)(" + REGEX_FILENAME + @")(\.)(gif|ico|icon|jpeg|jpg|png|svg)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            _REGEX_JAVASCRIPT = new Regex(@"^(/)(" + REGEX_FILENAME + @")(\.)(js)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            _REGEX_MODULES = new Regex(@"^(/)(" + REGEX_FILENAME + @")(\." + REGEX_MODULE_EXT + ")", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            _REGEX_DEFAULT_SERVER_MODULE = new Regex(REGEX_SERVER_MODULE + "?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            _REGEX_SERVER_MODULES = new Regex(REGEX_SERVER_MODULE + @"(" + REGEX_FILENAME + @")(\." + REGEX_MODULE_EXT + ")", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            _REGEX_FILES_SERVER_MODULE = new Regex(REGEX_SERVER_MODULE + @"(" + REGEX_FILENAME + @")(\.)(.*?)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            _RESOURCE_ASSEMBLY = Assembly.GetExecutingAssembly();
         }
 
         #endregion Constructors
@@ -79,7 +64,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (13)
 
         // Protected Methods (1) 
 
@@ -95,7 +80,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                 this._HTTP_SERVER.Dispose();
             }
         }
-        // Private Methods (9) 
+        // Private Methods (12) 
 
         private IPrincipal FindPrincipal(IIdentity id)
         {
@@ -110,29 +95,52 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         private static string GetMimeTypeByFileExtension(string ext)
         {
+            Encoding charset;
+            return GetMimeTypeByFileExtension(ext, out charset);
+        }
+
+        private static string GetMimeTypeByFileExtension(string ext, out Encoding charset)
+        {
+            charset = null;
+
             var result = MediaTypeNames.Application.Octet;
             switch ((ext ?? string.Empty).ToUpper().Trim())
             {
-                case "GIF":
+                case ".CSS":
+                    result = "text/css";
+                    charset = Encoding.UTF8;
+                    break;
+
+                case ".GIF":
                     result = MediaTypeNames.Image.Gif;
                     break;
 
-                case "ICO":
-                case "ICON":
+                case ".ICO":
+                case ".ICON":
                     result = "image/x-icon";
                     break;
 
-                case "JPEG":
-                case "JPG":
+                case ".JPEG":
+                case ".JPG":
                     result = MediaTypeNames.Image.Jpeg;
                     break;
 
-                case "PNG":
+                case ".JS":
+                    result = "text/javascript";
+                    charset = Encoding.UTF8;
+                    break;
+
+                case ".PNG":
                     result = "image/png";
                     break;
 
-                case "SVG":
+                case ".SVG":
                     result = "image/svg+xml";
+                    break;
+
+                case ".TXT":
+                    result = "text/plain";
+                    charset = Encoding.UTF8;
                     break;
             }
 
@@ -171,8 +179,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             if (string.IsNullOrWhiteSpace(addr) ||
                 addr.ToLower().Trim() == "/")
             {
-                var defaultModule = TryGetDefaultModule(ServiceLocator.Current
-                                                                      .GetAllInstances<IHttpModule>());
+                var defaultModule = TryGetDefaultModule(ServiceLocator.Current);
 
                 if (defaultModule != null)
                 {
@@ -190,86 +197,6 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                         break;
                     }
                 }
-
-                if (found)
-                {
-                    return;
-                }
-
-                Match match;
-
-                if ((match = _REGEX_CSS.Match(addr)).Success)
-                {
-                    // CSS file in root directory
-
-                    var cssDir = new DirectoryInfo(Path.Combine(this._APP_SERVER.WorkingDirectory, "web/css"));
-                    if (cssDir.Exists)
-                    {
-                        var cssFileName = (match.Groups[2].Value ?? string.Empty).Trim();
-
-                        var cssFile = new FileInfo(Path.Combine(cssDir.FullName, cssFileName + ".css"));
-                        if (cssFile.Exists)
-                        {
-                            found = true;
-
-                            using (var stream = cssFile.OpenRead())
-                            {
-                                stream.CopyTo(e.Response.Stream);
-
-                                e.Response.ContentType = "text/css";
-                                e.Response.Charset = Encoding.UTF8;
-                            }
-                        }
-                    }
-                }
-                else if ((match = _REGEX_JAVASCRIPT.Match(addr)).Success)
-                {
-                    // JavaScript file in root directory
-
-                    var jsDir = new DirectoryInfo(Path.Combine(this._APP_SERVER.WorkingDirectory, "web/js"));
-                    if (jsDir.Exists)
-                    {
-                        var jsFileName = (match.Groups[2].Value ?? string.Empty).Trim();
-
-                        var jsFile = new FileInfo(Path.Combine(jsDir.FullName, jsFileName + ".js"));
-                        if (jsFile.Exists)
-                        {
-                            found = true;
-
-                            using (var stream = jsFile.OpenRead())
-                            {
-                                stream.CopyTo(e.Response.Stream);
-
-                                e.Response.ContentType = "text/javascript";
-                                e.Response.Charset = Encoding.UTF8;
-                            }
-                        }
-                    }
-                }
-                else if ((match = _REGEX_IMAGES.Match(addr)).Success)
-                {
-                    // image / icon in root path
-
-                    var imageDir = new DirectoryInfo(Path.Combine(this._APP_SERVER.WorkingDirectory, "web/images"));
-                    if (imageDir.Exists)
-                    {
-                        var imgFileName = (match.Groups[2].Value ?? string.Empty).Trim();
-                        var imgFileExt = (match.Groups[4].Value ?? string.Empty).Trim();
-
-                        var imageFile = new FileInfo(Path.Combine(imageDir.FullName, imgFileName + "." + imgFileExt));
-                        if (imageFile.Exists)
-                        {
-                            found = true;
-
-                            using (var stream = imageFile.OpenRead())
-                            {
-                                stream.CopyTo(e.Response.Stream);
-                            }
-
-                            e.Response.ContentType = GetMimeTypeByFileExtension(imgFileExt);
-                        }
-                    }
-                }
             }
 
             if (!found)
@@ -278,8 +205,27 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             }
         }
 
+        private static string ToWebHash(string inputHash)
+        {
+            if (string.IsNullOrWhiteSpace(inputHash))
+            {
+                return null;
+            }
+
+            using (var md5 = new MD5CryptoServiceProvider())
+            {
+                return new string(md5.ComputeHash(Encoding.UTF8
+                                                          .GetBytes(inputHash.ToLower()
+                                                                             .Trim()))
+                                     .SelectMany(b => b.ToString("x2"))
+                                     .ToArray());
+            }
+        }
+
         private IAppServerModuleContext TryFindAppModuleContextByHash(string modHash)
         {
+            modHash = (modHash ?? string.Empty).ToLower().Trim();
+
             return this._APP_SERVER
                        .Modules
                        .Select(m => m.Context)
@@ -288,24 +234,39 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                         {
                             Assembly = mc.Object.GetType().Assembly,
                             Context = mc,
-                            Hash = mc.GetHashAsHexString(),
+                            Hash = ToWebHash(mc.GetHashAsHexString()),
                         }).Where(x => x.Hash == modHash)
                           .Select(x => x.Context)
                           .SingleOrDefault();
         }
 
-        private static IHttpModule TryGetDefaultModule(IEnumerable<IHttpModule> modules)
+        private static IHttpModule TryGetDefaultModule(IServiceLocator serviceLocator)
         {
+            var modules = serviceLocator.GetAllInstances<IHttpModule>();
+
             return modules.SingleOrDefault(m => m.GetType()
                                                  .GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules.DefaultHttpModuleAttribute), false)
                                                  .Any());
         }
 
-        private static IHttpModule TryGetDefaultModule(IEnumerable<IHttpModule> modules, string modName)
+        private static IHttpModule TryGetModuleByName(IServiceLocator serviceLocator, string modName)
         {
+            var modules = serviceLocator.GetAllInstances<IHttpModule>();
             modName = (modName ?? string.Empty).ToUpper().Trim();
 
             return modules.SingleOrDefault(m => modName == (m.Name ?? string.Empty).ToUpper().Trim());
+        }
+
+        private static Stream TryGetWebResourceStream(IEnumerable<char> resName)
+        {
+            var fullResName = string.Format("MarcelJoachimKloubert.ApplicationServer.Resources.Web.{0}",
+                                            resName.AsString()).ToLower()
+                                                               .Trim();
+
+            var matchingRes = CollectionHelper.SingleOrDefault(_RESOURCE_ASSEMBLY.GetManifestResourceNames(),
+                                                               n => fullResName == (n ?? string.Empty).ToLower().Trim());
+
+            return matchingRes != null ? _RESOURCE_ASSEMBLY.GetManifestResourceStream(matchingRes) : null;
         }
 
         private bool ValidateRequest(IHttpRequest request)

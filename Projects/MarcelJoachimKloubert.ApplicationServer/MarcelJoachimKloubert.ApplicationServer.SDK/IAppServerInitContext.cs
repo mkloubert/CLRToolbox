@@ -12,7 +12,12 @@ namespace MarcelJoachimKloubert.ApplicationServer
     /// </summary>
     public interface IAppServerInitContext
     {
-        #region Data Members (2)
+        #region Data Members (4)
+
+        /// <summary>
+        /// Gets the list of (command line) arguments.
+        /// </summary>
+        string[] Arguments { get; }
 
         /// <summary>
         /// Gets the optional global logger instance.
@@ -23,6 +28,11 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// Gets the underlying server context.
         /// </summary>
         IAppServerContext ServerContext { get; }
+
+        /// <summary>
+        /// Gets the working / root directory of the server.
+        /// </summary>
+        string WorkingDirectory { get; }
 
         #endregion Data Members
     }

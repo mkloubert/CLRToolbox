@@ -4,9 +4,10 @@
 
 
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
-using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
@@ -19,18 +20,18 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         #endregion Fields
 
-        #region Methods (5)
+        #region Methods (6)
 
-        // Private Methods (5) 
+        // Private Methods (6) 
 
         private void HandleUrl_AppServerModule(Match match, HttpRequestEventArgs e, ref bool found)
         {
-            var moduleHash = (match.Groups[2].Value ?? string.Empty).ToLower().Trim();
+            var moduleHash = match.Groups[2].Value;
 
             var moduleCtx = this.TryFindAppModuleContextByHash(moduleHash);
             if (moduleCtx != null)
             {
-                var module = TryGetDefaultModule(moduleCtx.GetAllInstances<IHttpModule>(), match.Groups[4].Value);
+                var module = TryGetModuleByName(moduleCtx, match.Groups[4].Value);
                 if (module != null)
                 {
                     found = true;
@@ -41,25 +42,28 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         private void HandleUrl_AppServerModuleFile(Match match, HttpRequestEventArgs e, ref bool found)
         {
-            var moduleHash = (match.Groups[2].Value ?? string.Empty).ToLower().Trim();
+            var moduleHash = match.Groups[2].Value;
 
             var moduleCtx = this.TryFindAppModuleContextByHash(moduleHash);
             if (moduleCtx != null)
             {
                 var fileName = (match.Groups[4].Value ?? string.Empty).Trim();
-                var fileExt = (match.Groups[6].Value ?? string.Empty).Trim();
+                fileName = fileName.Replace("/", ".");
 
-                using (var stream = moduleCtx.TryGetResourceStream(string.Format("Web.{0}{1}{2}",
-                                                                                 fileName,
-                                                                                 fileExt != string.Empty ? "." : string.Empty,
-                                                                                 fileExt)))
+                var fileExt = Path.GetExtension(fileName).Trim();
+
+                using (var stream = moduleCtx.TryGetResourceStream("Web." + fileName))
                 {
                     if (stream != null)
                     {
                         found = true;
 
                         stream.CopyTo(e.Response.Stream);
-                        e.Response.ContentType = GetMimeTypeByFileExtension(fileExt);
+
+                        Encoding charset;
+                        e.Response.ContentType = GetMimeTypeByFileExtension(fileExt,
+                                                                            out charset);
+                        e.Response.Charset = charset;
                     }
                 }
             }
@@ -67,12 +71,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         private void HandleUrl_DefaultAppServerModule(Match match, HttpRequestEventArgs e, ref bool found)
         {
-            var moduleHash = (match.Groups[2].Value ?? string.Empty).ToLower().Trim();
+            var moduleHash = match.Groups[2].Value;
 
             var moduleCtx = this.TryFindAppModuleContextByHash(moduleHash);
             if (moduleCtx != null)
             {
-                var defaultModule = TryGetDefaultModule(moduleCtx.GetAllInstances<IHttpModule>());
+                var defaultModule = TryGetDefaultModule(moduleCtx);
                 if (defaultModule != null)
                 {
                     found = true;
@@ -81,10 +85,32 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             }
         }
 
+        private void HandleUrl_File(Match match, HttpRequestEventArgs e, ref bool found)
+        {
+            var fileName = (match.Groups[2].Value ?? string.Empty).Trim();
+            fileName = fileName.Replace("/", ".");
+
+            var fileExt = Path.GetExtension(fileName).Trim();
+
+            using (var stream = TryGetWebResourceStream(fileName))
+            {
+                if (stream != null)
+                {
+                    found = true;
+
+                    stream.CopyTo(e.Response.Stream);
+
+                    Encoding charset;
+                    e.Response.ContentType = GetMimeTypeByFileExtension(Path.GetExtension(fileExt),
+                                                                        out charset);
+                    e.Response.Charset = charset;
+                }
+            }
+        }
+
         private void HandleUrl_Module(Match match, HttpRequestEventArgs e, ref bool found)
         {
-            var module = TryGetDefaultModule(ServiceLocator.Current
-                                                           .GetAllInstances<IHttpModule>(), match.Groups[2].Value);
+            var module = TryGetModuleByName(ServiceLocator.Current, match.Groups[2].Value);
 
             if (module != null)
             {
@@ -95,15 +121,34 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         private void InitUrlHandlers()
         {
+            const string REGEX_FILENAME = @"[A-Za-z0-9|\/|_|\-|,|\.]+";
+            const string REGEX_MODULE_EXT = "html";
+            const string REGEX_SERVER_MODULE = "^(/)([A-Fa-f0-9]{2,})(/)";
+
             var handlers = new List<UriHandler>();
 
-            handlers.Add(new UriHandler(_REGEX_MODULES,
+            // embedded files of app server
+            handlers.Add(new UriHandler(new Regex(@"^(/)(" + REGEX_FILENAME + @")(\.)?(.*?)$",
+                                                  RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline),
+                                        this.HandleUrl_File));
+
+            // modules of app server
+            handlers.Add(new UriHandler(new Regex(@"^(/)(" + REGEX_FILENAME + @")(\." + REGEX_MODULE_EXT + ")",
+                                                  RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline),
                                         this.HandleUrl_Module));
-            handlers.Add(new UriHandler(_REGEX_DEFAULT_SERVER_MODULE,
+
+            // default http module of app server module
+            handlers.Add(new UriHandler(new Regex(REGEX_SERVER_MODULE + "?$",
+                                                  RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline),
                                         this.HandleUrl_DefaultAppServerModule));
-            handlers.Add(new UriHandler(_REGEX_SERVER_MODULES,
+            // specific http module of app server module
+            handlers.Add(new UriHandler(new Regex(REGEX_SERVER_MODULE + @"(" + REGEX_FILENAME + @")(\." + REGEX_MODULE_EXT + ")",
+                                                  RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline),
                                         this.HandleUrl_AppServerModule));
-            handlers.Add(new UriHandler(_REGEX_FILES_SERVER_MODULE,
+
+            // file inside app server module
+            handlers.Add(new UriHandler(new Regex(REGEX_SERVER_MODULE + @"(" + REGEX_FILENAME + @")(\.)?(.*?)$",
+                                                  RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline),
                                         this.HandleUrl_AppServerModuleFile));
 
             this._URL_HANDLERS = handlers.ToArray();

@@ -282,6 +282,7 @@
       <DependentUpon>ObjectContextBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\IResourceLocator.cs" />
     <Compile Include="Resources\ResourceRootNamespaceAttribute.cs" />
     <Compile Include="Scripting\CommonScriptFunctionSetup.cs" />
     <Compile Include="Scripting\Export\ExportScriptFuncAttribute.cs" />
@@ -311,6 +312,13 @@
     <Compile Include="Security\AccessControl\IAclRole.cs" />
     <Compile Include="Security\AccessControl\SimpleAcl.cs" />
     <Compile Include="Security\UsernamePasswordValidator.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\Json\JsonParameterResult.cs" />
+    <Compile Include="Serialization\Json\SimpleJsonResult.cs" />
+    <Compile Include="Serialization\Json\SimpleJsonResult.dotNET.cs">
+      <DependentUpon>SimpleJsonResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Serialization\SerializerBase.cs" />
     <Compile Include="ServiceLocation\Impl\DelegateServiceLocator.Classes.cs">
       <DependentUpon>DelegateServiceLocator.cs</DependentUpon>
     </Compile>
@@ -359,6 +367,7 @@
     </Compile>
     <None Include="MarcelJoachimKloubert.CLRToolbox.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

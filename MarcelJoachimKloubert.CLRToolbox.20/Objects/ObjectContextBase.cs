@@ -130,7 +130,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="IObjectContext.TryGetResourceStream(IEnumerable{char})" />
+        /// <see cref="IResourceLocator.TryGetResourceStream(IEnumerable{char})" />
         public Stream TryGetResourceStream(IEnumerable<char> resourceName)
         {
             string @namespace = null;
@@ -163,8 +163,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
                 fullResName = @namespace.Trim() + "." + fullResName;
             }
 
-            return this.Assembly
-                       .GetManifestResourceStream(fullResName);
+            fullResName = (fullResName ?? string.Empty).ToLower().Trim();
+            var matchingRes = CollectionHelper.SingleOrDefault(this.Assembly
+                                                                   .GetManifestResourceNames(),
+                                                               delegate(string name)
+                                                               {
+                                                                   return fullResName == (name ?? string.Empty).ToLower().Trim();
+                                                               });
+
+            return matchingRes != null ? this.Assembly
+                                             .GetManifestResourceStream(matchingRes) : null;
         }
         // Protected Methods (1) 
 

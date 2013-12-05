@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Threading.Tasks;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
 using MarcelJoachimKloubert.CLRToolbox.IO;
@@ -12,12 +13,30 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
 {
     internal static class Program
     {
-        #region Methods (2)
+        #region Methods (5)
 
-        // Private Methods (2) 
+        // Private Methods (5) 
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            HandleUnobservedException(e.ExceptionObject as Exception);
+        }
+
+        private static void HandleUnobservedException(global::System.Exception ex)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+
+            // TODO
+        }
 
         private static int Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
             var loggerFuncs = new DelegateLogger();
             loggerFuncs.Add(WriteLogMessageToConsole);
 
@@ -35,8 +54,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
                         var srvCtx = new SimpleAppServerContext(server);
 
                         var initCtx = new SimpleAppServerInitContext();
+                        initCtx.Arguments = args;
                         initCtx.Logger = logger;
                         initCtx.ServerContext = srvCtx;
+                        initCtx.WorkingDirectory = Environment.CurrentDirectory;
 
                         server.Initialize(initCtx);
                         GlobalConsole.Current.WriteLine("Server has been initialized.");
@@ -65,6 +86,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
 
                 return 1;
             }
+        }
+
+        private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            HandleUnobservedException(e.Exception);
+            e.SetObserved();
         }
 
         private static void WriteLogMessageToConsole(ILogMessage msg)

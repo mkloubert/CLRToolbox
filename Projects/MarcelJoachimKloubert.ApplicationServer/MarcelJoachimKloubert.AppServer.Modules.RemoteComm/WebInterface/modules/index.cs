@@ -4,9 +4,13 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
+using MarcelJoachimKloubert.CLRToolbox.Serialization;
+using MarcelJoachimKloubert.CLRToolbox.Serialization.Json;
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm.WebInterface.modules
 {
@@ -31,7 +35,22 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm.WebInterface.module
 
         protected override void OnHandleRequest(IHandleRequestContext context)
         {
-            using (var stream = this.Module.Context.TryGetResourceStream("Goethe.txt"))
+            var serializer = ServiceLocator.Current.GetInstance<ISerializer>();
+
+            var json = serializer.ToJson(new JsonParameterResult()
+            {
+                code = 666,
+                msg = "Master of Darkness",
+                tag = new Dictionary<string, object>()
+                {
+                    {"a", 1},
+                    {"b", 2},
+                }
+            });
+
+            var o = serializer.FromJson<JsonParameterResult>(json);
+
+            using (var stream = this.Module.Context.TryGetResourceStream("web.Goethe.TXT"))
             {
                 using (var reader = new StreamReader(stream))
                 {

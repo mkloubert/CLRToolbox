@@ -74,3 +74,11 @@
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Services.Script/bin
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Funcs.Common/obj
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Funcs.Common/bin
+
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.Torrent/obj
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.Torrent/bin
+
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Services.Serialize/obj
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Services.Serialize/bin
+/Projects/build
+/Projects/MarcelJoachimKloubert.ApplicationServer/MonoTorrent/obj

@@ -52,14 +52,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <see cref="IConsole.ReadLine()" />
         public string ReadLine()
         {
-            lock (this._SYNC)
+            using (StringWriter writer = new StringWriter())
             {
-                using (StringWriter writer = new StringWriter())
-                {
-                    this.OnReadLine(writer);
+                this.OnReadLine(writer);
 
-                    return writer.ToString();
-                }
+                return writer.ToString();
             }
         }
 
@@ -78,12 +75,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <see cref="IConsole.Write(IEnumerable{char})" />
         public ConsoleBase Write(IEnumerable<char> chars)
         {
-            lock (this._SYNC)
-            {
-                this.OnWrite(StringHelper.AsString(chars));
+            this.OnWrite(StringHelper.AsString(chars));
 
-                return this;
-            }
+            return this;
         }
 
         /// <summary>

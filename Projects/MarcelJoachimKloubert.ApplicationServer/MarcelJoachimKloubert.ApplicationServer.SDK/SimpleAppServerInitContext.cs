@@ -12,7 +12,17 @@ namespace MarcelJoachimKloubert.ApplicationServer
     /// </summary>
     public sealed class SimpleAppServerInitContext : IAppServerInitContext
     {
-        #region Properties (2)
+        #region Properties (4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerInitContext.Arguments" />
+        public string[] Arguments
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 
@@ -29,6 +39,16 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// </summary>
         /// <see cref="IAppServerInitContext.ServerContext" />
         public IAppServerContext ServerContext
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerInitContext.WorkingDirectory" />
+        public string WorkingDirectory
         {
             get;
             set;

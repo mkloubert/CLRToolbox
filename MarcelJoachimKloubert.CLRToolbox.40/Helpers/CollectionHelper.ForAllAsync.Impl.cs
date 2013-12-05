@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
         /// <summary>
         /// Invokes an action for each item of a sequence. Each thrown exception while invokation
-        /// is collected and thrown or returned as an <see cref="AggregateException" />.
+        /// is collected and thrown or returned as a single <see cref="AggregateException" />.
         /// The invokation of each action is done in an async thread, but it is wait until all actions were executed.
         /// </summary>
         /// <typeparam name="T">Type of the items of the sequence.</typeparam>

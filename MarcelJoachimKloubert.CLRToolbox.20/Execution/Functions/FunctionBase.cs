@@ -152,9 +152,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
         #endregion Properties
 
-        #region Methods (13)
+        #region Methods (16)
 
-        // Public Methods (8) 
+        // Public Methods (10) 
 
         /// <summary>
         /// 
@@ -196,6 +196,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IFunction.Execute()" />
+        public IFunctionExecutionContext Execute()
+        {
+            return this.Execute(CollectionHelper.Empty<KeyValuePair<string, object>>());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IFunction.Execute(bool)" />
+        public IFunctionExecutionContext Execute(bool autoStart)
+        {
+            return this.Execute(CollectionHelper.Empty<KeyValuePair<string, object>>(),
+                                autoStart);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IFunction.Execute(IEnumerable{KeyValuePair{string, object}}, bool)" />
         public IFunctionExecutionContext Execute(IEnumerable<KeyValuePair<string, object>> parameters)
         {
@@ -212,9 +231,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             FunctionExecutionContext result = new FunctionExecutionContext();
             result.Function = this;
 
-            // input parameters
-            IEnumerable<KeyValuePair<string, object>> normalizedParams = parameters ?? CollectionHelper.Empty<KeyValuePair<string, object>>();
+            // prepare and check input parameters
             {
+                IEnumerable<KeyValuePair<string, object>> normalizedParams = parameters ?? CollectionHelper.Empty<KeyValuePair<string, object>>();
+
                 IDictionary<string, object> paramsDict = this.CreateEmptyParameterCollection();
                 foreach (KeyValuePair<string, object> item in normalizedParams)
                 {
@@ -223,6 +243,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
                 }
 
                 result.InputParameters = new TMReadOnlyDictionary<string, object>(paramsDict);
+                if (!this.CheckInputParameters(result.InputParameters))
+                {
+                    throw new ArgumentException("parameters");
+                }
             }
 
             if (autoStart)
@@ -266,7 +290,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
                                                     , this.Id
                                                     , this.GetHashCode());
         }
-        // Protected Methods (5) 
+        // Protected Methods (6) 
+
+        /// <summary>
+        /// Validates input parameters.
+        /// </summary>
+        /// <param name="inputParams">The parameters to validate.</param>
+        /// <returns>Are valid or not.</returns>
+        protected bool CheckInputParameters(IReadOnlyDictionary<string, object> inputParams)
+        {
+            return inputParams != null;
+        }
 
         /// <summary>
         /// Creates an empty collection for parameters.

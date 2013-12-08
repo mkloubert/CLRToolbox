@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -141,9 +142,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Properties
 
-        #region Methods (1)
+        #region Methods (4)
 
-        // Public Methods (1) 
+        // Public Methods (3) 
 
         /// <summary>
         /// 
@@ -156,6 +157,50 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 this.Stream.SetLength(0);
                 return this;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Write(IEnumerable{byte})" />
+        public HttpResponseBase Write(IEnumerable<byte> data)
+        {
+            byte[] dataArray = CollectionHelper.AsArray(data);
+            if (dataArray != null)
+            {
+                this.Stream
+                    .Write(dataArray, 0, dataArray.Length);
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Write(IEnumerable{char})" />
+        public HttpResponseBase Write(IEnumerable<char> chars)
+        {
+            if (chars != null)
+            {
+                Encoding cs = this.Charset ?? this.GetDefaultCharset();
+                if (cs != null)
+                {
+                    return this.Write(cs.GetBytes(StringHelper.AsString(chars)));
+                }
+            }
+
+            return this;
+        }
+        // Protected Methods (1) 
+
+        /// <summary>
+        /// Returns the default charset.
+        /// </summary>
+        /// <returns>The default charset.</returns>
+        protected virtual Encoding GetDefaultCharset()
+        {
+            return Encoding.UTF8;
         }
 
         #endregion Methods

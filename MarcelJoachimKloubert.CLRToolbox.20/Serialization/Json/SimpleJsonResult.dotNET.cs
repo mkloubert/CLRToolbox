@@ -7,9 +7,23 @@ using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Serialization.Json
 {
+    #region CLASS: SimpleJsonResult<T>
+
     [Serializable]
     partial class SimpleJsonResult<T> : MarshalByRefObject
     {
 
     }
+
+    #endregion
+
+    #region CLASS: SimpleJsonResult
+
+    [Serializable]
+    partial class SimpleJsonResult
+    {
+
+    }
+
+    #endregion
 }

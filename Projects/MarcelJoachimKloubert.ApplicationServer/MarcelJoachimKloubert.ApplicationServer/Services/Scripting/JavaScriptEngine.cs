@@ -14,7 +14,7 @@ using MarcelJoachimKloubert.CLRToolbox.Scripting;
 using RemObjects.Script;
 using AppServerImpl = MarcelJoachimKloubert.ApplicationServer.ApplicationServer;
 
-namespace MarcelJoachimKloubert.AppServer.Services.Script
+namespace MarcelJoachimKloubert.ApplicationServer.Services.Script
 {
     [Export(typeof(global::MarcelJoachimKloubert.CLRToolbox.Scripting.IScriptExecutor))]
     [PartCreationPolicy(CreationPolicy.NonShared)]

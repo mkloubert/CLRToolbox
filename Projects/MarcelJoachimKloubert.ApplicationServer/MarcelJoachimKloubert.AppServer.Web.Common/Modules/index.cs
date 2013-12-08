@@ -4,12 +4,10 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using MarcelJoachimKloubert.CLRToolbox.Execution.Functions;
+using MarcelJoachimKloubert.ApplicationServer.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
-using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 {
@@ -34,20 +32,42 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 
         protected override void OnHandleRequest(IHandleRequestContext context)
         {
-            var l = ServiceLocator.Current.GetInstance<IFunctionLocator>();
+            //var l = ServiceLocator.Current.GetInstance<IFunctionLocator>();
 
-            var func = l.GetAllFunctions().Single(f => f.Name == "Echo");
+            //var func = l.GetAllFunctions().Single(f => f.Name == "Echo");
 
-            var p = new Dictionary<string, object>()
-                {
-                    { "a", 1 },
-                };
+            //var p = new Dictionary<string, object>()
+            //    {
+            //        { "a", 1 },
+            //    };
 
-            var r = func.Execute(p, false);
+            //var r = func.Execute(p, false);
 
-            r.Start();
+            //r.Start();
 
-            var a = r.ResultParameters["A"];
+            //var a = r.ResultParameters["A"];
+
+            context.HttpRequest.Response.Write("<ul>");
+
+            foreach (var ctx in this.Server
+                                    .Modules
+                                    .Select(m => m.Context)
+                                    .Where(ctx => ctx != null)
+                                    .OrderBy(ctx => ctx.Object.DisplayName))
+            {
+                var hash = ctx.GetWebHashAsHexString();
+
+                context.HttpRequest
+                       .Response
+                       .Write("<li>")
+                       .Write(string.Format(@"<a target=""_blank"" href=""{0}/"">",
+                                            hash))
+                       .Write(ctx.Object.DisplayName)
+                       .Write("</a>")
+                       .Write("</li>");
+            }
+
+            context.HttpRequest.Response.Write("</ul>");
         }
 
         #endregion Methods

@@ -2,6 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
+
+using System.Security.Cryptography;
+
 namespace MarcelJoachimKloubert.CLRToolbox.Objects
 {
     partial class ObjectContextBase
@@ -18,5 +21,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         }
 
         #endregion Properties
+
+        #region Methods (1)
+
+        // Protected Methods (1) 
+
+        /// <summary>
+        /// Creates the object that uses the algorithm to hash that context.
+        /// </summary>
+        /// <returns>The created hash algorithm.</returns>
+        protected HashAlgorithm CreateHasher()
+        {
+            return new SHA256Managed();
+        }
+
+        #endregion Methods
     }
 }

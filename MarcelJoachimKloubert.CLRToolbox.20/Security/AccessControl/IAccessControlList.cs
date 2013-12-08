@@ -17,7 +17,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.AccessControl
         /// <summary>
         /// Tries to return a role by its name.
         /// </summary>
-        /// <param name="name">The name of the resource.</param>
+        /// <param name="name">The name of the role.</param>
         /// <returns>The role or <see langword="null" /> if not found.</returns>
         IAclRole this[IEnumerable<char> name] { get; }
 

@@ -79,10 +79,6 @@
       <Project>{b4c3feac-835c-4ddf-b5a0-a7d5a6d8ac5e}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Script\MarcelJoachimKloubert.AppServer.Services.Script.csproj">
-      <Project>{c5351e00-b43c-463a-b6c3-255020c8552d}</Project>
-      <Name>MarcelJoachimKloubert.AppServer.Services.Script</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Serialize\MarcelJoachimKloubert.AppServer.Services.Serialize.csproj">
       <Project>{41ff33fb-ac6d-40f9-adbf-5ce3fb20fbb5}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Serialize</Name>

@@ -277,6 +277,9 @@
     <Compile Include="Net\SimpleTcpAddress.cs" />
     <Compile Include="Objects\IdentifiableObjectContextBase.cs" />
     <Compile Include="Objects\IObjectContext.cs" />
+    <Compile Include="Objects\ObjectContextBase.CreateHasher.cs">
+      <DependentUpon>ObjectContextBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\ObjectContextBase.cs" />
     <Compile Include="Objects\ObjectContextBase.dotNET.cs">
       <DependentUpon>ObjectContextBase.cs</DependentUpon>

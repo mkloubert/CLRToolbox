@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using MarcelJoachimKloubert.ApplicationServer.Extensions;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
@@ -205,7 +206,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             }
         }
 
-        private static string ToWebHash(string inputHash)
+        private static string ToWebHash2(string inputHash)
         {
             if (string.IsNullOrWhiteSpace(inputHash))
             {
@@ -234,7 +235,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                         {
                             Assembly = mc.Object.GetType().Assembly,
                             Context = mc,
-                            Hash = ToWebHash(mc.GetHashAsHexString()),
+                            Hash = mc.GetWebHashAsHexString(),
                         }).Where(x => x.Hash == modHash)
                           .Select(x => x.Context)
                           .SingleOrDefault();

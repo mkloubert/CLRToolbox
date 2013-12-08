@@ -431,6 +431,10 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\objects\IObjectContext.cs">
       <Link>Objects\IObjectContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ObjectContextBase.CreateHasher.cs">
+      <Link>Objects\ObjectContextBase.CreateHasher.cs</Link>
+      <DependentUpon>ObjectContextBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\objects\ObjectContextBase.cs">
       <Link>Objects\ObjectContextBase.cs</Link>
     </Compile>

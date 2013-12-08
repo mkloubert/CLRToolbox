@@ -38,13 +38,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.Serialize
 
             using (var sw = new StringWriter(jsonBuilder))
             {
-                using (var writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, objToSerialize);
-
-                    writer.Flush();
-                    writer.Close();
-                }
+                serializer.Serialize(sw, objToSerialize, typeof(T));
 
                 sw.Flush();
                 sw.Close();

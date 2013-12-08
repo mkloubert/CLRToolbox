@@ -112,8 +112,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Scripting
                         {
                             onExecCtx.IsDebug = result.IsDebug;
                             onExecCtx.Source = result.Source;
-                            onExecCtx.StartTime = DateTimeOffset.Now;
 
+                            onExecCtx.StartTime = DateTimeOffset.Now;
                             this.OnExecute(onExecCtx);
                         }
                         finally

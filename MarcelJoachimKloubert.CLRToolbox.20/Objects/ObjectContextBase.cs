@@ -102,10 +102,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
                         return null;
                     }
 
-                    using (SHA256Managed sha256 = new SHA256Managed())
+                    using (HashAlgorithm hasher = this.CreateHasher())
                     {
                         result.Position = 0;
-                        return sha256.ComputeHash(result);
+                        return hasher.ComputeHash(result);
                     }
                 }
                 finally
@@ -215,11 +215,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             Assembly asm = this.Assembly;
             if (asm != null)
             {
-                string asmName = asm.FullName;
-                if (!StringHelper.IsNullOrWhiteSpace(asmName))
+                string fullAsmName = asm.FullName;
+                if (!StringHelper.IsNullOrWhiteSpace(fullAsmName))
                 {
-                    byte[] data = Encoding.UTF8.GetBytes(asmName);
+                    byte[] data = Encoding.UTF8.GetBytes(fullAsmName);
                     dataToHash.Write(data, 0, data.Length);
+                }
+
+                // public assembly key
+                try
+                {
+                    AssemblyName asmName = asm.GetName();
+
+                    byte[] pubAsmKey = asmName.GetPublicKey();
+                    if (pubAsmKey != null)
+                    {
+                        dataToHash.Write(pubAsmKey, 0, pubAsmKey.Length);
+                    }
+                }
+                catch
+                {
+                    // ignore errors here
                 }
             }
 

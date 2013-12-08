@@ -62,13 +62,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Data Members
 
-        #region Operations (1)
+        #region Operations (3)
 
         /// <summary>
         /// Clearts the current content in <see cref="IHttpResponse.Stream" />.
         /// </summary>
         /// <returns>That instance.</returns>
         IHttpResponse Clear();
+
+        /// <summary>
+        /// Writes binary data to <see cref="IHttpResponse.Stream" />.
+        /// </summary>
+        /// <param name="data">The data to write.</param>
+        /// <returns>That instance.</returns>
+        IHttpResponse Write(IEnumerable<byte> data);
+
+        /// <summary>
+        /// Writes binary data to <see cref="IHttpResponse.Stream" />
+        /// based on <see cref="IHttpResponse.Charset" /> property.
+        /// </summary>
+        /// <param name="chars">The chars to write.</param>
+        /// <returns>That instance.</returns>
+        IHttpResponse Write(IEnumerable<char> chars);
 
         #endregion Operations
     }

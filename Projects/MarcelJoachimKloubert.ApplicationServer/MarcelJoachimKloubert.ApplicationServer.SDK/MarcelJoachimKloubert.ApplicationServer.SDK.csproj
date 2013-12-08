@@ -54,6 +54,9 @@
       <DependentUpon>AppServerBase.cs</DependentUpon>
     </Compile>
     <Compile Include="AppServerBase.cs" />
+    <Compile Include="Extensions\AppServerExtensionMethods.cs" />
+    <Compile Include="Extensions\Objects.cs" />
+    <Compile Include="Extensions\Objects.WebHash.cs" />
     <Compile Include="IAppServerInitContext.cs" />
     <Compile Include="Modules\AppServerModuleBase.StartStopContext.cs">
       <DependentUpon>AppServerModuleBase.cs</DependentUpon>

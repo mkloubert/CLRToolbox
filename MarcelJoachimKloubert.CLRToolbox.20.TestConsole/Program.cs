@@ -14,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox._20.TestConsole
         {
             var test = new List<int> { 3, 1, 2 }.ToArray();
 
-            CollectionHelper.Sort(test, i => i.ToString());
+            CollectionHelper.Sort(test, i => i.ToString(), true);
             foreach (var i in test)
             {
                 Console.WriteLine(i);

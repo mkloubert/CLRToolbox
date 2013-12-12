@@ -18,7 +18,65 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
     {
         #region Methods (2)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
+
+        /// <summary>
+        /// Exports a value without using a generic argument.
+        /// </summary>
+        /// <param name="container">The underlying container where to export the value to.</param>
+        /// <param name="exportedValue">The value to export.</param>
+        /// <param name="exportType">Export type.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="container" /> and/or <paramref name="exportType" /> is <see langword="null" />.
+        /// </exception>
+        public static void ComposeExportedValue(CompositionContainer container, object exportedValue, Type exportType)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException("conatiner");
+            }
+
+            if (exportType == null)
+            {
+                throw new ArgumentNullException("exportType");
+            }
+
+            var attribModelServiceType = typeof(global::System.ComponentModel.Composition.AttributedModelServices);
+            var compositionContainerType = typeof(global::System.ComponentModel.Composition.Hosting.CompositionContainer);
+
+            // find static method
+            // ComposeExportedValue<T>(this CompositionContainer, T)
+            var composeExportedValueGenericMethod =
+                attribModelServiceType.GetMethods(BindingFlags.Static | BindingFlags.Public)
+                                      .Single(m =>
+                                      {
+                                          if (m.Name != "ComposeExportedValue")
+                                          {
+                                              return false;
+                                          }
+
+                                          var genericMethodArgs = m.GetGenericArguments();
+                                          if (genericMethodArgs.Length != 1)
+                                          {
+                                              return false;
+                                          }
+
+                                          var methodParams = m.GetParameters();
+                                          if (methodParams.Length != 2)
+                                          {
+                                              return false;
+                                          }
+
+                                          return methodParams[0].ParameterType.Equals(compositionContainerType) &&
+                                                 methodParams[1].ParameterType.Equals(genericMethodArgs[0]);
+                                      });
+
+            // create specific typed version of generic method
+            var composeExportedValueMethod = composeExportedValueGenericMethod.MakeGenericMethod(exportType);
+
+            composeExportedValueMethod.Invoke(obj: null,
+                                              parameters: new object[] { container, exportedValue });
+        }
 
         /// <summary>
         /// Exports a value as its export and explicit type.
@@ -33,7 +91,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         {
             if (container == null)
             {
-                throw new ArgumentNullException("conatiner");
+                throw new ArgumentNullException("container");
             }
 
             var typesToExport = new HashSet<Type>();
@@ -48,52 +106,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
             foreach (var type in typesToExport)
             {
-                ComposeExportedValueForType(container: container,
-                                            exportType: type,
-                                            exportedValue: exportedValue);
+                ComposeExportedValue(container: container,
+                                     exportType: type,
+                                     exportedValue: exportedValue);
             }
-        }
-        // Private Methods (1) 
-
-        private static void ComposeExportedValueForType(CompositionContainer container,
-                                                        Type exportType,
-                                                        object exportedValue)
-        {
-            var attribModelServiceType = typeof(global::System.ComponentModel.Composition.AttributedModelServices);
-            var compositionContainerType = typeof(global::System.ComponentModel.Composition.Hosting.CompositionContainer);
-
-            // find static method
-            // ComposeExportedValue<T>(this CompositionContainer, T)
-            var composeExportedValueGenericMethod =
-                attribModelServiceType.GetMethods(BindingFlags.Static | BindingFlags.Public)
-                                      .Single(m =>
-                                       {
-                                           if (m.Name != "ComposeExportedValue")
-                                           {
-                                               return false;
-                                           }
-
-                                           var genericMethodArgs = m.GetGenericArguments();
-                                           if (genericMethodArgs.Length != 1)
-                                           {
-                                               return false;
-                                           }
-
-                                           var methodParams = m.GetParameters();
-                                           if (methodParams.Length != 2)
-                                           {
-                                               return false;
-                                           }
-
-                                           return methodParams[0].ParameterType.Equals(compositionContainerType) &&
-                                                  methodParams[1].ParameterType.Equals(genericMethodArgs[0]);
-                                       });
-
-            // create specific typed version of generic method
-            var composeExportedValueMethod = composeExportedValueGenericMethod.MakeGenericMethod(exportType);
-
-            composeExportedValueMethod.Invoke(obj: null,
-                                              parameters: new object[] { container, exportedValue });
         }
 
         #endregion Methods

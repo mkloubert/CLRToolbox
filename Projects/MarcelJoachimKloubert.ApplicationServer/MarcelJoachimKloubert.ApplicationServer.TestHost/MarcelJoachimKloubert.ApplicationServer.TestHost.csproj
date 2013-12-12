@@ -14,7 +14,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -83,6 +83,10 @@
       <Project>{41ff33fb-ac6d-40f9-adbf-5ce3fb20fbb5}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Serialize</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.SystemSqlite\MarcelJoachimKloubert.AppServer.Services.SystemSqlite.csproj">
+      <Project>{72fc4124-342c-4a2a-a8a3-f3ab629e8ec6}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Services.SystemSqlite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.WcfHttp\MarcelJoachimKloubert.AppServer.Services.WcfHttp.csproj">
       <Project>{a4b2abc9-3c13-46b0-afcf-5749d38c1af2}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.WcfHttp</Name>
@@ -136,6 +140,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="_Libs\Edward Snowden\WikiPedia_de.url" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="System.Data.SQLite.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="System.Data.SQLite.Linq.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="db\modules\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

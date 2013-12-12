@@ -6,8 +6,10 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using MarcelJoachimKloubert.ApplicationServer.Data.SQLite;
 using MarcelJoachimKloubert.ApplicationServer.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 {
@@ -68,6 +70,11 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
             }
 
             context.HttpRequest.Response.Write("</ul>");
+
+            using (var db = ServiceLocator.Current.GetInstance<ISqliteDatabaseFactory>().OpenDatabase("wurst"))
+            {
+
+            }
         }
 
         #endregion Methods

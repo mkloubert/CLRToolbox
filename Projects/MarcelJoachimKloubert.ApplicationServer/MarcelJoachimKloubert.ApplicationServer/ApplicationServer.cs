@@ -294,7 +294,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 if (serviceAssemblies.Count > 0)
                 {
                     this.Logger
-                        .Log(msg: string.Format("{0} services assemblies were loaded.", serviceAssemblies.Count),
+                        .Log(msg: string.Format("{0} service assemblies were loaded.", serviceAssemblies.Count),
                              tag: LOG_TAG_PREFIX + "LoadServices",
                              categories: LoggerFacadeCategories.Information);
                 }
@@ -420,6 +420,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 {
                     this.DisposeOldWebInterfaceServer();
 
+                    //TODO read from configuration
                     var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
                     newWebInterfaceServer.Port = 5979;
                     newWebInterfaceServer.UseSecureHttp = true;
@@ -589,6 +590,15 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                             {
                                                 CompositionHelper.ComposeExportedValueEx(container,
                                                                                          modules[0]);
+                                            }
+                                            else
+                                            {
+                                                foreach (var m in modules)
+                                                {
+                                                    CompositionHelper.ComposeExportedValue(container,
+                                                                                           m,
+                                                                                           m.GetType());
+                                                }
                                             }
 
                                             modules.ForAll(ctx2 =>

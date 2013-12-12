@@ -38,8 +38,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         public DelegateEqualityComparer(EqualsHandler equalsHandler,
                                         GetHashCodeHandler getHashCodeHandler)
         {
-            this._EQUALS = equalsHandler ?? DefaultEquals;
-            this._GET_HASH_CODE = getHashCodeHandler ?? DefaultGetHashCode;
+            this._EQUALS = equalsHandler ?? EqualityComparer<T>.Default.Equals;
+            this._GET_HASH_CODE = getHashCodeHandler ?? EqualityComparer<T>.Default.GetHashCode;
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         #endregion Delegates and Events
 
-        #region Methods (4)
+        #region Methods (2)
 
         // Public Methods (2) 
 
@@ -132,17 +132,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         public override int GetHashCode(T obj)
         {
             return this._GET_HASH_CODE(obj);
-        }
-        // Private Methods (2) 
-
-        private static bool DefaultEquals(T x, T y)
-        {
-            return EqualityComparer<T>.Default.Equals(x, y);
-        }
-
-        private static int DefaultGetHashCode(T obj)
-        {
-            return EqualityComparer<T>.Default.GetHashCode(obj);
         }
 
         #endregion Methods

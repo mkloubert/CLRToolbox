@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using MarcelJoachimKloubert.ApplicationServer.Extensions;
@@ -47,6 +46,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             this._HTTP_SERVER.PrincipalFinder = this.FindPrincipal;
 
             this._HTTP_SERVER.HandleRequest += this.HandleRequest;
+            this._HTTP_SERVER.HandleError += this.HandleError;
         }
 
         static WebInterfaceHandler()
@@ -148,6 +148,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             return result;
         }
 
+        private void HandleError(object sender, HttpRequestErrorEventArgs e)
+        {
+
+        }
+
         private void HandleHttpModule(IHttpModule module, HttpRequestEventArgs e)
         {
             this.HandleHttpModule(module,
@@ -203,23 +208,6 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             if (!found)
             {
                 e.Response.DocumentNotFound = true;
-            }
-        }
-
-        private static string ToWebHash2(string inputHash)
-        {
-            if (string.IsNullOrWhiteSpace(inputHash))
-            {
-                return null;
-            }
-
-            using (var md5 = new MD5CryptoServiceProvider())
-            {
-                return new string(md5.ComputeHash(Encoding.UTF8
-                                                          .GetBytes(inputHash.ToLower()
-                                                                             .Trim()))
-                                     .SelectMany(b => b.ToString("x2"))
-                                     .ToArray());
             }
         }
 

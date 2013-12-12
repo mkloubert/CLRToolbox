@@ -108,8 +108,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 }
                 else if (y != null)
                 {
-                    // use y to compare with x from the other side
-                    return func(y, x) * multiplicator * -1;
+                    // use y to compare with x
+                    return func(y, x) * multiplicator;
                 }
             }
 

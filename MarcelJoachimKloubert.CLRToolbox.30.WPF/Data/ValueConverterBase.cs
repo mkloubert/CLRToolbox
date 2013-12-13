@@ -187,8 +187,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
         /// <returns>The parsed parameter value.</returns>
         protected virtual IEnumerable<char> ParseConvertParameter(object input, CultureInfo culture)
         {
-            return (StringHelper.AsString(input, true) ?? string.Empty).ToLower()
-                                                                       .Trim();
+            var result = StringHelper.AsString(input, true) ?? string.Empty;
+
+            if (culture != null)
+            {
+                result = result.ToLower(culture);
+            }
+            else
+            {
+                result = result.ToLower();
+            }
+
+            return result.Trim();
         }
 
         /// <summary>

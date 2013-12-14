@@ -95,7 +95,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         }
         // Private Methods (2) 
 
-        private static int CalculateComparerValue<C>(C x, C y, Func<C, C, int> func, bool descending)
+        private static int CalculateComparerValue<C>(C x, C y, Func<C, C, int> compareValueCalculator, bool descending)
         {
             int multiplicator = descending ? -1 : 1;
 
@@ -104,12 +104,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 if (x != null)
                 {
                     // use x to compare with y
-                    return func(x, y) * multiplicator;
+                    return compareValueCalculator(x, y) * multiplicator;
                 }
                 else if (y != null)
                 {
                     // use y to compare with x
-                    return func(y, x) * multiplicator * -1;
+                    return compareValueCalculator(y, x) * multiplicator * -1;
                 }
             }
 
@@ -117,7 +117,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             return 0;
         }
 
-        private static void SortInner<T, C>(IList<T> list, Func<T, C> selector, Func<C, C, int> func, bool descending)
+        private static void SortInner<T, C>(IList<T> list, Func<T, C> selector, Func<C, C, int> compareValueCalculator, bool descending)
         {
             if (list == null)
             {
@@ -133,18 +133,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             {
                 for (int j = 0; j < list.Count - i; j++)
                 {
-                    int compValue = CalculateComparerValue(selector(list[j]),  // x
-                                                           selector(list[j + 1]),  // y
-                                                           func,
+                    T x = list[j];
+                    T y = list[j + 1];
+
+                    int compValue = CalculateComparerValue(selector(x),
+                                                           selector(y),
+                                                           compareValueCalculator,
                                                            descending);
 
                     if (compValue > 0)
                     {
-                        // x > y
-                        T temp = list[j];
+                        // x > y, so swap values
 
-                        list[j] = list[j + 1];
-                        list[j + 1] = temp;
+                        list[j] = y;
+                        list[j + 1] = x;
                     }
                 }
             }

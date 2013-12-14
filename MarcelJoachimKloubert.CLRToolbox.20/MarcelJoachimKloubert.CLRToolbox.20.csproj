@@ -66,6 +66,9 @@
     <Compile Include="Configuration\ConfigRepositoryBase.cs" />
     <Compile Include="Configuration\IConfigRepository.cs" />
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />
+    <Compile Include="Data\CommonConverter.OnChangeTypeExtension.cs">
+      <DependentUpon>CommonConverter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\CommonConverter.ParseInputValueForChangeType.cs">
       <DependentUpon>CommonConverter.cs</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
+    <Compile Include="Helpers\IOHelper.cs" />
+    <Compile Include="Helpers\IOHelper.CopyTo.cs">
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\StringHelper.AsHexString.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
@@ -343,6 +350,12 @@
     <Compile Include="ServiceLocation\ServiceLocatorBase.ParseValue.cs">
       <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\TemplateBase.cs" />
+    <Compile Include="Templates\Text\Html\HtmlTemplateBase.cs" />
+    <Compile Include="Templates\Text\Html\IHtmlTemplate.cs" />
+    <Compile Include="Templates\Text\IStringTemplate.cs" />
+    <Compile Include="Templates\Text\StringTemplateBase.cs" />
     <Compile Include="TMApplication.cs" />
     <Compile Include="Data\GlobalConverter.cs" />
     <Compile Include="DisposableBase.cs" />

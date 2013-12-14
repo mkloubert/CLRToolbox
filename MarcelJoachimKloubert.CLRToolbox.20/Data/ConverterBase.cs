@@ -39,9 +39,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (5)
 
-        // Public Methods (2) 
+        // Public Methods (4) 
 
         /// <summary>
         /// 
@@ -49,14 +49,52 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         /// <see cref="IConverter.ChangeType{T}(object)" />
         public virtual T ChangeType<T>(object value)
         {
-            return this.ChangeType<T>(value, Thread.CurrentThread.CurrentCulture);
+            return (T)this.ChangeType(typeof(T), value);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IConverter.ChangeType{T}(object, IFormatProvider)" />
-        public abstract T ChangeType<T>(object value, IFormatProvider provider);
+        public T ChangeType<T>(object value, IFormatProvider provider)
+        {
+            return (T)this.ChangeType(typeof(T), value, provider);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConverter.ChangeType(Type, object)" />
+        public object ChangeType(Type type, object value)
+        {
+            return this.ChangeType(type, value, Thread.CurrentThread.CurrentCulture);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IConverter.ChangeType(Type, object, IFormatProvider)" />
+        public object ChangeType(Type type, object value, IFormatProvider provider)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
+            object result = value;
+            this.OnChangeType(type, ref result, provider);
+
+            return result;
+        }
+        // Protected Methods (1) 
+
+        /// <summary>
+        /// The logic for the <see cref="ConverterBase.ChangeType(Type, object, IFormatProvider)" /> method.
+        /// </summary>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="targetValue">The value where to write the target value to.</param>
+        /// <param name="provider">The optional format provider to use.</param>
+        protected abstract void OnChangeType(Type targetType, ref object targetValue, IFormatProvider provider);
 
         #endregion Methods
     }

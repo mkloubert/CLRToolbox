@@ -4,6 +4,7 @@
 
 
 using System;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data
 {
@@ -38,28 +39,74 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (3)
 
-        // Public Methods (1) 
+        // Protected Methods (1) 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="ConverterBase.ChangeType{T}(object)" />
-        public override T ChangeType<T>(object value, IFormatProvider provider)
+        /// <see cref="ConverterBase.OnChangeType(Type, ref object, IFormatProvider)" />
+        protected override void OnChangeType(Type targetType, ref object targetValue, IFormatProvider provider)
         {
-            this.ParseInputValueForChangeType<T>(ref value, provider);
+            this.ParseInputValueForChangeType(targetType, ref targetValue, provider);
 
-            if (value is T)
+            if (targetValue != null)
             {
-                return (T)value;
+                Type valueType = targetValue.GetType();
+                if (valueType.Equals(targetType) ||
+                    targetType.IsAssignableFrom(valueType))
+                {
+                    // no need to convert
+                    return;
+                }
             }
 
-            return value != null ? (T)global::System.Convert.ChangeType(value, typeof(T), provider) : default(T);
-        }
-        // Private Methods (1) 
+            if (targetType.Equals(typeof(string)) ||
+                targetType.Equals(typeof(global::System.Collections.Generic.IEnumerable<char>)))
+            {
+                // force to convert to string
 
-        partial void ParseInputValueForChangeType<T>(ref object value, IFormatProvider provider);
+                string str = StringHelper.AsString(targetValue);
+                if (str != null &&
+                    provider != null)
+                {
+                    str = str.ToString(provider);
+                }
+
+                targetValue = str;
+                return;
+            }
+
+            if (targetValue == null)
+            {
+                if (targetType.IsValueType &&
+                    Nullable.GetUnderlyingType(targetType) == null)
+                {
+                    // a (non-nullable) struct, so create instance by use the default parameter-less constructor
+                    targetValue = Activator.CreateInstance(targetType);
+                }
+
+                return;
+            }
+
+            bool changeTypeExtensionHandled = false;
+            this.OnChangeTypeExtension(targetType,
+                                       ref targetValue,
+                                       provider,
+                                       ref changeTypeExtensionHandled);
+
+            if (!changeTypeExtensionHandled)
+            {
+                // use BCL logic
+                targetValue = global::System.Convert.ChangeType(targetValue, targetType, provider);
+            }
+        }
+        // Private Methods (2) 
+
+        partial void OnChangeTypeExtension(Type targetType, ref object targetValue, IFormatProvider provider, ref bool handled);
+
+        partial void ParseInputValueForChangeType(Type targetType, ref object targetValue, IFormatProvider provider);
 
         #endregion Methods
     }

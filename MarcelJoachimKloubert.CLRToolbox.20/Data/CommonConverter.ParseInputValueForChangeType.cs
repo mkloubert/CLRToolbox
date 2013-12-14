@@ -13,29 +13,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         // Private Methods (1) 
 
-        partial void ParseInputValueForChangeType<T>(ref object value, IFormatProvider provider)
+        partial void ParseInputValueForChangeType(Type targetType, ref object targetValue, IFormatProvider provider)
         {
-            if (typeof(T).Equals(typeof(global::System.DBNull)))
+            if (!targetType.Equals(typeof(global::System.DBNull)))
             {
-                // target type is DBNull
-
-                if (value == null)
+                if (DBNull.Value.Equals(targetValue))
                 {
-                    value = DBNull.Value;
-                }
-                else
-                {
-                    if (!DBNull.Value.Equals(value))
-                    {
-                        throw new InvalidCastException();
-                    }
+                    targetValue = null;
                 }
             }
             else
             {
-                if (DBNull.Value.Equals(value))
+                // target type is DBNull
+
+                if (targetValue == null)
                 {
-                    value = null;
+                    targetValue = DBNull.Value;
+                }
+                else
+                {
+                    if (!DBNull.Value.Equals(targetValue))
+                    {
+                        throw new InvalidCastException();
+                    }
                 }
             }
         }

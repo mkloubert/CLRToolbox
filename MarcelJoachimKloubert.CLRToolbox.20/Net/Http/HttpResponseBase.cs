@@ -54,7 +54,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (8)
+        #region Properties (9)
 
         /// <summary>
         /// 
@@ -87,6 +87,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             get { return this._contentType; }
 
             set { this._contentType = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.DirectOutput" />
+        public bool DirectOutput
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -142,9 +152,48 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Properties
 
-        #region Methods (4)
+        #region Methods (9)
 
-        // Public Methods (3) 
+        // Public Methods (7) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Append(IEnumerable{byte})" />
+        public HttpResponseBase Append(IEnumerable<byte> data)
+        {
+            lock (this._SYNC)
+            {
+                byte[] dataArray = CollectionHelper.AsArray(data);
+                if (dataArray != null &&
+                    dataArray.Length > 0)
+                {
+                    long lastPos = this.Stream.Position;
+                    try
+                    {
+                        // go to end
+                        this.Stream.Position = this.Stream.Length;
+
+                        this.Stream.Write(dataArray, 0, dataArray.Length);
+                    }
+                    finally
+                    {
+                        this.Stream.Position = lastPos;
+                    }
+                }
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Append(IEnumerable{char})" />
+        public HttpResponseBase Append(IEnumerable<char> chars)
+        {
+            return this.Append(this.CharsToBytes(chars));
+        }
 
         /// <summary>
         /// 
@@ -157,6 +206,47 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 this.Stream.SetLength(0);
                 return this;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Prefix(IEnumerable{byte})" />
+        public HttpResponseBase Prefix(IEnumerable<byte> data)
+        {
+            lock (this._SYNC)
+            {
+                byte[] dataArray = CollectionHelper.AsArray(data);
+                if (dataArray != null &&
+                    dataArray.Length > 0)
+                {
+                    using (MemoryStream backup = new MemoryStream())
+                    {
+                        // backup
+                        this.Stream.Position = 0;
+                        IOHelper.CopyTo(this.Stream, backup);
+
+                        this.Clear();
+
+                        this.Stream.Write(dataArray, 0, dataArray.Length);
+
+                        // restore
+                        backup.Position = 0;
+                        IOHelper.CopyTo(backup, this.Stream);
+                    }
+                }
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Prefix(IEnumerable{char})" />
+        public HttpResponseBase Prefix(IEnumerable<char> chars)
+        {
+            return this.Prefix(this.CharsToBytes(chars));
         }
 
         /// <summary>
@@ -181,18 +271,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <see cref="IHttpResponse.Write(IEnumerable{char})" />
         public HttpResponseBase Write(IEnumerable<char> chars)
         {
+            return this.Write(this.CharsToBytes(chars));
+        }
+        // Protected Methods (2) 
+
+        /// <summary>
+        /// Converts a char sequence to a binary sequence.
+        /// </summary>
+        /// <param name="chars">The chars to convert.</param>
+        /// <returns>The chars as bytes.</returns>
+        protected virtual IEnumerable<byte> CharsToBytes(IEnumerable<char> chars)
+        {
+            IEnumerable<byte> result = null;
             if (chars != null)
             {
                 Encoding cs = this.Charset ?? this.GetDefaultCharset();
                 if (cs != null)
                 {
-                    return this.Write(cs.GetBytes(StringHelper.AsString(chars)));
+                    result = cs.GetBytes(StringHelper.AsString(chars));
                 }
             }
 
-            return this;
+            return result;
         }
-        // Protected Methods (1) 
 
         /// <summary>
         /// Returns the default charset.

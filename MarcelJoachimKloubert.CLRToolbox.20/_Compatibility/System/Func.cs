@@ -5,6 +5,16 @@
 
 namespace System
 {
+    #region DELEGATE: Func<TResult>
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <see href="http://msdn.microsoft.com/de-de/library/bb534960%28v=vs.110%29.aspx" />
+    public delegate TResult Func<TResult>();
+
+    #endregion
+
     #region DELEGATE: Func<T, TResult>
 
     /// <summary>

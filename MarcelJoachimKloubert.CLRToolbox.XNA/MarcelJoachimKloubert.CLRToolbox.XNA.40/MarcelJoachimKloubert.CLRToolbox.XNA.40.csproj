@@ -272,6 +272,13 @@
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CopyTo.cs">
+      <Link>Helpers\IOHelper.CopyTo.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.cs">
+      <Link>Helpers\IOHelper.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.cs">
       <Link>Helpers\MethodHelper.cs</Link>
     </Compile>
@@ -561,6 +568,24 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.ParseValue.cs">
       <Link>ServiceLocation\ServiceLocatorBase.ParseValue.cs</Link>
       <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Templates\ITemplate.cs">
+      <Link>Templates\ITemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Templates\TemplateBase.cs">
+      <Link>Templates\TemplateBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\Html\HtmlTemplateBase.cs">
+      <Link>Templates\Text\Html\HtmlTemplateBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\Html\IHtmlTemplate.cs">
+      <Link>Templates\Text\Html\IHtmlTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\IStringTemplate.cs">
+      <Link>Templates\Text\IStringTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\StringTemplateBase.cs">
+      <Link>Templates\Text\StringTemplateBase.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>

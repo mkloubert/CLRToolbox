@@ -175,6 +175,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
                 var mefServiceLocator = new ExportProviderServiceLocator(compContainer);
                 serviceLocator = new DelegateServiceLocator(mefServiceLocator);
+
+                serviceLocator.RegisterSingleProvider<global::MarcelJoachimKloubert.CLRToolbox.Templates.Text.Html.IHtmlTemplate>(WebInterfaceHandler.GetHtmlTemplate);
             }
 
             // logger

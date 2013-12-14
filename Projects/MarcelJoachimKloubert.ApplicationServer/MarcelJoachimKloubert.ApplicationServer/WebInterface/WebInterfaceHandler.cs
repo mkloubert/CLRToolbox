@@ -13,6 +13,7 @@ using System.Security.Principal;
 using System.Text;
 using MarcelJoachimKloubert.ApplicationServer.Extensions;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
+using MarcelJoachimKloubert.ApplicationServer.Services.Templates.Text.Html;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -20,6 +21,7 @@ using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
+using MarcelJoachimKloubert.CLRToolbox.Templates.Text.Html;
 
 namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 {
@@ -65,7 +67,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         #endregion Properties
 
-        #region Methods (13)
+        #region Methods (14)
 
         // Protected Methods (1) 
 
@@ -170,6 +172,20 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             {
                 throw new AggregateException(result.Errors);
             }
+
+            var directOutput = resp.DirectOutput;
+
+            if (!directOutput)
+            {
+                var header = ServiceLocator.Current.GetInstance<IHtmlTemplate>("__header");
+                resp.Prefix(header.Render());
+            }
+
+            if (!directOutput)
+            {
+                var footer = ServiceLocator.Current.GetInstance<IHtmlTemplate>("__footer");
+                resp.Append(footer.Render());
+            }
         }
 
         private void HandleRequest(object sender, HttpRequestEventArgs e)
@@ -215,35 +231,27 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
         {
             modHash = (modHash ?? string.Empty).ToLower().Trim();
 
-            return this._APP_SERVER
-                       .Modules
-                       .Select(m => m.Context)
-                       .OfType<IAppServerModuleContext>()
-                       .Select(mc => new
-                        {
-                            Assembly = mc.Object.GetType().Assembly,
-                            Context = mc,
-                            Hash = mc.GetWebHashAsHexString(),
-                        }).Where(x => x.Hash == modHash)
-                          .Select(x => x.Context)
-                          .SingleOrDefault();
+            return CollectionHelper.SingleOrDefault(this._APP_SERVER
+                                                        .Modules
+                                                        .Select(m => m.Context),
+                                                    mc => mc != null &&
+                                                          mc.GetWebHashAsHexString() == modHash);
         }
 
         private static IHttpModule TryGetDefaultModule(IServiceLocator serviceLocator)
         {
-            var modules = serviceLocator.GetAllInstances<IHttpModule>();
-
-            return modules.SingleOrDefault(m => m.GetType()
-                                                 .GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules.DefaultHttpModuleAttribute), false)
-                                                 .Any());
+            return CollectionHelper.SingleOrDefault(serviceLocator.GetAllInstances<IHttpModule>(),
+                                                    m => m.GetType()
+                                                          .GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules.DefaultHttpModuleAttribute), false)
+                                                          .Any());
         }
 
         private static IHttpModule TryGetModuleByName(IServiceLocator serviceLocator, string modName)
         {
-            var modules = serviceLocator.GetAllInstances<IHttpModule>();
             modName = (modName ?? string.Empty).ToUpper().Trim();
 
-            return modules.SingleOrDefault(m => modName == (m.Name ?? string.Empty).ToUpper().Trim());
+            return CollectionHelper.SingleOrDefault(serviceLocator.GetAllInstances<IHttpModule>(),
+                                                    m => modName == (m.Name ?? string.Empty).ToUpper().Trim());
         }
 
         private static Stream TryGetWebResourceStream(IEnumerable<char> resName)
@@ -273,6 +281,35 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             catch
             {
                 return false;
+            }
+        }
+        // Internal Methods (1) 
+
+        internal static IHtmlTemplate GetHtmlTemplate(IServiceLocator baseLocator, object key)
+        {
+            var throwActivationException = new Action(() =>
+                {
+                    throw new ServiceActivationException(typeof(global::MarcelJoachimKloubert.CLRToolbox.Templates.Text.Html.IHtmlTemplate),
+                                                         key);
+                });
+
+            var tplName = (StringHelper.AsString(key, true) ?? string.Empty).Trim();
+            if (tplName == string.Empty)
+            {
+                throwActivationException();
+            }
+
+            using (var stream = TryGetWebResourceStream("html." + tplName + ".html"))
+            {
+                if (stream == null)
+                {
+                    throwActivationException();
+                }
+
+                using (var reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    return new DotLiquidHtmlTemplate(reader.ReadToEnd());
+                }
             }
         }
 

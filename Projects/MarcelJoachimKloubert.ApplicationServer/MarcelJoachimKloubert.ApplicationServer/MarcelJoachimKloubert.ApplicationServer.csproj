@@ -40,6 +40,10 @@
     <AssemblyOriginatorKeyFile>MarcelJoachimKloubert.ApplicationServer.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotLiquid, Version=1.7.0.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\DotLiquid.dll</HintPath>
+    </Reference>
     <Reference Include="RemObjects.Script, Version=2.0.71.1093, Culture=neutral, PublicKeyToken=3df3cad1b7aa5098, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\RemObjects.Script.dll</HintPath>
@@ -48,6 +52,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +65,8 @@
     <Compile Include="Services\Execution\Functions\FunctionLocator.cs" />
     <Compile Include="Services\Net\Http\Modules\HttpModuleLocator.cs" />
     <Compile Include="Services\Scripting\JavaScriptEngine.cs" />
+    <Compile Include="Services\Templates\Text\Html\CommonFilters.cs" />
+    <Compile Include="Services\Templates\Text\Html\DotLiquidHtmlTemplate.cs" />
     <Compile Include="WebInterface\UriHandler.cs" />
     <Compile Include="WebInterface\WebInterfaceHandler.cs" />
     <Compile Include="WebInterface\WebInterfaceHandler.UrlHandlers.cs">
@@ -84,19 +91,55 @@
     <None Include="RemObjects.Script.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Libs\RemObjects.Script\LICENSE.txt" />
+    <EmbeddedResource Include="_Externals\RemObjects.Script\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Web\img\_test\Gina2.jpg" />
     <EmbeddedResource Include="Resources\Web\img\_test\d\gina3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Web\css\" />
-    <Folder Include="Resources\Web\js\" />
+    <EmbeddedResource Include="_Externals\SimpleAdmin\readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\__webinterface_footer.html" />
-    <EmbeddedResource Include="Resources\__webinterface_header.html" />
+    <EmbeddedResource Include="Resources\Web\img\bg_arr_left.png" />
+    <EmbeddedResource Include="Resources\Web\img\bg_arr_nav.png" />
+    <EmbeddedResource Include="Resources\Web\img\bg_box_head.jpg" />
+    <EmbeddedResource Include="Resources\Web\img\bg_login_top.jpg" />
+    <EmbeddedResource Include="Resources\Web\img\bg_top.jpg" />
+    <EmbeddedResource Include="Resources\Web\img\i_add.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_add_page.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_add_user.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_archive.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_block_users.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_category.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_config.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_contact.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_delete.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_edit.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_error.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_ok.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_page.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_photo.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_report.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_users.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_view_page.png" />
+    <EmbeddedResource Include="Resources\Web\img\i_warning.png" />
+    <EmbeddedResource Include="Resources\Web\css\login.css" />
+    <EmbeddedResource Include="Resources\Web\css\navi.css" />
+    <EmbeddedResource Include="Resources\Web\css\style.css" />
+    <EmbeddedResource Include="Resources\Web\html\__footer.html" />
+    <EmbeddedResource Include="Resources\Web\html\__header.html" />
+    <EmbeddedResource Include="Resources\Web\js\highcharts.js" />
+    <EmbeddedResource Include="Resources\Web\js\highcharts_init.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DotLiquid.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Externals\DotLiquid\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Web\js\jquery-1.10.2.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

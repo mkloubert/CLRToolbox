@@ -96,6 +96,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.OnChangeTypeExtension.cs">
+      <Link>Data\CommonConverter.OnChangeTypeExtension.cs</Link>
+      <DependentUpon>CommonConverter.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.ParseInputValueForChangeType.cs">
       <Link>Data\CommonConverter.ParseInputValueForChangeType.cs</Link>
       <DependentUpon>CommonConverter.cs</DependentUpon>
@@ -291,6 +295,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CopyTo.cs">
+      <Link>Helpers\IOHelper.CopyTo.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.cs">
+      <Link>Helpers\IOHelper.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.Constructor.cs">
       <Link>Helpers\MethodHelper.Constructor.cs</Link>
@@ -617,6 +628,24 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.ParseValue.cs">
       <Link>ServiceLocation\ServiceLocatorBase.ParseValue.cs</Link>
       <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\ITemplate.cs">
+      <Link>Templates\ITemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\TemplateBase.cs">
+      <Link>Templates\TemplateBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\Html\HtmlTemplateBase.cs">
+      <Link>Templates\Text\Html\HtmlTemplateBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\Html\IHtmlTemplate.cs">
+      <Link>Templates\Text\Html\IHtmlTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\IStringTemplate.cs">
+      <Link>Templates\Text\IStringTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\StringTemplateBase.cs">
+      <Link>Templates\Text\StringTemplateBase.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>

@@ -52,9 +52,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
 
         #endregion Constructors
 
-        #region Methods (6)
+        #region Methods (10)
 
-        // Protected Methods (6) 
+        // Protected Methods (10) 
 
         /// <summary>
         /// Creates the initial value for <see cref="KeyValuePairConfigRepository._CONFIG_VALUES" /> field.
@@ -76,6 +76,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 this._CONFIG_VALUES.Clear();
                 wasCleared = true;
             }
+
+            if (wasCleared)
+            {
+                this.OnUpdated();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ConfigRepositoryBase.OnContainsValue(string, string, ref bool)" />
+        protected override sealed void OnContainsValue(string category, string name, ref bool exists)
+        {
+            IDictionary<string, object> catValues;
+            if (this._CONFIG_VALUES.TryGetValue(category, out catValues))
+            {
+                exists = catValues.ContainsKey(name);
+            }
         }
 
         /// <summary>
@@ -89,13 +107,40 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
             {
                 deleted = catValues.Remove(name);
             }
+
+            if (deleted)
+            {
+                this.OnUpdated();
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnSetValue{T}(string, string, T, ref bool)"/>
-        protected override void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet)
+        /// <see cref="ConfigRepositoryBase.OnGetCategoryNames(ICollection{IEnumerable{char}})" />
+        protected override sealed void OnGetCategoryNames(ICollection<IEnumerable<char>> names)
+        {
+            foreach (string name in this._CONFIG_VALUES.Keys)
+            {
+                names.Add(name);
+            }
+        }
+
+        /// <summary>
+        /// Extension of <see cref="KeyValuePairConfigRepository.OnSetValue{T}(string, string, T, ref bool, bool)" /> method.
+        /// </summary>
+        /// <typeparam name="T">Type of rhe value to set.</typeparam>
+        /// <param name="category">The category where the value should be stored to.</param>
+        /// <param name="name">The name in the category where the value should be stored to.</param>
+        /// <param name="value">The value to set.</param>
+        /// <param name="valueWasSet">
+        /// Defines if value was set or not.
+        /// Is <see langword="false" /> by default.
+        /// </param>
+        /// <param name="invokeOnUpdated">
+        /// Invoke <see cref="KeyValuePairConfigRepository.OnUpdated()" /> method or not.
+        /// </param>
+        protected virtual void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet, bool invokeOnUpdated)
         {
             IDictionary<string, object> catValues;
             if (!this._CONFIG_VALUES.TryGetValue(category, out catValues))
@@ -110,8 +155,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                     .Add(category, catValues);
             }
 
-            catValues[category] = this.ToConfigValue(category, name, value);
+            catValues[name] = this.ToConfigValue(category, name, value);
             valueWasSet = true;
+
+            if (invokeOnUpdated &&
+                valueWasSet)
+            {
+                this.OnUpdated();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ConfigRepositoryBase.OnSetValue{T}(string, string, T, ref bool)"/>
+        protected override sealed void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet)
+        {
+            this.OnSetValue<T>(category,
+                               name,
+                               value,
+                               ref valueWasSet,
+                               true);
         }
 
         /// <summary>
@@ -130,6 +194,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                     valueWasFound = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// Is invoked after data were updated.
+        /// </summary>
+        protected virtual void OnUpdated()
+        {
+            // dummy
         }
 
         /// <summary>
@@ -154,30 +226,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         }
 
         #endregion Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnContainsValue(string, string, ref bool)" />
-        protected override sealed void OnContainsValue(string category, string name, ref bool exists)
-        {
-            IDictionary<string, object> catValues;
-            if (this._CONFIG_VALUES.TryGetValue(category, out catValues))
-            {
-                exists = catValues.ContainsKey(name);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnGetCategoryNames(ICollection{IEnumerable{char}})" />
-        protected override sealed void OnGetCategoryNames(ICollection<IEnumerable<char>> names)
-        {
-            foreach (string name in this._CONFIG_VALUES.Keys)
-            {
-                names.Add(name);
-            }
-        }
     }
 }

@@ -221,7 +221,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <see cref="IConfigRepository.SetValue(IEnumerable{char}, object, IEnumerable{char})" />
         public bool SetValue(IEnumerable<char> name, object value)
         {
-            return this.SetValue(name, value);
+            return this.SetValue(name, value, null);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <see cref="IConfigRepository.SetValue{T}(IEnumerable{char}, T)" />
         public bool SetValue<T>(IEnumerable<char> name, T value)
         {
-            return this.SetValue<T>(name, value);
+            return this.SetValue<T>(name, value, null);
         }
 
         /// <summary>

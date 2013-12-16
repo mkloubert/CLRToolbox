@@ -90,6 +90,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\IConfigRepository.cs">
       <Link>Configuration\IConfigRepository.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\IniFileConfigRepository.cs">
+      <Link>Configuration\Impl\IniFileConfigRepository.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>

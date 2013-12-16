@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox._20.TestConsole
@@ -12,14 +13,9 @@ namespace MarcelJoachimKloubert.CLRToolbox._20.TestConsole
 
         static void Main(string[] args)
         {
-            var test = new List<int> { 3, 1, 2 }.ToArray();
+            IniFileConfigRepository repo = new IniFileConfigRepository("./my.ini");
 
-            CollectionHelper.Sort(test, i => i.ToString(), true);
-            foreach (var i in test)
-            {
-                Console.WriteLine(i);
-            }
-
+            Console.WriteLine("===== ENTER =====");
             Console.ReadLine();
         }
 

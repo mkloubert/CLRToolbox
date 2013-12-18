@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
@@ -113,29 +114,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (11)
 
-        // Protected Methods (9) 
+        // Protected Methods (10) 
 
         /// <summary>
         /// Converts back a value for use in that object as value.
         /// </summary>
         /// <param name="input">The input value to convert.</param>
         /// <returns>The converted value.</returns>
-        protected virtual IEnumerable<char> FromIniSectionValue(object input)
+        protected virtual IEnumerable<char> FromIniSectionValue(string input)
         {
-            return (StringHelper.AsString(input, true) ?? string.Empty).Replace("\\n", "\n")
-                                                                       .Replace("\\r", "\r")
-                                                                       .Replace("\\0", "\0")
-                                                                       .Replace("\\a", "\a")
-                                                                       .Replace("\\b", "\b")
-                                                                       .Replace("\\t", "\t")
-                                                                       .Replace("\\;", ";")
-                                                                       .Replace("\\#", "#")
-                                                                       .Replace("\\=", "=")
-                                                                       .Replace("\\:", ":")
-                                                                       .Replace("\\\\", "\\")
-                                                                       .Trim();
+            string result = (input ?? string.Empty).Replace("\\n", "\n")
+                                                   .Replace("\\r", "\r")
+                                                   .Replace("\\0", "\0")
+                                                   .Replace("\\a", "\a")
+                                                   .Replace("\\b", "\b")
+                                                   .Replace("\\t", "\t")
+                                                   .Replace("\\;", ";")
+                                                   .Replace("\\#", "#")
+                                                   .Replace("\\=", "=")
+                                                   .Replace("\\:", ":")
+                                                   .Replace("\\\\", "\\")
+                                                   .Trim();
+
+            return result != string.Empty ? result : null;
         }
 
         /// <summary>
@@ -169,6 +172,65 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="KeyValuePairConfigRepository.OnTryGetValue{T}(string, string, ref T, ref bool)"/>
+        protected override void OnTryGetValue<T>(string category, string name, ref T foundValue, ref bool valueWasFound)
+        {
+            IEnumerable<char> innerValue = null;
+            base.OnTryGetValue<IEnumerable<char>>(category, name,
+                                                  ref innerValue, ref valueWasFound);
+
+            if (!valueWasFound)
+            {
+                return;
+            }
+
+            bool throwException = false;
+            string strValue = StringHelper.AsString(innerValue);
+            object valueToReturn = null;
+
+            if (strValue != null)
+            {
+                Type targetType = typeof(T);
+
+                if (targetType.Equals(typeof(bool)) ||
+                    targetType.Equals(typeof(bool?)))
+                {
+                    switch (strValue.ToLower().Trim())
+                    {
+                        case "0":
+                        case "no":
+                        case "false":
+                            valueToReturn = false;
+                            break;
+
+                        case "1":
+                        case "yes":
+                        case "true":
+                            valueToReturn = true;
+                            break;
+
+                        case "":
+                            if (Nullable.GetUnderlyingType(targetType) == null)
+                            {
+                                // no nullable boolean
+                                throwException = true;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            if (throwException)
+            {
+                throw new InvalidCastException();
+            }
+
+            foundValue = GlobalConverter.Current.ChangeType<T>(valueToReturn);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="KeyValuePairConfigRepository.OnUpdated()" />
         protected override void OnUpdated()
         {
@@ -182,14 +244,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                     {
                         // create section
                         writer.WriteLine("[{0}]",
-                                         StringHelper.AsString(this.ParseIniSectionKey(categoryValues.Key)));
+                                         StringHelper.AsString(this.ParseIniSectionName(categoryValues.Key)));
 
                         // writes values
                         foreach (KeyValuePair<string, object> item in categoryValues.Value)
                         {
                             writer.WriteLine(string.Format("{0}={1}",
-                                                           this.ParseIniSectionKey(item.Key),
-                                                           StringHelper.AsString(item.Value)));
+                                                           StringHelper.AsString(this.ParseIniSectionKey(item.Key)),
+                                                           item.Value));
                         }
                         writer.WriteLine();
                     }
@@ -218,11 +280,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// </summary>
         /// <param name="input">The input expression.</param>
         /// <returns>The parsed name of the section key.</returns>
-        protected virtual IEnumerable<char> ParseBackIniSectionKey(IEnumerable<char> input)
+        protected virtual IEnumerable<char> ParseBackIniSectionKey(string input)
         {
-            return (StringHelper.AsString(input) ?? string.Empty).Replace("\\=", "=")
-                                                                 .ToUpper()
-                                                                 .Trim();
+            return (input ?? string.Empty).Replace("\\=", "=")
+                                          .ToUpper()
+                                          .Trim();
         }
 
         /// <summary>
@@ -230,12 +292,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// </summary>
         /// <param name="input">The input expression.</param>
         /// <returns>The parsed name of the section.</returns>
-        protected virtual IEnumerable<char> ParseBackIniSectionName(IEnumerable<char> input)
+        protected virtual IEnumerable<char> ParseBackIniSectionName(string input)
         {
-            return (StringHelper.AsString(input) ?? string.Empty).Replace("\\[", "[")
-                                                                 .Replace("\\]", "]")
-                                                                 .ToUpper()
-                                                                 .Trim();
+            return (input ?? string.Empty).Replace("\\[", "[")
+                                          .Replace("\\]", "]")
+                                          .ToUpper()
+                                          .Trim();
         }
 
         /// <summary>
@@ -243,10 +305,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// </summary>
         /// <param name="input">The input expression.</param>
         /// <returns>The parsed name of the section key.</returns>
-        protected virtual IEnumerable<char> ParseIniSectionKey(IEnumerable<char> input)
+        protected virtual IEnumerable<char> ParseIniSectionKey(string input)
         {
-            return (StringHelper.AsString(input) ?? string.Empty).Replace("=", "\\=")
-                                                                 .Trim();
+            return (input ?? string.Empty).Replace("=", "\\=")
+                                          .Trim();
         }
 
         /// <summary>
@@ -254,11 +316,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// </summary>
         /// <param name="input">The input expression.</param>
         /// <returns>The parsed name of the section.</returns>
-        protected virtual IEnumerable<char> ParseIniSectionName(IEnumerable<char> input)
+        protected virtual IEnumerable<char> ParseIniSectionName(string input)
         {
-            return (StringHelper.AsString(input) ?? string.Empty).Replace("[", "\\[")
-                                                                 .Replace("]", "\\]")
-                                                                 .Trim();
+            return (input ?? string.Empty).Replace("[", "\\[")
+                                          .Replace("]", "\\]")
+                                          .Trim();
         }
 
         /// <summary>
@@ -365,7 +427,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
 
                             string configCat;
                             string configName;
-                            this.PrepareCategoryAndName(currentSection, name,
+                            this.PrepareCategoryAndName(this.ParseBackIniSectionName(currentSection), this.ParseBackIniSectionKey(name),
                                                         out configCat, out configName);
 
                             bool valueWasSet = false;

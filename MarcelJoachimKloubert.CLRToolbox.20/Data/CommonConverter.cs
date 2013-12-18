@@ -67,14 +67,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
             {
                 // force to convert to string
 
-                string str = StringHelper.AsString(targetValue);
-                if (str != null &&
-                    provider != null)
+                bool handled = false;
+
+                if (provider != null)
                 {
-                    str = str.ToString(provider);
+                    IConvertible conv = targetValue as IConvertible;
+                    if (conv != null)
+                    {
+                        targetValue = conv.ToString(provider);
+                        handled = true;
+                    }
                 }
 
-                targetValue = str;
+                if (!handled)
+                {
+                    string str = StringHelper.AsString(targetValue);
+                    if (str != null &&
+                        provider != null)
+                    {
+                        str = str.ToString(provider);
+                    }
+
+                    targetValue = str;
+                }
+
                 return;
             }
 

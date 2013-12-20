@@ -283,7 +283,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         protected virtual IEnumerable<char> ParseBackIniSectionKey(string input)
         {
             return (input ?? string.Empty).Replace("\\=", "=")
-                                          .ToUpper()
                                           .Trim();
         }
 
@@ -296,7 +295,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         {
             return (input ?? string.Empty).Replace("\\[", "[")
                                           .Replace("\\]", "]")
-                                          .ToUpper()
                                           .Trim();
         }
 

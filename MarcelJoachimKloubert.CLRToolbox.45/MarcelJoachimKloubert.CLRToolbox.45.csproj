@@ -324,6 +324,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.UppercaseWords.cs">
+      <Link>Helpers\StringHelper.UppercaseWords.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IHasName.cs">
       <Link>IHasName.cs</Link>
     </Compile>
@@ -714,6 +718,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.IsNullOrWhiteSpace.cs">
       <Link>Extensions\Strings.IsNullOrWhiteSpace.cs</Link>
+      <DependentUpon>Strings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.UppercaseWords.cs">
+      <Link>Extensions\Strings.UppercaseWords.cs</Link>
       <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">

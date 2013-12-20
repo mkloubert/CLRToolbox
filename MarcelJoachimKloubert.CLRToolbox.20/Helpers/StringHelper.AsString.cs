@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -90,6 +91,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
             else if (obj is IXmlSerializable)
             {
+                // XML object
+
                 IXmlSerializable xmlObj = (IXmlSerializable)obj;
 
                 StringBuilder xml = new StringBuilder();
@@ -106,6 +109,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 }
 
                 return AsString(xml, true);
+            }
+            else if ((obj is IEnumerable<string>) ||
+                     (obj is IEnumerable<IEnumerable<char>>))
+            {
+                // concat string sequence
+
+                IEnumerable seq = (IEnumerable)obj;
+                IEnumerable<object> objSeq = CollectionHelper.Cast<object>(seq);
+                IEnumerable<string> strSeq = CollectionHelper.Cast<string>(objSeq);
+
+                return string.Concat(CollectionHelper.AsArray(strSeq));
             }
 
             bool extensionHandled = false;

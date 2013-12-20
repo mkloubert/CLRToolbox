@@ -141,6 +141,9 @@
     <Compile Include="Helpers\StringHelper.AsStringExtension.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.UppercaseWords.cs">
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="IHasName.cs" />
     <Compile Include="IO\ConsoleBase.cs" />
     <Compile Include="IO\ConsoleBase.dotNET.cs">

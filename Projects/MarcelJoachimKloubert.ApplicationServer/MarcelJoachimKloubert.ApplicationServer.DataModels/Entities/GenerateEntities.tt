@@ -145,7 +145,7 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
             /// <summary>
             /// Gets or sets the scalar field '<#= ctx.CODE.Escape(sf.Name) #>'.
             /// </summary>
-            <#= ctx.CODE.Escape(sf.TypeUsage) #> <#= ctx.CODE.Escape(sf.Name) #> { get; set; }
+            global::<#= ctx.TOOLS.ClrType(sf.TypeUsage).FullName #> <#= ctx.CODE.Escape(sf.Name) #> { get; set; }
  
 <#+
             }
@@ -169,19 +169,20 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
             {
                 var fieldName = ctx.CODE.Escape(sf.Name);
                 var privateFieldName = "_sf_" + fieldName;
+                var fieldType = ctx.TOOLS.ClrType(sf.TypeUsage).FullName;
 
 #>
 
-            private <#= ctx.CODE.Escape(sf.TypeUsage) #> <#= privateFieldName #>;
+            private global::<#= fieldType #> <#= privateFieldName #>;
 
             /// <summary>
             /// 
             /// </summary>
-            /// <see cref="<#= entityInterfaceName #>.<#= ctx.CODE.Escape(sf.Name) #>" />
-            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>, Name = <#= ctx.CODE.CreateLiteral(sf.Name) #>)]
+            /// <see cref="<#= entityInterfaceName #>.<#= fieldName #>" />
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
             [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>)]
-            [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "<#= ctx.CODE.Escape(sf.Name) #>")]
-            public <#= ctx.CODE.Escape(sf.TypeUsage) #> <#= ctx.CODE.Escape(sf.Name) #>
+            [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
+            public global::<#= fieldType #> <#= fieldName #>
             {
                 get { return this.<#= privateFieldName #>; }
 
@@ -189,9 +190,9 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
                 {
                     if (!object.Equals(this.<#= privateFieldName #>, value))
                     {
-                        this.OnPropertyChanging(<#= ctx.CODE.CreateLiteral(sf.Name) #>);
+                        this.OnPropertyChanging(<#= ctx.CODE.CreateLiteral(fieldName) #>);
                         this.<#= privateFieldName #> = value;
-                        this.OnPropertyChanged(<#= ctx.CODE.CreateLiteral(sf.Name) #>);
+                        this.OnPropertyChanged(<#= ctx.CODE.CreateLiteral(fieldName) #>);
                     }
                 }
             }

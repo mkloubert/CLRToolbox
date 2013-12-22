@@ -49,12 +49,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// <summary>
                 /// Gets or sets the scalar field 'Password'.
                 /// </summary>
-                byte[] Password { get; set; }
+                global::System.Byte[] Password { get; set; }
      
                 /// <summary>
                 /// Gets or sets the scalar field 'UserID'.
                 /// </summary>
-                long UserID { get; set; }
+                global::System.Int64 UserID { get; set; }
      
     
                 #endregion
@@ -71,7 +71,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             {
                 #region Scalar fields (2)
     
-                private byte[] _sf_Password;
+                private global::System.Byte[] _sf_Password;
     
                 /// <summary>
                 /// 
@@ -80,7 +80,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = true, Name = "Password")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = false, IsNullable = true)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Password")]
-                public byte[] Password
+                public global::System.Byte[] Password
                 {
                     get { return this._sf_Password; }
     
@@ -95,7 +95,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     }
                 }
     
-                private long _sf_UserID;
+                private global::System.Int64 _sf_UserID;
     
                 /// <summary>
                 /// 
@@ -104,7 +104,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = true, IsNullable = false, Name = "UserID")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = true, IsNullable = false)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "UserID")]
-                public long UserID
+                public global::System.Int64 UserID
                 {
                     get { return this._sf_UserID; }
     
@@ -172,17 +172,17 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonExportID'.
                 /// </summary>
-                System.Guid PersonExportID { get; set; }
+                global::System.Guid PersonExportID { get; set; }
      
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonID'.
                 /// </summary>
-                long PersonID { get; set; }
+                global::System.Int64 PersonID { get; set; }
      
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonTypeID'.
                 /// </summary>
-                Nullable<short> PersonTypeID { get; set; }
+                global::System.Int16 PersonTypeID { get; set; }
      
     
                 #endregion
@@ -199,7 +199,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             {
                 #region Scalar fields (3)
     
-                private System.Guid _sf_PersonExportID;
+                private global::System.Guid _sf_PersonExportID;
     
                 /// <summary>
                 /// 
@@ -208,7 +208,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = false, Name = "PersonExportID")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = false, IsNullable = false)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonExportID")]
-                public System.Guid PersonExportID
+                public global::System.Guid PersonExportID
                 {
                     get { return this._sf_PersonExportID; }
     
@@ -223,7 +223,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     }
                 }
     
-                private long _sf_PersonID;
+                private global::System.Int64 _sf_PersonID;
     
                 /// <summary>
                 /// 
@@ -232,7 +232,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = true, IsNullable = false, Name = "PersonID")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = true, IsNullable = false)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonID")]
-                public long PersonID
+                public global::System.Int64 PersonID
                 {
                     get { return this._sf_PersonID; }
     
@@ -247,7 +247,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     }
                 }
     
-                private Nullable<short> _sf_PersonTypeID;
+                private global::System.Int16 _sf_PersonTypeID;
     
                 /// <summary>
                 /// 
@@ -256,7 +256,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = true, Name = "PersonTypeID")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = false, IsNullable = true)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonTypeID")]
-                public Nullable<short> PersonTypeID
+                public global::System.Int16 PersonTypeID
                 {
                     get { return this._sf_PersonTypeID; }
     
@@ -324,17 +324,17 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// <summary>
                 /// Gets or sets the scalar field 'Description'.
                 /// </summary>
-                string Description { get; set; }
+                global::System.String Description { get; set; }
      
                 /// <summary>
                 /// Gets or sets the scalar field 'Name'.
                 /// </summary>
-                string Name { get; set; }
+                global::System.String Name { get; set; }
      
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonTypeID'.
                 /// </summary>
-                short PersonTypeID { get; set; }
+                global::System.Int16 PersonTypeID { get; set; }
      
     
                 #endregion
@@ -351,7 +351,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             {
                 #region Scalar fields (3)
     
-                private string _sf_Description;
+                private global::System.String _sf_Description;
     
                 /// <summary>
                 /// 
@@ -360,7 +360,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = true, Name = "Description")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = false, IsNullable = true)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
-                public string Description
+                public global::System.String Description
                 {
                     get { return this._sf_Description; }
     
@@ -375,7 +375,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     }
                 }
     
-                private string _sf_Name;
+                private global::System.String _sf_Name;
     
                 /// <summary>
                 /// 
@@ -384,7 +384,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = false, Name = "Name")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = false, IsNullable = false)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
-                public string Name
+                public global::System.String Name
                 {
                     get { return this._sf_Name; }
     
@@ -399,7 +399,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     }
                 }
     
-                private short _sf_PersonTypeID;
+                private global::System.Int16 _sf_PersonTypeID;
     
                 /// <summary>
                 /// 
@@ -408,7 +408,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = true, IsNullable = false, Name = "PersonTypeID")]
                 [global::System.Data.Objects.DataClasses.EdmScalarProperty(EntityKeyProperty = true, IsNullable = false)]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonTypeID")]
-                public short PersonTypeID
+                public global::System.Int16 PersonTypeID
                 {
                     get { return this._sf_PersonTypeID; }
     

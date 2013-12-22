@@ -291,8 +291,16 @@
       <Link>Helpers\CollectionHelper.ForAllAsync.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Randomize.cs">
+      <Link>Helpers\CollectionHelper.Randomize.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Select.cs">
       <Link>Helpers\CollectionHelper.Select.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Shuffle.cs">
+      <Link>Helpers\CollectionHelper.Shuffle.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Single.Predicate.cs">

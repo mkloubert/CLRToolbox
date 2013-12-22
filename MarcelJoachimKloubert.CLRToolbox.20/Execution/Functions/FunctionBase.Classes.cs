@@ -290,8 +290,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
                     throw new ArgumentOutOfRangeException("timeout");
                 }
 
-
-                var ctx = this.CurrentContext;
+                OnExecuteContext ctx = this.CurrentContext;
                 if (ctx == null)
                 {
                     return false;

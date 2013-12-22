@@ -41,7 +41,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
             }
             catch (Exception ex)
             {
-                var aggEx = ex as AggregateException;
+                AggregateException aggEx = ex as AggregateException;
                 if (aggEx == null)
                 {
                     aggEx = new AggregateException(new Exception[] { ex });

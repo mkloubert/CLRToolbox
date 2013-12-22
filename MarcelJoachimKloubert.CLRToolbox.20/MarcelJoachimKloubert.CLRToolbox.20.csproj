@@ -138,6 +138,7 @@
     <Compile Include="Helpers\CollectionHelper.OfType.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Randomize.cs" />
     <Compile Include="Helpers\CollectionHelper.Select.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -167,6 +168,7 @@
     <Compile Include="Helpers\IOHelper.CopyTo.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Shuffle.cs" />
     <Compile Include="Helpers\StringHelper.AsHexString.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>

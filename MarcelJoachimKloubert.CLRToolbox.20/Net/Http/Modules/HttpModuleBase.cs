@@ -160,7 +160,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
             try
             {
-                var beforeHandleCtx = new BeforeHandleRequestContext();
+                BeforeHandleRequestContext beforeHandleCtx = new BeforeHandleRequestContext();
                 {
                     beforeHandleCtx.HttpRequest = context;
                     beforeHandleCtx.InvokeAfterHandleRequest = true;
@@ -169,8 +169,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
                     this.OnBeforeHandleRequest(beforeHandleCtx);
                 }
 
-                var handleCtx = new HandleRequestContext();
-                var requestWasHandled = false;
+                HandleRequestContext handleCtx = new HandleRequestContext();
+                bool requestWasHandled = false;
                 {
                     handleCtx.HttpRequest = context;
                     handleCtx.InvokeAfterHandleRequest = beforeHandleCtx.InvokeAfterHandleRequest;
@@ -184,7 +184,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
                 if (handleCtx.InvokeAfterHandleRequest)
                 {
-                    var afterHandleCtx = new AfterHandleRequestContext();
+                    AfterHandleRequestContext afterHandleCtx = new AfterHandleRequestContext();
                     afterHandleCtx.RequestWasHandled = requestWasHandled;
                     {
                         afterHandleCtx.HttpRequest = context;
@@ -197,7 +197,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
             }
             catch (Exception ex)
             {
-                var aggEx = ex as AggregateException;
+                AggregateException aggEx = ex as AggregateException;
                 if (aggEx == null)
                 {
                     aggEx = new AggregateException(new Exception[] { ex });

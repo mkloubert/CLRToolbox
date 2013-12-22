@@ -164,12 +164,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             }
 
             fullResName = (fullResName ?? string.Empty).ToLower().Trim();
-            var matchingRes = CollectionHelper.SingleOrDefault(this.Assembly
-                                                                   .GetManifestResourceNames(),
-                                                               delegate(string name)
-                                                               {
-                                                                   return fullResName == (name ?? string.Empty).ToLower().Trim();
-                                                               });
+            string matchingRes = CollectionHelper.SingleOrDefault(this.Assembly
+                                                                      .GetManifestResourceNames(),
+                                                                  delegate(string name)
+                                                                  {
+                                                                      return fullResName == (name ?? string.Empty).ToLower().Trim();
+                                                                  });
 
             return matchingRes != null ? this.Assembly
                                              .GetManifestResourceStream(matchingRes) : null;

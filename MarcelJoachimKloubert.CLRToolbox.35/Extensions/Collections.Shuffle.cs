@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
@@ -15,58 +16,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         // Public Methods (2) 
 
         /// <summary>
-        /// Swaps the order of elements in a list.
+        /// 
         /// </summary>
-        /// <typeparam name="T">Type of the elements of <paramref name="list" />.</typeparam>
-        /// <param name="list">The list that should be shuffled.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="list" /> is <see langword="null" />.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// <paramref name="list" /> is read only.
-        /// </exception>
+        /// <see cref="CollectionHelper.Shuffle{T}(IList{T})" />
         public static void Shuffle<T>(this IList<T> list)
         {
-            Shuffle<T>(list, new Random());
+            CollectionHelper.Shuffle<T>(list);
         }
 
         /// <summary>
-        /// Swaps the order of elements in a list.
+        /// 
         /// </summary>
-        /// <typeparam name="T">Type of the elements of <paramref name="list" />.</typeparam>
-        /// <param name="list">The list that should be shuffled.</param>
-        /// <param name="r">The random number generator to use.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="list" /> and/or <paramref name="r" /> are <see langword="null" />.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// <paramref name="list" /> is read only.
-        /// </exception>
-        public static void Shuffle<T>(this IList<T> list, Random r)
+        /// <see cref="CollectionHelper.Shuffle{T}(IList{T}, Random)" />
+        public static void Shuffle<T>(this IList<T> list, Random rand)
         {
-            if (list == null)
-            {
-                throw new ArgumentNullException("list");
-            }
-
-            if (r == null)
-            {
-                throw new ArgumentNullException("r");
-            }
-
-            if (list.IsReadOnly)
-            {
-                throw new InvalidOperationException();
-            }
-
-            for (var i = 0; i < list.Count; i++)
-            {
-                var ni = r.Next(0, list.Count);
-                var temp = list[i];
-
-                list[i] = list[ni];
-                list[ni] = temp;
-            }
+            CollectionHelper.Shuffle<T>(list, rand);
         }
 
         #endregion Methods

@@ -208,7 +208,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Delegates and Events
 
-        #region Methods (15)
+        #region Methods (16)
 
         // Public Methods (4) 
 
@@ -289,7 +289,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 this.StopInner(StartStopContext.Stop);
             }
         }
-        // Protected Methods (8) 
+        // Protected Methods (9) 
 
         /// <summary>
         /// The logic that disposes that server.
@@ -301,6 +301,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         protected virtual void DisposeServer(bool disposing)
         {
             // dummy
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="DisposableBase.OnDispose(bool)" />
+        protected override sealed void OnDispose(bool disposing)
+        {
+            this.StopInner(StartStopContext.Dispose);
+
+            this.DisposeServer(disposing);
         }
 
         /// <summary>
@@ -453,7 +464,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 return;
             }
 
-            var isRunning = true;
+            bool isRunning = true;
             try
             {
                 this.OnStart(context, ref isRunning);
@@ -471,7 +482,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                 return;
             }
 
-            var isRunning = false;
+            bool isRunning = false;
             try
             {
                 this.OnStop(context, ref isRunning);
@@ -483,16 +494,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         }
 
         #endregion Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="DisposableBase.OnDispose(bool)" />
-        protected override sealed void OnDispose(bool disposing)
-        {
-            this.StopInner(StartStopContext.Dispose);
-
-            this.DisposeServer(disposing);
-        }
     }
 }

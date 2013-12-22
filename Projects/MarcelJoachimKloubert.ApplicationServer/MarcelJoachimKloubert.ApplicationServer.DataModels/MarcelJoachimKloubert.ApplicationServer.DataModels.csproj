@@ -71,6 +71,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AppServer.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="Entities\AppServer.edmx.diagram">
       <DependentUpon>AppServer.edmx</DependentUpon>
     </None>

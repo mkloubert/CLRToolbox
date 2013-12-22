@@ -6,32 +6,85 @@
     <edmx:StorageModels>
     <Schema Namespace="Server.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ServerStoreContainer">
-          <EntitySet Name="Users" EntityType="Server.Store.Users" store:Type="Tables" store:Schema="Security" store:Name="Users">
+          <EntitySet Name="AccessControlLists" EntityType="Server.Store.AccessControlLists" store:Type="Tables" Schema="Security" />
+          <EntitySet Name="AclResources" EntityType="Server.Store.AclResources" store:Type="Tables" Schema="Security" />
+          <EntitySet Name="AclRoles" EntityType="Server.Store.AclRoles" store:Type="Tables" Schema="Security" />
+          <EntitySet Name="Users" EntityType="Server.Store.Users" store:Type="Tables" Schema="Security" />
+          <EntitySet Name="Users_AccessControlLists" EntityType="Server.Store.Users_AccessControlLists" store:Type="Tables" store:Schema="Security" store:Name="Users_AccessControlLists">
             <DefiningQuery>SELECT 
-      [Users].[UserID] AS [UserID], 
-      [Users].[Password] AS [Password]
-      FROM [Security].[Users] AS [Users]</DefiningQuery>
+      [Users_AccessControlLists].[UserID] AS [UserID], 
+      [Users_AccessControlLists].[AccessControlListID] AS [AccessControlListID]
+      FROM [Security].[Users_AccessControlLists] AS [Users_AccessControlLists]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Persons" EntityType="Server.Store.Persons" store:Type="Tables" Schema="Structure" />
           <EntitySet Name="PersonTypes" EntityType="Server.Store.PersonTypes" store:Type="Tables" Schema="Types" />
+          <AssociationSet Name="FK_AclResources_AclRoles" Association="Server.Store.FK_AclResources_AclRoles">
+            <End Role="AclRoles" EntitySet="AclRoles" />
+            <End Role="AclResources" EntitySet="AclResources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AclRoles_AccessControlLists" Association="Server.Store.FK_AclRoles_AccessControlLists">
+            <End Role="AccessControlLists" EntitySet="AccessControlLists" />
+            <End Role="AclRoles" EntitySet="AclRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Persons_PersonTypes" Association="Server.Store.FK_Persons_PersonTypes">
             <End Role="PersonTypes" EntitySet="PersonTypes" />
             <End Role="Persons" EntitySet="Persons" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Persons" Association="Server.Store.FK_Users_Persons">
+          <AssociationSet Name="FK_Users_AccessControlLists_AccessControlLists" Association="Server.Store.FK_Users_AccessControlLists_AccessControlLists">
+            <End Role="AccessControlLists" EntitySet="AccessControlLists" />
+            <End Role="Users_AccessControlLists" EntitySet="Users_AccessControlLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_AccessControlLists_Users" Association="Server.Store.FK_Users_AccessControlLists_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users_AccessControlLists" EntitySet="Users_AccessControlLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Persons1" Association="Server.Store.FK_Users_Persons1">
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-        <!--Während der Generierung sind Fehler aufgetreten:
-      Warnung 6002: Für Tabelle/Sicht 'ApplicationServer.Security.Users' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
-      -->
+        <EntityType Name="AccessControlLists">
+          <Key>
+            <PropertyRef Name="AccessControlListID" />
+          </Key>
+          <Property Name="AccessControlListID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="AclResources">
+          <Key>
+            <PropertyRef Name="AclResourceID" />
+          </Key>
+          <Property Name="AclResourceID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AclRoleID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AclRoles">
+          <Key>
+            <PropertyRef Name="AclRoleID" />
+          </Key>
+          <Property Name="AclRoleID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AccessControlListID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="bigint" Nullable="false" />
           <Property Name="Password" Type="varbinary(max)" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+      Warnung 6002: Für Tabelle/Sicht 'ApplicationServer.Security.Users_AccessControlLists' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
+      -->
+        <EntityType Name="Users_AccessControlLists">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="AccessControlListID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="AccessControlListID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Persons">
           <Key>
@@ -49,6 +102,34 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_AclResources_AclRoles">
+          <End Role="AclRoles" Type="Server.Store.AclRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AclResources" Type="Server.Store.AclResources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AclRoles">
+              <PropertyRef Name="AclRoleID" />
+            </Principal>
+            <Dependent Role="AclResources">
+              <PropertyRef Name="AclRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AclRoles_AccessControlLists">
+          <End Role="AccessControlLists" Type="Server.Store.AccessControlLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AclRoles" Type="Server.Store.AclRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControlLists">
+              <PropertyRef Name="AccessControlListID" />
+            </Principal>
+            <Dependent Role="AclRoles">
+              <PropertyRef Name="AccessControlListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Persons_PersonTypes">
           <End Role="PersonTypes" Type="Server.Store.PersonTypes" Multiplicity="0..1" />
           <End Role="Persons" Type="Server.Store.Persons" Multiplicity="*" />
@@ -61,17 +142,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Persons">
+        <Association Name="FK_Users_AccessControlLists_AccessControlLists">
+          <End Role="AccessControlLists" Type="Server.Store.AccessControlLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users_AccessControlLists" Type="Server.Store.Users_AccessControlLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControlLists">
+              <PropertyRef Name="AccessControlListID" />
+            </Principal>
+            <Dependent Role="Users_AccessControlLists">
+              <PropertyRef Name="AccessControlListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_AccessControlLists_Users">
+          <End Role="Users" Type="Server.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users_AccessControlLists" Type="Server.Store.Users_AccessControlLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Users_AccessControlLists">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Persons1">
           <End Role="Persons" Type="Server.Store.Persons" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Users" Type="Server.Store.Users" Multiplicity="0..1" />
+          <End Role="Users" Type="Server.Store.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Persons">
               <PropertyRef Name="PersonID" />
             </Principal>
             <Dependent Role="Users">
-              <PropertyRef Name="UserID" />
+              <PropertyRef Name="PersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -91,6 +200,25 @@
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="AccessControlLists" EntityType="AppServer.AccessControlLists" />
+          <EntitySet Name="AclResources" EntityType="AppServer.AclResources" />
+          <EntitySet Name="AclRoles" EntityType="AppServer.AclRoles" />
+          <AssociationSet Name="FK_AclRoles_AccessControlLists" Association="AppServer.FK_AclRoles_AccessControlLists">
+            <End Role="AccessControlLists" EntitySet="AccessControlLists" />
+            <End Role="AclRoles" EntitySet="AclRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AclResources_AclRoles" Association="AppServer.FK_AclResources_AclRoles">
+            <End Role="AclRoles" EntitySet="AclRoles" />
+            <End Role="AclResources" EntitySet="AclResources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Persons1" Association="AppServer.FK_Users_Persons1">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Users_AccessControlLists" Association="AppServer.Users_AccessControlLists">
+            <End Role="AccessControlLists" EntitySet="AccessControlLists" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Persons">
           <Key>
@@ -101,6 +229,7 @@
           <Property Type="Int16" Name="PersonTypeID" />
           <NavigationProperty Name="PersonTypes" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="Persons" ToRole="PersonTypes" />
           <NavigationProperty Name="Users" Relationship="AppServer.FK_Users_Persons" FromRole="Persons" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="AppServer.FK_Users_Persons1" FromRole="Persons" ToRole="Users" />
         </EntityType>
         <EntityType Name="PersonTypes">
           <Key>
@@ -130,6 +259,9 @@
           <Property Type="Int64" Name="UserID" Nullable="false" />
           <Property Type="Binary" Name="Password" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Persons" Relationship="AppServer.FK_Users_Persons" FromRole="Users" ToRole="Persons" />
+          <Property Type="Int64" Name="PersonID" Nullable="false" />
+          <NavigationProperty Name="Persons1" Relationship="AppServer.FK_Users_Persons1" FromRole="Users" ToRole="Persons" />
+          <NavigationProperty Name="AccessControlLists" Relationship="AppServer.Users_AccessControlLists" FromRole="Users" ToRole="AccessControlLists" />
         </EntityType>
         <Association Name="FK_Users_Persons">
           <End Type="AppServer.Persons" Role="Persons" Multiplicity="1">
@@ -144,6 +276,81 @@
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AccessControlLists">
+          <Key>
+            <PropertyRef Name="AccessControlListID" />
+          </Key>
+          <Property Type="Int64" Name="AccessControlListID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AclRoles" Relationship="AppServer.FK_AclRoles_AccessControlLists" FromRole="AccessControlLists" ToRole="AclRoles" />
+          <NavigationProperty Name="Users" Relationship="AppServer.Users_AccessControlLists" FromRole="AccessControlLists" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="AclResources">
+          <Key>
+            <PropertyRef Name="AclResourceID" />
+          </Key>
+          <Property Type="Int64" Name="AclResourceID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="AclRoleID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AclRoles" Relationship="AppServer.FK_AclResources_AclRoles" FromRole="AclResources" ToRole="AclRoles" />
+        </EntityType>
+        <EntityType Name="AclRoles">
+          <Key>
+            <PropertyRef Name="AclRoleID" />
+          </Key>
+          <Property Type="Int64" Name="AclRoleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="AccessControlListID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccessControlLists" Relationship="AppServer.FK_AclRoles_AccessControlLists" FromRole="AclRoles" ToRole="AccessControlLists" />
+          <NavigationProperty Name="AclResources" Relationship="AppServer.FK_AclResources_AclRoles" FromRole="AclRoles" ToRole="AclResources" />
+        </EntityType>
+        <Association Name="FK_AclRoles_AccessControlLists">
+          <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.AclRoles" Role="AclRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControlLists">
+              <PropertyRef Name="AccessControlListID" />
+            </Principal>
+            <Dependent Role="AclRoles">
+              <PropertyRef Name="AccessControlListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AclResources_AclRoles">
+          <End Type="AppServer.AclRoles" Role="AclRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.AclResources" Role="AclResources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AclRoles">
+              <PropertyRef Name="AclRoleID" />
+            </Principal>
+            <Dependent Role="AclResources">
+              <PropertyRef Name="AclRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Persons1">
+          <End Type="AppServer.Persons" Role="Persons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Users_AccessControlLists">
+          <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="*" />
+          <End Type="AppServer.Users" Role="Users" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -172,11 +379,47 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AppServer.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AccessControlLists">
+            <EntityTypeMapping TypeName="AppServer.AccessControlLists">
+              <MappingFragment StoreEntitySet="AccessControlLists">
+                <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AclResources">
+            <EntityTypeMapping TypeName="AppServer.AclResources">
+              <MappingFragment StoreEntitySet="AclResources">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AclRoleID" ColumnName="AclRoleID" />
+                <ScalarProperty Name="AclResourceID" ColumnName="AclResourceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AclRoles">
+            <EntityTypeMapping TypeName="AppServer.AclRoles">
+              <MappingFragment StoreEntitySet="AclRoles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
+                <ScalarProperty Name="AclRoleID" ColumnName="AclRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Users_AccessControlLists" TypeName="AppServer.Users_AccessControlLists" StoreEntitySet="Users_AccessControlLists">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <EndProperty Name="AccessControlLists">
+              <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

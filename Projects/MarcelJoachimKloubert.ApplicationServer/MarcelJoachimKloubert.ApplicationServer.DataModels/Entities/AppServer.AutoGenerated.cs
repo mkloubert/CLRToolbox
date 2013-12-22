@@ -42,6 +42,342 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             #endregion
     
      
+            #region ENTITY: AccessControlLists
+    
+            /// <summary>
+            /// Describes an 'AccessControlLists' entity.
+            /// </summary>
+            public partial interface IAccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            {
+                #region Scalar fields (1)
+                /// <summary>
+                /// Gets or sets the scalar field 'AccessControlListID'.
+                /// </summary>
+                global::System.Int64 AccessControlListID { get; set; }
+     
+    
+                #endregion
+            }
+            
+            /// <summary>
+            /// An 'AccessControlLists' entity.
+            /// </summary>
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "AccessControlLists", Schema = "Security")]
+            [global::System.Runtime.Serialization.DataContract(IsReference = true)]
+            [global::System.Serializable]
+            public partial class AccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAccessControlLists
+            {
+                #region Scalar fields (1)
+    
+                private global::System.Int64 _sf_AccessControlListID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAccessControlLists.AccessControlListID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "AccessControlListID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AccessControlListID")]
+                public global::System.Int64 AccessControlListID
+                {
+                    get { return this._sf_AccessControlListID; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_AccessControlListID, value))
+                        {
+                            this.OnPropertyChanging("AccessControlListID");
+                            this._sf_AccessControlListID = value;
+                            this.OnPropertyChanged("AccessControlListID");
+                        }
+                    }
+                }
+    
+                #endregion
+            }
+            
+            #endregion
+     
+             
+            #region ENTITY: AclResources
+    
+            /// <summary>
+            /// Describes an 'AclResources' entity.
+            /// </summary>
+            public partial interface IAclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            {
+                #region Scalar fields (4)
+                /// <summary>
+                /// Gets or sets the scalar field 'AclResourceID'.
+                /// </summary>
+                global::System.Int64 AclResourceID { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'AclRoleID'.
+                /// </summary>
+                global::System.Int64 AclRoleID { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'Description'.
+                /// </summary>
+                global::System.String Description { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'Name'.
+                /// </summary>
+                global::System.String Name { get; set; }
+     
+    
+                #endregion
+            }
+            
+            /// <summary>
+            /// An 'AclResources' entity.
+            /// </summary>
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "AclResources", Schema = "Security")]
+            [global::System.Runtime.Serialization.DataContract(IsReference = true)]
+            [global::System.Serializable]
+            public partial class AclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclResources
+            {
+                #region Scalar fields (4)
+    
+                private global::System.Int64 _sf_AclResourceID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclResources.AclResourceID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "AclResourceID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AclResourceID")]
+                public global::System.Int64 AclResourceID
+                {
+                    get { return this._sf_AclResourceID; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_AclResourceID, value))
+                        {
+                            this.OnPropertyChanging("AclResourceID");
+                            this._sf_AclResourceID = value;
+                            this.OnPropertyChanged("AclResourceID");
+                        }
+                    }
+                }
+    
+                private global::System.Int64 _sf_AclRoleID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclResources.AclRoleID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = false, IsNullable = false, Name = "AclRoleID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AclRoleID")]
+                public global::System.Int64 AclRoleID
+                {
+                    get { return this._sf_AclRoleID; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_AclRoleID, value))
+                        {
+                            this.OnPropertyChanging("AclRoleID");
+                            this._sf_AclRoleID = value;
+                            this.OnPropertyChanged("AclRoleID");
+                        }
+                    }
+                }
+    
+                private global::System.String _sf_Description;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclResources.Description" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
+                public global::System.String Description
+                {
+                    get { return this._sf_Description; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_Description, value))
+                        {
+                            this.OnPropertyChanging("Description");
+                            this._sf_Description = value;
+                            this.OnPropertyChanged("Description");
+                        }
+                    }
+                }
+    
+                private global::System.String _sf_Name;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclResources.Name" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
+                public global::System.String Name
+                {
+                    get { return this._sf_Name; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_Name, value))
+                        {
+                            this.OnPropertyChanging("Name");
+                            this._sf_Name = value;
+                            this.OnPropertyChanged("Name");
+                        }
+                    }
+                }
+    
+                #endregion
+            }
+            
+            #endregion
+     
+             
+            #region ENTITY: AclRoles
+    
+            /// <summary>
+            /// Describes an 'AclRoles' entity.
+            /// </summary>
+            public partial interface IAclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            {
+                #region Scalar fields (4)
+                /// <summary>
+                /// Gets or sets the scalar field 'AccessControlListID'.
+                /// </summary>
+                global::System.Int64 AccessControlListID { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'AclRoleID'.
+                /// </summary>
+                global::System.Int64 AclRoleID { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'Description'.
+                /// </summary>
+                global::System.String Description { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'Name'.
+                /// </summary>
+                global::System.String Name { get; set; }
+     
+    
+                #endregion
+            }
+            
+            /// <summary>
+            /// An 'AclRoles' entity.
+            /// </summary>
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "AclRoles", Schema = "Security")]
+            [global::System.Runtime.Serialization.DataContract(IsReference = true)]
+            [global::System.Serializable]
+            public partial class AclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclRoles
+            {
+                #region Scalar fields (4)
+    
+                private global::System.Int64 _sf_AccessControlListID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclRoles.AccessControlListID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = false, IsNullable = false, Name = "AccessControlListID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AccessControlListID")]
+                public global::System.Int64 AccessControlListID
+                {
+                    get { return this._sf_AccessControlListID; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_AccessControlListID, value))
+                        {
+                            this.OnPropertyChanging("AccessControlListID");
+                            this._sf_AccessControlListID = value;
+                            this.OnPropertyChanged("AccessControlListID");
+                        }
+                    }
+                }
+    
+                private global::System.Int64 _sf_AclRoleID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclRoles.AclRoleID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "AclRoleID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AclRoleID")]
+                public global::System.Int64 AclRoleID
+                {
+                    get { return this._sf_AclRoleID; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_AclRoleID, value))
+                        {
+                            this.OnPropertyChanging("AclRoleID");
+                            this._sf_AclRoleID = value;
+                            this.OnPropertyChanged("AclRoleID");
+                        }
+                    }
+                }
+    
+                private global::System.String _sf_Description;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclRoles.Description" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
+                public global::System.String Description
+                {
+                    get { return this._sf_Description; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_Description, value))
+                        {
+                            this.OnPropertyChanging("Description");
+                            this._sf_Description = value;
+                            this.OnPropertyChanged("Description");
+                        }
+                    }
+                }
+    
+                private global::System.String _sf_Name;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IAclRoles.Name" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
+                public global::System.String Name
+                {
+                    get { return this._sf_Name; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_Name, value))
+                        {
+                            this.OnPropertyChanging("Name");
+                            this._sf_Name = value;
+                            this.OnPropertyChanged("Name");
+                        }
+                    }
+                }
+    
+                #endregion
+            }
+            
+            #endregion
+     
+             
             #region ENTITY: Users
     
             /// <summary>
@@ -49,11 +385,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
             {
-                #region Scalar fields (2)
+                #region Scalar fields (3)
                 /// <summary>
                 /// Gets or sets the scalar field 'Password'.
                 /// </summary>
                 global::System.Byte[] Password { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'PersonID'.
+                /// </summary>
+                global::System.Int64 PersonID { get; set; }
      
                 /// <summary>
                 /// Gets or sets the scalar field 'UserID'.
@@ -72,7 +413,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             [global::System.Serializable]
             public partial class Users : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IUsers
             {
-                #region Scalar fields (2)
+                #region Scalar fields (3)
     
                 private global::System.Byte[] _sf_Password;
     
@@ -93,6 +434,29 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                             this.OnPropertyChanging("Password");
                             this._sf_Password = value;
                             this.OnPropertyChanged("Password");
+                        }
+                    }
+                }
+    
+                private global::System.Int64 _sf_PersonID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="IUsers.PersonID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = false, IsNullable = false, Name = "PersonID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonID")]
+                public global::System.Int64 PersonID
+                {
+                    get { return this._sf_PersonID; }
+    
+                    set
+                    {
+                        if (!object.Equals(this._sf_PersonID, value))
+                        {
+                            this.OnPropertyChanging("PersonID");
+                            this._sf_PersonID = value;
+                            this.OnPropertyChanged("PersonID");
                         }
                     }
                 }

@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Data.SQLite
     /// </summary>
     public interface ISqliteDatabaseFactory : ITMObject
     {
-        #region Operations (1)
+        #region Operations (2)
 
         /// <summary>
         /// Opens a database.
@@ -29,8 +29,17 @@ namespace MarcelJoachimKloubert.ApplicationServer.Data.SQLite
         /// <exception cref="FormatException">
         /// <paramref name="name" /> is invalid.
         /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Tried to open a non-existing file and <paramref name="canWrite" /> is <see langword="false" />.
+        /// </exception>
         IDbConnection OpenDatabase(IEnumerable<char> name,
-                                   bool canWrite = false);
+                                   bool canWrite = true);
+
+        /// <summary>
+        /// Opens a writable temporary database, that is usually stored in memory.
+        /// </summary>
+        /// <returns>The new connection.</returns>
+        IDbConnection OpenTempDatabase();
 
         #endregion Operations
     }

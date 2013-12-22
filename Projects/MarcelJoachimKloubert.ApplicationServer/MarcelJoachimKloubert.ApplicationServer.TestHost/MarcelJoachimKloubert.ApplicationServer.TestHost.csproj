@@ -75,6 +75,10 @@
       <Project>{1798ac27-d012-467d-8668-9b7c39da419f}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Modules.Torrent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.AppServerDb\MarcelJoachimKloubert.AppServer.Services.AppServerDb.csproj">
+      <Project>{f28e714f-ff1b-4433-be7b-aff96e02dc07}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Services.AppServerDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Services.Common\MarcelJoachimKloubert.AppServer.Services.Common.csproj">
       <Project>{b4c3feac-835c-4ddf-b5a0-a7d5a6d8ac5e}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Services.Common</Name>
@@ -101,6 +105,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config.sample.ini" />
     <None Include="services\dummy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -156,7 +164,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "$(TargetDir)modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "$(TargetDir)services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "$(TargetDir)web" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Funcs.*" "$(TargetDir)funcs"</PostBuildEvent>
+    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "E:\Dev\appsrv\modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "E:\Dev\appsrv\services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "E:\Dev\appsrv\web" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Funcs.*" "E:\Dev\appsrv\funcs" &amp;&amp; XCOPY /Y "$(TargetDir)config.ini" "E:\Dev\appsrv"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

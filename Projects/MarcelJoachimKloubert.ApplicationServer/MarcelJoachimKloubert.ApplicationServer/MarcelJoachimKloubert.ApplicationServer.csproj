@@ -50,7 +50,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -78,6 +82,14 @@
       <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.DataLayer\MarcelJoachimKloubert.ApplicationServer.DataLayer.csproj">
+      <Project>{e0966e9f-2c3e-4183-a621-c49d57bd7d61}</Project>
+      <Name>MarcelJoachimKloubert.ApplicationServer.DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.DataModels\MarcelJoachimKloubert.ApplicationServer.DataModels.csproj">
+      <Project>{e313a515-e020-4a44-ab28-24868be86baf}</Project>
+      <Name>MarcelJoachimKloubert.ApplicationServer.DataModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.SDK\MarcelJoachimKloubert.ApplicationServer.SDK.csproj">
       <Project>{f66c16a4-703b-4f09-a78d-2abb90030354}</Project>
       <Name>MarcelJoachimKloubert.ApplicationServer.SDK</Name>
@@ -85,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LICENSE" />
+    <None Include="App.config" />
     <None Include="MarcelJoachimKloubert.ApplicationServer.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Web\js\jquery-1.10.2.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

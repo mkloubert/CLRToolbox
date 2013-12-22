@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -37,49 +38,40 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <param name="lowerCaseOtherChars">
         /// Convert other chars of words (beginning at second one) to lower case.
         /// </param>
-        /// <returns>
-        /// The converted chars or <see langword="null" /> if <paramref name="chars" />
-        /// is also <see langword="null" />.
-        /// </returns>
+        /// <returns>The converted chars.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="chars" /> is <see langword="null" />.</exception>
         public static string UppercaseWords(IEnumerable<char> chars,
                                             bool lowerCaseOtherChars)
         {
             if (chars == null)
             {
-                return null;
+                throw new ArgumentNullException("chars");
             }
 
-            bool nextCharIsUpper = true;
+            bool nextIsUpper = true;
             StringBuilder result = new StringBuilder();
             foreach (char c in chars)
             {
                 char? charToAppend = null;
 
-                if (char.IsWhiteSpace(c))
+                if (char.IsLetterOrDigit(c))
                 {
-                    // whitespace => next char is upper
-                    nextCharIsUpper = true;
-                }
-                else
-                {
-                    if (nextCharIsUpper)
+                    if (nextIsUpper)
                     {
-                        // first char of word
+                        // first letter of word
 
                         charToAppend = char.ToUpper(c);
-                        nextCharIsUpper = false;
+                        nextIsUpper = false;
                     }
                     else
                     {
-                        if (lowerCaseOtherChars)
-                        {
-                            charToAppend = char.ToLower(c);
-                        }
-                        else
-                        {
-                            charToAppend = c;
-                        }
+                        charToAppend = lowerCaseOtherChars ? char.ToLower(c) : c;
                     }
+                }
+                else
+                {
+                    nextIsUpper = true;
+                    charToAppend = c;
                 }
 
                 if (charToAppend.HasValue)

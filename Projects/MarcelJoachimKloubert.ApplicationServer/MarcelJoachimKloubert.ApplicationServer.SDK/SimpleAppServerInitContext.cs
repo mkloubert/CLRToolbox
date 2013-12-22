@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 
 namespace MarcelJoachimKloubert.ApplicationServer
@@ -18,7 +19,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// 
         /// </summary>
         /// <see cref="IAppServerInitContext.Arguments" />
-        public string[] Arguments
+        public IList<string> Arguments
         {
             get;
             set;

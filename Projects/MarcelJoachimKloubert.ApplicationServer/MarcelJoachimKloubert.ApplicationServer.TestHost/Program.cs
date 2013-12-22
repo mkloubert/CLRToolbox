@@ -4,6 +4,7 @@
 
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
@@ -57,7 +58,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
                         initCtx.Arguments = args;
                         initCtx.Logger = logger;
                         initCtx.ServerContext = srvCtx;
-                        initCtx.WorkingDirectory = Environment.CurrentDirectory;
+
+                        foreach (var a in args)
+                        {
+                            if (a.ToLower().Trim().StartsWith("/rootdir:"))
+                            {
+                                // custom root/working directory
+                                initCtx.WorkingDirectory = new DirectoryInfo(a.Substring(a.IndexOf(':') + 1)
+                                                                              .TrimStart()).FullName;
+                            }
+                        }
 
                         server.Initialize(initCtx);
                         GlobalConsole.Current.WriteLine("Server has been initialized.");

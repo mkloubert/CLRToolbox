@@ -98,6 +98,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\configuration\impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\AdoDatabaseBase.cs">
+      <Link>Data\AdoDatabaseBase.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
@@ -112,11 +115,52 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\ConverterBase.cs">
       <Link>Data\ConverterBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\DatabaseBase.cs">
+      <Link>Data\DatabaseBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\EntityBase.cs">
+      <Link>Data\Entities\EntityBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\EntityBase.dotNet.cs">
+      <Link>Data\Entities\EntityBase.dotNet.cs</Link>
+      <DependentUpon>EntityBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Entities\EntityBase.PropertyChanged.cs">
+      <Link>Data\Entities\EntityBase.PropertyChanged.cs</Link>
+      <DependentUpon>EntityBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Entities\EntityBase.PropertyChanging.cs">
+      <Link>Data\Entities\EntityBase.PropertyChanging.cs</Link>
+      <DependentUpon>EntityBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\IEntity.cs">
+      <Link>Data\Entities\IEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Entities\IEntity.PropertyChanged.cs">
+      <Link>Data\Entities\IEntity.PropertyChanged.cs</Link>
+      <DependentUpon>IEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Entities\IEntity.PropertyChanging.cs">
+      <Link>Data\Entities\IEntity.PropertyChanging.cs</Link>
+      <DependentUpon>IEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\GlobalConverter.cs">
       <Link>Data\GlobalConverter.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IAdoDatabase.cs">
+      <Link>Data\IAdoDatabase.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\IConverter.cs">
       <Link>Data\IConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IDatabase.cs">
+      <Link>Data\IDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\TMColumnAttribute.cs">
+      <Link>Data\TMColumnAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\TMTableAttribute.cs">
+      <Link>Data\TMTableAttribute.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\execution\ILogCommand.cs">
       <Link>Diagnostics\Execution\ILogCommand.cs</Link>
@@ -261,6 +305,14 @@
       <Link>Helpers\CollectionHelper.ForAllAsync.Impl.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Select.cs">
+      <Link>Helpers\CollectionHelper.Select.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Single.Predicate.cs">
+      <Link>Helpers\CollectionHelper.Single.Predicate.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SingleOrDefault.Predicate.cs">
       <Link>Helpers\CollectionHelper.SingleOrDefault.Predicate.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -275,6 +327,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CopyTo.cs">
       <Link>Helpers\IOHelper.CopyTo.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CreateDirectoryDeep.cs">
+      <Link>Helpers\IOHelper.CreateDirectoryDeep.cs</Link>
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.cs">
@@ -648,6 +704,13 @@
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs</Link>
     </Compile>
     <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange35.cs" />
+    <Compile Include="Data\Entities\EntityBase.GetPropertyName.cs" />
+    <Compile Include="Data\Entities\EntityBase.PropertyChanged.LINQ.cs" />
+    <Compile Include="Data\Entities\EntityBase.PropertyChanging.LINQ.cs" />
+    <Compile Include="Data\IQueryableAdoDatabase.cs" />
+    <Compile Include="Data\IQueryableDatabase.cs" />
+    <Compile Include="Data\QueryableAdoDatabaseBase.cs" />
+    <Compile Include="Data\QueryableDatabaseBase.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
     <Compile Include="Extensions\Collections.AddRange.cs">
       <DependentUpon>Collections.cs</DependentUpon>
@@ -668,6 +731,9 @@
     <Compile Include="Extensions\Collections.Randomize.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\Collections.Select.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Collections.Shuffle.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
@@ -677,6 +743,10 @@
     <Compile Include="Extensions\Collections.ToArray.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\IO.CreateDirectoryDeep.cs">
+      <DependentUpon>IO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\IO.cs" />
     <Compile Include="Extensions\LinqExpressions.GetMemberName.cs">
       <DependentUpon>LinqExpressions.cs</DependentUpon>
     </Compile>

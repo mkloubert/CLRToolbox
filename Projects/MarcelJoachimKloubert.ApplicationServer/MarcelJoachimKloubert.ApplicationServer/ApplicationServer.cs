@@ -13,6 +13,8 @@ using System.Reflection;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
 using MarcelJoachimKloubert.ApplicationServer.WebInterface;
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.Configuration;
+using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -34,12 +36,30 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Fields
 
-        #region Properties (11)
+        #region Properties (13)
 
         /// <summary>
         /// Gets the command line arguments of the server.
         /// </summary>
         public string[] Arguments
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the (startup) configuration.
+        /// </summary>
+        public IConfigRepository Config
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the list of 
+        /// </summary>
+        public IList<Assembly> EntityAssemblies
         {
             get;
             private set;
@@ -156,6 +176,16 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 this.WorkingDirectory = Environment.CurrentDirectory;
             }
 
+            this.Config = new IniFileConfigRepository(Path.Combine(this.WorkingDirectory,
+                                                                   "config.ini"),
+                                                      false);
+
+            //TODO: load dynamically
+            this.EntityAssemblies = new SynchronizedCollection<Assembly>()
+                {
+                    typeof(global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons).Assembly,
+                };
+
             // service locator
             CompositionContainer compContainer;
             AggregateCatalog compCatalog;
@@ -258,8 +288,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             {
                 IList<Assembly> serviceAssemblies = new SynchronizedCollection<Assembly>();
 
-                var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services"));
-                if (serviceDir.Exists)
+                var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services")).CreateDirectoryDeep();
                 {
                     ex = serviceDir.GetFiles("*.dll")
                                    .ForAllAsync(ctx =>
@@ -313,8 +342,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             {
                 IList<Assembly> funcAssemblies = new SynchronizedCollection<Assembly>();
 
-                var funcDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "funcs"));
-                if (funcDir.Exists)
+                var funcDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "funcs")).CreateDirectoryDeep();
                 {
                     ex = funcDir.GetFiles("*.dll")
                                 .ForAllAsync(ctx =>
@@ -368,8 +396,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             {
                 IList<Assembly> webInterfaceAssemblies = new SynchronizedCollection<Assembly>();
 
-                var webDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "web"));
-                if (webDir.Exists)
+                var webDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "web")).CreateDirectoryDeep();
                 {
                     ex = webDir.GetFiles("*.dll")
                                .ForAllAsync(ctx =>
@@ -564,8 +591,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
             IList<IAppServerModule> newModules = new SynchronizedCollection<IAppServerModule>();
 
-            var modDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "modules"));
-            if (modDir.Exists)
+            var modDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "modules")).CreateDirectoryDeep();
             {
                 ex = modDir.GetFiles("*.dll")
                            .ForAllAsync(ctx =>
@@ -624,13 +650,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
                                                                var moduleInitCtx = new SimpleAppServerModuleInitContext();
                                                                moduleInitCtx.ModuleContext = moduleCtx;
-                                                               moduleInitCtx.RootDirectory = Path.Combine(ctx2.State.ModuleDirectory,
-                                                                                                          m.Name);
-
-                                                               if (!Directory.Exists(moduleInitCtx.RootDirectory))
-                                                               {
-                                                                   Directory.CreateDirectory(moduleInitCtx.RootDirectory);
-                                                               }
+                                                               moduleInitCtx.RootDirectory = new DirectoryInfo(Path.Combine(ctx2.State.ModuleDirectory,
+                                                                                                                            m.Name)).CreateDirectoryDeep()
+                                                                                                                                    .FullName;
 
                                                                m.Initialize(moduleInitCtx);
 
@@ -646,10 +668,10 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                                                ServiceLocator = serviceLocator,
                                                            }, throwExceptions: true);
                                         }, actionState: new
-                                        {
-                                            ModuleDirectory = modDir.FullName,
-                                            NewModules = newModules,
-                                        }, throwExceptions: false);
+                                               {
+                                                   ModuleDirectory = modDir.FullName,
+                                                   NewModules = newModules,
+                                               }, throwExceptions: false);
 
                 if (ex != null)
                 {
@@ -681,11 +703,11 @@ namespace MarcelJoachimKloubert.ApplicationServer
             ex = newModules.Where(m => m.CanStart &&
                                        m.IsInitialized)
                            .ForAllAsync(ctx =>
-                           {
-                               var m = ctx.Item;
+                                {
+                                    var m = ctx.Item;
 
-                               m.Start();
-                           }, throwExceptions: false);
+                                    m.Start();
+                                }, throwExceptions: false);
 
             if (ex != null)
             {

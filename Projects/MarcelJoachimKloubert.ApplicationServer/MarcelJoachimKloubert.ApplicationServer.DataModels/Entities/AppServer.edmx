@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Server.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ServerStoreContainer">
+          <EntitySet Name="Users" EntityType="Server.Store.Users" store:Type="Tables" store:Schema="Security" store:Name="Users">
+            <DefiningQuery>SELECT 
+      [Users].[UserID] AS [UserID], 
+      [Users].[Password] AS [Password]
+      FROM [Security].[Users] AS [Users]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Persons" EntityType="Server.Store.Persons" store:Type="Tables" Schema="Structure" />
+          <EntitySet Name="PersonTypes" EntityType="Server.Store.PersonTypes" store:Type="Tables" Schema="Types" />
+          <AssociationSet Name="FK_Persons_PersonTypes" Association="Server.Store.FK_Persons_PersonTypes">
+            <End Role="PersonTypes" EntitySet="PersonTypes" />
+            <End Role="Persons" EntitySet="Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Persons" Association="Server.Store.FK_Users_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <!--Während der Generierung sind Fehler aufgetreten:
+      Warnung 6002: Für Tabelle/Sicht 'ApplicationServer.Security.Users' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
+      -->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="Password" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonExportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonTypeID" Type="smallint" />
+        </EntityType>
+        <EntityType Name="PersonTypes">
+          <Key>
+            <PropertyRef Name="PersonTypeID" />
+          </Key>
+          <Property Name="PersonTypeID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Persons_PersonTypes">
+          <End Role="PersonTypes" Type="Server.Store.PersonTypes" Multiplicity="0..1" />
+          <End Role="Persons" Type="Server.Store.Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTypes">
+              <PropertyRef Name="PersonTypeID" />
+            </Principal>
+            <Dependent Role="Persons">
+              <PropertyRef Name="PersonTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Persons">
+          <End Role="Persons" Type="Server.Store.Persons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Server.Store.Users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppServer" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Persons" EntityType="AppServer.Persons" />
+          <EntitySet Name="PersonTypes" EntityType="AppServer.PersonTypes" />
+          <AssociationSet Name="FK_Persons_PersonTypes" Association="AppServer.FK_Persons_PersonTypes">
+            <End Role="PersonTypes" EntitySet="PersonTypes" />
+            <End Role="Persons" EntitySet="Persons" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="AppServer.Users" />
+          <AssociationSet Name="FK_Users_Persons" Association="AppServer.FK_Users_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Type="Int64" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="PersonExportID" Nullable="false" />
+          <Property Type="Int16" Name="PersonTypeID" />
+          <NavigationProperty Name="PersonTypes" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="Persons" ToRole="PersonTypes" />
+          <NavigationProperty Name="Users" Relationship="AppServer.FK_Users_Persons" FromRole="Persons" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PersonTypes">
+          <Key>
+            <PropertyRef Name="PersonTypeID" />
+          </Key>
+          <Property Type="Int16" Name="PersonTypeID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persons" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="PersonTypes" ToRole="Persons" />
+        </EntityType>
+        <Association Name="FK_Persons_PersonTypes">
+          <End Type="AppServer.PersonTypes" Role="PersonTypes" Multiplicity="0..1" />
+          <End Type="AppServer.Persons" Role="Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTypes">
+              <PropertyRef Name="PersonTypeID" />
+            </Principal>
+            <Dependent Role="Persons">
+              <PropertyRef Name="PersonTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="Binary" Name="Password" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Persons" Relationship="AppServer.FK_Users_Persons" FromRole="Users" ToRole="Persons" />
+        </EntityType>
+        <Association Name="FK_Users_Persons">
+          <End Type="AppServer.Persons" Role="Persons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.Users" Role="Users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ServerStoreContainer" CdmEntityContainer="Entities" >
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="AppServer.Persons">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
+                <ScalarProperty Name="PersonExportID" ColumnName="PersonExportID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonTypes">
+            <EntityTypeMapping TypeName="AppServer.PersonTypes">
+              <MappingFragment StoreEntitySet="PersonTypes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AppServer.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

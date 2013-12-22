@@ -17,6 +17,15 @@ namespace MarcelJoachimKloubert.ApplicationServer.Data.SQLite
     public abstract class SqliteDatabaseFactoryBase : TMObject,
                                                       ISqliteDatabaseFactory
     {
+        #region Fields (1)
+
+        /// <summary>
+        /// ´Store the name of a database that is stored in memory.
+        /// </summary>
+        public const string DB_NAME_MEMORY = ":memory:";
+
+        #endregion Fields
+
         #region Constructors (2)
 
         /// <summary>
@@ -43,9 +52,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.Data.SQLite
 
         #endregion Constructors
 
-        #region Methods (3)
+        #region Methods (4)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
 
         /// <summary>
         /// 
@@ -62,6 +71,15 @@ namespace MarcelJoachimKloubert.ApplicationServer.Data.SQLite
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ISqliteDatabaseFactory.OpenTempDatabase()" />
+        public IDbConnection OpenTempDatabase()
+        {
+            return this.OpenDatabase(DB_NAME_MEMORY, true);
         }
         // Protected Methods (2) 
 

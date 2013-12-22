@@ -156,7 +156,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <see cref="KeyValuePairConfigRepository.OnSetValue{T}(string, string, T, ref bool)"/>
         protected override void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet, bool invokeOnUpdated)
         {
-            string strValue = StringHelper.AsString(this.ToIniSectionValue(value));
+            string strValue = StringHelper.AsString(value);
             if (string.IsNullOrEmpty(strValue))
             {
                 strValue = null;
@@ -184,7 +184,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 return;
             }
 
-            bool throwException = false;
+            bool throwException = true;
             string strValue = StringHelper.AsString(innerValue);
             object valueToReturn = null;
 
@@ -201,22 +201,33 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                         case "no":
                         case "false":
                             valueToReturn = false;
+                            throwException = false;
                             break;
 
                         case "1":
                         case "yes":
                         case "true":
                             valueToReturn = true;
+                            throwException = false;
                             break;
 
                         case "":
-                            if (Nullable.GetUnderlyingType(targetType) == null)
+                            if (Nullable.GetUnderlyingType(targetType) != null)
                             {
-                                // no nullable boolean
-                                throwException = true;
+                                // nullable struct
+                                throwException = false;
                             }
                             break;
                     }
+                }
+                else if (targetType.Equals(typeof(string)) ||
+                         targetType.Equals(typeof(global::System.Collections.Generic.IEnumerable<char>)) ||
+                         targetType.Equals(typeof(object)))
+                {
+                    // default: string
+
+                    valueToReturn = strValue;
+                    throwException = false;
                 }
             }
 
@@ -251,7 +262,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                         {
                             writer.WriteLine(string.Format("{0}={1}",
                                                            StringHelper.AsString(this.ParseIniSectionKey(item.Key)),
-                                                           item.Value));
+                                                           StringHelper.AsString(this.ToIniSectionValue(item.Value))));
                         }
                         writer.WriteLine();
                     }
@@ -411,13 +422,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                                 // extract until comment
 
                                 int sharpIndex = value.IndexOf('#');
-                                if (sharpIndex > -1)
+                                if (sharpIndex > 0 &&
+                                    value[sharpIndex - 1] != '\\')
                                 {
                                     value = value.Substring(0, sharpIndex);
                                 }
 
                                 int semicolonIndex = value.IndexOf(';');
-                                if (semicolonIndex > -1)
+                                if (semicolonIndex > 0 &&
+                                    value[semicolonIndex - 1] != '\\')
                                 {
                                     value = value.Substring(0, semicolonIndex);
                                 }

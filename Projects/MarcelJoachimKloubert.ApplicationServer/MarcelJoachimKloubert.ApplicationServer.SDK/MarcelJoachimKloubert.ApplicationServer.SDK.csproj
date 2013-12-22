@@ -54,6 +54,8 @@
       <DependentUpon>AppServerBase.cs</DependentUpon>
     </Compile>
     <Compile Include="AppServerBase.cs" />
+    <Compile Include="Data\Entities\AppServerEntityBase.cs" />
+    <Compile Include="Data\Entities\IAppServerEntity.cs" />
     <Compile Include="Data\SQLite\ISqliteDatabaseFactory.cs" />
     <Compile Include="Data\SQLite\SqliteDatabaseFactoryBase.cs" />
     <Compile Include="Extensions\AppServerExtensionMethods.cs" />

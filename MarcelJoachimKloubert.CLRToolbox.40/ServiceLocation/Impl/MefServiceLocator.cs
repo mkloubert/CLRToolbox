@@ -11,6 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 {
@@ -165,9 +166,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
             }
 
             return GlobalConverter.Current
-                                  .ChangeType<R>(getExportedValueMethods.Single(m => m.GetParameters().Length == @params.Length)
-                                                                        .MakeGenericMethod(serviceType)
-                                                                        .Invoke(container, @params));
+                                  .ChangeType<R>(CollectionHelper.Single(getExportedValueMethods,
+                                                                         m => m.GetParameters().Length == @params.Length)
+                                                                 .MakeGenericMethod(serviceType)
+                                                                 .Invoke(container, @params));
         }
 
         #endregion Methods

@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
 using System.ComponentModel.Composition;
 using System.Data;
 using System.Data.SQLite;
@@ -42,30 +43,43 @@ namespace MarcelJoachimKloubert.AppServer.Services.SystemSqlite
 
             try
             {
-                var dbDir = new DirectoryInfo(Path.Combine(this._SERVER.WorkingDirectory, "db"));
-                if (!dbDir.Exists)
+                string dbName = name;
+                if (dbName != DB_NAME_MEMORY)
                 {
-                    dbDir.Create();
-                    dbDir.Refresh();
-                }
+                    // not in memory ... save to file
 
-                var dbFile = new FileInfo(Path.Combine(dbDir.FullName, string.Format("{0}.db",
-                                                                                     name)));
+                    var dbDir = new DirectoryInfo(Path.Combine(this._SERVER.WorkingDirectory, "db"));
+                    if (!dbDir.Exists)
+                    {
+                        dbDir.Create();
+                        dbDir.Refresh();
+                    }
+
+                    var dbFile = new FileInfo(Path.Combine(dbDir.FullName, string.Format("{0}.db",
+                                                                                         name)));
+                    if (!canWrite && !dbFile.Exists)
+                    {
+                        throw new InvalidOperationException(string.Format("Cannot open the non-existing file '{0}' in read-only mode!",
+                                                                          dbFile.FullName));
+                    }
+
+                    dbName = dbFile.FullName;
+                }
 
                 string connStr;
                 if (canWrite)
                 {
-                    connStr = string.Format(@"Data Source={0}; Version=3;",
-                                            dbFile.FullName);
+                    connStr = string.Format(@"Data Source={0}; Version=3",
+                                            dbName);
                 }
                 else
                 {
-                    connStr = string.Format(@"Data Source={0}; Version=3; Read Only=True;",
-                                            dbFile.FullName);
+                    connStr = string.Format(@"Data Source={0}; Version=3; Read Only=True",
+                                            dbName);
                 }
 
                 result = new SQLiteConnection(connStr);
-                result.Open();
+                return result.OpenAndReturn();
             }
             catch
             {
@@ -76,8 +90,6 @@ namespace MarcelJoachimKloubert.AppServer.Services.SystemSqlite
 
                 throw;
             }
-
-            return result;
         }
 
         #endregion Methods

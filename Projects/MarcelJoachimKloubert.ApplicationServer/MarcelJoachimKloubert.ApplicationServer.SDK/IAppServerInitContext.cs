@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 
 namespace MarcelJoachimKloubert.ApplicationServer
@@ -17,7 +18,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// <summary>
         /// Gets the list of (command line) arguments.
         /// </summary>
-        string[] Arguments { get; }
+        IList<string> Arguments { get; }
 
         /// <summary>
         /// Gets the optional global logger instance.

@@ -117,7 +117,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                 IEnumerable seq = (IEnumerable)obj;
                 IEnumerable<object> objSeq = CollectionHelper.Cast<object>(seq);
-                IEnumerable<string> strSeq = CollectionHelper.Cast<string>(objSeq);
+
+                IEnumerable<string> strSeq = CollectionHelper.Select(objSeq,
+                                                                     delegate(object item)
+                                                                     {
+                                                                         return AsString(item, true);
+                                                                     });
 
                 return string.Concat(CollectionHelper.AsArray(strSeq));
             }

@@ -67,6 +67,7 @@
     <Compile Include="Configuration\IConfigRepository.cs" />
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />
     <Compile Include="Configuration\Impl\IniFileConfigRepository.cs" />
+    <Compile Include="Data\AdoDatabaseBase.cs" />
     <Compile Include="Data\CommonConverter.OnChangeTypeExtension.cs">
       <DependentUpon>CommonConverter.cs</DependentUpon>
     </Compile>
@@ -75,7 +76,29 @@
     </Compile>
     <Compile Include="Data\CommonConverter.cs" />
     <Compile Include="Data\ConverterBase.cs" />
+    <Compile Include="Data\DatabaseBase.cs" />
+    <Compile Include="Data\Entities\EntityBase.cs" />
+    <Compile Include="Data\Entities\EntityBase.dotNet.cs">
+      <DependentUpon>EntityBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Entities\EntityBase.PropertyChanged.cs">
+      <DependentUpon>EntityBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Entities\EntityBase.PropertyChanging.cs">
+      <DependentUpon>EntityBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Entities\IEntity.cs" />
+    <Compile Include="Data\Entities\IEntity.PropertyChanged.cs">
+      <DependentUpon>IEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Entities\IEntity.PropertyChanging.cs">
+      <DependentUpon>IEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IAdoDatabase.cs" />
     <Compile Include="Data\IConverter.cs" />
+    <Compile Include="Data\IDatabase.cs" />
+    <Compile Include="Data\TMColumnAttribute.cs" />
+    <Compile Include="Data\TMTableAttribute.cs" />
     <Compile Include="Diagnostics\ILogMessage.dotNET.cs">
       <DependentUpon>ILogMessage.cs</DependentUpon>
     </Compile>
@@ -115,6 +138,9 @@
     <Compile Include="Helpers\CollectionHelper.OfType.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Select.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.Single.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -124,6 +150,9 @@
     <Compile Include="Helpers\CollectionHelper.SingleOrDefault.Predicate.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Single.Predicate.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.Sort.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -131,6 +160,9 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
+    <Compile Include="Helpers\IOHelper.CreateDirectoryDeep.cs">
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\IOHelper.cs" />
     <Compile Include="Helpers\IOHelper.CopyTo.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>

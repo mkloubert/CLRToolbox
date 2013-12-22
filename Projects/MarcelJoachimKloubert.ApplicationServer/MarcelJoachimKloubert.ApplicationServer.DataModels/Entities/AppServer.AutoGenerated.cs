@@ -75,7 +75,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IUsers.Password" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = true, Name = "Password")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Byte[]), IsKey = false, IsNullable = true, Name = "Password")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Password")]
                 public global::System.Byte[] Password
                 {
@@ -98,7 +98,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IUsers.UserID" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = true, IsNullable = false, Name = "UserID")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "UserID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "UserID")]
                 public global::System.Int64 UserID
                 {
@@ -199,7 +199,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IPersons.PersonExportID" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = false, Name = "PersonExportID")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Guid), IsKey = false, IsNullable = false, Name = "PersonExportID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonExportID")]
                 public global::System.Guid PersonExportID
                 {
@@ -222,7 +222,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IPersons.PersonID" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = true, IsNullable = false, Name = "PersonID")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "PersonID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonID")]
                 public global::System.Int64 PersonID
                 {
@@ -245,7 +245,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IPersons.PersonTypeID" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = true, Name = "PersonTypeID")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int16), IsKey = false, IsNullable = true, Name = "PersonTypeID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonTypeID")]
                 public global::System.Int16 PersonTypeID
                 {
@@ -346,7 +346,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IPersonTypes.Description" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = true, Name = "Description")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
                 public global::System.String Description
                 {
@@ -369,7 +369,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IPersonTypes.Name" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = false, IsNullable = false, Name = "Name")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
                 public global::System.String Name
                 {
@@ -392,7 +392,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 /// 
                 /// </summary>
                 /// <see cref="IPersonTypes.PersonTypeID" />
-                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = true, IsNullable = false, Name = "PersonTypeID")]
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int16), IsKey = true, IsNullable = false, Name = "PersonTypeID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonTypeID")]
                 public global::System.Int16 PersonTypeID
                 {

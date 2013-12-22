@@ -177,7 +177,7 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
             /// 
             /// </summary>
             /// <see cref="<#= entityInterfaceName #>.<#= fieldName #>" />
-            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(IsKey = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::<#= fieldType #>), IsKey = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
             [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
             public global::<#= fieldType #> <#= fieldName #>
             {

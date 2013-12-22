@@ -1,4 +1,11 @@
-﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+﻿<#
+
+// LICENSE: LGPL 3 - https://www.gnu.org/licenses/gpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+#>
+<#@ template language="C#" debug="false" hostspecific="true"#>
 <#@ include file="EF.Utility.CS.ttinclude"#><#@
  output extension=".cs"#><#
 

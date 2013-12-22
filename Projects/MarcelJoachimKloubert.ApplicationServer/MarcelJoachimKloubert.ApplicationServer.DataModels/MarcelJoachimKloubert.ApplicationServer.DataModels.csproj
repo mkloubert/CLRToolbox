@@ -78,6 +78,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateEntities.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="LICENSE" />
     <None Include="MarcelJoachimKloubert.ApplicationServer.DataModels.snk" />
   </ItemGroup>
   <ItemGroup>

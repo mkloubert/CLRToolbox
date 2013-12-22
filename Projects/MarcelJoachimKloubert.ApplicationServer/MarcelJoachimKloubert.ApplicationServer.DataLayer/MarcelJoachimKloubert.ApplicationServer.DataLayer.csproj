@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="LICENSE" />
     <None Include="MarcelJoachimKloubert.ApplicationServer.DataLayer.snk" />
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,11 @@ ctx.FILE_MANAGER.Process();
 void BeginNamespace(string namespaceExtension, EntityGenerationContext ctx)
 {
 #>
+// LICENSE: LGPL 3 - https://www.gnu.org/licenses/gpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+
 using System;
 
 namespace <#= ctx.CODE.EscapeNamespace(ctx.NAMESPACE) #>

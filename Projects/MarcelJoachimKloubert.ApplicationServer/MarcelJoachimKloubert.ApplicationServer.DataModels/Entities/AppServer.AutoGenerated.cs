@@ -19,8 +19,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// <summary>
             /// A basic entity for the 'Security' schema.
             /// </summary>
-            public abstract partial class SecurityEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase,
-                                                                                        ISecurityEntity
+            public abstract partial class SecurityEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
             {
                 #region Constructors (1)
     
@@ -43,7 +42,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// <summary>
             /// Describes an 'Users' entity.
             /// </summary>
-            public partial interface IUsers : ISecurityEntity
+            public partial interface IUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
             {
                 #region Scalar fields (2)
                 /// <summary>
@@ -66,8 +65,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "Users", Schema = "Security")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class Users : SecurityEntityBase,
-                                               IUsers
+            public partial class Users : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IUsers
             {
                 #region Scalar fields (2)
     
@@ -142,8 +140,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// <summary>
             /// A basic entity for the 'Structure' schema.
             /// </summary>
-            public abstract partial class StructureEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase,
-                                                                                        IStructureEntity
+            public abstract partial class StructureEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IStructureEntity
             {
                 #region Constructors (1)
     
@@ -166,7 +163,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// <summary>
             /// Describes an 'Persons' entity.
             /// </summary>
-            public partial interface IPersons : IStructureEntity
+            public partial interface IPersons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IStructureEntity
             {
                 #region Scalar fields (3)
                 /// <summary>
@@ -194,8 +191,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "Persons", Schema = "Structure")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class Persons : StructureEntityBase,
-                                               IPersons
+            public partial class Persons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.StructureEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons
             {
                 #region Scalar fields (3)
     
@@ -294,8 +290,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// <summary>
             /// A basic entity for the 'Types' schema.
             /// </summary>
-            public abstract partial class TypesEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase,
-                                                                                        ITypesEntity
+            public abstract partial class TypesEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.ITypesEntity
             {
                 #region Constructors (1)
     
@@ -318,7 +313,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// <summary>
             /// Describes an 'PersonTypes' entity.
             /// </summary>
-            public partial interface IPersonTypes : ITypesEntity
+            public partial interface IPersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.ITypesEntity
             {
                 #region Scalar fields (3)
                 /// <summary>
@@ -346,8 +341,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "PersonTypes", Schema = "Types")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class PersonTypes : TypesEntityBase,
-                                               IPersonTypes
+            public partial class PersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.TypesEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.IPersonTypes
             {
                 #region Scalar fields (3)
     

@@ -97,8 +97,7 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
         /// <summary>
         /// A basic entity for the '<#= schema #>' schema.
         /// </summary>
-        public abstract partial class <#= ctx.CODE.Escape(schemaBaseClassName) #> : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase,
-                                                                                    <#= ctx.CODE.Escape(schemaInterfaceName) #>
+        public abstract partial class <#= ctx.CODE.Escape(schemaBaseClassName) #> : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase, global::<#= schemaNamespace #>.<#= ctx.CODE.Escape(schemaInterfaceName) #>
         {
             #region Constructors (1)
 
@@ -135,7 +134,7 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
         /// <summary>
         /// Describes an '<#= ctx.CODE.Escape(entity) #>' entity.
         /// </summary>
-        public partial interface <#= entityInterfaceName #> : <#= schemaInterfaceName #>
+        public partial interface <#= entityInterfaceName #> : global::<#= schemaNamespace #>.<#= schemaInterfaceName #>
         {
             #region Scalar fields (<#= scalarFields.LongCount() #>)
 <#+
@@ -160,8 +159,7 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
         [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = <#= ctx.CODE.CreateLiteral(entity.Name) #>, Schema = <#= ctx.CODE.CreateLiteral(schema) #>)]
         [global::System.Runtime.Serialization.DataContract(IsReference = true)]
         [global::System.Serializable]
-        public partial class <#= ctx.CODE.Escape(entity) #> : <#= schemaBaseClassName #>,
-                                           <#= entityInterfaceName #>
+        public partial class <#= ctx.CODE.Escape(entity) #> : global::<#= schemaNamespace #>.<#= schemaBaseClassName #>, global::<#= schemaNamespace #>.<#= entityInterfaceName #>
         {
             #region Scalar fields (<#= scalarFields.LongCount() #>)
 <#+

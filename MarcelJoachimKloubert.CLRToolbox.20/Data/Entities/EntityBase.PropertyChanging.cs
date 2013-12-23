@@ -4,9 +4,7 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Entities
 {
@@ -37,23 +35,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Entities
         /// <exception cref="ArgumentNullException">
         /// <paramref name="propertyName" /> has an invalid format.
         /// </exception>
-        protected bool OnPropertyChanging(IEnumerable<char> propertyName)
+        protected bool OnPropertyChanging(string propertyName)
         {
-            if (propertyName == null)
-            {
-                throw new ArgumentNullException("propertyName");
-            }
-
-            string pn = StringHelper.AsString(propertyName).Trim();
-            if (pn == string.Empty)
-            {
-                throw new ArgumentException("propertyName");
-            }
-
             PropertyChangingEventHandler handler = this.PropertyChanging;
             if (handler != null)
             {
-                handler(this, new PropertyChangingEventArgs(pn));
+                handler(this, new PropertyChangingEventArgs(propertyName));
                 return true;
             }
 

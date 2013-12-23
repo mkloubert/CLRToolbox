@@ -759,6 +759,9 @@
       <DependentUpon>LinqExpressions.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\LinqExpressions.cs" />
+    <Compile Include="Extensions\LinqExpressions.GetMethodInfo.cs">
+      <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Scripting.SetSimplePredicateWrapper.cs">
       <DependentUpon>Scripting.cs</DependentUpon>
     </Compile>

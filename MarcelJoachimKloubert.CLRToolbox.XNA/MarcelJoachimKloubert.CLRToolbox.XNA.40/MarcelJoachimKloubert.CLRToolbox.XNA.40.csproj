@@ -738,6 +738,10 @@
       <Link>Extensions\LinqExpressions.GetMemberName.cs</Link>
       <DependentUpon>LinqExpressions.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.GetMethodInfo.cs">
+      <Link>Extensions\LinqExpressions.GetMethodInfo.cs</Link>
+      <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.cs">
       <Link>Extensions\Scripting.cs</Link>
     </Compile>

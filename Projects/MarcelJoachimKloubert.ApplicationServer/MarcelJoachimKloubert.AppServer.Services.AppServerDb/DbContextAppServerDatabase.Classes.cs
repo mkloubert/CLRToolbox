@@ -19,6 +19,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
     {
         #region Nested Classes (1)
 
+
         private class AppServerDbContext : DbContext
         {
             #region Fields (3)
@@ -43,6 +44,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                                         {
                                             foreach (var et in this.GetEntityTypes())
                                             {
+                                                // DbContext.Set<E>()
                                                 var setMethod = this.GetType()
                                                                     .GetMethods(BindingFlags.Instance | BindingFlags.Public)
                                                                     .Single(m => m.Name == "Set" &&
@@ -102,7 +104,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                                                                    .SingleOrDefault() == null;
                                                        });
 
-                    // get DbModelBuilder.Entity method for current entity type
+                    // DbModelBuilder.Entity<E>()
                     var entityMethod = modelBuilder.GetType()
                                                    .GetMethod("Entity", BindingFlags.Instance | BindingFlags.Public)
                                                    .MakeGenericMethod(et);
@@ -110,7 +112,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                     var entityTypeConf = entityMethod.Invoke(modelBuilder, new object[0]);
                     if (entityTypeConf != null)
                     {
-                        // invoke ToTable method of 'entityTypeConf'
+                        // EntityTypeConfiguration<TEntityType>.ToTable()
 
                         var entityTypeConfType = entityTypeConf.GetType();
 
@@ -129,8 +131,8 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
 
                         // and invoke...
                         CollectionHelper.Single(entityTypeConfType.GetMethods(BindingFlags.Instance | BindingFlags.Public),
-                                                 m => m.Name == "ToTable" &&
-                                                      m.GetParameters().Length == args.Length)
+                                                m => m.Name == "ToTable" &&
+                                                     m.GetParameters().Length == args.Length)
                                         .Invoke(entityTypeConf,
                                                 args);
                     }
@@ -145,10 +147,10 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                     }
 
                     // ignore all properties that are not marked as scalar properties
-                    foreach (var nonScalarProp in nonScalarProperties)
+                    foreach (var prop in nonScalarProperties)
                     {
                         InvokeEntityTypeConfigMethodWithLambdaExpr(et,
-                                                                   nonScalarProp,
+                                                                   prop,
                                                                    entityTypeConf,
                                                                    "Ignore");
                     }
@@ -161,12 +163,14 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                 return this._ENTITY_ASSEMBLIES
                            .SelectMany(asm => asm.GetTypes())
                            .Where(t => t.IsClass &&
-                                       !t.IsAbstract &&
-                                       t.GetInterfaces()
-                                        .Contains(typeof(global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity)));
+                                       !t.IsAbstract && t.GetInterfaces()
+                                                         .Contains(typeof(global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity)));
             }
 
-            private static void InvokeEntityTypeConfigMethodWithLambdaExpr(Type entityType, PropertyInfo entityProperty, object entityTypeConfiguration, string methodName)
+            private static void InvokeEntityTypeConfigMethodWithLambdaExpr(Type entityType,
+                                                                           PropertyInfo entityProperty,
+                                                                           object entityTypeConfiguration,
+                                                                           string methodName)
             {
                 var propertyType = entityProperty.PropertyType;
 
@@ -182,12 +186,13 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                     var propertyExpr = Expression.Property(funcParam,
                                                            entityProperty);
 
+                    // Expression.Lambda(Expression, ParameterExpression[])
                     var lambdaMethod = typeof(global::System.Linq.Expressions.Expression).GetMethods(BindingFlags.Static | BindingFlags.Public)
-                                                                                         .Single(x => x.Name == "Lambda" &&
-                                                                                                      x.GetGenericArguments().Length == 1 &&
-                                                                                                      x.GetParameters().Length == 2 &&
-                                                                                                      x.GetParameters()[0].ParameterType.Equals(typeof(global::System.Linq.Expressions.Expression)) &&
-                                                                                                      x.GetParameters()[1].ParameterType.Equals(typeof(global::System.Linq.Expressions.ParameterExpression[])))
+                                                                                         .Single(m => m.Name == "Lambda" &&
+                                                                                                      m.GetGenericArguments().Length == 1 &&
+                                                                                                      m.GetParameters().Length == 2 &&
+                                                                                                      m.GetParameters()[0].ParameterType.Equals(typeof(global::System.Linq.Expressions.Expression)) &&
+                                                                                                      m.GetParameters()[1].ParameterType.Equals(typeof(global::System.Linq.Expressions.ParameterExpression[])))
                                                                                          .MakeGenericMethod(funcType);
 
                     methodParam = (Expression)lambdaMethod.Invoke(null,
@@ -207,11 +212,6 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
 
             private void InvokeForDbSetList(Action<IDictionary<Type, object>> action)
             {
-                if (action == null)
-                {
-                    throw new ArgumentNullException("action");
-                }
-
                 lock (this._SYNC)
                 {
                     action(this._DB_SETS);
@@ -224,11 +224,10 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                 var entityType = typeof(E);
 
                 object result = null;
-                this.InvokeForDbSetList(
-                    list =>
-                    {
-                        result = list[entityType];
-                    });
+                this.InvokeForDbSetList(list =>
+                                        {
+                                            result = list[entityType];
+                                        });
 
                 return (DbSet<E>)result;
             }

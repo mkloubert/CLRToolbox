@@ -5,9 +5,10 @@
 
 using System;
 using System.Linq;
-using MarcelJoachimKloubert.ApplicationServer.Data.Entities;
+using System.Reflection;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Data;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.ApplicationServer.DataLayer
 {
@@ -56,8 +57,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataLayer
 
         IQueryable<E> IQueryableDatabase.Query<E>()
         {
-            throw new InvalidOperationException(string.Format("Please invoke as '{0}' object.",
-                                                              typeof(IAppServerEntity).FullName));
+            return (IQueryable<E>)CollectionHelper.Single(this.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance),
+                                                          m => m.Name == "Query" &&
+                                                               m.GetGenericArguments().Length == 1 &&
+                                                               m.GetParameters().Length == 0)
+                                                  .MakeGenericMethod(typeof(E))
+                                                  .Invoke(this, new object[0]);
         }
 
         #endregion Methods

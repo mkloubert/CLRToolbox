@@ -84,6 +84,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
         /// <param name="key">The used key.</param>
         /// <returns>The list of instances or <see langword="null" /> to throw a <see cref="ServiceActivationException" />.</returns>
         public delegate IEnumerable<T> MultiInstanceProvider<T>(IServiceLocator baseLocator, object key);
+
         /// <summary>
         /// Delgates a function / method that provides a single instance of a service.
         /// </summary>

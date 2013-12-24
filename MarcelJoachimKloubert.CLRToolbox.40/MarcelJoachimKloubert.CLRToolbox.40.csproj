@@ -299,6 +299,10 @@
       <Link>Helpers\CollectionHelper.Select.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SequenceEqual.cs">
+      <Link>Helpers\CollectionHelper.SequenceEqual.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Shuffle.cs">
       <Link>Helpers\CollectionHelper.Shuffle.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -329,6 +333,14 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.cs">
       <Link>Helpers\IOHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.ReadGuid.cs">
+      <Link>Helpers\IOHelper.ReadGuid.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.WriteGuid.cs">
+      <Link>Helpers\IOHelper.WriteGuid.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\MethodHelper.cs">
       <Link>Helpers\MethodHelper.cs</Link>
@@ -767,6 +779,14 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.cs">
       <Link>Extensions\IO.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.ReadGuid.cs">
+      <Link>Extensions\IO.ReadGuid.cs</Link>
+      <DependentUpon>IO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.WriteGuid.cs">
+      <Link>Extensions\IO.WriteGuid.cs</Link>
+      <DependentUpon>IO.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.cs">
       <Link>Extensions\LinqExpressions.cs</Link>
     </Compile>
@@ -867,6 +887,7 @@
     <Compile Include="Composition\InstanceComposerBase.cs" />
     <Compile Include="Composition\MultiInstanceComposer.cs" />
     <Compile Include="Composition\SingleInstanceComposer.cs" />
+    <Compile Include="Composition\StrongNamedAssemblyPartCatalog.cs" />
     <Compile Include="Diagnostics\Execution\LogCommandBase.Execute.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.ctor.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.OnLog.cs" />

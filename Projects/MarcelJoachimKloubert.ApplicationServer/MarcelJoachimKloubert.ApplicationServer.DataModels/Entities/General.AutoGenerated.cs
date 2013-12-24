@@ -3,118 +3,119 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
 
 namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
 {
-    namespace AppServer
+    namespace General
     {
-        #region BASE ENTITIES: AppServer
-
+        #region BASE ENTITIES: General
+    
         /// <summary>
-        /// Describes a 'AppServer' entity.
+        /// Describes a 'General' entity.
         /// </summary>
-        public partial interface IAppServerEntity : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity
+        public partial interface IGeneralEntity : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity
         {
-
+    
         }
-
+    
         /// <summary>
-        /// A basic 'AppServer' entity.
+        /// A basic 'General' entity.
         /// </summary>
-        public abstract partial class AppServerEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.IAppServerEntity
+        public abstract partial class GeneralEntityBase : global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity
         {
             #region Constructors (1)
-
+    
             /// <summary>
-            /// Initializes a new instance of the <see cref="AppServerEntityBase" /> class.
+            /// Initializes a new instance of the <see cref="GeneralEntityBase" /> class.
             /// </summary>
-            protected AppServerEntityBase()
+            protected GeneralEntityBase()
             {
-
+    
             }
-
+    
             #endregion
         }
-
+    
         #endregion
-
+     
         namespace Security
         {
             #region SCHEMA ENTITIES: Security
-
+    
             /// <summary>
             /// Describes an entity for the 'Security' schema.
             /// </summary>
-            public partial interface ISecurityEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.IAppServerEntity
+            public partial interface ISecurityEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity
             {
-
+    
             }
-
+    
             /// <summary>
             /// A basic entity for the 'Security' schema.
             /// </summary>
-            public abstract partial class SecurityEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            public abstract partial class SecurityEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.GeneralEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
                 #region Constructors (1)
-
+    
                 /// <summary>
                 /// Initializes a new instance of the <see cref="SecurityEntityBase" /> class.
                 /// </summary>
                 protected SecurityEntityBase()
                 {
-
+    
                 }
-
+    
                 #endregion
             }
-
+    
             #endregion
-
+     
             #region ENTITY: AccessControlLists
-
+    
             /// <summary>
             /// Describes an 'AccessControlLists' entity.
             /// </summary>
-            public partial interface IAccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            public partial interface IAccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
                 #region Scalar fields (1)
                 /// <summary>
                 /// Gets or sets the scalar field 'AccessControlListID'.
                 /// </summary>
                 global::System.Int64 AccessControlListID { get; set; }
-
-
+     
+    
                 #endregion
             }
-
+            
             /// <summary>
             /// An 'AccessControlLists' entity.
             /// </summary>
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "AccessControlLists", Schema = "Security")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class AccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAccessControlLists
+            public partial class AccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAccessControlLists
             {
                 #region Constructors (1)
-
+                
                 /// <summary>
                 /// Initializes a new instance of <see cref="AccessControlLists" /> class.
                 /// </summary>
                 public AccessControlLists()
                 {
-
+                    
                 }
-
+    
                 #endregion
-
+    
                 #region Scalar fields (1)
-
+    
                 private global::System.Int64 _sf_AccessControlListID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAccessControlLists.AccessControlListID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAccessControlLists.AccessControlListID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "AccessControlListID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AccessControlListID")]
                 public global::System.Int64 AccessControlListID
@@ -130,11 +131,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 #endregion
-
+    
                 #region Methods (9)
-
+                
                 /// <summary>
                 /// Builds a new <see cref="AccessControlLists" /> object from a data record.
                 /// </summary>
@@ -149,13 +150,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AccessControlLists();
                     result.LoadFrom<TRec>(rec: rec, setup: setup);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="AccessControlLists" /> object from a data record.
                 /// </summary>
@@ -172,13 +173,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AccessControlLists();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="AccessControlLists" /> object from a data record.
                 /// </summary>
@@ -195,13 +196,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AccessControlLists();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AccessControlLists" /> objects from a data reader.
                 /// </summary>
@@ -216,11 +217,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader>(rec: reader, setup: setup);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AccessControlLists" /> objects from a data reader.
                 /// </summary>
@@ -237,11 +238,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AccessControlLists" /> objects from a data reader.
                 /// </summary>
@@ -258,11 +259,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -276,7 +277,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<AccessControlLists, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -292,7 +293,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -308,80 +309,80 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+     
                     var oAccessControlListID = rec.GetOrdinal("AccessControlListID");
-
+     
                     this.AccessControlListID = (global::System.Int64)(!rec.IsDBNull(oAccessControlListID) ? rec.GetValue(oAccessControlListID) : null);
-
+     
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
                 }
-
+    
                 #endregion
             }
-
+            
             #endregion
-
+     
             #region ENTITY: AclResources
-
+    
             /// <summary>
             /// Describes an 'AclResources' entity.
             /// </summary>
-            public partial interface IAclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            public partial interface IAclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
                 #region Scalar fields (4)
                 /// <summary>
                 /// Gets or sets the scalar field 'AclResourceID'.
                 /// </summary>
                 global::System.Int64 AclResourceID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'AclRoleID'.
                 /// </summary>
                 global::System.Int64 AclRoleID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'Description'.
                 /// </summary>
                 global::System.String Description { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'Name'.
                 /// </summary>
                 global::System.String Name { get; set; }
-
-
+     
+    
                 #endregion
             }
-
+            
             /// <summary>
             /// An 'AclResources' entity.
             /// </summary>
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "AclResources", Schema = "Security")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class AclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclResources
+            public partial class AclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclResources
             {
                 #region Constructors (1)
-
+                
                 /// <summary>
                 /// Initializes a new instance of <see cref="AclResources" /> class.
                 /// </summary>
                 public AclResources()
                 {
-
+                    
                 }
-
+    
                 #endregion
-
+    
                 #region Scalar fields (4)
-
+    
                 private global::System.Int64 _sf_AclResourceID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclResources.AclResourceID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclResources.AclResourceID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "AclResourceID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AclResourceID")]
                 public global::System.Int64 AclResourceID
@@ -397,13 +398,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int64 _sf_AclRoleID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclResources.AclRoleID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclResources.AclRoleID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = false, IsNullable = false, Name = "AclRoleID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AclRoleID")]
                 public global::System.Int64 AclRoleID
@@ -419,13 +420,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.String _sf_Description;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclResources.Description" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclResources.Description" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
                 public global::System.String Description
@@ -441,13 +442,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.String _sf_Name;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclResources.Name" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclResources.Name" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
                 public global::System.String Name
@@ -463,11 +464,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 #endregion
-
+    
                 #region Methods (9)
-
+                
                 /// <summary>
                 /// Builds a new <see cref="AclResources" /> object from a data record.
                 /// </summary>
@@ -482,13 +483,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AclResources();
                     result.LoadFrom<TRec>(rec: rec, setup: setup);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="AclResources" /> object from a data record.
                 /// </summary>
@@ -505,13 +506,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AclResources();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="AclResources" /> object from a data record.
                 /// </summary>
@@ -528,13 +529,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AclResources();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AclResources" /> objects from a data reader.
                 /// </summary>
@@ -549,11 +550,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader>(rec: reader, setup: setup);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AclResources" /> objects from a data reader.
                 /// </summary>
@@ -570,11 +571,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AclResources" /> objects from a data reader.
                 /// </summary>
@@ -591,11 +592,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -609,7 +610,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<AclResources, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -625,7 +626,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -641,86 +642,86 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+     
                     var oAclResourceID = rec.GetOrdinal("AclResourceID");
                     var oAclRoleID = rec.GetOrdinal("AclRoleID");
                     var oDescription = rec.GetOrdinal("Description");
                     var oName = rec.GetOrdinal("Name");
-
+     
                     this.AclResourceID = (global::System.Int64)(!rec.IsDBNull(oAclResourceID) ? rec.GetValue(oAclResourceID) : null);
                     this.AclRoleID = (global::System.Int64)(!rec.IsDBNull(oAclRoleID) ? rec.GetValue(oAclRoleID) : null);
                     this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
                     this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
-
+     
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
                 }
-
+    
                 #endregion
             }
-
+            
             #endregion
-
+     
             #region ENTITY: AclRoles
-
+    
             /// <summary>
             /// Describes an 'AclRoles' entity.
             /// </summary>
-            public partial interface IAclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            public partial interface IAclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
                 #region Scalar fields (4)
                 /// <summary>
                 /// Gets or sets the scalar field 'AccessControlListID'.
                 /// </summary>
                 global::System.Int64 AccessControlListID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'AclRoleID'.
                 /// </summary>
                 global::System.Int64 AclRoleID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'Description'.
                 /// </summary>
                 global::System.String Description { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'Name'.
                 /// </summary>
                 global::System.String Name { get; set; }
-
-
+     
+    
                 #endregion
             }
-
+            
             /// <summary>
             /// An 'AclRoles' entity.
             /// </summary>
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "AclRoles", Schema = "Security")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class AclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclRoles
+            public partial class AclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclRoles
             {
                 #region Constructors (1)
-
+                
                 /// <summary>
                 /// Initializes a new instance of <see cref="AclRoles" /> class.
                 /// </summary>
                 public AclRoles()
                 {
-
+                    
                 }
-
+    
                 #endregion
-
+    
                 #region Scalar fields (4)
-
+    
                 private global::System.Int64 _sf_AccessControlListID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclRoles.AccessControlListID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclRoles.AccessControlListID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = false, IsNullable = false, Name = "AccessControlListID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AccessControlListID")]
                 public global::System.Int64 AccessControlListID
@@ -736,13 +737,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int64 _sf_AclRoleID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclRoles.AclRoleID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclRoles.AclRoleID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "AclRoleID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "AclRoleID")]
                 public global::System.Int64 AclRoleID
@@ -758,13 +759,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.String _sf_Description;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclRoles.Description" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclRoles.Description" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
                 public global::System.String Description
@@ -780,13 +781,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.String _sf_Name;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IAclRoles.Name" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IAclRoles.Name" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
                 public global::System.String Name
@@ -802,11 +803,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 #endregion
-
+    
                 #region Methods (9)
-
+                
                 /// <summary>
                 /// Builds a new <see cref="AclRoles" /> object from a data record.
                 /// </summary>
@@ -821,13 +822,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AclRoles();
                     result.LoadFrom<TRec>(rec: rec, setup: setup);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="AclRoles" /> object from a data record.
                 /// </summary>
@@ -844,13 +845,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AclRoles();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="AclRoles" /> object from a data record.
                 /// </summary>
@@ -867,13 +868,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new AclRoles();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AclRoles" /> objects from a data reader.
                 /// </summary>
@@ -888,11 +889,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader>(rec: reader, setup: setup);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AclRoles" /> objects from a data reader.
                 /// </summary>
@@ -909,11 +910,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="AclRoles" /> objects from a data reader.
                 /// </summary>
@@ -930,11 +931,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -948,7 +949,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<AclRoles, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -964,7 +965,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -980,81 +981,81 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+     
                     var oAccessControlListID = rec.GetOrdinal("AccessControlListID");
                     var oAclRoleID = rec.GetOrdinal("AclRoleID");
                     var oDescription = rec.GetOrdinal("Description");
                     var oName = rec.GetOrdinal("Name");
-
+     
                     this.AccessControlListID = (global::System.Int64)(!rec.IsDBNull(oAccessControlListID) ? rec.GetValue(oAccessControlListID) : null);
                     this.AclRoleID = (global::System.Int64)(!rec.IsDBNull(oAclRoleID) ? rec.GetValue(oAclRoleID) : null);
                     this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
                     this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
-
+     
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
                 }
-
+    
                 #endregion
             }
-
+            
             #endregion
-
+     
             #region ENTITY: Users
-
+    
             /// <summary>
             /// Describes an 'Users' entity.
             /// </summary>
-            public partial interface IUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.ISecurityEntity
+            public partial interface IUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
                 #region Scalar fields (3)
                 /// <summary>
                 /// Gets or sets the scalar field 'Password'.
                 /// </summary>
                 global::System.Byte[] Password { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonID'.
                 /// </summary>
                 global::System.Int64 PersonID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'UserID'.
                 /// </summary>
                 global::System.Int64 UserID { get; set; }
-
-
+     
+    
                 #endregion
             }
-
+            
             /// <summary>
             /// An 'Users' entity.
             /// </summary>
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "Users", Schema = "Security")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class Users : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IUsers
+            public partial class Users : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IUsers
             {
                 #region Constructors (1)
-
+                
                 /// <summary>
                 /// Initializes a new instance of <see cref="Users" /> class.
                 /// </summary>
                 public Users()
                 {
-
+                    
                 }
-
+    
                 #endregion
-
+    
                 #region Scalar fields (3)
-
+    
                 private global::System.Byte[] _sf_Password;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IUsers.Password" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IUsers.Password" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Byte[]), IsKey = false, IsNullable = true, Name = "Password")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Password")]
                 public global::System.Byte[] Password
@@ -1070,13 +1071,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int64 _sf_PersonID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IUsers.PersonID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IUsers.PersonID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = false, IsNullable = false, Name = "PersonID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonID")]
                 public global::System.Int64 PersonID
@@ -1092,13 +1093,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int64 _sf_UserID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Security.IUsers.UserID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IUsers.UserID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "UserID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "UserID")]
                 public global::System.Int64 UserID
@@ -1114,11 +1115,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 #endregion
-
+    
                 #region Methods (9)
-
+                
                 /// <summary>
                 /// Builds a new <see cref="Users" /> object from a data record.
                 /// </summary>
@@ -1133,13 +1134,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new Users();
                     result.LoadFrom<TRec>(rec: rec, setup: setup);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="Users" /> object from a data record.
                 /// </summary>
@@ -1156,13 +1157,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new Users();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="Users" /> object from a data record.
                 /// </summary>
@@ -1179,13 +1180,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new Users();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="Users" /> objects from a data reader.
                 /// </summary>
@@ -1200,11 +1201,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader>(rec: reader, setup: setup);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="Users" /> objects from a data reader.
                 /// </summary>
@@ -1221,11 +1222,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="Users" /> objects from a data reader.
                 /// </summary>
@@ -1242,11 +1243,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1260,7 +1261,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<Users, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1276,7 +1277,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1292,113 +1293,113 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+     
                     var oPassword = rec.GetOrdinal("Password");
                     var oPersonID = rec.GetOrdinal("PersonID");
                     var oUserID = rec.GetOrdinal("UserID");
-
+     
                     this.Password = (global::System.Byte[])(!rec.IsDBNull(oPassword) ? rec.GetValue(oPassword) : null);
                     this.PersonID = (global::System.Int64)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
                     this.UserID = (global::System.Int64)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
-
+     
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
                 }
-
+    
                 #endregion
             }
-
+            
             #endregion
-
+    
         }
-
+     
         namespace Structure
         {
             #region SCHEMA ENTITIES: Structure
-
+    
             /// <summary>
             /// Describes an entity for the 'Structure' schema.
             /// </summary>
-            public partial interface IStructureEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.IAppServerEntity
+            public partial interface IStructureEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity
             {
-
+    
             }
-
+    
             /// <summary>
             /// A basic entity for the 'Structure' schema.
             /// </summary>
-            public abstract partial class StructureEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IStructureEntity
+            public abstract partial class StructureEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.GeneralEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IStructureEntity
             {
                 #region Constructors (1)
-
+    
                 /// <summary>
                 /// Initializes a new instance of the <see cref="StructureEntityBase" /> class.
                 /// </summary>
                 protected StructureEntityBase()
                 {
-
+    
                 }
-
+    
                 #endregion
             }
-
+    
             #endregion
-
+     
             #region ENTITY: Persons
-
+    
             /// <summary>
             /// Describes an 'Persons' entity.
             /// </summary>
-            public partial interface IPersons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IStructureEntity
+            public partial interface IPersons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IStructureEntity
             {
                 #region Scalar fields (3)
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonExportID'.
                 /// </summary>
                 global::System.Guid PersonExportID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonID'.
                 /// </summary>
                 global::System.Int64 PersonID { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonTypeID'.
                 /// </summary>
                 global::System.Int16 PersonTypeID { get; set; }
-
-
+     
+    
                 #endregion
             }
-
+            
             /// <summary>
             /// An 'Persons' entity.
             /// </summary>
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "Persons", Schema = "Structure")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class Persons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.StructureEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons
+            public partial class Persons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.StructureEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IPersons
             {
                 #region Constructors (1)
-
+                
                 /// <summary>
                 /// Initializes a new instance of <see cref="Persons" /> class.
                 /// </summary>
                 public Persons()
                 {
-
+                    
                 }
-
+    
                 #endregion
-
+    
                 #region Scalar fields (3)
-
+    
                 private global::System.Guid _sf_PersonExportID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons.PersonExportID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IPersons.PersonExportID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Guid), IsKey = false, IsNullable = false, Name = "PersonExportID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonExportID")]
                 public global::System.Guid PersonExportID
@@ -1414,13 +1415,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int64 _sf_PersonID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons.PersonID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IPersons.PersonID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int64), IsKey = true, IsNullable = false, Name = "PersonID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonID")]
                 public global::System.Int64 PersonID
@@ -1436,13 +1437,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int16 _sf_PersonTypeID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons.PersonTypeID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IPersons.PersonTypeID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int16), IsKey = false, IsNullable = true, Name = "PersonTypeID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonTypeID")]
                 public global::System.Int16 PersonTypeID
@@ -1458,11 +1459,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 #endregion
-
+    
                 #region Methods (9)
-
+                
                 /// <summary>
                 /// Builds a new <see cref="Persons" /> object from a data record.
                 /// </summary>
@@ -1477,13 +1478,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new Persons();
                     result.LoadFrom<TRec>(rec: rec, setup: setup);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="Persons" /> object from a data record.
                 /// </summary>
@@ -1500,13 +1501,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new Persons();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="Persons" /> object from a data record.
                 /// </summary>
@@ -1523,13 +1524,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new Persons();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="Persons" /> objects from a data reader.
                 /// </summary>
@@ -1544,11 +1545,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader>(rec: reader, setup: setup);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="Persons" /> objects from a data reader.
                 /// </summary>
@@ -1565,11 +1566,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="Persons" /> objects from a data reader.
                 /// </summary>
@@ -1586,11 +1587,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1604,7 +1605,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<Persons, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1620,7 +1621,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1636,113 +1637,113 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+     
                     var oPersonExportID = rec.GetOrdinal("PersonExportID");
                     var oPersonID = rec.GetOrdinal("PersonID");
                     var oPersonTypeID = rec.GetOrdinal("PersonTypeID");
-
+     
                     this.PersonExportID = (global::System.Guid)(!rec.IsDBNull(oPersonExportID) ? rec.GetValue(oPersonExportID) : null);
                     this.PersonID = (global::System.Int64)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
                     this.PersonTypeID = (global::System.Int16)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
-
+     
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
                 }
-
+    
                 #endregion
             }
-
+            
             #endregion
-
+    
         }
-
+     
         namespace Types
         {
             #region SCHEMA ENTITIES: Types
-
+    
             /// <summary>
             /// Describes an entity for the 'Types' schema.
             /// </summary>
-            public partial interface ITypesEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.IAppServerEntity
+            public partial interface ITypesEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity
             {
-
+    
             }
-
+    
             /// <summary>
             /// A basic entity for the 'Types' schema.
             /// </summary>
-            public abstract partial class TypesEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.AppServerEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.ITypesEntity
+            public abstract partial class TypesEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.GeneralEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.ITypesEntity
             {
                 #region Constructors (1)
-
+    
                 /// <summary>
                 /// Initializes a new instance of the <see cref="TypesEntityBase" /> class.
                 /// </summary>
                 protected TypesEntityBase()
                 {
-
+    
                 }
-
+    
                 #endregion
             }
-
+    
             #endregion
-
+     
             #region ENTITY: PersonTypes
-
+    
             /// <summary>
             /// Describes an 'PersonTypes' entity.
             /// </summary>
-            public partial interface IPersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.ITypesEntity
+            public partial interface IPersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.ITypesEntity
             {
                 #region Scalar fields (3)
                 /// <summary>
                 /// Gets or sets the scalar field 'Description'.
                 /// </summary>
                 global::System.String Description { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'Name'.
                 /// </summary>
                 global::System.String Name { get; set; }
-
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonTypeID'.
                 /// </summary>
                 global::System.Int16 PersonTypeID { get; set; }
-
-
+     
+    
                 #endregion
             }
-
+            
             /// <summary>
             /// An 'PersonTypes' entity.
             /// </summary>
             [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "PersonTypes", Schema = "Types")]
             [global::System.Runtime.Serialization.DataContract(IsReference = true)]
             [global::System.Serializable]
-            public partial class PersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.TypesEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.IPersonTypes
+            public partial class PersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.TypesEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.IPersonTypes
             {
                 #region Constructors (1)
-
+                
                 /// <summary>
                 /// Initializes a new instance of <see cref="PersonTypes" /> class.
                 /// </summary>
                 public PersonTypes()
                 {
-
+                    
                 }
-
+    
                 #endregion
-
+    
                 #region Scalar fields (3)
-
+    
                 private global::System.String _sf_Description;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.IPersonTypes.Description" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.IPersonTypes.Description" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
                 public global::System.String Description
@@ -1758,13 +1759,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.String _sf_Name;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.IPersonTypes.Name" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.IPersonTypes.Name" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
                 public global::System.String Name
@@ -1780,13 +1781,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 private global::System.Int16 _sf_PersonTypeID;
-
+    
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.IPersonTypes.PersonTypeID" />
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.IPersonTypes.PersonTypeID" />
                 [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Int16), IsKey = true, IsNullable = false, Name = "PersonTypeID")]
                 [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "PersonTypeID")]
                 public global::System.Int16 PersonTypeID
@@ -1802,11 +1803,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                         }
                     }
                 }
-
+    
                 #endregion
-
+    
                 #region Methods (9)
-
+                
                 /// <summary>
                 /// Builds a new <see cref="PersonTypes" /> object from a data record.
                 /// </summary>
@@ -1821,13 +1822,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new PersonTypes();
                     result.LoadFrom<TRec>(rec: rec, setup: setup);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="PersonTypes" /> object from a data record.
                 /// </summary>
@@ -1844,13 +1845,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new PersonTypes();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a new <see cref="PersonTypes" /> object from a data record.
                 /// </summary>
@@ -1867,13 +1868,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+    
                     var result = new PersonTypes();
                     result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
-
+    
                     return result;
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="PersonTypes" /> objects from a data reader.
                 /// </summary>
@@ -1888,11 +1889,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader>(rec: reader, setup: setup);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="PersonTypes" /> objects from a data reader.
                 /// </summary>
@@ -1909,11 +1910,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
                 }
-
+    
                 /// <summary>
                 /// Builds a list of new <see cref="PersonTypes" /> objects from a data reader.
                 /// </summary>
@@ -1930,11 +1931,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (reader == null)
                         throw new global::System.ArgumentNullException("reader");
-
+    
                     while (reader.Read())
                         yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1948,7 +1949,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<PersonTypes, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1964,7 +1965,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
                 }
-
+    
                 /// <summary>
                 /// Loads data into this object from a data record.
                 /// </summary>
@@ -1980,25 +1981,25 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 {
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
-
+     
                     var oDescription = rec.GetOrdinal("Description");
                     var oName = rec.GetOrdinal("Name");
                     var oPersonTypeID = rec.GetOrdinal("PersonTypeID");
-
+     
                     this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
                     this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
                     this.PersonTypeID = (global::System.Int16)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
-
+     
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
                 }
-
+    
                 #endregion
             }
-
+            
             #endregion
-
+    
         }
-
+     
     }
 }

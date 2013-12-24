@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<enums>
+  <database provider="ado_mssql">
+    <connection_string>data source=GPDGAMEPC\SQLEXPRESS;initial catalog=ApplicationServer;integrated security=True;</connection_string>
+  </database>
+  
+  <!-- Types.PersonTypes -->
+  <enum name="PersonTypes" schema="Types" targetName="PersonType"
+        valueNameFrom="Name" valueIdFrom="PersonTypeID" valueDescriptionFrom="Description"
+        valueIdType="short">
+
+    <summary>List of person types.</summary>
+  </enum>
+</enums>

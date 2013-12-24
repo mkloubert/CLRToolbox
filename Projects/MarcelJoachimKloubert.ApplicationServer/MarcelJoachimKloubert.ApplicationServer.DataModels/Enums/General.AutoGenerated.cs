@@ -1,4 +1,4 @@
-namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Enums.AppServer
+namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Enums.General
 {
     namespace Types
     {

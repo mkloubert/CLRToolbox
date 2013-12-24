@@ -138,8 +138,13 @@
     <Compile Include="Helpers\CollectionHelper.OfType.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CollectionHelper.Randomize.cs" />
+    <Compile Include="Helpers\CollectionHelper.Randomize.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.Select.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.SequenceEqual.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Single.cs">
@@ -161,6 +166,9 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
+    <Compile Include="Helpers\IOHelper.ReadGuid.cs">
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\IOHelper.CreateDirectoryDeep.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
@@ -168,7 +176,12 @@
     <Compile Include="Helpers\IOHelper.CopyTo.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CollectionHelper.Shuffle.cs" />
+    <Compile Include="Helpers\CollectionHelper.Shuffle.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\IOHelper.WriteGuid.cs">
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\StringHelper.AsHexString.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>

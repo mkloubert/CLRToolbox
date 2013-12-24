@@ -7,12 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Data.Common;
+using System.Data.Odbc;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
 using MarcelJoachimKloubert.ApplicationServer.WebInterface;
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.Composition;
 using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
@@ -30,13 +35,33 @@ namespace MarcelJoachimKloubert.ApplicationServer
     /// </summary>
     public class ApplicationServer : AppServerBase
     {
-        #region Fields (1)
+        #region Fields (6)
 
         private WebInterfaceHandler _webHandler;
+        /// <summary>
+        /// The name of the config category for the server database.
+        /// </summary>
+        public const string CONFIG_CATEGORY_DATABASE = "database";
+        /// <summary>
+        /// The name of the config category for the server database connection string.
+        /// </summary>
+        public const string CONFIG_VALUE_CONNECTION_STRING = "connection_string";
+        /// <summary>
+        /// Name of database provider for ADO.NET Microsoft SQL database connection.
+        /// </summary>
+        public const string DB_PROVIDER_ADONET_MSSQL = "ado_mssql";
+        /// <summary>
+        /// Name of database provider for ADO.NET ODBC database connection.
+        /// </summary>
+        public const string DB_PROVIDER_ADONET_ODBC = "ado_odbc";
+        /// <summary>
+        /// Name of database provider for ADO.NET OLE database connection.
+        /// </summary>
+        public const string DB_PROVIDER_ADONET_OLE = "ado_oledb";
 
         #endregion Fields
 
-        #region Properties (13)
+        #region Properties (11)
 
         /// <summary>
         /// Gets the command line arguments of the server.
@@ -48,27 +73,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
         }
 
         /// <summary>
-        /// Gets the (startup) configuration.
-        /// </summary>
-        public IConfigRepository Config
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// Gets the list of 
         /// </summary>
         public IList<Assembly> EntityAssemblies
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the composition catalog for server functions.
-        /// </summary>
-        public AggregateCatalog FunctionCompositionCatalog
         {
             get;
             private set;
@@ -129,18 +136,15 @@ namespace MarcelJoachimKloubert.ApplicationServer
         }
 
         /// <summary>
-        /// Gets the composition catalog for the services.
+        /// Gets the (startup) configuration.
         /// </summary>
-        public AggregateCatalog ServiceCompositionCatalog
+        public IConfigRepository StartupConfig
         {
             get;
             private set;
         }
 
-        /// <summary>
-        /// Gets the composition catalog for the web interface modules.
-        /// </summary>
-        public AggregateCatalog WebInterfaceCompositionCatalog
+        public StrongNamedAssemblyPartCatalog TrustedCompositionCatalog
         {
             get;
             private set;
@@ -157,8 +161,84 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (9)
+        #region Methods (15)
 
+        // Public Methods (2) 
+
+        /// <summary>
+        /// Tries to return the server database connection by startup config.
+        /// </summary>
+        /// <param name="doOpen">Open connection (if found) or not.</param>
+        /// <returns>The connection or <see langword="null" /> if not found.</returns>
+        public DbConnection TryGetServerDbConnectionByConfig(bool doOpen = false)
+        {
+            string dbProvider;
+            return this.TryGetServerDbConnectionByConfig(dbProvider: out dbProvider,
+                                                   doOpen: doOpen);
+        }
+
+        /// <summary>
+        /// Tries to return the server database connection by startup config.
+        /// </summary>
+        /// <param name="dbProvider">The variable where to write the name of the database provider from startup config to.</param>
+        /// <param name="doOpen">Open connection (if found) or not.</param>
+        /// <returns>The connection or <see langword="null" /> if not found.</returns>
+        public DbConnection TryGetServerDbConnectionByConfig(out string dbProvider,
+                                                             bool doOpen = false)
+        {
+            this.StartupConfig
+                .TryGetValue(category: CONFIG_CATEGORY_DATABASE,
+                             name: "provider",
+                             value: out dbProvider,
+                             defaultVal: DB_PROVIDER_ADONET_MSSQL);
+
+            DbConnection result = null;
+            switch ((dbProvider ?? string.Empty).ToLower().Trim())
+            {
+                case DB_PROVIDER_ADONET_MSSQL:
+                    // ADO.NET - Micsoroft SQL Server
+                    {
+                        var connStr = this.StartupConfig
+                                          .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
+                                                            name: CONFIG_VALUE_CONNECTION_STRING);
+
+                        result = new SqlConnection(connStr);
+                    }
+                    break;
+
+                case DB_PROVIDER_ADONET_ODBC:
+                    // ADO.NET - ODBC
+                    {
+                        var connStr = this.StartupConfig
+                                          .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
+                                                            name: CONFIG_VALUE_CONNECTION_STRING);
+
+                        result = new OdbcConnection(connStr);
+                    }
+                    break;
+
+                case DB_PROVIDER_ADONET_OLE:
+                    // ADO.NET - OLE DB
+                    {
+                        var connStr = this.StartupConfig
+                                          .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
+                                                            name: CONFIG_VALUE_CONNECTION_STRING);
+
+                        result = new OleDbConnection(connStr);
+                    }
+                    break;
+            }
+
+            if (result != null)
+            {
+                if (doOpen)
+                {
+                    result.Open();
+                }
+            }
+
+            return result;
+        }
         // Protected Methods (3) 
 
         /// <summary>
@@ -176,14 +256,16 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 this.WorkingDirectory = Environment.CurrentDirectory;
             }
 
-            this.Config = new IniFileConfigRepository(Path.Combine(this.WorkingDirectory,
+            this.StartupConfig = new IniFileConfigRepository(Path.Combine(this.WorkingDirectory,
                                                                    "config.ini"),
                                                       false);
+
+            var trustedAssemblyKeys = this.LoadTrustedAssemblyKeyList();
 
             //TODO: load dynamically
             this.EntityAssemblies = new SynchronizedCollection<Assembly>()
                 {
-                    typeof(global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Structure.IPersons).Assembly,
+                    typeof(global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity).Assembly,
                 };
 
             // service locator
@@ -192,13 +274,11 @@ namespace MarcelJoachimKloubert.ApplicationServer
             DelegateServiceLocator serviceLocator;
             {
                 compCatalog = new AggregateCatalog();
-                compCatalog.Catalogs.Add(new AssemblyCatalog(this.GetType().Assembly));
                 compCatalog.Catalogs
-                           .Add(this.FunctionCompositionCatalog = new AggregateCatalog());
-                compCatalog.Catalogs
-                           .Add(this.ServiceCompositionCatalog = new AggregateCatalog());
-                compCatalog.Catalogs
-                           .Add(this.WebInterfaceCompositionCatalog = new AggregateCatalog());
+                           .Add(this.TrustedCompositionCatalog = new StrongNamedAssemblyPartCatalog(trustedAssemblyKeys));
+
+                this.TrustedCompositionCatalog
+                    .AddAssembly(this.GetType().Assembly);
 
                 compContainer = new CompositionContainer(compCatalog,
                                                          isThreadSafe: true);
@@ -284,112 +364,22 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     break;
             }
 
+            this.TrustedCompositionCatalog.Clear();
+
             // assemblies with services
             {
-                IList<Assembly> serviceAssemblies = new SynchronizedCollection<Assembly>();
-
                 var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services")).CreateDirectoryDeep();
-                {
-                    ex = serviceDir.GetFiles("*.dll")
-                                   .ForAllAsync(ctx =>
-                                   {
-                                       var f = ctx.Item;
 
-                                       var asmBlob = File.ReadAllBytes(f.FullName);
-                                       var asm = Assembly.Load(asmBlob);
-
-                                       ctx.State
-                                          .Assemblies.Add(asm);
-                                   }, actionState: new
-                                   {
-                                       Assemblies = serviceAssemblies,
-                                   }, throwExceptions: false);
-
-                    if (ex != null)
-                    {
-                        this.Logger
-                            .Log(msg: ex,
-                                 tag: LOG_TAG_PREFIX + "LoadServices",
-                                 categories: LoggerFacadeCategories.Errors);
-                    }
-                }
-
-                this.ServiceCompositionCatalog.Catalogs.Clear();
-                foreach (var asm in serviceAssemblies)
-                {
-                    this.ServiceCompositionCatalog
-                        .Catalogs
-                        .Add(new AssemblyCatalog(asm));
-                }
-
-                if (serviceAssemblies.Count > 0)
-                {
-                    this.Logger
-                        .Log(msg: string.Format("{0} service assemblies were loaded.", serviceAssemblies.Count),
-                             tag: LOG_TAG_PREFIX + "LoadServices",
-                             categories: LoggerFacadeCategories.Information);
-                }
-                else
-                {
-                    this.Logger
-                        .Log(msg: "No service assembly was loaded.",
-                             tag: LOG_TAG_PREFIX + "LoadServices",
-                             categories: LoggerFacadeCategories.Warnings);
-                }
+                this.LoadAndAddTrustedAssemblies(serviceDir.GetFiles("*.dll"),
+                                                 LOG_TAG_PREFIX);
             }
 
             // assemblies with functions
             {
-                IList<Assembly> funcAssemblies = new SynchronizedCollection<Assembly>();
-
                 var funcDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "funcs")).CreateDirectoryDeep();
-                {
-                    ex = funcDir.GetFiles("*.dll")
-                                .ForAllAsync(ctx =>
-                                 {
-                                     var f = ctx.Item;
 
-                                     var asmBlob = File.ReadAllBytes(f.FullName);
-                                     var asm = Assembly.Load(asmBlob);
-
-                                     ctx.State
-                                        .Assemblies.Add(asm);
-                                 }, actionState: new
-                                 {
-                                     Assemblies = funcAssemblies,
-                                 }, throwExceptions: false);
-
-                    if (ex != null)
-                    {
-                        this.Logger
-                            .Log(msg: ex,
-                                 tag: LOG_TAG_PREFIX + "LoadFunctions",
-                                 categories: LoggerFacadeCategories.Errors);
-                    }
-                }
-
-                this.FunctionCompositionCatalog.Catalogs.Clear();
-                foreach (var asm in funcAssemblies)
-                {
-                    this.FunctionCompositionCatalog
-                        .Catalogs
-                        .Add(new AssemblyCatalog(asm));
-                }
-
-                if (funcAssemblies.Count > 0)
-                {
-                    this.Logger
-                        .Log(msg: string.Format("{0} function assemblies were loaded.", funcAssemblies.Count),
-                             tag: LOG_TAG_PREFIX + "LoadFunctions",
-                             categories: LoggerFacadeCategories.Information);
-                }
-                else
-                {
-                    this.Logger
-                        .Log(msg: "No function assembly was loaded.",
-                             tag: LOG_TAG_PREFIX + "LoadFunctions",
-                             categories: LoggerFacadeCategories.Warnings);
-                }
+                this.LoadAndAddTrustedAssemblies(funcDir.GetFiles("*.dll"),
+                                                 LOG_TAG_PREFIX);
             }
 
             // web interface
@@ -397,53 +387,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 IList<Assembly> webInterfaceAssemblies = new SynchronizedCollection<Assembly>();
 
                 var webDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "web")).CreateDirectoryDeep();
-                {
-                    ex = webDir.GetFiles("*.dll")
-                               .ForAllAsync(ctx =>
-                                            {
-                                                var f = ctx.Item;
-
-                                                var asmBlob = File.ReadAllBytes(f.FullName);
-                                                var asm = Assembly.Load(asmBlob);
-
-                                                ctx.State
-                                                   .Assemblies.Add(asm);
-                                            }, actionState: new
-                                            {
-                                                Assemblies = webInterfaceAssemblies,
-                                            }, throwExceptions: false);
-
-                    if (ex != null)
-                    {
-                        this.Logger
-                            .Log(msg: ex,
-                                 tag: LOG_TAG_PREFIX + "LoadWebInterfaceModules",
-                                 categories: LoggerFacadeCategories.Errors);
-                    }
-                }
-
-                this.WebInterfaceCompositionCatalog.Catalogs.Clear();
-                foreach (var asm in webInterfaceAssemblies)
-                {
-                    this.WebInterfaceCompositionCatalog
-                        .Catalogs
-                        .Add(new AssemblyCatalog(asm));
-                }
-
-                if (webInterfaceAssemblies.Count > 0)
-                {
-                    this.Logger
-                        .Log(msg: string.Format("{0} web interface assemblies were loaded.", webInterfaceAssemblies.Count),
-                             tag: LOG_TAG_PREFIX + "LoadWebInterfaceModules",
-                             categories: LoggerFacadeCategories.Information);
-                }
-                else
-                {
-                    this.Logger
-                        .Log(msg: "No web interface assembly was loaded.",
-                             tag: LOG_TAG_PREFIX + "LoadWebInterfaceModules",
-                             categories: LoggerFacadeCategories.Warnings);
-                }
+                this.LoadAndAddTrustedAssemblies(webDir.GetFiles("*.dll"),
+                                                 LOG_TAG_PREFIX);
 
                 try
                 {
@@ -472,6 +417,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
             // var db = ServiceLocator.Current.GetInstance<MarcelJoachimKloubert.ApplicationServer.DataLayer.IAppServerDatabase>();
             // var test = db.Query<MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.AppServer.Types.PersonTypes>();
+
         }
 
         /// <summary>
@@ -506,7 +452,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                          categories: LoggerFacadeCategories.Errors);
             }
         }
-        // Private Methods (6) 
+        // Private Methods (10) 
 
         private static Func<IAppServerModule, bool> CreateWherePredicateForExtractingOtherModules(IAppServerModule module)
         {
@@ -534,6 +480,35 @@ namespace MarcelJoachimKloubert.ApplicationServer
             }
         }
 
+        private IEnumerable<FileInfo> FilterTrustedAssemblyFiles(IEnumerable<FileInfo> files)
+        {
+            return files.Where(f =>
+                               {
+                                   try
+                                   {
+                                       var asmName = AssemblyName.GetAssemblyName(f.FullName);
+
+                                       var result = this.TrustedCompositionCatalog
+                                                         .IsTrustedAssembly(asmName);
+                                       if (!result)
+                                       {
+                                           this.Logger
+                                               .Log(categories: LoggerFacadeCategories.Warnings,
+                                                    tag: "ApplicationServer::FilterTrustedAssemblyFiles",
+                                                    msg: string.Format("'{0}' ('{1}') is no trusted assembly!",
+                                                                       asmName.FullName,
+                                                                       f.FullName));
+                                       }
+
+                                       return result;
+                                   }
+                                   catch
+                                   {
+                                       return false;
+                                   }
+                               });
+        }
+
         private IEnumerable<ILoggerFacade> GetAllLoggers(IServiceLocator baseLocator, object key)
         {
             if (!IsNullOrDBNull(key))
@@ -554,6 +529,89 @@ namespace MarcelJoachimKloubert.ApplicationServer
         {
             return key == null ||
                    DBNull.Value.Equals(key);
+        }
+
+        private void LoadAndAddTrustedAssemblies(IEnumerable<FileInfo> asmFiles,
+                                                 string logTagPrefix)
+        {
+            ICollection<Assembly> asmList = new SynchronizedCollection<Assembly>();
+
+            var ex = this.LoadTrustedAssemblies(asmFiles,
+                                                asmList);
+
+            if (ex != null)
+            {
+                this.Logger
+                    .Log(msg: ex,
+                         tag: logTagPrefix + "LoadAndAddTrustedAssemblies",
+                         categories: LoggerFacadeCategories.Errors);
+            }
+
+            if (asmList.Count > 0)
+            {
+                this.Logger
+                    .Log(msg: string.Format("{0} assemblies were loaded.", asmList.Count),
+                         tag: logTagPrefix + "LoadAndAddTrustedAssemblies",
+                         categories: LoggerFacadeCategories.Information);
+            }
+            else
+            {
+                this.Logger
+                    .Log(msg: "No assembly was loaded.",
+                         tag: logTagPrefix + "LoadAndAddTrustedAssemblies",
+                         categories: LoggerFacadeCategories.Warnings);
+            }
+
+            this.TrustedCompositionCatalog
+                .AddAssemblies(asmList);
+        }
+
+        private AggregateException LoadTrustedAssemblies(IEnumerable<FileInfo> asmFiles, ICollection<Assembly> asmList)
+        {
+            return this.FilterTrustedAssemblyFiles(asmFiles)
+                       .ForAllAsync(ctx =>
+                       {
+                           var f = ctx.Item;
+
+                           var asmBlob = File.ReadAllBytes(f.FullName);
+                           var asm = Assembly.Load(asmBlob);
+
+                           ctx.State
+                              .Assemblies
+                              .Add(asm);
+                       }, actionState: new
+                        {
+                            Assemblies = asmList,
+                        }, throwExceptions: false);
+        }
+
+        private List<byte[]> LoadTrustedAssemblyKeyList()
+        {
+            var result = new List<byte[]>()
+                {
+                    this.GetType().Assembly.GetName().GetPublicKey(),
+                };
+
+            using (var dbConn = this.TryGetServerDbConnectionByConfig(doOpen: true))
+            {
+                if (dbConn != null)
+                {
+                    using (var cmd = dbConn.CreateCommand())
+                    {
+                        cmd.CommandText = "SELECT TrustedAssemblyKey FROM [Security].[TrustedAssemblies];";
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                result.Add((byte[])reader[0]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         private void StartServer()

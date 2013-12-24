@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entities>
+  <entity name="PersonType" schema="Types">
+    <attributes>
+      <attribute name="Id" type="int64" isKey="true" />
+    </attributes>
+  </entity>
+</entities>

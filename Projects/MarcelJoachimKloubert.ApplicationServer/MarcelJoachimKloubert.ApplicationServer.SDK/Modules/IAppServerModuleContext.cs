@@ -4,6 +4,7 @@
 
 
 using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 
@@ -14,7 +15,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
     /// </summary>
     public interface IAppServerModuleContext : IObjectContext<IAppServerModule>
     {
-        #region Data Members (1)
+        #region Data Members (2)
+
+        /// <summary>
+        /// Gets the configuration for that module.
+        /// </summary>
+        IConfigRepository Config { get; }
 
         /// <summary>
         /// Gets the logger for that module.

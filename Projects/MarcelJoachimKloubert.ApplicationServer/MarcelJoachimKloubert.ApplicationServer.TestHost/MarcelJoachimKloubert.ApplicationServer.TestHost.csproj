@@ -67,6 +67,14 @@
       <Project>{e1e0c026-ee71-45a2-a2bf-5ce6fcecccd0}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Funcs.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Modules.Cloud\MarcelJoachimKloubert.AppServer.Modules.Cloud.csproj">
+      <Project>{7c472dd7-bbf7-48fc-b763-64ae5b6a7acb}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Modules.Cloud</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Modules.DocDB\MarcelJoachimKloubert.AppServer.Modules.DocDB.csproj">
+      <Project>{e79e4e16-9d08-4034-9633-ec2a1bc83479}</Project>
+      <Name>MarcelJoachimKloubert.AppServer.Modules.DocDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.AppServer.Modules.RemoteComm\MarcelJoachimKloubert.AppServer.Modules.RemoteComm.csproj">
       <Project>{2a04af55-a6a7-4236-acaf-7a0f0211540a}</Project>
       <Name>MarcelJoachimKloubert.AppServer.Modules.RemoteComm</Name>

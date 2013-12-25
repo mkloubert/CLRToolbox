@@ -35,7 +35,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
     /// </summary>
     public class ApplicationServer : AppServerBase
     {
-        #region Fields (6)
+        #region Fields (12)
 
         private WebInterfaceHandler _webHandler;
         /// <summary>
@@ -43,9 +43,25 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// </summary>
         public const string CONFIG_CATEGORY_DATABASE = "database";
         /// <summary>
+        /// The name of the config category for the server web interface.
+        /// </summary>
+        public const string CONFIG_CATEGORY_WEBINTERFACE = "web_interface";
+        /// <summary>
         /// The name of the config category for the server database connection string.
         /// </summary>
         public const string CONFIG_VALUE_CONNECTION_STRING = "connection_string";
+        /// <summary>
+        /// The name of the config category for the TCP port of the server's web interface.
+        /// </summary>
+        public const string CONFIG_VALUE_PORT = "port";
+        /// <summary>
+        /// The name of the config category for the thumbprint of the SSL certificate of the server's web interface.
+        /// </summary>
+        public const string CONFIG_VALUE_SSL_THUMBPRINT = "ssl_thumbprint";
+        /// <summary>
+        /// The name of the config category for the flag if HTTPs should be used for the server's web interface or not.
+        /// </summary>
+        public const string CONFIG_VALUE_USE_HTTPS = "use_https";
         /// <summary>
         /// Name of database provider for ADO.NET Microsoft SQL database connection.
         /// </summary>
@@ -58,6 +74,14 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// Name of database provider for ADO.NET OLE database connection.
         /// </summary>
         public const string DB_PROVIDER_ADONET_OLE = "ado_oledb";
+        /// <summary>
+        /// The default config value for the flag if HTTPs should be used for the server's webinterface or not.
+        /// </summary>
+        public const bool DEFAULT_CONFIG_VALUE_USE_HTTPS = false;
+        /// <summary>
+        /// The default config value for TCP port of the server's webinterface.
+        /// </summary>
+        public const int DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT = 5979;
 
         #endregion Fields
 
@@ -144,6 +168,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
             private set;
         }
 
+        /// <summary>
+        /// Gets the composition catalog for trusted assembies and types.
+        /// </summary>
         public StrongNamedAssemblyPartCatalog TrustedCompositionCatalog
         {
             get;
@@ -396,9 +423,37 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
                     //TODO read from configuration
                     var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
-                    newWebInterfaceServer.Port = 5979;
-                    newWebInterfaceServer.UseSecureHttp = true;
-                    newWebInterfaceServer.SetSslCertificateByThumbprint("‎7f 01 5f 4a fc a0 da 76 36 fa f0 a9 d6 e6 e8 cc 63 53 a9 bc");
+                    {
+                        bool? useHttps;
+                        this.StartupConfig
+                            .TryGetValue<bool?>(category: CONFIG_CATEGORY_WEBINTERFACE,
+                                                name: CONFIG_VALUE_USE_HTTPS,
+                                                value: out useHttps,
+                                                defaultVal: DEFAULT_CONFIG_VALUE_USE_HTTPS);
+
+                        newWebInterfaceServer.UseSecureHttp = useHttps ?? DEFAULT_CONFIG_VALUE_USE_HTTPS;
+                        if (newWebInterfaceServer.UseSecureHttp)
+                        {
+                            // TCP port
+                            {
+                                int? port;
+                                this.StartupConfig
+                                    .TryGetValue<int?>(category: CONFIG_CATEGORY_WEBINTERFACE,
+                                                       name: CONFIG_VALUE_PORT,
+                                                       value: out port,
+                                                       defaultVal: DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT);
+
+                                newWebInterfaceServer.Port = port ?? DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT;
+                            }
+
+                            // SSL thumbprint
+                            {
+                                newWebInterfaceServer.SetSslCertificateByThumbprint(this.StartupConfig
+                                                                                        .GetValue<IEnumerable<char>>(category: CONFIG_CATEGORY_WEBINTERFACE,
+                                                                                                                     name: CONFIG_VALUE_SSL_THUMBPRINT));
+                            }
+                        }
+                    }
 
                     this._webHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
 
@@ -659,14 +714,35 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                         {
                                             var f = ctx.Item;
 
+                                            var trustedCatalog = ctx.State.CompositionCatalog.Clone(cloneCatalogData: true);
+                                            var asmName = AssemblyName.GetAssemblyName(f.FullName);
+                                            if (!trustedCatalog.IsTrustedAssembly(asmName))
+                                            {
+#if DEBUG
+                                                var s = string.Format("INSERT INTO [Security].[TrustedAssemblies] (TrustedAssemblyKey, Name) VALUES (0x{0}, N'{1}');",
+                                                                      asmName.GetPublicKey().AsHexString(),
+                                                                      asmName.FullName);
+
+#endif
+                                                ctx.State
+                                                   .Logger
+                                                   .Log(categories: LoggerFacadeCategories.Warnings,
+                                                        msg: string.Format("'{0}' is no trusted module!",
+                                                                           f.FullName));
+
+                                                return;
+                                            }
+
                                             var asmBlob = File.ReadAllBytes(f.FullName);
                                             var asm = Assembly.Load(asmBlob);
+
+                                            trustedCatalog.AddAssembly(asm);
 
                                             CompositionContainer container;
                                             DelegateServiceLocator serviceLocator;
                                             {
                                                 var catalog = new AggregateCatalog();
-                                                catalog.Catalogs.Add(new AssemblyCatalog(asm));
+                                                catalog.Catalogs.Add(trustedCatalog);
 
                                                 container = new CompositionContainer(catalog,
                                                                                      isThreadSafe: true);
@@ -702,7 +778,12 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                                                //TODO: add implementation(s)
                                                                var logger = new AggregateLogger();
 
+                                                               var moduleRootDir = new DirectoryInfo(Path.Combine(ctx2.State.ModuleDirectory,
+                                                                                                                  m.Name)).CreateDirectoryDeep();
+
                                                                var moduleCtx = new SimpleAppServerModuleContext(m);
+                                                               moduleCtx.Config = new IniFileConfigRepository(Path.Combine(moduleRootDir.FullName,
+                                                                                                                           "config.ini"));
                                                                moduleCtx.InnerServiceLocator = ctx2.State.ServiceLocator;
                                                                moduleCtx.Logger = logger;
                                                                moduleCtx.OtherModules = ctx2.State.AllModules
@@ -711,9 +792,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
                                                                var moduleInitCtx = new SimpleAppServerModuleInitContext();
                                                                moduleInitCtx.ModuleContext = moduleCtx;
-                                                               moduleInitCtx.RootDirectory = new DirectoryInfo(Path.Combine(ctx2.State.ModuleDirectory,
-                                                                                                                            m.Name)).CreateDirectoryDeep()
-                                                                                                                                    .FullName;
+                                                               moduleInitCtx.RootDirectory = moduleRootDir.FullName;
 
                                                                m.Initialize(moduleInitCtx);
 
@@ -730,6 +809,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
                                                            }, throwExceptions: true);
                                         }, actionState: new
                                                {
+                                                   CompositionCatalog = this.TrustedCompositionCatalog
+                                                                            .Clone(cloneCatalogData: false),
+                                                   Logger = this.Logger,
                                                    ModuleDirectory = modDir.FullName,
                                                    NewModules = newModules,
                                                }, throwExceptions: false);

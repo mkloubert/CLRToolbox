@@ -175,6 +175,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <see cref="KeyValuePairConfigRepository.OnTryGetValue{T}(string, string, ref T, ref bool)"/>
         protected override void OnTryGetValue<T>(string category, string name, ref T foundValue, ref bool valueWasFound)
         {
+            Type targetType = typeof(T);
+
             IEnumerable<char> innerValue = null;
             base.OnTryGetValue<IEnumerable<char>>(category, name,
                                                   ref innerValue, ref valueWasFound);
@@ -184,13 +186,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 return;
             }
 
-            bool throwException = true;
+            bool throwException = false;
             string strValue = StringHelper.AsString(innerValue);
             object valueToReturn = null;
 
             if (strValue != null)
             {
-                Type targetType = typeof(T);
+                throwException = true;
+
 
                 if (targetType.Equals(typeof(bool)) ||
                     targetType.Equals(typeof(bool?)))
@@ -214,11 +217,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                         case "":
                             if (Nullable.GetUnderlyingType(targetType) != null)
                             {
-                                // nullable struct
+                                // nullable bool
                                 throwException = false;
                             }
                             break;
                     }
+                }
+                else if (Nullable.GetUnderlyingType(targetType) != null)
+                {
+                    // nullable struct
+
+                    if (!string.IsNullOrWhiteSpace(strValue))
+                    {
+                        valueToReturn = strValue;
+                        targetType = Nullable.GetUnderlyingType(targetType);
+                    }
+
+                    throwException = false;
                 }
                 else if (targetType.Equals(typeof(string)) ||
                          targetType.Equals(typeof(global::System.Collections.Generic.IEnumerable<char>)) ||
@@ -236,7 +251,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 throw new InvalidCastException();
             }
 
-            foundValue = GlobalConverter.Current.ChangeType<T>(valueToReturn);
+            foundValue = (T)GlobalConverter.Current.ChangeType(targetType, valueToReturn);
         }
 
         /// <summary>

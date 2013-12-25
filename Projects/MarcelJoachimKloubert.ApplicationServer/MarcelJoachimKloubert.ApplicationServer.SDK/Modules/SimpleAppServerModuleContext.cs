@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
@@ -58,7 +59,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (4)
+        #region Properties (5)
 
         /// <summary>
         /// 
@@ -67,6 +68,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         public override string AssemblyFile
         {
             get { return this._assemblyFile; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IAppServerModuleContext.Config" />
+        public IConfigRepository Config
+        {
+            get;
+            set;
         }
 
         /// <summary>

@@ -21,11 +21,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
     /// to verify if an <see cref="Assembly" /> or <see cref="Type" /> is allowed to use
     /// for composition operations.
     /// </summary>
-    public class StrongNamedAssemblyPartCatalog : ComposablePartCatalog
+    public class StrongNamedAssemblyPartCatalog : ComposablePartCatalog, ICloneable
     {
-        #region Fields (2)
+        #region Fields (3)
 
         private readonly AggregateCatalog _INNER_CATALOG = new AggregateCatalog();
+        /// <summary>
+        /// An unique object for sync operations.
+        /// </summary>
+        protected readonly object _SYNC = new object();
         private readonly byte[][] _TRUSTED_ASM_KEYS;
 
         #endregion Fields
@@ -82,9 +86,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (13)
 
-        // Public Methods (10) 
+        // Public Methods (12) 
 
         /// <summary>
         /// Adds a list of assemblies.
@@ -147,9 +151,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
                                                                   asm.FullName));
             }
 
-            this._INNER_CATALOG
-                .Catalogs
-                .Add(new AssemblyCatalog(asm));
+            lock (this._SYNC)
+            {
+                this._INNER_CATALOG
+                    .Catalogs
+                    .Add(new AssemblyCatalog(asm));
+            }
         }
 
         /// <summary>
@@ -175,9 +182,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
                                                                   type.FullName));
             }
 
-            this._INNER_CATALOG
-                .Catalogs
-                .Add(new TypeCatalog(type));
+            lock (this._SYNC)
+            {
+                this._INNER_CATALOG
+                    .Catalogs
+                    .Add(new TypeCatalog(type));
+            }
         }
 
         /// <summary>
@@ -223,7 +233,54 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
         /// </summary>
         public void Clear()
         {
-            this._INNER_CATALOG.Catalogs.Clear();
+            lock (this._SYNC)
+            {
+                this._INNER_CATALOG
+                    .Catalogs
+                    .Clear();
+            }
+        }
+
+        /// <summary>
+        /// Clones that instance will all trusted assembly keys.
+        /// </summary>
+        /// <param name="cloneCatalogData">
+        /// Also clone all stored assemblies and types or not.
+        /// </param>
+        /// <returns>The cloned instance.</returns>
+        public StrongNamedAssemblyPartCatalog Clone(bool cloneCatalogData = false)
+        {
+            var result = new StrongNamedAssemblyPartCatalog(this.GetTrustedAssemblyKeys());
+
+            if (cloneCatalogData)
+            {
+                // also clone inner catalog
+
+                lock (this._SYNC)
+                {
+                    foreach (var c in this._INNER_CATALOG.Catalogs)
+                    {
+                        result._INNER_CATALOG
+                              .Catalogs
+                              .Add(c);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a copy of the trusted assembly key list.
+        /// </summary>
+        /// <returns>The list of trusted assembly keys.</returns>
+        public List<byte[]> GetTrustedAssemblyKeys()
+        {
+            lock (this._SYNC)
+            {
+                return new List<byte[]>(this._TRUSTED_ASM_KEYS
+                                            .Select(a => a.ToArray()));
+            }
         }
 
         /// <summary>
@@ -259,17 +316,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
                 throw new ArgumentNullException("name");
             }
 
-            try
-            {
-                var publicKey = name.GetPublicKey() ?? new byte[0];
+            bool result;
 
-                return this._TRUSTED_ASM_KEYS
-                           .Any(tak => CollectionHelper.SequenceEqual(tak, publicKey));
-            }
-            catch (SecurityException)
+            lock (this._SYNC)
             {
-                return false;
+                try
+                {
+                    var publicKey = name.GetPublicKey() ?? new byte[0];
+
+                    result = this._TRUSTED_ASM_KEYS
+                                 .Any(tak => CollectionHelper.SequenceEqual(tak, publicKey));
+                }
+                catch (SecurityException)
+                {
+                    result = false;
+                }
             }
+
+            return result;
         }
 
         /// <summary>
@@ -288,6 +352,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
             }
 
             return this.IsTrustedAssembly(type.Assembly);
+        }
+        // Private Methods (1) 
+
+        object ICloneable.Clone()
+        {
+            return this.Clone();
         }
 
         #endregion Methods

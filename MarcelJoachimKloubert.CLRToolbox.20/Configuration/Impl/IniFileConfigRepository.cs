@@ -227,7 +227,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 {
                     // nullable struct
 
-                    if (!string.IsNullOrWhiteSpace(strValue))
+                    if (!StringHelper.IsNullOrWhiteSpace(strValue))
                     {
                         valueToReturn = strValue;
                         targetType = Nullable.GetUnderlyingType(targetType);

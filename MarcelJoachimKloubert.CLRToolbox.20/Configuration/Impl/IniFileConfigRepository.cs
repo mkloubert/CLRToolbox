@@ -135,8 +135,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                                                    .Replace("\\#", "#")
                                                    .Replace("\\=", "=")
                                                    .Replace("\\:", ":")
-                                                   .Replace("\\\\", "\\")
-                                                   .Trim();
+                                                   .Replace("\\\\", "\\");
 
             return result != string.Empty ? result : null;
         }
@@ -364,8 +363,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                                                                        .Replace("#", "\\#")
                                                                        .Replace("=", "\\=")
                                                                        .Replace(":", "\\:")
-                                                                       .Replace("\t", "\\t")
-                                                                       .Trim();
+                                                                       .Replace("\t", "\\t");
         }
         // Private Methods (1) 
 

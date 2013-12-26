@@ -106,3 +106,7 @@
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.Chat/bin
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.FileBox/obj
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.FileBox/bin
+
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.TestHost/_rootDir/modules/docdb/config.ini
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.DataModels/App.Config
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.DocDB/App.Config

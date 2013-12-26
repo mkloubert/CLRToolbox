@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Principal;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -41,13 +42,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (5)
+        #region Properties (6)
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IHttpRequest.Address" />
         public abstract Uri Address
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.ContentType" />
+        public abstract string ContentType
         {
             get;
         }
@@ -90,15 +100,37 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Properties
 
-        #region Methods (1)
+        #region Methods (2)
 
-        // Public Methods (1) 
+        // Public Methods (2) 
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IHttpRequest.GetBody()" />
         public abstract Stream GetBody();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.GetBodyData()" />
+        public byte[] GetBodyData()
+        {
+            using (var stream = this.GetBody())
+            {
+                if (stream != null)
+                {
+                    using (var temp = new MemoryStream())
+                    {
+                        IOHelper.CopyTo(stream, temp);
+
+                        return temp.ToArray();
+                    }
+                }
+            }
+
+            return null;
+        }
 
         #endregion Methods
     }

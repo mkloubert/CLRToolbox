@@ -358,6 +358,17 @@
       <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
       <DependentUpon>MethodHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\NetHelper.cs">
+      <Link>Helpers\NetHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\NetHelper.SetBasicAuth.cs">
+      <Link>Helpers\NetHelper.SetBasicAuth.cs</Link>
+      <DependentUpon>NetHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\NetHelper.SetBasicAuth.SecureString.cs">
+      <Link>Helpers\NetHelper.SetBasicAuth.SecureString.cs</Link>
+      <DependentUpon>NetHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.cs">
       <Link>Helpers\ScriptHelper.cs</Link>
     </Compile>
@@ -400,6 +411,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.ToUnsecureString.cs">
+      <Link>Helpers\StringHelper.ToUnsecureString.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.UppercaseWords.cs">
       <Link>Helpers\StringHelper.UppercaseWords.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -421,6 +436,10 @@
       <Link>IO\ConsoleBase.Interface.cs</Link>
       <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ConsoleBase.ReadPassword.cs">
+      <Link>IO\ConsoleBase.ReadPassword.cs</Link>
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\GlobalConsole.cs">
       <Link>IO\GlobalConsole.cs</Link>
     </Compile>
@@ -431,11 +450,19 @@
       <Link>IO\IConsole.dotNET.cs</Link>
       <DependentUpon>IConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IConsole.ReadPassword.cs">
+      <Link>IO\IConsole.ReadPassword.cs</Link>
+      <DependentUpon>IConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.cs">
       <Link>IO\SystemConsole.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.dotNET.cs">
       <Link>IO\SystemConsole.dotNET.cs</Link>
+      <DependentUpon>SystemConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.ReadPassword.cs">
+      <Link>IO\SystemConsole.ReadPassword.cs</Link>
       <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IRunnable.cs">
@@ -797,6 +824,17 @@
       <Link>Extensions\LinqExpressions.GetMethodInfo.cs</Link>
       <DependentUpon>LinqExpressions.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.cs">
+      <Link>Extensions\Net.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.SetBasicAuth.cs">
+      <Link>Extensions\Net.SetBasicAuth.cs</Link>
+      <DependentUpon>Net.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.SetBasicAuth.SecureString.cs">
+      <Link>Extensions\Net.SetBasicAuth.SecureString.cs</Link>
+      <DependentUpon>Net.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.cs">
       <Link>Extensions\Scripting.cs</Link>
     </Compile>
@@ -842,6 +880,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.IsNullOrWhiteSpace.cs">
       <Link>Extensions\Strings.IsNullOrWhiteSpace.cs</Link>
       <DependentUpon>Strings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.ToUnsecureString.cs">
+      <Link>Extensions\Strings.ToUnsecureString.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.UppercaseWords.cs">
       <Link>Extensions\Strings.UppercaseWords.cs</Link>

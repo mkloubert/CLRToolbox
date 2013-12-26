@@ -44,11 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menus\IMenuHandler.cs" />
+    <Compile Include="Menus\Impl\Modules\ModuleMenu.cs" />
+    <Compile Include="Menus\MenuHandlerBase.cs" />
+    <Compile Include="Menus\Impl\RootMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="_rootDir\modules\docdb\config.sample.ini" />
+    <None Include="_rootDir\modules\docdb\config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
@@ -180,7 +188,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "E:\Dev\appsrv\modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "E:\Dev\appsrv\services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "E:\Dev\appsrv\web" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Funcs.*" "E:\Dev\appsrv\funcs" &amp;&amp; XCOPY /Y "$(TargetDir)config.ini" "E:\Dev\appsrv"</PostBuildEvent>
+    <PostBuildEvent>XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Modules.*" "E:\Dev\appsrv\modules" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Services.*" "E:\Dev\appsrv\services" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Web.*" "E:\Dev\appsrv\web" &amp;&amp; XCOPY /Y "$(TargetDir)MarcelJoachimKloubert.AppServer.Funcs.*" "E:\Dev\appsrv\funcs" &amp;&amp; XCOPY /Y "$(TargetDir)config.ini" "E:\Dev\appsrv" &amp;&amp; XCOPY /E /S /Y "$(TargetDir)_rootDir\modules\*" "E:\Dev\appsrv\modules"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

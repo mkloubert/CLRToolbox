@@ -11,11 +11,14 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp.Security
 {
     internal sealed class DelegateUserNamePasswordValidator : UserNamePasswordValidator
     {
+
+
         #region Fields (1)
 
         private readonly UsernamePasswordValidator _DELEGATE;
 
         #endregion Fields
+
 
         #region Constructors (1)
 
@@ -25,6 +28,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp.Security
         }
 
         #endregion Constructors
+
 
         #region Methods (1)
 

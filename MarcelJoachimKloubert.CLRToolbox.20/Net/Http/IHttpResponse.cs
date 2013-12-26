@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpResponse : ITMObject
     {
-        #region Data Members (9)
+        #region Data Members (10)
 
         /// <summary>
         /// Gets or sets the charset.
@@ -61,6 +61,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// Is <see cref="HttpStatusCode.OK" /> by default.
         /// </summary>
         HttpStatusCode StatusCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status description.
+        /// </summary>
+        string StatusDescription { get; set; }
 
         /// <summary>
         /// Gets the stream for the response data.

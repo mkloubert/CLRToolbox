@@ -183,6 +183,20 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                 }
 
                 response.StatusCode = respCtx.StatusCode;
+                if (responseData.Length == 0)
+                {
+                    switch (response.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                            response.StatusCode = HttpStatusCode.NoContent;
+                            break;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(respCtx.StatusDescription))
+                {
+                    response.StatusDescription = respCtx.StatusDescription.Trim();
+                }
 
                 // create WCF answer
                 var responseMsg = new BinaryMessage(responseData);

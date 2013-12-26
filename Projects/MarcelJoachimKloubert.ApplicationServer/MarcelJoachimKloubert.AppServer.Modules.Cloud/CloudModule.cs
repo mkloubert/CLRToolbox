@@ -39,7 +39,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Cloud
         /// <see cref="AppServerModuleBase.Name" />.
         public override string Name
         {
-            get { return "cloud_module"; }
+            get { return "cloud"; }
         }
 
         #endregion Properties

@@ -77,6 +77,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         public IniFileConfigRepository(IEnumerable<char> filePath)
             : this(filePath, true)
         {
+
         }
 
         /// <summary>

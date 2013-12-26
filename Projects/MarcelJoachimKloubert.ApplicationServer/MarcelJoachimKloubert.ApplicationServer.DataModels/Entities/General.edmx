@@ -9,6 +9,7 @@
           <EntitySet Name="AccessControlLists" EntityType="Server.Store.AccessControlLists" store:Type="Tables" Schema="Security" />
           <EntitySet Name="AclResources" EntityType="Server.Store.AclResources" store:Type="Tables" Schema="Security" />
           <EntitySet Name="AclRoles" EntityType="Server.Store.AclRoles" store:Type="Tables" Schema="Security" />
+          <EntitySet Name="TrustedAssemblies" EntityType="Server.Store.TrustedAssemblies" store:Type="Tables" Schema="Security" />
           <EntitySet Name="Users" EntityType="Server.Store.Users" store:Type="Tables" Schema="Security" />
           <EntitySet Name="Users_AccessControlLists" EntityType="Server.Store.Users_AccessControlLists" store:Type="Tables" store:Schema="Security" store:Name="Users_AccessControlLists">
             <DefiningQuery>SELECT 
@@ -38,7 +39,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Users_AccessControlLists" EntitySet="Users_AccessControlLists" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Persons1" Association="Server.Store.FK_Users_Persons1">
+          <AssociationSet Name="FK_Users_Persons" Association="Server.Store.FK_Users_Persons">
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
@@ -67,6 +68,14 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="TrustedAssemblies">
+          <Key>
+            <PropertyRef Name="TrustedAssemblyKey" />
+          </Key>
+          <Property Name="TrustedAssemblyKey" Type="varbinary" Nullable="false" MaxLength="160" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
@@ -74,6 +83,7 @@
           <Property Name="UserID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PersonID" Type="bigint" Nullable="false" />
           <Property Name="Password" Type="varbinary(max)" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Während der Generierung sind Fehler aufgetreten:
       Warnung 6002: Für Tabelle/Sicht 'ApplicationServer.Security.Users_AccessControlLists' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
@@ -93,6 +103,7 @@
           <Property Name="PersonID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PersonExportID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonTypeID" Type="smallint" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PersonTypes">
           <Key>
@@ -170,7 +181,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Persons1">
+        <Association Name="FK_Users_Persons">
           <End Role="Persons" Type="Server.Store.Persons" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -189,20 +200,13 @@
     <edmx:ConceptualModels>
       <Schema Namespace="AppServer" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="Persons" EntityType="AppServer.Persons" />
-          <EntitySet Name="PersonTypes" EntityType="AppServer.PersonTypes" />
-          <AssociationSet Name="FK_Persons_PersonTypes" Association="AppServer.FK_Persons_PersonTypes">
-            <End Role="PersonTypes" EntitySet="PersonTypes" />
-            <End Role="Persons" EntitySet="Persons" />
-          </AssociationSet>
-          <EntitySet Name="Users" EntityType="AppServer.Users" />
-          <AssociationSet Name="FK_Users_Persons" Association="AppServer.FK_Users_Persons">
-            <End Role="Persons" EntitySet="Persons" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
           <EntitySet Name="AccessControlLists" EntityType="AppServer.AccessControlLists" />
           <EntitySet Name="AclResources" EntityType="AppServer.AclResources" />
           <EntitySet Name="AclRoles" EntityType="AppServer.AclRoles" />
+          <EntitySet Name="TrustedAssemblies" EntityType="AppServer.TrustedAssemblies" />
+          <EntitySet Name="Users" EntityType="AppServer.Users" />
+          <EntitySet Name="Persons" EntityType="AppServer.Persons" />
+          <EntitySet Name="PersonTypes" EntityType="AppServer.PersonTypes" />
           <AssociationSet Name="FK_AclRoles_AccessControlLists" Association="AppServer.FK_AclRoles_AccessControlLists">
             <End Role="AccessControlLists" EntitySet="AccessControlLists" />
             <End Role="AclRoles" EntitySet="AclRoles" />
@@ -211,72 +215,19 @@
             <End Role="AclRoles" EntitySet="AclRoles" />
             <End Role="AclResources" EntitySet="AclResources" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Persons1" Association="AppServer.FK_Users_Persons1">
+          <AssociationSet Name="FK_Users_Persons" Association="AppServer.FK_Users_Persons">
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persons_PersonTypes" Association="AppServer.FK_Persons_PersonTypes">
+            <End Role="PersonTypes" EntitySet="PersonTypes" />
+            <End Role="Persons" EntitySet="Persons" />
           </AssociationSet>
           <AssociationSet Name="Users_AccessControlLists" Association="AppServer.Users_AccessControlLists">
             <End Role="AccessControlLists" EntitySet="AccessControlLists" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Persons">
-          <Key>
-            <PropertyRef Name="PersonID" />
-          </Key>
-          <Property Type="Int64" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Guid" Name="PersonExportID" Nullable="false" />
-          <Property Type="Int16" Name="PersonTypeID" />
-          <NavigationProperty Name="PersonTypes" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="Persons" ToRole="PersonTypes" />
-          <NavigationProperty Name="Users" Relationship="AppServer.FK_Users_Persons" FromRole="Persons" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="AppServer.FK_Users_Persons1" FromRole="Persons" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="PersonTypes">
-          <Key>
-            <PropertyRef Name="PersonTypeID" />
-          </Key>
-          <Property Type="Int16" Name="PersonTypeID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Persons" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="PersonTypes" ToRole="Persons" />
-        </EntityType>
-        <Association Name="FK_Persons_PersonTypes">
-          <End Type="AppServer.PersonTypes" Role="PersonTypes" Multiplicity="0..1" />
-          <End Type="AppServer.Persons" Role="Persons" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonTypes">
-              <PropertyRef Name="PersonTypeID" />
-            </Principal>
-            <Dependent Role="Persons">
-              <PropertyRef Name="PersonTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Type="Int64" Name="UserID" Nullable="false" />
-          <Property Type="Binary" Name="Password" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Persons" Relationship="AppServer.FK_Users_Persons" FromRole="Users" ToRole="Persons" />
-          <Property Type="Int64" Name="PersonID" Nullable="false" />
-          <NavigationProperty Name="Persons1" Relationship="AppServer.FK_Users_Persons1" FromRole="Users" ToRole="Persons" />
-          <NavigationProperty Name="AccessControlLists" Relationship="AppServer.Users_AccessControlLists" FromRole="Users" ToRole="AccessControlLists" />
-        </EntityType>
-        <Association Name="FK_Users_Persons">
-          <End Type="AppServer.Persons" Role="Persons" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="AppServer.Users" Role="Users" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Persons">
-              <PropertyRef Name="PersonID" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AccessControlLists">
           <Key>
             <PropertyRef Name="AccessControlListID" />
@@ -306,6 +257,45 @@
           <NavigationProperty Name="AccessControlLists" Relationship="AppServer.FK_AclRoles_AccessControlLists" FromRole="AclRoles" ToRole="AccessControlLists" />
           <NavigationProperty Name="AclResources" Relationship="AppServer.FK_AclResources_AclRoles" FromRole="AclRoles" ToRole="AclResources" />
         </EntityType>
+        <EntityType Name="TrustedAssemblies">
+          <Key>
+            <PropertyRef Name="TrustedAssemblyKey" />
+          </Key>
+          <Property Type="Binary" Name="TrustedAssemblyKey" Nullable="false" MaxLength="160" FixedLength="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int64" Name="UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="PersonID" Nullable="false" />
+          <Property Type="Binary" Name="Password" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Persons" Relationship="AppServer.FK_Users_Persons" FromRole="Users" ToRole="Persons" />
+          <NavigationProperty Name="AccessControlLists" Relationship="AppServer.Users_AccessControlLists" FromRole="Users" ToRole="AccessControlLists" />
+          <Property Type="Boolean" Name="IsActive" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Type="Int64" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="PersonExportID" Nullable="false" />
+          <Property Type="Int16" Name="PersonTypeID" />
+          <NavigationProperty Name="Users" Relationship="AppServer.FK_Users_Persons" FromRole="Persons" ToRole="Users" />
+          <NavigationProperty Name="PersonTypes" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="Persons" ToRole="PersonTypes" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PersonTypes">
+          <Key>
+            <PropertyRef Name="PersonTypeID" />
+          </Key>
+          <Property Type="Int16" Name="PersonTypeID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persons" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="PersonTypes" ToRole="Persons" />
+        </EntityType>
         <Association Name="FK_AclRoles_AccessControlLists">
           <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -334,7 +324,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Persons1">
+        <Association Name="FK_Users_Persons">
           <End Type="AppServer.Persons" Role="Persons" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -348,43 +338,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Persons_PersonTypes">
+          <End Type="AppServer.PersonTypes" Role="PersonTypes" Multiplicity="0..1" />
+          <End Type="AppServer.Persons" Role="Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTypes">
+              <PropertyRef Name="PersonTypeID" />
+            </Principal>
+            <Dependent Role="Persons">
+              <PropertyRef Name="PersonTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Users_AccessControlLists">
           <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="*" />
           <End Type="AppServer.Users" Role="Users" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ServerStoreContainer" CdmEntityContainer="Entities" >
-          <EntitySetMapping Name="Persons">
-            <EntityTypeMapping TypeName="AppServer.Persons">
-              <MappingFragment StoreEntitySet="Persons">
-                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
-                <ScalarProperty Name="PersonExportID" ColumnName="PersonExportID" />
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PersonTypes">
-            <EntityTypeMapping TypeName="AppServer.PersonTypes">
-              <MappingFragment StoreEntitySet="PersonTypes">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="AppServer.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AccessControlLists">
             <EntityTypeMapping TypeName="AppServer.AccessControlLists">
               <MappingFragment StoreEntitySet="AccessControlLists">
@@ -409,6 +384,44 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
                 <ScalarProperty Name="AclRoleID" ColumnName="AclRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrustedAssemblies">
+            <EntityTypeMapping TypeName="AppServer.TrustedAssemblies">
+              <MappingFragment StoreEntitySet="TrustedAssemblies">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TrustedAssemblyKey" ColumnName="TrustedAssemblyKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AppServer.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="AppServer.Persons">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
+                <ScalarProperty Name="PersonExportID" ColumnName="PersonExportID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonTypes">
+            <EntityTypeMapping TypeName="AppServer.PersonTypes">
+              <MappingFragment StoreEntitySet="PersonTypes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

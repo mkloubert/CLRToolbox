@@ -39,7 +39,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.FileBox
         /// <see cref="AppServerModuleBase.Name" />.
         public override string Name
         {
-            get { return "docdb_module"; }
+            get { return "filebox"; }
         }
 
         #endregion Properties
@@ -54,7 +54,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.FileBox
         /// <see cref="AppServerModuleBase.OnGetDisplayName(CultureInfo)" />
         protected override IEnumerable<char> OnGetDisplayName(CultureInfo culture)
         {
-            return "Document Database";
+            return "FileBox module";
         }
 
         /// <summary>

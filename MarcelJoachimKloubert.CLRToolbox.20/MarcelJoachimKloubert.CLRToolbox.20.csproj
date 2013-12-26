@@ -182,21 +182,34 @@
     <Compile Include="Helpers\IOHelper.WriteGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NetHelper.SetBasicAuth.SecureString.cs">
+      <DependentUpon>NetHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\NetHelper.SetBasicAuth.cs">
+      <DependentUpon>NetHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\StringHelper.AsHexString.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.AsStringExtension.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.ToUnsecureString.cs">
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\StringHelper.UppercaseWords.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NetHelper.cs" />
     <Compile Include="IHasName.cs" />
     <Compile Include="IO\ConsoleBase.cs" />
     <Compile Include="IO\ConsoleBase.dotNET.cs">
       <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
     <Compile Include="IO\ConsoleBase.Interface.cs">
+      <DependentUpon>ConsoleBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\ConsoleBase.ReadPassword.cs">
       <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
     <Compile Include="IO\GlobalConsole.cs" />
@@ -289,8 +302,14 @@
     <Compile Include="IO\IConsole.dotNET.cs">
       <DependentUpon>IConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\IConsole.ReadPassword.cs">
+      <DependentUpon>IConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\SystemConsole.cs" />
     <Compile Include="IO\SystemConsole.dotNET.cs">
+      <DependentUpon>SystemConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\SystemConsole.ReadPassword.cs">
       <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="IRunnable.cs" />

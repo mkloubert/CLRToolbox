@@ -188,7 +188,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (15)
+        #region Methods (16)
 
         // Public Methods (2) 
 
@@ -289,11 +289,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
             var trustedAssemblyKeys = this.LoadTrustedAssemblyKeyList();
 
-            //TODO: load dynamically
-            this.EntityAssemblies = new SynchronizedCollection<Assembly>()
-                {
-                    typeof(global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity).Assembly,
-                };
+            this.EntityAssemblies = new SynchronizedCollection<Assembly>();
+            this.RefreshEntityAssemblyList();
 
             // service locator
             CompositionContainer compContainer;
@@ -391,85 +388,6 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     break;
             }
 
-            this.TrustedCompositionCatalog.Clear();
-
-            // assemblies with services
-            {
-                var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services")).CreateDirectoryDeep();
-
-                this.LoadAndAddTrustedAssemblies(serviceDir.GetFiles("*.dll"),
-                                                 LOG_TAG_PREFIX);
-            }
-
-            // assemblies with functions
-            {
-                var funcDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "funcs")).CreateDirectoryDeep();
-
-                this.LoadAndAddTrustedAssemblies(funcDir.GetFiles("*.dll"),
-                                                 LOG_TAG_PREFIX);
-            }
-
-            // web interface
-            {
-                IList<Assembly> webInterfaceAssemblies = new SynchronizedCollection<Assembly>();
-
-                var webDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "web")).CreateDirectoryDeep();
-                this.LoadAndAddTrustedAssemblies(webDir.GetFiles("*.dll"),
-                                                 LOG_TAG_PREFIX);
-
-                try
-                {
-                    this.DisposeOldWebInterfaceServer();
-
-                    //TODO read from configuration
-                    var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
-                    {
-                        bool? useHttps;
-                        this.StartupConfig
-                            .TryGetValue<bool?>(category: CONFIG_CATEGORY_WEBINTERFACE,
-                                                name: CONFIG_VALUE_USE_HTTPS,
-                                                value: out useHttps,
-                                                defaultVal: DEFAULT_CONFIG_VALUE_USE_HTTPS);
-
-                        newWebInterfaceServer.UseSecureHttp = useHttps ?? DEFAULT_CONFIG_VALUE_USE_HTTPS;
-                        if (newWebInterfaceServer.UseSecureHttp)
-                        {
-                            // TCP port
-                            {
-                                int? port;
-                                this.StartupConfig
-                                    .TryGetValue<int?>(category: CONFIG_CATEGORY_WEBINTERFACE,
-                                                       name: CONFIG_VALUE_PORT,
-                                                       value: out port,
-                                                       defaultVal: DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT);
-
-                                newWebInterfaceServer.Port = port ?? DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT;
-                            }
-
-                            // SSL thumbprint
-                            {
-                                newWebInterfaceServer.SetSslCertificateByThumbprint(this.StartupConfig
-                                                                                        .GetValue<IEnumerable<char>>(category: CONFIG_CATEGORY_WEBINTERFACE,
-                                                                                                                     name: CONFIG_VALUE_SSL_THUMBPRINT));
-                            }
-                        }
-                    }
-
-                    this._webHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
-
-                    newWebInterfaceServer.Start();
-                }
-                catch (Exception e)
-                {
-                    this.Logger
-                        .Log(msg: e.GetBaseException() ?? e,
-                             tag: LOG_TAG_PREFIX + "WebInterface",
-                             categories: LoggerFacadeCategories.Errors);
-
-                    this.DisposeOldWebInterfaceServer();
-                }
-            }
-
             // var db = ServiceLocator.Current.GetInstance<MarcelJoachimKloubert.ApplicationServer.DataLayer.IAppServerDatabase>();
             // var test = db.Query<MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.PersonTypes>();
         }
@@ -506,7 +424,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                          categories: LoggerFacadeCategories.Errors);
             }
         }
-        // Private Methods (10) 
+        // Private Methods (11) 
 
         private static Func<IAppServerModule, bool> CreateWherePredicateForExtractingOtherModules(IAppServerModule module)
         {
@@ -668,11 +586,113 @@ namespace MarcelJoachimKloubert.ApplicationServer
             return result;
         }
 
+        private void RefreshEntityAssemblyList()
+        {
+            this.EntityAssemblies
+                .Clear();
+
+            this.EntityAssemblies
+                .Add(typeof(global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity).Assembly);
+
+            foreach (var asm in (this.Modules ?? Enumerable.Empty<IAppServerModule>()).Select(m => m.GetType().Assembly)
+                                                                                      .Distinct())
+            {
+                if (!this.EntityAssemblies.Contains(asm))
+                {
+                    this.EntityAssemblies
+                        .Add(asm);
+                }
+            }
+        }
+
         private void StartServer()
         {
             const string LOG_TAG_PREFIX = "ApplicationServer::StartServer::";
 
             AggregateException ex = null;
+
+            this.TrustedCompositionCatalog.Clear();
+
+            // assemblies with services
+            {
+                var serviceDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "services")).CreateDirectoryDeep();
+
+                this.LoadAndAddTrustedAssemblies(serviceDir.GetFiles("*.dll"),
+                                                 LOG_TAG_PREFIX);
+            }
+
+            // assemblies with functions
+            {
+                var funcDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "funcs")).CreateDirectoryDeep();
+
+                this.LoadAndAddTrustedAssemblies(funcDir.GetFiles("*.dll"),
+                                                 LOG_TAG_PREFIX);
+            }
+
+            // web interface
+            {
+                IList<Assembly> webInterfaceAssemblies = new SynchronizedCollection<Assembly>();
+
+                var webDir = new DirectoryInfo(Path.Combine(this.WorkingDirectory, "web")).CreateDirectoryDeep();
+                this.LoadAndAddTrustedAssemblies(webDir.GetFiles("*.dll"),
+                                                 LOG_TAG_PREFIX);
+
+                try
+                {
+                    this.DisposeOldWebInterfaceServer();
+
+                    //TODO read from configuration
+                    var newWebInterfaceServer = ServiceLocator.Current.GetInstance<IHttpServer>();
+                    {
+                        // HTTPs ?
+                        {
+                            bool? useHttps;
+                            this.StartupConfig
+                                .TryGetValue<bool?>(category: CONFIG_CATEGORY_WEBINTERFACE,
+                                                    name: CONFIG_VALUE_USE_HTTPS,
+                                                    value: out useHttps,
+                                                    defaultVal: DEFAULT_CONFIG_VALUE_USE_HTTPS);
+
+                            newWebInterfaceServer.UseSecureHttp = useHttps ?? DEFAULT_CONFIG_VALUE_USE_HTTPS;
+                        }
+
+                        // TCP port
+                        {
+                            int? port;
+                            this.StartupConfig
+                                .TryGetValue<int?>(category: CONFIG_CATEGORY_WEBINTERFACE,
+                                                   name: CONFIG_VALUE_PORT,
+                                                   value: out port,
+                                                   defaultVal: DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT);
+
+                            newWebInterfaceServer.Port = port ?? DEFAULT_CONFIG_VALUE_WEBINTERFACE_PORT;
+                        }
+
+                        if (newWebInterfaceServer.UseSecureHttp)
+                        {
+                            // SSL thumbprint
+                            {
+                                newWebInterfaceServer.SetSslCertificateByThumbprint(this.StartupConfig
+                                                                                        .GetValue<IEnumerable<char>>(category: CONFIG_CATEGORY_WEBINTERFACE,
+                                                                                                                     name: CONFIG_VALUE_SSL_THUMBPRINT));
+                            }
+                        }
+                    }
+
+                    this._webHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
+
+                    newWebInterfaceServer.Start();
+                }
+                catch (Exception e)
+                {
+                    this.Logger
+                        .Log(msg: e.GetBaseException() ?? e,
+                             tag: LOG_TAG_PREFIX + "WebInterface",
+                             categories: LoggerFacadeCategories.Errors);
+
+                    this.DisposeOldWebInterfaceServer();
+                }
+            }
 
             var moduleList = this.Modules;
             if (moduleList != null)
@@ -841,6 +861,8 @@ namespace MarcelJoachimKloubert.ApplicationServer
                          tag: LOG_TAG_PREFIX + "LoadModules",
                          categories: LoggerFacadeCategories.Warnings);
             }
+
+            this.RefreshEntityAssemblyList();
 
             ex = newModules.Where(m => m.CanStart &&
                                        m.IsInitialized)

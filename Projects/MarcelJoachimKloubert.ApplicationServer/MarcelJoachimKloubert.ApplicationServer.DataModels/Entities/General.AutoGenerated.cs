@@ -78,7 +78,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IAccessControlLists : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
-                #region Scalar fields (1)
+                #region Columns (1)
                 /// <summary>
                 /// Gets or sets the scalar field 'AccessControlListID'.
                 /// </summary>
@@ -108,7 +108,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
     
-                #region Scalar fields (1)
+                #region Columns (1)
     
                 private global::System.Int64 _sf_AccessControlListID;
     
@@ -133,9 +133,19 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 }
     
                 #endregion
+     
+                #region Navigation properties (1)
     
+                /// <summary>
+                /// Gets or sets the list of linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AclRoles" /> items.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::System.Collections.Generic.IList<global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AclRoles> AclRoles { get; set; }
+    
+                #endregion
+     
                 #region Methods (9)
-                
+    
                 /// <summary>
                 /// Builds a new <see cref="AccessControlLists" /> object from a data record.
                 /// </summary>
@@ -330,7 +340,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IAclResources : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
-                #region Scalar fields (4)
+                #region Columns (4)
                 /// <summary>
                 /// Gets or sets the scalar field 'AclResourceID'.
                 /// </summary>
@@ -375,7 +385,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
     
-                #region Scalar fields (4)
+                #region Columns (4)
     
                 private global::System.Int64 _sf_AclResourceID;
     
@@ -466,9 +476,19 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 }
     
                 #endregion
+     
+                #region Navigation properties (1)
     
+                /// <summary>
+                /// Gets or sets the linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AclRoles" /> item.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AclRoles AclRoles { get; set; }
+    
+                #endregion
+     
                 #region Methods (9)
-                
+    
                 /// <summary>
                 /// Builds a new <see cref="AclResources" /> object from a data record.
                 /// </summary>
@@ -669,7 +689,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IAclRoles : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
-                #region Scalar fields (4)
+                #region Columns (4)
                 /// <summary>
                 /// Gets or sets the scalar field 'AccessControlListID'.
                 /// </summary>
@@ -714,7 +734,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
     
-                #region Scalar fields (4)
+                #region Columns (4)
     
                 private global::System.Int64 _sf_AccessControlListID;
     
@@ -805,9 +825,24 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 }
     
                 #endregion
+     
+                #region Navigation properties (2)
     
+                /// <summary>
+                /// Gets or sets the linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AccessControlLists" /> item.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AccessControlLists AccessControlLists { get; set; }
+                /// <summary>
+                /// Gets or sets the list of linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AclResources" /> items.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::System.Collections.Generic.IList<global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.AclResources> AclResources { get; set; }
+    
+                #endregion
+     
                 #region Methods (9)
-                
+    
                 /// <summary>
                 /// Builds a new <see cref="AclRoles" /> object from a data record.
                 /// </summary>
@@ -1001,6 +1036,316 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             
             #endregion
      
+            #region ENTITY: TrustedAssemblies
+    
+            /// <summary>
+            /// Describes an 'TrustedAssemblies' entity.
+            /// </summary>
+            public partial interface ITrustedAssemblies : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
+            {
+                #region Columns (3)
+                /// <summary>
+                /// Gets or sets the scalar field 'Description'.
+                /// </summary>
+                global::System.String Description { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'Name'.
+                /// </summary>
+                global::System.String Name { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'TrustedAssemblyKey'.
+                /// </summary>
+                global::System.Byte[] TrustedAssemblyKey { get; set; }
+     
+    
+                #endregion
+            }
+            
+            /// <summary>
+            /// An 'TrustedAssemblies' entity.
+            /// </summary>
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "TrustedAssemblies", Schema = "Security")]
+            [global::System.Runtime.Serialization.DataContract(IsReference = true)]
+            [global::System.Serializable]
+            public partial class TrustedAssemblies : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.SecurityEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ITrustedAssemblies
+            {
+                #region Constructors (1)
+                
+                /// <summary>
+                /// Initializes a new instance of <see cref="TrustedAssemblies" /> class.
+                /// </summary>
+                public TrustedAssemblies()
+                {
+                    
+                }
+    
+                #endregion
+    
+                #region Columns (3)
+    
+                private global::System.String _sf_Description;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ITrustedAssemblies.Description" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Description")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Description")]
+                public global::System.String Description
+                {
+                    get { return this._sf_Description; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_Description, value))
+                        {
+                            this.OnPropertyChanging("Description");
+                            this._sf_Description = value;
+                            this.OnPropertyChanged("Description");
+                        }
+                    }
+                }
+    
+                private global::System.String _sf_Name;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ITrustedAssemblies.Name" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = false, Name = "Name")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Name")]
+                public global::System.String Name
+                {
+                    get { return this._sf_Name; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_Name, value))
+                        {
+                            this.OnPropertyChanging("Name");
+                            this._sf_Name = value;
+                            this.OnPropertyChanged("Name");
+                        }
+                    }
+                }
+    
+                private global::System.Byte[] _sf_TrustedAssemblyKey;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ITrustedAssemblies.TrustedAssemblyKey" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Byte[]), IsKey = true, IsNullable = false, Name = "TrustedAssemblyKey")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "TrustedAssemblyKey")]
+                public global::System.Byte[] TrustedAssemblyKey
+                {
+                    get { return this._sf_TrustedAssemblyKey; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_TrustedAssemblyKey, value))
+                        {
+                            this.OnPropertyChanging("TrustedAssemblyKey");
+                            this._sf_TrustedAssemblyKey = value;
+                            this.OnPropertyChanged("TrustedAssemblyKey");
+                        }
+                    }
+                }
+    
+                #endregion
+     
+                #region Methods (9)
+    
+                /// <summary>
+                /// Builds a new <see cref="TrustedAssemblies" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static TrustedAssemblies Build<TRec>(TRec rec, global::System.Action<TrustedAssemblies, TRec> setup = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new TrustedAssemblies();
+                    result.LoadFrom<TRec>(rec: rec, setup: setup);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a new <see cref="TrustedAssemblies" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static TrustedAssemblies Build<TRec, S>(TRec rec, global::System.Action<TrustedAssemblies, TRec, S> setup = null, S setupState = default(S)) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new TrustedAssemblies();
+                    result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a new <see cref="TrustedAssemblies" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static TrustedAssemblies Build<TRec, S>(TRec rec, global::System.Action<TrustedAssemblies, TRec, S> setup = null, global::System.Func<TrustedAssemblies, TRec, S> setupStateFactory = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new TrustedAssemblies();
+                    result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="TrustedAssemblies" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<TrustedAssemblies> BuildAll<TReader>(TReader reader, global::System.Action<TrustedAssemblies, TReader> setup = null) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader>(rec: reader, setup: setup);
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="TrustedAssemblies" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<TrustedAssemblies> BuildAll<TReader, S>(TReader reader, global::System.Action<TrustedAssemblies, TReader, S> setup = null, S setupState = default(S)) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="TrustedAssemblies" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<TrustedAssemblies> BuildAll<TReader, S>(TReader reader, global::System.Action<TrustedAssemblies, TReader, S> setup = null, global::System.Func<TrustedAssemblies, TReader, S> setupStateFactory = null) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec>(TRec rec, global::System.Action<TrustedAssemblies, TRec> setup = null) where TRec : global::System.Data.IDataRecord
+                {
+                    this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<TrustedAssemblies, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec, S>(TRec rec, global::System.Action<TrustedAssemblies, TRec, S> setup = null, S setupState = default(S)) where TRec : global::System.Data.IDataRecord
+                {
+                    this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec, S>(TRec rec, global::System.Action<TrustedAssemblies, TRec, S> setup = null, global::System.Func<TrustedAssemblies, TRec, S> setupStateFactory = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+     
+                    var oDescription = rec.GetOrdinal("Description");
+                    var oName = rec.GetOrdinal("Name");
+                    var oTrustedAssemblyKey = rec.GetOrdinal("TrustedAssemblyKey");
+     
+                    this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
+                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.TrustedAssemblyKey = (global::System.Byte[])(!rec.IsDBNull(oTrustedAssemblyKey) ? rec.GetValue(oTrustedAssemblyKey) : null);
+     
+                    if (setup != null)
+                        setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
+                }
+    
+                #endregion
+            }
+            
+            #endregion
+     
             #region ENTITY: Users
     
             /// <summary>
@@ -1008,7 +1353,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.ISecurityEntity
             {
-                #region Scalar fields (3)
+                #region Columns (4)
+                /// <summary>
+                /// Gets or sets the scalar field 'IsActive'.
+                /// </summary>
+                global::System.Boolean IsActive { get; set; }
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'Password'.
                 /// </summary>
@@ -1048,7 +1398,29 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
     
-                #region Scalar fields (3)
+                #region Columns (4)
+    
+                private global::System.Boolean _sf_IsActive;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.IUsers.IsActive" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.Boolean), IsKey = false, IsNullable = true, Name = "IsActive")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "IsActive")]
+                public global::System.Boolean IsActive
+                {
+                    get { return this._sf_IsActive; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_IsActive, value))
+                        {
+                            this.OnPropertyChanging("IsActive");
+                            this._sf_IsActive = value;
+                            this.OnPropertyChanged("IsActive");
+                        }
+                    }
+                }
     
                 private global::System.Byte[] _sf_Password;
     
@@ -1117,9 +1489,19 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 }
     
                 #endregion
+     
+                #region Navigation properties (1)
     
+                /// <summary>
+                /// Gets or sets the linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.Persons" /> item.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.Persons Persons { get; set; }
+    
+                #endregion
+     
                 #region Methods (9)
-                
+    
                 /// <summary>
                 /// Builds a new <see cref="Users" /> object from a data record.
                 /// </summary>
@@ -1294,10 +1676,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
      
+                    var oIsActive = rec.GetOrdinal("IsActive");
                     var oPassword = rec.GetOrdinal("Password");
                     var oPersonID = rec.GetOrdinal("PersonID");
                     var oUserID = rec.GetOrdinal("UserID");
      
+                    this.IsActive = (global::System.Boolean)(!rec.IsDBNull(oIsActive) ? rec.GetValue(oIsActive) : null);
                     this.Password = (global::System.Byte[])(!rec.IsDBNull(oPassword) ? rec.GetValue(oPassword) : null);
                     this.PersonID = (global::System.Int64)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
                     this.UserID = (global::System.Int64)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
@@ -1352,7 +1736,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IPersons : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IStructureEntity
             {
-                #region Scalar fields (3)
+                #region Columns (4)
+                /// <summary>
+                /// Gets or sets the scalar field 'Notes'.
+                /// </summary>
+                global::System.String Notes { get; set; }
+     
                 /// <summary>
                 /// Gets or sets the scalar field 'PersonExportID'.
                 /// </summary>
@@ -1392,7 +1781,29 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
     
-                #region Scalar fields (3)
+                #region Columns (4)
+    
+                private global::System.String _sf_Notes;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.IPersons.Notes" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::System.String), IsKey = false, IsNullable = true, Name = "Notes")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Notes")]
+                public global::System.String Notes
+                {
+                    get { return this._sf_Notes; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_Notes, value))
+                        {
+                            this.OnPropertyChanging("Notes");
+                            this._sf_Notes = value;
+                            this.OnPropertyChanged("Notes");
+                        }
+                    }
+                }
     
                 private global::System.Guid _sf_PersonExportID;
     
@@ -1461,9 +1872,24 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 }
     
                 #endregion
+     
+                #region Navigation properties (2)
     
+                /// <summary>
+                /// Gets or sets the linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.PersonTypes" /> item.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.PersonTypes PersonTypes { get; set; }
+                /// <summary>
+                /// Gets or sets the list of linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.Users" /> items.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::System.Collections.Generic.IList<global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.Users> Users { get; set; }
+    
+                #endregion
+     
                 #region Methods (9)
-                
+    
                 /// <summary>
                 /// Builds a new <see cref="Persons" /> object from a data record.
                 /// </summary>
@@ -1638,10 +2064,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     if (rec == null)
                         throw new global::System.ArgumentNullException("rec");
      
+                    var oNotes = rec.GetOrdinal("Notes");
                     var oPersonExportID = rec.GetOrdinal("PersonExportID");
                     var oPersonID = rec.GetOrdinal("PersonID");
                     var oPersonTypeID = rec.GetOrdinal("PersonTypeID");
      
+                    this.Notes = (global::System.String)(!rec.IsDBNull(oNotes) ? rec.GetValue(oNotes) : null);
                     this.PersonExportID = (global::System.Guid)(!rec.IsDBNull(oPersonExportID) ? rec.GetValue(oPersonExportID) : null);
                     this.PersonID = (global::System.Int64)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
                     this.PersonTypeID = (global::System.Int16)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
@@ -1696,7 +2124,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
             /// </summary>
             public partial interface IPersonTypes : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.ITypesEntity
             {
-                #region Scalar fields (3)
+                #region Columns (3)
                 /// <summary>
                 /// Gets or sets the scalar field 'Description'.
                 /// </summary>
@@ -1736,7 +2164,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
     
-                #region Scalar fields (3)
+                #region Columns (3)
     
                 private global::System.String _sf_Description;
     
@@ -1805,9 +2233,19 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                 }
     
                 #endregion
+     
+                #region Navigation properties (1)
     
+                /// <summary>
+                /// Gets or sets the list of linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.Persons" /> items.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::System.Collections.Generic.IList<global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.Persons> Persons { get; set; }
+    
+                #endregion
+     
                 #region Methods (9)
-                
+    
                 /// <summary>
                 /// Builds a new <see cref="PersonTypes" /> object from a data record.
                 /// </summary>

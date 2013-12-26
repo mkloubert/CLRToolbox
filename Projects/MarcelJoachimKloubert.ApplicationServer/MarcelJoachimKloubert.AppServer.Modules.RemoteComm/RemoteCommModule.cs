@@ -39,7 +39,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
         /// <see cref="AppServerModuleBase.Name" />.
         public override string Name
         {
-            get { return "remote_server_communicator"; }
+            get { return "remote_comm"; }
         }
 
         #endregion Properties

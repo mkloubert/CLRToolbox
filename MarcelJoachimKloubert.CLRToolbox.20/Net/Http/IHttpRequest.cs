@@ -15,12 +15,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpRequest : ITMObject
     {
-        #region Data Members (5)
+        #region Data Members (6)
 
         /// <summary>
         /// Gets the request address.
         /// </summary>
         Uri Address { get; }
+
+        /// <summary>
+        /// Gets the MIME type (lower case) of the data of the request body.
+        /// </summary>
+        string ContentType { get; }
 
         /// <summary>
         /// Gets the list of request headers.
@@ -44,13 +49,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Data Members
 
-        #region Operations (1)
+        #region Operations (2)
 
         /// <summary>
         /// Returns a new stream with the body data.
         /// </summary>
         /// <returns>The stream with the body data.</returns>
         Stream GetBody();
+
+        /// <summary>
+        /// Returns the result of <see cref="IHttpRequest.GetBody()" /> as byte array.
+        /// </summary>
+        /// <returns>The body data as byte array.</returns>
+        byte[] GetBodyData();
 
         #endregion Operations
     }

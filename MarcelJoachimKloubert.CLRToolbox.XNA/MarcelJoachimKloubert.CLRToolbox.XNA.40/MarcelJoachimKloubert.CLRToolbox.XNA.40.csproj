@@ -359,6 +359,13 @@
       <Link>Helpers\MethodHelper.TryGetDelegateTypeFromMethod.cs</Link>
       <DependentUpon>MethodHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\NetHelper.cs">
+      <Link>Helpers\NetHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\NetHelper.SetBasicAuth.cs">
+      <Link>Helpers\NetHelper.SetBasicAuth.cs</Link>
+      <DependentUpon>NetHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.cs">
       <Link>Helpers\ScriptHelper.cs</Link>
     </Compile>
@@ -762,6 +769,13 @@
       <Link>Extensions\LinqExpressions.GetMethodInfo.cs</Link>
       <DependentUpon>LinqExpressions.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.cs">
+      <Link>Extensions\Net.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.SetBasicAuth.cs">
+      <Link>Extensions\Net.SetBasicAuth.cs</Link>
+      <DependentUpon>Net.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.cs">
       <Link>Extensions\Scripting.cs</Link>
     </Compile>
@@ -849,6 +863,8 @@
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.AsStringExtension.cs" />
+    <Compile Include="IO\ConsoleBase.ReadPassword.cs" />
+    <Compile Include="IO\IConsole.ReadPassword.cs" />
     <Compile Include="IO\SystemConsole.XNA.cs" />
     <Compile Include="Objects\ObjectContextBase.XNA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

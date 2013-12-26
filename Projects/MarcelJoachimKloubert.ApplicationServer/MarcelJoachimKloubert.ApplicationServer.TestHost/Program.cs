@@ -6,6 +6,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using MarcelJoachimKloubert.ApplicationServer.TestHost.Menus;
+using MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
 using MarcelJoachimKloubert.CLRToolbox.IO;
@@ -14,9 +16,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
 {
     internal static class Program
     {
-        #region Methods (5)
+        #region Methods (6)
 
-        // Private Methods (5) 
+        // Private Methods (6) 
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -79,9 +81,46 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
                     server.Start();
                     GlobalConsole.Current.WriteLine("Server has been started.");
 
-                    GlobalConsole.Current.WriteLine();
-                    GlobalConsole.Current.WriteLine("===== ENTER to quit... =====");
-                    GlobalConsole.Current.ReadLine();
+                    IMenuHandler currentMenu = new RootMenu();
+
+                    string line;
+                    while (true)
+                    {
+                        if (currentMenu == null)
+                        {
+                            break;
+                        }
+
+                        GlobalConsole.Current.Clear();
+                        currentMenu.DrawMenu();
+
+                        var inputIsValid = false;
+                        while (!inputIsValid)
+                        {
+                            GlobalConsole.Current.WriteLine();
+                            GlobalConsole.Current.Write("> ");
+
+                            if (currentMenu.WaitsForInput)
+                            {
+                                line = GlobalConsole.Current.ReadLine();
+                            }
+                            else
+                            {
+                                line = null;
+                            }
+
+                            IMenuHandler temp;
+                            if (!(inputIsValid = currentMenu.HandleInput(line, out temp)))
+                            {
+                                GlobalConsole.Current.WriteLine();
+                                GlobalConsole.Current.WriteLine("Invalid input!");
+                            }
+                            else
+                            {
+                                currentMenu = temp;
+                            }
+                        }
+                    }
 
                     GlobalConsole.Current.Write("Shutting down server... ");
                 }
@@ -96,6 +135,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost
 
                 return 1;
             }
+        }
+
+        private static void Print_Menu_Root()
+        {
+            GlobalConsole.Current.WriteLine("[1] Modules");
+            GlobalConsole.Current.WriteLine();
+            GlobalConsole.Current.WriteLine("[X] Exit");
         }
 
         private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

@@ -17,7 +17,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public abstract partial class HttpResponseBase : TMObject, IHttpResponse
     {
-        #region Fields (6)
+        #region Fields (7)
 
         private Encoding _charset;
         private bool _compress;
@@ -25,6 +25,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         private bool _documentNotFound;
         private bool _isForbidden;
         private HttpStatusCode _statusCode = HttpStatusCode.OK;
+        private string _statusDescription;
 
         #endregion Fields
 
@@ -54,7 +55,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (9)
+        #region Properties (10)
 
         /// <summary>
         /// 
@@ -139,6 +140,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             get { return this._statusCode; }
 
             set { this._statusCode = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.StatusDescription" />
+        public string StatusDescription
+        {
+            get { return this._statusDescription; }
+
+            set { this._statusDescription = value; }
         }
 
         /// <summary>

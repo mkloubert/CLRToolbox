@@ -38,6 +38,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                 : base(conn, ownConnection)
             {
                 this._ENTITY_ASSEMBLIES = (entityAssemblies ?? Enumerable.Empty<Assembly>()).OfType<Assembly>()
+                                                                                            .Distinct()
                                                                                             .ToArray();
 
                 this.InvokeForDbSetList(list =>

@@ -39,7 +39,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Chat
         /// <see cref="AppServerModuleBase.Name" />.
         public override string Name
         {
-            get { return "docdb_module"; }
+            get { return "chat"; }
         }
 
         #endregion Properties
@@ -54,7 +54,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Chat
         /// <see cref="AppServerModuleBase.OnGetDisplayName(CultureInfo)" />
         protected override IEnumerable<char> OnGetDisplayName(CultureInfo culture)
         {
-            return "Document Database";
+            return "Chat Server Module";
         }
 
         /// <summary>

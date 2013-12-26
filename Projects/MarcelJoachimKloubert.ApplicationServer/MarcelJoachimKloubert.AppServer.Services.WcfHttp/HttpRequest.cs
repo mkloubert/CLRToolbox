@@ -19,8 +19,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 {
     internal sealed class HttpRequest : HttpRequestBase
     {
-        #region Fields (8)
+        #region Fields (9)
 
+        private readonly string _CONTENT_TYPE;
         private readonly IReadOnlyDictionary<string, string> _HEADERS;
         private readonly Message _MESSAGE;
         private readonly string _METHOD;
@@ -96,15 +97,31 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
                 this._HEADERS = new TMReadOnlyDictionary<string, string>(headers);
             }
+
+            // content type
+            this._HEADERS.TryGetValue("content-type", out this._CONTENT_TYPE);
+            if (string.IsNullOrWhiteSpace(this._CONTENT_TYPE))
+            {
+                this._CONTENT_TYPE = null;
+            }
+            else
+            {
+                this._CONTENT_TYPE = this._CONTENT_TYPE.ToLower().Trim();
+            }
         }
 
         #endregion Constructors
 
-        #region Properties (5)
+        #region Properties (6)
 
         public override Uri Address
         {
             get { return this._MESSAGE.Headers.To; }
+        }
+
+        public override string ContentType
+        {
+            get { return this._CONTENT_TYPE; }
         }
 
         public override IReadOnlyDictionary<string, string> Headers
@@ -140,6 +157,8 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
             {
                 this._WEB_ENCODER
                     .WriteMessage(this._MESSAGE, result);
+
+                result.Position = 0;
             }
             catch
             {

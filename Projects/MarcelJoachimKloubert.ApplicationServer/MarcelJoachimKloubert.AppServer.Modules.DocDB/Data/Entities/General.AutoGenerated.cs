@@ -518,14 +518,14 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB.Data.Entities
                     var oName = rec.GetOrdinal("Name");
                     var oNamespace = rec.GetOrdinal("Namespace");
      
-                    this.CreationDate = (global::System.DateTimeOffset)(!rec.IsDBNull(oCreationDate) ? rec.GetValue(oCreationDate) : null);
-                    this.Data = (global::System.Byte[])(!rec.IsDBNull(oData) ? rec.GetValue(oData) : null);
-                    this.DOCDB_UserDataID = (global::System.Int64)(!rec.IsDBNull(oDOCDB_UserDataID) ? rec.GetValue(oDOCDB_UserDataID) : null);
-                    this.DOCDB_UserID = (global::System.Int64)(!rec.IsDBNull(oDOCDB_UserID) ? rec.GetValue(oDOCDB_UserID) : null);
-                    this.LastUpdate = (global::System.DateTimeOffset)(!rec.IsDBNull(oLastUpdate) ? rec.GetValue(oLastUpdate) : null);
-                    this.MimeTypeID = (global::System.Int16)(!rec.IsDBNull(oMimeTypeID) ? rec.GetValue(oMimeTypeID) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
-                    this.Namespace = (global::System.String)(!rec.IsDBNull(oNamespace) ? rec.GetValue(oNamespace) : null);
+                    this.CreationDate = (System.DateTimeOffset)(!rec.IsDBNull(oCreationDate) ? rec.GetValue(oCreationDate) : null);
+                    this.Data = (byte[])(!rec.IsDBNull(oData) ? rec.GetValue(oData) : null);
+                    this.DOCDB_UserDataID = (long)(!rec.IsDBNull(oDOCDB_UserDataID) ? rec.GetValue(oDOCDB_UserDataID) : null);
+                    this.DOCDB_UserID = (Nullable<long>)(!rec.IsDBNull(oDOCDB_UserID) ? rec.GetValue(oDOCDB_UserID) : null);
+                    this.LastUpdate = (Nullable<System.DateTimeOffset>)(!rec.IsDBNull(oLastUpdate) ? rec.GetValue(oLastUpdate) : null);
+                    this.MimeTypeID = (Nullable<short>)(!rec.IsDBNull(oMimeTypeID) ? rec.GetValue(oMimeTypeID) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.Namespace = (string)(!rec.IsDBNull(oNamespace) ? rec.GetValue(oNamespace) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -843,9 +843,9 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB.Data.Entities
                     var oIsActive = rec.GetOrdinal("IsActive");
                     var oUserID = rec.GetOrdinal("UserID");
      
-                    this.DOCDB_UserID = (global::System.Int64)(!rec.IsDBNull(oDOCDB_UserID) ? rec.GetValue(oDOCDB_UserID) : null);
-                    this.IsActive = (global::System.Boolean)(!rec.IsDBNull(oIsActive) ? rec.GetValue(oIsActive) : null);
-                    this.UserID = (global::System.Int64)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
+                    this.DOCDB_UserID = (long)(!rec.IsDBNull(oDOCDB_UserID) ? rec.GetValue(oDOCDB_UserID) : null);
+                    this.IsActive = (bool)(!rec.IsDBNull(oIsActive) ? rec.GetValue(oIsActive) : null);
+                    this.UserID = (long)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));

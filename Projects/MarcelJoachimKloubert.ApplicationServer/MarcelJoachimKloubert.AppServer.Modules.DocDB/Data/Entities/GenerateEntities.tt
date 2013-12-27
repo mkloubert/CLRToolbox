@@ -517,10 +517,10 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
             {
                 var fieldName = ctx.CODE.Escape(sf.Name);
                 var ordFieldName = "o" + fieldName;
-                var fieldType = ctx.TOOLS.ClrType(sf.TypeUsage).FullName;
+                var fieldType = ctx.CODE.Escape(sf.TypeUsage);
 
 #>
-                this.<#= fieldName #> = (global::<#= fieldType #>)(!rec.IsDBNull(<#= ordFieldName #>) ? rec.GetValue(<#= ordFieldName #>) : null);
+                this.<#= fieldName #> = (<#= fieldType #>)(!rec.IsDBNull(<#= ordFieldName #>) ? rec.GetValue(<#= ordFieldName #>) : null);
 <#+
             }
 

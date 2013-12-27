@@ -322,7 +322,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
      
                     var oAccessControlListID = rec.GetOrdinal("AccessControlListID");
      
-                    this.AccessControlListID = (global::System.Int64)(!rec.IsDBNull(oAccessControlListID) ? rec.GetValue(oAccessControlListID) : null);
+                    this.AccessControlListID = (long)(!rec.IsDBNull(oAccessControlListID) ? rec.GetValue(oAccessControlListID) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -668,10 +668,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oDescription = rec.GetOrdinal("Description");
                     var oName = rec.GetOrdinal("Name");
      
-                    this.AclResourceID = (global::System.Int64)(!rec.IsDBNull(oAclResourceID) ? rec.GetValue(oAclResourceID) : null);
-                    this.AclRoleID = (global::System.Int64)(!rec.IsDBNull(oAclRoleID) ? rec.GetValue(oAclRoleID) : null);
-                    this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.AclResourceID = (long)(!rec.IsDBNull(oAclResourceID) ? rec.GetValue(oAclResourceID) : null);
+                    this.AclRoleID = (long)(!rec.IsDBNull(oAclRoleID) ? rec.GetValue(oAclRoleID) : null);
+                    this.Description = (string)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -1022,10 +1022,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oDescription = rec.GetOrdinal("Description");
                     var oName = rec.GetOrdinal("Name");
      
-                    this.AccessControlListID = (global::System.Int64)(!rec.IsDBNull(oAccessControlListID) ? rec.GetValue(oAccessControlListID) : null);
-                    this.AclRoleID = (global::System.Int64)(!rec.IsDBNull(oAclRoleID) ? rec.GetValue(oAclRoleID) : null);
-                    this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.AccessControlListID = (long)(!rec.IsDBNull(oAccessControlListID) ? rec.GetValue(oAccessControlListID) : null);
+                    this.AclRoleID = (long)(!rec.IsDBNull(oAclRoleID) ? rec.GetValue(oAclRoleID) : null);
+                    this.Description = (string)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -1333,9 +1333,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oName = rec.GetOrdinal("Name");
                     var oTrustedAssemblyKey = rec.GetOrdinal("TrustedAssemblyKey");
      
-                    this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
-                    this.TrustedAssemblyKey = (global::System.Byte[])(!rec.IsDBNull(oTrustedAssemblyKey) ? rec.GetValue(oTrustedAssemblyKey) : null);
+                    this.Description = (string)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.TrustedAssemblyKey = (byte[])(!rec.IsDBNull(oTrustedAssemblyKey) ? rec.GetValue(oTrustedAssemblyKey) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -1709,11 +1709,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oPersonID = rec.GetOrdinal("PersonID");
                     var oUserID = rec.GetOrdinal("UserID");
      
-                    this.IsActive = (global::System.Boolean)(!rec.IsDBNull(oIsActive) ? rec.GetValue(oIsActive) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
-                    this.Password = (global::System.Byte[])(!rec.IsDBNull(oPassword) ? rec.GetValue(oPassword) : null);
-                    this.PersonID = (global::System.Int64)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
-                    this.UserID = (global::System.Int64)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
+                    this.IsActive = (bool)(!rec.IsDBNull(oIsActive) ? rec.GetValue(oIsActive) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.Password = (byte[])(!rec.IsDBNull(oPassword) ? rec.GetValue(oPassword) : null);
+                    this.PersonID = (long)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
+                    this.UserID = (long)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -2098,10 +2098,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oPersonID = rec.GetOrdinal("PersonID");
                     var oPersonTypeID = rec.GetOrdinal("PersonTypeID");
      
-                    this.Notes = (global::System.String)(!rec.IsDBNull(oNotes) ? rec.GetValue(oNotes) : null);
-                    this.PersonExportID = (global::System.Guid)(!rec.IsDBNull(oPersonExportID) ? rec.GetValue(oPersonExportID) : null);
-                    this.PersonID = (global::System.Int64)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
-                    this.PersonTypeID = (global::System.Int16)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
+                    this.Notes = (string)(!rec.IsDBNull(oNotes) ? rec.GetValue(oNotes) : null);
+                    this.PersonExportID = (System.Guid)(!rec.IsDBNull(oPersonExportID) ? rec.GetValue(oPersonExportID) : null);
+                    this.PersonID = (long)(!rec.IsDBNull(oPersonID) ? rec.GetValue(oPersonID) : null);
+                    this.PersonTypeID = (Nullable<short>)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -2443,9 +2443,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oMimeTypeID = rec.GetOrdinal("MimeTypeID");
                     var oName = rec.GetOrdinal("Name");
      
-                    this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
-                    this.MimeTypeID = (global::System.Int16)(!rec.IsDBNull(oMimeTypeID) ? rec.GetValue(oMimeTypeID) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.Description = (string)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
+                    this.MimeTypeID = (short)(!rec.IsDBNull(oMimeTypeID) ? rec.GetValue(oMimeTypeID) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
@@ -2763,9 +2763,9 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     var oName = rec.GetOrdinal("Name");
                     var oPersonTypeID = rec.GetOrdinal("PersonTypeID");
      
-                    this.Description = (global::System.String)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
-                    this.Name = (global::System.String)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
-                    this.PersonTypeID = (global::System.Int16)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
+                    this.Description = (string)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
+                    this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
+                    this.PersonTypeID = (short)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));

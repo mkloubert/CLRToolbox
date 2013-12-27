@@ -39,8 +39,10 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         public Message Request(Message message)
         {
+            var now = this._SERVER.ApplicationServer.Context.Now;
+
             var request = (HttpRequestMessageProperty)message.Properties[HttpRequestMessageProperty.Name];
-            var reqCtx = new HttpRequest(request, message, this._SERVER);
+            var reqCtx = new HttpRequest(now, request, message, this._SERVER);
 
             var isRequestInvalid = false;
 

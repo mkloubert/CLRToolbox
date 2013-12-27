@@ -6,8 +6,26 @@
     <edmx:StorageModels>
     <Schema Namespace="Server.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ServerStoreContainer">
+          <EntitySet Name="DOCDB_UserData" EntityType="Server.Store.DOCDB_UserData" store:Type="Tables" Schema="DocDBService" />
           <EntitySet Name="DOCDB_Users" EntityType="Server.Store.DOCDB_Users" store:Type="Tables" Schema="DocDBService" />
+          <AssociationSet Name="FK_DOCDB_UserData_DOCDB_Users" Association="Server.Store.FK_DOCDB_UserData_DOCDB_Users">
+            <End Role="DOCDB_Users" EntitySet="DOCDB_Users" />
+            <End Role="DOCDB_UserData" EntitySet="DOCDB_UserData" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DOCDB_UserData">
+          <Key>
+            <PropertyRef Name="DOCDB_UserDataID" />
+          </Key>
+          <Property Name="DOCDB_UserDataID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DOCDB_UserID" Type="bigint" />
+          <Property Name="Namespace" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MimeTypeID" Type="smallint" />
+          <Property Name="Data" Type="varbinary(max)" />
+          <Property Name="CreationDate" Type="datetimeoffset" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetimeoffset" />
+        </EntityType>
         <EntityType Name="DOCDB_Users">
           <Key>
             <PropertyRef Name="DOCDB_UserID" />
@@ -16,12 +34,31 @@
           <Property Name="UserID" Type="bigint" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_DOCDB_UserData_DOCDB_Users">
+          <End Role="DOCDB_Users" Type="Server.Store.DOCDB_Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DOCDB_UserData" Type="Server.Store.DOCDB_UserData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCDB_Users">
+              <PropertyRef Name="DOCDB_UserID" />
+            </Principal>
+            <Dependent Role="DOCDB_UserData">
+              <PropertyRef Name="DOCDB_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppServer" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="DOCDB_Users" EntityType="AppServer.DOCDB_Users" />
+          <EntitySet Name="DOCDB_UserData" EntityType="AppServer.DOCDB_UserData" />
+          <AssociationSet Name="FK_DOCDB_UserData_DOCDB_Users" Association="AppServer.FK_DOCDB_UserData_DOCDB_Users">
+            <End Role="DOCDB_Users" EntitySet="DOCDB_Users" />
+            <End Role="DOCDB_UserData" EntitySet="DOCDB_UserData" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DOCDB_Users">
           <Key>
@@ -30,7 +67,36 @@
           <Property Type="Int64" Name="DOCDB_UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int64" Name="UserID" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="DOCDB_UserData" Relationship="AppServer.FK_DOCDB_UserData_DOCDB_Users" FromRole="DOCDB_Users" ToRole="DOCDB_UserData" />
         </EntityType>
+        <EntityType Name="DOCDB_UserData">
+          <Key>
+            <PropertyRef Name="DOCDB_UserDataID" />
+          </Key>
+          <Property Type="Int64" Name="DOCDB_UserDataID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="DOCDB_UserID" />
+          <Property Type="String" Name="Namespace" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="MimeTypeID" />
+          <Property Type="Binary" Name="Data" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTimeOffset" Name="CreationDate" Nullable="false" Precision="7" />
+          <Property Type="DateTimeOffset" Name="LastUpdate" Precision="7" />
+          <NavigationProperty Name="DOCDB_Users" Relationship="AppServer.FK_DOCDB_UserData_DOCDB_Users" FromRole="DOCDB_UserData" ToRole="DOCDB_Users" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DOCDB_UserData_DOCDB_Users">
+          <End Type="AppServer.DOCDB_Users" Role="DOCDB_Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.DOCDB_UserData" Role="DOCDB_UserData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCDB_Users">
+              <PropertyRef Name="DOCDB_UserID" />
+            </Principal>
+            <Dependent Role="DOCDB_UserData">
+              <PropertyRef Name="DOCDB_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43,6 +109,20 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="DOCDB_UserID" ColumnName="DOCDB_UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCDB_UserData">
+            <EntityTypeMapping TypeName="AppServer.DOCDB_UserData">
+              <MappingFragment StoreEntitySet="DOCDB_UserData">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="MimeTypeID" ColumnName="MimeTypeID" />
+                <ScalarProperty Name="Namespace" ColumnName="Namespace" />
+                <ScalarProperty Name="DOCDB_UserID" ColumnName="DOCDB_UserID" />
+                <ScalarProperty Name="DOCDB_UserDataID" ColumnName="DOCDB_UserDataID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

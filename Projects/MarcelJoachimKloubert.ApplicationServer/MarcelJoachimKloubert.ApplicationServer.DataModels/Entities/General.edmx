@@ -18,6 +18,7 @@
       FROM [Security].[Users_AccessControlLists] AS [Users_AccessControlLists]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Persons" EntityType="Server.Store.Persons" store:Type="Tables" Schema="Structure" />
+          <EntitySet Name="MimeTypes" EntityType="Server.Store.MimeTypes" store:Type="Tables" Schema="Types" />
           <EntitySet Name="PersonTypes" EntityType="Server.Store.PersonTypes" store:Type="Tables" Schema="Types" />
           <AssociationSet Name="FK_AclResources_AclRoles" Association="Server.Store.FK_AclResources_AclRoles">
             <End Role="AclRoles" EntitySet="AclRoles" />
@@ -82,8 +83,9 @@
           </Key>
           <Property Name="UserID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PersonID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Password" Type="varbinary(max)" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Während der Generierung sind Fehler aufgetreten:
       Warnung 6002: Für Tabelle/Sicht 'ApplicationServer.Security.Users_AccessControlLists' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
@@ -104,6 +106,14 @@
           <Property Name="PersonExportID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonTypeID" Type="smallint" />
           <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MimeTypes">
+          <Key>
+            <PropertyRef Name="MimeTypeID" />
+          </Key>
+          <Property Name="MimeTypeID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PersonTypes">
           <Key>
@@ -206,6 +216,7 @@
           <EntitySet Name="TrustedAssemblies" EntityType="AppServer.TrustedAssemblies" />
           <EntitySet Name="Users" EntityType="AppServer.Users" />
           <EntitySet Name="Persons" EntityType="AppServer.Persons" />
+          <EntitySet Name="MimeTypes" EntityType="AppServer.MimeTypes" />
           <EntitySet Name="PersonTypes" EntityType="AppServer.PersonTypes" />
           <AssociationSet Name="FK_AclRoles_AccessControlLists" Association="AppServer.FK_AclRoles_AccessControlLists">
             <End Role="AccessControlLists" EntitySet="AccessControlLists" />
@@ -271,10 +282,11 @@
           </Key>
           <Property Type="Int64" Name="UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int64" Name="PersonID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Binary" Name="Password" MaxLength="Max" FixedLength="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <NavigationProperty Name="Persons" Relationship="AppServer.FK_Users_Persons" FromRole="Users" ToRole="Persons" />
           <NavigationProperty Name="AccessControlLists" Relationship="AppServer.Users_AccessControlLists" FromRole="Users" ToRole="AccessControlLists" />
-          <Property Type="Boolean" Name="IsActive" />
         </EntityType>
         <EntityType Name="Persons">
           <Key>
@@ -283,9 +295,17 @@
           <Property Type="Int64" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Guid" Name="PersonExportID" Nullable="false" />
           <Property Type="Int16" Name="PersonTypeID" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="AppServer.FK_Users_Persons" FromRole="Persons" ToRole="Users" />
           <NavigationProperty Name="PersonTypes" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="Persons" ToRole="PersonTypes" />
-          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MimeTypes">
+          <Key>
+            <PropertyRef Name="MimeTypeID" />
+          </Key>
+          <Property Type="Int16" Name="MimeTypeID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PersonTypes">
           <Key>
@@ -401,6 +421,7 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
@@ -413,6 +434,15 @@
                 <ScalarProperty Name="PersonTypeID" ColumnName="PersonTypeID" />
                 <ScalarProperty Name="PersonExportID" ColumnName="PersonExportID" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MimeTypes">
+            <EntityTypeMapping TypeName="AppServer.MimeTypes">
+              <MappingFragment StoreEntitySet="MimeTypes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MimeTypeID" ColumnName="MimeTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

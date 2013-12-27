@@ -7,13 +7,15 @@ using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
+using MarcelJoachimKloubert.CLRToolbox.Timing;
 
 namespace MarcelJoachimKloubert.ApplicationServer.Modules
 {
     /// <summary>
     /// Describes a context of an <see cref="IAppServerModule" /> object.
     /// </summary>
-    public interface IAppServerModuleContext : IObjectContext<IAppServerModule>
+    public interface IAppServerModuleContext : IObjectContext<IAppServerModule>,
+                                               ITimeProvider
     {
         #region Data Members (2)
 

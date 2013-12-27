@@ -13,13 +13,31 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataLayer
     /// </summary>
     public interface IAppServerDatabase : IQueryableDatabase
     {
-        #region Operations (1)
+        #region Operations (4)
 
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="IQueryableDatabase.Query{E}" />
+        /// <see cref="IQueryableDatabase.Add{E}(E)" />
+        new void Add<E>(E entity) where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Attach{E}(E)" />
+        new void Attach<E>(E entity) where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Query{E}()" />
         new IQueryable<E> Query<E>() where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Remove{E}(E)" />
+        new void Remove<E>(E entity) where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
 
         #endregion Operations
     }

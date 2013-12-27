@@ -44,16 +44,95 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataLayer
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Properties (1)
 
-        // Public Methods (1) 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IDatabase.CanUpdate" />
+        public abstract bool CanUpdate
+        {
+            get;
+        }
+
+        #endregion Properties
+
+        #region Methods (10)
+
+        // Public Methods (5) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Add{E}(E)" />
+        public abstract void Add<E>(E entity) where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Attach{E}(E)" />
+        public abstract void Attach<E>(E entity) where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
 
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IAppServerDatabase.Query{E}()" />
         public abstract IQueryable<E> Query<E>() where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
-        // Private Methods (1) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Remove{E}(E)" />
+        public abstract void Remove<E>(E entity) where E : class, global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IDatabase.Update()" />
+        public void Update()
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfDisposed();
+
+                if (!this.CanUpdate)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                this.OnUpdate();
+            }
+        }
+        // Protected Methods (1) 
+
+        /// <summary>
+        /// The logic for <see cref="DatabaseBase.Update()" /> method.
+        /// </summary>
+        protected virtual void OnUpdate()
+        {
+            throw new NotImplementedException();
+        }
+        // Private Methods (4) 
+
+        void IQueryableDatabase.Add<E>(E entity)
+        {
+            CollectionHelper.Single(this.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance),
+                                    m => m.Name == "Add" &&
+                                         m.GetGenericArguments().Length == 1 &&
+                                         m.GetParameters().Length == 1)
+                            .MakeGenericMethod(typeof(E))
+                            .Invoke(this, new object[] { entity });
+        }
+
+        void IQueryableDatabase.Attach<E>(E entity)
+        {
+            CollectionHelper.Single(this.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance),
+                                    m => m.Name == "Attach" &&
+                                         m.GetGenericArguments().Length == 1 &&
+                                         m.GetParameters().Length == 1)
+                            .MakeGenericMethod(typeof(E))
+                            .Invoke(this, new object[] { entity });
+        }
 
         IQueryable<E> IQueryableDatabase.Query<E>()
         {
@@ -63,6 +142,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataLayer
                                                                m.GetParameters().Length == 0)
                                                   .MakeGenericMethod(typeof(E))
                                                   .Invoke(this, new object[0]);
+        }
+
+        void IQueryableDatabase.Remove<E>(E entity)
+        {
+            CollectionHelper.Single(this.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance),
+                                    m => m.Name == "Remove" &&
+                                         m.GetGenericArguments().Length == 1 &&
+                                         m.GetParameters().Length == 1)
+                            .MakeGenericMethod(typeof(E))
+                            .Invoke(this, new object[] { entity });
         }
 
         #endregion Methods

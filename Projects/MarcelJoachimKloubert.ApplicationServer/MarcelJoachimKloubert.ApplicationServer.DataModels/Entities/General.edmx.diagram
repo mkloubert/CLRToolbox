@@ -5,13 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a2f9753b54294c4397e5bb812fec292a" Name="Diagramm1" >
-        <EntityTypeShape EntityType="AppServer.AccessControlLists" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="AppServer.AclResources" Width="1.5" PointX="7.5" PointY="5" />
-        <EntityTypeShape EntityType="AppServer.AclRoles" Width="1.5" PointX="5.25" PointY="4.875" />
+        <EntityTypeShape EntityType="AppServer.AccessControlLists" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="AppServer.AclResources" Width="1.5" PointX="7.5" PointY="5.125" />
+        <EntityTypeShape EntityType="AppServer.AclRoles" Width="1.5" PointX="5.25" PointY="5" />
         <EntityTypeShape EntityType="AppServer.TrustedAssemblies" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="AppServer.Users" Width="1.5" PointX="5.25" PointY="0.875" />
-        <EntityTypeShape EntityType="AppServer.Persons" Width="1.5" PointX="3" PointY="0.875" />
-        <EntityTypeShape EntityType="AppServer.PersonTypes" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="AppServer.Users" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="AppServer.Persons" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="AppServer.MimeTypes" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AppServer.PersonTypes" Width="1.5" PointX="0.75" PointY="1.25" />
         <AssociationConnector Association="AppServer.FK_AclRoles_AccessControlLists" />
         <AssociationConnector Association="AppServer.FK_AclResources_AclRoles" />
         <AssociationConnector Association="AppServer.FK_Users_Persons" />

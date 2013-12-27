@@ -123,7 +123,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
                 }
             }
 
-            var newHandler = new RequestHandler(newServer);
+            var newHandler = new RequestHandler(this, newServer);
             try
             {
                 newHandler.Start();

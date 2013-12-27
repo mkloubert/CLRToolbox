@@ -19,7 +19,6 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
     {
         #region Nested Classes (1)
 
-
         private class AppServerDbContext : DbContext
         {
             #region Fields (3)

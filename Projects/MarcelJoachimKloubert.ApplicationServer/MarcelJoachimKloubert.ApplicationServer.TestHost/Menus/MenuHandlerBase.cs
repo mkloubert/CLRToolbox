@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 
 namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus
 {
@@ -14,7 +16,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (5)
 
         // Public Methods (2) 
 
@@ -36,7 +38,27 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus
 
             return result;
         }
-        // Protected Methods (1) 
+        // Protected Methods (3) 
+
+        protected void ExecuteAnWaitOnError(Action action)
+        {
+            this.ExecuteAnWaitOnError<object>((s) => action(),
+                                              null);
+        }
+
+        protected void ExecuteAnWaitOnError<T>(Action<T> action, T state)
+        {
+            try
+            {
+                action(state);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.GetBaseException() ?? ex);
+
+                GlobalConsole.Current.ReadLine();
+            }
+        }
 
         protected abstract void OnHandleInput(string input,
                                               ref IMenuHandler nextHandler,

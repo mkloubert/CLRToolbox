@@ -689,6 +689,23 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\AccessControl\SimpleAcl.cs">
       <Link>Security\AccessControl\SimpleAcl.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\GeneralHasher.cs">
+      <Link>Security\Cryptography\GeneralHasher.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\HasherBase.cs">
+      <Link>Security\Cryptography\HasherBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\HasherBase.SecureString.cs">
+      <Link>Security\Cryptography\HasherBase.SecureString.cs</Link>
+      <DependentUpon>HasherBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\IHasher.cs">
+      <Link>Security\Cryptography\IHasher.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\IHasher.SecureString.cs">
+      <Link>Security\Cryptography\IHasher.SecureString.cs</Link>
+      <DependentUpon>IHasher.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\UsernamePasswordValidator.cs">
       <Link>Security\UsernamePasswordValidator.cs</Link>
     </Compile>
@@ -756,6 +773,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Templates\Text\StringTemplateBase.cs">
       <Link>Templates\Text\StringTemplateBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Timing\ITimeProvider.cs">
+      <Link>Timing\ITimeProvider.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>

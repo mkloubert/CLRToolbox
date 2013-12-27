@@ -17,7 +17,9 @@
         <AssociationConnector Association="AppServer.FK_AclResources_AclRoles" />
         <AssociationConnector Association="AppServer.FK_Users_Persons1" />
         <AssociationConnector Association="AppServer.Users_AccessControlLists" />
-        <EntityTypeShape EntityType="AppServer.DOCDB_Users" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AppServer.DOCDB_Users" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="AppServer.DOCDB_UserData" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="AppServer.FK_DOCDB_UserData_DOCDB_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

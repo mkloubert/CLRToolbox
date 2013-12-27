@@ -209,11 +209,13 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
 <#+
             foreach (var sf in scalarFields)
             {
+                var fieldType = ctx.CODE.Escape(sf.TypeUsage);
+
 #>
             /// <summary>
             /// Gets or sets the scalar field '<#= ctx.CODE.Escape(sf.Name) #>'.
             /// </summary>
-            global::<#= ctx.TOOLS.ClrType(sf.TypeUsage).FullName #> <#= ctx.CODE.Escape(sf.Name) #> { get; set; }
+            <#= fieldType #> <#= ctx.CODE.Escape(sf.Name) #> { get; set; }
  
 <#+
             }
@@ -248,19 +250,19 @@ void GenerateEntitiesFromEDMXFile(FileInfo edmxFile, EntityGenerationContext ctx
             {
                 var fieldName = ctx.CODE.Escape(sf.Name);
                 var privateFieldName = "_sf_" + fieldName;
-                var fieldType = ctx.TOOLS.ClrType(sf.TypeUsage).FullName;
+                var fieldType = ctx.CODE.Escape(sf.TypeUsage);
 
 #>
 
-            private global::<#= fieldType #> <#= privateFieldName #>;
+            private <#= fieldType #> <#= privateFieldName #>;
 
             /// <summary>
             /// 
             /// </summary>
             /// <see cref="global::<#= schemaNamespace #>.<#= entityInterfaceName #>.<#= fieldName #>" />
-            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(global::<#= fieldType #>), IsKey = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(<#= fieldType #>), IsKey = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsKey(sf)) #>, IsNullable = <#= ctx.CODE.CreateLiteral(ctx.TOOLS.IsNullable(sf)) #>, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
             [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = <#= ctx.CODE.CreateLiteral(fieldName) #>)]
-            public global::<#= fieldType #> <#= fieldName #>
+            public <#= fieldType #> <#= fieldName #>
             {
                 get { return this.<#= privateFieldName #>; }
                 set

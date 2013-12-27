@@ -69,6 +69,7 @@
     <Compile Include="Services\Execution\Functions\FunctionLocator.cs" />
     <Compile Include="Services\Net\Http\Modules\HttpModuleLocator.cs" />
     <Compile Include="Services\Scripting\JavaScriptEngine.cs" />
+    <Compile Include="Services\Security\Cryptography\PasswordHasher.cs" />
     <Compile Include="Services\Templates\Text\Html\CommonFilters.cs" />
     <Compile Include="Services\Templates\Text\Html\DotLiquidHtmlTemplate.cs" />
     <Compile Include="WebInterface\UriHandler.cs" />

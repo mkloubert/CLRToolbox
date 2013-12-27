@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
 using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.IO;
 using MarcelJoachimKloubert.CLRToolbox.Serialization;
+using MarcelJoachimKloubert.CLRToolbox.Serialization.Json;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
@@ -26,7 +28,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
             switch (input)
             {
                 case "1":
-                    this.Test_DocDB();
+                    this.ExecuteAnWaitOnError((state) => state.Test_DocDB(),
+                                              this);
                     break;
 
                 case "x":
@@ -58,6 +61,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
                 return;
             }
 
+            var serializer = ServiceLocator.Current.GetInstance<ISerializer>();
+
             var request = (HttpWebRequest)HttpWebRequest.Create("https://localhost:1781/a/b/c");
             request.SetBasicAuth(user, pwd);
 
@@ -66,27 +71,48 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
                     return true;
                 };
 
-            request.Method = "POST";
+            request.Method = "DELETE";
             request.ContentType = "application/json";
-
-            using (var reqStream = request.GetRequestStream())
+            var response = request.GetResponse();
+            using (var respStream = response.GetResponseStream())
             {
-                var serializer = ServiceLocator.Current.GetInstance<ISerializer>();
-
-                var json = serializer.ToJson(new Test()) ?? string.Empty;
-
-                var data = Encoding.UTF8.GetBytes(json);
-                reqStream.Write(data, 0, data.Length);
-
-                reqStream.Flush();
-                reqStream.Close();
-
-                var response = request.GetResponse();
-                using (var respStream = response.GetResponseStream())
+                string jsonResult;
+                using (var temp = new MemoryStream())
                 {
+                    respStream.CopyTo(temp);
 
+                    jsonResult = Encoding.UTF8.GetString(temp.ToArray());
                 }
+
+                var jsonResultObj = serializer.FromJson<JsonParameterResult>(jsonResult);
             }
+
+            //using (var reqStream = request.GetRequestStream())
+            //{
+            //    var serializer = ServiceLocator.Current.GetInstance<ISerializer>();
+
+            //    var json = serializer.ToJson(new Test()) ?? string.Empty;
+
+            //    var data = Encoding.UTF8.GetBytes(json);
+            //    reqStream.Write(data, 0, data.Length);
+
+            //    reqStream.Flush();
+            //    reqStream.Close();
+
+            //    var response = request.GetResponse();
+            //    using (var respStream = response.GetResponseStream())
+            //    {
+            //        string jsonResult;
+            //        using (var temp = new MemoryStream())
+            //        {
+            //            respStream.CopyTo(temp);
+
+            //            jsonResult = Encoding.UTF8.GetString(temp.ToArray());
+            //        }
+
+            //        var jsonResultObj = serializer.FromJson<IDictionary<string, object>>(jsonResult);
+            //    }
+            //}
         }
 
         #endregion Methods

@@ -188,7 +188,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (16)
+        #region Methods (18)
 
         // Public Methods (2) 
 
@@ -301,8 +301,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 compCatalog.Catalogs
                            .Add(this.TrustedCompositionCatalog = new StrongNamedAssemblyPartCatalog(trustedAssemblyKeys));
 
-                this.TrustedCompositionCatalog
-                    .AddAssembly(this.GetType().Assembly);
+                this.ReinitTrustedCompositionCatalog();
 
                 compContainer = new CompositionContainer(compCatalog,
                                                          isThreadSafe: true);
@@ -340,6 +339,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
             this.GlobalCompositionContainer = compContainer;
 
             compContainer.ComposeExportedValue<global::MarcelJoachimKloubert.ApplicationServer.ApplicationServer>(this);
+            compContainer.ComposeExportedValue<global::MarcelJoachimKloubert.ApplicationServer.IAppServer>(this);
 
             this.GlobalServiceLocator = serviceLocator;
             ServiceLocator.SetLocatorProvider(this.GetGlobalServiceLocator);
@@ -424,7 +424,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                          categories: LoggerFacadeCategories.Errors);
             }
         }
-        // Private Methods (11) 
+        // Private Methods (13) 
 
         private static Func<IAppServerModule, bool> CreateWherePredicateForExtractingOtherModules(IAppServerModule module)
         {
@@ -605,13 +605,21 @@ namespace MarcelJoachimKloubert.ApplicationServer
             }
         }
 
+        private void ReinitTrustedCompositionCatalog()
+        {
+            this.TrustedCompositionCatalog.Clear();
+
+            this.TrustedCompositionCatalog
+                .AddAssembly(this.GetType().Assembly);
+        }
+
         private void StartServer()
         {
             const string LOG_TAG_PREFIX = "ApplicationServer::StartServer::";
 
             AggregateException ex = null;
 
-            this.TrustedCompositionCatalog.Clear();
+            this.ReinitTrustedCompositionCatalog();
 
             // assemblies with services
             {

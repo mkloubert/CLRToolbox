@@ -12,6 +12,7 @@ using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
+using MarcelJoachimKloubert.CLRToolbox.Timing;
 
 namespace MarcelJoachimKloubert.ApplicationServer.Modules
 {
@@ -59,7 +60,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Constructors
 
-        #region Properties (5)
+        #region Properties (7)
 
         /// <summary>
         /// 
@@ -100,6 +101,24 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ITimeProvider.Now" />
+        public DateTimeOffset Now
+        {
+            get { return (this.NowProvider ?? Default_NowProvider)(); }
+        }
+
+        /// <summary>
+        /// Gets or sets the logic for the <see cref="SimpleAppServerModuleContext.Now" /> property.
+        /// </summary>
+        public Func<DateTimeOffset> NowProvider
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets the items for <see cref="SimpleAppServerModuleContext.GetOtherModules()" /> method.
         /// </summary>
         public IEnumerable<IAppServerModule> OtherModules
@@ -110,7 +129,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
         #endregion Properties
 
-        #region Methods (6)
+        #region Methods (7)
 
         // Public Methods (2) 
 
@@ -177,7 +196,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.Modules
 
             return null;
         }
-        // Private Methods (1) 
+        // Private Methods (2) 
+
+        private static DateTimeOffset Default_NowProvider()
+        {
+            return DateTimeOffset.Now;
+        }
 
         private void ResetLazyHash()
         {

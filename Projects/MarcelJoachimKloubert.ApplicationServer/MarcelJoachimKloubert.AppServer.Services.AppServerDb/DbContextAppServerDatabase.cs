@@ -46,16 +46,67 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Properties (1)
 
-        // Public Methods (1) 
+        public override bool CanUpdate
+        {
+            get { return true; }
+        }
+
+        #endregion Properties
+
+        #region Methods (6)
+
+        // Public Methods (4) 
+
+        public override void Add<E>(E entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            this.ThrowIfDisposed();
+
+            this._DB_CONTEXT
+                .GetDbSet<E>()
+                .Add(entity);
+        }
+
+        public override void Attach<E>(E entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            this.ThrowIfDisposed();
+
+            this._DB_CONTEXT
+                .GetDbSet<E>()
+                .Attach(entity);
+        }
 
         public override IQueryable<E> Query<E>()
         {
             return this._DB_CONTEXT
                        .GetDbSet<E>();
         }
-        // Protected Methods (1) 
+
+        public override void Remove<E>(E entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            this.ThrowIfDisposed();
+
+            this._DB_CONTEXT
+                .GetDbSet<E>()
+                .Remove(entity);
+        }
+        // Protected Methods (2) 
 
         protected override void OnDispose(bool disposing)
         {
@@ -64,6 +115,11 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                 this._DB_CONTEXT
                     .Dispose();
             }
+        }
+
+        protected override void OnUpdate()
+        {
+            this._DB_CONTEXT.SaveChanges();
         }
 
         #endregion Methods

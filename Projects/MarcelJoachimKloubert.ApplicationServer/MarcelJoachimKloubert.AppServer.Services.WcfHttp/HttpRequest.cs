@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 {
     internal sealed class HttpRequest : HttpRequestBase
     {
-        #region Fields (9)
+        #region Fields (10)
 
         private readonly string _CONTENT_TYPE;
         private readonly IReadOnlyDictionary<string, string> _HEADERS;
@@ -28,6 +28,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
         private readonly HttpRequestMessageProperty _PROPERTY;
         private readonly ITcpAddress _REMOTE_ADDRESS;
         private readonly WcfHttpServer _SERVER;
+        private readonly DateTimeOffset _TIME;
         private readonly IPrincipal _USER;
         private readonly MessageEncoder _WEB_ENCODER = WcfHttpServerService.CreateWebMessageBindingEncoder()
                                                                            .CreateMessageEncoderFactory()
@@ -37,10 +38,12 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #region Constructors (1)
 
-        internal HttpRequest(HttpRequestMessageProperty property,
+        internal HttpRequest(DateTimeOffset time,
+                             HttpRequestMessageProperty property,
                              Message message,
                              WcfHttpServer server)
         {
+            this._TIME = time;
             this._PROPERTY = property;
             this._MESSAGE = message;
             this._SERVER = server;
@@ -112,7 +115,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Constructors
 
-        #region Properties (6)
+        #region Properties (7)
 
         public override Uri Address
         {
@@ -137,6 +140,11 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
         public override ITcpAddress RemoteAddress
         {
             get { return this._REMOTE_ADDRESS; }
+        }
+
+        public override DateTimeOffset Time
+        {
+            get { return this._TIME; }
         }
 
         public override IPrincipal User

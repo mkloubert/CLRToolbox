@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
+using MarcelJoachimKloubert.CLRToolbox.Timing;
 
 namespace MarcelJoachimKloubert.ApplicationServer
 {
@@ -16,6 +17,41 @@ namespace MarcelJoachimKloubert.ApplicationServer
     public sealed class SimpleAppServerContext : ObjectContextBase<IAppServer>,
                                                  IAppServerContext
     {
+        #region Properties (2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ITimeProvider.Now" />
+        public DateTimeOffset Now
+        {
+            get { return (this.NowProvider ?? Default_NowProvider)(); }
+        }
+
+        /// <summary>
+        /// Gets or sets the logic for the <see cref="SimpleAppServerContext.Now" /> property.
+        /// </summary>
+        public Func<DateTimeOffset> NowProvider
+        {
+            get;
+            set;
+        }
+
+        #endregion Properties
+
+        #region Methods (1)
+
+        // Private Methods (1) 
+
+        private static DateTimeOffset Default_NowProvider()
+        {
+            return DateTimeOffset.Now;
+        }
+
+        #endregion Methods
+
+
+
         #region Constructors (2)
 
         /// <summary>
@@ -47,6 +83,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Constructors
 
+
         #region Properties (1)
 
         /// <summary>
@@ -59,6 +96,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
         }
 
         #endregion Properties
+
 
         #region Methods (2)
 

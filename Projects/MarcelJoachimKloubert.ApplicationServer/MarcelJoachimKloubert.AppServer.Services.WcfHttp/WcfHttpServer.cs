@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using MarcelJoachimKloubert.ApplicationServer;
 using MarcelJoachimKloubert.AppServer.Services.WcfHttp.Wcf;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
@@ -31,7 +32,14 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Constructors
 
-        #region Properties (4)
+        #region Properties (5)
+
+        [Import]
+        internal IAppServer ApplicationServer
+        {
+            get;
+            private set;
+        }
 
         internal ServiceHost Host
         {

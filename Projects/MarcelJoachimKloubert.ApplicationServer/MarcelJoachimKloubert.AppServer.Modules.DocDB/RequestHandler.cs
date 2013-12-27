@@ -11,9 +11,14 @@ using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using MarcelJoachimKloubert.ApplicationServer.DataLayer;
+using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
+using MarcelJoachimKloubert.AppServer.Modules.DocDB.Principal.Security;
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.Serialization;
+using MarcelJoachimKloubert.CLRToolbox.Serialization.Json;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using DocDBEntities = MarcelJoachimKloubert.AppServer.Modules.DocDB.Data.Entities.General.DocDBService;
 using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities;
@@ -22,9 +27,11 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
 {
     internal sealed class RequestHandler : DisposableBase
     {
-        #region Fields (5)
+        #region Fields (7)
 
         private const string _MIME_JSON = "application/json";
+        private readonly DocDBModule _MODULE;
+        private readonly IPasswordHasher _PWD_HASHER = ServiceLocator.Current.GetInstance<IPasswordHasher>();
         private readonly Regex _REGEX_CONTENT_TYPE = new Regex(@"^(\s*)(\S+)(\s*)(;\s*charset\s*=\s*\S+)?(\s*)$",
                                                                RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
         private readonly ISerializer _SERIALIZER = ServiceLocator.Current.GetInstance<ISerializer>();
@@ -35,20 +42,19 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
 
         #region Constructors (1)
 
-        internal RequestHandler(IHttpServer server)
+        internal RequestHandler(DocDBModule module, IHttpServer server)
         {
+            this._MODULE = module;
             this._SERVER = server;
 
             server.CredentialValidator = this.Server_ValidateCredential;
             server.PrincipalFinder = this.Server_FindPrincipal;
-            server.HandleDocumentNotFound += this.Server_HandleDocumentNotFound;
-            server.HandleError += this.Server_HandleError;
             server.HandleRequest += this.Server_HandleRequest;
         }
 
         #endregion Constructors
 
-        #region Methods (11)
+        #region Methods (14)
 
         // Protected Methods (1) 
 
@@ -57,15 +63,13 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
             this._SERVER.CredentialValidator = (u, p) => false;
             this._SERVER.PrincipalFinder = (i) => null;
             this._SERVER.HandleRequest -= this.Server_HandleRequest;
-            this._SERVER.HandleDocumentNotFound -= this.Server_HandleDocumentNotFound;
-            this._SERVER.HandleError -= this.Server_HandleError;
 
             if (disposing)
             {
                 this._SERVER.Dispose();
             }
         }
-        // Private Methods (9) 
+        // Private Methods (12) 
 
         private static bool HasUrlRightFormat(string part)
         {
@@ -108,7 +112,9 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
                                  .Where(u => u.IsActive &&
                                              u.UserID == srvUser.UserID)
                                  .Single();
+
                     user.Users = srvUser;
+                    srvUser.CharacterPasswordHasher = this.Users_HashPassword;
 
                     loadedUsers.Add(user);
                 }
@@ -119,93 +125,250 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
 
         private IPrincipal Server_FindPrincipal(IIdentity id)
         {
+            if (id != null)
+            {
+                var user = this.TryFindUserEntityByName(id.Name);
+                if (user != null)
+                {
+                    //TODO set ACL
+                    return new DocDBUserPrincipal(user, id);
+                }
+            }
+
             return null;
-        }
-
-        private void Server_HandleDocumentNotFound(object sender, HttpRequestEventArgs e)
-        {
-
-        }
-
-        private void Server_HandleError(object sender, HttpRequestErrorEventArgs e)
-        {
-
         }
 
         private void Server_HandleRequest(object sender, HttpRequestEventArgs e)
         {
+            var statusCode = HttpStatusCode.OK;
+            IEnumerable<char> statusDescription = null;
+            JsonParameterResult result = null;
+
+            var user = (DocDBUserPrincipal)e.Request.User;
+
             var urlParts = e.Request.Address.AbsolutePath
-                                            .Split('/')
-                                            .SkipWhile(str => string.IsNullOrWhiteSpace(str))
-                                            .Select(str => str.ToLower().Trim())
-                                            .ToArray();
+                                        .Split('/')
+                                        .SkipWhile(str => string.IsNullOrWhiteSpace(str))
+                                        .Select(str => str.ToLower().Trim())
+                                        .ToArray();
 
-            if (urlParts.Length == 0 ||
-                !urlParts.All(p => HasUrlRightFormat(p)))
-            {
-                e.Response.StatusCode = HttpStatusCode.BadRequest;
-                e.Response.StatusDescription = "Invalid URL!";
-
-                return;
-            }
-
-            var varNamespace = string.Join(".", urlParts.Take(urlParts.Length - 1));
-            var varName = urlParts.Last();
+            string varNamespace;
+            string varName;
+            TryExtractVariableData(e.Request,
+                                   out varNamespace, out varName);
 
             var contentType = e.Request.ContentType;
             var enc = Encoding.UTF8;  //TODO read from content-type
 
-            if (IsJsonMimeType(contentType) ||
-                string.IsNullOrWhiteSpace(contentType))
+            switch (e.Request.Method)
             {
-                IDictionary<string, object> obj = null;
-                try
-                {
-                    var body = e.Request.GetBodyData();
-                    var json = enc.GetString(body);
-
-                    try
+                case "DELETE":
+                    // delete value
+                    using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
                     {
-                        obj = this._SERIALIZER
-                                  .FromJson<IDictionary<string, object>>(json);
+                        var existingData = TryFindUserData(db, user, varNamespace, varName);
+                        if (existingData != null)
+                        {
+                            db.Remove(existingData);
+                            db.Update();
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        throw new FormatException(ex.Message,
-                                                  ex);
-                    }
+                    break;
 
-                    //TODO
-                }
-                catch (FormatException)
-                {
-                    e.Response.StatusCode = HttpStatusCode.BadRequest;
-                    e.Response.StatusDescription = "Invalid JSON data!";
-                }
+                case "GET":
+                    // find value
+                    {
+                        using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
+                        {
+                            var existingData = TryFindUserData(db, user, varNamespace, varName);
+                            if (existingData != null)
+                            {
+                                IDictionary<string, object> jsonObj = null;
+                                if (existingData.Data != null)
+                                {
+                                    jsonObj = this._SERIALIZER
+                                                  .FromJson<IDictionary<string, object>>(Encoding.UTF8.GetString(existingData.Data));
+                                }
+
+                                result = new JsonParameterResult()
+                                    {
+                                        code = 0,
+                                        tag = new Dictionary<string, object>()
+                                            {
+                                                { "created", existingData.CreationDate },
+                                                { "data", new Dictionary<string, object>()
+                                                              {
+                                                                  { "content", jsonObj },
+                                                                  { "mime", "application/json" },
+                                                              }},
+                                                { "lastUpdate", existingData.LastUpdate },
+                                                { "name", string.IsNullOrWhiteSpace(existingData.Name) ? null : existingData.Name.ToLower().Trim() },
+                                                { "namespace", string.IsNullOrWhiteSpace(existingData.Namespace) ? null : existingData.Namespace.ToLower().Trim() },
+                                            },
+                                    };
+                            }
+                            else
+                            {
+                                statusCode = HttpStatusCode.NotFound;
+                            }
+                        }
+                    }
+                    break;
+
+                case "PUT":
+                    // save value
+                    {
+                        if (IsJsonMimeType(contentType) ||
+                            string.IsNullOrWhiteSpace(contentType))
+                        {
+                            IDictionary<string, object> obj = null;
+                            try
+                            {
+                                var body = e.Request.GetBodyData();
+                                var json = enc.GetString(body);
+
+                                try
+                                {
+                                    obj = this._SERIALIZER
+                                              .FromJson<IDictionary<string, object>>(json);
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw new FormatException(ex.Message,
+                                                              ex);
+                                }
+
+                                using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
+                                {
+                                    var existingData = TryFindUserData(db, user, varNamespace, varName);
+                                    if (existingData == null)
+                                    {
+                                        existingData = new DocDBEntities.DOCDB_UserData()
+                                        {
+                                            CreationDate = this._MODULE.Context.Now,
+                                            DOCDB_UserID = user.User.DOCDB_UserID,
+                                        };
+
+                                        db.Add(existingData);
+                                    }
+                                    else
+                                    {
+                                        db.Attach(existingData);
+
+                                        existingData.LastUpdate = this._MODULE.Context.Now;
+                                    }
+
+                                    existingData.Data = string.IsNullOrWhiteSpace(json) ? null : Encoding.UTF8.GetBytes(json);
+                                    //TODO use enum value
+                                    existingData.MimeTypeID = 1;
+                                    existingData.Name = varName;
+                                    existingData.Namespace = varNamespace == string.Empty ? null : varNamespace.ToLower().Trim();
+
+                                    db.Update();
+                                }
+                            }
+                            catch (FormatException)
+                            {
+                                // invalid JSON string
+
+                                statusCode = HttpStatusCode.BadRequest;
+                            }
+                        }
+                        else
+                        {
+                            // invalid MIME type
+
+                            statusCode = HttpStatusCode.UnsupportedMediaType;
+                        }
+                    }
+                    break;
+
+                default:
+                    statusCode = HttpStatusCode.MethodNotAllowed;
+                    break;
             }
-            else
-            {
-                e.Response.StatusCode = HttpStatusCode.BadRequest;
-                e.Response.StatusDescription = "Invalid content type!";
-            }
+
+            this.WriteJsonObject(e.Response, result);
+
+            e.Response.StatusCode = statusCode;
+            e.Response.StatusDescription = statusDescription.AsString();
         }
 
         private bool Server_ValidateCredential(string username, string password)
         {
-            bool result;
-
             try
             {
-                //TODO
-                result = (username ?? string.Empty).ToLower().Trim() == "the_user" &&
-                         (password == "the_password");
+                var user = this.TryFindUserEntityByName(username);
+                if (user != null)
+                {
+                    return user.Users
+                               .CheckPassword(password);
+                }
             }
             catch
             {
-                result = false;
+                // ignore errors here
             }
 
-            return result;
+            return false;
+        }
+
+        private static void TryExtractVariableData(IHttpRequest request,
+                                                   out string varNamespace, out string varName)
+        {
+            var urlParts = request.Address.AbsolutePath
+                                          .Split('/')
+                                          .SkipWhile(str => string.IsNullOrWhiteSpace(str))
+                                          .Select(str => str.ToLower().Trim())
+                                          .ToArray();
+
+            varNamespace = string.Join(".",
+                                       urlParts.Take(urlParts.Length - 1)).ToLower().Trim();
+            if (varNamespace == string.Empty)
+            {
+                varNamespace = null;
+            }
+
+            varName = (urlParts.LastOrDefault() ?? string.Empty).ToLower().Trim();
+            if (varName == string.Empty)
+            {
+                varName = null;
+            }
+        }
+
+        private static DocDBEntities.DOCDB_UserData TryFindUserData(IAppServerDatabase db,
+                                                                    DocDBUserPrincipal user,
+                                                                    string varNamespace, string varName)
+        {
+            return CollectionHelper.SingleOrDefault(db.Query<DocDBEntities.DOCDB_UserData>(),
+                                                    ud => ud.DOCDB_UserID == user.User.DOCDB_UserID &&
+                                                    varNamespace == (ud.Namespace ?? string.Empty).ToLower().Trim() &&
+                                                    varName == ud.Name.ToLower().Trim());
+        }
+
+        private DocDBEntities.DOCDB_Users TryFindUserEntityByName(string username)
+        {
+            return CollectionHelper.SingleOrDefault((this._users ?? Enumerable.Empty<DocDBEntities.DOCDB_Users>()).OfType<DocDBEntities.DOCDB_Users>(),
+                                                    u => (u.Users.Name ?? string.Empty).ToLower().Trim() == (username ?? string.Empty).ToLower().Trim());
+        }
+
+        private IEnumerable<byte> Users_HashPassword(string pwd)
+        {
+            if (string.IsNullOrEmpty(pwd))
+            {
+                return null;
+            }
+
+            return this._PWD_HASHER.Hash(pwd);
+        }
+
+        private void WriteJsonObject(IHttpResponse response, object obj)
+        {
+            var json = this._SERIALIZER.ToJson(obj);
+
+            response.ContentType = "application/json";
+            response.Charset = Encoding.UTF8;
+            response.Write(json);
         }
         // Internal Methods (1) 
 

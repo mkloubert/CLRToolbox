@@ -74,6 +74,10 @@
       <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.SDK\MarcelJoachimKloubert.ApplicationServer.SDK.csproj">
+      <Project>{f66c16a4-703b-4f09-a78d-2abb90030354}</Project>
+      <Name>MarcelJoachimKloubert.ApplicationServer.SDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

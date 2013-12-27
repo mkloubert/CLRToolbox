@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpRequest : ITMObject
     {
-        #region Data Members (6)
+        #region Data Members (7)
 
         /// <summary>
         /// Gets the request address.
@@ -41,6 +41,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// Gets the endpoint of the requesting client.
         /// </summary>
         ITcpAddress RemoteAddress { get; }
+
+        /// <summary>
+        /// Gets the request time.
+        /// </summary>
+        DateTimeOffset Time { get; }
 
         /// <summary>
         /// Gets the requesting user if available.

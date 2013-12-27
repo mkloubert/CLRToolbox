@@ -4,13 +4,15 @@
 
 
 using MarcelJoachimKloubert.CLRToolbox.Objects;
+using MarcelJoachimKloubert.CLRToolbox.Timing;
 
 namespace MarcelJoachimKloubert.ApplicationServer
 {
     /// <summary>
     /// Describes the context of an <see cref="IAppServer" /> object.
     /// </summary>
-    public interface IAppServerContext : IObjectContext<IAppServer>
+    public interface IAppServerContext : IObjectContext<IAppServer>,
+                                         ITimeProvider
     {
 
     }

@@ -40,9 +40,47 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (8)
 
-        // Public Methods (1) 
+        // Public Methods (4) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Add{E}(E)" />
+        public void Add<E>(E entity)
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfDisposed();
+
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+
+                this.OnAdd<E>(entity);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Attach{E}(E)" />
+        public void Attach<E>(E entity)
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfDisposed();
+
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+
+                this.OnAttach<E>(entity);
+            }
+        }
 
         /// <summary>
         /// 
@@ -64,7 +102,46 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
             return query;
         }
-        // Protected Methods (1) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IQueryableDatabase.Remove{E}(E)" />
+        public void Remove<E>(E entity)
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfDisposed();
+
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+
+                this.OnRemove<E>(entity);
+            }
+        }
+        // Protected Methods (4) 
+
+        /// <summary>
+        /// The logic for the <see cref="QueryableDatabaseBase.Add{E}(E)" /> method.
+        /// </summary>
+        /// <typeparam name="E">Type of the entity.</typeparam>
+        /// <param name="entity">The entity to add.</param>
+        protected virtual void OnAdd<E>(E entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The logic for the <see cref="QueryableDatabaseBase.Attach{E}(E)" /> method.
+        /// </summary>
+        /// <typeparam name="E">Type of the entity.</typeparam>
+        /// <param name="entity">The entity to attach.</param>
+        protected virtual void OnAttach<E>(E entity)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// The logic for the <see cref="QueryableDatabaseBase.Query{E}()" /> method.
@@ -72,6 +149,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         /// <typeparam name="E">Type of the entity to query.</typeparam>
         /// <returns>The query.</returns>
         protected abstract IQueryable<E> OnQuery<E>();
+
+        /// <summary>
+        /// The logic for the <see cref="QueryableDatabaseBase.Remove{E}(E)" /> method.
+        /// </summary>
+        /// <typeparam name="E">Type of the entity.</typeparam>
+        /// <param name="entity">The entity to remove.</param>
+        protected virtual void OnRemove<E>(E entity)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion Methods
     }

@@ -42,7 +42,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (6)
+        #region Properties (7)
 
         /// <summary>
         /// 
@@ -85,6 +85,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// </summary>
         /// <see cref="IHttpRequest.RemoteAddress" />
         public abstract ITcpAddress RemoteAddress
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.Time" />
+        public abstract DateTimeOffset Time
         {
             get;
         }

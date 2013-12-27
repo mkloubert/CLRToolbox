@@ -38,5 +38,52 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         }
 
         #endregion Constructors
+
+        #region Properties (1)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IDatabase.CanUpdate" />
+        public abstract bool CanUpdate
+        {
+            get;
+        }
+
+        #endregion Properties
+
+        #region Methods (2)
+
+        // Public Methods (1) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IDatabase.Update()" />
+        public void Update()
+        {
+            lock (this._SYNC)
+            {
+                this.ThrowIfDisposed();
+
+                if (!this.CanUpdate)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                this.OnUpdate();
+            }
+        }
+        // Protected Methods (1) 
+
+        /// <summary>
+        /// The logic for <see cref="DatabaseBase.Update()" /> method.
+        /// </summary>
+        protected virtual void OnUpdate()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Methods
     }
 }

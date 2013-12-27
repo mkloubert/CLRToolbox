@@ -188,7 +188,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (18)
+        #region Methods (17)
 
         // Public Methods (2) 
 
@@ -424,7 +424,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                          categories: LoggerFacadeCategories.Errors);
             }
         }
-        // Private Methods (13) 
+        // Private Methods (12) 
 
         private static Func<IAppServerModule, bool> CreateWherePredicateForExtractingOtherModules(IAppServerModule module)
         {

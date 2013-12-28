@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\DelegateCache.CachedItem.cs">
+      <DependentUpon>DelegateCache.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Caching\DelegateCache.cs" />
     <Compile Include="Collections\Generic\DelegateComparer.cs" />
     <Compile Include="Collections\Generic\DelegateEqualityComparer.cs" />
     <Compile Include="Collections\Generic\ForAllItemExecutionException.cs" />

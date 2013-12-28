@@ -166,9 +166,13 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
+    <Compile Include="Helpers\CompressionHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\EnumHelper.Parse.cs">
       <DependentUpon>EnumHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CompressionHelper.GZip.cs">
+      <DependentUpon>CompressionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IOHelper.ReadGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
@@ -188,6 +192,9 @@
     </Compile>
     <Compile Include="Helpers\EnumHelper.TryParse.cs">
       <DependentUpon>EnumHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CompressionHelper.GUnzip.cs">
+      <DependentUpon>CompressionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NetHelper.SetBasicAuth.SecureString.cs">
       <DependentUpon>NetHelper.cs</DependentUpon>

@@ -366,6 +366,17 @@
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CompressionHelper.cs">
+      <Link>Helpers\CompressionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CompressionHelper.GUnzip.cs">
+      <Link>Helpers\CompressionHelper.GUnzip.cs</Link>
+      <DependentUpon>CompressionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CompressionHelper.GZip.cs">
+      <Link>Helpers\CompressionHelper.GZip.cs</Link>
+      <DependentUpon>CompressionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.cs">
       <Link>Helpers\EnumHelper.cs</Link>
     </Compile>

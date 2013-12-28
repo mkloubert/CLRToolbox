@@ -8,7 +8,7 @@ using System.IO;
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     /// <summary>
-    /// Helper class I/O operations.
+    /// Helper class for I/O operations.
     /// </summary>
     public static partial class IOHelper
     {

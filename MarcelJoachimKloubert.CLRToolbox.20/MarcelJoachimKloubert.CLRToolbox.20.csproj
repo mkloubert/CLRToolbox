@@ -170,7 +170,13 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
+    <Compile Include="Helpers\CollectionHelper.ToEnumerableSafe.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CompressionHelper.cs" />
+    <Compile Include="Helpers\DataHelper.ToEnumerable.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\EnumHelper.Parse.cs">
       <DependentUpon>EnumHelper.cs</DependentUpon>
@@ -199,6 +205,16 @@
     </Compile>
     <Compile Include="Helpers\CompressionHelper.GUnzip.cs">
       <DependentUpon>CompressionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.cs" />
+    <Compile Include="Helpers\DataHelper.ToEnumerable.Odbc.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ToEnumerable.OleDb.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ToEnumerable.SqlClient.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NetHelper.SetBasicAuth.SecureString.cs">
       <DependentUpon>NetHelper.cs</DependentUpon>

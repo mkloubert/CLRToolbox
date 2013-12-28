@@ -574,9 +574,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
                         using (var reader = cmd.ExecuteReader())
                         {
-                            while (reader.Read())
+                            foreach (var rec in reader.ToEnumerable())
                             {
-                                result.Add((byte[])reader[0]);
+                                result.Add((byte[])rec[0]);
                             }
                         }
                     }

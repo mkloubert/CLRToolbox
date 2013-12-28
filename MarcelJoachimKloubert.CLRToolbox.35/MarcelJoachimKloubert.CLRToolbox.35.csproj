@@ -347,6 +347,10 @@
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToEnumerableSafe.cs">
+      <Link>Helpers\CollectionHelper.ToEnumerableSafe.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CompressionHelper.cs">
       <Link>Helpers\CompressionHelper.cs</Link>
     </Compile>
@@ -357,6 +361,25 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CompressionHelper.GZip.cs">
       <Link>Helpers\CompressionHelper.GZip.cs</Link>
       <DependentUpon>CompressionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.cs">
+      <Link>Helpers\DataHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToEnumerable.cs">
+      <Link>Helpers\DataHelper.ToEnumerable.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToEnumerable.Odbc.cs">
+      <Link>Helpers\DataHelper.ToEnumerable.Odbc.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToEnumerable.OleDb.cs">
+      <Link>Helpers\DataHelper.ToEnumerable.OleDb.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToEnumerable.SqlClient.cs">
+      <Link>Helpers\DataHelper.ToEnumerable.SqlClient.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.cs">
       <Link>Helpers\EnumHelper.cs</Link>
@@ -823,6 +846,9 @@
     <Compile Include="Data\QueryableAdoDatabaseBase.cs" />
     <Compile Include="Data\QueryableDatabaseBase.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
+    <Compile Include="Extensions\Collections.ToEnumerableSafe.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Collections.AddRange.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
@@ -855,6 +881,19 @@
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Compression.cs" />
+    <Compile Include="Extensions\Data.cs" />
+    <Compile Include="Extensions\Data.ToEnumerable.Odbc.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ToEnumerable.OleDb.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ToEnumerable.SqlClient.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ToEnumerable.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IO.CreateDirectoryDeep.cs">
       <DependentUpon>IO.cs</DependentUpon>
     </Compile>

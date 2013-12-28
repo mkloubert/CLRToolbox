@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteCommModule.cs" />
+    <Compile Include="RequestHandler.cs" />
     <Compile Include="WebInterface\modules\index.cs" />
     <Compile Include="WebInterface\WebModuleBase.cs" />
   </ItemGroup>

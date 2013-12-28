@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Principal;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -42,7 +43,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (7)
+        #region Properties (11)
 
         /// <summary>
         /// 
@@ -58,6 +59,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// </summary>
         /// <see cref="IHttpRequest.ContentType" />
         public abstract string ContentType
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.Files" />
+        public abstract IReadOnlyDictionary<string, IFile> Files
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.GET" />
+        public abstract IReadOnlyDictionary<string, string> GET
         {
             get;
         }
@@ -83,8 +102,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IHttpRequest.POST" />
+        public abstract IReadOnlyDictionary<string, string> POST
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IHttpRequest.RemoteAddress" />
         public abstract ITcpAddress RemoteAddress
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.REQUEST" />
+        public abstract IReadOnlyDictionary<string, string> REQUEST
         {
             get;
         }

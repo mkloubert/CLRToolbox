@@ -172,7 +172,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
                 HandleRequestContext handleCtx = new HandleRequestContext();
                 bool requestWasHandled = false;
                 {
-                    handleCtx.HttpRequest = context;
+                    handleCtx.Http = context;
                     handleCtx.InvokeAfterHandleRequest = beforeHandleCtx.InvokeAfterHandleRequest;
 
                     if (beforeHandleCtx.InvokeHandleRequest)

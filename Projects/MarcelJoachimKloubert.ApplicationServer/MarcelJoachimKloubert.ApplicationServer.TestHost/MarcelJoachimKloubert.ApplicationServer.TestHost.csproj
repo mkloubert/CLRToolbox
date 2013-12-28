@@ -57,6 +57,10 @@
     <None Include="_rootDir\modules\docdb\config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="_rootDir\modules\remote_comm\config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_rootDir\modules\remote_comm\config.sample.ini" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">

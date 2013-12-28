@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <summary>
     /// Describes an object that can be started and stopped.
     /// </summary>
-    public interface IRunnable
+    public interface IRunnable : ITMObject
     {
         #region Data Members (4)
 

@@ -5,11 +5,7 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
-using MarcelJoachimKloubert.ApplicationServer.Data.SQLite;
-using MarcelJoachimKloubert.ApplicationServer.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
-using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 {
@@ -34,47 +30,7 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 
         protected override void OnHandleRequest(IHandleRequestContext context)
         {
-            //var l = ServiceLocator.Current.GetInstance<IFunctionLocator>();
-
-            //var func = l.GetAllFunctions().Single(f => f.Name == "Echo");
-
-            //var p = new Dictionary<string, object>()
-            //    {
-            //        { "a", 1 },
-            //    };
-
-            //var r = func.Execute(p, false);
-
-            //r.Start();
-
-            //var a = r.ResultParameters["A"];
-
-            context.HttpRequest.Response.Write("<ul>");
-
-            foreach (var ctx in this.Server
-                                    .Modules
-                                    .Select(m => m.Context)
-                                    .Where(ctx => ctx != null)
-                                    .OrderBy(ctx => ctx.Object.DisplayName))
-            {
-                var hash = ctx.GetWebHashAsHexString();
-
-                context.HttpRequest
-                       .Response
-                       .Write("<li>")
-                       .Write(string.Format(@"<a target=""_blank"" href=""{0}/"">",
-                                            hash))
-                       .Write(ctx.Object.DisplayName)
-                       .Write("</a>")
-                       .Write("</li>");
-            }
-
-            context.HttpRequest.Response.Write("</ul>");
-
-            using (var db = ServiceLocator.Current.GetInstance<ISqliteDatabaseFactory>().OpenTempDatabase())
-            {
-
-            }
+            var a = context.Http.Request.Files["a"];
         }
 
         #endregion Methods

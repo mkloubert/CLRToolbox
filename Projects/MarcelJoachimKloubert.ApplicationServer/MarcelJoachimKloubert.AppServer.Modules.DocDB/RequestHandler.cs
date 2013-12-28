@@ -146,12 +146,6 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
 
             var user = (DocDBUserPrincipal)e.Request.User;
 
-            var urlParts = e.Request.Address.AbsolutePath
-                                        .Split('/')
-                                        .SkipWhile(str => string.IsNullOrWhiteSpace(str))
-                                        .Select(str => str.ToLower().Trim())
-                                        .ToArray();
-
             string varNamespace;
             string varName;
             TryExtractVariableData(e.Request,

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Principal;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -15,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpRequest : ITMObject
     {
-        #region Data Members (7)
+        #region Data Members (11)
 
         /// <summary>
         /// Gets the request address.
@@ -28,6 +29,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         string ContentType { get; }
 
         /// <summary>
+        /// Gets the list of subitted / uploaded files.
+        /// </summary>
+        IReadOnlyDictionary<string, IFile> Files { get; }
+
+        /// <summary>
+        /// Gets the list of GET variables.
+        /// </summary>
+        IReadOnlyDictionary<string, string> GET { get; }
+
+        /// <summary>
         /// Gets the list of request headers.
         /// </summary>
         IReadOnlyDictionary<string, string> Headers { get; }
@@ -38,9 +49,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         string Method { get; }
 
         /// <summary>
+        /// Gets the list of POST variables.
+        /// </summary>
+        IReadOnlyDictionary<string, string> POST { get; }
+
+        /// <summary>
         /// Gets the endpoint of the requesting client.
         /// </summary>
         ITcpAddress RemoteAddress { get; }
+
+        /// <summary>
+        /// Gets the merged list of POST and GET variables.
+        /// </summary>
+        IReadOnlyDictionary<string, string> REQUEST { get; }
 
         /// <summary>
         /// Gets the request time.

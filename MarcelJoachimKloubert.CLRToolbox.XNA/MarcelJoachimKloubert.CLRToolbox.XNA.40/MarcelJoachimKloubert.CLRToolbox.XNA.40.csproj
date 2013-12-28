@@ -150,6 +150,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\GlobalConverter.cs">
       <Link>Data\GlobalConverter.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\IContentProvider.cs">
+      <Link>Data\IContentProvider.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\IConverter.cs">
       <Link>Data\IConverter.cs</Link>
     </Compile>
@@ -435,6 +438,12 @@
       <Link>IO\IConsole.dotNET.cs</Link>
       <DependentUpon>IConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\IFile.cs">
+      <Link>IO\IFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\SimpleFile.cs">
+      <Link>IO\SimpleFile.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.cs">
       <Link>IO\SystemConsole.cs</Link>
     </Compile>
@@ -607,6 +616,9 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\AccessControl\SimpleAcl.cs">
       <Link>Security\AccessControl\SimpleAcl.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\Crc32.cs">
+      <Link>Security\Cryptography\Crc32.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\GeneralHasher.cs">
       <Link>Security\Cryptography\GeneralHasher.cs</Link>

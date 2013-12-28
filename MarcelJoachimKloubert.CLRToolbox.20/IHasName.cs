@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <summary>
     /// Describes an object that has a name.
     /// </summary>
-    public interface IHasName
+    public interface IHasName : ITMObject
     {
         #region Data Members (2)
 

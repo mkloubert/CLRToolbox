@@ -305,6 +305,9 @@
     <Compile Include="IO\IConsole.ReadPassword.cs">
       <DependentUpon>IConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\IContentProvider.cs" />
+    <Compile Include="IO\IFile.cs" />
+    <Compile Include="IO\SimpleFile.cs" />
     <Compile Include="IO\SystemConsole.cs" />
     <Compile Include="IO\SystemConsole.dotNET.cs">
       <DependentUpon>SystemConsole.cs</DependentUpon>
@@ -395,6 +398,7 @@
     <Compile Include="Security\AccessControl\IAclResource.cs" />
     <Compile Include="Security\AccessControl\IAclRole.cs" />
     <Compile Include="Security\AccessControl\SimpleAcl.cs" />
+    <Compile Include="Security\Cryptography\Crc32.cs" />
     <Compile Include="Security\Cryptography\GeneralHasher.cs" />
     <Compile Include="Security\Cryptography\HasherBase.SecureString.cs">
       <DependentUpon>HasherBase.cs</DependentUpon>

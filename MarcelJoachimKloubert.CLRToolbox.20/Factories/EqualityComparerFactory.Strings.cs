@@ -10,12 +10,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Factories
 {
     partial class EqualityComparerFactory
     {
-        #region Methods (4)
+        #region Methods (5)
 
-        // Public Methods (3) 
+        // Public Methods (4) 
 
         /// <summary>
-        /// Creates an case insensitive <see cref="IEqualityComparer{T}" /> for <see cref="string" />.
+        /// Creates a case insensitive <see cref="IEqualityComparer{T}" /> for <see cref="string" />.
         /// </summary>
         /// <returns>The created comparer.</returns>
         /// /// <remarks>
@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Factories
         }
 
         /// <summary>
-        /// Creates an case insensitive <see cref="IEqualityComparer{T}" /> for <see cref="string" />.
+        /// Creates s case insensitive <see cref="IEqualityComparer{T}" /> for <see cref="string" />.
         /// </summary>
         /// <param name="trim">Compare string trimmed or not.</param>
         /// <returns>The created comparer.</returns>
@@ -56,6 +56,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Factories
                 string str = ParseString(obj, trim, emptyIsNull);
                 return str != null ? str.GetHashCode() : 0;
             });
+        }
+
+        /// <summary>
+        /// Creates a case insensitive <see cref="IEqualityComparer{T}" /> for use in HTTP context.
+        /// </summary>
+        /// <returns>The created comparer.</returns>
+        public static IEqualityComparer<string> CreateHttpKeyComparer()
+        {
+            return CreateCaseInsensitiveStringComparer(true, true);
         }
         // Private Methods (1) 
 

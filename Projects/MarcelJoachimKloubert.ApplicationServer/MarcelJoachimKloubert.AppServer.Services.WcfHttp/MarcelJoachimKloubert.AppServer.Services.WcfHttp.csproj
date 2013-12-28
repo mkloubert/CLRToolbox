@@ -44,6 +44,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,8 +54,14 @@
   <ItemGroup>
     <Compile Include="BinaryMessage.cs" />
     <Compile Include="HttpRequest.cs" />
+    <Compile Include="HttpRequest.HttpMultipartContentParser.cs">
+      <DependentUpon>HttpRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="HttpResponse.cs" />
     <Compile Include="IWcfHttpServerService.cs" />
+    <Compile Include="HttpRequest.HttpRequestMultipartContent.cs">
+      <DependentUpon>HttpRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="RawContentTypeMapper.cs" />
     <Compile Include="Security\DelegateUserNamePasswordValidator.cs" />
     <Compile Include="WcfHttpServer.cs" />

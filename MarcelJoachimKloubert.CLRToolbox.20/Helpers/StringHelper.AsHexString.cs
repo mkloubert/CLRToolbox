@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         // Public Methods (2) 
 
         /// <summary>
-        /// Converts a byte sequence to a hex string.
+        /// Converts a byte sequence to a lower case hex string.
         /// </summary>
         /// <param name="binData">The binary data / sequence.</param>
         /// <returns>

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
+using MarcelJoachimKloubert.CLRToolbox.Net.Http;
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 {
@@ -18,6 +20,12 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
     [PartCreationPolicy(CreationPolicy.Shared)]
     public sealed class RemoteCommModule : AppServerModuleBase
     {
+        #region Fields (1)
+
+        private RequestHandler _currentHandler;
+
+        #endregion Fields
+
         #region Constructors (1)
 
         /// <summary>
@@ -44,7 +52,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 
         #endregion Properties
 
-        #region Methods (4)
+        #region Methods (5)
 
         // Protected Methods (4) 
 
@@ -73,7 +81,60 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
         /// <see cref="AppServerModuleBase.OnStart(AppServerModuleBase.StartStopContext, ref bool)" />
         protected override void OnStart(AppServerModuleBase.StartStopContext context, ref bool isRunning)
         {
+            this.DisposeCurrentHandler();
 
+            var newServer = ServiceLocator.Current.GetInstance<IHttpServer>();
+
+            // HTTPs?
+            {
+                bool? useHttps;
+                this.Context
+                    .Config
+                    .TryGetValue<bool?>(category: "service",
+                                        name: "use_https",
+                                        value: out useHttps,
+                                        defaultVal: false);
+
+                newServer.UseSecureHttp = useHttps ?? false;
+            }
+
+            // port
+            {
+                int? port;
+                this.Context
+                    .Config
+                    .TryGetValue<int?>(category: "service",
+                                       name: "port",
+                                       value: out port,
+                                       defaultVal: 23979);
+
+                newServer.Port = port ?? 23979;
+            }
+
+
+            if (newServer.UseSecureHttp)
+            {
+                // SSL thumbprint
+                {
+                    newServer.SetSslCertificateByThumbprint(this.Context
+                                                                .Config
+                                                                .GetValue<IEnumerable<char>>(category: "service",
+                                                                                             name: "ssl_thumbprint"));
+                }
+            }
+
+            var newHandler = new RequestHandler(this, newServer);
+            try
+            {
+                newHandler.Start();
+                this._currentHandler = newHandler;
+            }
+            catch
+            {
+                newHandler.Dispose();
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -82,7 +143,23 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
         /// <see cref="AppServerModuleBase.OnStart(AppServerModuleBase.StartStopContext, ref bool)" />
         protected override void OnStop(AppServerModuleBase.StartStopContext context, ref bool isRunning)
         {
+            this.DisposeCurrentHandler();
+        }
+        // Private Methods (1) 
 
+        private void DisposeCurrentHandler()
+        {
+            try
+            {
+                using (var h = this._currentHandler)
+                {
+                    this._currentHandler = null;
+                }
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         #endregion Methods

@@ -75,7 +75,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Data Members
 
-        #region Operations (2)
+        #region Operations (3)
 
         /// <summary>
         /// Returns a new stream with the body data.
@@ -88,6 +88,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// </summary>
         /// <returns>The body data as byte array.</returns>
         byte[] GetBodyData();
+
+        /// <summary>
+        /// Tries to return the value of <see cref="IHttpRequest.Method" /> as enum.
+        /// </summary>
+        /// <returns><see cref="IHttpRequest.Method" /> as enum or <see langword="null" /> if their is no representation for the string value.</returns>
+        HttpMethod? TryGetKnownMethod();
 
         #endregion Operations
     }

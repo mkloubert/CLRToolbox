@@ -146,9 +146,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (3)
 
-        // Public Methods (2) 
+        // Public Methods (3) 
 
         /// <summary>
         /// 
@@ -176,6 +176,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpRequest.TryGetKnownMethod()" />
+        public HttpMethod? TryGetKnownMethod()
+        {
+            string method = this.Method;
+            if (StringHelper.IsNullOrWhiteSpace(method))
+            {
+                return HttpMethod.GET;
+            }
+
+            global::MarcelJoachimKloubert.CLRToolbox.Net.Http.HttpMethod? result;
+            if (EnumHelper.TryParse<HttpMethod>(this.Method, true, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #endregion Methods

@@ -3,6 +3,8 @@
 // Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and limitations under the License.
 
+// s. http://blog.marcel-kloubert.de
+
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Security.Cryptography;
 namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 {
     /// <summary>
-    /// This is a hasher that is based on CRC-32 algoithm.
+    /// This is a hasher that is based on CRC-32 algorithm.
     /// The class is based on Damien Guard's implementation that can be found at <see href="https://github.com/damieng/DamienGKit" />.
     /// </summary>
     public class Crc32 : HashAlgorithm
@@ -21,10 +23,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         private uint _hash;
         private readonly uint _SEED;
         private readonly uint[] _TABLE;
+
         /// <summary>
         /// Stores the default polynomial value.
         /// </summary>
         public const uint DEFAULT_POLYNOMIAL = 0xEDB88320u;
+
         /// <summary>
         /// Stores the default seed value.
         /// </summary>

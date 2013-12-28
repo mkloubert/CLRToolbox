@@ -166,6 +166,10 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\Generic\IForAllItemExecutionContext.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.Parse.cs">
+      <DependentUpon>EnumHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\IOHelper.ReadGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
@@ -181,6 +185,9 @@
     </Compile>
     <Compile Include="Helpers\IOHelper.WriteGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\EnumHelper.TryParse.cs">
+      <DependentUpon>EnumHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NetHelper.SetBasicAuth.SecureString.cs">
       <DependentUpon>NetHelper.cs</DependentUpon>
@@ -319,6 +326,7 @@
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />
     <Compile Include="ITMObject.cs" />
+    <Compile Include="Net\Http\HttpMethod.cs" />
     <Compile Include="Net\Http\HttpServerBase.Interface.cs">
       <DependentUpon>HttpServerBase.cs</DependentUpon>
     </Compile>

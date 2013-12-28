@@ -133,13 +133,14 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                 IDictionary<string, string> postVars = null;
                 IDictionary<string, IFile> files = null;
 
-                if (this.Method == "POST")
+                if (this.TryGetKnownMethod() == HttpMethod.POST)
                 {
                     try
                     {
                         if (!this.ProcessMultipartData(ref postVars, ref files))
                         {
-                            // no uploaded files
+                            // no uploaded files, handle complete
+                            // request body as variables
 
                             using (var reader = new StreamReader(this.GetBody(), Encoding.ASCII))
                             {
@@ -331,6 +332,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                         }
                     }
 
+                    parser = null;
                     result = true;
                 }
             }

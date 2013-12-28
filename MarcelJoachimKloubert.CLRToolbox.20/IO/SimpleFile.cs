@@ -168,10 +168,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                 throw new ArgumentNullException("algo");
             }
 
-            byte[] content = this.GetData();
-            if (content != null)
+            using (Stream stream = this.OpenStream())
             {
-                return algo.ComputeHash(content);
+                if (stream != null)
+                {
+                    return algo.ComputeHash(stream);
+                }
             }
 
             return null;

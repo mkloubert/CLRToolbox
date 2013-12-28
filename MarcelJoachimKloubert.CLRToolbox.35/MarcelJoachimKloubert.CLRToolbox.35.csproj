@@ -340,6 +340,17 @@
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.cs">
+      <Link>Helpers\EnumHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.Parse.cs">
+      <Link>Helpers\EnumHelper.Parse.cs</Link>
+      <DependentUpon>EnumHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.TryParse.cs">
+      <Link>Helpers\EnumHelper.TryParse.cs</Link>
+      <DependentUpon>EnumHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CopyTo.cs">
       <Link>Helpers\IOHelper.CopyTo.cs</Link>
       <DependentUpon>IOHelper.cs</DependentUpon>
@@ -494,6 +505,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ITMObject.cs">
       <Link>ITMObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpMethod.cs">
+      <Link>Net\Http\HttpMethod.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Net\Http\HttpRequestBase.cs">
       <Link>Net\Http\HttpRequestBase.cs</Link>

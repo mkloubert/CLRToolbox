@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 return null;
             }
 
-            return seq as IEnumerable<T> ?? Cast<T>(seq);
+            return Cast<T>(seq);
         }
 
         #endregion Methods

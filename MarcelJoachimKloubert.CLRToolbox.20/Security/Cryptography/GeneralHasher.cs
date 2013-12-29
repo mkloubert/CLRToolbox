@@ -107,7 +107,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 
                 temp.Position = 0;
                 byte[] hash = this._ALGORITHM
-                                  .ComputeHash(data);
+                                  .ComputeHash(temp);
 
                 targetStream.Write(hash, 0, hash.Length);
             }

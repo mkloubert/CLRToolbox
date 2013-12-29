@@ -112,3 +112,6 @@
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.AppServer.Modules.DocDB/App.Config
 
 /Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.TestHost/_rootDir/modules/remote_comm/config.ini
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.WinService/config.ini
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.WinService/bin
+/Projects/MarcelJoachimKloubert.ApplicationServer/MarcelJoachimKloubert.ApplicationServer.WinService/obj

@@ -63,6 +63,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.AppServer.Modules.FileBox", "MarcelJoachimKloubert.AppServer.Modules.FileBox\MarcelJoachimKloubert.AppServer.Modules.FileBox.csproj", "{7F8A21A1-C77C-41A6-9FBF-E7CF61554E19}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{81A0EDBC-8E2A-48FC-A583-506F8393773D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.ApplicationServer.WinService", "MarcelJoachimKloubert.ApplicationServer.WinService\MarcelJoachimKloubert.ApplicationServer.WinService.csproj", "{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +194,12 @@ Global
 		{7F8A21A1-C77C-41A6-9FBF-E7CF61554E19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F8A21A1-C77C-41A6-9FBF-E7CF61554E19}.Stats|Any CPU.ActiveCfg = Release|Any CPU
 		{7F8A21A1-C77C-41A6-9FBF-E7CF61554E19}.Stats|Any CPU.Build.0 = Release|Any CPU
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}.Stats|Any CPU.ActiveCfg = Release|Any CPU
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97}.Stats|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,5 +227,6 @@ Global
 		{E79E4E16-9D08-4034-9633-EC2A1BC83479} = {12FF78E9-2090-496F-BEEE-5F0A8CA6199F}
 		{859639AC-14F2-4D40-9746-5153693FC54E} = {DF00BA57-A2A8-4F1B-A73E-22B0813DB0B8}
 		{7F8A21A1-C77C-41A6-9FBF-E7CF61554E19} = {21BB8C98-5017-491C-B1C4-A54CE9FB093F}
+		{41B5CEB4-0FF2-44EC-BDA2-20CC72FA7D97} = {81A0EDBC-8E2A-48FC-A583-506F8393773D}
 	EndGlobalSection
 EndGlobal

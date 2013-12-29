@@ -196,10 +196,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             result.Assembly = src.Assembly;
             result.Categories = src.Categories;
             result.Id = Guid.NewGuid();
+            result.LogTag = src.LogTag;
             result.Member = src.Member;
             result.Message = msgVal;
             result.Principal = src.Principal;
-            result.Tag = src.Tag;
             result.Thread = src.Thread;
             result.Time = src.Time;
 

@@ -72,9 +72,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                         Assembly = asm,
                         Categories = listOfCategories.ToArray(),
                         Id = Guid.NewGuid(),
+                        LogTag = StringHelper.AsString(tag),
                         Member = member,
                         Message = msg,
-                        Tag = StringHelper.AsString(tag),
                         Thread = thread,
                         Time = time,
                     };

@@ -30,7 +30,7 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common.Modules
 
         protected override void OnHandleRequest(IHandleRequestContext context)
         {
-            var a = context.Http.Request.Files["a"];
+
         }
 
         #endregion Methods

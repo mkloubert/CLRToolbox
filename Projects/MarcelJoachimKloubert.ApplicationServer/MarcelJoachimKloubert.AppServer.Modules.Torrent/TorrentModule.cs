@@ -19,6 +19,12 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Torrent
     [PartCreationPolicy(CreationPolicy.Shared)]
     public sealed class TorrentModule : AppServerModuleBase
     {
+        #region Fields (1)
+
+        private ClientEngine _torrentClient;
+
+        #endregion Fields
+
         #region Constructors (1)
 
         /// <summary>
@@ -32,7 +38,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Torrent
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         /// <summary>
         /// 
@@ -42,12 +48,6 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Torrent
         {
             get { return "torrent"; }
         }
-
-        #endregion Properties
-
-        #region Methods (4)
-
-        private ClientEngine _torrentClient;
 
         public ClientEngine TorrentClient
         {
@@ -60,6 +60,10 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Torrent
                 this.OnPropertyChanged(() => this.TorrentClient);
             }
         }
+
+        #endregion Properties
+
+        #region Methods (5)
 
         // Protected Methods (4) 
 
@@ -80,14 +84,6 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Torrent
                                              ref bool isInitialized)
         {
 
-        }
-
-        private void DisposeOldTrackerClient()
-        {
-            using (var client = this.TorrentClient)
-            {
-                this.TorrentClient = null;
-            }
         }
 
         /// <summary>
@@ -168,6 +164,15 @@ namespace MarcelJoachimKloubert.AppServer.Modules.Torrent
         protected override void OnStop(AppServerModuleBase.StartStopContext context, ref bool isRunning)
         {
             this.DisposeOldTrackerClient();
+        }
+        // Private Methods (1) 
+
+        private void DisposeOldTrackerClient()
+        {
+            using (var client = this.TorrentClient)
+            {
+                this.TorrentClient = null;
+            }
         }
 
         #endregion Methods

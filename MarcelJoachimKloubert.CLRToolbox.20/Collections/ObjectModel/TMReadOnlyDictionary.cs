@@ -16,11 +16,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
     /// <typeparam name="TValue">Type of the values.</typeparam>
     public class TMReadOnlyDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {
+
+
         #region Fields (1)
 
         private readonly IDictionary<TKey, TValue> _DICTIONARY;
 
         #endregion Fields
+
 
         #region Constructors (1)
 
@@ -42,6 +45,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
         }
 
         #endregion Constructors
+
 
         #region Properties (4)
 
@@ -82,6 +86,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
         }
 
         #endregion Properties
+
 
         #region Methods (4)
 

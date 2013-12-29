@@ -5,9 +5,11 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.ServiceProcess;
+using System.Threading;
 using System.Threading.Tasks;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
@@ -39,12 +41,18 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
 
         #region Properties (2)
 
+        /// <summary>
+        /// Gets the log directory.
+        /// </summary>
         public string LogDirectory
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets the current server.
+        /// </summary>
         public AppSrvImpl Server
         {
             get;
@@ -64,6 +72,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
         protected override void OnStart(string[] args)
         {
             var asmDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            TimeSpan? startDelay = null;
 
             var workDir = asmDir;
             foreach (var a in args)
@@ -84,6 +93,23 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
                                                                  dir)).CreateDirectoryDeep().FullName;
                     }
                 }
+                else if (a.ToLower().Trim().StartsWith("/startdelay:"))
+                {
+                    var seconds = a.Substring(a.IndexOf(':') + 1)
+                                   .Trim();
+                    if (seconds == string.Empty)
+                    {
+                        seconds = "15";
+                    }
+
+                    startDelay = TimeSpan.FromSeconds(double.Parse(seconds,
+                                                                   CultureInfo.InvariantCulture));
+                }
+            }
+
+            if (startDelay.HasValue)
+            {
+                Thread.Sleep(startDelay.Value);
             }
 
             this.EventLog
@@ -127,7 +153,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
 
                         this.EventLog
                             .WriteEntry("Server has been initialized.",
-                                        EventLogEntryType.SuccessAudit);
+                                        EventLogEntryType.Information);
                     }
                     catch (Exception ex)
                     {
@@ -135,7 +161,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
                             .WriteEntry(string.Format("Server could not be initialized!{0}{0}{1}",
                                                       Environment.NewLine,
                                                       ex.GetBaseException() ?? ex),
-                                        EventLogEntryType.FailureAudit);
+                                        EventLogEntryType.Error);
 
                         throw;
                     }
@@ -149,7 +175,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
 
                     this.EventLog
                         .WriteEntry("Server has been started.",
-                                    EventLogEntryType.SuccessAudit);
+                                    EventLogEntryType.Information);
                 }
                 catch (Exception ex)
                 {
@@ -157,7 +183,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
                         .WriteEntry(string.Format("Server could not be started!{0}{0}{1}",
                                                   Environment.NewLine,
                                                   ex.GetBaseException() ?? ex),
-                                    EventLogEntryType.FailureAudit);
+                                    EventLogEntryType.Error);
 
                     throw;
                 }
@@ -227,7 +253,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
             }
             else if (msg.Categories.Contains(LoggerFacadeCategories.Errors))
             {
-                type = EventLogEntryType.FailureAudit;
+                type = EventLogEntryType.Error;
             }
             else if (msg.Categories.Contains(LoggerFacadeCategories.Warnings))
             {

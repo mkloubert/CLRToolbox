@@ -88,6 +88,14 @@
       <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.DataLayer\MarcelJoachimKloubert.ApplicationServer.DataLayer.csproj">
+      <Project>{e0966e9f-2c3e-4183-a621-c49d57bd7d61}</Project>
+      <Name>MarcelJoachimKloubert.ApplicationServer.DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.DataModels\MarcelJoachimKloubert.ApplicationServer.DataModels.csproj">
+      <Project>{e313a515-e020-4a44-ab28-24868be86baf}</Project>
+      <Name>MarcelJoachimKloubert.ApplicationServer.DataModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarcelJoachimKloubert.ApplicationServer.SDK\MarcelJoachimKloubert.ApplicationServer.SDK.csproj">
       <Project>{f66c16a4-703b-4f09-a78d-2abb90030354}</Project>
       <Name>MarcelJoachimKloubert.ApplicationServer.SDK</Name>
@@ -99,6 +107,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="logs\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EntityFramework.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Newtonsoft.Json.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

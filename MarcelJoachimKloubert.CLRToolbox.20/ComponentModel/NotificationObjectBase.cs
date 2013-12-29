@@ -14,6 +14,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     public abstract partial class NotificationObjectBase : TMObject,
                                                            INotificationObject
     {
+
+
         #region Constructors (4)
 
         /// <summary>
@@ -71,6 +73,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #endregion Constructors
 
+
         #region Delegates and Events (1)
 
         // Events (1) 
@@ -82,6 +85,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion Delegates and Events
+
 
         #region Methods (1)
 

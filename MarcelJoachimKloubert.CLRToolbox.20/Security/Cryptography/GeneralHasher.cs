@@ -94,6 +94,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         /// <see cref="HasherBase.OnHash(byte[], Stream)" />
         protected override sealed void OnHash(byte[] data, Stream targetStream)
         {
+            byte[] hash;
             using (MemoryStream temp = new MemoryStream())
             {
                 temp.Write(data, 0, data.Length);
@@ -106,11 +107,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
                 }
 
                 temp.Position = 0;
-                byte[] hash = this._ALGORITHM
-                                  .ComputeHash(temp);
-
-                targetStream.Write(hash, 0, hash.Length);
+                hash = this._ALGORITHM
+                           .ComputeHash(temp);
             }
+
+            targetStream.Write(hash, 0, hash.Length);
         }
 
         #endregion Methods

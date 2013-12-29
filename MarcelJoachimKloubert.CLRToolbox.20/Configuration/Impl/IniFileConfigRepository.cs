@@ -382,8 +382,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                         while ((line = reader.ReadLine()) != null)
                         {
                             line = line.TrimStart();
-                            if (line == string.Empty ||
-                                line[0] == ';')
+                            if (line == string.Empty)
                             {
                                 // empty line
                                 continue;

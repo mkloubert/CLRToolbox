@@ -76,6 +76,10 @@ namespace MarcelJoachimKloubert.ApplicationServer.WinService
                                                   Environment.NewLine,
                                                   ex.GetBaseException() ?? ex),
                                     EventLogEntryType.Error);
+
+                    this._SERVICE
+                        .EventLog
+                        .WriteEntry(text);
                 }
             }
         }

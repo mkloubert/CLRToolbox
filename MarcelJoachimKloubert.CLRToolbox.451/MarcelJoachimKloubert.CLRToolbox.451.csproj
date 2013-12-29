@@ -452,7 +452,8 @@
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsStringExtension.cs">
-      <Link>StringHelper.AsStringExtension.cs</Link>
+      <Link>Helpers\StringHelper.AsStringExtension.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">
       <Link>Helpers\StringHelper.cs</Link>

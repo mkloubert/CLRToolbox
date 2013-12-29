@@ -62,40 +62,43 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             var exceptions = new List<Exception>();
             var syncRoot = new object();
 
+            // create tuples from items
             var tuples = items.Select(i => new ForAllTuple<T, S>(
-                item: i,
-                action: action,
-                actionStateFactory: actionStateFactory,
-                exceptions: exceptions,
-                syncRoot: syncRoot
-            ));
+                    action: action,
+                    actionStateFactory: actionStateFactory,
+                    exceptions: exceptions,
+                    item: i,
+                    syncRoot: syncRoot
+                ));
 
+            // create tasks from tuples
             var tasks = tuples.Select(t =>
-            {
-                return new Task(action:
-                    (state) =>
-                    {
-                        var tuple = (ForAllTuple<T, S>)state;
-
-                        var ctx = new SimpleForAllItemExecutionContext<T, S>();
-                        try
+                {
+                    return new Task(action:
+                        (state) =>
                         {
-                            ctx.Item = tuple.ITEM;
-                            ctx.State = tuple.ACTION_STATE_FACTORY(ctx.Item);
+                            var tuple = (ForAllTuple<T, S>)state;
 
-                            tuple.ACTION(ctx);
-                        }
-                        catch (Exception ex)
-                        {
-                            lock (tuple.SYNC)
+                            var ctx = new SimpleForAllItemExecutionContext<T, S>();
+                            try
                             {
-                                tuple.EXCEPTION_LIST
-                                     .Add(new ForAllItemExecutionException<T, S>(ctx, ex));
-                            }
-                        }
-                    }, state: t);
-            });
+                                ctx.Item = tuple.ITEM;
+                                ctx.State = tuple.ACTION_STATE_FACTORY(ctx.Item);
 
+                                tuple.ACTION(ctx);
+                            }
+                            catch (Exception ex)
+                            {
+                                lock (tuple.SYNC)
+                                {
+                                    tuple.EXCEPTION_LIST
+                                         .Add(new ForAllItemExecutionException<T, S>(ctx, ex));
+                                }
+                            }
+                        }, state: t);
+                });
+
+            // start tasks and wait
             try
             {
                 var runningTasks = new List<Task>();
@@ -120,7 +123,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                     }
                 }
 
-                Task.WaitAll(runningTasks.ToArray());
+                TaskHelper.WaitAll(runningTasks);
                 runningTasks.Clear();
             }
             catch (Exception ex)
@@ -173,10 +176,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                                  ICollection<Exception> exceptions,
                                  object syncRoot)
             {
-                this.ITEM = item;
                 this.ACTION = action;
                 this.ACTION_STATE_FACTORY = actionStateFactory;
                 this.EXCEPTION_LIST = exceptions;
+                this.ITEM = item;
                 this.SYNC = syncRoot;
             }
 

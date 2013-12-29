@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentNullException();
             }
 
-            var user = StringHelper.AsString(userName);
+            string user = StringHelper.AsString(userName) ?? string.Empty;
             if (user.Contains(":"))
             {
                 throw new FormatException();

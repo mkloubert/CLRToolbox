@@ -62,7 +62,29 @@ namespace MarcelJoachimKloubert.CryptoCopy
             {
                 if (a.ToLower().StartsWith("/pwd:"))
                 {
+                    // password (UTF-8)
                     pwd = Encoding.UTF8.GetBytes(a.Substring(a.IndexOf(':') + 1));
+                }
+                else if (a.ToLower().StartsWith("/pwd64:"))
+                {
+                    // password (Base64)
+                    var b64pwd = a.Substring(a.IndexOf(':') + 1)
+                                  .Trim();
+
+                    pwd = b64pwd != string.Empty ? Convert.FromBase64String(b64pwd) : null;
+                }
+                else if (a.ToLower().StartsWith("/salt:"))
+                {
+                    // salt (UTF-8)
+                    salt = Encoding.UTF8.GetBytes(a.Substring(a.IndexOf(':') + 1));
+                }
+                else if (a.ToLower().StartsWith("/salt64:"))
+                {
+                    // salt (Base64)
+                    var b64salt = a.Substring(a.IndexOf(':') + 1)
+                                  .Trim();
+
+                    salt = b64salt != string.Empty ? Convert.FromBase64String(b64salt) : null;
                 }
             }
         }

@@ -67,27 +67,6 @@ namespace MarcelJoachimKloubert.CryptoCopy.Helpers
                             }
                         }
 
-                        // directories
-                        {
-                            var dirMappings = metaXmlDoc.XPathSelectElements("//dir/dirs/dir")
-                                                        .Select(de =>
-                                                        {
-                                                            return new DirMapping(ctx: ctx,
-                                                                                  src: new DirectoryInfo(Path.Combine(ctx.Source.FullName,
-                                                                                                                      de.Attribute("alias").Value.Trim())),
-                                                                                  dest: new DirectoryInfo(Path.Combine(ctx.Destination.FullName,
-                                                                                                                       de.Attribute("name").Value.Trim())),
-                                                                                  xml: de);
-                                                        }).ToArray();
-
-                            foreach (var dm in dirMappings)
-                            {
-                                dm.TASK.Start();
-                            }
-
-                            TaskHelper.WaitAll(dirMappings.Select(dm => dm.TASK));
-                        }
-
                         // files
                         {
                             var fileMappings = metaXmlDoc.XPathSelectElements("//dir/files/file")
@@ -107,6 +86,27 @@ namespace MarcelJoachimKloubert.CryptoCopy.Helpers
                             }
 
                             TaskHelper.WaitAll(fileMappings.Select(fm => fm.TASK));
+                        }
+
+                        // directories
+                        {
+                            var dirMappings = metaXmlDoc.XPathSelectElements("//dir/dirs/dir")
+                                                        .Select(de =>
+                                                        {
+                                                            return new DirMapping(ctx: ctx,
+                                                                                  src: new DirectoryInfo(Path.Combine(ctx.Source.FullName,
+                                                                                                                      de.Attribute("alias").Value.Trim())),
+                                                                                  dest: new DirectoryInfo(Path.Combine(ctx.Destination.FullName,
+                                                                                                                       de.Attribute("name").Value.Trim())),
+                                                                                  xml: de);
+                                                        }).ToArray();
+
+                            foreach (var dm in dirMappings)
+                            {
+                                dm.TASK.Start();
+                            }
+
+                            TaskHelper.WaitAll(dirMappings.Select(dm => dm.TASK));
                         }
 
                         if (xml != null)

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="CommonFunctionBase.cs" />
     <Compile Include="Echo.cs" />
+    <Compile Include="ListProcesses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

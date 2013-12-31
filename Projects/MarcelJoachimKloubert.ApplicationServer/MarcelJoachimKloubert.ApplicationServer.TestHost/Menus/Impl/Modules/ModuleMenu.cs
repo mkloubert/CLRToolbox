@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -18,6 +19,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
         public override void DrawMenu()
         {
             GlobalConsole.Current.WriteLine("[1] DocDB");
+            GlobalConsole.Current.WriteLine("[2] RemoteComm");
             GlobalConsole.Current.WriteLine();
             GlobalConsole.Current.WriteLine("[x] Back");
         }
@@ -32,6 +34,11 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
                                               this);
                     break;
 
+                case "2":
+                    this.ExecuteAnWaitOnError((state) => state.Test_RemoteComm(),
+                                              this);
+                    break;
+
                 case "x":
                     nextHandler = new RootMenu();
                     break;
@@ -42,6 +49,46 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
             }
         }
         // Private Methods (1) 
+
+        private void Test_RemoteComm()
+        {
+            var serializer = ServiceLocator.Current.GetInstance<ISerializer>();
+
+            var request = (HttpWebRequest)HttpWebRequest.Create("https://localhost:23979/exec/6EBFF3D19F1142B9AC0A7B85C23CE206");
+            request.SetBasicAuth("test", "test");
+            request.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
+                {
+                    return true;
+                };
+
+            request.Method = "POST";
+
+            using (var reqStream = request.GetRequestStream())
+            {
+                var @params = new Dictionary<string, object>();
+                @params["a"] = "Hallo, Echo!";
+
+                var json = serializer.ToJson(@params);
+                var jsonBlob = Encoding.UTF8.GetBytes(json);
+
+                reqStream.Write(jsonBlob, 0, jsonBlob.Length);
+                reqStream.Close();
+            }
+
+            var response = request.GetResponse();
+            using (var respStream = response.GetResponseStream())
+            {
+                string jsonResult;
+                using (var temp = new MemoryStream())
+                {
+                    respStream.CopyTo(temp);
+
+                    jsonResult = Encoding.UTF8.GetString(temp.ToArray());
+                }
+
+                var jsonResultObj = serializer.FromJson<IDictionary<string, object>>(jsonResult);
+            }
+        }
 
         private void Test_DocDB()
         {
@@ -71,7 +118,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
                     return true;
                 };
 
-            request.Method = "DELETE";
+            request.Method = "GET";
             request.ContentType = "application/json";
             var response = request.GetResponse();
             using (var respStream = response.GetResponseStream())

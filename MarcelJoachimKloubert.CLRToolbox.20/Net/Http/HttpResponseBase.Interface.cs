@@ -4,14 +4,15 @@
 
 
 using System.Collections.Generic;
+using System.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
     partial class HttpResponseBase
     {
-        #region Methods (7)
+        #region Methods (13)
 
-        // Private Methods (7) 
+        // Private Methods (13) 
 
         IHttpResponse IHttpResponse.Append(IEnumerable<byte> data)
         {
@@ -38,6 +39,32 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this.Prefix(chars);
         }
 
+        IHttpResponse IHttpResponse.SetDefaultStreamCapacity()
+        {
+            return this.SetDefaultStreamCapacity();
+        }
+
+        IHttpResponse IHttpResponse.SetStream(Stream stream)
+        {
+            return this.SetStream(stream);
+        }
+
+        IHttpResponse IHttpResponse.SetStream(Stream stream, bool disposeOld)
+        {
+            return this.SetStream(stream,
+                                  disposeOld);
+        }
+
+        IHttpResponse IHttpResponse.SetStreamCapacity(int capacity)
+        {
+            return this.SetStreamCapacity(capacity);
+        }
+
+        IHttpResponse IHttpResponse.Write(object obj)
+        {
+            return this.Write(obj);
+        }
+
         IHttpResponse IHttpResponse.Write(IEnumerable<byte> data)
         {
             return this.Write(data);
@@ -46,6 +73,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         IHttpResponse IHttpResponse.Write(IEnumerable<char> chars)
         {
             return this.Write(chars);
+        }
+
+        IHttpResponse IHttpResponse.Write(object obj, bool handleDBNullAsNull)
+        {
+            return this.Write(obj,
+                              handleDBNullAsNull);
         }
 
         #endregion Methods

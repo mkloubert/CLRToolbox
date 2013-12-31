@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
-namespace MarcelJoachimKloubert.CLRToolbox.Extensions
+namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Data
 {
-    static partial class ClrToolboxExtensionMethods
+    static partial class ClrToolboxDataExtensionMethods
     {
         #region Methods (1)
 

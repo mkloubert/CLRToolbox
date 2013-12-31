@@ -17,9 +17,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
             #region Data Members (2)
 
             /// <summary>
-            /// Gets the underlying HTTP request.
+            /// Gets the underlying HTTP context.
             /// </summary>
-            IHttpRequestContext HttpRequest { get; }
+            IHttpRequestContext Http { get; }
 
             /// <summary>
             /// Gets if <see cref="HttpModuleBase.OnHandleRequest(IHandleRequestContext)" />
@@ -39,18 +39,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         {
             #region Fields (2)
 
-            private IHttpRequestContext _httpRequest;
+            private IHttpRequestContext _http;
             private bool _requestWasHandled;
 
             #endregion Fields
 
             #region Properties (2)
 
-            public IHttpRequestContext HttpRequest
+            public IHttpRequestContext Http
             {
-                get { return this._httpRequest; }
+                get { return this._http; }
 
-                internal set { this._httpRequest = value; }
+                internal set { this._http = value; }
             }
 
             public bool RequestWasHandled

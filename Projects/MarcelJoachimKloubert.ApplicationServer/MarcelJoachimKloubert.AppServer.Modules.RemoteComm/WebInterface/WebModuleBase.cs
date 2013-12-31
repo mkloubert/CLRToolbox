@@ -46,11 +46,11 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm.WebInterface
 
         protected override void OnBeforeHandleRequest(IBeforeHandleRequestContext context)
         {
-            context.HttpRequest
+            context.Http
                    .Response
                    .ContentType = MediaTypeNames.Text.Html;
 
-            context.HttpRequest
+            context.Http
                    .Response
                    .Charset = Encoding.UTF8;
         }

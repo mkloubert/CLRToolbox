@@ -25,8 +25,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 {
     internal sealed partial class HttpRequest : HttpRequestBase
     {
-        #region Fields (15)
+        #region Fields (16)
 
+        private Lazy<byte[]> _BODY;
         private readonly string _CONTENT_TYPE;
         private readonly IReadOnlyDictionary<string, IFile> _FILES;
         private readonly IReadOnlyDictionary<string, string> _GET;
@@ -65,6 +66,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
             {
                 this._METHOD = null;
             }
+
+            this._BODY = new Lazy<byte[]>(valueFactory: this.GetBodyDataInner,
+                                          isThreadSafe: true);
 
             //  address of remote client
             try
@@ -242,30 +246,15 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (4)
 
         // Public Methods (1) 
 
         public override Stream GetBody()
         {
-            var result = new MemoryStream();
-            try
-            {
-                this._WEB_ENCODER
-                    .WriteMessage(this._MESSAGE, result);
-
-                result.Position = 0;
-            }
-            catch
-            {
-                result.Dispose();
-
-                throw;
-            }
-
-            return result;
+            return new MemoryStream(this._BODY.Value ?? new byte[0]);
         }
-        // Private Methods (2) 
+        // Private Methods (3) 
 
         private static IDictionary<string, string> ExtractVarsFromQueryString(IEnumerable<char> queryStr)
         {
@@ -285,6 +274,17 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
             }
 
             return result;
+        }
+
+        private byte[] GetBodyDataInner()
+        {
+            using (var temp = new MemoryStream())
+            {
+                this._WEB_ENCODER
+                    .WriteMessage(this._MESSAGE, temp);
+
+                return temp.ToArray();
+            }
         }
 
         private bool ProcessMultipartData(ref IDictionary<string, string> postVars, ref IDictionary<string, IFile> files)

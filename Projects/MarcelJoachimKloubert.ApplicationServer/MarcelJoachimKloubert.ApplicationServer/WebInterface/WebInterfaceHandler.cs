@@ -163,6 +163,8 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         private void HandleHttpModule(IHttpModule module, IHttpRequest req, IHttpResponse resp)
         {
+            var frontend = new FrontendHandler(req, resp);
+
             var handleCtx = new SimpleHttpRequestContext();
             handleCtx.Request = req;
             handleCtx.Response = resp;
@@ -178,12 +180,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             if (!directOutput)
             {
                 var header = ServiceLocator.Current.GetInstance<IHtmlTemplate>("__header");
+                frontend.WriteVars(header);
+
                 resp.Prefix(header.Render());
             }
 
             if (!directOutput)
             {
                 var footer = ServiceLocator.Current.GetInstance<IHtmlTemplate>("__footer");
+                frontend.WriteVars(footer);
+
                 resp.Append(footer.Render());
             }
         }

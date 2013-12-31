@@ -526,6 +526,9 @@
       <Link>IO\SystemConsole.ReadPassword.cs</Link>
       <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextReaderWriterConsole.cs">
+      <Link>IO\TextReaderWriterConsole.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IRunnable.cs">
       <Link>IRunnable.cs</Link>
     </Compile>

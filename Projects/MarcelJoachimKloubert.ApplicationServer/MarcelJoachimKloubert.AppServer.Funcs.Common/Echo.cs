@@ -5,7 +5,9 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Functions;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
 
 namespace MarcelJoachimKloubert.AppServer.Funcs.Common
 {
@@ -23,7 +25,7 @@ namespace MarcelJoachimKloubert.AppServer.Funcs.Common
 
         #endregion Constructors
 
-        #region Methods (1)
+        #region Methods (2)
 
         // Protected Methods (1) 
 
@@ -31,8 +33,30 @@ namespace MarcelJoachimKloubert.AppServer.Funcs.Common
         {
             foreach (var item in context.InputParameters)
             {
-                context.ResultParameters[item.Key] = item.Value;
+                var value = item.Value;
+                switch (LettersAndDigitsOnly(value))
+                {
+                    case "HALLOECHO":
+                        value = "Hallo, Ottoooooooooo!!!";
+                        break;
+                }
+
+                context.ResultParameters[item.Key] = value;
             }
+        }
+        // Private Methods (1) 
+
+        private static string LettersAndDigitsOnly(object obj)
+        {
+            var str = obj.AsString(true);
+            if (str == null)
+            {
+                return null;
+            }
+
+            return new string(str.Select(c => char.ToUpper(c))
+                                 .Where(c => char.IsLetterOrDigit(c))
+                                 .ToArray());
         }
 
         #endregion Methods

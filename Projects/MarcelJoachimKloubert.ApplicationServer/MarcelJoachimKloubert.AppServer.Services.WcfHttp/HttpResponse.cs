@@ -15,9 +15,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
     {
         #region Fields (3)
 
+        private readonly IDictionary<string, object> _FRONTEND_VARS = new ConcurrentDictionary<string, object>();
         private readonly IDictionary<string, string> _HEADERS = new ConcurrentDictionary<string, string>();
         private readonly HttpResponseMessageProperty _PROPERTY;
-        private readonly Stream _STREAM;
 
         #endregion Fields
 
@@ -27,23 +27,43 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                               Stream stream)
         {
             this._PROPERTY = property;
-            this._STREAM = stream;
+
+            this.OnSetStream(stream: stream,
+                             disposeOld: true);
         }
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (3)
+
+        public override bool CanSetStreamCapacity
+        {
+            get { return this.Stream is MemoryStream; }
+        }
+
+        public override IDictionary<string, object> FrontendVars
+        {
+            get { return this._FRONTEND_VARS; }
+        }
 
         public override IDictionary<string, string> Headers
         {
             get { return this._HEADERS; }
         }
 
-        public override Stream Stream
+        #endregion Properties
+
+        #region Methods (1)
+
+        // Protected Methods (1) 
+
+        protected override void OnSetStreamCapacity(int? capacity)
         {
-            get { return this._STREAM; }
+            this.OnSetStream(stream: capacity.HasValue ? new MemoryStream(capacity.Value)
+                                                       : new MemoryStream(),
+                             disposeOld: true);
         }
 
-        #endregion Properties
+        #endregion Methods
     }
 }

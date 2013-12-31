@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -15,7 +16,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public interface IHttpResponse : ITMObject
     {
-        #region Data Members (10)
+        #region Data Members (12)
+
+        /// <summary>
+        /// Gets if the capacity of <see cref="IHttpResponse.Stream" /> can be definied or not.
+        /// </summary>
+        bool CanSetStreamCapacity { get; }
 
         /// <summary>
         /// Gets or sets the charset.
@@ -24,8 +30,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         /// <summary>
         /// Gets or sets if response should be compressed or not.
+        /// <see langword="null" /> indicates to use the default value.
         /// </summary>
-        bool Compress { get; set; }
+        bool? Compress { get; set; }
 
         /// <summary>
         /// Gets or sets the mime / content type.
@@ -44,6 +51,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// Is <see langword="false" /> by default.
         /// </summary>
         bool DocumentNotFound { get; set; }
+
+        /// <summary>
+        /// Get the list of variables (and their values) that should be overwritten in overwall frontend HTML template (if in use).
+        /// </summary>
+        IDictionary<string, object> FrontendVars { get; }
 
         /// <summary>
         /// Gets the list of headers that should be send as response.
@@ -74,7 +86,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Data Members
 
-        #region Operations (7)
+        #region Operations (13)
 
         /// <summary>
         /// Adds data at the end of <see cref="IHttpResponse.Stream" />.
@@ -111,6 +123,51 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         IHttpResponse Prefix(IEnumerable<char> chars);
 
         /// <summary>
+        /// Resets the content of <see cref="IHttpResponse.Stream" /> and sets its (new) capacity by using a default value.
+        /// </summary>
+        /// <returns>That instance.</returns>
+        /// <exception cref="NotSupportedException">Capacity cannot be set.</exception>
+        IHttpResponse SetDefaultStreamCapacity();
+
+        /// <summary>
+        /// Sets the new value for <see cref="IHttpResponse.Stream" /> property.
+        /// </summary>
+        /// <param name="stream">The new stream.</param>
+        /// <returns>That instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="stream" /> is <see langword="null" />.
+        /// </exception> 
+        /// <remarks>Old stream is NOT disposed.</remarks>
+        IHttpResponse SetStream(Stream stream);
+
+        /// <summary>
+        /// Sets the new value for <see cref="IHttpResponse.Stream" /> property.
+        /// </summary>
+        /// <param name="stream">The new stream.</param>
+        /// <param name="disposeOld">Dispose old stream or not.</param>
+        /// <returns>That instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="stream" /> is <see langword="null" />.
+        /// </exception> 
+        IHttpResponse SetStream(Stream stream, bool disposeOld);
+
+        /// <summary>
+        /// Resets the content of <see cref="IHttpResponse.Stream" /> and sets its (new) capacity.
+        /// </summary>
+        /// <param name="capacity">The new capacity to set.</param>
+        /// <returns>That instance.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Value of <paramref name="capacity" /> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Capacity cannot be set.</exception>
+        IHttpResponse SetStreamCapacity(int capacity);
+
+        /// <summary>
+        /// Writes an object to <see cref="IHttpResponse.Stream" />.
+        /// </summary>
+        /// <param name="obj">The object to write.</param>
+        /// <returns>That instance.</returns>
+        IHttpResponse Write(object obj);
+
+        /// <summary>
         /// Writes binary data to <see cref="IHttpResponse.Stream" />.
         /// </summary>
         /// <param name="data">The data to write.</param>
@@ -118,12 +175,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         IHttpResponse Write(IEnumerable<byte> data);
 
         /// <summary>
-        /// Writes binary data to <see cref="IHttpResponse.Stream" />
+        /// Writes text as binary data to <see cref="IHttpResponse.Stream" />
         /// based on <see cref="IHttpResponse.Charset" /> property.
         /// </summary>
         /// <param name="chars">The chars to write.</param>
         /// <returns>That instance.</returns>
+        /// <remarks>DNNull value is handled as <see langword="null" /> reference.</remarks>
         IHttpResponse Write(IEnumerable<char> chars);
+
+        /// <summary>
+        /// Writes an object to <see cref="IHttpResponse.Stream" />.
+        /// </summary>
+        /// <param name="obj">The object to write.</param>
+        /// <param name="handleDBNullAsNull">Handle DBNull value as <see langword="null" /> reference or not.</param>
+        /// <returns>That instance.</returns>
+        IHttpResponse Write(object obj, bool handleDBNullAsNull);
 
         #endregion Operations
     }

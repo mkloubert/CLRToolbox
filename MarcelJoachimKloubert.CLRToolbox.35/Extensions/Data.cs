@@ -3,10 +3,13 @@
 // s. http://blog.marcel-kloubert.de
 
 
-namespace MarcelJoachimKloubert.CLRToolbox.Extensions
+namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Data
 {
-    static partial class ClrToolboxExtensionMethods
+    /// <summary>
+    /// Data extension methods
+    /// </summary>
+    public static partial class ClrToolboxDataExtensionMethods
     {
-        // Data
+
     }
 }

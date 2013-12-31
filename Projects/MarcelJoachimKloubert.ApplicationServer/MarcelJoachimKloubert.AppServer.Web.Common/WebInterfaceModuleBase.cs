@@ -41,17 +41,26 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common
 
         #endregion Properties
 
-        #region Methods (1)
+        #region Methods (2)
 
-        // Protected Methods (1) 
+        // Protected Methods (2) 
+
+        protected override void OnAfterHandleRequest(IAfterHandleRequestContext context)
+        {
+            if (!context.Http.Response.DirectOutput &&
+                !context.Http.Response.Compress.HasValue)
+            {
+                context.Http.Response.Compress = true;
+            }
+        }
 
         protected override void OnBeforeHandleRequest(IBeforeHandleRequestContext context)
         {
-            context.HttpRequest
+            context.Http
                    .Response
                    .ContentType = MediaTypeNames.Text.Html;
 
-            context.HttpRequest
+            context.Http
                    .Response
                    .Charset = Encoding.UTF8;
         }

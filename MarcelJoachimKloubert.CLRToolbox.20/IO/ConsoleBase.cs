@@ -87,7 +87,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         public ConsoleBase Write(IEnumerable<char> format, params object[] args)
         {
             return this.Write(string.Format(StringHelper.AsString(format) ?? string.Empty,
-                                            this.ToConsoleArguments(CollectionHelper.AsArray(args))));
+                                            CollectionHelper.AsArray(this.ToConsoleArguments(args))));
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         {
             return this.Write(string.Format("{0}{1}",
                                             string.Format(StringHelper.AsString(format) ?? string.Empty,
-                                                          this.ToConsoleArguments(CollectionHelper.AsArray(args))),
+                                                          CollectionHelper.AsArray(this.ToConsoleArguments(args))),
                                             this.GetNewLineForOutput()));
         }
         // Protected Methods (5) 

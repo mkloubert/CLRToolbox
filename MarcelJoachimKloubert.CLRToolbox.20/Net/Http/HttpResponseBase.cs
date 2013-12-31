@@ -17,15 +17,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public abstract partial class HttpResponseBase : TMObject, IHttpResponse
     {
-        #region Fields (7)
+        #region Fields (8)
 
         private Encoding _charset;
-        private bool _compress;
+        private bool? _compress;
         private string _contentType;
         private bool _documentNotFound;
         private bool _isForbidden;
         private HttpStatusCode _statusCode = HttpStatusCode.OK;
         private string _statusDescription;
+        private Stream _stream;
 
         #endregion Fields
 
@@ -55,7 +56,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Constructors
 
-        #region Properties (10)
+        #region Properties (12)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.CanSetStreamCapacity" />
+        public virtual bool CanSetStreamCapacity
+        {
+            get { return false; }
+        }
 
         /// <summary>
         /// 
@@ -72,7 +82,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// 
         /// </summary>
         /// <see cref="IHttpResponse.Compress" />
-        public bool Compress
+        public bool? Compress
         {
             get { return this._compress; }
 
@@ -109,6 +119,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             get { return this._documentNotFound; }
 
             set { this._documentNotFound = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.FrontendVars" />
+        public abstract IDictionary<string, object> FrontendVars
+        {
+            get;
         }
 
         /// <summary>
@@ -157,16 +176,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// 
         /// </summary>
         /// <see cref="IHttpResponse.Stream" />
-        public abstract Stream Stream
+        public Stream Stream
         {
-            get;
+            get { return this._stream; }
         }
 
         #endregion Properties
 
-        #region Methods (9)
+        #region Methods (18)
 
-        // Public Methods (7) 
+        // Public Methods (13) 
 
         /// <summary>
         /// 
@@ -264,14 +283,59 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IHttpResponse.SetDefaultStreamCapacity()" />
+        public HttpResponseBase SetDefaultStreamCapacity()
+        {
+            return this.SetStreamCapacityInner(null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.SetStream(Stream)" />
+        public HttpResponseBase SetStream(Stream stream)
+        {
+            return this.SetStream(stream, false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.SetStream(Stream, bool)" />
+        public HttpResponseBase SetStream(Stream stream, bool disposeOld)
+        {
+            lock (this._SYNC)
+            {
+                this.OnSetStream(stream,
+                                 disposeOld);
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.SetStreamCapacity(int)" />
+        public HttpResponseBase SetStreamCapacity(int capacity)
+        {
+            return this.SetStreamCapacityInner(capacity);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IHttpResponse.Write(IEnumerable{byte})" />
         public HttpResponseBase Write(IEnumerable<byte> data)
         {
             byte[] dataArray = CollectionHelper.AsArray(data);
             if (dataArray != null)
             {
-                this.Stream
-                    .Write(dataArray, 0, dataArray.Length);
+                lock (this._SYNC)
+                {
+                    this.Stream
+                        .Write(dataArray, 0, dataArray.Length);
+                }
             }
 
             return this;
@@ -285,7 +349,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         {
             return this.Write(this.CharsToBytes(chars));
         }
-        // Protected Methods (2) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Write(object)" />
+        public HttpResponseBase Write(object obj)
+        {
+            return this.Write(obj, true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.Write(object, bool)" />
+        public HttpResponseBase Write(object obj, bool handleDBNullAsNull)
+        {
+            if (obj is IEnumerable<byte>)
+            {
+                return this.Write(obj as IEnumerable<byte>);
+            }
+
+            return this.Write(StringHelper.AsString(obj, handleDBNullAsNull));
+        }
+        // Protected Methods (4) 
 
         /// <summary>
         /// Converts a char sequence to a binary sequence.
@@ -314,6 +401,54 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         protected virtual Encoding GetDefaultCharset()
         {
             return Encoding.UTF8;
+        }
+
+        /// <summary>
+        /// The logic for the <see cref="HttpResponseBase.SetStream(Stream, bool)" /> method.
+        /// </summary>
+        /// <param name="stream">The new stream.</param>
+        /// <param name="disposeOld">Dispose old stream or not.</param>
+        protected void OnSetStream(Stream stream, bool disposeOld)
+        {
+            Stream oldStream = this._stream;
+            this._stream = stream;
+
+            if (oldStream != null && disposeOld)
+            {
+                oldStream.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Defines the logic for <see cref="HttpResponseBase.SetStreamCapacity(int)" /> method.
+        /// </summary>
+        /// <param name="capacity">
+        /// The new capacity. <see langword="null" /> indicates to use a default value.
+        /// </param>
+        protected virtual void OnSetStreamCapacity(int? capacity)
+        {
+            throw new NotImplementedException();
+        }
+        // Private Methods (1) 
+
+        private HttpResponseBase SetStreamCapacityInner(int? capacity)
+        {
+            lock (this._SYNC)
+            {
+                if (!this.CanSetStreamCapacity)
+                {
+                    throw new NotSupportedException();
+                }
+
+                if (capacity < 0)
+                {
+                    throw new ArgumentOutOfRangeException("capacity");
+                }
+
+                this.OnSetStreamCapacity(capacity);
+            }
+
+            return this;
         }
 
         #endregion Methods

@@ -469,6 +469,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.cs">
       <Link>IO\SystemConsole.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextReaderWriterConsole.cs">
+      <Link>IO\TextReaderWriterConsole.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IRunnable.cs">
       <Link>IRunnable.cs</Link>
     </Compile>

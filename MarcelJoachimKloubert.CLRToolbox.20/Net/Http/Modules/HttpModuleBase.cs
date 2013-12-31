@@ -162,7 +162,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
             {
                 BeforeHandleRequestContext beforeHandleCtx = new BeforeHandleRequestContext();
                 {
-                    beforeHandleCtx.HttpRequest = context;
+                    beforeHandleCtx.Http = context;
                     beforeHandleCtx.InvokeAfterHandleRequest = true;
                     beforeHandleCtx.InvokeHandleRequest = true;
 
@@ -187,7 +187,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
                     AfterHandleRequestContext afterHandleCtx = new AfterHandleRequestContext();
                     afterHandleCtx.RequestWasHandled = requestWasHandled;
                     {
-                        afterHandleCtx.HttpRequest = context;
+                        afterHandleCtx.Http = context;
 
                         this.OnAfterHandleRequest(afterHandleCtx);
                     }

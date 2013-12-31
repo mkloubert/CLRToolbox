@@ -31,9 +31,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
             bool InvokeHandleRequest { get; set; }
 
             /// <summary>
-            /// Gets the underlying HTTP request.
+            /// Gets the underlying HTTP context.
             /// </summary>
-            IHttpRequestContext HttpRequest { get; }
+            IHttpRequestContext Http { get; }
 
             #endregion Data Members
         }
@@ -46,7 +46,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         {
             #region Fields (3)
 
-            private IHttpRequestContext _httpRequest;
+            private IHttpRequestContext _http;
             private bool _invokeAfterHandleRequest;
             private bool _invokeHandleRequest;
 
@@ -54,11 +54,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
             #region Properties (3)
 
-            public IHttpRequestContext HttpRequest
+            public IHttpRequestContext Http
             {
-                get { return this._httpRequest; }
+                get { return this._http; }
 
-                internal set { this._httpRequest = value; }
+                internal set { this._http = value; }
             }
 
             public bool InvokeAfterHandleRequest

@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CryptExecutionContext.cs" />
-    <Compile Include="Globals.cs" />
+    <Compile Include="AppGlobals.cs" />
     <Compile Include="Helpers\DecryptionHelper.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="Helpers\FileSystemHelper.cs" />

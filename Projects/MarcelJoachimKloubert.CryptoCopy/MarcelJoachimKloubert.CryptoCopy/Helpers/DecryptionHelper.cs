@@ -51,7 +51,7 @@ namespace MarcelJoachimKloubert.CryptoCopy.Helpers
                     ctx.Destination.CreateDirectoryDeep();
 
                     var metaFile = CollectionHelper.SingleOrDefault(ctx.Source.GetFiles(),
-                                                                    f => Globals.FILENAME_META == f.Name.ToLower().Trim());
+                                                                    f => AppGlobals.FILENAME_META == f.Name.ToLower().Trim());
                     if (metaFile != null)
                     {
                         XDocument metaXmlDoc;
@@ -128,10 +128,12 @@ namespace MarcelJoachimKloubert.CryptoCopy.Helpers
         }
 
         internal static void DecryptStream(Stream input, Stream output,
-                                           byte[] pwd, byte[] salt)
+                                           byte[] pwd, byte[] salt,
+                                           int? interations = null)
         {
-            var pdb = new PasswordDeriveBytes(pwd,
-                                              salt);
+            var pdb = new Rfc2898DeriveBytes(pwd,
+                                             salt,
+                                             interations ?? AppGlobals.DEFAULT_PWD_INTERATIONS);
 
             var alg = Rijndael.Create();
             alg.Key = pdb.GetBytes(32);

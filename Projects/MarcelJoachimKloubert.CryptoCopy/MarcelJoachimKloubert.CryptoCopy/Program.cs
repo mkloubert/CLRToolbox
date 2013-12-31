@@ -56,7 +56,7 @@ namespace MarcelJoachimKloubert.CryptoCopy
                                                    out byte[] pwd, out byte[] salt)
         {
             pwd = null;
-            salt = Globals.DEFAULT_SEED;
+            salt = AppGlobals.DEFAULT_SEED;
 
             foreach (var a in args)
             {

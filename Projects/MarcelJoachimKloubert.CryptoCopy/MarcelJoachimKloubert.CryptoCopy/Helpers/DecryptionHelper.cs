@@ -70,15 +70,15 @@ namespace MarcelJoachimKloubert.CryptoCopy.Helpers
                         // files
                         {
                             var fileMappings = metaXmlDoc.XPathSelectElements("//dir/files/file")
-                                                     .Select(fe =>
-                                                      {
-                                                          return new FileMapping(ctx: ctx,
-                                                                                 src: new FileInfo(Path.Combine(ctx.Source.FullName,
-                                                                                                                fe.Attribute("alias").Value.Trim())),
-                                                                                 dest: new FileInfo(Path.Combine(ctx.Destination.FullName,
-                                                                                                                 fe.Attribute("name").Value.Trim())),
-                                                                                 xml: fe);
-                                                      }).ToArray();
+                                                         .Select(fe =>
+                                                          {
+                                                              return new FileMapping(ctx: ctx,
+                                                                                     src: new FileInfo(Path.Combine(ctx.Source.FullName,
+                                                                                                                    fe.Attribute("alias").Value.Trim())),
+                                                                                     dest: new FileInfo(Path.Combine(ctx.Destination.FullName,
+                                                                                                                     fe.Attribute("name").Value.Trim())),
+                                                                                     xml: fe);
+                                                          }).ToArray();
 
                             foreach (var fm in fileMappings)
                             {

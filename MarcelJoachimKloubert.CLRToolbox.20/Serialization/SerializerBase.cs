@@ -42,9 +42,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
 
         #endregion Constructors
 
-        #region Methods (4)
+        #region Methods (5)
 
-        // Public Methods (2) 
+        // Public Methods (3) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ISerializer.FromJson(IEnumerable{char})" />
+        public IDictionary<string, object> FromJson(IEnumerable<char> json)
+        {
+            return this.FromJson<IDictionary<string, object>>(json);
+        }
 
         /// <summary>
         /// 

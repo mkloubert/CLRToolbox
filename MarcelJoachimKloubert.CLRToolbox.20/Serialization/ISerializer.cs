@@ -12,7 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
     /// </summary>
     public interface ISerializer : ITMObject
     {
-        #region Operations (2)
+        #region Operations (3)
 
         /// <summary>
         /// Deserializes an object from a JSON string.
@@ -21,6 +21,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
         /// <param name="json">The string from where to build the object from.</param>
         /// <returns>The target object.</returns>
         T FromJson<T>(IEnumerable<char> json);
+
+        /// <summary>
+        /// Deserializes an object from a JSON string as dictionary.
+        /// </summary>
+        /// <param name="json">The string from where to build the object from.</param>
+        /// <returns>The dictionary with the data.</returns>
+        IDictionary<string, object> FromJson(IEnumerable<char> json);
 
         /// <summary>
         /// Converts an object to a JSON string.

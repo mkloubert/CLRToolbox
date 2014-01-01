@@ -64,6 +64,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl
                     if (@params.LongLength < 2)
                     {
                         object obj = @delegate.Target;
+
                         if (@params.LongLength == 0)
                         {
                             result = new SimpleCommand(new DelegateCommand.ExecuteHandlerNoParameter(delegate()

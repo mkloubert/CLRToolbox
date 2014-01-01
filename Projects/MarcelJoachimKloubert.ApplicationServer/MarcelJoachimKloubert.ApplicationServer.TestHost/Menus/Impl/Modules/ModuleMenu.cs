@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -54,7 +55,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
         {
             var serializer = ServiceLocator.Current.GetInstance<ISerializer>();
 
-            var request = (HttpWebRequest)HttpWebRequest.Create("https://localhost:23979/exec/6EBFF3D19F1142B9AC0A7B85C23CE206");
+            var request = (HttpWebRequest)HttpWebRequest.Create("https://localhost:23979/exec/0F4EC862D33746E1BB6DA54734DF0D7B");
             request.SetBasicAuth("test", "test");
             request.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
                 {
@@ -86,7 +87,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.TestHost.Menus.Impl.Modules
                     jsonResult = Encoding.UTF8.GetString(temp.ToArray());
                 }
 
-                var jsonResultObj = serializer.FromJson<IDictionary<string, object>>(jsonResult);
+                var jsonResultObj = serializer.FromJson(jsonResult);
+
+                var parameterList = (IList<object>)jsonResultObj["params"];
+                foreach (IDictionary<string, object> p in parameterList)
+                {
+
+                }
             }
         }
 

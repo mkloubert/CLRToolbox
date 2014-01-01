@@ -148,7 +148,6 @@ namespace MarcelJoachimKloubert.CryptoCopy.Helpers
                         }
                     }
 
-
                     FileSystemHelper.TrySetTimestampsUtc(metaFile,
                                                          ctx.StartTime);
                 }, ctxClone);

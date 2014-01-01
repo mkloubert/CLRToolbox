@@ -3,9 +3,12 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Dynamic;
 using System.IO;
 using System.Text;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Serialization;
 using Newtonsoft.Json;
 
@@ -23,13 +26,24 @@ namespace MarcelJoachimKloubert.AppServer.Services.Serialize
         {
             var serializer = new JsonSerializer();
 
+            object result;
             using (var sr = new StringReader(json))
             {
                 using (var reader = new JsonTextReader(sr))
                 {
-                    deserializedObj = serializer.Deserialize<T>(reader);
+                    if (typeof(T).Equals(typeof(IDictionary<string, object>)))
+                    {
+                        result = serializer.Deserialize<ExpandoObject>(reader);
+                    }
+                    else
+                    {
+                        result = serializer.Deserialize<T>(reader);
+                    }
                 }
             }
+
+            deserializedObj = GlobalConverter.Current
+                                             .ChangeType<T>(result);
         }
 
         protected override void OnToJson<T>(T objToSerialize, ref StringBuilder jsonBuilder)

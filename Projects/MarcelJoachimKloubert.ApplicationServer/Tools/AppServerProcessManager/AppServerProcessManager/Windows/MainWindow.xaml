@@ -1,0 +1,120 @@
+﻿<Window x:Class="AppServerProcessManager.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:data="clr-namespace:AppServerProcessManager.Data"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        Title="Application Server Process Manager"
+        Width="800"
+        Height="600"
+        Icon="../Resources/app.ico"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <data:BooleanToVisibilityConverter x:Key="tmBooleanToVisibilityConverter" />
+        <data:RemoteProcessValueConverter x:Key="tmRemoteProcessValueConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0"
+              Height="24px"
+              IsMainMenu="True">
+
+            <MenuItem Header="_File" />
+            <MenuItem Header="_DEBUG">
+                <MenuItem Command="{Binding Path=TestCommand, Mode=OneWay}" Header="_Test" />
+            </MenuItem>
+        </Menu>
+
+        <Rectangle Grid.Row="1"
+                   Height="1px"
+                   Fill="LightGray" />
+
+        <Border Grid.Row="2"
+                Background="LightGray"
+                BorderBrush="Transparent"
+                BorderThickness="1"
+                Padding="4">
+
+            <Grid />
+        </Border>
+
+        <Rectangle Grid.Row="3"
+                   Height="1px"
+                   Fill="LightGray" />
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="256px" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListBox Grid.Column="0"
+                     BorderBrush="Transparent"
+                     BorderThickness="0"
+                     ItemsSource="{Binding Path=Processes,
+                                           Mode=OneWay}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,4,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40px" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0"
+                                   Width="32px"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   Source="{Binding Mode=OneWay,
+                                                    Converter={StaticResource tmRemoteProcessValueConverter},
+                                                    ConverterParameter='icon'}" />
+
+                            <TextBlock Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Padding="8,0,8,0"
+                                       Text="{Binding Path=Name,
+                                                      Mode=OneWay}"
+                                       TextWrapping="Wrap" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <GridSplitter Grid.Column="1"
+                          Width="1"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch"
+                          Background="LightGray"
+                          ResizeBehavior="PreviousAndNext" />
+
+            <Border Grid.Column="2" Margin="8,0,8,0" />
+        </Grid>
+
+        <Border Grid.Row="1"
+                Grid.RowSpan="4"
+                Background="LightGray"
+                Opacity="0.33"
+                Visibility="{Binding Path=IsBusy,
+                                     Mode=OneWay,
+                                     Converter={StaticResource tmBooleanToVisibilityConverter}}">
+
+            <Image Width="66px"
+                   Height="66px"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   gif:ImageBehavior.AnimatedSource="../Resources/ajax-loader-66x66.gif" />
+        </Border>
+    </Grid>
+</Window>

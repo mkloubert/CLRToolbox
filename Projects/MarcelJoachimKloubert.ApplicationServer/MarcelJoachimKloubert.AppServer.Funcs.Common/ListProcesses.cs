@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Functions;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
 
 namespace MarcelJoachimKloubert.AppServer.Funcs.Common
 {
@@ -45,7 +47,46 @@ namespace MarcelJoachimKloubert.AppServer.Funcs.Common
         {
             var processList = new List<IDictionary<string, object>>();
 
-            foreach (var p in Process.GetProcesses())
+            IEnumerable<Process> processesToHandle = Process.GetProcesses();
+            if (context.InputParameters.ContainsKey("Filter"))
+            {
+                var whitelist = new List<int>();
+
+                var temp = context.InputParameters["Filter"];
+                if (temp is IEnumerable)
+                {
+                    // list fo IDs
+
+                    whitelist.AddRange(((IEnumerable)temp).Cast<object>()
+                                                          .Select(i => i.AsString(true))
+                                                          .Where(str => !string.IsNullOrWhiteSpace(str))
+                                                          .Select(str => GlobalConverter.Current
+                                                                                        .ChangeType<int>(str.Trim()))
+                                                          .Distinct());
+                }
+                else
+                {
+                    // single ID
+
+                    whitelist.Add(GlobalConverter.Current
+                                                 .ChangeType<int>(temp.AsString(true)
+                                                                      .Trim()));
+                }
+
+                processesToHandle = processesToHandle.Where(p =>
+                    {
+                        try
+                        {
+                            return whitelist.Contains(p.Id);
+                        }
+                        catch
+                        {
+                            return false;
+                        }
+                    });
+            }
+
+            foreach (var p in processesToHandle)
             {
                 try
                 {

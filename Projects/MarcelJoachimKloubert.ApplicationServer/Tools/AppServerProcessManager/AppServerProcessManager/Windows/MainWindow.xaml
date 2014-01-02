@@ -27,7 +27,10 @@
               Height="24px"
               IsMainMenu="True">
 
-            <MenuItem Header="_File" />
+            <MenuItem Header="_File">
+                <MenuItem Command="{Binding Path=ExitCommand, Mode=OneWay}" Header="_Exit" />
+            </MenuItem>
+            
             <MenuItem Header="_DEBUG">
                 <MenuItem Command="{Binding Path=TestCommand, Mode=OneWay}" Header="_Test" />
             </MenuItem>

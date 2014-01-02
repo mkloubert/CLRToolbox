@@ -157,7 +157,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Delegates and Events
 
-        #region Methods (15)
+        #region Methods (14)
 
         // Public Methods (5) 
 
@@ -265,7 +265,7 @@ namespace MarcelJoachimKloubert.ApplicationServer
                 this.StopInner(StartStopContext.Stop);
             }
         }
-        // Protected Methods (7) 
+        // Protected Methods (6) 
 
         /// <summary>
         /// 
@@ -310,22 +310,6 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// </param>
         protected abstract void OnStop(StartStopContext context,
                                        ref bool isRunning);
-
-        /// <summary>
-        /// Raises an <see cref="EventHandler" /> for this instance.
-        /// </summary>
-        /// <param name="handler">The handler.</param>
-        /// <returns><paramref name="handler" /> was invoked or not.</returns>
-        protected bool RaiseEventHandler(EventHandler handler)
-        {
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-                return true;
-            }
-
-            return false;
-        }
 
         /// <summary>
         /// Throws an exception if that object has already been disposed.

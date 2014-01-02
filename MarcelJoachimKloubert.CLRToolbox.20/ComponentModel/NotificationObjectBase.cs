@@ -14,8 +14,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     public abstract partial class NotificationObjectBase : TMObject,
                                                            INotificationObject
     {
-
-
         #region Constructors (4)
 
         /// <summary>
@@ -73,10 +71,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #endregion Constructors
 
+        #region Delegates and Events (2)
 
-        #region Delegates and Events (1)
+        // Events (2) 
 
-        // Events (1) 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="INotificationObject.Closing" />
+        public event CancelEventHandler Closing;
 
         /// <summary>
         /// 
@@ -86,10 +89,54 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #endregion Delegates and Events
 
+        #region Methods (4)
 
-        #region Methods (1)
+        // Protected Methods (4) 
 
-        // Protected Methods (1) 
+        /// <summary>
+        /// Is voked after object has been closed.
+        /// </summary>
+        protected virtual void OnClosed()
+        {
+            // dummy
+        }
+
+        /// <summary>
+        /// Raises the <see cref="NotificationObjectBase.Closing" /> event.
+        /// </summary>
+        /// <returns>Event was raised or not.</returns>
+        protected bool OnClosing()
+        {
+            return this.OnClosing(false);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="NotificationObjectBase.Closing" /> event.
+        /// </summary>
+        /// <param name="cancel">The start value for <see cref="CancelEventArgs.Cancel" /> property.</param>
+        /// <returns>Event was raised or not.</returns>
+        protected bool OnClosing(bool cancel)
+        {
+            bool result = false;
+
+            bool hasCanceled = false;
+            CancelEventHandler handler = this.Closing;
+            if (handler != null)
+            {
+                CancelEventArgs e = new CancelEventArgs(cancel);
+                handler(this, e);
+
+                hasCanceled = e.Cancel;
+                result = true;
+            }
+
+            if (!hasCanceled)
+            {
+                this.OnClosed();
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Contains additional logic for the constructor.

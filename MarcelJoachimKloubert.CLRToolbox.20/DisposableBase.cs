@@ -85,7 +85,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Delegates and Events
 
-        #region Methods (5)
+        #region Methods (4)
 
         // Public Methods (1) 
 
@@ -98,7 +98,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             this.DisposeInner(true);
             GC.SuppressFinalize(this);
         }
-        // Protected Methods (3) 
+        // Protected Methods (2) 
 
         /// <summary>
         /// The logic for the <see cref="DisposableBase.Dispose()" /> method
@@ -109,22 +109,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// or the finalizer (<see langword="false" />).
         /// </param>
         protected abstract void OnDispose(bool disposing);
-
-        /// <summary>
-        /// Raises an <see cref="EventHandler" /> for this instance.
-        /// </summary>
-        /// <param name="handler">The handler.</param>
-        /// <returns><paramref name="handler" /> was invoked or not.</returns>
-        protected bool RaiseEventHandler(EventHandler handler)
-        {
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-                return true;
-            }
-
-            return false;
-        }
 
         /// <summary>
         /// Throws an exception if that object has already been disposed.

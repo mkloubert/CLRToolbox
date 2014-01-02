@@ -3,8 +3,12 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
+using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using AppServerProcessManager.Views;
+
 
 namespace AppServerProcessManager.Windows
 {
@@ -23,10 +27,43 @@ namespace AppServerProcessManager.Windows
             this.InitializeComponent();
 
             var vm = new MainViewModel();
+            vm.Error += this.ViewModel_Error;
+            vm.Closing += this.ViewModel_Closing;
 
             this.DataContext = vm;
         }
 
         #endregion Constructors
+
+        #region Methods (2)
+
+        // Private Methods (2) 
+
+        private void ViewModel_Closing(object sender, CancelEventArgs e)
+        {
+            this.Dispatcher
+                .BeginInvoke(new Action<MainWindow>((win) =>
+                     {
+                         win.Close();
+                     }), this);
+        }
+
+        private void ViewModel_Error(object sender, ErrorEventArgs e)
+        {
+            var exception = e.GetException();
+
+            this.Dispatcher
+                .BeginInvoke(new Action<MainWindow, Exception>((win, ex) =>
+                     {
+                         MessageBox.Show(win,
+                                         ex.Message,
+                                         ex.GetType().FullName,
+                                         MessageBoxButton.OK,
+                                         MessageBoxImage.Error);
+                     }), this
+                       , exception.GetBaseException() ?? exception);
+        }
+
+        #endregion Methods
     }
 }

@@ -10,9 +10,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     /// <summary>
     /// Describes a notification object.
     /// </summary>
-    public partial interface INotificationObject : ITMObject,
-                                                   INotifyPropertyChanged
+    public partial interface INotificationObject : ITMObject, INotifyPropertyChanged
     {
+        #region Delegates and Events (1)
 
+        // Events (1) 
+
+        /// <summary>
+        /// Is invoked when object is closing.
+        /// </summary>
+        event CancelEventHandler Closing;
+
+        #endregion Delegates and Events
     }
 }

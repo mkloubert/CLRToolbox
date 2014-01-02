@@ -10,7 +10,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using AppServerProcessManager.JSON.ListProcesses;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Execution;
@@ -32,7 +31,16 @@ namespace AppServerProcessManager.Views
 
         #endregion Fields
 
-        #region Properties (3)
+        #region Properties (4)
+
+        /// <summary>
+        /// Gets the command for the exit main menu entry.
+        /// </summary>
+        public SimpleCommand ExitCommand
+        {
+            get;
+            private set;
+        }
 
         public bool IsBusy
         {
@@ -75,9 +83,22 @@ namespace AppServerProcessManager.Views
             base.OnConstructor();
 
             this.TestCommand = new SimpleCommand(this.Test);
-            this.TestCommand.ExecutionError += this.TestCommand_ExecutionError;
+            this.TestCommand.ExecutionError += this.Command_ExecutionError;
+
+            this.ExitCommand = new SimpleCommand(this.Exit);
+            this.ExitCommand.ExecutionError += this.Command_ExecutionError;
         }
         // Private Methods (6) 
+
+        private void Command_ExecutionError(object sender, ExecutionErrorEventArgs<object> e)
+        {
+            this.OnError(e.Exception);
+        }
+
+        private void Exit()
+        {
+            this.OnClosing();
+        }
 
         private void OnBusy(Action<MainViewModel> action)
         {
@@ -103,7 +124,7 @@ namespace AppServerProcessManager.Views
                         catch (Exception ex)
                         {
                             args.VIEW_MODEL
-                                .ShowErrorMessage(ex);
+                                .OnError(ex);
                         }
                         finally
                         {
@@ -114,21 +135,6 @@ namespace AppServerProcessManager.Views
                 }, new OnBusyArgs<T>(vm: this,
                                      action: action,
                                      state: state));
-        }
-
-        private void ShowErrorMessage(Exception ex)
-        {
-            App.Current
-               .Dispatcher
-               .BeginInvoke(new Action<Exception>((e) =>
-               {
-                   var innerEx = e.GetBaseException();
-
-                   MessageBox.Show(innerEx.Message,
-                                   innerEx.GetType().FullName,
-                                   MessageBoxButton.OK,
-                                   MessageBoxImage.Error);
-               }), ex);
         }
 
         private void Test()
@@ -202,11 +208,6 @@ namespace AppServerProcessManager.Views
             }
 
             vm.Processes = new ObservableCollection<RemoteProcess>(collection: funcResult.Parameters.Processes);
-        }
-
-        private void TestCommand_ExecutionError(object sender, ExecutionErrorEventArgs<object> e)
-        {
-            this.ShowErrorMessage(e.Exception);
         }
 
         #endregion Methods

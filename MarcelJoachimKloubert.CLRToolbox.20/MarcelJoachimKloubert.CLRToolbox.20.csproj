@@ -127,6 +127,9 @@
     <Compile Include="Helpers\CollectionHelper.AsSequence.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Count.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.FirstOrDefault.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -137,6 +140,9 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.ForAllAsync.Impl.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.IsEmpty.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.OfType.cs">
@@ -216,6 +222,15 @@
     <Compile Include="Helpers\DataHelper.ToEnumerable.SqlClient.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.IsNotEmpty.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ValueHelper.IsNotNull.cs">
+      <DependentUpon>ValueHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ValueHelper.IsNull.cs">
+      <DependentUpon>ValueHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\NetHelper.SetBasicAuth.SecureString.cs">
       <DependentUpon>NetHelper.cs</DependentUpon>
     </Compile>
@@ -235,6 +250,7 @@
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NetHelper.cs" />
+    <Compile Include="Helpers\ValueHelper.cs" />
     <Compile Include="IHasName.cs" />
     <Compile Include="IO\ConsoleBase.cs" />
     <Compile Include="IO\ConsoleBase.dotNET.cs">

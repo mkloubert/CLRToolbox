@@ -290,6 +290,10 @@
       <Link>Helpers\CollectionHelper.AsSequence.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Count.cs">
+      <Link>Helpers\CollectionHelper.Count.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\helpers\CollectionHelper.cs">
       <Link>Helpers\CollectionHelper.cs</Link>
     </Compile>
@@ -299,6 +303,14 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAllAsync.cs">
       <Link>Helpers\CollectionHelper.ForAllAsync.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IsEmpty.cs">
+      <Link>Helpers\CollectionHelper.IsEmpty.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IsNotEmpty.cs">
+      <Link>Helpers\CollectionHelper.IsNotEmpty.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Randomize.cs">
@@ -468,6 +480,17 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.UppercaseWords.cs">
       <Link>Helpers\StringHelper.UppercaseWords.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ValueHelper.cs">
+      <Link>Helpers\ValueHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ValueHelper.IsNotNull.cs">
+      <Link>Helpers\ValueHelper.IsNotNull.cs</Link>
+      <DependentUpon>ValueHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ValueHelper.IsNull.cs">
+      <Link>Helpers\ValueHelper.IsNull.cs</Link>
+      <DependentUpon>ValueHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IHasName.cs">
       <Link>IHasName.cs</Link>
@@ -869,6 +892,14 @@
       <Link>Extensions\Collections.ForAllAsync.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.IsEmpty.cs">
+      <Link>Extensions\Collections.IsEmpty.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.IsNotEmpty.cs">
+      <Link>Extensions\Collections.IsNotEmpty.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.Randomize.cs">
       <Link>Extensions\Collections.Randomize.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
@@ -1013,6 +1044,17 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.UppercaseWords.cs">
       <Link>Extensions\Strings.UppercaseWords.cs</Link>
       <DependentUpon>Strings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.cs">
+      <Link>Extensions\ValuesAndObjects.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsNotNull.cs">
+      <Link>Extensions\ValuesAndObjects.IsNotNull.cs</Link>
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsNull.cs">
+      <Link>Extensions\ValuesAndObjects.IsNull.cs</Link>
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">
       <Link>Helpers\CollectionHelper.Cast.cs</Link>

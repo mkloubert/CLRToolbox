@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.OleDb;
@@ -573,12 +574,9 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     {
                         cmd.CommandText = "SELECT TrustedAssemblyKey FROM [Security].[TrustedAssemblies];";
 
-                        using (var reader = cmd.ExecuteReader())
+                        foreach (var rec in ((IDbCommand)cmd).ExecuteEnumerableReader())
                         {
-                            foreach (var rec in reader.ToEnumerable())
-                            {
-                                result.Add((byte[])rec[0]);
-                            }
+                            result.Add(rec.GetBytes(0));
                         }
                     }
                 }

@@ -180,6 +180,12 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CompressionHelper.cs" />
+    <Compile Include="Helpers\DataHelper.FromDbValue.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ToDbValue.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\DataHelper.ToEnumerable.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>

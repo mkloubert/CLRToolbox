@@ -360,6 +360,14 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.cs">
       <Link>Helpers\DataHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.FromDbValue.cs">
+      <Link>Helpers\DataHelper.FromDbValue.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToDbValue.cs">
+      <Link>Helpers\DataHelper.ToDbValue.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToEnumerable.cs">
       <Link>Helpers\DataHelper.ToEnumerable.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
@@ -928,6 +936,14 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.cs">
       <Link>Extensions\Data.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.FromDbValue.cs">
+      <Link>Extensions\Data.FromDbValue.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ToDbValue.cs">
+      <Link>Extensions\Data.ToDbValue.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ToEnumerable.cs">
       <Link>Extensions\Data.ToEnumerable.cs</Link>

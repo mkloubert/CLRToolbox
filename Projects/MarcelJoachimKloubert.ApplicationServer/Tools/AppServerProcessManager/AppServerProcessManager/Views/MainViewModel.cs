@@ -172,7 +172,7 @@ namespace AppServerProcessManager.Views
                 }
             }
 
-            vm.Processes = new ObservableCollection<RemoteProcess>(collection: funcResult.Parameters.Processes);
+            vm.Processes = new ObservableCollection<RemoteProcess>(collection: funcResult.Parameters);
         }
 
         #endregion Methods

@@ -131,9 +131,9 @@ namespace AppServerProcessManager.JSON.ListProcesses
                 if (value != null)
                 {
                     newValue = new SynchronizedCollection<RemoteProcessModule>(syncRoot: new object(),
-                                                                         list: value.Select(i => i.ToObject<RemoteProcessModule>())
-                                                                                    .OrderBy(pm => (pm.Name ?? string.Empty).Trim(), StringComparer.InvariantCultureIgnoreCase)
-                                                                                    .ThenBy(pm => pm.Index));
+                                                                               list: value.Select(i => i.ToObject<RemoteProcessModule>())
+                                                                                          .OrderBy(pm => (pm.Name ?? string.Empty).Trim(), StringComparer.InvariantCultureIgnoreCase)
+                                                                                          .ThenBy(pm => pm.Index));
                 }
 
                 this.Modules = newValue;

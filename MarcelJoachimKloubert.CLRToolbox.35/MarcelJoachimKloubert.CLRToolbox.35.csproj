@@ -942,6 +942,9 @@
     <Compile Include="Extensions\Compression.GUnzip.cs">
       <DependentUpon>Compression.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\LinqExpressions.ThrowIfNull.cs">
+      <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ValuesAndObjects.IsNotNull.cs">
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>

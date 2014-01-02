@@ -856,6 +856,10 @@
       <Link>Extensions\LinqExpressions.GetMethodInfo.cs</Link>
       <DependentUpon>LinqExpressions.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.ThrowIfNull.cs">
+      <Link>Extensions\LinqExpressions.ThrowIfNull.cs</Link>
+      <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.cs">
       <Link>Extensions\Net.cs</Link>
     </Compile>

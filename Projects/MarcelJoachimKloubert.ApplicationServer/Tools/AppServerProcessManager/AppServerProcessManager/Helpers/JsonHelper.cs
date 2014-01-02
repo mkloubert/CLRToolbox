@@ -73,10 +73,7 @@ namespace AppServerProcessManager.Helpers
         /// </exception>
         public static T Deserialize<T>(Stream stream, Encoding enc)
         {
-            if (stream == null)
-            {
-                throw new ArgumentNullException("stream");
-            }
+            stream.ThrowIfNull(() => stream);
 
             MemoryStream ms = null;
             var disposeMs = false;

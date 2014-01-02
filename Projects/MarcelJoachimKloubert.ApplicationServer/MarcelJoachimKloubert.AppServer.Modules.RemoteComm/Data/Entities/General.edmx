@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Server.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ServerStoreContainer">
+          <EntitySet Name="REMCOMM_UserFunctions" EntityType="Server.Store.REMCOMM_UserFunctions" store:Type="Tables" Schema="RemoteCommService" />
+          <EntitySet Name="REMCOMM_Users" EntityType="Server.Store.REMCOMM_Users" store:Type="Tables" Schema="RemoteCommService" />
+          <AssociationSet Name="FK_REMCOMM_UserFunctions_REMCOMM_Users" Association="Server.Store.FK_REMCOMM_UserFunctions_REMCOMM_Users">
+            <End Role="REMCOMM_Users" EntitySet="REMCOMM_Users" />
+            <End Role="REMCOMM_UserFunctions" EntitySet="REMCOMM_UserFunctions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="REMCOMM_UserFunctions">
+          <Key>
+            <PropertyRef Name="REMCOMM_UserFunctionID" />
+          </Key>
+          <Property Name="REMCOMM_UserFunctionID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="REMCOMM_UserID" Type="bigint" Nullable="false" />
+          <Property Name="ServerFunctionID" Type="bigint" Nullable="false" />
+          <Property Name="CanExecute" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REMCOMM_Users">
+          <Key>
+            <PropertyRef Name="REMCOMM_UserID" />
+          </Key>
+          <Property Name="REMCOMM_UserID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_REMCOMM_UserFunctions_REMCOMM_Users">
+          <End Role="REMCOMM_Users" Type="Server.Store.REMCOMM_Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="REMCOMM_UserFunctions" Type="Server.Store.REMCOMM_UserFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMCOMM_Users">
+              <PropertyRef Name="REMCOMM_UserID" />
+            </Principal>
+            <Dependent Role="REMCOMM_UserFunctions">
+              <PropertyRef Name="REMCOMM_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppServer" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="REMCOMM_Users" EntityType="AppServer.REMCOMM_Users" />
+          <EntitySet Name="REMCOMM_UserFunctions" EntityType="AppServer.REMCOMM_UserFunctions" />
+          <AssociationSet Name="FK_REMCOMM_UserFunctions_REMCOMM_Users" Association="AppServer.FK_REMCOMM_UserFunctions_REMCOMM_Users">
+            <End Role="REMCOMM_Users" EntitySet="REMCOMM_Users" />
+            <End Role="REMCOMM_UserFunctions" EntitySet="REMCOMM_UserFunctions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="REMCOMM_Users">
+          <Key>
+            <PropertyRef Name="REMCOMM_UserID" />
+          </Key>
+          <Property Type="Int64" Name="REMCOMM_UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="REMCOMM_UserFunctions" Relationship="AppServer.FK_REMCOMM_UserFunctions_REMCOMM_Users" FromRole="REMCOMM_Users" ToRole="REMCOMM_UserFunctions" />
+        </EntityType>
+        <EntityType Name="REMCOMM_UserFunctions">
+          <Key>
+            <PropertyRef Name="REMCOMM_UserFunctionID" />
+          </Key>
+          <Property Type="Int64" Name="REMCOMM_UserFunctionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="REMCOMM_UserID" Nullable="false" />
+          <Property Type="Int64" Name="ServerFunctionID" Nullable="false" />
+          <Property Type="Boolean" Name="CanExecute" Nullable="false" />
+          <NavigationProperty Name="REMCOMM_Users" Relationship="AppServer.FK_REMCOMM_UserFunctions_REMCOMM_Users" FromRole="REMCOMM_UserFunctions" ToRole="REMCOMM_Users" />
+        </EntityType>
+        <Association Name="FK_REMCOMM_UserFunctions_REMCOMM_Users">
+          <End Type="AppServer.REMCOMM_Users" Role="REMCOMM_Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.REMCOMM_UserFunctions" Role="REMCOMM_UserFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMCOMM_Users">
+              <PropertyRef Name="REMCOMM_UserID" />
+            </Principal>
+            <Dependent Role="REMCOMM_UserFunctions">
+              <PropertyRef Name="REMCOMM_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ServerStoreContainer" CdmEntityContainer="Entities" >
+          <EntitySetMapping Name="REMCOMM_Users">
+            <EntityTypeMapping TypeName="AppServer.REMCOMM_Users">
+              <MappingFragment StoreEntitySet="REMCOMM_Users">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="REMCOMM_UserID" ColumnName="REMCOMM_UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REMCOMM_UserFunctions">
+            <EntityTypeMapping TypeName="AppServer.REMCOMM_UserFunctions">
+              <MappingFragment StoreEntitySet="REMCOMM_UserFunctions">
+                <ScalarProperty Name="CanExecute" ColumnName="CanExecute" />
+                <ScalarProperty Name="ServerFunctionID" ColumnName="ServerFunctionID" />
+                <ScalarProperty Name="REMCOMM_UserID" ColumnName="REMCOMM_UserID" />
+                <ScalarProperty Name="REMCOMM_UserFunctionID" ColumnName="REMCOMM_UserFunctionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,8 +1,13 @@
-﻿using System.Security.Principal;
+﻿// LICENSE: GPL 3 - https://www.gnu.org/licenses/gpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+
+using System.Security.Principal;
 using MarcelJoachimKloubert.CLRToolbox.Security.AccessControl;
 using DocDBEntities = MarcelJoachimKloubert.AppServer.Modules.DocDB.Data.Entities.General.DocDBService;
 
-namespace MarcelJoachimKloubert.AppServer.Modules.DocDB.Principal.Security
+namespace MarcelJoachimKloubert.AppServer.Modules.DocDB.Security.Principal
 {
     internal sealed class DocDBUserPrincipal : AclPrincipalBase
     {

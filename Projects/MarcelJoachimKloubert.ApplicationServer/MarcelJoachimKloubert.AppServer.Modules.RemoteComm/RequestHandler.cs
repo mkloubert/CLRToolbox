@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Security.Principal;
 using System.Text;
+using MarcelJoachimKloubert.ApplicationServer.DataLayer;
+using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Functions;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -16,16 +18,20 @@ using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.Serialization;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
+using RemoteCommEntities = MarcelJoachimKloubert.AppServer.Modules.RemoteComm.Data.Entities.General.RemoteCommService;
+using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities;
 
 namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 {
     internal sealed class RequestHandler : DisposableBase
     {
-        #region Fields (3)
+        #region Fields (5)
 
         private readonly RemoteCommModule _MODULE;
+        private readonly IPasswordHasher _PWD_HASHER = ServiceLocator.Current.GetInstance<IPasswordHasher>();
         private readonly ISerializer _SERIALIZER = ServiceLocator.Current.GetInstance<ISerializer>();
         private readonly IHttpServer _SERVER;
+        private RemoteCommEntities.REMCOMM_Users[] _users;
 
         #endregion Fields
 
@@ -43,7 +49,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 
         #endregion Constructors
 
-        #region Methods (6)
+        #region Methods (9)
 
         // Protected Methods (1) 
 
@@ -54,22 +60,70 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
                 this._SERVER.Dispose();
             }
         }
-        // Private Methods (4) 
+        // Private Methods (7) 
 
-        private bool IsFunctionAllowed(IFunction func, IPrincipal user)
+        private bool IsFunctionAllowed(IFunction func, RemoteCommUserPrincipal user)
         {
-            //TODO read from database / ACL
+            return user != null &&
+                   user.User.CanExecuteFunction(func);
+        }
 
-            return func != null;
+        private void ReloadUsers()
+        {
+            var loadedUsers = new HashSet<RemoteCommEntities.REMCOMM_Users>();
+
+            using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
+            {
+                foreach (var user in db.Query<RemoteCommEntities.REMCOMM_Users>()
+                                       .Where(u => u.IsActive)
+                                       .ToArray())
+                {
+                    var srvUser = db.Query<ServerEntities.General.Security.Users>()
+                                    .Where(su => su.IsActive &&
+                                                 su.UserID == user.UserID)
+                                    .Single();
+
+                    user.Users = srvUser;
+                    srvUser.CharacterPasswordHasher = this.Users_HashPassword;
+
+                    user.REMCOMM_UserFunctions = db.Query<RemoteCommEntities.REMCOMM_UserFunctions>()
+                                                   .Where(uf => uf.REMCOMM_UserID == user.REMCOMM_UserID &&
+                                                                uf.CanExecute)
+                                                   .ToArray();
+
+                    foreach (var uf in user.REMCOMM_UserFunctions)
+                    {
+                        uf.ServerFunctions = db.Query<ServerEntities.General.Functions.ServerFunctions>()
+                                               .Where(sf => sf.ServerFunctionID == uf.ServerFunctionID)
+                                               .Single();
+                    }
+
+                    loadedUsers.Add(user);
+                }
+            }
+
+            this._users = loadedUsers.ToArray();
         }
 
         private IPrincipal Server_FindPrincipal(IIdentity id)
         {
+            if (id != null)
+            {
+                var user = this.TryFindUserEntityByName(id.Name);
+                if (user != null)
+                {
+                    //TODO set ACL
+                    return new RemoteCommUserPrincipal(user, id);
+                }
+            }
+
             return null;
         }
 
         private void Server_HandleRequest(object sender, HttpRequestEventArgs e)
         {
+            var user = (RemoteCommUserPrincipal)e.Request.User;
+
             e.Response.Charset = Encoding.UTF8;
             var statusCode = HttpStatusCode.NotImplemented;
             IEnumerable<char> statusDescription = null;
@@ -118,7 +172,7 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 
                                         if (func != null)
                                         {
-                                            if (this.IsFunctionAllowed(func, e.Request.User))
+                                            if (this.IsFunctionAllowed(func, user))
                                             {
                                                 IFunctionExecutionContext execCtx;
                                                 if (@params != null)
@@ -195,13 +249,46 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 
         private bool Server_ValidateCredential(string username, string password)
         {
-            //TODO
-            return true;
+            try
+            {
+                var user = this.TryFindUserEntityByName(username);
+                if (user != null)
+                {
+                    return user.Users
+                               .CheckPassword(password);
+                }
+            }
+            catch
+            {
+                // ignore errors here
+            }
+
+            return false;
+        }
+
+        private RemoteCommEntities.REMCOMM_Users TryFindUserEntityByName(string username)
+        {
+            return CollectionHelper.SingleOrDefault((this._users ?? Enumerable.Empty<RemoteCommEntities.REMCOMM_Users>())
+                                                                              .OfType<RemoteCommEntities.REMCOMM_Users>(),
+                                                    u => (u.Users.Name ?? string.Empty).ToLower().Trim() ==
+                                                         (username ?? string.Empty).ToLower().Trim());
+        }
+
+        private IEnumerable<byte> Users_HashPassword(string pwd)
+        {
+            if (string.IsNullOrEmpty(pwd))
+            {
+                return null;
+            }
+
+            return this._PWD_HASHER.Hash(pwd);
         }
         // Internal Methods (1) 
 
         internal void Start()
         {
+            this.ReloadUsers();
+
             this._SERVER.Start();
         }
 

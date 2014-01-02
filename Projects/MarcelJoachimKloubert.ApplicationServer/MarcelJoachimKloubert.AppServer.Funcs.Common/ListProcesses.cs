@@ -47,6 +47,7 @@ namespace MarcelJoachimKloubert.AppServer.Funcs.Common
         {
             var processList = new List<IDictionary<string, object>>();
 
+            // use filter?
             IEnumerable<Process> processesToHandle = Process.GetProcesses();
             if (context.InputParameters.ContainsKey("Filter"))
             {

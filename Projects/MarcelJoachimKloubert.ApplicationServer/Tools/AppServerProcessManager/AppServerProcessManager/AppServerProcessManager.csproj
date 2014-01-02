@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Data\BooleanToVisibilityConverter.cs" />
     <Compile Include="Data\RemoteProcessValueConverter.cs" />
+    <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="JSON\ListProcesses\ListProcessesFuncResult.cs" />
     <Compile Include="JSON\ListProcesses\RemoteProcess.cs" />
     <Compile Include="JSON\ListProcesses\RemoteProcessIcon.cs" />

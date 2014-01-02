@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a2f9753b54294c4397e5bb812fec292a" Name="Diagramm1" >
+        <EntityTypeShape EntityType="AppServer.Persons" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AppServer.PersonTypes" Width="1.5" PointX="1.5" PointY="10.375" />
+        <AssociationConnector Association="AppServer.FK_Persons_PersonTypes" />
+        <EntityTypeShape EntityType="AppServer.Users" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="AppServer.FK_Users_Persons" />
+        <EntityTypeShape EntityType="AppServer.AccessControlLists" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="AppServer.AclResources" Width="1.5" PointX="5.25" PointY="6.75" />
+        <EntityTypeShape EntityType="AppServer.AclRoles" Width="1.5" PointX="3" PointY="6.625" />
+        <AssociationConnector Association="AppServer.FK_AclRoles_AccessControlLists" />
+        <AssociationConnector Association="AppServer.FK_AclResources_AclRoles" />
+        <AssociationConnector Association="AppServer.FK_Users_Persons1" />
+        <AssociationConnector Association="AppServer.Users_AccessControlLists" />
+        <EntityTypeShape EntityType="AppServer.REMCOMM_Users" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="AppServer.REMCOMM_UserFunctions" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="AppServer.FK_REMCOMM_UserFunctions_REMCOMM_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

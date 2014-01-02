@@ -39,6 +39,350 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
         #endregion
      
+        namespace Functions
+        {
+            #region SCHEMA ENTITIES: Functions
+    
+            /// <summary>
+            /// Describes an entity for the 'Functions' schema.
+            /// </summary>
+            public partial interface IFunctionsEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity
+            {
+    
+            }
+    
+            /// <summary>
+            /// A basic entity for the 'Functions' schema.
+            /// </summary>
+            public abstract partial class FunctionsEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.GeneralEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.IFunctionsEntity
+            {
+                #region Constructors (1)
+    
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FunctionsEntityBase" /> class.
+                /// </summary>
+                protected FunctionsEntityBase()
+                {
+    
+                }
+    
+                #endregion
+            }
+    
+            #endregion
+     
+            #region ENTITY: ServerFunctions
+    
+            /// <summary>
+            /// Describes an 'ServerFunctions' entity.
+            /// </summary>
+            public partial interface IServerFunctions : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.IFunctionsEntity
+            {
+                #region Columns (3)
+                /// <summary>
+                /// Gets or sets the scalar field 'Notes'.
+                /// </summary>
+                string Notes { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'ServerFunctionExportID'.
+                /// </summary>
+                System.Guid ServerFunctionExportID { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'ServerFunctionID'.
+                /// </summary>
+                long ServerFunctionID { get; set; }
+     
+    
+                #endregion
+            }
+            
+            /// <summary>
+            /// An 'ServerFunctions' entity.
+            /// </summary>
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "ServerFunctions", Schema = "Functions")]
+            [global::System.Runtime.Serialization.DataContract(IsReference = true)]
+            [global::System.Serializable]
+            public partial class ServerFunctions : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.FunctionsEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.IServerFunctions
+            {
+                #region Constructors (1)
+                
+                /// <summary>
+                /// Initializes a new instance of <see cref="ServerFunctions" /> class.
+                /// </summary>
+                public ServerFunctions()
+                {
+                    
+                }
+    
+                #endregion
+    
+                #region Columns (3)
+    
+                private string _sf_Notes;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.IServerFunctions.Notes" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(string), IsKey = false, IsNullable = true, Name = "Notes")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "Notes")]
+                public string Notes
+                {
+                    get { return this._sf_Notes; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_Notes, value))
+                        {
+                            this.OnPropertyChanging("Notes");
+                            this._sf_Notes = value;
+                            this.OnPropertyChanged("Notes");
+                        }
+                    }
+                }
+    
+                private System.Guid _sf_ServerFunctionExportID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.IServerFunctions.ServerFunctionExportID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(System.Guid), IsKey = false, IsNullable = false, Name = "ServerFunctionExportID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "ServerFunctionExportID")]
+                public System.Guid ServerFunctionExportID
+                {
+                    get { return this._sf_ServerFunctionExportID; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_ServerFunctionExportID, value))
+                        {
+                            this.OnPropertyChanging("ServerFunctionExportID");
+                            this._sf_ServerFunctionExportID = value;
+                            this.OnPropertyChanged("ServerFunctionExportID");
+                        }
+                    }
+                }
+    
+                private long _sf_ServerFunctionID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Functions.IServerFunctions.ServerFunctionID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(long), IsKey = true, IsNullable = false, Name = "ServerFunctionID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "ServerFunctionID")]
+                public long ServerFunctionID
+                {
+                    get { return this._sf_ServerFunctionID; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_ServerFunctionID, value))
+                        {
+                            this.OnPropertyChanging("ServerFunctionID");
+                            this._sf_ServerFunctionID = value;
+                            this.OnPropertyChanged("ServerFunctionID");
+                        }
+                    }
+                }
+    
+                #endregion
+     
+                #region Methods (9)
+    
+                /// <summary>
+                /// Builds a new <see cref="ServerFunctions" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static ServerFunctions Build<TRec>(TRec rec, global::System.Action<ServerFunctions, TRec> setup = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new ServerFunctions();
+                    result.LoadFrom<TRec>(rec: rec, setup: setup);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a new <see cref="ServerFunctions" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static ServerFunctions Build<TRec, S>(TRec rec, global::System.Action<ServerFunctions, TRec, S> setup = null, S setupState = default(S)) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new ServerFunctions();
+                    result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a new <see cref="ServerFunctions" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static ServerFunctions Build<TRec, S>(TRec rec, global::System.Action<ServerFunctions, TRec, S> setup = null, global::System.Func<ServerFunctions, TRec, S> setupStateFactory = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new ServerFunctions();
+                    result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="ServerFunctions" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<ServerFunctions> BuildAll<TReader>(TReader reader, global::System.Action<ServerFunctions, TReader> setup = null) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader>(rec: reader, setup: setup);
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="ServerFunctions" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<ServerFunctions> BuildAll<TReader, S>(TReader reader, global::System.Action<ServerFunctions, TReader, S> setup = null, S setupState = default(S)) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="ServerFunctions" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<ServerFunctions> BuildAll<TReader, S>(TReader reader, global::System.Action<ServerFunctions, TReader, S> setup = null, global::System.Func<ServerFunctions, TReader, S> setupStateFactory = null) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec>(TRec rec, global::System.Action<ServerFunctions, TRec> setup = null) where TRec : global::System.Data.IDataRecord
+                {
+                    this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<ServerFunctions, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec, S>(TRec rec, global::System.Action<ServerFunctions, TRec, S> setup = null, S setupState = default(S)) where TRec : global::System.Data.IDataRecord
+                {
+                    this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec, S>(TRec rec, global::System.Action<ServerFunctions, TRec, S> setup = null, global::System.Func<ServerFunctions, TRec, S> setupStateFactory = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+     
+                    var oNotes = rec.GetOrdinal("Notes");
+                    var oServerFunctionExportID = rec.GetOrdinal("ServerFunctionExportID");
+                    var oServerFunctionID = rec.GetOrdinal("ServerFunctionID");
+     
+                    this.Notes = (string)(!rec.IsDBNull(oNotes) ? rec.GetValue(oNotes) : null);
+                    this.ServerFunctionExportID = (System.Guid)(!rec.IsDBNull(oServerFunctionExportID) ? rec.GetValue(oServerFunctionExportID) : null);
+                    this.ServerFunctionID = (long)(!rec.IsDBNull(oServerFunctionID) ? rec.GetValue(oServerFunctionID) : null);
+     
+                    if (setup != null)
+                        setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
+                }
+    
+                #endregion
+            }
+            
+            #endregion
+    
+        }
+     
         namespace Security
         {
             #region SCHEMA ENTITIES: Security

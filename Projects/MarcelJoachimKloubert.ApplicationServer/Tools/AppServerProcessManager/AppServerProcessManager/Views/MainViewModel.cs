@@ -6,16 +6,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AppServerProcessManager.Helpers;
 using AppServerProcessManager.JSON.ListProcesses;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
-using Newtonsoft.Json;
 
 namespace AppServerProcessManager.Views
 {
@@ -158,25 +157,7 @@ namespace AppServerProcessManager.Views
                 inputParams["AllModules"] = true;
                 inputParams["WithIcon"] = true;
 
-                string json;
-                var serializer = new JsonSerializer();
-                using (var sw = new StringWriter())
-                {
-                    using (var writer = new JsonTextWriter(sw))
-                    {
-                        serializer.Serialize(writer, inputParams);
-
-                        writer.Flush();
-                        writer.Close();
-                    }
-
-                    sw.Flush();
-                    sw.Close();
-
-                    json = sw.ToString();
-                }
-
-                var data = Encoding.UTF8.GetBytes(json);
+                var data = Encoding.UTF8.GetBytes(JsonHelper.Serialize(inputParams));
                 reqStream.Write(data, 0, data.Length);
 
                 reqStream.Close();
@@ -184,26 +165,10 @@ namespace AppServerProcessManager.Views
 
             ListProcessesFuncResult funcResult;
             {
-                string json;
-
                 var response = request.GetResponse();
                 using (var respStream = response.GetResponseStream())
                 {
-                    using (var temp = new MemoryStream())
-                    {
-                        respStream.CopyTo(temp);
-
-                        json = Encoding.UTF8.GetString(temp.ToArray());
-                    }
-                }
-
-                var serializer = new JsonSerializer();
-                using (var sr = new StringReader(json))
-                {
-                    using (var reader = new JsonTextReader(sr))
-                    {
-                        funcResult = serializer.Deserialize<ListProcessesFuncResult>(reader);
-                    }
+                    funcResult = JsonHelper.Deserialize<ListProcessesFuncResult>(respStream);
                 }
             }
 

@@ -18,6 +18,7 @@
         <AssociationConnector Association="AppServer.FK_Users_Persons" />
         <AssociationConnector Association="AppServer.FK_Persons_PersonTypes" />
         <AssociationConnector Association="AppServer.Users_AccessControlLists" />
+        <EntityTypeShape EntityType="AppServer.ServerFunctions" Width="1.5" PointX="2.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

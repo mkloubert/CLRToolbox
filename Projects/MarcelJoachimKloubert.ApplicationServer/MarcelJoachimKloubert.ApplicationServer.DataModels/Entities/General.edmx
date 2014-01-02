@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="Server.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ServerStoreContainer">
+          <EntitySet Name="ServerFunctions" EntityType="Server.Store.ServerFunctions" store:Type="Tables" Schema="Functions" />
           <EntitySet Name="AccessControlLists" EntityType="Server.Store.AccessControlLists" store:Type="Tables" Schema="Security" />
           <EntitySet Name="AclResources" EntityType="Server.Store.AclResources" store:Type="Tables" Schema="Security" />
           <EntitySet Name="AclRoles" EntityType="Server.Store.AclRoles" store:Type="Tables" Schema="Security" />
@@ -45,6 +46,14 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ServerFunctions">
+          <Key>
+            <PropertyRef Name="ServerFunctionID" />
+          </Key>
+          <Property Name="ServerFunctionID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ServerFunctionExportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="AccessControlLists">
           <Key>
             <PropertyRef Name="AccessControlListID" />
@@ -88,7 +97,7 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Während der Generierung sind Fehler aufgetreten:
-      Warnung 6002: Für Tabelle/Sicht 'ApplicationServer.Security.Users_AccessControlLists' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
+      Warnung 6002: Für Tabelle/Sicht 'jaz00Asfq3kGWLweBpAJ.Security.Users_AccessControlLists' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.
       -->
         <EntityType Name="Users_AccessControlLists">
           <Key>
@@ -238,6 +247,7 @@
             <End Role="AccessControlLists" EntitySet="AccessControlLists" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="ServerFunctions" EntityType="AppServer.ServerFunctions" />
         </EntityContainer>
         <EntityType Name="AccessControlLists">
           <Key>
@@ -374,6 +384,14 @@
           <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="*" />
           <End Type="AppServer.Users" Role="Users" Multiplicity="*" />
         </Association>
+        <EntityType Name="ServerFunctions">
+          <Key>
+            <PropertyRef Name="ServerFunctionID" />
+          </Key>
+          <Property Type="Int64" Name="ServerFunctionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="ServerFunctionExportID" Nullable="false" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -463,6 +481,15 @@
               <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ServerFunctions">
+            <EntityTypeMapping TypeName="AppServer.ServerFunctions">
+              <MappingFragment StoreEntitySet="ServerFunctions">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ServerFunctionExportID" ColumnName="ServerFunctionExportID" />
+                <ScalarProperty Name="ServerFunctionID" ColumnName="ServerFunctionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

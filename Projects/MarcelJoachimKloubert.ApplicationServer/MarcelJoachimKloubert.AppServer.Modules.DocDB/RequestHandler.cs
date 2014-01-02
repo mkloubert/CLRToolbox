@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MarcelJoachimKloubert.ApplicationServer.DataLayer;
 using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
-using MarcelJoachimKloubert.AppServer.Modules.DocDB.Principal.Security;
+using MarcelJoachimKloubert.AppServer.Modules.DocDB.Security.Principal;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
@@ -104,13 +104,13 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
 
             using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
             {
-                foreach (var srvUser in db.Query<ServerEntities.General.Security.Users>()
-                                          .Where(u => u.IsActive)
-                                          .ToArray())
+                foreach (var user in db.Query<DocDBEntities.DOCDB_Users>()
+                                       .Where(u => u.IsActive)
+                                       .ToArray())
                 {
-                    var user = db.Query<DocDBEntities.DOCDB_Users>()
-                                 .Where(u => u.IsActive &&
-                                             u.UserID == srvUser.UserID)
+                    var srvUser = db.Query<ServerEntities.General.Security.Users>()
+                                 .Where(su => su.IsActive &&
+                                              su.UserID == user.UserID)
                                  .Single();
 
                     user.Users = srvUser;

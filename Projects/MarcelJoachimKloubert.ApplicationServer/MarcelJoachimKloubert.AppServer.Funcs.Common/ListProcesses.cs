@@ -53,7 +53,8 @@ namespace MarcelJoachimKloubert.AppServer.Funcs.Common
                 var whitelist = new List<int>();
 
                 var temp = context.InputParameters["Filter"];
-                if (temp is IEnumerable)
+                if (temp is IEnumerable &&
+                    !(temp is IEnumerable<char>))
                 {
                     // list fo IDs
 

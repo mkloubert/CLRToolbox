@@ -248,11 +248,11 @@ namespace MarcelJoachimKloubert.AppServer.Funcs.Common
         }
 
         private static bool TrySetDictionaryData<T>(Func<T> func,
-                                                    string dictName, IDictionary<string, object> dict)
+                                                    string dictKey, IDictionary<string, object> dict)
         {
             try
             {
-                dict[dictName] = func();
+                dict[dictKey] = func();
                 return true;
             }
             catch

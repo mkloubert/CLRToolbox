@@ -180,7 +180,13 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CompressionHelper.cs" />
+    <Compile Include="Helpers\DataHelper.Build.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\DataHelper.FromDbValue.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.GetBytes.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DataHelper.ToDbValue.cs">
@@ -230,6 +236,9 @@
     </Compile>
     <Compile Include="Helpers\CollectionHelper.IsNotEmpty.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.BuildAll.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ValueHelper.IsNotNull.cs">
       <DependentUpon>ValueHelper.cs</DependentUpon>

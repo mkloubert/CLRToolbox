@@ -18,19 +18,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Data
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="DataHelper.FromDbValue{T}(IDataRecord, IEnumerable{char})" />
-        public static T FromDbValue<T>(this IDataRecord rec, IEnumerable<char> name)
+        /// <see cref="DataHelper.GetBytes(IDataRecord, IEnumerable{char})" />
+        public static byte[] GetBytes(this IDataRecord rec, IEnumerable<char> name)
         {
-            return DataHelper.FromDbValue<T>(rec, name);
+            return DataHelper.GetBytes(rec, name);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="DataHelper.FromDbValue{T}(IDataRecord, int)" />
-        public static T FromDbValue<T>(this IDataRecord rec, int ordinal)
+        /// <see cref="DataHelper.GetBytes(IDataRecord, int)" />
+        public static byte[] GetBytes(this IDataRecord rec, int ordinal)
         {
-            return DataHelper.FromDbValue<T>(rec, ordinal);
+            return DataHelper.GetBytes(rec, ordinal);
         }
 
         #endregion Methods

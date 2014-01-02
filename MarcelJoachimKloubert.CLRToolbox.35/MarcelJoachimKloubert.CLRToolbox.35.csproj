@@ -374,11 +374,23 @@
       <Link>Helpers\CompressionHelper.GZip.cs</Link>
       <DependentUpon>CompressionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.Build.cs">
+      <Link>Helpers\DataHelper.Build.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.BuildAll.cs">
+      <Link>Helpers\DataHelper.BuildAll.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.cs">
       <Link>Helpers\DataHelper.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.FromDbValue.cs">
       <Link>Helpers\DataHelper.FromDbValue.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.GetBytes.cs">
+      <Link>Helpers\DataHelper.GetBytes.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToDbValue.cs">
@@ -921,8 +933,17 @@
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Compression.cs" />
+    <Compile Include="Extensions\Data.Build.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.BuildAll.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Data.cs" />
     <Compile Include="Extensions\Data.FromDbValue.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.GetBytes.cs">
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Data.ToDbValue.cs">

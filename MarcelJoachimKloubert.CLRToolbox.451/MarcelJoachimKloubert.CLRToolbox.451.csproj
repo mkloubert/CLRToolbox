@@ -357,11 +357,23 @@
       <Link>Helpers\CompressionHelper.GZip.cs</Link>
       <DependentUpon>CompressionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.Build.cs">
+      <Link>Extensions\DataHelper.Build.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.BuildAll.cs">
+      <Link>Extensions\DataHelper.BuildAll.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.cs">
       <Link>Helpers\DataHelper.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.FromDbValue.cs">
       <Link>Helpers\DataHelper.FromDbValue.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.GetBytes.cs">
+      <Link>Helpers\DataHelper.GetBytes.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToDbValue.cs">
@@ -934,11 +946,23 @@
       <Link>Extensions\Compression.GZip.cs</Link>
       <DependentUpon>Compression.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.Build.cs">
+      <Link>Extensions\Data.Build.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.BuildAll.cs">
+      <Link>Extensions\Data.BuildAll.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.cs">
       <Link>Extensions\Data.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.FromDbValue.cs">
       <Link>Extensions\Data.FromDbValue.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.GetBytes.cs">
+      <Link>Extensions\Data.GetBytes.cs</Link>
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ToDbValue.cs">

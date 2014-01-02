@@ -183,6 +183,9 @@
     <Compile Include="Helpers\DataHelper.Build.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataHelper.ExecuteEnumerableReader.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\DataHelper.FromDbValue.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
@@ -238,6 +241,18 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DataHelper.BuildAll.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ExecuteEnumerableReader.OleDb.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ExecuteEnumerableReader.SqlClient.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ExecuteEnumerableReader.Odbc.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataHelper.ExecuteEnumerableReader.Common.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ValueHelper.IsNotNull.cs">

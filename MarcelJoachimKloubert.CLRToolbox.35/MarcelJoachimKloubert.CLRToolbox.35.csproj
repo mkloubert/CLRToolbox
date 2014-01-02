@@ -385,6 +385,26 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.cs">
       <Link>Helpers\DataHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.Common.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.Common.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.Odbc.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.Odbc.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.OleDb.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.OleDb.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.SqlClient.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.SqlClient.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.FromDbValue.cs">
       <Link>Helpers\DataHelper.FromDbValue.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
@@ -959,6 +979,21 @@
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Data.ToEnumerable.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ExecuteEnumerableReader.Common.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ExecuteEnumerableReader.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ExecuteEnumerableReader.Odbc.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ExecuteEnumerableReader.OleDb.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Data.ExecuteEnumerableReader.SqlClient.cs">
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IO.CreateDirectoryDeep.cs">

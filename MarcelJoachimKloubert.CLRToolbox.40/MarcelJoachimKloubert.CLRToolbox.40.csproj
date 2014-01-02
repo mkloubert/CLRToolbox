@@ -371,6 +371,26 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.cs">
       <Link>Helpers\DataHelper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.Common.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.Common.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.Odbc.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.Odbc.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.OleDb.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.OleDb.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ExecuteEnumerableReader.SqlClient.cs">
+      <Link>Helpers\DataHelper.ExecuteEnumerableReader.SqlClient.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.FromDbValue.cs">
       <Link>Helpers\DataHelper.FromDbValue.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
@@ -965,6 +985,26 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.cs">
       <Link>Extensions\Data.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ExecuteEnumerableReader.Common.cs">
+      <Link>Extensions\Data.ExecuteEnumerableReader.Common.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ExecuteEnumerableReader.cs">
+      <Link>Extensions\Data.ExecuteEnumerableReader.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ExecuteEnumerableReader.Odbc.cs">
+      <Link>Extensions\Data.ExecuteEnumerableReader.Odbc.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ExecuteEnumerableReader.OleDb.cs">
+      <Link>Extensions\Data.ExecuteEnumerableReader.OleDb.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ExecuteEnumerableReader.SqlClient.cs">
+      <Link>Extensions\Data.ExecuteEnumerableReader.SqlClient.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.FromDbValue.cs">
       <Link>Extensions\Data.FromDbValue.cs</Link>

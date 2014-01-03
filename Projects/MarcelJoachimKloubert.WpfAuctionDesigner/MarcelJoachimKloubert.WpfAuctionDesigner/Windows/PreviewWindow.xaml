@@ -1,0 +1,85 @@
+﻿<!--
+
+WPF based tool to create product pages for auctions on eBay, e.g.
+Copyright (C) 2013  Marcel Joachim Kloubert
+     
+This library is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or (at
+your option) any later version.
+   
+This library is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+    
+You should have received a copy of the GNU General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+USA.
+
+-->
+<Window x:Class="MarcelJoachimKloubert.WpfAuctionDesigner.Windows.PreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:ctrls="clr-namespace:MarcelJoachimKloubert.WpfAuctionDesigner.Classes.Controls"
+        Title="Vorschau"
+        Height="700" Width="900"
+        Closing="PreviewWindow_Closing"
+        WindowStyle="ToolWindow">
+
+    <Window.Resources>
+        <Style TargetType="avalonEdit:TextEditor">
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontSize" Value="10pt" />
+            <Setter Property="Padding" Value="8px" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="312px"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- left -->
+        <Grid Grid.Column="0">
+            <TabControl>
+                <TabItem Header="Browser">
+                    <WebBrowser Margin="8"
+                                ctrls:TMBrowserBehavior.Html="{Binding Path=BaseViewModel.Document.HtmlOutputSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </TabItem>
+
+                <TabItem Header="Quelltext">
+                    <avalonEdit:TextEditor Document="{Binding Path=BaseViewModel.Document.HtmlOutput, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           IsReadOnly="True" 
+                                           SyntaxHighlighting="HTML" />
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <!-- right -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="50*" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Header="CSS">
+                <avalonEdit:TextEditor Document="{Binding Path=BaseViewModel.Document.CssPart, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SyntaxHighlighting="CSS" />
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Header="HTML">
+                <avalonEdit:TextEditor Document="{Binding Path=BaseViewModel.Document.HtmlPart, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SyntaxHighlighting="HTML" />
+            </GroupBox>
+        </Grid>
+
+        <GridSplitter Width="2"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch"
+                      ResizeDirection="Columns" />
+    </Grid>
+</Window>

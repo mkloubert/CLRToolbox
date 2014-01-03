@@ -1,0 +1,355 @@
+﻿<!--
+
+WPF based tool to create product pages for auctions on eBay, e.g.
+Copyright (C) 2013  Marcel Joachim Kloubert
+     
+This library is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or (at
+your option) any later version.
+   
+This library is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+    
+You should have received a copy of the GNU General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+USA.
+
+-->
+<ribbon:RibbonWindow x:Class="MarcelJoachimKloubert.WpfAuctionDesigner.Windows.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:conv="clr-namespace:MarcelJoachimKloubert.WpfAuctionDesigner.Classes.Converters"
+                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                     xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                     xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+                     xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                     xmlns:SpellCheckAvalonEdit="clr-namespace:SpellCheckAvalonEdit"
+                     Title="{Binding Path=WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     Height="600" Width="800"
+                     Loaded="MainWindow_Loaded"
+                     WindowStartupLocation="CenterScreen"
+                     WindowStyle="SingleBorderWindow"
+                     Closing="MainWindow_Closing">
+    
+    <Window.Resources>
+        <conv:TMVisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <Ribbon DockPanel.Dock="Top">
+            <Ribbon.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="Height" Value="16" />
+                    <Setter Property="Margin" Value="0,4,0,4" />
+                    <Setter Property="Width" Value="16" />
+                </Style>
+
+                <Style TargetType="ComboBox">
+                    <Setter Property="Width" Value="128px" />
+                </Style>
+
+                <Style TargetType="ribbon:RibbonComboBox">
+                    <Setter Property="Width" Value="128px" />
+                </Style>
+
+                <Style TargetType="tk:ColorPicker">
+                    <Setter Property="Width" Value="128px" />
+                </Style>
+            </Ribbon.Resources>
+            
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton Label="Speichern"
+                                  ToolTip="Dokument in Datei speichern"
+                                  Command="{Binding Path=SaveDocumentCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SmallImageSource="../_Res/btnicon_stock_save.png" />
+                    <RibbonButton Label="Rückgängig"
+                                  ToolTip="Änderungen rückgängig machen"
+                                  Command="{Binding Path=UndoCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SmallImageSource="../_Res/btnicon_stock_undo-16.png" />
+                    <RibbonButton Label="Wiederholen"
+                                  ToolTip="Letzte Änderung wiederholen"
+                                  Command="{Binding Path=RedoCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SmallImageSource="../_Res/btnicon_redo.png" />
+                    
+                    <RibbonToggleButton Label="Vorschau"
+                                        ToolTip="Vorschau anzeigen"
+                                        IsChecked="{Binding Path=PreviewWindow.Visibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VisibilityToBoolConverter}}"
+                                        SmallImageSource="../_Res/btnicon_stock_effects-preview-16.png" />
+                    
+                    <RibbonButton Label="Zwischenablage"
+                                  ToolTip="In die Zwischenablage kopieren"
+                                  Command="{Binding Path=CopyToClipboardCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SmallImageSource="../_Res/btnicon_Clipboard.png" />
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="../_Res/ApplicationMenu.png">
+                    <RibbonApplicationMenuItem Header="Neu"
+                                               Command="{Binding Path=NewDocumentCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               ImageSource="../_Res/btnicon_filenew.png" />
+                    
+                    <RibbonApplicationMenuItem Header="Öffnen"
+                                               Command="{Binding Path=OpenDocumentCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               ImageSource="../_Res/btnicon_folder_blue_open.png" />
+                    
+                    <RibbonApplicationMenuItem Header="Speichern"
+                                               Command="{Binding Path=SaveDocumentCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               ImageSource="../_Res/btnicon_filesaveas.png" />
+                    
+                    <RibbonApplicationMenuItem Header="Beenden"
+                                               Command="{Binding Path=ExitAppCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               ImageSource="../_Res/btnicon_exit.png" />
+                    
+                    <RibbonApplicationMenu.FooterPaneContent>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <RibbonButton Grid.Column="0"
+                                          Label="Als Standard speichern"
+                                          ToolTip="Aktuelles Dokument als Standard speichern"
+                                          SmallImageSource="../_Res/btnicon_apply.png"
+                                          HorizontalAlignment="Right"
+                                          Command="{Binding Path=SaveAsDefaultCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </RibbonApplicationMenu.FooterPaneContent>
+                    
+                    <RibbonApplicationMenu.AuxiliaryPaneContent>
+                        <RibbonGallery CanUserFilter="False"
+                                       SelectedItem="{Binding Path=SelectedRecentFile, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                       ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <RibbonGalleryCategory Background="Transparent"
+                                                   MaxColumnCount="1"
+                                                   DisplayMemberPath="Name"
+                                                   ItemsSource="{Binding Path=RecentFiles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </RibbonGallery>
+                    </RibbonApplicationMenu.AuxiliaryPaneContent>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            
+            <!--<Ribbon.HelpPaneContent>
+                <RibbonButton Content="Hilfe"
+                              SmallImageSource="Resources/Images/Help.png"/>
+            </Ribbon.HelpPaneContent>-->
+            
+            <!-- formatting -->
+            <RibbonTab Header="Formatierung">
+                <!-- text -->
+                <RibbonGroup IsEnabled="{Binding Path=CanUseTextEditorFunctions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <RibbonButton Label="Fett"
+                                  SmallImageSource="../_Res/btnicon_bold.png"
+                                  Command="{Binding Path=InsertBoldCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="Kursiv"
+                                  SmallImageSource="../_Res/btnicon_italic.png"
+                                  Command="{Binding Path=InsertItalicCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="Unterstreichen"
+                                  SmallImageSource="../_Res/btnicon_underline.png"
+                                  Command="{Binding Path=InsertUnderlineCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="Durchstreichen"
+                                  SmallImageSource="../_Res/btnicon_strikethrough.png"
+                                  Command="{Binding Path=InsertStrikeThroughCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </RibbonGroup>
+            </RibbonTab>
+            
+            <!-- alignment -->
+            <RibbonTab Header="Ausrichtung">
+                <RibbonGroup IsEnabled="{Binding Path=CanUseTextEditorFunctions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <RibbonButton Label="linksbündig"
+                                  SmallImageSource="../_Res/btnicon_text_align_left.png"
+                                  Command="{Binding Path=InsertAlignLeftCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="zentriert"
+                                  SmallImageSource="../_Res/btnicon_text_align_center.png"
+                                  Command="{Binding Path=InsertAlignCenterCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="rechtsbündig"
+                                  SmallImageSource="../_Res/btnicon_text_align_right.png"
+                                  Command="{Binding Path=InsertAlignRightCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="Blocksatz"
+                                  SmallImageSource="../_Res/btnicon_text_align_justify.png"
+                                  Command="{Binding Path=InsertAlignJustifyCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </RibbonGroup>
+
+                <RibbonGroup IsEnabled="{Binding Path=CanUseTextEditorFunctions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <RibbonButton Label="nach rechts"
+                                  SmallImageSource="../_Res/btnicon_format-indent-more.png"
+                                  Command="{Binding Path=InsertMoveRightCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </RibbonGroup>
+            </RibbonTab>
+            
+            <!-- font -->
+            <RibbonTab Header="Schrift">
+                <RibbonGroup IsEnabled="{Binding Path=CanUseTextEditorFunctions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="128px" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <tk:ColorPicker Grid.Row="0" Grid.Column="0"
+                                        AvailableColors="{Binding Path=AvailableFontColors, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        AvailableColorsHeader="Farben"
+                                        SelectedColor="{Binding Path=SelectedFontColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ShowAdvancedButton="False"
+                                        ShowAvailableColors="True"
+                                        ShowStandardColors="False"
+                                        ShowRecentColors="False" />
+                        <RibbonButton Grid.Row="0" Grid.Column="1"
+                                      SmallImageSource="../_Res/btnicon_rich_text_color.png"
+                                      Command="{Binding Path=InsertFontColorCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      CommandParameter="{Binding Path=SelectedFontColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <RibbonComboBox Grid.Row="1" Grid.Column="0">
+                            <RibbonGallery SelectedItem="{Binding Path=SelectedFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <RibbonGalleryCategory ItemsSource="{Binding Path=AvailableFontSizes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </RibbonGallery>
+                        </RibbonComboBox>
+                        <RibbonButton Grid.Row="1" Grid.Column="1"
+                                      SmallImageSource="../_Res/btnicon_stock_font-size-16.png"
+                                      Command="{Binding Path=InsertFontSizeCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      CommandParameter="{Binding Path=SelectedFontSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </RibbonGroup>
+            </RibbonTab>
+            
+            <!-- pictures -->
+            <RibbonTab Header="Bilder">
+                <RibbonGroup IsEnabled="{Binding Path=CanUseTextEditorFunctions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <RibbonButton Label="Datei(en)"
+                                  ToolTip="Bild(er) aus Datei(en) einfügen"
+                                  SmallImageSource="../_Res/btnicon_picture.png"
+                                  Command="{Binding Path=InsertPicturesCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <RibbonButton Label="Zwischenablage"
+                                  ToolTip="Bild aus Zwischenablage einfügen"
+                                  SmallImageSource="../_Res/btnicon_clipboard_paste_image.png"
+                                  Command="{Binding Path=InsertPictureFromClipboardCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </RibbonGroup>
+            </RibbonTab>
+            
+            <!-- other -->
+            <RibbonTab Header="Sonstiges">
+                <RibbonGroup IsEnabled="{Binding Path=CanUseTextEditorFunctions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <RibbonButton Label="Listenelement"
+                                  SmallImageSource="../_Res/btnicon_listitem.png"
+                                  Command="{Binding Path=InsertListItemCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <Grid DockPanel.Dock="Bottom">
+            <TabControl Margin="8px"
+                        SelectedIndex="{Binding Path=SelectedTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                <TabControl.Resources>
+                    <Style TargetType="avalonEdit:TextEditor">
+                        <Setter Property="FontFamily" Value="Consolas" />
+                        <Setter Property="FontSize" Value="10pt" />
+                        <Setter Property="Margin" Value="8px" />
+                        <Setter Property="Padding" Value="4px" />
+                        <Setter Property="SyntaxHighlighting" Value="{Binding Path=EditorSyntax, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem Header="Allgemeines">
+                    <Grid Margin="16px">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="128px" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="8px" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="8px" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0">Bezeichnung:</TextBlock>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                 Text="{Binding Path=Document.ArticleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0">Hersteller:</TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="1"
+                                 Text="{Binding Path=Document.Producer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="4" Grid.Column="0">Zustand:</TextBlock>
+                        <TextBox Grid.Row="4" Grid.Column="1"
+                                 Text="{Binding Path=Document.ArticleState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Beschreibung">
+                    <avalonEdit:TextEditor x:Name="TextEditor_ArticleDescription"
+                                           Document="{Binding Path=Document.ArticleDescription, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                        
+                        <i:Interaction.Behaviors>
+                            <SpellCheckAvalonEdit:SpellCheckBehavior />
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+
+                <TabItem Header="Lieferumfang">
+                    <avalonEdit:TextEditor x:Name="TextEditor_ScopeOfSupply"
+                                           Document="{Binding Path=Document.ScopeOfSupply, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+                        <i:Interaction.Behaviors>
+                            <SpellCheckAvalonEdit:SpellCheckBehavior />
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+
+                <TabItem Header="Versandinformationen">
+                    <avalonEdit:TextEditor x:Name="TextEditor_DeliveryInfo"
+                                           Document="{Binding Path=Document.DeliveryInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+                        <i:Interaction.Behaviors>
+                            <SpellCheckAvalonEdit:SpellCheckBehavior />
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+
+                <TabItem Header="Kaufinformationen">
+                    <avalonEdit:TextEditor x:Name="TextEditor_BuyInfo"
+                                           Document="{Binding Path=Document.BuyInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+                        <i:Interaction.Behaviors>
+                            <SpellCheckAvalonEdit:SpellCheckBehavior />
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+
+                <TabItem Header="Anmerkungen">
+                    <avalonEdit:TextEditor x:Name="TextEditor_Remarks"
+                                           Document="{Binding Path=Document.Remarks, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+                        <i:Interaction.Behaviors>
+                            <SpellCheckAvalonEdit:SpellCheckBehavior />
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</ribbon:RibbonWindow>

@@ -1,0 +1,72 @@
+﻿
+.MJKAuctionDesignerArtikel {
+    background-color:#ececec;
+    border:0px;
+    border-spacing:2px;
+    font-family:Verdana;
+    font-size:10pt;
+    margin-left:5%; 
+    margin-right:5%;
+    padding:2px;
+    width:90%;
+}
+
+.MJKAuctionDesignerArtikel td {
+    font-size:10pt;
+    padding:8px;
+}
+
+.MJKAuctionDesignerArtikel .ArtikelName {
+    background-color:#004080;
+    color:#ffffff;
+    font-weight:bold;
+    height:20px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.MJKAuctionDesignerArtikel .ArtikelBeschreibungLinks,
+.MJKAuctionDesignerArtikel .HerstellerLinks,
+.MJKAuctionDesignerArtikel .ZustandLinks,
+.MJKAuctionDesignerArtikel .LieferumfangLinks,
+.MJKAuctionDesignerArtikel .VersandInformationenLinks,
+.MJKAuctionDesignerArtikel .KaufInformationenLinks,
+.MJKAuctionDesignerArtikel .AnmerkungenLinks {
+    background-color:#004080;
+    color:#ffffff;
+    font-weight:bold;
+    text-align:right;
+    vertical-align:top;
+    width:256px;
+}
+
+.MJKAuctionDesignerArtikel .ArtikelBeschreibungRechts,
+.MJKAuctionDesignerArtikel .HerstellerRechts,
+.MJKAuctionDesignerArtikel .ZustandRechts,
+.MJKAuctionDesignerArtikel .LieferumfangRechts,
+.MJKAuctionDesignerArtikel .VersandInformationenRechts,
+.MJKAuctionDesignerArtikel .KaufInformationenRechts,
+.MJKAuctionDesignerArtikel .AnmerkungenRechts {
+    background-color:#ece6d7;
+    vertical-align:top;
+}
+
+.MJKAuctionDesignerArtikel .sehrGrosseSchrift {
+    font-size: 20pt;
+}
+
+.MJKAuctionDesignerArtikel .grosseSchrift {
+    font-size: 15pt;
+}
+
+.MJKAuctionDesignerArtikel .normaleSchrift {
+    font-size: 10pt;
+}
+
+.MJKAuctionDesignerArtikel .kleineSchrift {
+    font-size: 7.5pt;
+}
+
+.MJKAuctionDesignerArtikel .sehrKleineSchrift {
+    font-size: 5pt;
+}

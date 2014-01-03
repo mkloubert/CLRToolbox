@@ -1,0 +1,25 @@
+﻿<SyntaxDefinition name="MJKAuctionDesigner"
+                  xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <RuleSet>
+    <Keywords fontWeight="bold" foreground="Blue">
+      <Word>{blocksatz}</Word><Word>{/blocksatz}</Word>
+      <Word>{links}</Word><Word>{/links}</Word>
+      <Word>{mitte}</Word><Word>{/mitte}</Word>
+      <Word>{rechts}</Word><Word>{/rechts}</Word>
+      
+      <Word>{nach_rechts}</Word><Word>{/nach_rechts}</Word>
+      
+      <Word>{fett}</Word><Word>{/fett}</Word>
+      <Word>{kursiv}</Word><Word>{/kursiv}</Word>
+      <Word>{unterstreichen}</Word><Word>{/unterstreichen}</Word>
+      <Word>{durchstreichen}</Word><Word>{/durchstreichen}</Word>
+      
+      <Word>{bild}</Word><Word>{/bild}</Word>
+      
+      <Word>{*}</Word><Word>{/*}</Word>
+
+      <!-- font colors -->
+      <Word>UPcuJuU6t7ybW50VpgTgScQGBKQL2Omz</Word>
+    </Keywords>
+  </RuleSet>
+</SyntaxDefinition>

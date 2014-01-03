@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F23D04D-6FBA-40FB-86C4-64CB665C415D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MarcelJoachimKloubert.WpfAuctionDesigner</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.WpfAuctionDesigner</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="eBay.Service, Version=3.825.0.0, Culture=neutral, PublicKeyToken=1d9d786a5932eaf0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\eBay.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="eBay.Service.SDK.Attribute, Version=3.825.0.0, Culture=neutral, PublicKeyToken=1d9d786a5932eaf0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\eBay.Service.SDK.Attribute.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="FirstFloor.ModernUI, Version=1.0.5.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeImageNET, Version=3.15.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\FreeImageNET.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=4.3.1.9429, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MSXML2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7506f8c5fa78874">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>.\Interop.MSXML2.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Collections\TMSynchronizedObservableCollection.cs" />
+    <Compile Include="Classes\Controls\Items\TMValueComboBoxItem.cs" />
+    <Compile Include="Classes\Controls\SpellCheckBehavior.cs" />
+    <Compile Include="Classes\Controls\SpellingErrorColorizer.cs" />
+    <Compile Include="Classes\Controls\TMBrowserBehavior.cs" />
+    <Compile Include="Classes\Converters\TMBooleanToVisibilityConverter.cs" />
+    <Compile Include="Classes\Documents\TMAuctionDesignerDocument.cs" />
+    <Compile Include="Classes\Drawing\TMImageHelper.cs" />
+    <Compile Include="Classes\IO\TMRecentFile.cs" />
+    <Compile Include="Classes\Text\InsertText.cs" />
+    <Compile Include="Classes\TMAppHelper.cs" />
+    <Compile Include="Classes\Controls\TMEditorHelper.cs" />
+    <Compile Include="eBay\eBayHelper.cs" />
+    <Compile Include="Windows\PreviewWindow.ViewModel.cs">
+      <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PreviewWindow.xaml.cs">
+      <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Text\SurroundText.cs" />
+    <Compile Include="Windows\MainWindow.ViewModel.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Windows\PreviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="eBay.Service.tlb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_filenew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_folder_blue_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_filesaveas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_text_align_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_text_align_center.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_text_align_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_text_align_justify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ICSharpCode.AvalonEdit.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ICSharpCode.AvalonEdit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\AvalonEdit\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\Modern UI for WPF\License.Icons.txt" />
+    <EmbeddedResource Include="_Libs\Modern UI for WPF\License.RelativeAnimatingContentControl.txt" />
+    <EmbeddedResource Include="_Libs\Modern UI for WPF\License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FirstFloor.ModernUI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="FirstFloor.ModernUI.xml" />
+    <None Include="Microsoft.Windows.Shell.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Res\AvalonEdit\Editor.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Xceed.Wpf.AvalonDock.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\AvalonDock\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Res\Templates\Default.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Res\Styles\Default.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_bold.png" />
+    <Resource Include="_Res\btnicon_italic.png" />
+    <Resource Include="_Res\btnicon_strikethrough.png" />
+    <Resource Include="_Res\btnicon_underline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_listitem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Xceed.Wpf.AvalonDock.Themes.Aero.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Xceed.Wpf.AvalonDock.Themes.Metro.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Xceed.Wpf.AvalonDock.Themes.VS2010.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Xceed.Wpf.DataGrid.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Xceed.Wpf.Toolkit.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\FreeImage\freeimage-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FreeImageNET.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="FreeImageNET.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FreeImage.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\FreeImage\GPLv3.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\FreeImage\GPLv2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_rich_text_color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_stock_font-size-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="eBay.Service.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="eBay.Service.SDK.Attribute.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Interop.MSXML2.DLL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Libs\eBay SDK\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_apply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_klipper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\ApplicationMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_jpeg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_format-indent-more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_gif.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_stock_effects-preview-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_Clipboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_picture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Microsoft.Expression.Interactions.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Microsoft.Expression.Interactions.xml" />
+    <None Include="System.Windows.Interactivity.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="System.Windows.Interactivity.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_redo.png" />
+    <Resource Include="_Res\btnicon_stock_undo-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_stock_save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_Res\btnicon_clipboard_paste_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.45.WPF\MarcelJoachimKloubert.CLRToolbox.45.WPF.csproj">
+      <Project>{2751dbef-1c83-4d9d-b255-5a5d9291c6a4}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.45.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj">
+      <Project>{c24ae28b-5be0-44a7-9232-11e090aa0641}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.45</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

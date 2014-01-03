@@ -38,7 +38,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\MarcelJoachimKloubert.CLRToolbox.30.WPF\MarcelJoachimKloubert.CLRToolbox.WPF.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\MarcelJoachimKloubert.CLRToolbox.35.WPF\MarcelJoachimKloubert.CLRToolbox.WPF.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,23 +50,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\CommandValueConverterBase.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\CommandValueConverterBase.cs">
       <Link>Data\CommandValueConverterBase.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\Impl\CommandValueConverter.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\Impl\CommandValueConverter.cs">
       <Link>Data\Impl\CommandValueConverter.cs</Link>
     </Compile>
-    <Compile Include="..\marceljoachimkloubert.clrtoolbox.30.wpf\data\impl\DelegateToCommandValueConverter.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\Impl\DelegateToCommandValueConverter.cs">
       <Link>Data\Impl\DelegateToCommandValueConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\ValueConverterBase.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\ValueConverterBase.cs">
       <Link>Data\ValueConverterBase.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\Data\ValueConverterBase.Interface.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\ValueConverterBase.Interface.cs">
       <Link>Data\ValueConverterBase.Interface.cs</Link>
-      <DependentUpon>ValueConverterBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\marceljoachimkloubert.clrtoolbox.30.wpf\input\SimpleCommand.cs">
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Input\SimpleCommand.cs">
       <Link>Input\SimpleCommand.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,7 +85,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="..\MarcelJoachimKloubert.CLRToolbox.30.WPF\MarcelJoachimKloubert.CLRToolbox.WPF.snk">
+    <None Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\MarcelJoachimKloubert.CLRToolbox.WPF.snk">
       <Link>MarcelJoachimKloubert.CLRToolbox.WPF.snk</Link>
     </None>
     <None Include="Properties\Settings.settings">

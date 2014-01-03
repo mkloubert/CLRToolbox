@@ -52,7 +52,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="_rootDir\modules\docdb\config.sample.ini" />
     <None Include="_rootDir\modules\docdb\config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

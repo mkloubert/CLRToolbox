@@ -42,8 +42,8 @@
             this.Button_ClearProtocol = new System.Windows.Forms.Button();
             this.TextBox_Protocol = new System.Windows.Forms.TextBox();
             this.StatusStrip_Main = new System.Windows.Forms.StatusStrip();
-            this.ToolStripStatusLabel_Main = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripProgressBar_Main = new System.Windows.Forms.ToolStripProgressBar();
+            this.ToolStripStatusLabel_Main = new System.Windows.Forms.ToolStripStatusLabel();
             this.GroupBox_Repository.SuspendLayout();
             this.GroupBox_Remotes.SuspendLayout();
             this.GroupBox_Protocol.SuspendLayout();
@@ -162,6 +162,7 @@
             this.TextBox_Protocol.Location = new System.Drawing.Point(6, 19);
             this.TextBox_Protocol.Multiline = true;
             this.TextBox_Protocol.Name = "TextBox_Protocol";
+            this.TextBox_Protocol.ReadOnly = true;
             this.TextBox_Protocol.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TextBox_Protocol.Size = new System.Drawing.Size(306, 220);
             this.TextBox_Protocol.TabIndex = 8;
@@ -178,18 +179,18 @@
             this.StatusStrip_Main.TabIndex = 8;
             this.StatusStrip_Main.Text = "statusStrip1";
             // 
+            // ToolStripProgressBar_Main
+            // 
+            this.ToolStripProgressBar_Main.Name = "ToolStripProgressBar_Main";
+            this.ToolStripProgressBar_Main.Size = new System.Drawing.Size(128, 16);
+            this.ToolStripProgressBar_Main.Visible = false;
+            // 
             // ToolStripStatusLabel_Main
             // 
             this.ToolStripStatusLabel_Main.Name = "ToolStripStatusLabel_Main";
             this.ToolStripStatusLabel_Main.Size = new System.Drawing.Size(51, 17);
             this.ToolStripStatusLabel_Main.Text = "@TODO";
             this.ToolStripStatusLabel_Main.Visible = false;
-            // 
-            // ToolStripProgressBar_Main
-            // 
-            this.ToolStripProgressBar_Main.Name = "ToolStripProgressBar_Main";
-            this.ToolStripProgressBar_Main.Size = new System.Drawing.Size(128, 16);
-            this.ToolStripProgressBar_Main.Visible = false;
             // 
             // MainForm
             // 

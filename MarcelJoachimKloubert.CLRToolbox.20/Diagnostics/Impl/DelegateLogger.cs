@@ -126,7 +126,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             {
                 try
                 {
-                    handler(msg);
+                    handler(CloneLogMessage(msg));
                 }
                 catch
                 {

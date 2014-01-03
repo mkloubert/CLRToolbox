@@ -4,7 +4,6 @@
 
 
 using System;
-using System.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox
 {
@@ -58,46 +57,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Properties
 
-        #region Delegates and Events (1)
+        #region Methods (2)
 
-        // Events (1) 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITMObject.Error" />
-        public event ErrorEventHandler Error;
-
-        #endregion Delegates and Events
-
-        #region Methods (3)
-
-        // Protected Methods (3) 
-
-        /// <summary>
-        /// Raises the <see cref="TMObject.Error" /> event.
-        /// </summary>
-        /// <param name="ex">The underlying exception.</param>
-        /// <returns>Event was raised or not.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="ex" /> is <see langword="null" />.
-        /// </exception>
-        protected bool OnError(Exception ex)
-        {
-            if (ex == null)
-            {
-                throw new ArgumentNullException("ex");
-            }
-
-            ErrorEventHandler handler = this.Error;
-            if (handler != null)
-            {
-                handler(this, new ErrorEventArgs(ex));
-                return true;
-            }
-
-            return false;
-        }
+        // Protected Methods (2) 
 
         /// <summary>
         /// Raises a general event handler.

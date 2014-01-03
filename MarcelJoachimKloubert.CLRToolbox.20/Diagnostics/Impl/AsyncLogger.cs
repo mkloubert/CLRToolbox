@@ -10,6 +10,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
     /// </summary>
     public sealed partial class AsyncLogger : LoggerFacadeWrapperBase
     {
+
+
         #region Methods (1)
 
         // Private Methods (1) 

@@ -144,7 +144,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             {
                 try
                 {
-                    logger.Log(msg);
+                    logger.Log(CloneLogMessage(msg));
                 }
                 catch
                 {

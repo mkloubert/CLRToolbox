@@ -78,7 +78,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         #endregion Constructors
 
-        #region Methods (11)
+        #region Methods (13)
 
         // Public Methods (5) 
 
@@ -154,7 +154,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                           StringHelper.AsString(tag),
                           msg);
         }
-        // Protected Methods (3) 
+        // Protected Methods (4) 
+
+        /// <summary>
+        /// Creates a clone of a message.
+        /// </summary>
+        /// <param name="src">The source object.</param>
+        /// <returns>
+        /// The cloned object or <see langword="null" />
+        /// if <paramref name="src" /> is also <see langword="null" />.</returns>
+        protected static ILogMessage CloneLogMessage(ILogMessage src)
+        {
+            return CloneLogMessageInner(src);
+        }
 
         /// <summary>
         /// Creates a copy of a <see cref="ILogMessage" /> object with a new ID.
@@ -170,10 +182,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             {
                 return CreateCopyOfLogMessage(src, src.Message);
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
         /// <summary>
@@ -192,16 +202,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 throw new ArgumentNullException("src");
             }
 
-            LogMessage result = new LogMessage();
-            result.Assembly = src.Assembly;
-            result.Categories = src.Categories;
+            LogMessage result = CloneLogMessageInner(src);
             result.Id = Guid.NewGuid();
-            result.LogTag = src.LogTag;
-            result.Member = src.Member;
             result.Message = msgVal;
-            result.Principal = src.Principal;
-            result.Thread = src.Thread;
-            result.Time = src.Time;
 
             CreateCopyOfLogMessageExtension(src, result, msgVal);
 
@@ -213,7 +216,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// </summary>
         /// <param name="msg">The message to log.</param>
         protected abstract void OnLog(ILogMessage msg);
-        // Private Methods (3) 
+        // Private Methods (4) 
+
+        private static LogMessage CloneLogMessageInner(ILogMessage src)
+        {
+            if (src == null)
+            {
+                return null;
+            }
+
+            LogMessage result = new LogMessage();
+            result.Assembly = src.Assembly;
+            result.Categories = src.Categories;
+            result.Id = src.Id;
+            result.LogTag = src.LogTag;
+            result.Member = src.Member;
+            result.Message = src.Message;
+            result.Principal = src.Principal;
+            result.Thread = src.Thread;
+            result.Time = src.Time;
+
+            return result;
+        }
 
         static partial void CreateCopyOfLogMessageExtension(ILogMessage src, LogMessage copy, object msgVal);
 

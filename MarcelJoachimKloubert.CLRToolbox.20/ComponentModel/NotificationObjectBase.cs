@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     /// <summary>
     /// A basic notification object.
     /// </summary>
-    public abstract partial class NotificationObjectBase : TMObject,
+    public abstract partial class NotificationObjectBase : ErrorHandlerBase,
                                                            INotificationObject
     {
         #region Constructors (4)

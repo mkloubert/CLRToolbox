@@ -248,6 +248,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\DisposableBase.cs">
       <Link>DisposableBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ErrorHandlerBase.cs">
+      <Link>ErrorHandlerBase.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\CommandBase.cs">
       <Link>Execution\CommandBase.cs</Link>
     </Compile>
@@ -579,6 +582,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ValueHelper.IsNull.cs">
       <Link>Helpers\ValueHelper.IsNull.cs</Link>
       <DependentUpon>ValueHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IErrorHandler.cs">
+      <Link>IErrorHandler.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IHasName.cs">
       <Link>IHasName.cs</Link>

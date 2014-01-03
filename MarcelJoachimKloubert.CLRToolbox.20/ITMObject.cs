@@ -3,8 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System.IO;
-
 namespace MarcelJoachimKloubert.CLRToolbox
 {
     /// <summary>
@@ -20,16 +18,5 @@ namespace MarcelJoachimKloubert.CLRToolbox
         object Tag { get; set; }
 
         #endregion Data Members
-
-        #region Delegates and Events (1)
-
-        // Events (1) 
-
-        /// <summary>
-        /// Is invoked when an error occured.
-        /// </summary>
-        event ErrorEventHandler Error;
-
-        #endregion Delegates and Events
     }
 }

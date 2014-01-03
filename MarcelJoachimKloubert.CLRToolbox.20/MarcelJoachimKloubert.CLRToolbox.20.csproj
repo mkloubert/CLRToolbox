@@ -109,6 +109,7 @@
     <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="ErrorHandlerBase.cs" />
     <Compile Include="Execution\Functions\FunctionBase.Classes.cs">
       <DependentUpon>FunctionBase.cs</DependentUpon>
     </Compile>
@@ -281,6 +282,7 @@
     </Compile>
     <Compile Include="Helpers\NetHelper.cs" />
     <Compile Include="Helpers\ValueHelper.cs" />
+    <Compile Include="IErrorHandler.cs" />
     <Compile Include="IHasName.cs" />
     <Compile Include="IO\ConsoleBase.cs" />
     <Compile Include="IO\ConsoleBase.dotNET.cs">

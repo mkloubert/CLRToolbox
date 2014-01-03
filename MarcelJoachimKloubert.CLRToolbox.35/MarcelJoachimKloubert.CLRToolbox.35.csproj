@@ -108,6 +108,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\AdoDatabaseBase.cs">
       <Link>Data\AdoDatabaseBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\AdoDataConnection.cs">
+      <Link>Data\AdoDataConnection.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
@@ -125,6 +128,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\DatabaseBase.cs">
       <Link>Data\DatabaseBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\DataConnectionBase.cs">
+      <Link>Data\DataConnectionBase.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\EntityBase.cs">
       <Link>Data\Entities\EntityBase.cs</Link>
     </Compile>
@@ -140,6 +146,9 @@
       <Link>Data\Entities\EntityBase.PropertyChanging.cs</Link>
       <DependentUpon>EntityBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Entities\EntityRepositoryBase.cs">
+      <Link>Data\Entities\EntityRepositoryBase.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\IEntity.cs">
       <Link>Data\Entities\IEntity.cs</Link>
     </Compile>
@@ -151,11 +160,17 @@
       <Link>Data\Entities\IEntity.PropertyChanging.cs</Link>
       <DependentUpon>IEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Entities\IEntityRepository.cs">
+      <Link>Data\Entities\IEntityRepository.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\GlobalConverter.cs">
       <Link>Data\GlobalConverter.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IAdoDatabase.cs">
       <Link>Data\IAdoDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IAdoDataConnection.cs">
+      <Link>Data\IAdoDataConnection.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IContentProvider.cs">
       <Link>Data\IContentProvider.cs</Link>
@@ -165,6 +180,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IDatabase.cs">
       <Link>Data\IDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\IDataConnection.cs">
+      <Link>Data\IDataConnection.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\TMColumnAttribute.cs">
       <Link>Data\TMColumnAttribute.cs</Link>
@@ -435,6 +453,17 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToEnumerable.SqlClient.cs">
       <Link>Helpers\DataHelper.ToEnumerable.SqlClient.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EntityHelper.cs">
+      <Link>Helpers\EntityHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EntityHelper.GetColumns.cs">
+      <Link>Helpers\EntityHelper.GetColumns.cs</Link>
+      <DependentUpon>EntityHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EntityHelper.TryGetTableNameAndSchema.cs">
+      <Link>Helpers\EntityHelper.TryGetTableNameAndSchema.cs</Link>
+      <DependentUpon>EntityHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.cs">
       <Link>Helpers\EnumHelper.cs</Link>

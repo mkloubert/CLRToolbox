@@ -8,10 +8,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Data;
-using System.Data.Common;
-using System.Data.Odbc;
-using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,6 +17,7 @@ using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Composition;
 using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -190,20 +187,20 @@ namespace MarcelJoachimKloubert.ApplicationServer
 
         #endregion Properties
 
-        #region Methods (17)
+        #region Methods (21)
 
-        // Public Methods (2) 
+        // Public Methods (6) 
 
         /// <summary>
         /// Tries to return the server database connection by startup config.
         /// </summary>
         /// <param name="doOpen">Open connection (if found) or not.</param>
         /// <returns>The connection or <see langword="null" /> if not found.</returns>
-        public DbConnection TryGetServerDbConnectionByConfig(bool doOpen = false)
+        public IDbConnection TryGetServerDbConnectionByConfig(bool doOpen = false)
         {
             string dbProvider;
             return this.TryGetServerDbConnectionByConfig(dbProvider: out dbProvider,
-                                                   doOpen: doOpen);
+                                                         doOpen: doOpen);
         }
 
         /// <summary>
@@ -212,61 +209,97 @@ namespace MarcelJoachimKloubert.ApplicationServer
         /// <param name="dbProvider">The variable where to write the name of the database provider from startup config to.</param>
         /// <param name="doOpen">Open connection (if found) or not.</param>
         /// <returns>The connection or <see langword="null" /> if not found.</returns>
-        public DbConnection TryGetServerDbConnectionByConfig(out string dbProvider,
-                                                             bool doOpen = false)
+        public IDbConnection TryGetServerDbConnectionByConfig(out string dbProvider,
+                                                              bool doOpen = false)
         {
-            this.StartupConfig
-                .TryGetValue(category: CONFIG_CATEGORY_DATABASE,
-                             name: "provider",
-                             value: out dbProvider,
-                             defaultVal: DB_PROVIDER_ADONET_MSSQL);
-
-            DbConnection result = null;
-            switch ((dbProvider ?? string.Empty).ToLower().Trim())
-            {
-                case DB_PROVIDER_ADONET_MSSQL:
-                    // ADO.NET - Micsoroft SQL Server
-                    {
-                        var connStr = this.StartupConfig
-                                          .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
-                                                            name: CONFIG_VALUE_CONNECTION_STRING);
-
-                        result = new SqlConnection(connStr);
-                    }
-                    break;
-
-                case DB_PROVIDER_ADONET_ODBC:
-                    // ADO.NET - ODBC
-                    {
-                        var connStr = this.StartupConfig
-                                          .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
-                                                            name: CONFIG_VALUE_CONNECTION_STRING);
-
-                        result = new OdbcConnection(connStr);
-                    }
-                    break;
-
-                case DB_PROVIDER_ADONET_OLE:
-                    // ADO.NET - OLE DB
-                    {
-                        var connStr = this.StartupConfig
-                                          .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
-                                                            name: CONFIG_VALUE_CONNECTION_STRING);
-
-                        result = new OleDbConnection(connStr);
-                    }
-                    break;
-            }
-
-            if (result != null)
+            var conn = this.TryGetServerDbConnectionDataByConfig(out dbProvider);
+            if (conn != null)
             {
                 if (doOpen)
                 {
-                    result.Open();
+                    return conn.OpenConnection();
+                }
+                else
+                {
+                    return conn.GetConnection();
                 }
             }
 
+            return null;
+        }
+
+        /// <summary>
+        /// Tries to return the <see cref="IAdoDataConnection" /> based on the current startup configuration.
+        /// </summary>
+        /// <returns>The connection data or <see langword="null" /> if not found.</returns>
+        public IAdoDataConnection TryGetServerDbConnectionDataByConfig()
+        {
+            string dbProvider;
+            return this.TryGetServerDbConnectionDataByConfig(out dbProvider);
+        }
+
+        /// <summary>
+        /// Tries to return the <see cref="IAdoDataConnection" /> based on the current startup configuration.
+        /// </summary>
+        /// <param name="dbProvider">The variable where to write the name of the database provider from startup config to.</param>
+        /// <returns>The connection data or <see langword="null" /> if not found.</returns>
+        public IAdoDataConnection TryGetServerDbConnectionDataByConfig(out string dbProvider)
+        {
+            IAdoDataConnection result = null;
+
+            var provider = this.TryGetServerDbProviderByConfig(out dbProvider);
+            if (provider != null)
+            {
+                var genericAdoType = typeof(global::MarcelJoachimKloubert.CLRToolbox.Data.AdoDataConnection<>);
+                var adoType = genericAdoType.MakeGenericType(provider);
+
+                var connStr = this.StartupConfig
+                                  .GetValue<string>(category: CONFIG_CATEGORY_DATABASE,
+                                                    name: CONFIG_VALUE_CONNECTION_STRING);
+
+                result = (global::MarcelJoachimKloubert.CLRToolbox.Data.IAdoDataConnection)Activator.CreateInstance(adoType,
+                                                                                                                    args: new object[] { connStr });
+            }
+
             return result;
+        }
+
+        /// <summary>
+        /// Tries to return the provider of the server database based on the current startup configuration.
+        /// </summary>
+        /// <returns>The provider or <see langword="null" /> if not found.</returns>
+        public Type TryGetServerDbProviderByConfig()
+        {
+            string dbProvider;
+            return this.TryGetServerDbProviderByConfig(out dbProvider);
+        }
+
+        /// <summary>
+        /// Tries to return the provider of the server database based on the current startup configuration.
+        /// </summary>
+        /// <param name="dbProvider">The variable where to write the name of the database provider from startup config to.</param>
+        /// <returns>The provider or <see langword="null" /> if not found.</returns>
+        public Type TryGetServerDbProviderByConfig(out string dbProvider)
+        {
+            this.StartupConfig
+                   .TryGetValue(category: CONFIG_CATEGORY_DATABASE,
+                                name: "provider",
+                                value: out dbProvider,
+                                defaultVal: DB_PROVIDER_ADONET_MSSQL);
+
+            switch ((dbProvider ?? string.Empty).ToLower().Trim())
+            {
+                case DB_PROVIDER_ADONET_MSSQL:
+                    return typeof(global::System.Data.SqlClient.SqlConnection);
+
+                case DB_PROVIDER_ADONET_ODBC:
+                    return typeof(global::System.Data.Odbc.OdbcConnection);
+
+                case DB_PROVIDER_ADONET_OLE:
+                    return typeof(global::System.Data.OleDb.OleDbConnection);
+            }
+
+            return null;
         }
         // Protected Methods (3) 
 
@@ -686,9 +719,10 @@ namespace MarcelJoachimKloubert.ApplicationServer
                         }
                     }
 
-                    this._webHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
+                    var newHandler = new WebInterfaceHandler(this, newWebInterfaceServer);
+                    this._webHandler = newHandler;
 
-                    newWebInterfaceServer.Start();
+                    newHandler.Start();
                 }
                 catch (Exception e)
                 {

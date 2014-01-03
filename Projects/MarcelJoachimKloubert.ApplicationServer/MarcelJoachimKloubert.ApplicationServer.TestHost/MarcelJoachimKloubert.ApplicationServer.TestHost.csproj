@@ -178,14 +178,6 @@
     <None Include="_Libs\Edward Snowden\WikiPedia_de.url" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="System.Data.SQLite.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="System.Data.SQLite.Linq.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="db\modules\dummy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

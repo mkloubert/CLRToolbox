@@ -11,9 +11,12 @@ using System.Net.Mime;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
+using MarcelJoachimKloubert.ApplicationServer.DataLayer.Entities;
 using MarcelJoachimKloubert.ApplicationServer.Extensions;
 using MarcelJoachimKloubert.ApplicationServer.Modules;
+using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
 using MarcelJoachimKloubert.ApplicationServer.Services.Templates.Text.Html;
+using MarcelJoachimKloubert.ApplicationServer.WebInterface.Security.Principal;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -22,16 +25,19 @@ using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using MarcelJoachimKloubert.CLRToolbox.Templates.Text.Html;
+using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General;
 
 namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 {
     internal sealed partial class WebInterfaceHandler : DisposableBase
     {
-        #region Fields (3)
+        #region Fields (5)
 
         private readonly ApplicationServer _APP_SERVER;
         private readonly IHttpServer _HTTP_SERVER;
+        private readonly IPasswordHasher _PWD_HASHER = ServiceLocator.Current.GetInstance<IPasswordHasher>();
         private static Assembly _RESOURCE_ASSEMBLY;
+        private ServerEntities.WebInterface.WebInterfaceUsers[] _users;
 
         #endregion Fields
 
@@ -44,6 +50,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
             this.InitUrlHandlers();
 
+            this._HTTP_SERVER.CredentialValidator = this.Server_ValidateCredential;
             this._HTTP_SERVER.RequestValidator = this.ValidateRequest;
             this._HTTP_SERVER.PrincipalFinder = this.FindPrincipal;
 
@@ -67,32 +74,37 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
 
         #endregion Properties
 
-        #region Methods (14)
+        #region Methods (19)
 
         // Protected Methods (1) 
 
         protected override void OnDispose(bool disposing)
         {
-            this._HTTP_SERVER.HandleRequest -= this.HandleRequest;
+            this._HTTP_SERVER.RequestValidator = (req) => false;
+            this._HTTP_SERVER.CredentialValidator = (u, p) => false;
+            this._HTTP_SERVER.PrincipalFinder = (i) => null;
 
-            this._HTTP_SERVER.RequestValidator = null;
-            this._HTTP_SERVER.PrincipalFinder = null;
+            this._HTTP_SERVER.HandleRequest -= this.HandleRequest;
 
             if (disposing)
             {
                 this._HTTP_SERVER.Dispose();
             }
         }
-        // Private Methods (12) 
+        // Private Methods (16) 
 
         private IPrincipal FindPrincipal(IIdentity id)
         {
-            if (id == null)
+            if (id != null)
             {
-                return null;
+                var user = this.TryFindUserEntityByName(id.Name);
+                if (user != null)
+                {
+                    //TODO set ACL
+                    return new WebUserPrincipal(user, id);
+                }
             }
 
-            // TODO
             return null;
         }
 
@@ -233,6 +245,50 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             }
         }
 
+        private void ReloadUsers()
+        {
+            var loadedUsers = new HashSet<ServerEntities.WebInterface.WebInterfaceUsers>();
+
+            using (var repo = ServiceLocator.Current.GetInstance<IAppServerEntityRepository>())
+            {
+                foreach (var user in repo.LoadAll<ServerEntities.WebInterface.WebInterfaceUsers>()
+                                         .Where(u => u.IsActive)
+                                         .ToArray())
+                {
+                    var srvUser = repo.LoadAll<ServerEntities.Security.Users>()
+                                      .Where(su => su.IsActive &&
+                                                   su.UserID == user.UserID)
+                                      .Single();
+
+                    user.Users = srvUser;
+                    srvUser.CharacterPasswordHasher = this.Users_HashPassword;
+
+                    loadedUsers.Add(user);
+                }
+            }
+
+            this._users = loadedUsers.ToArray();
+        }
+
+        private bool Server_ValidateCredential(string username, string password)
+        {
+            try
+            {
+                var user = this.TryFindUserEntityByName(username);
+                if (user != null)
+                {
+                    return user.Users
+                               .CheckPassword(password);
+                }
+            }
+            catch
+            {
+                // ignore errors here
+            }
+
+            return false;
+        }
+
         private IAppServerModuleContext TryFindAppModuleContextByHash(string modHash)
         {
             modHash = (modHash ?? string.Empty).ToLower().Trim();
@@ -242,6 +298,12 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                                                         .Select(m => m.Context),
                                                     mc => mc != null &&
                                                           mc.GetWebHashAsHexString() == modHash);
+        }
+
+        private ServerEntities.WebInterface.WebInterfaceUsers TryFindUserEntityByName(string username)
+        {
+            return CollectionHelper.SingleOrDefault((this._users ?? Enumerable.Empty<ServerEntities.WebInterface.WebInterfaceUsers>()).OfType<ServerEntities.WebInterface.WebInterfaceUsers>(),
+                                                    u => (u.Users.Name ?? string.Empty).ToLower().Trim() == (username ?? string.Empty).ToLower().Trim());
         }
 
         private static IHttpModule TryGetDefaultModule(IServiceLocator serviceLocator)
@@ -272,6 +334,16 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
             return matchingRes != null ? _RESOURCE_ASSEMBLY.GetManifestResourceStream(matchingRes) : null;
         }
 
+        private IEnumerable<byte> Users_HashPassword(string pwd)
+        {
+            if (string.IsNullOrEmpty(pwd))
+            {
+                return null;
+            }
+
+            return this._PWD_HASHER.Hash(pwd);
+        }
+
         private bool ValidateRequest(IHttpRequest request)
         {
             try
@@ -289,7 +361,7 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                 return false;
             }
         }
-        // Internal Methods (1) 
+        // Internal Methods (2) 
 
         internal static IHtmlTemplate GetHtmlTemplate(IServiceLocator baseLocator, object key)
         {
@@ -317,6 +389,13 @@ namespace MarcelJoachimKloubert.ApplicationServer.WebInterface
                     return new DotLiquidHtmlTemplate(reader.ReadToEnd());
                 }
             }
+        }
+
+        internal void Start()
+        {
+            this.ReloadUsers();
+
+            this._HTTP_SERVER.Start();
         }
 
         #endregion Methods

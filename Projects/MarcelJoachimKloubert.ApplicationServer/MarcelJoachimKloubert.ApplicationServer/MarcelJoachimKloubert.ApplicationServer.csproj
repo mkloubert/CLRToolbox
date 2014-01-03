@@ -72,6 +72,7 @@
     <Compile Include="Services\Security\Cryptography\PasswordHasher.cs" />
     <Compile Include="Services\Templates\Text\Html\CommonFilters.cs" />
     <Compile Include="Services\Templates\Text\Html\DotLiquidHtmlTemplate.cs" />
+    <Compile Include="WebInterface\Security\Principal\WebUserPrincipal.cs" />
     <Compile Include="WebInterface\UriHandler.cs" />
     <Compile Include="WebInterface\WebInterfaceHandler.cs" />
     <Compile Include="WebInterface\WebInterfaceHandler.FrontendHandler.cs">

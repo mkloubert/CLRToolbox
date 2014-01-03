@@ -1861,13 +1861,18 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
     
                 #endregion
      
-                #region Navigation properties (1)
+                #region Navigation properties (2)
     
                 /// <summary>
                 /// Gets or sets the linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.Persons" /> item.
                 /// </summary>
                 [global::System.Runtime.Serialization.DataMember]
                 public global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Structure.Persons Persons { get; set; }
+                /// <summary>
+                /// Gets or sets the list of linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.WebInterfaceUsers" /> items.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::System.Collections.Generic.IList<global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.WebInterfaceUsers> WebInterfaceUsers { get; set; }
     
                 #endregion
      
@@ -3110,6 +3115,360 @@ namespace MarcelJoachimKloubert.ApplicationServer.DataModels.Entities
                     this.Description = (string)(!rec.IsDBNull(oDescription) ? rec.GetValue(oDescription) : null);
                     this.Name = (string)(!rec.IsDBNull(oName) ? rec.GetValue(oName) : null);
                     this.PersonTypeID = (short)(!rec.IsDBNull(oPersonTypeID) ? rec.GetValue(oPersonTypeID) : null);
+     
+                    if (setup != null)
+                        setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));
+                }
+    
+                #endregion
+            }
+            
+            #endregion
+    
+        }
+     
+        namespace WebInterface
+        {
+            #region SCHEMA ENTITIES: WebInterface
+    
+            /// <summary>
+            /// Describes an entity for the 'WebInterface' schema.
+            /// </summary>
+            public partial interface IWebInterfaceEntity : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.IGeneralEntity
+            {
+    
+            }
+    
+            /// <summary>
+            /// A basic entity for the 'WebInterface' schema.
+            /// </summary>
+            public abstract partial class WebInterfaceEntityBase : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.GeneralEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.IWebInterfaceEntity
+            {
+                #region Constructors (1)
+    
+                /// <summary>
+                /// Initializes a new instance of the <see cref="WebInterfaceEntityBase" /> class.
+                /// </summary>
+                protected WebInterfaceEntityBase()
+                {
+    
+                }
+    
+                #endregion
+            }
+    
+            #endregion
+     
+            #region ENTITY: WebInterfaceUsers
+    
+            /// <summary>
+            /// Describes an 'WebInterfaceUsers' entity.
+            /// </summary>
+            public partial interface IWebInterfaceUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.IWebInterfaceEntity
+            {
+                #region Columns (3)
+                /// <summary>
+                /// Gets or sets the scalar field 'IsActive'.
+                /// </summary>
+                bool IsActive { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'UserID'.
+                /// </summary>
+                long UserID { get; set; }
+     
+                /// <summary>
+                /// Gets or sets the scalar field 'WebInterfaceUserID'.
+                /// </summary>
+                long WebInterfaceUserID { get; set; }
+     
+    
+                #endregion
+            }
+            
+            /// <summary>
+            /// An 'WebInterfaceUsers' entity.
+            /// </summary>
+            [global::MarcelJoachimKloubert.CLRToolbox.Data.TMTable(Name = "WebInterfaceUsers", Schema = "WebInterface")]
+            [global::System.Runtime.Serialization.DataContract(IsReference = true)]
+            [global::System.Serializable]
+            public partial class WebInterfaceUsers : global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.WebInterfaceEntityBase, global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.IWebInterfaceUsers
+            {
+                #region Constructors (1)
+                
+                /// <summary>
+                /// Initializes a new instance of <see cref="WebInterfaceUsers" /> class.
+                /// </summary>
+                public WebInterfaceUsers()
+                {
+                    
+                }
+    
+                #endregion
+    
+                #region Columns (3)
+    
+                private bool _sf_IsActive;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.IWebInterfaceUsers.IsActive" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(bool), IsKey = false, IsNullable = false, Name = "IsActive")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "IsActive")]
+                public bool IsActive
+                {
+                    get { return this._sf_IsActive; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_IsActive, value))
+                        {
+                            this.OnPropertyChanging("IsActive");
+                            this._sf_IsActive = value;
+                            this.OnPropertyChanged("IsActive");
+                        }
+                    }
+                }
+    
+                private long _sf_UserID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.IWebInterfaceUsers.UserID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(long), IsKey = false, IsNullable = false, Name = "UserID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "UserID")]
+                public long UserID
+                {
+                    get { return this._sf_UserID; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_UserID, value))
+                        {
+                            this.OnPropertyChanging("UserID");
+                            this._sf_UserID = value;
+                            this.OnPropertyChanged("UserID");
+                        }
+                    }
+                }
+    
+                private long _sf_WebInterfaceUserID;
+    
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.WebInterface.IWebInterfaceUsers.WebInterfaceUserID" />
+                [global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumn(ClrType = typeof(long), IsKey = true, IsNullable = false, Name = "WebInterfaceUserID")]
+                [global::System.Runtime.Serialization.DataMember(EmitDefaultValue = true, Name = "WebInterfaceUserID")]
+                public long WebInterfaceUserID
+                {
+                    get { return this._sf_WebInterfaceUserID; }
+                    set
+                    {
+                        if (!object.Equals(this._sf_WebInterfaceUserID, value))
+                        {
+                            this.OnPropertyChanging("WebInterfaceUserID");
+                            this._sf_WebInterfaceUserID = value;
+                            this.OnPropertyChanged("WebInterfaceUserID");
+                        }
+                    }
+                }
+    
+                #endregion
+     
+                #region Navigation properties (1)
+    
+                /// <summary>
+                /// Gets or sets the linked <see cref="global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.Users" /> item.
+                /// </summary>
+                [global::System.Runtime.Serialization.DataMember]
+                public global::MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Security.Users Users { get; set; }
+    
+                #endregion
+     
+                #region Methods (9)
+    
+                /// <summary>
+                /// Builds a new <see cref="WebInterfaceUsers" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static WebInterfaceUsers Build<TRec>(TRec rec, global::System.Action<WebInterfaceUsers, TRec> setup = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new WebInterfaceUsers();
+                    result.LoadFrom<TRec>(rec: rec, setup: setup);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a new <see cref="WebInterfaceUsers" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static WebInterfaceUsers Build<TRec, S>(TRec rec, global::System.Action<WebInterfaceUsers, TRec, S> setup = null, S setupState = default(S)) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new WebInterfaceUsers();
+                    result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupState: setupState);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a new <see cref="WebInterfaceUsers" /> object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The created object.</returns>
+                public static WebInterfaceUsers Build<TRec, S>(TRec rec, global::System.Action<WebInterfaceUsers, TRec, S> setup = null, global::System.Func<WebInterfaceUsers, TRec, S> setupStateFactory = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+    
+                    var result = new WebInterfaceUsers();
+                    result.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: setupStateFactory);
+    
+                    return result;
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="WebInterfaceUsers" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<WebInterfaceUsers> BuildAll<TReader>(TReader reader, global::System.Action<WebInterfaceUsers, TReader> setup = null) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader>(rec: reader, setup: setup);
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="WebInterfaceUsers" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<WebInterfaceUsers> BuildAll<TReader, S>(TReader reader, global::System.Action<WebInterfaceUsers, TReader, S> setup = null, S setupState = default(S)) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader, S>(rec: reader, setup: setup, setupState: setupState);
+                }
+    
+                /// <summary>
+                /// Builds a list of new <see cref="WebInterfaceUsers" /> objects from a data reader.
+                /// </summary>
+                /// <typeparam name="TReader">Type of the data reader.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="reader">The data reader from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="reader" /> is <see langword="null" />.
+                /// </exception>
+                /// <returns>The lazy loaded sequence of new objects.</returns>
+                public static global::System.Collections.Generic.IEnumerable<WebInterfaceUsers> BuildAll<TReader, S>(TReader reader, global::System.Action<WebInterfaceUsers, TReader, S> setup = null, global::System.Func<WebInterfaceUsers, TReader, S> setupStateFactory = null) where TReader : global::System.Data.IDataReader
+                {
+                    if (reader == null)
+                        throw new global::System.ArgumentNullException("reader");
+    
+                    while (reader.Read())
+                        yield return Build<TReader, S>(rec: reader, setup: setup, setupStateFactory: setupStateFactory);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec>(TRec rec, global::System.Action<WebInterfaceUsers, TRec> setup = null) where TRec : global::System.Data.IDataRecord
+                {
+                    this.LoadFrom<TRec, object>(rec: rec, setup: setup != null ? new global::System.Action<WebInterfaceUsers, TRec, object>((e, r, s) => setup(e, r)) : null, setupState: null);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupState">The last parameter for <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec, S>(TRec rec, global::System.Action<WebInterfaceUsers, TRec, S> setup = null, S setupState = default(S)) where TRec : global::System.Data.IDataRecord
+                {
+                    this.LoadFrom<TRec, S>(rec: rec, setup: setup, setupStateFactory: (e, r) => setupState);
+                }
+    
+                /// <summary>
+                /// Loads data into this object from a data record.
+                /// </summary>
+                /// <typeparam name="TRec">Type of the data record.</typeparam>
+                /// <typeparam name="S">The type of the last parameter for <paramref name="setup" />.</typeparam>
+                /// <param name="rec">The data record from where loading the data from.</param>
+                /// <param name="setup">The optional setup action that is invoked after data have been loaded into that object.</param>
+                /// <param name="setupStateFactory">The optional factory for last parameter of <paramref name="setup" />.</param>
+                /// <exception cref="global::System.ArgumentNullException">
+                /// <paramref name="rec" /> is <see langword="null" />.
+                /// </exception>
+                public void LoadFrom<TRec, S>(TRec rec, global::System.Action<WebInterfaceUsers, TRec, S> setup = null, global::System.Func<WebInterfaceUsers, TRec, S> setupStateFactory = null) where TRec : global::System.Data.IDataRecord
+                {
+                    if (rec == null)
+                        throw new global::System.ArgumentNullException("rec");
+     
+                    var oIsActive = rec.GetOrdinal("IsActive");
+                    var oUserID = rec.GetOrdinal("UserID");
+                    var oWebInterfaceUserID = rec.GetOrdinal("WebInterfaceUserID");
+     
+                    this.IsActive = (bool)(!rec.IsDBNull(oIsActive) ? rec.GetValue(oIsActive) : null);
+                    this.UserID = (long)(!rec.IsDBNull(oUserID) ? rec.GetValue(oUserID) : null);
+                    this.WebInterfaceUserID = (long)(!rec.IsDBNull(oWebInterfaceUserID) ? rec.GetValue(oWebInterfaceUserID) : null);
      
                     if (setup != null)
                         setup(this, rec, setupStateFactory == null ? default(S) : setupStateFactory(this, rec));

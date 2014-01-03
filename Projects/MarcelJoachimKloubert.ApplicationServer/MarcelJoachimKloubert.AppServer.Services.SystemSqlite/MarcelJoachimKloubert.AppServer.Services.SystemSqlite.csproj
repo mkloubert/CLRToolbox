@@ -75,6 +75,10 @@
       <Name>MarcelJoachimKloubert.ApplicationServer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="System.Data.SQLite.dll" />
+    <None Include="System.Data.SQLite.Linq.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

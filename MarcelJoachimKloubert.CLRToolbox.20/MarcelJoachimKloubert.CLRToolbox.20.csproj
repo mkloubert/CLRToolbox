@@ -72,6 +72,7 @@
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />
     <Compile Include="Configuration\Impl\IniFileConfigRepository.cs" />
     <Compile Include="Data\AdoDatabaseBase.cs" />
+    <Compile Include="Data\AdoDataConnection.cs" />
     <Compile Include="Data\CommonConverter.OnChangeTypeExtension.cs">
       <DependentUpon>CommonConverter.cs</DependentUpon>
     </Compile>
@@ -81,6 +82,7 @@
     <Compile Include="Data\CommonConverter.cs" />
     <Compile Include="Data\ConverterBase.cs" />
     <Compile Include="Data\DatabaseBase.cs" />
+    <Compile Include="Data\DataConnectionBase.cs" />
     <Compile Include="Data\Entities\EntityBase.cs" />
     <Compile Include="Data\Entities\EntityBase.dotNet.cs">
       <DependentUpon>EntityBase.cs</DependentUpon>
@@ -91,6 +93,7 @@
     <Compile Include="Data\Entities\EntityBase.PropertyChanging.cs">
       <DependentUpon>EntityBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Entities\EntityRepositoryBase.cs" />
     <Compile Include="Data\Entities\IEntity.cs" />
     <Compile Include="Data\Entities\IEntity.PropertyChanged.cs">
       <DependentUpon>IEntity.cs</DependentUpon>
@@ -98,9 +101,12 @@
     <Compile Include="Data\Entities\IEntity.PropertyChanging.cs">
       <DependentUpon>IEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Entities\IEntityRepository.cs" />
     <Compile Include="Data\IAdoDatabase.cs" />
+    <Compile Include="Data\IAdoDataConnection.cs" />
     <Compile Include="Data\IConverter.cs" />
     <Compile Include="Data\IDatabase.cs" />
+    <Compile Include="Data\IDataConnection.cs" />
     <Compile Include="Data\TMColumnAttribute.cs" />
     <Compile Include="Data\TMTableAttribute.cs" />
     <Compile Include="Diagnostics\ILogMessage.dotNET.cs">
@@ -199,6 +205,10 @@
     <Compile Include="Helpers\DataHelper.ToEnumerable.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\EntityHelper.GetColumns.cs">
+      <DependentUpon>EntityHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\EnumHelper.Parse.cs">
       <DependentUpon>EnumHelper.cs</DependentUpon>
@@ -255,6 +265,9 @@
     </Compile>
     <Compile Include="Helpers\DataHelper.ExecuteEnumerableReader.Common.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\EntityHelper.TryGetTableNameAndSchema.cs">
+      <DependentUpon>EntityHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ValueHelper.IsNotNull.cs">
       <DependentUpon>ValueHelper.cs</DependentUpon>

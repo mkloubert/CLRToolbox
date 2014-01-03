@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Principal;
 using System.Text;
-using MarcelJoachimKloubert.ApplicationServer.DataLayer;
+using MarcelJoachimKloubert.ApplicationServer.DataLayer.Entities;
 using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Functions;
@@ -19,7 +19,7 @@ using MarcelJoachimKloubert.CLRToolbox.Net.Http;
 using MarcelJoachimKloubert.CLRToolbox.Serialization;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using RemoteCommEntities = MarcelJoachimKloubert.AppServer.Modules.RemoteComm.Data.Entities.General.RemoteCommService;
-using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities;
+using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General;
 
 namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
 {
@@ -72,13 +72,13 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
         {
             var loadedUsers = new HashSet<RemoteCommEntities.REMCOMM_Users>();
 
-            using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
+            using (var repo = ServiceLocator.Current.GetInstance<IAppServerEntityRepository>())
             {
-                foreach (var user in db.Query<RemoteCommEntities.REMCOMM_Users>()
-                                       .Where(u => u.IsActive)
-                                       .ToArray())
+                foreach (var user in repo.LoadAll<RemoteCommEntities.REMCOMM_Users>()
+                                         .Where(u => u.IsActive)
+                                         .ToArray())
                 {
-                    var srvUser = db.Query<ServerEntities.General.Security.Users>()
+                    var srvUser = repo.LoadAll<ServerEntities.Security.Users>()
                                     .Where(su => su.IsActive &&
                                                  su.UserID == user.UserID)
                                     .Single();
@@ -86,16 +86,16 @@ namespace MarcelJoachimKloubert.AppServer.Modules.RemoteComm
                     user.Users = srvUser;
                     srvUser.CharacterPasswordHasher = this.Users_HashPassword;
 
-                    user.REMCOMM_UserFunctions = db.Query<RemoteCommEntities.REMCOMM_UserFunctions>()
-                                                   .Where(uf => uf.REMCOMM_UserID == user.REMCOMM_UserID &&
-                                                                uf.CanExecute)
-                                                   .ToArray();
+                    user.REMCOMM_UserFunctions = repo.LoadAll<RemoteCommEntities.REMCOMM_UserFunctions>()
+                                                     .Where(uf => uf.REMCOMM_UserID == user.REMCOMM_UserID &&
+                                                                  uf.CanExecute)
+                                                     .ToArray();
 
                     foreach (var uf in user.REMCOMM_UserFunctions)
                     {
-                        uf.ServerFunctions = db.Query<ServerEntities.General.Functions.ServerFunctions>()
-                                               .Where(sf => sf.ServerFunctionID == uf.ServerFunctionID)
-                                               .Single();
+                        uf.ServerFunctions = repo.LoadAll<ServerEntities.Functions.ServerFunctions>()
+                                                 .Where(sf => sf.ServerFunctionID == uf.ServerFunctionID)
+                                                 .Single();
                     }
 
                     loadedUsers.Add(user);

@@ -21,6 +21,7 @@
           <EntitySet Name="Persons" EntityType="Server.Store.Persons" store:Type="Tables" Schema="Structure" />
           <EntitySet Name="MimeTypes" EntityType="Server.Store.MimeTypes" store:Type="Tables" Schema="Types" />
           <EntitySet Name="PersonTypes" EntityType="Server.Store.PersonTypes" store:Type="Tables" Schema="Types" />
+          <EntitySet Name="WebInterfaceUsers" EntityType="Server.Store.WebInterfaceUsers" store:Type="Tables" Schema="WebInterface" />
           <AssociationSet Name="FK_AclResources_AclRoles" Association="Server.Store.FK_AclResources_AclRoles">
             <End Role="AclRoles" EntitySet="AclRoles" />
             <End Role="AclResources" EntitySet="AclResources" />
@@ -44,6 +45,10 @@
           <AssociationSet Name="FK_Users_Persons" Association="Server.Store.FK_Users_Persons">
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebInterfaceUsers_Users" Association="Server.Store.FK_WebInterfaceUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WebInterfaceUsers" EntitySet="WebInterfaceUsers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ServerFunctions">
@@ -132,6 +137,14 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="WebInterfaceUsers">
+          <Key>
+            <PropertyRef Name="WebInterfaceUserID" />
+          </Key>
+          <Property Name="WebInterfaceUserID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <Association Name="FK_AclResources_AclRoles">
           <End Role="AclRoles" Type="Server.Store.AclRoles" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -214,19 +227,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WebInterfaceUsers_Users">
+          <End Role="Users" Type="Server.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WebInterfaceUsers" Type="Server.Store.WebInterfaceUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="WebInterfaceUsers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppServer" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="ServerFunctions" EntityType="AppServer.ServerFunctions" />
           <EntitySet Name="AccessControlLists" EntityType="AppServer.AccessControlLists" />
           <EntitySet Name="AclResources" EntityType="AppServer.AclResources" />
           <EntitySet Name="AclRoles" EntityType="AppServer.AclRoles" />
-          <EntitySet Name="TrustedAssemblies" EntityType="AppServer.TrustedAssemblies" />
           <EntitySet Name="Users" EntityType="AppServer.Users" />
           <EntitySet Name="Persons" EntityType="AppServer.Persons" />
           <EntitySet Name="MimeTypes" EntityType="AppServer.MimeTypes" />
           <EntitySet Name="PersonTypes" EntityType="AppServer.PersonTypes" />
+          <EntitySet Name="WebInterfaceUsers" EntityType="AppServer.WebInterfaceUsers" />
           <AssociationSet Name="FK_AclRoles_AccessControlLists" Association="AppServer.FK_AclRoles_AccessControlLists">
             <End Role="AccessControlLists" EntitySet="AccessControlLists" />
             <End Role="AclRoles" EntitySet="AclRoles" />
@@ -239,6 +267,10 @@
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_WebInterfaceUsers_Users" Association="AppServer.FK_WebInterfaceUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WebInterfaceUsers" EntitySet="WebInterfaceUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Persons_PersonTypes" Association="AppServer.FK_Persons_PersonTypes">
             <End Role="PersonTypes" EntitySet="PersonTypes" />
             <End Role="Persons" EntitySet="Persons" />
@@ -247,8 +279,16 @@
             <End Role="AccessControlLists" EntitySet="AccessControlLists" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="ServerFunctions" EntityType="AppServer.ServerFunctions" />
+          <EntitySet Name="TrustedAssemblies" EntityType="AppServer.TrustedAssemblies" />
         </EntityContainer>
+        <EntityType Name="ServerFunctions">
+          <Key>
+            <PropertyRef Name="ServerFunctionID" />
+          </Key>
+          <Property Type="Int64" Name="ServerFunctionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="ServerFunctionExportID" Nullable="false" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="AccessControlLists">
           <Key>
             <PropertyRef Name="AccessControlListID" />
@@ -278,14 +318,6 @@
           <NavigationProperty Name="AccessControlLists" Relationship="AppServer.FK_AclRoles_AccessControlLists" FromRole="AclRoles" ToRole="AccessControlLists" />
           <NavigationProperty Name="AclResources" Relationship="AppServer.FK_AclResources_AclRoles" FromRole="AclRoles" ToRole="AclResources" />
         </EntityType>
-        <EntityType Name="TrustedAssemblies">
-          <Key>
-            <PropertyRef Name="TrustedAssemblyKey" />
-          </Key>
-          <Property Type="Binary" Name="TrustedAssemblyKey" Nullable="false" MaxLength="160" FixedLength="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
@@ -296,6 +328,7 @@
           <Property Type="Binary" Name="Password" MaxLength="Max" FixedLength="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <NavigationProperty Name="Persons" Relationship="AppServer.FK_Users_Persons" FromRole="Users" ToRole="Persons" />
+          <NavigationProperty Name="WebInterfaceUsers" Relationship="AppServer.FK_WebInterfaceUsers_Users" FromRole="Users" ToRole="WebInterfaceUsers" />
           <NavigationProperty Name="AccessControlLists" Relationship="AppServer.Users_AccessControlLists" FromRole="Users" ToRole="AccessControlLists" />
         </EntityType>
         <EntityType Name="Persons">
@@ -325,6 +358,15 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Persons" Relationship="AppServer.FK_Persons_PersonTypes" FromRole="PersonTypes" ToRole="Persons" />
+        </EntityType>
+        <EntityType Name="WebInterfaceUsers">
+          <Key>
+            <PropertyRef Name="WebInterfaceUserID" />
+          </Key>
+          <Property Type="Int64" Name="WebInterfaceUserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="AppServer.FK_WebInterfaceUsers_Users" FromRole="WebInterfaceUsers" ToRole="Users" />
         </EntityType>
         <Association Name="FK_AclRoles_AccessControlLists">
           <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="1">
@@ -368,6 +410,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WebInterfaceUsers_Users">
+          <End Type="AppServer.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppServer.WebInterfaceUsers" Role="WebInterfaceUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="WebInterfaceUsers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Persons_PersonTypes">
           <End Type="AppServer.PersonTypes" Role="PersonTypes" Multiplicity="0..1" />
           <End Type="AppServer.Persons" Role="Persons" Multiplicity="*" />
@@ -384,13 +440,13 @@
           <End Type="AppServer.AccessControlLists" Role="AccessControlLists" Multiplicity="*" />
           <End Type="AppServer.Users" Role="Users" Multiplicity="*" />
         </Association>
-        <EntityType Name="ServerFunctions">
+        <EntityType Name="TrustedAssemblies">
           <Key>
-            <PropertyRef Name="ServerFunctionID" />
+            <PropertyRef Name="TrustedAssemblyKey" />
           </Key>
-          <Property Type="Int64" Name="ServerFunctionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Guid" Name="ServerFunctionExportID" Nullable="false" />
-          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="TrustedAssemblyKey" Nullable="false" MaxLength="160" FixedLength="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -398,6 +454,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ServerStoreContainer" CdmEntityContainer="Entities" >
+          <EntitySetMapping Name="ServerFunctions">
+            <EntityTypeMapping TypeName="AppServer.ServerFunctions">
+              <MappingFragment StoreEntitySet="ServerFunctions">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ServerFunctionExportID" ColumnName="ServerFunctionExportID" />
+                <ScalarProperty Name="ServerFunctionID" ColumnName="ServerFunctionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AccessControlLists">
             <EntityTypeMapping TypeName="AppServer.AccessControlLists">
               <MappingFragment StoreEntitySet="AccessControlLists">
@@ -422,15 +487,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
                 <ScalarProperty Name="AclRoleID" ColumnName="AclRoleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TrustedAssemblies">
-            <EntityTypeMapping TypeName="AppServer.TrustedAssemblies">
-              <MappingFragment StoreEntitySet="TrustedAssemblies">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="TrustedAssemblyKey" ColumnName="TrustedAssemblyKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -473,6 +529,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WebInterfaceUsers">
+            <EntityTypeMapping TypeName="AppServer.WebInterfaceUsers">
+              <MappingFragment StoreEntitySet="WebInterfaceUsers">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="WebInterfaceUserID" ColumnName="WebInterfaceUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="Users_AccessControlLists" TypeName="AppServer.Users_AccessControlLists" StoreEntitySet="Users_AccessControlLists">
             <EndProperty Name="Users">
               <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -481,12 +546,12 @@
               <ScalarProperty Name="AccessControlListID" ColumnName="AccessControlListID" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="ServerFunctions">
-            <EntityTypeMapping TypeName="AppServer.ServerFunctions">
-              <MappingFragment StoreEntitySet="ServerFunctions">
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="ServerFunctionExportID" ColumnName="ServerFunctionExportID" />
-                <ScalarProperty Name="ServerFunctionID" ColumnName="ServerFunctionID" />
+          <EntitySetMapping Name="TrustedAssemblies">
+            <EntityTypeMapping TypeName="AppServer.TrustedAssemblies">
+              <MappingFragment StoreEntitySet="TrustedAssemblies">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TrustedAssemblyKey" ColumnName="TrustedAssemblyKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

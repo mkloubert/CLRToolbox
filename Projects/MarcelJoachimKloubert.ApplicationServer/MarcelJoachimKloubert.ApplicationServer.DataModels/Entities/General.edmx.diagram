@@ -5,20 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a2f9753b54294c4397e5bb812fec292a" Name="Diagramm1" >
-        <EntityTypeShape EntityType="AppServer.AccessControlLists" Width="1.5" PointX="3" PointY="5.375" />
-        <EntityTypeShape EntityType="AppServer.AclResources" Width="1.5" PointX="7.5" PointY="5.125" />
-        <EntityTypeShape EntityType="AppServer.AclRoles" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="AppServer.TrustedAssemblies" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="AppServer.Users" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="AppServer.Persons" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="AppServer.MimeTypes" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="AppServer.PersonTypes" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="AppServer.ServerFunctions" Width="1.5" PointX="7.75" PointY="1.75" />
+        <EntityTypeShape EntityType="AppServer.AccessControlLists" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="AppServer.AclResources" Width="1.5" PointX="5.25" PointY="7.125" />
+        <EntityTypeShape EntityType="AppServer.AclRoles" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="AppServer.Users" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="AppServer.Persons" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AppServer.MimeTypes" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AppServer.PersonTypes" Width="1.5" PointX="1.5" PointY="10.375" />
+        <EntityTypeShape EntityType="AppServer.WebInterfaceUsers" Width="1.5" PointX="5.25" PointY="4" />
         <AssociationConnector Association="AppServer.FK_AclRoles_AccessControlLists" />
         <AssociationConnector Association="AppServer.FK_AclResources_AclRoles" />
         <AssociationConnector Association="AppServer.FK_Users_Persons" />
+        <AssociationConnector Association="AppServer.FK_WebInterfaceUsers_Users" />
         <AssociationConnector Association="AppServer.FK_Persons_PersonTypes" />
         <AssociationConnector Association="AppServer.Users_AccessControlLists" />
-        <EntityTypeShape EntityType="AppServer.ServerFunctions" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="AppServer.TrustedAssemblies" Width="1.5" PointX="7.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

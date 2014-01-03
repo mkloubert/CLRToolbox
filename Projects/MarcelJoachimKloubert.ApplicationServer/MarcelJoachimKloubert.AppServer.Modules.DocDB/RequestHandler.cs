@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using MarcelJoachimKloubert.ApplicationServer.DataLayer;
+using MarcelJoachimKloubert.ApplicationServer.DataLayer.Entities;
 using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
 using MarcelJoachimKloubert.AppServer.Modules.DocDB.Security.Principal;
 using MarcelJoachimKloubert.CLRToolbox;
@@ -21,7 +22,7 @@ using MarcelJoachimKloubert.CLRToolbox.Serialization;
 using MarcelJoachimKloubert.CLRToolbox.Serialization.Json;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using DocDBEntities = MarcelJoachimKloubert.AppServer.Modules.DocDB.Data.Entities.General.DocDBService;
-using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities;
+using ServerEntities = MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General;
 
 namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
 {
@@ -102,16 +103,16 @@ namespace MarcelJoachimKloubert.AppServer.Modules.DocDB
         {
             var loadedUsers = new HashSet<DocDBEntities.DOCDB_Users>();
 
-            using (var db = ServiceLocator.Current.GetInstance<IAppServerDatabase>())
+            using (var repo = ServiceLocator.Current.GetInstance<IAppServerEntityRepository>())
             {
-                foreach (var user in db.Query<DocDBEntities.DOCDB_Users>()
-                                       .Where(u => u.IsActive)
-                                       .ToArray())
+                foreach (var user in repo.LoadAll<DocDBEntities.DOCDB_Users>()
+                                         .Where(u => u.IsActive)
+                                         .ToArray())
                 {
-                    var srvUser = db.Query<ServerEntities.General.Security.Users>()
-                                 .Where(su => su.IsActive &&
-                                              su.UserID == user.UserID)
-                                 .Single();
+                    var srvUser = repo.LoadAll<ServerEntities.Security.Users>()
+                                      .Where(su => su.IsActive &&
+                                                   su.UserID == user.UserID)
+                                      .Single();
 
                     user.Users = srvUser;
                     srvUser.CharacterPasswordHasher = this.Users_HashPassword;

@@ -41,9 +41,13 @@
             this.GroupBox_Protocol = new System.Windows.Forms.GroupBox();
             this.Button_ClearProtocol = new System.Windows.Forms.Button();
             this.TextBox_Protocol = new System.Windows.Forms.TextBox();
+            this.StatusStrip_Main = new System.Windows.Forms.StatusStrip();
+            this.ToolStripStatusLabel_Main = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ToolStripProgressBar_Main = new System.Windows.Forms.ToolStripProgressBar();
             this.GroupBox_Repository.SuspendLayout();
             this.GroupBox_Remotes.SuspendLayout();
             this.GroupBox_Protocol.SuspendLayout();
+            this.StatusStrip_Main.SuspendLayout();
             this.SuspendLayout();
             // 
             // GroupBox_Repository
@@ -150,6 +154,7 @@
             this.Button_ClearProtocol.TabIndex = 9;
             this.Button_ClearProtocol.Text = "Clear";
             this.Button_ClearProtocol.UseVisualStyleBackColor = true;
+            this.Button_ClearProtocol.Click += new System.EventHandler(this.Button_ClearProtocol_Click);
             // 
             // TextBox_Protocol
             // 
@@ -162,11 +167,36 @@
             this.TextBox_Protocol.TabIndex = 8;
             this.TextBox_Protocol.WordWrap = false;
             // 
+            // StatusStrip_Main
+            // 
+            this.StatusStrip_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripProgressBar_Main,
+            this.ToolStripStatusLabel_Main});
+            this.StatusStrip_Main.Location = new System.Drawing.Point(0, 363);
+            this.StatusStrip_Main.Name = "StatusStrip_Main";
+            this.StatusStrip_Main.Size = new System.Drawing.Size(624, 22);
+            this.StatusStrip_Main.TabIndex = 8;
+            this.StatusStrip_Main.Text = "statusStrip1";
+            // 
+            // ToolStripStatusLabel_Main
+            // 
+            this.ToolStripStatusLabel_Main.Name = "ToolStripStatusLabel_Main";
+            this.ToolStripStatusLabel_Main.Size = new System.Drawing.Size(51, 17);
+            this.ToolStripStatusLabel_Main.Text = "@TODO";
+            this.ToolStripStatusLabel_Main.Visible = false;
+            // 
+            // ToolStripProgressBar_Main
+            // 
+            this.ToolStripProgressBar_Main.Name = "ToolStripProgressBar_Main";
+            this.ToolStripProgressBar_Main.Size = new System.Drawing.Size(128, 16);
+            this.ToolStripProgressBar_Main.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 357);
+            this.ClientSize = new System.Drawing.Size(624, 385);
+            this.Controls.Add(this.StatusStrip_Main);
             this.Controls.Add(this.GroupBox_Protocol);
             this.Controls.Add(this.GroupBox_Remotes);
             this.Controls.Add(this.GroupBox_Repository);
@@ -182,7 +212,10 @@
             this.GroupBox_Remotes.ResumeLayout(false);
             this.GroupBox_Protocol.ResumeLayout(false);
             this.GroupBox_Protocol.PerformLayout();
+            this.StatusStrip_Main.ResumeLayout(false);
+            this.StatusStrip_Main.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -200,6 +233,9 @@
         private System.Windows.Forms.TextBox TextBox_Protocol;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.StatusStrip StatusStrip_Main;
+        private System.Windows.Forms.ToolStripProgressBar ToolStripProgressBar_Main;
+        private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel_Main;
     }
 }
 

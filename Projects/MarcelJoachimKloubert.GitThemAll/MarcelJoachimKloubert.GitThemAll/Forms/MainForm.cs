@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using LibGit2Sharp;
+using LibGit2Sharp.Handlers;
 using AppSettings = MarcelJoachimKloubert.GitThemAll.Properties.Settings;
 
 namespace MarcelJoachimKloubert.GitThemAll.Forms
@@ -69,14 +70,28 @@ namespace MarcelJoachimKloubert.GitThemAll.Forms
 
         #endregion Properties
 
-        #region Methods (5)
+        #region Methods (8)
 
-        // Private Methods (5) 
+        // Private Methods (8) 
+
+        private void Button_ClearProtocol_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void Button_Push_Click(object sender, EventArgs e)
         {
             var repo = this.Repository;
             if (repo == null)
+            {
+                return;
+            }
+
+            var origin = repo.Branches.Where(b => !b.IsRemote)
+                                      .OrderBy(b => (b.Name ?? string.Empty).ToLower().Trim() == "origin" ? 1 : 0)
+                                      .LastOrDefault();
+
+            if (origin == null)
             {
                 return;
             }
@@ -97,12 +112,16 @@ namespace MarcelJoachimKloubert.GitThemAll.Forms
 
                     var opts = new PushOptions();
                     opts.Credentials = form.Credentials;
+                    opts.OnPackBuilderProgress = this.PushOptions_PackBuilderProgress;
+                    opts.OnPushTransferProgress = this.PushOptions_PushTransferProgress;
 
-                    repo.Network.Push(remote, "HEAD", opts);
+                    repo.Network.Push(remote, "HEAD", origin.TrackedBranch.CanonicalName, opts);
                 }
                 catch (Exception ex)
                 {
                     this.ShowError(ex);
+
+                    return;
                 }
             }
         }
@@ -138,7 +157,17 @@ namespace MarcelJoachimKloubert.GitThemAll.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.ToolStripStatusLabel_Main.Text = "";
+        }
 
+        private bool PushOptions_PackBuilderProgress(PackBuilderStage stage, int current, int total)
+        {
+            return true;
+        }
+
+        private bool PushOptions_PushTransferProgress(int current, int total, long bytes)
+        {
+            return true;
         }
 
         private void ShowError(Exception ex)

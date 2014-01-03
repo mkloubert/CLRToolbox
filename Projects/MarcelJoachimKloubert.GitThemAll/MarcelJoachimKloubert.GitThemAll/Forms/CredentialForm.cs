@@ -23,6 +23,10 @@ namespace MarcelJoachimKloubert.GitThemAll.Forms
         public CredentialForm(Remote remote)
         {
             this.InitializeComponent();
+
+            this.Text = string.Format("{0} ({1})",
+                                      (remote.Name ?? string.Empty).Trim(),
+                                      (remote.Url ?? string.Empty).Trim());
         }
 
         #endregion Constructors

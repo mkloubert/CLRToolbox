@@ -2,10 +2,25 @@
 {
     partial class CredentialForm
     {
+        #region Fields (8)
+
+        private System.Windows.Forms.Button Button_Cancel;
+        private System.Windows.Forms.Button Button_OK;
+        private System.Windows.Forms.CheckBox Checkbox_SaveCredentials;
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Label Label_Password;
+        private System.Windows.Forms.Label Label_Username;
+        private System.Windows.Forms.TextBox TextBox_Password;
+        private System.Windows.Forms.TextBox TextBox_Username;
+
+        #endregion Fields
+
+        #region Methods (1)
+
+        // Protected Methods (1) 
 
         /// <summary>
         /// Clean up any resources being used.
@@ -19,6 +34,10 @@
             }
             base.Dispose(disposing);
         }
+
+        #endregion Methods
+
+
 
         #region Windows Form Designer generated code
 
@@ -117,20 +136,11 @@
             this.Name = "CredentialForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Credentials";
-            this.Load += new System.EventHandler(this.CredentialForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label Label_Username;
-        private System.Windows.Forms.TextBox TextBox_Username;
-        private System.Windows.Forms.TextBox TextBox_Password;
-        private System.Windows.Forms.Label Label_Password;
-        private System.Windows.Forms.Button Button_Cancel;
-        private System.Windows.Forms.Button Button_OK;
-        private System.Windows.Forms.CheckBox Checkbox_SaveCredentials;
     }
 }

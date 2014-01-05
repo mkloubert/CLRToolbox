@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\index.cs" />
+    <Compile Include="Modules\users.cs" />
     <Compile Include="Modules\test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebInterfaceModuleBase.cs" />
@@ -70,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MarcelJoachimKloubert.AppServer.Web.Common.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Modules\js\users.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

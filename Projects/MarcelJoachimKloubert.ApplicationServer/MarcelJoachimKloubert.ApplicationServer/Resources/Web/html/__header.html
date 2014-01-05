@@ -19,12 +19,13 @@
         <script language="javascript" type="text/javascript" src="/js/jquery/jquery-1.9.1.js"></script>
         <script language="javascript" type="text/javascript" src="/js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
         <script language="javascript" type="text/javascript" src="/js/jquery/jquery-ui-timepicker-1.0.5.js"></script>
+        
+        <script language="javascript" type="text/javascript" src="/js/main.js"></script>
 
         <script type="text/javascript">
-            $(document).ready(
-                function() {
-                    $('button, input[type=button], input[type=submit]').button();
-                });			
+            $(document).ready(function () {
+                $('button, input[type=button], input[type=submit]').button();
+            });
         </script>
     </head>
  
@@ -32,7 +33,9 @@
         <div id="overallHeader">
             <div class="top">
                 <div class="menu">
-                    <a href="/" class="home">Startseite</a>
+                    <a href="/" class="home">Home</a>
+
+                    <a href="/users.html" class="manageUsers">Users</a>
                 </div>
                             
                 <div class="header">
@@ -47,7 +50,7 @@
             </div>
  
             <div class="menu">
-
+                <ul id="mainMenuEntries"></ul>
             </div>
         </div>
  

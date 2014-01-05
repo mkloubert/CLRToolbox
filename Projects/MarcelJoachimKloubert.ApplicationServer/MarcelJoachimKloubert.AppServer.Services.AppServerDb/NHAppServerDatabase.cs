@@ -6,7 +6,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using MarcelJoachimKloubert.ApplicationServer.Data.Entities;
 using MarcelJoachimKloubert.ApplicationServer.DataLayer;
 using NHibernate;
 using NHibernate.Cfg;
@@ -47,16 +46,13 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
 
                 // entity types
                 {
-                    var mapper = new ConventionModelMapper();
+                    var mapper = new ModelMapper();
 
                     var entityTypes = server.EntityAssemblies
                                             .SelectMany(asm => asm.GetTypes())
                                             .Where(t => t.IsClass &&
                                                         !t.IsAbstract && t.GetInterfaces()
                                                                           .Any(it => it.Equals(typeof(global::MarcelJoachimKloubert.ApplicationServer.Data.Entities.IAppServerEntity))));
-
-
-                    mapper.AddMapping(new AppServerEntityMapper<IAppServerEntity>());
 
                     foreach (var et in entityTypes)
                     {
@@ -73,7 +69,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.AppServerDb
                 this._CONF = newCfg;
             }
 
-            // this._SESSION_FACTORY = this._CONF.();
+            // this._SESSION_FACTORY = this._CONF.BuildSessionFactory();
         }
 
         #endregion Constructors

@@ -4,13 +4,14 @@
 
 
 using System;
+using MarcelJoachimKloubert.CLRToolbox.Resources;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 {
     /// <summary>
     /// Describes a HTTP module.
     /// </summary>
-    public interface IHttpModule : IHasName, IIdentifiable
+    public interface IHttpModule : IHasName, IIdentifiable, IResourceLocator
     {
         #region Operations (1)
 

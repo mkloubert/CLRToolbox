@@ -86,7 +86,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Data Members
 
-        #region Operations (13)
+        #region Operations (16)
 
         /// <summary>
         /// Adds data at the end of <see cref="IHttpResponse.Stream" />.
@@ -161,6 +161,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         IHttpResponse SetStreamCapacity(int capacity);
 
         /// <summary>
+        /// Sets up that context for direct UTF-8 encoded JSON output.
+        /// </summary>
+        /// <returns>That instance.</returns>
+        IHttpResponse SetupForJson();
+
+        /// <summary>
         /// Writes an object to <see cref="IHttpResponse.Stream" />.
         /// </summary>
         /// <param name="obj">The object to write.</param>
@@ -190,6 +196,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <param name="handleDBNullAsNull">Handle DBNull value as <see langword="null" /> reference or not.</param>
         /// <returns>That instance.</returns>
         IHttpResponse Write(object obj, bool handleDBNullAsNull);
+
+        /// <summary>
+        /// Writes ECMA script code surrounded by a script HTML tag.
+        /// </summary>
+        /// <param name="js">The code to write.</param>
+        /// <returns>That instance.</returns>
+        IHttpResponse WriteJavaScript(IEnumerable<char> js);
+
+        /// <summary>
+        /// Writes an object as serialized JSON string.
+        /// </summary>
+        /// <typeparam name="T">Type of the object.</typeparam>
+        /// <param name="obj">The object to write.</param>
+        /// <returns>That instance.</returns>
+        IHttpResponse WriteJson<T>(T obj);
 
         #endregion Operations
     }

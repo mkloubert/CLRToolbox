@@ -183,9 +183,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         #endregion Properties
 
-        #region Methods (18)
+        #region Methods (22)
 
-        // Public Methods (13) 
+        // Public Methods (16) 
 
         /// <summary>
         /// 
@@ -325,6 +325,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <summary>
         /// 
         /// </summary>
+        /// <see cref="IHttpResponse.SetupForJson()" />
+        public HttpResponseBase SetupForJson()
+        {
+            this.Charset = Encoding.UTF8;
+            this.ContentType = "application/json";
+            this.DirectOutput = true;
+
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <see cref="IHttpResponse.Write(IEnumerable{byte})" />
         public HttpResponseBase Write(IEnumerable<byte> data)
         {
@@ -372,7 +385,35 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
             return this.Write(StringHelper.AsString(obj, handleDBNullAsNull));
         }
-        // Protected Methods (4) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.WriteJavaScript(IEnumerable{char})" />
+        public HttpResponseBase WriteJavaScript(IEnumerable<char> js)
+        {
+            return this.Write("<script type=\"text/javascript\">\n\n")
+                       .Write(js)
+                       .Write("\n\n</script>");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IHttpResponse.WriteJson{T}(T)" />
+        public HttpResponseBase WriteJson<T>(T obj)
+        {
+            StringBuilder json = new StringBuilder();
+            this.OnWriteJson<T>(obj, ref json);
+
+            if (json != null)
+            {
+                this.Write(json);
+            }
+
+            return this;
+        }
+        // Protected Methods (5) 
 
         /// <summary>
         /// Converts a char sequence to a binary sequence.
@@ -426,6 +467,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// The new capacity. <see langword="null" /> indicates to use a default value.
         /// </param>
         protected virtual void OnSetStreamCapacity(int? capacity)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The logic for <see cref="HttpResponseBase.WriteJson{T}(T)" /> method.
+        /// </summary>
+        /// <typeparam name="T">Type of the object.</typeparam>
+        /// <param name="obj">The object to serialize.</param>
+        /// <param name="json">The string builder that builds/stores the JSON string of <paramref name="obj" />.</param>
+        protected virtual void OnWriteJson<T>(T obj, ref StringBuilder json)
         {
             throw new NotImplementedException();
         }

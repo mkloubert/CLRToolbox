@@ -167,10 +167,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Web\img\ajax_loader_66x66.gif" />
-    <EmbeddedResource Include="Resources\Web\img\folder_home_16x16.png" />
+    <EmbeddedResource Include="Resources\Web\img\home_16x16.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Web\img\1388410231_server.png" />
+    <EmbeddedResource Include="Resources\Web\img\server_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Web\img\kontact_contacts_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Web\js\main.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

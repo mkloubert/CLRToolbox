@@ -10,9 +10,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
     partial class HttpResponseBase
     {
-        #region Methods (13)
+        #region Methods (16)
 
-        // Private Methods (13) 
+        // Private Methods (16) 
 
         IHttpResponse IHttpResponse.Append(IEnumerable<byte> data)
         {
@@ -60,6 +60,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this.SetStreamCapacity(capacity);
         }
 
+        IHttpResponse IHttpResponse.SetupForJson()
+        {
+            return this.SetupForJson();
+        }
+
         IHttpResponse IHttpResponse.Write(object obj)
         {
             return this.Write(obj);
@@ -79,6 +84,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         {
             return this.Write(obj,
                               handleDBNullAsNull);
+        }
+
+        IHttpResponse IHttpResponse.WriteJavaScript(IEnumerable<char> js)
+        {
+            return this.WriteJavaScript(js);
+        }
+
+        IHttpResponse IHttpResponse.WriteJson<T>(T obj)
+        {
+            return this.WriteJson<T>(obj);
         }
 
         #endregion Methods

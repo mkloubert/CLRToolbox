@@ -256,7 +256,7 @@ input.ui-button {
 }
 
 #overallHeader .top .header h1 {
-    background-image: url(/img/1388410231_server.png);
+    background-image: url(/img/server_32x32.png);
     background-position: 10px 2px;
     background-repeat: no-repeat;
     color: #ffffff;
@@ -282,10 +282,17 @@ input.ui-button {
     font-weight: bold;
     margin-right: 12px;
     padding-left: 24px;
+    padding-top: 1px;
 }
 
 #overallHeader .top .menu a.home {
-    background-image: url(/img/folder_home_16x16.png);
+    background-image: url(/img/home_16x16.png);
     background-position: left -1px;
+    background-repeat: no-repeat;
+}
+
+#overallHeader .top .menu a.manageUsers {
+    background-image: url(/img/kontact_contacts_16x16.png);
+    background-position: left -2px;
     background-repeat: no-repeat;
 }

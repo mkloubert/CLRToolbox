@@ -10,6 +10,8 @@ using System.Net.Mime;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Serialization;
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
 {
@@ -18,8 +20,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                      ConcurrencyMode = ConcurrencyMode.Multiple)]
     internal sealed class WcfHttpServerService : IWcfHttpServerService
     {
-        #region Fields (1)
+        #region Fields (2)
 
+        private readonly ISerializer _SERIALIZER = ServiceLocator.Current.GetInstance<ISerializer>();
         private readonly WcfHttpServer _SERVER;
 
         #endregion Fields
@@ -62,7 +65,9 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
             try
             {
                 var response = new HttpResponseMessageProperty();
-                var respCtx = new HttpResponse(response, uncompressedResponse = new MemoryStream())
+                var respCtx = new HttpResponse(response,
+                                               this._SERIALIZER,
+                                               uncompressedResponse = new MemoryStream())
                     {
                         Compress = false,
                         DocumentNotFound = false,

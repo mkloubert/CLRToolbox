@@ -5,6 +5,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Net.Mime;
 using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules;
@@ -41,16 +42,34 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common
 
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (3)
 
-        // Protected Methods (2) 
+        // Protected Methods (3) 
 
         protected override void OnAfterHandleRequest(IAfterHandleRequestContext context)
         {
-            if (!context.Http.Response.DirectOutput &&
-                !context.Http.Response.Compress.HasValue)
+            if (!context.Http.Response.DirectOutput)
             {
-                context.Http.Response.Compress = true;
+                Stream jsStream = null;
+                this.OnTryGetResourceStream(string.Format("Modules.js.{0}.js",
+                                                          this.Name), ref jsStream);
+
+                if (jsStream != null)
+                {
+                    using (jsStream)
+                    {
+                        using (var reader = new StreamReader(jsStream, Encoding.UTF8))
+                        {
+                            context.Http.Response
+                                        .WriteJavaScript(reader.ReadToEnd());
+                        }
+                    }
+                }
+
+                if (!context.Http.Response.Compress.HasValue)
+                {
+                    context.Http.Response.Compress = true;
+                }
             }
         }
 
@@ -63,6 +82,14 @@ namespace MarcelJoachimKloubert.AppServer.Web.Common
             context.Http
                    .Response
                    .Charset = Encoding.UTF8;
+        }
+
+        protected override void OnTryGetResourceStream(string resName, ref Stream stream)
+        {
+            stream = this.GetType()
+                         .Assembly
+                         .GetManifestResourceStream(string.Format("MarcelJoachimKloubert.AppServer.Web.Common.Resources.{0}",
+                                                                  resName));
         }
 
         #endregion Methods

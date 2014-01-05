@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Diagnostics;
 using System.IdentityModel.Selectors;
 using System.IdentityModel.Tokens;
 using MarcelJoachimKloubert.CLRToolbox.Security;
@@ -11,14 +12,11 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp.Security
 {
     internal sealed class DelegateUserNamePasswordValidator : UserNamePasswordValidator
     {
-
-
         #region Fields (1)
 
         private readonly UsernamePasswordValidator _DELEGATE;
 
         #endregion Fields
-
 
         #region Constructors (1)
 
@@ -29,11 +27,11 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp.Security
 
         #endregion Constructors
 
-
         #region Methods (1)
 
         // Public Methods (1) 
 
+        [DebuggerStepThrough]
         public override void Validate(string userName, string password)
         {
             bool succeeded;

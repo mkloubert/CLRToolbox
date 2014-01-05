@@ -422,9 +422,6 @@ namespace MarcelJoachimKloubert.ApplicationServer
                     }
                     break;
             }
-
-            // var db = ServiceLocator.Current.GetInstance<MarcelJoachimKloubert.ApplicationServer.DataLayer.IAppServerDatabase>();
-            // var test = db.Query<MarcelJoachimKloubert.ApplicationServer.DataModels.Entities.General.Types.PersonTypes>();
         }
 
         /// <summary>

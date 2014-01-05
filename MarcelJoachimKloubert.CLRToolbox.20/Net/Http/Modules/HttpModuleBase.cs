@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.Resources;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 {
@@ -80,9 +82,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (13)
 
-        // Public Methods (6) 
+        // Public Methods (7) 
 
         /// <summary>
         /// 
@@ -208,7 +210,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
 
             return result;
         }
-        // Protected Methods (4) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IResourceLocator.TryGetResourceStream(IEnumerable{char})" />
+        public Stream TryGetResourceStream(IEnumerable<char> resourceName)
+        {
+            IEnumerable<char> parsedResName = this.ParseResourcesName(StringHelper.AsString(resourceName));
+
+            Stream result = null;
+            this.OnTryGetResourceStream(StringHelper.AsString(parsedResName),
+                                        ref result);
+
+            return result;
+        }
+        // Protected Methods (6) 
 
         /// <summary>
         /// Is invoked AFTER <see cref="HttpModuleBase.OnHandleRequest(IHandleRequestContext)" /> has been called.
@@ -243,6 +260,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http.Modules
         /// </summary>
         /// <param name="context">The underlying context.</param>
         protected abstract void OnHandleRequest(IHandleRequestContext context);
+
+        /// <summary>
+        /// The logic for <see cref="HttpModuleBase.TryGetResourceStream(IEnumerable{char})" /> method.
+        /// </summary>
+        /// <param name="resName">The name of the stream.</param>
+        /// <param name="stream">The variable where to write the found stream to (if found).</param>
+        protected virtual void OnTryGetResourceStream(string resName, ref Stream stream)
+        {
+            // dummy
+        }
+
+        /// <summary>
+        /// Parses a resource name.
+        /// </summary>
+        /// <param name="resName">The input value.</param>
+        /// <returns>The parsed value.</returns>
+        protected virtual IEnumerable<char> ParseResourcesName(string resName)
+        {
+            if (StringHelper.IsNullOrWhiteSpace(resName))
+            {
+                return null;
+            }
+
+            return resName.Trim();
+        }
 
         #endregion Methods
     }

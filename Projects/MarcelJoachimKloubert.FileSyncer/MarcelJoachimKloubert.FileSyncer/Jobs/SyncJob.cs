@@ -808,7 +808,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                 return string.Empty;
             }
 
-            fullName = Path.GetFullPath(fullName.ToLower())
+            fullName = Path.GetFullPath(fullName)
+                           .ToLower()
                            .Replace("/", "\\")
                            .Trim();
 

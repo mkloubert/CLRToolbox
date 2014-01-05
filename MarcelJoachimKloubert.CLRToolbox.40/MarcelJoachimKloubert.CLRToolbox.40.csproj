@@ -913,6 +913,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\collections\generic\IReadOnlyDictionary.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Collections\ObjectModel\SynchronizedObservableCollection.cs">
+      <Link>Collections\ObjectModel\SynchronizedObservableCollection.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\ComponentModel\NotificationObjectBase.PropertyChange35.cs">
       <Link>ComponentModel\NotificationObjectBase.PropertyChange35.cs</Link>
       <DependentUpon>NotificationObjectBase.cs</DependentUpon>

@@ -26,24 +26,33 @@ namespace MarcelJoachimKloubert.FileSyncer.Forms
 
         #endregion Constructors
 
-        #region Methods (1)
+        #region Methods (3)
 
-        // Private Methods (1) 
+        // Private Methods (3) 
+
+        private void AddListItemForJob(ISyncJob job)
+        {
+            this.SyncJobList_Main
+                .Jobs
+                .Add(job);
+        }
 
         private void FileToolStripMenuItem_Main_File_Exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        #endregion Methods
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             var test = new SyncJob();
+            test.DisplayName = "Test";
             test.SourceDirectory = @"E:\Dev\fs\src";
-            test.DestionationDirectory = @"E:\Dev\fs\dest";
+            test.DestinationDirectory = @"E:\Dev\fs\dest";
 
+            this.AddListItemForJob(test);
             test.Start();
         }
+
+        #endregion Methods
     }
 }

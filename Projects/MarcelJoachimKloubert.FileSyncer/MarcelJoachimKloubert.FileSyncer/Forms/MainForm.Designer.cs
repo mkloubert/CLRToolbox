@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.MenuStrip_Main = new System.Windows.Forms.MenuStrip();
-            this.StatusStrip_Main = new System.Windows.Forms.StatusStrip();
-            this.ToolStrip_Main = new System.Windows.Forms.ToolStrip();
-            this.ListView_Jobs = new System.Windows.Forms.ListView();
-            this.Panel_JobInfo = new System.Windows.Forms.Panel();
             this.FileToolStripMenuItem_Main_File = new System.Windows.Forms.ToolStripMenuItem();
             this.FileToolStripMenuItem_Main_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.StatusStrip_Main = new System.Windows.Forms.StatusStrip();
+            this.ToolStrip_Main = new System.Windows.Forms.ToolStrip();
+            this.ElementHost_SyncJobs = new System.Windows.Forms.Integration.ElementHost();
+            this.SyncJobList_Main = new MarcelJoachimKloubert.FileSyncer.WPF.Controls.SyncJobList();
             this.MenuStrip_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +46,21 @@
             this.MenuStrip_Main.Name = "MenuStrip_Main";
             this.MenuStrip_Main.Size = new System.Drawing.Size(624, 24);
             this.MenuStrip_Main.TabIndex = 0;
+            // 
+            // FileToolStripMenuItem_Main_File
+            // 
+            this.FileToolStripMenuItem_Main_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem_Main_File_Exit});
+            this.FileToolStripMenuItem_Main_File.Name = "FileToolStripMenuItem_Main_File";
+            this.FileToolStripMenuItem_Main_File.Size = new System.Drawing.Size(37, 20);
+            this.FileToolStripMenuItem_Main_File.Text = "File";
+            // 
+            // FileToolStripMenuItem_Main_File_Exit
+            // 
+            this.FileToolStripMenuItem_Main_File_Exit.Name = "FileToolStripMenuItem_Main_File_Exit";
+            this.FileToolStripMenuItem_Main_File_Exit.Size = new System.Drawing.Size(92, 22);
+            this.FileToolStripMenuItem_Main_File_Exit.Text = "Exit";
+            this.FileToolStripMenuItem_Main_File_Exit.Click += new System.EventHandler(this.FileToolStripMenuItem_Main_File_Exit_Click);
             // 
             // StatusStrip_Main
             // 
@@ -62,51 +77,27 @@
             this.ToolStrip_Main.Size = new System.Drawing.Size(624, 25);
             this.ToolStrip_Main.TabIndex = 2;
             // 
-            // ListView_Jobs
+            // ElementHost_SyncJobs
             // 
-            this.ListView_Jobs.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ListView_Jobs.Location = new System.Drawing.Point(0, 49);
-            this.ListView_Jobs.Name = "ListView_Jobs";
-            this.ListView_Jobs.Size = new System.Drawing.Size(224, 290);
-            this.ListView_Jobs.TabIndex = 3;
-            this.ListView_Jobs.UseCompatibleStateImageBehavior = false;
-            // 
-            // Panel_JobInfo
-            // 
-            this.Panel_JobInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Panel_JobInfo.Location = new System.Drawing.Point(224, 49);
-            this.Panel_JobInfo.Name = "Panel_JobInfo";
-            this.Panel_JobInfo.Size = new System.Drawing.Size(400, 290);
-            this.Panel_JobInfo.TabIndex = 4;
-            // 
-            // FileToolStripMenuItem_Main_File
-            // 
-            this.FileToolStripMenuItem_Main_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FileToolStripMenuItem_Main_File_Exit});
-            this.FileToolStripMenuItem_Main_File.Name = "FileToolStripMenuItem_Main_File";
-            this.FileToolStripMenuItem_Main_File.Size = new System.Drawing.Size(37, 20);
-            this.FileToolStripMenuItem_Main_File.Text = "File";
-            // 
-            // FileToolStripMenuItem_Main_File_Exit
-            // 
-            this.FileToolStripMenuItem_Main_File_Exit.Name = "FileToolStripMenuItem_Main_File_Exit";
-            this.FileToolStripMenuItem_Main_File_Exit.Size = new System.Drawing.Size(152, 22);
-            this.FileToolStripMenuItem_Main_File_Exit.Text = "Exit";
-            this.FileToolStripMenuItem_Main_File_Exit.Click += new System.EventHandler(this.FileToolStripMenuItem_Main_File_Exit_Click);
+            this.ElementHost_SyncJobs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ElementHost_SyncJobs.Location = new System.Drawing.Point(0, 49);
+            this.ElementHost_SyncJobs.Name = "ElementHost_SyncJobs";
+            this.ElementHost_SyncJobs.Size = new System.Drawing.Size(624, 290);
+            this.ElementHost_SyncJobs.TabIndex = 3;
+            this.ElementHost_SyncJobs.Text = "elementHost1";
+            this.ElementHost_SyncJobs.Child = this.SyncJobList_Main;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 361);
-            this.Controls.Add(this.Panel_JobInfo);
-            this.Controls.Add(this.ListView_Jobs);
+            this.Controls.Add(this.ElementHost_SyncJobs);
             this.Controls.Add(this.ToolStrip_Main);
             this.Controls.Add(this.StatusStrip_Main);
             this.Controls.Add(this.MenuStrip_Main);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.MenuStrip_Main;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "File Syncer";
@@ -123,10 +114,10 @@
         private System.Windows.Forms.MenuStrip MenuStrip_Main;
         private System.Windows.Forms.StatusStrip StatusStrip_Main;
         private System.Windows.Forms.ToolStrip ToolStrip_Main;
-        private System.Windows.Forms.ListView ListView_Jobs;
-        private System.Windows.Forms.Panel Panel_JobInfo;
         private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem_Main_File;
         private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem_Main_File_Exit;
+        private System.Windows.Forms.Integration.ElementHost ElementHost_SyncJobs;
+        private WPF.Controls.SyncJobList SyncJobList_Main;
     }
 }
 

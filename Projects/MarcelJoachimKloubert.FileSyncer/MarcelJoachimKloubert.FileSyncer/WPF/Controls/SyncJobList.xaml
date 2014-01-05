@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="MarcelJoachimKloubert.FileSyncer.WPF.Controls.SyncJobList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    
+    <ListBox ItemsSource="{Binding Path=Jobs, Mode=OneWay}"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48px" />
+                        <ColumnDefinition Width="*" />               
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80px" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="16px" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="16px" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                   FontWeight="Bold"
+                                   Text="{Binding Path=DisplayName, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Padding="0,0,8,0"
+                                   Text="Source:" TextAlignment="Right" />
+                        <TextBlock Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding Path=SourceDirectory, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Padding="0,0,8,0"
+                                   Text="Destination:" TextAlignment="Right" />
+                        <TextBlock Grid.Row="3" Grid.Column="1"
+                                   Text="{Binding Path=DestinationDirectory, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="5" Grid.Column="1"
+                                   FontStyle="Italic"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding Path=ProgressDescription,
+                                                  Mode=OneWay,
+                                                  IsAsync=True}" />
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>

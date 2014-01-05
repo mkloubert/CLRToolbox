@@ -5,15 +5,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.FileSyncer.Diagnostics;
 using MarcelJoachimKloubert.FileSyncer.Jobs.Actions;
 using SyncJobActionQueue = System.Collections.Concurrent.ConcurrentQueue<MarcelJoachimKloubert.FileSyncer.Jobs.Actions.ISyncJobAction>;
 
@@ -22,17 +24,21 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
     /// <summary>
     /// A sync job.
     /// </summary>
-    public sealed class SyncJob : TMObject, ISyncJob
+    public sealed class SyncJob : NotificationObjectBase,
+                                  ISyncJob
     {
-        #region Fields (3)
+        #region Fields (6)
 
         private CancellationTokenSource _cancelSource;
+        private string _progressDescription;
+        private int? _progressValue;
         private SyncJobActionQueue _queue;
+        private SyncJobState _state = SyncJobState.Stopped;
         private Task _task;
 
         #endregion Fields
 
-        #region Properties (8)
+        #region Properties (12)
 
         /// <summary>
         /// 
@@ -64,7 +70,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         /// <summary>
         /// Gets or sets the root destination directory.
         /// </summary>
-        public string DestionationDirectory
+        public string DestinationDirectory
         {
             get;
             set;
@@ -80,19 +86,19 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             set;
         }
 
+        internal Action InitalSyncAction
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <see cref="IRunnable.IsRunning" />
         public bool IsRunning
         {
-            get
-            {
-                var t = this._task;
-
-                return t != null &&
-                       t.Status == TaskStatus.Running;
-            }
+            get { return this.State == SyncJobState.Running; }
         }
 
         /// <summary>
@@ -106,6 +112,28 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ISyncJob.ProgressDescription" />
+        public string ProgressDescription
+        {
+            get { return this._progressDescription; }
+
+            private set { this.SetProperty(ref this._progressDescription, value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ISyncJob.ProgressValue" />
+        public int? ProgressValue
+        {
+            get { return this._progressValue; }
+
+            private set { this.SetProperty(ref this._progressValue, value); }
+        }
+
+        /// <summary>
         /// Gets or sets the root source directory.
         /// </summary>
         public string SourceDirectory
@@ -114,9 +142,32 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ISyncJob.State" />
+        public SyncJobState State
+        {
+            get { return this._state; }
+
+            private set { this.SetProperty(ref this._state, value); }
+        }
+
         #endregion Properties
 
-        #region Methods (18)
+        #region Delegates and Events (1)
+
+        // Events (1) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ISyncJob.ProgressChanged" />
+        public event ProgressChangedEventHandler ProgressChanged;
+
+        #endregion Delegates and Events
+
+        #region Methods (25)
 
         // Public Methods (4) 
 
@@ -168,6 +219,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                     newTask = new Task(this.TaskAction,
                                        newCancelSrc.Token,
                                        TaskCreationOptions.LongRunning);
+
+                    this.State = SyncJobState.Running;
                     newTask.Start();
 
                     this._cancelSource = newCancelSrc;
@@ -199,7 +252,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                 this.DisposeOldTask();
             }
         }
-        // Private Methods (14) 
+        // Private Methods (21) 
 
         private static void CompareDirectoriesSyncAction(DirectoryInfo src, DirectoryInfo dest,
                                                          ISyncJobExecutionContext execCtx)
@@ -215,6 +268,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
+                    TrySetThreadPriority(ThreadPriority.BelowNormal);
+
                     var ctx = (ISyncJobExecutionContext)state;
 
                     try
@@ -236,6 +291,22 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         {
                             return;
                         }
+
+                        var srcDisplayText = GetRelativePath(ctx.SourceDirectory, src.FullName);
+                        if (string.IsNullOrWhiteSpace(srcDisplayText))
+                        {
+                            srcDisplayText = src.FullName;
+                        }
+
+                        var destDisplayText = GetRelativePath(ctx.DestionationDirectory, dest.FullName);
+                        if (string.IsNullOrWhiteSpace(destDisplayText))
+                        {
+                            destDisplayText = dest.FullName;
+                        }
+
+                        ctx.RaiseProgressChanged(text: string.Format("Comparing '{0}' with '{1}'...",
+                                                                     srcDisplayText,
+                                                                     destDisplayText));
 
                         // EXTRA items
                         {
@@ -391,10 +462,15 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                                         ctx);
                             }
                         }
+
+                        ctx.RaiseProgressChanged(text: "Done");
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        //TODO log
+                        ctx.Log(msg: string.Format("Comparing directories failed: {0}",
+                                                   ex.GetBaseException() ?? ex),
+                                tag: "CompareDirectories",
+                                type: SyncLogType.Error);
                     }
                     finally
                     {
@@ -406,12 +482,13 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                  , creationOptions: TaskCreationOptions.LongRunning);
         }
 
-        [DebuggerStepThrough]
         private static Task CreateCopyFileTask(FileInfo src, FileInfo dest,
                                                ISyncJobExecutionContext execCtx)
         {
             return new Task((state) =>
                 {
+                    TrySetThreadPriority(ThreadPriority.BelowNormal);
+
                     var ctx = (ISyncJobExecutionContext)state;
 
                     try
@@ -435,9 +512,12 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                   dest.FullName,
                                   true);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        //TODO log
+                        ctx.Log(msg: string.Format("Copying file failed: {0}",
+                                                   ex.GetBaseException() ?? ex),
+                                tag: "CopyFile",
+                                type: SyncLogType.Error);
                     }
                     finally
                     {
@@ -454,21 +534,32 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
-                    var ctx = (ISyncJobExecutionContext)state;
+                    TrySetThreadPriority(ThreadPriority.BelowNormal);
 
+                    var ctx = (ISyncJobExecutionContext)state;
                     if (ctx.CancelToken.IsCancellationRequested)
                     {
                         return;
                     }
 
-                    file.Refresh();
-                    if (file.Exists)
+                    try
                     {
-                        file.Delete();
+                        file.Refresh();
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                            file.Refresh();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ctx.Log(msg: string.Format("Deleting file failed: {0}",
+                                                   ex.GetBaseException() ?? ex),
+                                tag: "CopyFile",
+                                type: SyncLogType.Error);
                     }
                 }, state: execCtx
-                 , cancellationToken: execCtx.CancelToken
-                 , creationOptions: TaskCreationOptions.LongRunning);
+                 , cancellationToken: execCtx.CancelToken);
         }
 
         private static Task CreateDelTreeTask(DirectoryInfo dir,
@@ -476,6 +567,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
+                    TrySetThreadPriority(ThreadPriority.BelowNormal);
+
                     var ctx = (ISyncJobExecutionContext)state;
 
                     try
@@ -500,6 +593,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                 NormalizePath(dir) == NormalizePath(ctx.DestionationDirectory))
                             {
                                 // do not delete source or destination directory
+
                                 return;
                             }
 
@@ -514,20 +608,26 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                             }
                             else
                             {
-                                //TODO warn message that directory is NOT empty
+                                ctx.Log(msg: string.Format("Directory '{0}' is NOT empty!",
+                                                           dir.FullName),
+                                        tag: "DelTree",
+                                        type: SyncLogType.Warning);
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        //TODO log
+                        ctx.Log(msg: string.Format("Deleting directory structure failed: {0}",
+                                                   ex.GetBaseException() ?? ex),
+                                tag: "DelTree",
+                                type: SyncLogType.Error);
                     }
                 }, state: execCtx
                  , cancellationToken: execCtx.CancelToken
                  , creationOptions: TaskCreationOptions.LongRunning);
         }
 
-        private FileSystemEventHandler CreateFileSystemEventHandler(ISyncJobExecutionContext ctx)
+        private FileSystemEventHandler CreateFileSystemEventHandlerForSource(ISyncJobExecutionContext ctx)
         {
             return new FileSystemEventHandler((sender, e) =>
                 {
@@ -536,45 +636,60 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         try
                         {
                             var watchedDir = Path.GetDirectoryName(e.FullPath);
-                            if (!watchedDir.EndsWith("\\"))
+                            var normalizedWatchedDir = ToComparablePath(watchedDir);
+
+                            var action = ctx.Queue
+                                            .OrderBy(a => ToComparablePath(a.Tag.AsString(true)), StringComparer.InvariantCultureIgnoreCase)
+                                            .FirstOrDefault(a => normalizedWatchedDir.Equals(a.Tag));
+                            if (action != null)
                             {
-                                watchedDir += "\\";
+                                return;
                             }
 
-                            ISyncJobAction action;
-                            if (!ctx.Queue.TryPeek(out action) ||
-                                (watchedDir.ToLower().Trim() != (action.Tag.AsString(true) ?? string.Empty).ToLower().Trim()))
-                            {
-                                var watchedUri = new Uri(watchedDir);
+                            var relativeSrcPath = GetRelativePath(ctx.SourceDirectory,
+                                                                  watchedDir);
 
-                                var srcPath = ctx.SourceDirectory.TrimEnd();
-                                if (!srcPath.EndsWith("\\"))
-                                {
-                                    srcPath += "\\";
-                                }
+                            action = new DelegateSyncAction(action: CompareDirectoriesSyncAction,
+                                                            src: new DirectoryInfo(watchedDir),
+                                                            dest: new DirectoryInfo(Path.Combine(ctx.DestionationDirectory,
+                                                                                                 relativeSrcPath)));
+                            action.Tag = normalizedWatchedDir;
 
-                                var srcUri = new Uri(srcPath);
-                                var relativeSrcPath = Uri.UnescapeDataString(
-                                    watchedUri.MakeRelativeUri(srcUri)
-                                              .ToString()
-                                              .Replace('/', Path.DirectorySeparatorChar));
-
-                                var newAction = new DelegateSyncAction(action: CompareDirectoriesSyncAction,
-                                                                       src: new DirectoryInfo(watchedDir),
-                                                                       dest: new DirectoryInfo(Path.Combine(ctx.DestionationDirectory,
-                                                                                                            relativeSrcPath)));
-                                newAction.Tag = watchedDir.ToLower().Trim();
-
-                                ctx.Queue
-                                   .Enqueue(newAction);
-                            }
+                            ctx.Queue
+                               .Enqueue(action);
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            //TODO log
+                            ctx.Log(msg: string.Format("Sync failed: {0}",
+                                                       ex.GetBaseException() ?? ex),
+                                    tag: "FileSystemEvent",
+                                    type: SyncLogType.Error);
                         }
                     }
                 });
+        }
+
+        private static void DisposeFileSystemWatcher(FileSystemWatcher watcher,
+                                                     FileSystemEventHandler handler,
+                                                     RenamedEventHandler renameHandler,
+                                                     ErrorEventHandler errorHandler)
+        {
+            if (handler != null)
+            {
+                watcher.Changed -= handler;
+                watcher.Created -= handler;
+                watcher.Deleted -= handler;
+            }
+
+            if (renameHandler != null)
+            {
+                watcher.Renamed -= renameHandler;
+            }
+
+            if (errorHandler != null)
+            {
+                watcher.Error -= errorHandler;
+            }
         }
 
         private void DisposeOldTask()
@@ -596,6 +711,27 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             this._queue = null;
             this._task = null;
             this._cancelSource = null;
+            this.State = SyncJobState.Stopped;
+        }
+
+        private static string GetRelativePath(string rootDir, string path)
+        {
+            rootDir = Path.GetFullPath(rootDir ?? string.Empty).TrimEnd();
+            if (!rootDir.EndsWith("\\"))
+            {
+                rootDir += "\\";
+            }
+
+            path = Path.GetFullPath(path ?? string.Empty).TrimEnd();
+            if (!path.EndsWith("\\"))
+            {
+                path += "\\";
+            }
+
+            return Uri.UnescapeDataString(new Uri(rootDir).MakeRelativeUri(new Uri(path))
+                                                          .ToString()
+                                                          .Replace('/',
+                                                                   Path.DirectorySeparatorChar));
         }
 
         private void HandleSyncActions(FileSystemWatcher watcher,
@@ -616,6 +752,14 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                     //TODO log
                 }
             }
+        }
+
+        private void Log(DateTimeOffset time,
+                         SyncLogType? type,
+                         string tag,
+                         object msg)
+        {
+
         }
 
         private static string NormalizePath(IEnumerable<char> fs)
@@ -650,6 +794,52 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return NormalizePath(fs.FullName);
         }
 
+        /// <summary>
+        /// Raises the <see cref="SyncJob.ProgressChanged" /> event.
+        /// </summary>
+        /// <param name="text">The status text.</param>
+        /// <param name="percentage">A value between -1 (no progress) and 100 (100 %).</param>
+        private void OnProgressChanged(IEnumerable<char> text = null,
+                                       int? percentage = null)
+        {
+            var statusText = (text.AsString() ?? string.Empty);
+            if (statusText == string.Empty)
+            {
+                statusText = null;
+            }
+
+            if (percentage < 0)
+            {
+                percentage = null;
+            }
+            else if (percentage > 100)
+            {
+                percentage = 100;
+            }
+
+            this.ProgressValue = percentage;
+            this.ProgressDescription = statusText;
+
+            var handler = this.ProgressChanged;
+            if (handler != null)
+            {
+                handler(this, new ProgressChangedEventArgs(progressPercentage: percentage ?? -1,
+                                                           userState: statusText));
+            }
+        }
+
+        private static void SetupFileSystemWatcher(FileSystemWatcher watcher,
+                                                   FileSystemEventHandler handler,
+                                                   RenamedEventHandler renameHandler,
+                                                   ErrorEventHandler errorHandler)
+        {
+            watcher.Changed += handler;
+            watcher.Created += handler;
+            watcher.Deleted += handler;
+            watcher.Error += errorHandler;
+            watcher.Renamed += renameHandler;
+        }
+
         private static void StartTasksAndWaitForAll(IEnumerable<Task> tasks,
                                                     ISyncJobExecutionContext ctx)
         {
@@ -677,6 +867,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
 
         private void TaskAction()
         {
+            TrySetThreadPriority(ThreadPriority.BelowNormal);
+
             var cancelSrc = this._cancelSource;
             if (cancelSrc == null)
             {
@@ -692,8 +884,10 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             var ctx = new SyncJobExeuctionContext()
                 {
                     CancelSource = cancelSrc,
-                    DestionationDirectory = Path.GetFullPath(this.DestionationDirectory),
+                    DestionationDirectory = Path.GetFullPath(this.DestinationDirectory),
                     Job = this,
+                    LogAction = this.Log,
+                    ProgressChangedHandler = this.OnProgressChanged,
                     Queue = queue,
                     SourceDirectory = Path.GetFullPath(this.SourceDirectory),
                     SyncRoot = new object(),
@@ -706,74 +900,89 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
 
                 try
                 {
+                    this.State = SyncJobState.Running;
+
                     // now 
-                    using (var watcher = new FileSystemWatcher())
+                    using (var srcWatcher = new FileSystemWatcher())
                     {
-                        FileSystemEventHandler handler = null;
-                        RenamedEventHandler renameHandler = null;
-                        ErrorEventHandler errorHandler = null;
+                        FileSystemEventHandler srcFsHandler = null;
+                        RenamedEventHandler srcRenameHandler = null;
+                        ErrorEventHandler srcErrHandler = null;
+
                         try
                         {
-                            handler = this.CreateFileSystemEventHandler(ctx);
-                            renameHandler = new RenamedEventHandler(handler);
+                            // setup 'srcWatcher'
+                            {
+                                srcFsHandler = this.CreateFileSystemEventHandlerForSource(ctx);
+                                srcRenameHandler = new RenamedEventHandler(srcFsHandler);
 
-                            errorHandler = (sender, e) =>
+                                srcErrHandler = (sender, e) =>
+                                    {
+                                        retry = true;
+                                    };
+
+                                SetupFileSystemWatcher(watcher: srcWatcher,
+                                                       handler: srcFsHandler,
+                                                       renameHandler: srcRenameHandler,
+                                                       errorHandler: srcErrHandler);
+
+                                srcWatcher.Path = ctx.SourceDirectory;
+                                srcWatcher.IncludeSubdirectories = true;
+                            }
+
+                            Action initalSync;
+                            this.InitalSyncAction = initalSync = () =>
                                 {
-                                    retry = true;
+                                    ctx.RaiseProgressChanged(text: "Start inital sync...");
+
+                                    srcFsHandler(srcWatcher,
+                                            new FileSystemEventArgs(WatcherChangeTypes.Changed,
+                                                                    srcWatcher.Path,
+                                                                    null));
                                 };
-
-                            watcher.Changed += handler;
-                            watcher.Created += handler;
-                            watcher.Deleted += handler;
-                            watcher.Error += errorHandler;
-                            watcher.Renamed += renameHandler;
-
-                            watcher.Path = ctx.SourceDirectory;
-                            watcher.IncludeSubdirectories = true;
 
                             lock (ctx.SyncRoot)
                             {
-                                watcher.EnableRaisingEvents = true;
+                                srcWatcher.EnableRaisingEvents = true;
 
-                                handler(watcher,
-                                        new FileSystemEventArgs(WatcherChangeTypes.Changed,
-                                                                watcher.Path,
-                                                                null));
+                                initalSync();
                             }
 
                             // now watch for sync actions
-                            this.HandleSyncActions(watcher,
+                            this.HandleSyncActions(srcWatcher,
                                                    ctx);
                         }
                         finally
                         {
-                            watcher.EnableRaisingEvents = false;
-
-                            if (handler != null)
+                            lock (ctx.SyncRoot)
                             {
-                                watcher.Changed -= handler;
-                                watcher.Created -= handler;
-                                watcher.Deleted -= handler;
+                                srcWatcher.EnableRaisingEvents = false;
                             }
 
-                            if (renameHandler != null)
-                            {
-                                watcher.Renamed -= renameHandler;
-                            }
-
-                            if (errorHandler != null)
-                            {
-                                watcher.Error -= errorHandler;
-                            }
+                            DisposeFileSystemWatcher(watcher: srcWatcher,
+                                                     handler: srcFsHandler,
+                                                     renameHandler: srcRenameHandler,
+                                                     errorHandler: srcErrHandler);
                         }
+                    }
+
+                    if (ctx.CancelSource.IsCancellationRequested)
+                    {
+                        this.State = SyncJobState.Canceled;
+                    }
+                    else
+                    {
+                        this.State = SyncJobState.Finished;
                     }
                 }
                 catch
                 {
-                    //TODO log
+                    this.State = SyncJobState.Faulted;
                 }
                 finally
                 {
+                    this.InitalSyncAction = null;
+
                     if (retry)
                     {
                         cancelSrc.Cancel();
@@ -783,7 +992,31 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             while (retry);
         }
 
-        [DebuggerStepThrough]
+        private static string ToComparablePath(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return null;
+            }
+
+            return Path.GetFullPath(input)
+                       .ToLower()
+                       .Trim();
+        }
+
+        private static bool TrySetThreadPriority(ThreadPriority prio)
+        {
+            try
+            {
+                Thread.CurrentThread.Priority = prio;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private static bool? TrySyncCreationTimes(FileSystemInfo src, FileSystemInfo dest)
         {
             try
@@ -803,7 +1036,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return null;
         }
 
-        [DebuggerStepThrough]
         private static bool? TrySyncLastWriteTimes(FileSystemInfo src, FileSystemInfo dest)
         {
             try

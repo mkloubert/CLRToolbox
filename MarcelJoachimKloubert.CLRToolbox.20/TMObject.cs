@@ -17,7 +17,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <summary>
         /// Initializes a new instance of the <see cref="TMObject" /> class.
         /// </summary>
-        /// <param name="syncRoot">The value for <see cref="TMObject._SYNC" /> field..</param>
+        /// <param name="syncRoot">The value for <see cref="TMObject._SYNC" /> field.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="syncRoot" /> is <see langword="null" />.
         /// </exception>

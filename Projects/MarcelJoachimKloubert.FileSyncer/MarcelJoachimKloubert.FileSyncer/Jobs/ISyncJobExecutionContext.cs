@@ -3,7 +3,9 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections.Generic;
 using System.Threading;
+using MarcelJoachimKloubert.FileSyncer.Diagnostics;
 using SyncJobActionQueue = System.Collections.Concurrent.ConcurrentQueue<MarcelJoachimKloubert.FileSyncer.Jobs.Actions.ISyncJobAction>;
 
 namespace MarcelJoachimKloubert.FileSyncer.Jobs
@@ -51,5 +53,27 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         object SyncRoot { get; }
 
         #endregion Data Members
+
+        #region Operations (2)
+
+        /// <summary>
+        /// Starts logging.
+        /// </summary>
+        /// <param name="msg">The message to log.</param>
+        /// <param name="tag">The log tag / category.</param>
+        /// <param name="type">The log type / icon.</param>
+        void Log(object msg,
+                 IEnumerable<char> tag = null,
+                 SyncLogType? type = null);
+
+        /// <summary>
+        /// Raises an event that teels that progress has been changed.
+        /// </summary>
+        /// <param name="text">The new status text.</param>
+        /// <param name="percentage">The new percentage value.</param>
+        void RaiseProgressChanged(IEnumerable<char> text = null,
+                                  int? percentage = null);
+
+        #endregion Operations
     }
 }

@@ -268,6 +268,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
+                    const string LOG_CATEGORY = "CompareDirectories";
+
                     TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
@@ -443,6 +445,11 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                             {
                                                 destSubDir.CreateDirectoryDeep(refreshBefore: false,
                                                                                refreshAfter: true);
+
+                                                ctx.Log(msg: string.Format("Destionation directory '{0}' was created.",
+                                                                           destSubDir.FullName),
+                                                        tag: LOG_CATEGORY,
+                                                        type: SyncLogType.OK);
                                             }
                                         }
                                         finally
@@ -467,9 +474,11 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                     }
                     catch (Exception ex)
                     {
-                        ctx.Log(msg: string.Format("Comparing directories failed: {0}",
+                        ctx.Log(msg: string.Format("Comparing directory '{0}' to '{1}' failed: {2}",
+                                                   src.FullName,
+                                                   dest.FullName,
                                                    ex.GetBaseException() ?? ex),
-                                tag: "CompareDirectories",
+                                tag: LOG_CATEGORY,
                                 type: SyncLogType.Error);
                     }
                     finally
@@ -487,6 +496,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
+                    const string LOG_CATEGORY = "CopyFile";
+
                     TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
@@ -511,12 +522,20 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         File.Copy(src.FullName,
                                   dest.FullName,
                                   true);
+
+                        ctx.Log(msg: string.Format("File '{0}' was copied to '{1}'.",
+                                                   src.FullName,
+                                                   dest.Directory.FullName),
+                                            tag: LOG_CATEGORY,
+                                            type: SyncLogType.OK);
                     }
                     catch (Exception ex)
                     {
-                        ctx.Log(msg: string.Format("Copying file failed: {0}",
+                        ctx.Log(msg: string.Format("Copying file '{0}' to '{1}' failed: {2}",
+                                                   src.FullName,
+                                                   dest.Directory.FullName,
                                                    ex.GetBaseException() ?? ex),
-                                tag: "CopyFile",
+                                tag: LOG_CATEGORY,
                                 type: SyncLogType.Error);
                     }
                     finally
@@ -534,6 +553,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
+                    const string LOG_CATEGORY = "CopyFile";
+
                     TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
@@ -549,13 +570,19 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         {
                             file.Delete();
                             file.Refresh();
+
+                            ctx.Log(msg: string.Format("File '{0}' was deleted.",
+                                                       file.FullName),
+                                            tag: LOG_CATEGORY,
+                                            type: SyncLogType.OK);
                         }
                     }
                     catch (Exception ex)
                     {
-                        ctx.Log(msg: string.Format("Deleting file failed: {0}",
+                        ctx.Log(msg: string.Format("Deleting file '{0}' failed: {1}",
+                                                   file.FullName,
                                                    ex.GetBaseException() ?? ex),
-                                tag: "CopyFile",
+                                tag: LOG_CATEGORY,
                                 type: SyncLogType.Error);
                     }
                 }, state: execCtx
@@ -567,6 +594,8 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
         {
             return new Task((state) =>
                 {
+                    const string LOG_CATEGORY = "DelTree";
+
                     TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
@@ -604,22 +633,28 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                 {
                                     dir.Delete();
                                     dir.Refresh();
+
+                                    ctx.Log(msg: string.Format("Directory '{0}' was deleted.",
+                                                               dir.FullName),
+                                            tag: LOG_CATEGORY,
+                                            type: SyncLogType.OK);
                                 }
                             }
                             else
                             {
                                 ctx.Log(msg: string.Format("Directory '{0}' is NOT empty!",
                                                            dir.FullName),
-                                        tag: "DelTree",
+                                        tag: LOG_CATEGORY,
                                         type: SyncLogType.Warning);
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        ctx.Log(msg: string.Format("Deleting directory structure failed: {0}",
+                        ctx.Log(msg: string.Format("Deleting directory structure '{0}' failed: {1}",
+                                                   dir.FullName,
                                                    ex.GetBaseException() ?? ex),
-                                tag: "DelTree",
+                                tag: LOG_CATEGORY,
                                 type: SyncLogType.Error);
                     }
                 }, state: execCtx
@@ -747,9 +782,12 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         action.Execute(ctx);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    //TODO log
+                    ctx.Log(msg: string.Format("Handling of sync action failed: {0}",
+                                                ex.GetBaseException() ?? ex),
+                            tag: "HandleSyncAction",
+                            type: SyncLogType.Error);
                 }
             }
         }
@@ -759,7 +797,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                          string tag,
                          object msg)
         {
-
+            //TODO
         }
 
         private static string NormalizePath(IEnumerable<char> fs)
@@ -767,7 +805,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             var fullName = fs.AsString();
             if (string.IsNullOrWhiteSpace(fullName))
             {
-                return null;
+                return string.Empty;
             }
 
             fullName = Path.GetFullPath(fullName.ToLower())
@@ -786,12 +824,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
 
         private static string NormalizePath(FileSystemInfo fs)
         {
-            if (fs == null)
-            {
-                return null;
-            }
-
-            return NormalizePath(fs.FullName);
+            return NormalizePath(fs != null ? fs.FullName : null);
         }
 
         /// <summary>
@@ -936,9 +969,9 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                     ctx.RaiseProgressChanged(text: "Start inital sync...");
 
                                     srcFsHandler(srcWatcher,
-                                            new FileSystemEventArgs(WatcherChangeTypes.Changed,
-                                                                    srcWatcher.Path,
-                                                                    null));
+                                                 new FileSystemEventArgs(WatcherChangeTypes.Changed,
+                                                                         srcWatcher.Path,
+                                                                         null));
                                 };
 
                             lock (ctx.SyncRoot)

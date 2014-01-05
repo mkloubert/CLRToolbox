@@ -167,7 +167,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
 
         #endregion Delegates and Events
 
-        #region Methods (25)
+        #region Methods (24)
 
         // Public Methods (4) 
 
@@ -252,7 +252,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                 this.DisposeOldTask();
             }
         }
-        // Private Methods (21) 
+        // Private Methods (20) 
 
         private static void CompareDirectoriesSyncAction(DirectoryInfo src, DirectoryInfo dest,
                                                          ISyncJobExecutionContext execCtx)
@@ -269,8 +269,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return new Task((state) =>
                 {
                     const string LOG_CATEGORY = "CompareDirectories";
-
-                    TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
 
@@ -487,8 +485,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         TrySyncLastWriteTimes(src, dest);
                     }
                 }, state: execCtx
-                 , cancellationToken: execCtx.CancelToken
-                 , creationOptions: TaskCreationOptions.LongRunning);
+                 , cancellationToken: execCtx.CancelToken);
         }
 
         private static Task CreateCopyFileTask(FileInfo src, FileInfo dest,
@@ -497,8 +494,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return new Task((state) =>
                 {
                     const string LOG_CATEGORY = "CopyFile";
-
-                    TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
 
@@ -544,8 +539,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                         TrySyncLastWriteTimes(src, dest);
                     }
                 }, state: execCtx
-                 , cancellationToken: execCtx.CancelToken
-                 , creationOptions: TaskCreationOptions.LongRunning);
+                 , cancellationToken: execCtx.CancelToken);
         }
 
         private static Task CreateDeleteFileTask(FileInfo file,
@@ -554,8 +548,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return new Task((state) =>
                 {
                     const string LOG_CATEGORY = "CopyFile";
-
-                    TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
                     if (ctx.CancelToken.IsCancellationRequested)
@@ -595,8 +587,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return new Task((state) =>
                 {
                     const string LOG_CATEGORY = "DelTree";
-
-                    TrySetThreadPriority(ThreadPriority.BelowNormal);
 
                     var ctx = (ISyncJobExecutionContext)state;
 
@@ -658,8 +648,7 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
                                 type: SyncLogType.Error);
                     }
                 }, state: execCtx
-                 , cancellationToken: execCtx.CancelToken
-                 , creationOptions: TaskCreationOptions.LongRunning);
+                 , cancellationToken: execCtx.CancelToken);
         }
 
         private FileSystemEventHandler CreateFileSystemEventHandlerForSource(ISyncJobExecutionContext ctx)
@@ -901,8 +890,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
 
         private void TaskAction()
         {
-            TrySetThreadPriority(ThreadPriority.BelowNormal);
-
             var cancelSrc = this._cancelSource;
             if (cancelSrc == null)
             {
@@ -1036,19 +1023,6 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
             return Path.GetFullPath(input)
                        .ToLower()
                        .Trim();
-        }
-
-        private static bool TrySetThreadPriority(ThreadPriority prio)
-        {
-            try
-            {
-                Thread.CurrentThread.Priority = prio;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         private static bool? TrySyncCreationTimes(FileSystemInfo src, FileSystemInfo dest)

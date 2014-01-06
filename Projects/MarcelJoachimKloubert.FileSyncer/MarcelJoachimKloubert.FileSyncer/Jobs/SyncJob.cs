@@ -210,21 +210,20 @@ namespace MarcelJoachimKloubert.FileSyncer.Jobs
 
                 this.DisposeOldTask();
 
-                CancellationTokenSource newCancelSrc = null;
-                Task newTask = null;
                 try
                 {
-                    newCancelSrc = new CancellationTokenSource();
+                    var newCancelSrc = new CancellationTokenSource();
 
-                    newTask = new Task(this.TaskAction,
-                                       newCancelSrc.Token,
-                                       TaskCreationOptions.LongRunning);
+                    var newTask = new Task(action: this.TaskAction,
+                                           cancellationToken: newCancelSrc.Token,
+                                           creationOptions: TaskCreationOptions.LongRunning);
+
+                    this._cancelSource = newCancelSrc;
+                    this._queue = new SyncJobActionQueue();
 
                     this.State = SyncJobState.Running;
                     newTask.Start();
 
-                    this._cancelSource = newCancelSrc;
-                    this._queue = new SyncJobActionQueue();
                     this._task = newTask;
                 }
                 catch

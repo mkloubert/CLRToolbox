@@ -34,4 +34,14 @@ namespace System
     public delegate TResult Func<T1, T2, TResult>(T1 arg1, T2 arg2);
 
     #endregion
+
+    #region DELEGATE: Func<T1, T2, T3, TResult>
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <see href="http://msdn.microsoft.com/en-us/library/bb549430%28v=vs.110%29.aspx" />
+    public delegate TResult Func<T1, T2, T3, TResult>(T1 arg1, T2 arg2, T3 arg3);
+
+    #endregion
 }

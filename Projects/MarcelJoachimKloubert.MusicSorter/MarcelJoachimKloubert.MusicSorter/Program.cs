@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.MusicSorter
     {
         #region Methods (2)
 
-        // Private Methods (2) 
+        // Public Methods (1) 
 
         public static void InitVLC()
         {
@@ -29,10 +29,8 @@ namespace MarcelJoachimKloubert.MusicSorter
 
             VlcContext.Initialize();
         }
+        // Private Methods (1) 
 
-        /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
-        /// </summary>
         [STAThread]
         private static void Main()
         {
@@ -43,7 +41,7 @@ namespace MarcelJoachimKloubert.MusicSorter
 
             Application.Run(new MainForm());
 
-            VlcContext.CloseAll(); 
+            VlcContext.CloseAll();
         }
 
         #endregion Methods

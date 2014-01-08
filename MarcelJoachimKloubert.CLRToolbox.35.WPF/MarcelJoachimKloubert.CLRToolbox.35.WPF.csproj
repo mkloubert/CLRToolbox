@@ -55,6 +55,7 @@
     <Compile Include="Data\Impl\DelegateToCommandValueConverter.cs" />
     <Compile Include="Data\ValueConverterBase.cs" />
     <Compile Include="Data\ValueConverterBase.Interface.cs" />
+    <Compile Include="Extensions\ClrToolboxWpfExtensionMethods.cs" />
     <Compile Include="Input\SimpleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

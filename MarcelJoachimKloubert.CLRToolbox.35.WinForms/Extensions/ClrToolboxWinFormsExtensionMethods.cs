@@ -5,7 +5,10 @@
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms
 {
-    static partial class ClrToolboxWinFormsExtensionMethods
+    /// <summary>
+    /// Extension methods for Windows Forms operations.
+    /// </summary>
+    public static partial class ClrToolboxWinFormsExtensionMethods
     {
 
     }

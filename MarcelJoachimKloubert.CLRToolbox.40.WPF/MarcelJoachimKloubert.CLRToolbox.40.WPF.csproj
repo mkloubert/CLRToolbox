@@ -85,6 +85,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </EmbeddedResource>
     <None Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\MarcelJoachimKloubert.CLRToolbox.WPF.snk">
       <Link>MarcelJoachimKloubert.CLRToolbox.WPF.snk</Link>
     </None>

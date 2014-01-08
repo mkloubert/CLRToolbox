@@ -49,6 +49,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </EmbeddedResource>
     <None Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\MarcelJoachimKloubert.CLRToolbox.WinForms.snk">
       <Link>MarcelJoachimKloubert.CLRToolbox.WinForms.snk</Link>
     </None>

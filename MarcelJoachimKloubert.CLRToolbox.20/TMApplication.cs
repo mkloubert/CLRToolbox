@@ -28,7 +28,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Properties (4)
+        #region Properties (5)
 
         /// <summary>
         /// Gets the underlying application domain.
@@ -62,6 +62,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public static Process Process
         {
             get { return Process.GetCurrentProcess(); }
+        }
+
+        /// <summary>
+        /// Gets the number of bits the current process is using for accessing memory.
+        /// </summary>
+        public static int ProcessBits
+        {
+            get { return IntPtr.Size * 8; }
         }
 
         #endregion Properties

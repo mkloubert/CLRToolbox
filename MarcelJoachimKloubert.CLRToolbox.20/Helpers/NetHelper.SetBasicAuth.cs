@@ -28,7 +28,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         {
             if (request == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("request");
             }
 
             string user = StringHelper.AsString(userName) ?? string.Empty;

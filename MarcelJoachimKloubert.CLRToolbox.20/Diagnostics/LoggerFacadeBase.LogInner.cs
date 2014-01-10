@@ -43,7 +43,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 MemberInfo member = null;
                 try
                 {
+#pragma warning disable 618
                     StackTrace st = new StackTrace(thread, false);
+#pragma warning restore 618
                     StackFrame sf = st.GetFrame(2);
 
                     member = sf.GetMethod();

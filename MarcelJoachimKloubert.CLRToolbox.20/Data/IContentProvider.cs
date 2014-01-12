@@ -6,6 +6,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Security.Cryptography;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data
@@ -15,12 +16,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
     /// </summary>
     public interface IContentProvider : ITMObject
     {
-        #region Data Members (1)
+        #region Data Members (2)
 
         /// <summary>
-        /// Gets the lower case MIME type of the data of that file (if available).
+        /// If available, gets the lower case MIME type of the data of that file (if available).
         /// </summary>
         string ContentType { get; }
+
+        /// <summary>
+        /// If available, gets the encoding of the underlying content.
+        /// </summary>
+        Encoding Encoding { get; }
 
         #endregion Data Members
 

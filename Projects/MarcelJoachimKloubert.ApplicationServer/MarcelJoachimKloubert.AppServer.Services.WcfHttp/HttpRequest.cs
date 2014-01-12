@@ -319,7 +319,7 @@ namespace MarcelJoachimKloubert.AppServer.Services.WcfHttp
                             {
                                 // uploaded file
                                 var newFile = new SimpleFile();
-                                newFile.ContentType = string.IsNullOrWhiteSpace(part.CONTENT_TYPE) ? "application/octet-stream" : part.CONTENT_TYPE.ToLower().Trim();
+                                newFile.SetContentType(string.IsNullOrWhiteSpace(part.CONTENT_TYPE) ? "application/octet-stream" : part.CONTENT_TYPE.ToLower().Trim());
                                 newFile.Name = part.FILE_NAME.Trim();
                                 newFile.SetData(data);
 

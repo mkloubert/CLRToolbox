@@ -80,9 +80,12 @@
       <DependentUpon>CommonConverter.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\CommonConverter.cs" />
+    <Compile Include="Data\ContentProviderBase.cs" />
     <Compile Include="Data\ConverterBase.cs" />
     <Compile Include="Data\DatabaseBase.cs" />
     <Compile Include="Data\DataConnectionBase.cs" />
+    <Compile Include="Data\Documents\DocumentBase.cs" />
+    <Compile Include="Data\Documents\IDocument.cs" />
     <Compile Include="Data\Entities\EntityBase.cs" />
     <Compile Include="Data\Entities\EntityBase.dotNet.cs">
       <DependentUpon>EntityBase.cs</DependentUpon>

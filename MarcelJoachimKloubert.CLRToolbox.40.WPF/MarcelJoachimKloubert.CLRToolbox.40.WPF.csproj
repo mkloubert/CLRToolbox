@@ -50,6 +50,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Behaviours\WebBrowser.cs">
+      <Link>Behaviours\WebBrowser.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Collections\ObjectModel\SynchronizedObservableCollection.cs">
+      <Link>Collections\ObjectModel\SynchronizedObservableCollection.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\CommandValueConverterBase.cs">
       <Link>Data\CommandValueConverterBase.cs</Link>
     </Compile>
@@ -64,6 +70,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\ValueConverterBase.Interface.cs">
       <Link>Data\ValueConverterBase.Interface.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\ClrToolboxWpfExtensionMethods.cs">
+      <Link>Extensions\ClrToolboxWpfExtensionMethods.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Input\SimpleCommand.cs">
       <Link>Input\SimpleCommand.cs</Link>

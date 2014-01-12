@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Security.Cryptography;
+using System.Text;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
@@ -16,12 +16,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// <summary>
     /// Simple implementation of <see cref="IFile" /> interface.
     /// </summary>
-    public sealed class SimpleFile : TMObject, IFile
+    public sealed class SimpleFile : ContentProviderBase, IFile
     {
-        #region Fields (5)
+        #region Fields (6)
 
         private string _contentType;
         private DestructorHandler _destructor;
+        private Encoding _encoding;
         private GetDisplayNameHandler _getDisplayNameFunc;
         private string _name;
         private OpenStreamHandler _openStreamFunc;
@@ -44,17 +45,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #endregion Constructors
 
-        #region Properties (6)
+        #region Properties (7)
 
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="IContentProvider.ContentType" />
-        public string ContentType
+        /// <see cref="ContentProviderBase.ContentType" />
+        public override string ContentType
         {
             get { return this._contentType; }
-
-            set { this._contentType = value; }
         }
 
         /// <summary>
@@ -74,6 +73,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         public string DisplayName
         {
             get { return this.GetDisplayName(CultureInfo.CurrentCulture); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="ContentProviderBase.Encoding" />
+        public override Encoding Encoding
+        {
+            get { return this._encoding; }
         }
 
         /// <summary>
@@ -118,6 +126,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// </summary>
         /// <param name="file">The underlying instance.</param>
         public delegate void DestructorHandler(SimpleFile file);
+
         /// <summary>
         /// Describes logic for the <see cref="SimpleFile.GetDisplayName(CultureInfo)" /> method.
         /// </summary>
@@ -125,6 +134,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <param name="culture">The underlying culture.</param>
         /// <returns>The display name.</returns>
         public delegate IEnumerable<char> GetDisplayNameHandler(SimpleFile file, CultureInfo culture);
+
         /// <summary>
         /// Describes logic for the <see cref="SimpleFile.OpenStream()" /> method.
         /// </summary>
@@ -132,74 +142,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #endregion Delegates and Events
 
-        #region Methods (11)
+        #region Methods (6)
 
-        // Public Methods (11) 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.CalculateHashOfContent()" />
-        public byte[] CalculateHashOfContent()
-        {
-            return this.CalculateHashOfContent<global::MarcelJoachimKloubert.CLRToolbox.Security.Cryptography.Crc32>();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.CalculateHashOfContent{TAlgo}()" />
-        public byte[] CalculateHashOfContent<TAlgo>() where TAlgo : HashAlgorithm, new()
-        {
-            using (TAlgo a = new TAlgo())
-            {
-                return this.CalculateHashOfContent(a);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.CalculateHashOfContent(HashAlgorithm)" />
-        public byte[] CalculateHashOfContent(HashAlgorithm algo)
-        {
-            if (algo == null)
-            {
-                throw new ArgumentNullException("algo");
-            }
-
-            using (Stream stream = this.OpenStream())
-            {
-                if (stream != null)
-                {
-                    return algo.ComputeHash(stream);
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.GetData()" />
-        public byte[] GetData()
-        {
-            using (Stream stream = this.OpenStream())
-            {
-                if (stream != null)
-                {
-                    using (MemoryStream temp = new MemoryStream())
-                    {
-                        IOHelper.CopyTo(stream, temp);
-
-                        return temp.ToArray();
-                    }
-                }
-            }
-
-            return null;
-        }
+        // Public Methods (6) 
 
         /// <summary>
         /// 
@@ -224,37 +169,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <summary>
         /// 
         /// </summary>
-        /// <see cref="IContentProvider.GetHashOfContentAsHexString()" />
-        public string GetHashOfContentAsHexString()
-        {
-            return StringHelper.AsHexString(this.CalculateHashOfContent());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.GetHashOfContentAsHexString{TAlgo}()" />
-        public string GetHashOfContentAsHexString<TAlgo>() where TAlgo : HashAlgorithm, new()
-        {
-            return StringHelper.AsHexString(this.CalculateHashOfContent<TAlgo>());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.GetHashOfContentAsHexString(HashAlgorithm)" />
-        public string GetHashOfContentAsHexString(HashAlgorithm algo)
-        {
-            return StringHelper.AsHexString(this.CalculateHashOfContent(algo));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IContentProvider.OpenStream()" />
-        public Stream OpenStream()
+        /// <see cref="ContentProviderBase.OpenStream()" />
+        public override Stream OpenStream()
         {
             return this.OpenStreamFunc();
+        }
+
+        /// <summary>
+        /// Sets the value for <see cref="SimpleFile.ContentType" /> property.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void SetContentType(IEnumerable<char> newValue)
+        {
+            this._contentType = StringHelper.AsString(newValue);
         }
 
         /// <summary>
@@ -271,6 +198,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                 {
                     return new MemoryStream(CollectionHelper.AsArray(data));
                 });
+        }
+
+        /// <summary>
+        /// Sets the value for <see cref="SimpleFile.Encoding" /> property.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void SetEncoding(Encoding newValue)
+        {
+            this._encoding = newValue;
         }
 
         /// <summary>

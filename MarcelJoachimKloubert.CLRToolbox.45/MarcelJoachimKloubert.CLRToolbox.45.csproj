@@ -131,6 +131,9 @@
       <Link>Data\CommonConverter.ParseInputValueForChangeType.cs</Link>
       <DependentUpon>CommonConverter.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\ContentProviderBase.cs">
+      <Link>Data\ContentProviderBase.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\ConverterBase.cs">
       <Link>Data\ConverterBase.cs</Link>
     </Compile>
@@ -139,6 +142,12 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\DataConnectionBase.cs">
       <Link>Data\DataConnectionBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\documents\DocumentBase.cs">
+      <Link>Documents\DocumentBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\documents\IDocument.cs">
+      <Link>Documents\IDocument.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\EntityBase.cs">
       <Link>Data\Entities\EntityBase.cs</Link>

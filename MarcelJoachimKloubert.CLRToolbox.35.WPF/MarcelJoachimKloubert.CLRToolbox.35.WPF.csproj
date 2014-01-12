@@ -49,6 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\WebBrowser.cs" />
     <Compile Include="Collections\ObjectModel\SynchronizedObservableCollection.cs" />
     <Compile Include="Data\CommandValueConverterBase.cs" />
     <Compile Include="Data\Impl\CommandValueConverter.cs" />

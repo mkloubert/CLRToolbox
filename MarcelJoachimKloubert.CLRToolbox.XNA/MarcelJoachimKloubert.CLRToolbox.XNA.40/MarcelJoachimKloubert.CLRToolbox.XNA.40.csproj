@@ -525,8 +525,18 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\IFile.cs">
       <Link>IO\IFile.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\NonDisposableStream.CallBehaviour.cs">
+      <Link>IO\NonDisposableStream.CallBehaviour.cs</Link>
+      <DependentUpon>NonDisposableStream.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\NonDisposableStream.cs">
+      <Link>IO\NonDisposableStream.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\SimpleFile.cs">
       <Link>IO\SimpleFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamWrapperBase.cs">
+      <Link>IO\StreamWrapperBase.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\SystemConsole.cs">
       <Link>IO\SystemConsole.cs</Link>

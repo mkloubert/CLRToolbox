@@ -10,6 +10,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using MarcelJoachimKloubert.CLRToolbox.Data;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -84,7 +86,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             else if (obj is Stream)
             {
                 // handle blob as UTF-8 string data
-                using (StreamReader reader = new StreamReader((Stream)obj, Encoding.UTF8, true))
+                using (StreamReader reader = new StreamReader(new NonDisposableStream(obj as Stream),
+                                                              Encoding.UTF8))
                 {
                     return AsString(reader, true);
                 }
@@ -109,6 +112,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 }
 
                 return AsString(xml, true);
+            }
+            else if (obj is IContentProvider)
+            {
+                IContentProvider provider = (IContentProvider)obj;
+
+                Stream stream = provider.OpenStream();
+                if (stream != null)
+                {
+                    using (StreamReader reader = new StreamReader(stream,
+                                                                  provider.Encoding ?? Encoding.UTF8,
+                                                                  false))
+                    {
+                        return AsString(reader, true);
+                    }
+                }
+
+                return null;
             }
             else if ((obj is IEnumerable<string>) ||
                      (obj is IEnumerable<IEnumerable<char>>))

@@ -405,7 +405,12 @@
     </Compile>
     <Compile Include="Data\IContentProvider.cs" />
     <Compile Include="IO\IFile.cs" />
+    <Compile Include="IO\NonDisposableStream.CallBehaviour.cs">
+      <DependentUpon>NonDisposableStream.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\NonDisposableStream.cs" />
     <Compile Include="IO\SimpleFile.cs" />
+    <Compile Include="IO\StreamWrapperBase.cs" />
     <Compile Include="IO\SystemConsole.cs" />
     <Compile Include="IO\SystemConsole.dotNET.cs">
       <DependentUpon>SystemConsole.cs</DependentUpon>

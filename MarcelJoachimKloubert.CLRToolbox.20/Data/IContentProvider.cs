@@ -81,7 +81,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         string GetHashOfContentAsHexString(HashAlgorithm algo);
 
         /// <summary>
-        /// Opens a stream that can access the data of the file.
+        /// Opens a new stream that can access the data of the file.
         /// </summary>
         /// <returns>The stream that accesses the data of the file.</returns>
         Stream OpenStream();

@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\ValueConverterBase.Interface.cs">
       <Link>Data\ValueConverterBase.Interface.cs</Link>
+      <DependentUpon>ValueConverterBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\extensions\ClrToolboxWpfExtensionMethods.cs">
       <Link>Extensions\ClrToolboxWpfExtensionMethods.cs</Link>

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.VlcControl_Main = new Vlc.DotNet.Forms.VlcControl();
+            this.TrackBar_CurrentSong = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_CurrentSong)).BeginInit();
             this.SuspendLayout();
             // 
             // VlcControl_Main
@@ -40,11 +42,20 @@
             this.VlcControl_Main.Size = new System.Drawing.Size(0, 0);
             this.VlcControl_Main.TabIndex = 2;
             // 
+            // TrackBar_CurrentSong
+            // 
+            this.TrackBar_CurrentSong.Location = new System.Drawing.Point(61, 49);
+            this.TrackBar_CurrentSong.Name = "TrackBar_CurrentSong";
+            this.TrackBar_CurrentSong.Size = new System.Drawing.Size(104, 45);
+            this.TrackBar_CurrentSong.TabIndex = 3;
+            this.TrackBar_CurrentSong.ValueChanged += new System.EventHandler(this.TrackBar_CurrentSong_ValueChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 150);
+            this.Controls.Add(this.TrackBar_CurrentSong);
             this.Controls.Add(this.VlcControl_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MinimizeBox = false;
@@ -52,13 +63,16 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MusicSorter";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_CurrentSong)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private Vlc.DotNet.Forms.VlcControl VlcControl_Main;
+        private System.Windows.Forms.TrackBar TrackBar_CurrentSong;
     }
 }
 

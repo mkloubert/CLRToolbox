@@ -44,6 +44,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -1495,6 +1496,12 @@
     <Compile Include="Data\IQueryableDatabase.cs" />
     <Compile Include="Data\QueryableAdoDatabaseBase.cs" />
     <Compile Include="Data\QueryableDatabaseBase.cs" />
+    <Compile Include="Diagnostics\Remoting\IRemoteDebugger.cs" />
+    <Compile Include="Diagnostics\Remoting\IRemoteDebuggerCallback.cs" />
+    <Compile Include="Diagnostics\Remoting\RemoteDebuggerBase.cs" />
+    <Compile Include="Diagnostics\Remoting\RemoteDebuggerCallbackBase.cs" />
+    <Compile Include="Diagnostics\Remoting\RemoteLogMessage.cs" />
+    <Compile Include="Diagnostics\Remoting\RemoteLogMessageSender.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
     <Compile Include="Extensions\Collections.IsEmpty.cs">
       <DependentUpon>Collections.cs</DependentUpon>

@@ -11,16 +11,20 @@ using MarcelJoachimKloubert.CLRToolbox.Helpers;
 namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
     /// <summary>
-    /// A general Wrapper for a <see cref="Stream" />.
+    /// A general wrapper for a <see cref="Stream" />.
     /// </summary>
     public abstract class StreamWrapperBase : Stream
     {
-        #region Fields (1)
+        #region Fields (2)
 
         /// <summary>
         /// Stores the inner stream.
         /// </summary>
         protected readonly Stream _BASE_STREAM;
+        /// <summary>
+        /// An unique object for thread safe operations.
+        /// </summary>
+        protected object _SYNC = new object();
 
         #endregion Fields
 

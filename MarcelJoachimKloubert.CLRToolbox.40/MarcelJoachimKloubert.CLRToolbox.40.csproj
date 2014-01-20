@@ -47,6 +47,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -1493,6 +1494,24 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Data\QueryableDatabaseBase.cs">
       <Link>Data\QueryableDatabaseBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Diagnostics\Remoting\IRemoteDebugger.cs">
+      <Link>Diagnostics\Remoting\IRemoteDebugger.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Diagnostics\Remoting\IRemoteDebuggerCallback.cs">
+      <Link>Diagnostics\Remoting\IRemoteDebuggerCallback.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Diagnostics\Remoting\RemoteDebuggerBase.cs">
+      <Link>Diagnostics\Remoting\RemoteDebuggerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Diagnostics\Remoting\RemoteDebuggerCallbackBase.cs">
+      <Link>Diagnostics\Remoting\RemoteDebuggerCallbackBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Diagnostics\Remoting\RemoteLogMessage.cs">
+      <Link>Diagnostics\Remoting\RemoteLogMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Diagnostics\Remoting\RemoteLogMessageSender.cs">
+      <Link>Diagnostics\Remoting\RemoteLogMessageSender.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ClrToolboxExtensionMethods.cs">
       <Link>Extensions\ClrToolboxExtensionMethods.cs</Link>

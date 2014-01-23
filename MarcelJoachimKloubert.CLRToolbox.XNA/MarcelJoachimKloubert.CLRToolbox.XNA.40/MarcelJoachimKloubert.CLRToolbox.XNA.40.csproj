@@ -803,6 +803,21 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\IStructuralComparable.cs">
+      <Link>_Compatibility\System\Collections\IStructuralComparable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\IStructuralEquatable.cs">
+      <Link>_Compatibility\System\Collections\IStructuralEquatable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\ITuple.cs">
+      <Link>_Compatibility\System\ITuple.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\TMTupleBase.cs">
+      <Link>_Compatibility\System\TMTupleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Tuple.cs">
+      <Link>_Compatibility\System\Tuple.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Entities\EntityBase.GetPropertyName.cs">
       <Link>Data\Entities\EntityBase.GetPropertyName.cs</Link>
       <DependentUpon>EntityBase.cs</DependentUpon>

@@ -960,6 +960,21 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\collections\generic\IReadOnlyDictionary.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\IStructuralComparable.cs">
+      <Link>_Compatibility\System\Collections\IStructuralComparable.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\IStructuralEquatable.cs">
+      <Link>_Compatibility\System\Collections\IStructuralEquatable.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\ITuple.cs">
+      <Link>_Compatibility\System\ITuple.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\TMTupleBase.cs">
+      <Link>_Compatibility\System\TMTupleBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Tuple.cs">
+      <Link>_Compatibility\System\Tuple.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
     </Compile>

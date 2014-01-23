@@ -115,17 +115,21 @@ namespace System
 
         int IStructuralEquatable.GetHashCode(IEqualityComparer comparer)
         {
-            IEnumerable<object> hashCodes = CollectionHelper.Select(this.GetTupleFieldValues(),
+            object[] fieldValues = this.GetTupleFieldValues();
+
+            // calculate hashes for each tuple value
+            IEnumerable<object> hashCodes = CollectionHelper.Select(fieldValues,
                                                                     delegate(object v)
                                                                     {
                                                                         return (object)comparer.GetHashCode(v);
                                                                     });
 
+            // find Tuple.CombineHashCodes method
             MethodInfo getHashCodeMethod = CollectionHelper.Single(typeof(global::System.Tuple).GetMethods(BindingFlags.NonPublic | BindingFlags.Static),
                                                                    delegate(MethodInfo m)
                                                                    {
                                                                        return m.Name == "CombineHashCodes" &&
-                                                                              m.GetParameters().Length == this.GetTupleFields().Length;
+                                                                              m.GetParameters().Length == fieldValues.Length;
                                                                    });
 
             return (int)getHashCodeMethod.Invoke(null,
@@ -141,16 +145,15 @@ namespace System
         {
             StringBuilder result = new StringBuilder();
 
-            FieldInfo[] fields = this.GetTupleFields();
-            for (int i = 0; i < fields.Length; i++)
+            object[] fieldValues = this.GetTupleFieldValues();
+            for (int i = 0; i < fieldValues.Length; i++)
             {
                 if (i > 0)
                 {
                     result.Append(", ");
                 }
 
-                FieldInfo f = fields[i];
-
+                result.Append(fieldValues[i]);
             }
 
             result.Append(")");

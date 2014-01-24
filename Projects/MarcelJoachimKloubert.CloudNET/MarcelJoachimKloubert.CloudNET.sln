@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CloudNET", "MarcelJoachimKloubert.CloudNET\MarcelJoachimKloubert.CloudNET.csproj", "{82F9D3F8-0EAE-4F22-B72D-FCD8EE960E2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CloudNET.FileSync", "MarcelJoachimKloubert.CloudNET.FileSync\MarcelJoachimKloubert.CloudNET.FileSync.csproj", "{B204EE88-679B-4AF7-8B6E-2ED50173D967}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libs", "External Libs", "{4D0EB3CC-96AD-4A5A-A2E1-F4EC2A539956}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45", "..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj", "{C24AE28B-5BE0-44A7-9232-11E090AA0641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45.Web", "..\..\MarcelJoachimKloubert.CLRToolbox.45.Web\MarcelJoachimKloubert.CLRToolbox.45.Web.csproj", "{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45.WinForms", "..\..\MarcelJoachimKloubert.CLRToolbox.45.WinForms\MarcelJoachimKloubert.CLRToolbox.45.WinForms.csproj", "{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82F9D3F8-0EAE-4F22-B72D-FCD8EE960E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F9D3F8-0EAE-4F22-B72D-FCD8EE960E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F9D3F8-0EAE-4F22-B72D-FCD8EE960E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F9D3F8-0EAE-4F22-B72D-FCD8EE960E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B204EE88-679B-4AF7-8B6E-2ED50173D967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B204EE88-679B-4AF7-8B6E-2ED50173D967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B204EE88-679B-4AF7-8B6E-2ED50173D967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B204EE88-679B-4AF7-8B6E-2ED50173D967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641} = {4D0EB3CC-96AD-4A5A-A2E1-F4EC2A539956}
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0} = {4D0EB3CC-96AD-4A5A-A2E1-F4EC2A539956}
+		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D} = {4D0EB3CC-96AD-4A5A-A2E1-F4EC2A539956}
+	EndGlobalSection
+EndGlobal

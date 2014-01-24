@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.MetalVZ", "MarcelJoachimKloubert.MetalVZ\MarcelJoachimKloubert.MetalVZ.csproj", "{D7D79582-1E90-4552-8C16-00210369C617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45", "..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj", "{C24AE28B-5BE0-44A7-9232-11E090AA0641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45.Web", "..\..\MarcelJoachimKloubert.CLRToolbox.45.Web\MarcelJoachimKloubert.CLRToolbox.45.Web.csproj", "{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7D79582-1E90-4552-8C16-00210369C617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D79582-1E90-4552-8C16-00210369C617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D79582-1E90-4552-8C16-00210369C617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D79582-1E90-4552-8C16-00210369C617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -575,6 +575,67 @@
     <Compile Include="_Compatibility\System\ITuple.cs" />
     <Compile Include="_Compatibility\System\Tuple.cs" />
     <Compile Include="_Compatibility\System\TMTupleBase.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Constants.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Exception.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2InputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2OutputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Checksums\Adler32.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Checksums\CRC32.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Checksums\IChecksum.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Checksums\StrangeCRC.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\FileSystemScanner.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\INameTransform.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\IScanFilter.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\NameFilter.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\PathFilter.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\StreamUtils.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Core\WindowsPathUtils.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Encryption\PkzipClassic.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Encryption\ZipAESStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Encryption\ZipAESTransform.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\GZip\GZIPConstants.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\GZip\GZipException.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\GZip\GzipInputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\GZip\GzipOutputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Lzw\LzwConstants.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Lzw\LzwException.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Lzw\LzwInputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\SharpZipBaseException.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\InvalidHeaderException.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarArchive.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarBuffer.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarEntry.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarException.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarHeader.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarInputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Tar\TarOutputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Deflater.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterConstants.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterEngine.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterPending.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Inflater.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\InflaterDynHeader.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\PendingBuffer.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\DeflaterOutputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\InflaterInputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\StreamManipulator.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\FastZip.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\IEntryFactory.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\WindowsNameTransform.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipConstants.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipEntry.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipEntryFactory.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipException.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipExtraData.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipFile.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipHelperStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipInputStream.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipNameTransform.cs" />
+    <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipOutputStream.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs" />
@@ -763,10 +824,22 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <None Include="MarcelJoachimKloubert.CLRToolbox.snk" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\ReadMe.rtf" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_Embedded\Newtonsoft.Json\license.txt" />
     <EmbeddedResource Include="_Embedded\Newtonsoft.Json\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\Changes.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\COPYING.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\appnote.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc-deflate.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc-gzip.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc-zlib.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1950.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1951.txt" />
+    <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1952.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

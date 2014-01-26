@@ -62,11 +62,6 @@ namespace System
 
         private FieldInfo[] GetTupleFields()
         {
-            return this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-        }
-
-        private object[] GetTupleFieldValues()
-        {
             IEnumerable<FieldInfo> fields = CollectionHelper.Where(this.GetType()
                                                                        .GetFields(BindingFlags.Instance | BindingFlags.NonPublic),
                                                                    delegate(FieldInfo f)
@@ -76,6 +71,17 @@ namespace System
                                                                    });
 
             return CollectionHelper.ToArray(fields);
+        }
+
+        private object[] GetTupleFieldValues()
+        {
+            IEnumerable<object> values = CollectionHelper.Select(this.GetTupleFields(),
+                                                                 delegate(FieldInfo f)
+                                                                 {
+                                                                     return f.GetValue(this);
+                                                                 });
+
+            return CollectionHelper.ToArray(values);
         }
 
         int IComparable.CompareTo(object obj)

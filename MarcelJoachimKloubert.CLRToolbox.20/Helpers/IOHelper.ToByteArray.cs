@@ -55,6 +55,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentNullException("stream");
             }
 
+            if (bufferSize < 1)
+            {
+                throw new ArgumentOutOfRangeException("bufferSize");
+            }
+
             MemoryStream ms = stream as MemoryStream;
             if (ms != null)
             {

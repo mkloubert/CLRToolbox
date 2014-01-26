@@ -218,7 +218,8 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// A writable tuple with one item.
     /// </summary>
     /// <typeparam name="T1">Type of the first item.</typeparam>
-    public class WritableTuple<T1> : IStructuralComparable, IStructuralEquatable, IComparable
+    public class WritableTuple<T1> : IStructuralComparable, IComparable, IComparable<WritableTuple<T1>>,
+                                     IStructuralEquatable, IEquatable<WritableTuple<T1>>
     {
         #region Fields (1)
 
@@ -247,7 +248,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Constructors
 
-        #region Methods (8)
+        #region Methods (10)
 
         // Public Methods (3) 
 
@@ -278,7 +279,12 @@ namespace MarcelJoachimKloubert.CLRToolbox
             return ((IStructuralEquatable)this).GetHashCode(EqualityComparer<object>.Default);
         }
 
-        // Private Methods (5) 
+        // Private Methods (7) 
+
+        int IComparable<WritableTuple<T1>>.CompareTo(WritableTuple<T1> other)
+        {
+            return this.CompareTo((object)other);
+        }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
         {
@@ -309,6 +315,11 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
             return comparer.Compare(thisValues[size - 1],
                                     otherValues[size - 1]);
+        }
+
+        bool IEquatable<WritableTuple<T1>>.Equals(WritableTuple<T1> other)
+        {
+            return this.Equals((object)other);
         }
 
         bool IStructuralEquatable.Equals(object other, IEqualityComparer comparer)

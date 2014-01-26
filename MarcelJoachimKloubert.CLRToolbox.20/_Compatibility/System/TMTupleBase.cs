@@ -25,9 +25,27 @@ namespace System
 
         #endregion Properties
 
-        #region Methods (9)
+        #region Methods (11)
 
-        // Public Methods (1) 
+        // Public Methods (3) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="object.Equals(object)" />
+        public override bool Equals(object other)
+        {
+            return ((IStructuralEquatable)this).Equals(other, EqualityComparer<object>.Default);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="object.GetHashCode()" />
+        public override int GetHashCode()
+        {
+            return ((IStructuralEquatable)this).GetHashCode(EqualityComparer<object>.Default);
+        }
 
         /// <summary>
         /// 

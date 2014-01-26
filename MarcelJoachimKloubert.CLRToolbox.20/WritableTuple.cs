@@ -3,6 +3,12 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
+
 namespace MarcelJoachimKloubert.CLRToolbox
 {
     #region CLASS: WritableTuple
@@ -12,7 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public static class WritableTuple
     {
-        #region Methods (8)
+        #region Methods (16)
 
         // Public Methods (8) 
 
@@ -159,6 +165,47 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             return new WritableTuple<T1, T2, T3, T4, T5, T6, T7, TRest>(item1, item2, item3, item4, item5, item6, item7, rest);
         }
+        // Internal Methods (8) 
+
+        internal static int CombineHashCodes(int h1)
+        {
+            return h1;
+        }
+
+        internal static int CombineHashCodes(int h1, int h2)
+        {
+            return (h1 << 5) + h1 ^ h2;
+        }
+
+        internal static int CombineHashCodes(int h1, int h2, int h3)
+        {
+            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2), h3);
+        }
+
+        internal static int CombineHashCodes(int h1, int h2, int h3, int h4)
+        {
+            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2), WritableTuple.CombineHashCodes(h3, h4));
+        }
+
+        internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5)
+        {
+            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), h5);
+        }
+
+        internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5, int h6)
+        {
+            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), WritableTuple.CombineHashCodes(h5, h6));
+        }
+
+        internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5, int h6, int h7)
+        {
+            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), WritableTuple.CombineHashCodes(h5, h6, h7));
+        }
+
+        internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5, int h6, int h7, int h8)
+        {
+            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), WritableTuple.CombineHashCodes(h5, h6, h7, h8));
+        }
 
         #endregion Methods
     }
@@ -171,7 +218,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// A writable tuple with one item.
     /// </summary>
     /// <typeparam name="T1">Type of the first item.</typeparam>
-    public class WritableTuple<T1>
+    public class WritableTuple<T1> : IStructuralComparable, IStructuralEquatable, IComparable
     {
         #region Fields (1)
 
@@ -199,6 +246,131 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         #endregion Constructors
+
+        #region Methods (8)
+
+        // Public Methods (3) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IComparable.CompareTo(object)" />
+        public int CompareTo(object other)
+        {
+            return ((IStructuralComparable)this).CompareTo(other, Comparer<object>.Default);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="object.Equals(object)" />
+        public override bool Equals(object other)
+        {
+            return ((IStructuralEquatable)this).Equals(other, EqualityComparer<object>.Default);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="object.GetHashCode()" />
+        public override int GetHashCode()
+        {
+            return ((IStructuralEquatable)this).GetHashCode(EqualityComparer<object>.Default);
+        }
+
+        // Private Methods (5) 
+
+        int IStructuralComparable.CompareTo(object other, IComparer comparer)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            WritableTuple<T1> otherTuple = other as WritableTuple<T1>;
+            if (otherTuple == null ||
+                !(otherTuple.GetType().Equals(this.GetType())))
+            {
+                throw new ArgumentException("other");
+            }
+
+            object[] thisValues = this.GetTuplePropertyValues();
+            object[] otherValues = otherTuple.GetTuplePropertyValues();
+            int size = thisValues.Length;
+
+            for (int i = 0; i < (size - 1); i++)
+            {
+                int cv = comparer.Compare(thisValues[i], otherValues[i]);
+                if (cv != 0)
+                {
+                    return cv;
+                }
+            }
+
+            return comparer.Compare(thisValues[size - 1],
+                                    otherValues[size - 1]);
+        }
+
+        bool IStructuralEquatable.Equals(object other, IEqualityComparer comparer)
+        {
+            WritableTuple<T1> otherTuple = other as WritableTuple<T1>;
+            if (otherTuple == null)
+            {
+                // no tuple
+                return false;
+            }
+
+            if (otherTuple.GetType().Equals(this.GetType()) == false)
+            {
+                // not the same type
+                return false;
+            }
+
+            return CollectionHelper.SequenceEqual(this.GetTuplePropertyValues(),
+                                                  otherTuple.GetTuplePropertyValues());
+        }
+
+        int IStructuralEquatable.GetHashCode(IEqualityComparer comparer)
+        {
+            object[] fieldValues = this.GetTuplePropertyValues();
+
+            // calculate hashes for each tuple value
+            IEnumerable<object> hashCodes = CollectionHelper.Select(fieldValues,
+                                                                    delegate(object v)
+                                                                    {
+                                                                        return (object)comparer.GetHashCode(v);
+                                                                    });
+
+            // find Tuple.CombineHashCodes method
+            MethodInfo getHashCodeMethod = CollectionHelper.Single(typeof(MarcelJoachimKloubert.CLRToolbox.WritableTuple).GetMethods(BindingFlags.NonPublic | BindingFlags.Static),
+                                                                   delegate(MethodInfo m)
+                                                                   {
+                                                                       return m.Name == "CombineHashCodes" &&
+                                                                              m.GetParameters().Length == fieldValues.Length;
+                                                                   });
+
+            return (int)getHashCodeMethod.Invoke(null,
+                                                 CollectionHelper.ToArray(hashCodes));
+        }
+
+        private PropertyInfo[] GetTupleProperties()
+        {
+            return this.GetType()
+                       .GetProperties(BindingFlags.Instance | BindingFlags.Public);
+        }
+
+        private object[] GetTuplePropertyValues()
+        {
+            IEnumerable<object> values = CollectionHelper.Select(this.GetTupleProperties(),
+                                                                 delegate(PropertyInfo p)
+                                                                 {
+                                                                     return p.GetValue(this, new object[0]);
+                                                                 });
+
+            return CollectionHelper.ToArray(values);
+        }
+
+        #endregion Methods
 
         #region Properties (1)
 

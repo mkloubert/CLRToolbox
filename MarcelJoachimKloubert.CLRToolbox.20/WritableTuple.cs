@@ -590,7 +590,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T6">Type of the sixth item.</typeparam>
     /// <typeparam name="T7">Type of the seventh item.</typeparam>
     /// <typeparam name="TRest">Type of the extension item.</typeparam>
-    public class WritableTuple<T1, T2, T3, T4, T5, T6, T7, TRest> : WritableTuple<T1, T2, T3, T4, T5, T6, T7>
+    public sealed class WritableTuple<T1, T2, T3, T4, T5, T6, T7, TRest> : WritableTuple<T1, T2, T3, T4, T5, T6, T7>
     {
         #region Fields (1)
 

@@ -503,6 +503,10 @@
       <Link>Helpers\IOHelper.ReadGuid.cs</Link>
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.ToByteArray.cs">
+      <Link>Helpers\IOHelper.ToByteArray.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.WriteGuid.cs">
       <Link>Helpers\IOHelper.WriteGuid.cs</Link>
       <DependentUpon>IOHelper.cs</DependentUpon>
@@ -946,6 +950,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.Fields.cs">
       <Link>TMObject.Fields.cs</Link>
       <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\WritableTuple.cs">
+      <Link>WritableTuple.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\AggregateException.cs">
       <Link>_Compatibility\System\AggregateException.cs</Link>
@@ -1607,6 +1614,9 @@
     </Compile>
     <Compile Include="Extensions\IO.cs" />
     <Compile Include="Extensions\IO.ReadGuid.cs">
+      <DependentUpon>IO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\IO.ToByteArray.cs">
       <DependentUpon>IO.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IO.WriteGuid.cs">

@@ -490,6 +490,10 @@
       <Link>Helpers\IOHelper.ReadGuid.cs</Link>
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.ToByteArray.cs">
+      <Link>Helpers\IOHelper.ToByteArray.cs</Link>
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.WriteGuid.cs">
       <Link>Helpers\IOHelper.WriteGuid.cs</Link>
       <DependentUpon>IOHelper.cs</DependentUpon>
@@ -929,6 +933,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.Fields.cs">
       <Link>TMObject.Fields.cs</Link>
       <DependentUpon>TMObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\WritableTuple.cs">
+      <Link>WritableTuple.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\collections\generic\IReadOnlyCollection.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyCollection.cs</Link>
@@ -1650,6 +1657,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.ReadGuid.cs">
       <Link>Extensions\IO.ReadGuid.cs</Link>
+      <DependentUpon>IO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.ToByteArray.cs">
+      <Link>Extensions\IO.ToByteArray.cs</Link>
       <DependentUpon>IO.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.WriteGuid.cs">

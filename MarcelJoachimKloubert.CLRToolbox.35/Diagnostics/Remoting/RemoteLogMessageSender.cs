@@ -41,7 +41,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the full name of the object's type (<see cref="Type" />).
+        /// Gets or sets the full name of the object's type (<see cref="global::System.Type" />).
         /// </summary>
         [DataMember]
         public string Type { get; set; }

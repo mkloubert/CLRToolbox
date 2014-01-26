@@ -232,6 +232,9 @@
     <Compile Include="Helpers\CollectionHelper.Shuffle.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IOHelper.ToByteArray.cs">
+      <DependentUpon>IOHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\IOHelper.WriteGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>
     </Compile>
@@ -555,6 +558,7 @@
     <Compile Include="TMObject.Fields.cs">
       <DependentUpon>TMObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="WritableTuple.cs" />
     <Compile Include="_Compatibility\System\Action.cs" />
     <Compile Include="_Compatibility\System\AggregateException.cs" />
     <Compile Include="_Compatibility\System\AggregateException.dotNET.cs">

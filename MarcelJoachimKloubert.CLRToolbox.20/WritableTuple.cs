@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.Serialization;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox
@@ -223,6 +224,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
 #endif
     public class WritableTuple<T1> : IStructuralComparable, IComparable, IComparable<WritableTuple<T1>>,
                                      IStructuralEquatable, IEquatable<WritableTuple<T1>>
+#if !WINDOWS_PHONE
+, global::System.Runtime.Serialization.ISerializable
+#endif
     {
         #region Fields (1)
 
@@ -230,7 +234,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1}" /> class.
@@ -240,6 +244,26 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item1 = item1;
         }
+#if !WINDOWS_PHONE
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+        {
+            if (info == null)
+            {
+                throw new ArgumentNullException("info");
+            }
+
+            ((ISerializable)this).GetObjectData(info, context);
+        }
+#endif
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1}" /> class.
@@ -251,7 +275,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Constructors
 
-        #region Methods (10)
+        #region Methods (11)
 
         // Public Methods (3) 
 
@@ -282,7 +306,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             return ((IStructuralEquatable)this).GetHashCode(EqualityComparer<object>.Default);
         }
 
-        // Private Methods (7) 
+        // Private Methods (8) 
 
         int IComparable<WritableTuple<T1>>.CompareTo(WritableTuple<T1> other)
         {
@@ -366,7 +390,25 @@ namespace MarcelJoachimKloubert.CLRToolbox
             return (int)getHashCodeMethod.Invoke(null,
                                                  CollectionHelper.ToArray(hashCodes));
         }
+#if !WINDOWS_PHONE
 
+        void global::System.Runtime.Serialization.ISerializable.GetObjectData(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+        {
+            if (info == null)
+            {
+                return;
+            }
+
+            foreach (global::System.Reflection.PropertyInfo property in this.GetTupleProperties())
+            {
+                string name = property.Name;
+                global::System.Type type = property.PropertyType;
+
+                object value = info.GetValue(name, type);
+                property.SetValue(this, value, new object[0]);
+            }
+        }
+#endif
         private PropertyInfo[] GetTupleProperties()
         {
             IEnumerable<PropertyInfo> properties = CollectionHelper.Where(this.GetType()
@@ -436,7 +478,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2}" /> class.
@@ -448,7 +490,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item2 = item2;
         }
+#if !WINDOWS_PHONE
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1, T2}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2}" /> class.
         /// </summary>
@@ -495,7 +552,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3}" /> class.
@@ -508,7 +565,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item3 = item3;
         }
+#if !WINDOWS_PHONE
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3}" /> class.
         /// </summary>
@@ -556,7 +628,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4}" /> class.
@@ -570,7 +642,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item4 = item4;
         }
+#if !WINDOWS_PHONE
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4}" /> class.
         /// </summary>
@@ -619,7 +706,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5}" /> class.
@@ -634,7 +721,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item5 = item5;
         }
+#if !WINDOWS_PHONE
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5}" /> class.
         /// </summary>
@@ -684,7 +786,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6}" /> class.
@@ -700,7 +802,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item6 = item6;
         }
+#if !WINDOWS_PHONE
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6}" /> class.
         /// </summary>
@@ -751,7 +868,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7}" /> class.
@@ -768,7 +885,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item7 = item7;
         }
+#if !WINDOWS_PHONE
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7}" /> class.
+        /// </summary>
+        /// <param name="info">The serialization context.</param>
+        /// <param name="context">The streaming context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
+        protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7}" /> class.
         /// </summary>
@@ -820,7 +952,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7, TRest}" /> class.
@@ -838,7 +970,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._rest = rest;
         }
+#if !WINDOWS_PHONE
 
+        private WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+
+        }
+#endif
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7, TRest}" /> class.
         /// </summary>

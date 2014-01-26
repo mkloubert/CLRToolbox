@@ -222,8 +222,12 @@ namespace MarcelJoachimKloubert.CLRToolbox
 #if !WINDOWS_PHONE
     [global::System.Serializable]
 #endif
-    public class WritableTuple<T1> : IStructuralComparable, IComparable, IComparable<WritableTuple<T1>>,
-                                     IStructuralEquatable, IEquatable<WritableTuple<T1>>
+    public class WritableTuple<T1> :
+#if !WINDOWS_PHONE
+ global::System.MarshalByRefObject,
+#endif
+ IStructuralComparable, IComparable, IComparable<WritableTuple<T1>>,
+ IStructuralEquatable, IEquatable<WritableTuple<T1>>
 #if !WINDOWS_PHONE
 , global::System.Runtime.Serialization.ISerializable
 #endif

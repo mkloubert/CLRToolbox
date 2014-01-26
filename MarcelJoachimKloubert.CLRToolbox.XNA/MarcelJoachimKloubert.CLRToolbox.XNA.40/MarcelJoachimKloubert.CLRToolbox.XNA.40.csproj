@@ -380,6 +380,10 @@
       <Link>Helpers\CollectionHelper.ToEnumerableSafe.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Where.cs">
+      <Link>Helpers\CollectionHelper.Where.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EntityHelper.cs">
       <Link>Helpers\EntityHelper.cs</Link>
     </Compile>

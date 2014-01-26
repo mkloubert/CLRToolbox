@@ -189,6 +189,9 @@
     <Compile Include="Helpers\CollectionHelper.ToEnumerableSafe.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Where.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CompressionHelper.cs" />
     <Compile Include="Helpers\DataHelper.Build.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>

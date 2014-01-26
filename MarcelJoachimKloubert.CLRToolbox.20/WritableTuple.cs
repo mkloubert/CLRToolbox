@@ -218,6 +218,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// A writable tuple with one item.
     /// </summary>
     /// <typeparam name="T1">Type of the first item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1> : IStructuralComparable, IComparable, IComparable<WritableTuple<T1>>,
                                      IStructuralEquatable, IEquatable<WritableTuple<T1>>
     {
@@ -366,8 +369,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         private PropertyInfo[] GetTupleProperties()
         {
-            return this.GetType()
-                       .GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            IEnumerable<PropertyInfo> properties = CollectionHelper.Where(this.GetType()
+                                                                              .GetProperties(BindingFlags.Instance | BindingFlags.Public),
+                                                                          delegate(PropertyInfo p)
+                                                                          {
+                                                                              return p.Name.StartsWith("Item") ||
+                                                                                     p.Name == "Rest";
+                                                                          });
+
+            return CollectionHelper.ToArray(properties);
         }
 
         private object[] GetTuplePropertyValues()
@@ -383,7 +393,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Methods
 
-        #region Properties (1)
+        #region Properties (2)
 
         /// <summary>
         /// Gets or sets the value of the first item of that tuple.
@@ -393,6 +403,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
             get { return this._item1; }
 
             set { this._item1 = value; }
+        }
+
+        /// <summary>
+        /// Gets the number of items the tuple is handling.
+        /// </summary>
+        public int Size
+        {
+            get { return this.GetType().GetGenericArguments().Length; }
         }
 
         #endregion Properties
@@ -407,6 +425,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     /// <typeparam name="T1">Type of the first item.</typeparam>
     /// <typeparam name="T2">Type of the second item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1, T2> : WritableTuple<T1>
     {
         #region Fields (1)
@@ -463,6 +484,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T1">Type of the first item.</typeparam>
     /// <typeparam name="T2">Type of the second item.</typeparam>
     /// <typeparam name="T3">Type of the third item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1, T2, T3> : WritableTuple<T1, T2>
     {
         #region Fields (1)
@@ -521,6 +545,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T2">Type of the second item.</typeparam>
     /// <typeparam name="T3">Type of the third item.</typeparam>
     /// <typeparam name="T4">Type of the fourth item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1, T2, T3, T4> : WritableTuple<T1, T2, T3>
     {
         #region Fields (1)
@@ -581,6 +608,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T3">Type of the third item.</typeparam>
     /// <typeparam name="T4">Type of the fourth item.</typeparam>
     /// <typeparam name="T5">Type of the fifth item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1, T2, T3, T4, T5> : WritableTuple<T1, T2, T3, T4>
     {
         #region Fields (1)
@@ -643,6 +673,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T4">Type of the fourth item.</typeparam>
     /// <typeparam name="T5">Type of the fifth item.</typeparam>
     /// <typeparam name="T6">Type of the sixth item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1, T2, T3, T4, T5, T6> : WritableTuple<T1, T2, T3, T4, T5>
     {
         #region Fields (1)
@@ -707,6 +740,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T5">Type of the fifth item.</typeparam>
     /// <typeparam name="T6">Type of the sixth item.</typeparam>
     /// <typeparam name="T7">Type of the seventh item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public class WritableTuple<T1, T2, T3, T4, T5, T6, T7> : WritableTuple<T1, T2, T3, T4, T5, T6>
     {
         #region Fields (1)
@@ -773,6 +809,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T6">Type of the sixth item.</typeparam>
     /// <typeparam name="T7">Type of the seventh item.</typeparam>
     /// <typeparam name="TRest">Type of the extension item.</typeparam>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
     public sealed class WritableTuple<T1, T2, T3, T4, T5, T6, T7, TRest> : WritableTuple<T1, T2, T3, T4, T5, T6, T7>
     {
         #region Fields (1)

@@ -396,6 +396,10 @@
       <Link>Helpers\CollectionHelper.ToEnumerableSafe.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Where.cs">
+      <Link>Helpers\CollectionHelper.Where.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CompressionHelper.cs">
       <Link>Helpers\CompressionHelper.cs</Link>
     </Compile>
@@ -1563,6 +1567,9 @@
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Collections.ToArray.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Collections.Where.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Compression.cs" />

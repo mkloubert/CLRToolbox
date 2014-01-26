@@ -67,13 +67,15 @@ namespace System
 
         private object[] GetTupleFieldValues()
         {
-            IEnumerable<object> values = CollectionHelper.Select(this.GetTupleFields(),
-                                                                 delegate(FieldInfo f)
-                                                                 {
-                                                                     return f.GetValue(this);
-                                                                 });
+            IEnumerable<FieldInfo> fields = CollectionHelper.Where(this.GetType()
+                                                                       .GetFields(BindingFlags.Instance | BindingFlags.NonPublic),
+                                                                   delegate(FieldInfo f)
+                                                                   {
+                                                                       return f.Name.StartsWith("_ITEM") ||
+                                                                              f.Name == "_REST";
+                                                                   });
 
-            return CollectionHelper.ToArray(values);
+            return CollectionHelper.ToArray(fields);
         }
 
         int IComparable.CompareTo(object obj)

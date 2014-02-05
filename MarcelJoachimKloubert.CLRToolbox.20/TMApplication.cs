@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,6 @@ using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox
 {
@@ -111,12 +111,12 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 {
                     flag = true;
 
-                    IEnumerable<char> appLauchUrl = AppDomain.GetData("APP_LAUNCH_URL") as IEnumerable<char>;
-                    if (appLauchUrl != null)
+                    IEnumerable<char> appLaunchUrl = AppDomain.GetData("APP_LAUNCH_URL") as IEnumerable<char>;
+                    if (appLaunchUrl != null)
                     {
                         AppDomain.ProcessExit += delegate(object sender, EventArgs e)
                             {
-                                Process.Start(currentProcess.MainModule.FileName, StringHelper.AsString(appLauchUrl));
+                                Process.Start(currentProcess.MainModule.FileName, StringHelper.AsString(appLaunchUrl));
                             };
                     }
 

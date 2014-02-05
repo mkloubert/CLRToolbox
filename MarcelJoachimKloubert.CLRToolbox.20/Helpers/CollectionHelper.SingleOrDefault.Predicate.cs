@@ -48,7 +48,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 while (enumerator.MoveNext())
                 {
                     T current = enumerator.Current;
-                    if (!predicate(current))
+                    if (predicate(current) == false)
                     {
                         continue;
                     }

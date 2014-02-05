@@ -13,6 +13,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
     /// <typeparam name="TParam">Type of the parameters.</typeparam>
     public abstract class CommandBase<TParam> : TMObject, ICommand<TParam>
     {
+
+
         #region Constructors (2)
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
 
         #endregion Constructors
 
+
         #region Delegates and Events (2)
 
         // Events (2) 
@@ -56,6 +59,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         public event EventHandler<ExecutionErrorEventArgs<TParam>> ExecutionError;
 
         #endregion Delegates and Events
+
 
         #region Methods (5)
 

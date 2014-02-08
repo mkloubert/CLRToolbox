@@ -63,9 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Sessions\ICloudSession.cs" />
-    <Compile Include="Classes\Web\UI\CloudPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Classes\_Impl\Sessions\CloudSession.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -95,7 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LICENSE" />
-    <Content Include="Web.sample.config" />
+    <Content Include="Web.sample.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

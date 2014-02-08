@@ -3,11 +3,11 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
 using System.Globalization;
 using System.Windows.Input;
-using MarcelJoachimKloubert.CLRToolbox.Execution;
-using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
 {
@@ -46,8 +46,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
 
         #region Methods (2)
 
-        // Public Methods (2) 
-
         /// <summary>
         /// 
         /// </summary>
@@ -64,11 +62,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
                     // needs wrapper
 
                     result = new SimpleCommand<TParam>(
-                        delegate(TParam p)
+                        (p) =>
                         {
                             inputCmd.Execute(parameter);
                         },
-                        delegate(TParam p)
+                        (p) =>
                         {
                             return inputCmd.CanExecute(parameter);
                         });
@@ -94,11 +92,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
                     // needs wrapper
 
                     result = new SimpleCommand<TParam>(
-                        delegate(TParam p)
+                        (p) =>
                         {
                             inputCmd.Execute(parameter);
                         },
-                        delegate(TParam p)
+                        (p) =>
                         {
                             return inputCmd.CanExecute(parameter);
                         });

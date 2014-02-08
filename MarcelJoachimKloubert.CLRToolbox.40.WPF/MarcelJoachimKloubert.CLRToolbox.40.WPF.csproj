@@ -75,6 +75,40 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\ClrToolboxWpfExtensionMethods.cs">
       <Link>Extensions\ClrToolboxWpfExtensionMethods.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Dispatcher.BeginInvoke.cs">
+      <Link>Extensions\Dispatcher.BeginInvoke.cs</Link>
+      <DependentUpon>Dispatcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Dispatcher.cs">
+      <Link>Extensions\Dispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.cs">
+      <Link>Extensions\Imaging.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.SaveAsBmp.cs">
+      <Link>Extensions\Imaging.SaveAsBmp.cs</Link>
+      <DependentUpon>Imaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.SaveAsGif.cs">
+      <Link>Extensions\Imaging.SaveAsGif.cs</Link>
+      <DependentUpon>Imaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.SaveAsJpeg.cs">
+      <Link>Extensions\Imaging.SaveAsJpeg.cs</Link>
+      <DependentUpon>Imaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.SaveAsPng.cs">
+      <Link>Extensions\Imaging.SaveAsPng.cs</Link>
+      <DependentUpon>Imaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.SaveAsTiff.cs">
+      <Link>Extensions\Imaging.SaveAsTiff.cs</Link>
+      <DependentUpon>Imaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.TakeScreenshot.cs">
+      <Link>Extensions\Imaging.TakeScreenshot.cs</Link>
+      <DependentUpon>Imaging.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Input\SimpleCommand.cs">
       <Link>Input\SimpleCommand.cs</Link>
     </Compile>

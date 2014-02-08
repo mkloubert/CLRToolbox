@@ -54,12 +54,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentOutOfRangeException("bufferSize");
             }
 
-            if (!src.CanRead)
+            if (src.CanRead == false)
             {
                 throw new IOException("Source is not readable!");
             }
 
-            if (!dest.CanWrite)
+            if (dest.CanWrite == false)
             {
                 throw new IOException("Destination is not writable!");
             }

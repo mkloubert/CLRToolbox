@@ -7,6 +7,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms
 {
     static partial class ClrToolboxWinFormsExtensionMethods
     {
-
+        // Controls
     }
 }

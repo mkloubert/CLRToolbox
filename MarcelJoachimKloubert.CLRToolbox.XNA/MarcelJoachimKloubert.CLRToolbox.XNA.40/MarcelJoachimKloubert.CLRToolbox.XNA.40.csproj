@@ -120,6 +120,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ReadOnlyConfigRepositoryWrapper.cs">
+      <Link>Configuration\ReadOnlyConfigRepositoryWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>

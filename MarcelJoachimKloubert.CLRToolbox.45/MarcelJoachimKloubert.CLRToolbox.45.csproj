@@ -115,6 +115,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\configuration\impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ReadOnlyConfigRepositoryWrapper.cs">
+      <Link>Configuration\ReadOnlyConfigRepositoryWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\AdoDatabaseBase.cs">
       <Link>Data\AdoDatabaseBase.cs</Link>
     </Compile>

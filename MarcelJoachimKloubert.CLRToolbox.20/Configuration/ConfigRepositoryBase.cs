@@ -3,10 +3,10 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System;
-using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 {
@@ -76,9 +76,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #endregion Properties
 
-        #region Methods (32)
+        #region Methods (33)
 
-        // Public Methods (20) 
+        // Public Methods (21) 
 
         /// <summary>
         /// 
@@ -218,6 +218,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
 
             return result;
+        }
+
+        /// <inheriteddoc />
+        public IConfigRepository MakeReadOnly()
+        {
+            if (this.CanWrite == false)
+            {
+                // already read-only
+                return this;
+            }
+
+            return new ReadOnlyConfigRepositoryWrapper(this);
         }
 
         /// <summary>

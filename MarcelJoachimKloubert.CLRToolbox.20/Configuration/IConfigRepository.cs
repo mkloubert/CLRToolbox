@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #endregion Data Members
 
-        #region Operations (20)
+        #region Operations (21)
 
         /// <summary>
         /// Clears all categories and values.
@@ -113,6 +113,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <exception cref="ArgumentOutOfRangeException">Value does not exist.</exception>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
         T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category);
+
+        /// <summary>
+        /// Makes that config repository read-only.
+        /// </summary>
+        /// <returns>The read-only version of that repository.</returns>
+        IConfigRepository MakeReadOnly();
 
         /// <summary>
         /// Sets a config value.

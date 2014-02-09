@@ -71,6 +71,7 @@
     <Compile Include="Configuration\IConfigRepository.cs" />
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />
     <Compile Include="Configuration\Impl\IniFileConfigRepository.cs" />
+    <Compile Include="Configuration\ReadOnlyConfigRepositoryWrapper.cs" />
     <Compile Include="Data\AdoDatabaseBase.cs" />
     <Compile Include="Data\AdoDataConnection.cs" />
     <Compile Include="Data\CommonConverter.OnChangeTypeExtension.cs">

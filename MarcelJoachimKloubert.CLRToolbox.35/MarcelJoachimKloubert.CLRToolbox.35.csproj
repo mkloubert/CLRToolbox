@@ -1211,6 +1211,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs</Link>
     </Compile>
@@ -1364,9 +1367,6 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JObject.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JObject.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JPath.cs">
-      <Link>_Embedded\Newtonsoft.Json\Linq\JPath.cs</Link>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JProperty.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JProperty.cs</Link>
     </Compile>
@@ -1378,6 +1378,36 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JRaw.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JRaw.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\JPath.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JToken.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JToken.cs</Link>

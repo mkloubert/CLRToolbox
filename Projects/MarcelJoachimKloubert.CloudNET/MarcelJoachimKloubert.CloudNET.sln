@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45.WinForms", "..\..\MarcelJoachimKloubert.CLRToolbox.45.WinForms\MarcelJoachimKloubert.CLRToolbox.45.WinForms.csproj", "{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CloudNET.SDK", "MarcelJoachimKloubert.CloudNET.SDK\MarcelJoachimKloubert.CloudNET.SDK.csproj", "{ED2C7187-E53E-4135-9009-5B73D1ED83EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91083992-D3B6-4CE4-8D5F-ADD6AB343D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

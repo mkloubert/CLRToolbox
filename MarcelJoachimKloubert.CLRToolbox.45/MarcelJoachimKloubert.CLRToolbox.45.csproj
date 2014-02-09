@@ -1128,532 +1128,562 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\icsharpcode.sharpzlib\zip\ZipOutputStream.cs">
       <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipOutputStream.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonBinaryType.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonBinaryWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonObjectId.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonReader.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonToken.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonToken.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonToken.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonType.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonType.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonType.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Bson\BsonWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\ConstructorHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\ConstructorHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\ConstructorHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\BinaryConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\BinaryConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\BinaryConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\BsonObjectIdConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\CustomCreationConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\CustomCreationConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\CustomCreationConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\DataSetConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\DataSetConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\DataSetConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\DataTableConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\DataTableConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\DataTableConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\DateTimeConverterBase.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\DiscriminatedUnionConverter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\EntityKeyMemberConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\ExpandoObjectConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\IsoDateTimeConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\JavaScriptDateTimeConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\JsonValueConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\JsonValueConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\JsonValueConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\KeyValuePairConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\KeyValuePairConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\KeyValuePairConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\RegexConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\RegexConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\RegexConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\StringEnumConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\StringEnumConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\StringEnumConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\VersionConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\VersionConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\VersionConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Converters\XmlNodeConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\converters\XmlNodeConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Converters\XmlNodeConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\DateFormatHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\DateFormatHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\DateFormatHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\DateParseHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\DateParseHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\DateParseHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\DateTimeZoneHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\DateTimeZoneHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\DateTimeZoneHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\DefaultValueHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\DefaultValueHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\DefaultValueHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\FloatFormatHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\FloatFormatHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\FloatFormatHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\FloatParseHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\FloatParseHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\FloatParseHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\FormatterAssemblyStyle.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\FormatterAssemblyStyle.cs">
       <Link>_Embedded\Newtonsoft.Json\FormatterAssemblyStyle.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Formatting.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\Formatting.cs">
       <Link>_Embedded\Newtonsoft.Json\Formatting.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\IJsonLineInfo.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\IJsonLineInfo.cs">
       <Link>_Embedded\Newtonsoft.Json\IJsonLineInfo.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonArrayAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonArrayAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonArrayAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonConstructorAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonConstructorAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonConstructorAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonContainerAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonContainerAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonContainerAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonConvert.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonConvert.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonConvert.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonConverterAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonConverterAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonConverterAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonConverterCollection.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonConverterCollection.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonConverterCollection.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonDictionaryAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonDictionaryAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonDictionaryAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonException.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonException.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonException.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonExtensionDataAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonExtensionDataAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonExtensionDataAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonIgnoreAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonIgnoreAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonIgnoreAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonObjectAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonObjectAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonObjectAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonPosition.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonPosition.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonPosition.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonPropertyAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonPropertyAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonPropertyAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonReader.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonReaderException.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonReaderException.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonReaderException.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonSerializationException.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonSerializationException.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonSerializationException.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonSerializer.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonSerializer.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonSerializerSettings.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonSerializerSettings.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonSerializerSettings.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonTextReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonTextReader.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonTextReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonTextWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonTextWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonTextWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonToken.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonToken.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonToken.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonValidatingReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonValidatingReader.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonValidatingReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\JsonWriterException.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\JsonWriterException.cs">
       <Link>_Embedded\Newtonsoft.Json\JsonWriterException.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\Extensions.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\Extensions.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\Extensions.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\IJEnumerable.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\IJEnumerable.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\IJEnumerable.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JArray.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JArray.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JArray.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JConstructor.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JConstructor.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JConstructor.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JContainer.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JContainer.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JContainer.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JEnumerable.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JEnumerable.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JEnumerable.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JObject.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JObject.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JObject.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JPath.cs">
-      <Link>_Embedded\Newtonsoft.Json\Linq\JPath.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JProperty.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JProperty.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JProperty.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JPropertyDescriptor.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JPropertyDescriptor.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JPropertyDescriptor.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JPropertyKeyedCollection.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JRaw.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JRaw.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JRaw.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JToken.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\ArrayIndexFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\ArrayMultipleIndexFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\ArraySliceFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\FieldFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\FieldMultipleFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\JPath.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\PathFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\QueryExpression.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\QueryFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\jsonpath\ScanFilter.cs">
+      <Link>_Embedded\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JToken.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JToken.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JTokenEqualityComparer.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JTokenReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JTokenReader.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JTokenReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JTokenType.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JTokenType.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JTokenType.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JTokenWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JTokenWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JTokenWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Linq\JValue.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\linq\JValue.cs">
       <Link>_Embedded\Newtonsoft.Json\Linq\JValue.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\MemberSerialization.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\MemberSerialization.cs">
       <Link>_Embedded\Newtonsoft.Json\MemberSerialization.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\MissingMemberHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\MissingMemberHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\MissingMemberHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\NullValueHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\NullValueHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\NullValueHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\ObjectCreationHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\ObjectCreationHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\ObjectCreationHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\PreserveReferencesHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\PreserveReferencesHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\PreserveReferencesHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\ReferenceLoopHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\ReferenceLoopHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\ReferenceLoopHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Required.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\Required.cs">
       <Link>_Embedded\Newtonsoft.Json\Required.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\Extensions.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\Extensions.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\Extensions.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchema.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchema.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchema.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaBuilder.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaBuilder.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaConstants.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaConstants.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaConstants.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaException.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaException.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaException.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaGenerator.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaGenerator.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaModel.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaModel.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaModel.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaModelBuilder.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaNode.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaNode.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaNode.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaNodeCollection.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaResolver.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaResolver.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaResolver.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaType.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaType.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaType.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\JsonSchemaWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\JsonSchemaWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\JsonSchemaWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\UndefinedSchemaIdHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\ValidationEventArgs.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\ValidationEventArgs.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\ValidationEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Schema\ValidationEventHandler.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\schema\ValidationEventHandler.cs">
       <Link>_Embedded\Newtonsoft.Json\Schema\ValidationEventHandler.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\SerializationBinder.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\SerializationBinder.cs">
       <Link>_Embedded\Newtonsoft.Json\SerializationBinder.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\CachedAttributeGetter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\CamelCasePropertyNamesContractResolver.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\DefaultContractResolver.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\DefaultContractResolver.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\DefaultContractResolver.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\DefaultReferenceResolver.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\DefaultSerializationBinder.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\DiagnosticsTraceWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\DynamicValueProvider.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\DynamicValueProvider.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\DynamicValueProvider.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\ErrorContext.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\ErrorContext.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\ErrorContext.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\ErrorEventArgs.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\ErrorEventArgs.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\ErrorEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\ExpressionValueProvider.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\ExpressionValueProvider.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\ExpressionValueProvider.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\IContractResolver.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\IContractResolver.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\IContractResolver.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\IReferenceResolver.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\IReferenceResolver.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\IReferenceResolver.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\ITraceWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\ITraceWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\ITraceWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\IValueProvider.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\IValueProvider.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\IValueProvider.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonArrayContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonArrayContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonArrayContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonContainerContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonContainerContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonContainerContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonDictionaryContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonDynamicContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonDynamicContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonDynamicContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonFormatterConverter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonISerializableContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonISerializableContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonISerializableContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonLinqContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonLinqContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonLinqContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonObjectContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonObjectContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonObjectContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonPrimitiveContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonProperty.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonProperty.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonProperty.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonPropertyCollection.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonSerializerInternalBase.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonSerializerInternalReader.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonSerializerInternalWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonSerializerProxy.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonStringContract.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonStringContract.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonStringContract.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\JsonTypeReflector.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\JsonTypeReflector.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\JsonTypeReflector.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\LateBoundMetadataTypeAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\LateBoundMetadataTypeAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\LateBoundMetadataTypeAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\MemoryTraceWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\ObjectConstructor.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\ObjectConstructor.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\ObjectConstructor.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\OnErrorAttribute.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\OnErrorAttribute.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\OnErrorAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\ReflectionValueProvider.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\TraceJsonReader.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\TraceJsonReader.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\TraceJsonReader.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Serialization\TraceJsonWriter.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\serialization\TraceJsonWriter.cs">
       <Link>_Embedded\Newtonsoft.Json\Serialization\TraceJsonWriter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\StringEscapeHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\StringEscapeHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\StringEscapeHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\TraceLevel.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\TraceLevel.cs">
       <Link>_Embedded\Newtonsoft.Json\TraceLevel.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\TypeNameHandling.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\TypeNameHandling.cs">
       <Link>_Embedded\Newtonsoft.Json\TypeNameHandling.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\Base64Encoder.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\Base64Encoder.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\Base64Encoder.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\BidirectionalDictionary.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\CollectionUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\CollectionUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\CollectionUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\CollectionWrapper.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\CollectionWrapper.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\CollectionWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ConvertUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ConvertUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ConvertUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DateTimeParser.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DateTimeParser.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DateTimeParser.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DateTimeUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DateTimeUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DateTimeUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DictionaryWrapper.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DictionaryWrapper.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DictionaryWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DynamicProxy.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DynamicProxy.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DynamicProxy.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DynamicProxyMetaObject.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DynamicReflectionDelegateFactory.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DynamicUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DynamicUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DynamicUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\DynamicWrapper.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\DynamicWrapper.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\DynamicWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\EnumUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\EnumUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\EnumUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\EnumValue.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\EnumValue.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\EnumValue.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\EnumValues.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\EnumValues.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\EnumValues.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ExpressionReflectionDelegateFactory.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ILGeneratorExtensions.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ImmutableCollectionsUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\JavaScriptUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\JavaScriptUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\JavaScriptUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\LateBoundReflectionDelegateFactory.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\LinqBridge.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\LinqBridge.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\LinqBridge.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\MathUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\MathUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\MathUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\MethodCall.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\MethodCall.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\MethodCall.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\MiscellaneousUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ReflectionDelegateFactory.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ReflectionUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ReflectionUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ReflectionUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\StringBuffer.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\StringBuffer.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\StringBuffer.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\StringReference.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\StringReference.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\StringReference.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\StringUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\StringUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\StringUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ThreadSafeStore.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ThreadSafeStore.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ThreadSafeStore.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\TypeExtensions.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\TypeExtensions.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\TypeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\Utilities\ValidationUtils.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\utilities\ValidationUtils.cs">
       <Link>_Embedded\Newtonsoft.Json\Utilities\ValidationUtils.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\WriteState.cs">
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\WriteState.cs">
       <Link>_Embedded\Newtonsoft.Json\WriteState.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Collections\ObjectModel\SynchronizedObservableCollection.cs">
@@ -1930,6 +1960,7 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.ToUnsecureString.cs">
       <Link>Extensions\Strings.ToUnsecureString.cs</Link>
+      <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Strings.UppercaseWords.cs">
       <Link>Extensions\Strings.UppercaseWords.cs</Link>
@@ -2079,10 +2110,10 @@
     <Content Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\icsharpcode.sharpzlib\doc\specification\rfc1952.txt">
       <Link>_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1952.txt</Link>
     </Content>
-    <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\license.txt">
+    <Content Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\license.txt">
       <Link>_Embedded\Newtonsoft.Json\license.txt</Link>
     </Content>
-    <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\readme.txt">
+    <Content Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\readme.txt">
       <Link>_Embedded\Newtonsoft.Json\readme.txt</Link>
     </Content>
   </ItemGroup>

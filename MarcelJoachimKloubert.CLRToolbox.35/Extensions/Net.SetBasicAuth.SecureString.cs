@@ -3,10 +3,10 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System.Collections.Generic;
 using System.Net;
 using System.Security;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {

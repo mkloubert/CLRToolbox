@@ -59,11 +59,20 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ICloudApp.cs" />
+    <Compile Include="Classes\Security\ICloudPrincipal.cs" />
+    <Compile Include="Classes\Security\IPrincipalRepository.cs" />
     <Compile Include="Classes\Sessions\ICloudSession.cs" />
+    <Compile Include="Classes\Web\ICloudRequest.cs" />
+    <Compile Include="Classes\_Impl\CloudApp.cs" />
+    <Compile Include="Classes\_Impl\Security\PrincipalRepository.cs" />
     <Compile Include="Classes\_Impl\Sessions\CloudSession.cs" />
+    <Compile Include="Classes\_Impl\Web\CloudRequest.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -71,9 +80,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\CloudNetExtensionMethods.cs" />
+    <Compile Include="Extensions\HttpContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\BasicAuthHttpHandlerBase.cs" />
+    <Compile Include="Handlers\FileHttpHandler.cs" />
     <Compile Include="Masters\Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

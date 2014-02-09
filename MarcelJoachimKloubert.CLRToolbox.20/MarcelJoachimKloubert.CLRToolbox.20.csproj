@@ -650,6 +650,7 @@
     <Compile Include="_Embedded\Newtonsoft.Json\Converters\DataSetConverter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Converters\DataTableConverter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs" />
@@ -701,11 +702,20 @@
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JContainer.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JEnumerable.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JObject.cs" />
-    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JPath.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JProperty.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JPropertyDescriptor.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JRaw.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\JPath.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs" />
+    <Compile Include="_Embedded\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JToken.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Linq\JTokenReader.cs" />
@@ -827,10 +837,6 @@
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\ReadMe.rtf" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Embedded\Newtonsoft.Json\license.txt" />
-    <EmbeddedResource Include="_Embedded\Newtonsoft.Json\readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\Changes.txt" />
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\COPYING.txt" />
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\appnote.txt" />
@@ -840,6 +846,10 @@
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1950.txt" />
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1951.txt" />
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\specification\rfc1952.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Embedded\Newtonsoft.Json\license.txt" />
+    <EmbeddedResource Include="_Embedded\Newtonsoft.Json\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 {
     internal sealed class CloudPrincipalDirectory : FileSystemItemBase, IDirectory
     {
-        #region Fields (11)
+        #region Fields (12)
 
         private const string _MASKED_FILE_EXTENSION = "bin";
         private string _name;
@@ -29,6 +29,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
         private const string _XML_ATTRIB_METAFILE_MASKEDNAME = "maskedName";
         private const string _XML_ATTRIB_METAFILE_PASSWORD = "password";
         private const string _XML_ATTRIB_METAFILE_REALNAME = "realName";
+        private const string _XML_ATTRIB_METAFILE_SIZE = "size";
         private const string _XML_TAG_METAFILE_DIR = "dir";
         private const string _XML_TAG_METAFILE_DIRLIST = "dirs";
         private const string _XML_TAG_METAFILE_FILE = "file";
@@ -344,8 +345,17 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         FileManager = this.FileManager,
                         LocalPath = maskedFile.FullName,
                         Password = pwd,
+                        Size = -1,
                         Xml = fileElement,
                     };
+
+                var sizeAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
+                if (sizeAttrib != null &&
+                    string.IsNullOrWhiteSpace(sizeAttrib.Value) == false)
+                {
+                    newFile.Size = long.Parse(sizeAttrib.Value.Trim());
+                }
+
                 newFile.SetName(realName);
 
                 yield return newFile;
@@ -449,6 +459,17 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         }
                     }
 
+                    // file size
+                    try
+                    {
+                        fileElement.SetAttributeValue(_XML_ATTRIB_METAFILE_SIZE,
+                                                      data.Length);
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
+
                     Rijndael alg;
                     Rfc2898DeriveBytes pdb;
                     var pwd = new byte[48];
@@ -502,8 +523,16 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         result.FileManager = this.FileManager;
                         result.LocalPath = maskedFile.FullName;
                         result.Password = secPwd;
+                        result.Size = -1;
                         result.Xml = fileElement;
                         result.SetName(realName);
+
+                        var sizeAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
+                        if (sizeAttrib != null &&
+                            string.IsNullOrWhiteSpace(sizeAttrib.Value) == false)
+                        {
+                            result.Size = long.Parse(sizeAttrib.Value.Trim());
+                        }
 
                         return result;
                     }

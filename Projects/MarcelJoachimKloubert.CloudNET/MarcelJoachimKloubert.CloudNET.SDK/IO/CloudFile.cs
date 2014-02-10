@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
     /// </summary>
     public sealed class CloudFile
     {
-        #region Fields (3)
+        #region Fields (4)
 
         /// <summary>
         /// Stores the name of the file.
@@ -33,6 +33,12 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// Stores the underlying server.
         /// </summary>
         public CloudServer Server;
+
+        /// <summary>
+        /// Stores the size of the file.
+        /// </summary>
+        [JsonProperty(PropertyName = "size")]
+        public long Size;
 
         #endregion Fields
 

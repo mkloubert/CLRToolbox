@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Fields
 
-        #region Properties (9)
+        #region Properties (10)
 
         internal CloudPrincipalDirectory Directory
         {
@@ -74,6 +74,12 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
         {
             get;
             set;
+        }
+
+        public long Size
+        {
+            get;
+            internal set;
         }
 
         internal XElement Xml

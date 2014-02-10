@@ -130,6 +130,7 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                         {
                             name = file.Name,
                             path = file.FullPath,
+                            size = file.Size,
                         });
                 }
 

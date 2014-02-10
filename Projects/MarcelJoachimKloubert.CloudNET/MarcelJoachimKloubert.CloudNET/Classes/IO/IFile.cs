@@ -12,7 +12,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
     /// </summary>
     public interface IFile : IFileSystemItem
     {
-        #region Data Members (2)
+        #region Data Members (3)
 
         /// <summary>
         /// Gets the directory the file is stored in.
@@ -23,6 +23,11 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
         /// Gets if the file exists or not.
         /// </summary>
         bool Exists { get; }
+
+        /// <summary>
+        /// Gets the size of the file.
+        /// </summary>
+        long Size { get; }
 
         #endregion Data Members
 

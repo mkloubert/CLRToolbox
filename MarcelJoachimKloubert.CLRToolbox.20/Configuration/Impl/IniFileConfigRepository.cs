@@ -46,7 +46,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 throw new ArgumentException("filePath");
             }
 
-            this._CAN_WRITE = !isReadOnly;
+            this._CAN_WRITE = isReadOnly == false;
 
             this._FILE_PATH = Path.GetFullPath(fp);
             if (File.Exists(this._FILE_PATH))

@@ -5,6 +5,7 @@
 
 
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +14,16 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl
 {
     internal sealed class CloudApp : TMObject, ICloudApp
     {
+        #region Properties (1)
+
+        public IConfigRepository Config
+        {
+            get;
+            internal set;
+        }
+
+        #endregion Properties
+
         #region Methods (1)
 
         // Public Methods (1) 

@@ -133,7 +133,13 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                         Principal = loggedInUser,
                     };
 
+                req.Context.Response.StatusCode = (int)HttpStatusCode.OK;
+
                 this.OnProcessRequest(req);
+            }
+            catch (Exception)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
             finally
             {

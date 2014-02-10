@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -64,12 +65,24 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Helpers\CryptoHelper.cs" />
     <Compile Include="Classes\ICloudApp.cs" />
+    <Compile Include="Classes\IO\FileSystemItemBase.cs" />
+    <Compile Include="Classes\IO\IDirectory.cs" />
+    <Compile Include="Classes\IO\IFile.cs" />
+    <Compile Include="Classes\IO\IFileManager.cs" />
+    <Compile Include="Classes\IO\IFileSystemItem.cs" />
+    <Compile Include="Classes\Security\ICloudIdentity.cs" />
     <Compile Include="Classes\Security\ICloudPrincipal.cs" />
     <Compile Include="Classes\Security\IPrincipalRepository.cs" />
     <Compile Include="Classes\Sessions\ICloudSession.cs" />
     <Compile Include="Classes\Web\ICloudRequest.cs" />
     <Compile Include="Classes\_Impl\CloudApp.cs" />
+    <Compile Include="Classes\_Impl\IO\CloudPrincipalDirectory.cs" />
+    <Compile Include="Classes\_Impl\IO\CloudPrincipalFile.cs" />
+    <Compile Include="Classes\_Impl\IO\CloudPrincipalFileManager.cs" />
+    <Compile Include="Classes\_Impl\Security\CloudIdentity.cs" />
+    <Compile Include="Classes\_Impl\Security\CloudPrincipal.cs" />
     <Compile Include="Classes\_Impl\Security\PrincipalRepository.cs" />
     <Compile Include="Classes\_Impl\Sessions\CloudSession.cs" />
     <Compile Include="Classes\_Impl\Web\CloudRequest.cs" />
@@ -86,7 +99,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\BasicAuthHttpHandlerBase.cs" />
-    <Compile Include="Handlers\FileHttpHandler.cs" />
+    <Compile Include="Handlers\FilesHttpHandler.cs" />
     <Compile Include="Masters\Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -114,6 +127,10 @@
     <None Include="config.sample.ini" />
     <Content Include="Masters\Main.Master" />
     <Content Include="Masters\Mobile.Master" />
+    <None Include="users.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="users.sample.ini" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

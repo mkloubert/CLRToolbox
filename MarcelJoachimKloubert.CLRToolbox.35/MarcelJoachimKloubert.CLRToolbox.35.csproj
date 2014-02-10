@@ -567,6 +567,10 @@
       <Link>Helpers\ScriptHelper.SetSimplePredicateWrapper.cs</Link>
       <DependentUpon>ScriptHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.Append.cs">
+      <Link>Helpers\StringHelper.Append.cs</Link>
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsHexString.cs">
       <Link>Helpers\StringHelper.AsHexString.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -1853,6 +1857,9 @@
     </Compile>
     <Compile Include="Extensions\LinqExpressions.ThrowIfNull.cs">
       <DependentUpon>LinqExpressions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Strings.Append.cs">
+      <DependentUpon>Strings.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ValuesAndObjects.IsNotNull.cs">
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>

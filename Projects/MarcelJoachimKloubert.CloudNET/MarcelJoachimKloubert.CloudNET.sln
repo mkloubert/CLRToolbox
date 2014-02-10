@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CloudNET.SDK", "MarcelJoachimKloubert.CloudNET.SDK\MarcelJoachimKloubert.CloudNET.SDK.csproj", "{ED2C7187-E53E-4135-9009-5B73D1ED83EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CloudNET.Test", "MarcelJoachimKloubert.CloudNET.Test\MarcelJoachimKloubert.CloudNET.Test.csproj", "{E04E43CE-7777-4865-B326-8EA368A254C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED2C7187-E53E-4135-9009-5B73D1ED83EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04E43CE-7777-4865-B326-8EA368A254C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04E43CE-7777-4865-B326-8EA368A254C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04E43CE-7777-4865-B326-8EA368A254C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04E43CE-7777-4865-B326-8EA368A254C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

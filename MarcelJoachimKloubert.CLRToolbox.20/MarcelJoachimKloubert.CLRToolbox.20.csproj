@@ -279,6 +279,9 @@
     <Compile Include="Helpers\EntityHelper.TryGetTableNameAndSchema.cs">
       <DependentUpon>EntityHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.Append.cs">
+      <DependentUpon>StringHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ValueHelper.IsNotNull.cs">
       <DependentUpon>ValueHelper.cs</DependentUpon>
     </Compile>

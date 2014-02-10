@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CloudNET.Classes.IO;
 using MarcelJoachimKloubert.CLRToolbox.Security.AccessControl;
 
 namespace MarcelJoachimKloubert.CloudNET.Classes.Security
@@ -12,6 +13,16 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.Security
     /// </summary>
     public interface ICloudPrincipal : IAclPrincipal
     {
+        #region Data Members (2)
 
+        /// <summary>
+        /// Gets the file manager of that principal.
+        /// </summary>
+        IFileManager Files { get; }
+
+        /// <inheriteddoc />
+        new ICloudIdentity Identity { get; }
+
+        #endregion Data Members
     }
 }

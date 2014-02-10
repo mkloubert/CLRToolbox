@@ -4,6 +4,7 @@
 
 
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CloudNET.Classes
@@ -13,6 +14,15 @@ namespace MarcelJoachimKloubert.CloudNET.Classes
     /// </summary>
     public interface ICloudApp : ITMObject
     {
+        #region Data Members (1)
+
+        /// <summary>
+        /// Gets the configuration data of that application.
+        /// </summary>
+        IConfigRepository Config { get; }
+
+        #endregion Data Members
+
         #region Operations (1)
 
         /// <summary>

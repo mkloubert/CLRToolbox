@@ -5,14 +5,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Security;
 
 namespace MarcelJoachimKloubert.CloudNET.SDK.Helpers
 {
     internal static class StringHelper
     {
-        #region Methods (3)
+        #region Methods (4)
 
-        // Internal Methods (3) 
+        // Internal Methods (4) 
 
         internal static string AsString(object obj)
         {
@@ -57,6 +59,25 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.Helpers
             }
 
             return true;
+        }
+
+        internal static string ToUnsecureString(SecureString secStr)
+        {
+            if (secStr == null)
+            {
+                return null;
+            }
+
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                ptr = Marshal.SecureStringToGlobalAllocUnicode(secStr);
+                return Marshal.PtrToStringUni(ptr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(ptr);
+            }
         }
 
         #endregion Methods

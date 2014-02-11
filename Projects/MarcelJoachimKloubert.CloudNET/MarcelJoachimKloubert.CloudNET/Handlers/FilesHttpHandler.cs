@@ -138,6 +138,8 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                     {
                         dirs = dirList,
                         files = fileList,
+                        isRootDir = dir.IsRoot,
+                        parentPath = dir.Parent != null ? dir.Parent.FullPath : null,
                         path = dir.FullPath,
                     };
 

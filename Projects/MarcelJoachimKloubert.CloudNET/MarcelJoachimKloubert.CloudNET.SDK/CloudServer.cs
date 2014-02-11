@@ -460,9 +460,19 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 user = cred.Domain.Trim() + "\\" + user;
             }
 
+            string pwd = null;
+#if !NET2 && !NET20 && !NET35
+            pwd = StringHelper.ToUnsecureString(cred.SecurePassword);
+#endif
+
+            if (pwd == null)
+            {
+                pwd = cred.Password;
+            }
+
             string authInfo = string.Format("{0}:{1}",
                                             user,
-                                            StringHelper.AsString(cred.Password));
+                                            StringHelper.AsString(pwd));
 
             httpRequest.Headers["Authorization"] = string.Format("Basic {0}",
                                                                  Convert.ToBase64String(Encoding.ASCII

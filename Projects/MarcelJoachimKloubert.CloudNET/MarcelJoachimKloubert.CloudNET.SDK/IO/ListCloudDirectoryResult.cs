@@ -16,7 +16,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
     /// </summary>
     public sealed class ListCloudDirectoryResult
     {
-        #region Fields (3)
+        #region Fields (6)
 
         /// <summary>
         /// Stores the list of directories that are inside the directory.
@@ -29,14 +29,31 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         public CloudFileCollection Files;
 
         /// <summary>
+        /// Stores if the underlying directory is the root directory or not.
+        /// </summary>
+        [JsonProperty(PropertyName = "isRootDir")]
+        public bool? IsRootDirectory;
+
+        /// <summary>
+        /// Stores the path of parent directory if available.
+        /// </summary>
+        [JsonProperty(PropertyName = "parentPath")]
+        public string ParentPath;
+
+        /// <summary>
         /// Stores the underlying path.
         /// </summary>
         [JsonProperty(PropertyName = "path")]
         public string Path;
 
+        /// <summary>
+        /// Stores the underlying server.
+        /// </summary>
+        public CloudServer Server;
+
         #endregion Fields
 
-        #region Properties (3)
+        #region Properties (2)
 
         [JsonProperty(PropertyName = "dirs")]
         private IList<CloudDirectory> dirsInner
@@ -49,11 +66,6 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         {
             set { this.Files = value != null ? new CloudFileCollection(value) : null; }
         }
-
-        /// <summary>
-        /// Stores the underlying server.
-        /// </summary>
-        public CloudServer Server;
 
         #endregion Properties
 

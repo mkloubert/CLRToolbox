@@ -36,10 +36,22 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// <summary>
         /// Stores the size of the file.
         /// </summary>
-        [JsonProperty(PropertyName = "size")]
-        public long Size;
+        public long? Size;
 
         #endregion Fields
+
+        #region Properties (1)
+
+        [JsonProperty(PropertyName = "size")]
+        private long sizeInner
+        {
+            set
+            {
+                this.Size = value > -1 ? value : (long?)null;
+            }
+        }
+
+        #endregion Properties
 
         #region Methods (3)
 

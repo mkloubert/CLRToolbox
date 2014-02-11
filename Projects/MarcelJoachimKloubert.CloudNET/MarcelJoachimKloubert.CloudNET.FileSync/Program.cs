@@ -3,9 +3,9 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms;
 using System;
 using System.Windows.Forms;
-using MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms;
 
 namespace MarcelJoachimKloubert.CloudNET.FileSync
 {
@@ -16,11 +16,11 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync
         // Private Methods (1) 
 
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(args));
         }
 
         #endregion Methods

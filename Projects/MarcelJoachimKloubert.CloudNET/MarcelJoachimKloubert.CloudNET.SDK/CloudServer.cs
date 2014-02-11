@@ -73,6 +73,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         /// <exception cref="ArgumentNullException">
         /// <paramref name="filePath" /> is <see langword="null" />.
         /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// <paramref name="filePath" /> does not exist.
+        /// </exception>
         public void DeleteFile(IEnumerable<char> filePath)
         {
             string path = StringHelper.AsString(filePath);
@@ -91,7 +94,23 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
             httpRequest.Method = "DELETE";
             httpRequest.Headers["X-MJKTM-CloudNET-File"] = path;
 
-            httpRequest.GetResponse().Close();
+            try
+            {
+                httpRequest.GetResponse().Close();
+            }
+            catch (WebException wex)
+            {
+                HttpWebResponse resp = wex.Response as HttpWebResponse;
+                if (resp != null)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new FileNotFoundException(path ?? string.Empty);
+                    }
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -104,6 +123,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="filePath" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// <paramref name="filePath" /> does not exist.
         /// </exception>
         public byte[] DownloadFile(IEnumerable<char> filePath)
         {
@@ -126,6 +148,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         /// <exception cref="ArgumentNullException">
         /// <paramref name="filePath" /> and/or <paramref name="target" />
         /// are <see langword="null" />.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// <paramref name="filePath" /> does not exist.
         /// </exception>
         /// <exception cref="IOException">
         /// <paramref name="target" /> cannot be written.
@@ -162,7 +187,25 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 httpRequest.Headers["X-MJKTM-CloudNET-File"] = path;
             }
 
-            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            HttpWebResponse httpResponse;
+            try
+            {
+                httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            }
+            catch (WebException wex)
+            {
+                HttpWebResponse resp = wex.Response as HttpWebResponse;
+                if (resp != null)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new FileNotFoundException(path ?? string.Empty);
+                    }
+                }
+
+                throw;
+            }
+
             using (Stream stream = httpResponse.GetResponseStream())
             {
                 IOHelper.CopyTo(stream, target);
@@ -227,6 +270,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         /// </summary>
         /// <param name="dir">The path of the directory.</param>
         /// <returns>The result.</returns>
+        /// <exception cref="DirectoryNotFoundException">
+        /// <paramref name="dir" /> does not exist.
+        /// </exception>
         public ListCloudDirectoryResult ListDirectory(IEnumerable<char> dir)
         {
             string path = (StringHelper.AsString(dir) ?? string.Empty).Trim();
@@ -243,7 +289,25 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 httpRequest.Headers["X-MJKTM-CloudNET-Directory"] = path;
             }
 
-            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            HttpWebResponse httpResponse;
+            try
+            {
+                httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            }
+            catch (WebException wex)
+            {
+                HttpWebResponse resp = wex.Response as HttpWebResponse;
+                if (resp != null)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new DirectoryNotFoundException(path ?? string.Empty);
+                    }
+                }
+
+                throw;
+            }
+
             using (Stream stream = httpResponse.GetResponseStream())
             {
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))

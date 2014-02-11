@@ -48,15 +48,22 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// <summary>
         /// Deletes that file.
         /// </summary>
+        /// <exception cref="FileNotFoundException">
+        /// File does not exist anymore.
+        /// </exception>
         public void Delete()
         {
-            this.Server.DeleteFile(this.Path);
+            this.Server
+                .DeleteFile(this.Path);
         }
 
         /// <summary>
         /// Downloads the file from the underlying server.
         /// </summary>
         /// <returns>The downloaded data.</returns>
+        /// <exception cref="FileNotFoundException">
+        /// File does not exist anymore.
+        /// </exception>
         public byte[] Download()
         {
             return this.Server
@@ -69,6 +76,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// <param name="target">The stream where to write the downloaded data to.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="target" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// File does not exist anymore.
         /// </exception>
         /// <exception cref="IOException">
         /// <paramref name="target" /> cannot be written.

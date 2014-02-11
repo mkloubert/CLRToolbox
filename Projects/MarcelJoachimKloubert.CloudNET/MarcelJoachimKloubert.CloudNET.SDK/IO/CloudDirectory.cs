@@ -45,6 +45,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// Lists that directory.
         /// </summary>
         /// <returns>The result.</returns>
+        /// <exception cref="DirectoryNotFoundException">
+        /// Directory does not exist anymore.
+        /// </exception>
         public ListCloudDirectoryResult List()
         {
             return this.Server.ListDirectory(this.Path);

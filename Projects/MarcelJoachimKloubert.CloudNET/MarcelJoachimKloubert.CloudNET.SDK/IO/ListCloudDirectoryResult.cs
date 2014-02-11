@@ -12,7 +12,7 @@ using System.IO;
 namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 {
     /// <summary>
-    /// List the result of cloud directory.
+    /// Stores the result of listening a cloud directory.
     /// </summary>
     public sealed class ListCloudDirectoryResult
     {
@@ -21,13 +21,13 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// <summary>
         /// Stores the list of directories that are inside the directory.
         /// </summary>
-        [JsonProperty(PropertyName = "dirs")]
-        public IList<CloudDirectory> Directories;
+        public CloudDirectoryCollection Directories;
+
         /// <summary>
         /// Stores the list of files that are inside the directory.
         /// </summary>
-        [JsonProperty(PropertyName = "files")]
-        public IList<CloudFile> Files;
+        public CloudFileCollection Files;
+
         /// <summary>
         /// Stores the underlying path.
         /// </summary>
@@ -36,16 +36,24 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 
         #endregion Fields
 
-        #region Properties (1)
+        #region Properties (3)
+
+        [JsonProperty(PropertyName = "dirs")]
+        private IList<CloudDirectory> dirsInner
+        {
+            set { this.Directories = value != null ? new CloudDirectoryCollection(value) : null; }
+        }
+
+        [JsonProperty(PropertyName = "files")]
+        private IList<CloudFile> filesInner
+        {
+            set { this.Files = value != null ? new CloudFileCollection(value) : null; }
+        }
 
         /// <summary>
-        /// Gets or sets the underlying server.
+        /// Stores the underlying server.
         /// </summary>
-        public CloudServer Server
-        {
-            get;
-            set;
-        }
+        public CloudServer Server;
 
         #endregion Properties
 

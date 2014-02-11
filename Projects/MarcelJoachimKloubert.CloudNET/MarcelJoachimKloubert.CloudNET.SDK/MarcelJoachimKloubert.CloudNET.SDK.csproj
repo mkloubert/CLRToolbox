@@ -40,10 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudServer.cs" />
+    <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\IOHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="IO\CloudDirectory.cs" />
+    <Compile Include="IO\CloudDirectoryCollection.cs" />
     <Compile Include="IO\CloudFile.cs" />
+    <Compile Include="IO\CloudFileCollection.cs" />
     <Compile Include="IO\ListCloudDirectoryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Embedded\JSON.NET\Bson\BsonBinaryType.cs" />

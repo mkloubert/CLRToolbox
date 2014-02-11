@@ -5,10 +5,12 @@
 
 using MarcelJoachimKloubert.CloudNET.Classes.Helpers;
 using MarcelJoachimKloubert.CloudNET.Classes.IO;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -334,9 +336,11 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 if (passwordAttrib != null &&
                     string.IsNullOrWhiteSpace(passwordAttrib.Value) == false)
                 {
-                    pwd = new SecureString();
-                    pwd.Append(passwordAttrib.Value.Trim());
-                    pwd.MakeReadOnly();
+                    pwd = CryptoHelper.ToSecureString(passwordAttrib.Value);
+                    if (pwd != null)
+                    {
+                        pwd.MakeReadOnly();
+                    }
                 }
 
                 var newFile = new CloudPrincipalFile()
@@ -349,11 +353,14 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         Xml = fileElement,
                     };
 
+                // try get file size
                 var sizeAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
                 if (sizeAttrib != null &&
                     string.IsNullOrWhiteSpace(sizeAttrib.Value) == false)
                 {
-                    newFile.Size = long.Parse(sizeAttrib.Value.Trim());
+                    newFile.Size = GlobalConverter.Current
+                                                  .ChangeType<long>(sizeAttrib.Value.Trim(),
+                                                                    CultureInfo.InvariantCulture);
                 }
 
                 newFile.SetName(realName);
@@ -459,17 +466,6 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         }
                     }
 
-                    // file size
-                    try
-                    {
-                        fileElement.SetAttributeValue(_XML_ATTRIB_METAFILE_SIZE,
-                                                      data.Length);
-                    }
-                    catch
-                    {
-                        // ignore
-                    }
-
                     Rijndael alg;
                     Rfc2898DeriveBytes pdb;
                     var pwd = new byte[48];
@@ -511,12 +507,25 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                             }
                         }
 
+                        // file size
+                        try
+                        {
+                            fileElement.SetAttributeValue(_XML_ATTRIB_METAFILE_SIZE,
+                                                          data.Length);
+                        }
+                        catch
+                        {
+                            // ignore
+                        }
+
                         // update meta file
                         this.UpdateMetaData(meta);
 
-                        var secPwd = new SecureString();
-                        secPwd.Append(fileElement.Attribute(_XML_ATTRIB_METAFILE_PASSWORD).Value);
-                        secPwd.MakeReadOnly();
+                        var secPwd = CryptoHelper.ToSecureString(fileElement.Attribute(_XML_ATTRIB_METAFILE_PASSWORD).Value);
+                        if (secPwd != null)
+                        {
+                            secPwd.MakeReadOnly();
+                        }
 
                         var result = new CloudPrincipalFile();
                         result.Directory = this;
@@ -527,11 +536,13 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         result.Xml = fileElement;
                         result.SetName(realName);
 
+                        // stored file size
                         var sizeAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
                         if (sizeAttrib != null &&
                             string.IsNullOrWhiteSpace(sizeAttrib.Value) == false)
                         {
-                            result.Size = long.Parse(sizeAttrib.Value.Trim());
+                            result.Size = GlobalConverter.Current.ChangeType<long>(sizeAttrib.Value.Trim(),
+                                                                                   CultureInfo.InvariantCulture);
                         }
 
                         return result;
@@ -610,7 +621,8 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 var metaFile = this.GetMetaFile();
                 if (metaFile.Exists)
                 {
-                    using (var stream = new CryptoHelper().GetDecryptionStream(metaFile.OpenRead(), this.FileManager.Password))
+                    using (var stream = new CryptoHelper().GetDecryptionStream(metaFile.OpenRead(),
+                                                                               this.FileManager.Password))
                     {
                         return XDocument.Load(stream);
                     }

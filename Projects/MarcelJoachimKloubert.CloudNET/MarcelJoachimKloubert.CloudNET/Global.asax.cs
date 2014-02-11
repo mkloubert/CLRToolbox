@@ -107,8 +107,6 @@ namespace MarcelJoachimKloubert.CloudNET
                 }
 
                 app.Config = config.MakeReadOnly();
-
-
             }
 
             // principal repository

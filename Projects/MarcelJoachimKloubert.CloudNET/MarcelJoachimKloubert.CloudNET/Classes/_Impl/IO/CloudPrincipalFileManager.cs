@@ -24,6 +24,15 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Fields
 
+        #region Constructors (1)
+
+        ~CloudPrincipalFileManager()
+        {
+            this.Dispose(false);
+        }
+
+        #endregion Constructors
+
         #region Properties (4)
 
         internal string LocalRootDirectory
@@ -51,7 +60,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (4)
 
         // Public Methods (3) 
 
@@ -188,6 +197,16 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                     IsRoot = true,
                     LocalPath = dir.FullName,
                 };
+        }
+        // Private Methods (1) 
+
+        private void Dispose(bool disposing)
+        {
+            lock (this._SYNC)
+            {
+                using (var pwd = this.Password)
+                { }
+            }
         }
 
         #endregion Methods

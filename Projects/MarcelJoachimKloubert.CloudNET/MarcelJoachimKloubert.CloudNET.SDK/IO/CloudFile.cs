@@ -5,7 +5,6 @@
 
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace MarcelJoachimKloubert.CloudNET.SDK.IO
@@ -55,39 +54,29 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         }
 
         /// <summary>
-        /// Downloads a file from the underlying server.
+        /// Downloads the file from the underlying server.
         /// </summary>
-        /// <param name="filePath">The full path from where the file should be downloaded.</param>
         /// <returns>The downloaded data.</returns>
-        /// <exception cref="ArgumentException">
-        /// <paramref name="filePath" /> is invalid.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="filePath" /> is <see langword="null" />.
-        /// </exception>
-        public byte[] DownloadFile(IEnumerable<char> filePath)
+        public byte[] Download()
         {
-            return this.Server.DownloadFile(filePath);
+            return this.Server
+                       .DownloadFile(this.Path);
         }
 
         /// <summary>
-        /// Downloads a file from the underlying server.
+        /// Downloads the file from the underlying server.
         /// </summary>
-        /// <param name="filePath">The full path from where the file should be downloaded.</param>
         /// <param name="target">The stream where to write the downloaded data to.</param>
-        /// <exception cref="ArgumentException">
-        /// <paramref name="filePath" /> is invalid.
-        /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="filePath" /> and/or <paramref name="target" />
-        /// are <see langword="null" />.
+        /// <paramref name="target" /> is <see langword="null" />.
         /// </exception>
         /// <exception cref="IOException">
         /// <paramref name="target" /> cannot be written.
         /// </exception>
-        public void DownloadFile(IEnumerable<char> filePath, Stream target)
+        public void Download(Stream target)
         {
-            this.Server.DownloadFile(filePath, target);
+            this.Server
+                .DownloadFile(this.Path, target);
         }
 
         #endregion Methods

@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         public string Path;
 
         /// <summary>
-        /// Gets or sets the underlying server.
+        /// Stores the underlying server.
         /// </summary>
         public CloudServer Server;
 

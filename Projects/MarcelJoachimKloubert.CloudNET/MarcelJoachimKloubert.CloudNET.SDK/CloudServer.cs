@@ -59,7 +59,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (11)
 
         // Public Methods (9) 
 
@@ -87,10 +87,8 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 throw new ArgumentException("filePath");
             }
 
-            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(this.GetFilesUri());
-            SetupRequestWirhCredentials(httpRequest);
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri());
             httpRequest.Method = "DELETE";
-            httpRequest.AllowAutoRedirect = false;
             httpRequest.Headers["X-MJKTM-CloudNET-File"] = path;
 
             httpRequest.GetResponse().Close();
@@ -156,10 +154,8 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 throw new IOException();
             }
 
-            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(this.GetFilesUri());
-            SetupRequestWirhCredentials(httpRequest);
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri());
             httpRequest.Method = "GET";
-            httpRequest.AllowAutoRedirect = false;
 
             if (path != null)
             {
@@ -179,21 +175,18 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         /// <returns>the base URI.</returns>
         public string GetBaseUri()
         {
-            bool isHttps = this.IsSecure;
+            string host = this.HostAddress;
+            if (StringHelper.IsNullOrWhitespace(host))
+            {
+                host = "127.0.0.1";
+            }
 
-            int defPort;
-            if (isHttps)
-            {
-                defPort = 443;
-            }
-            else
-            {
-                defPort = 80;
-            }
+            bool isHttps = this.IsSecure;
+            int defPort = isHttps ? 443 : 80;
 
             return string.Format("http{0}://{1}:{2}/",
                                  isHttps ? "s" : string.Empty,
-                                 this.HostAddress,
+                                 host.Trim(),
                                  this.Port ?? defPort);
         }
 
@@ -203,8 +196,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         /// <returns>the base URI.</returns>
         public string GetFilesUri()
         {
-            return string.Format("{0}files",
-                                 this.GetBaseUri());
+            return this.GetBaseUri() + "files";
         }
 
         /// <summary>
@@ -243,10 +235,8 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 path = null;
             }
 
-            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(this.GetFilesUri() + "?action=list");
-            SetupRequestWirhCredentials(httpRequest);
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri() + "?action=list");
             httpRequest.Method = "GET";
-            httpRequest.AllowAutoRedirect = false;
 
             if (path != null)
             {
@@ -271,27 +261,37 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                                 ListCloudDirectoryResult result = serializer.Deserialize<ListCloudDirectoryResult>(jsonReader);
                                 result.Server = this;
 
-                                IEnumerable<CloudFile> files = result.Files ?? new CloudFile[0];
-                                foreach (CloudFile f in files)
+                                // link that server instance with directory items
+                                CloudDirectoryCollection dirs = result.Directories;
+                                if (dirs != null)
                                 {
-                                    if (f == null)
+                                    foreach (CloudDirectory d in dirs)
                                     {
-                                        continue;
-                                    }
+                                        if (d == null)
+                                        {
+                                            continue;
+                                        }
 
-                                    f.Server = this;
+                                        d.Server = this;
+                                    }
                                 }
 
-                                IEnumerable<CloudDirectory> dirs = result.Directories ?? new CloudDirectory[0];
-                                foreach (CloudDirectory d in dirs)
+                                // link that server instance with file items
+                                CloudFileCollection files = result.Files;
+                                if (files != null)
                                 {
-                                    if (d == null)
+                                    foreach (CloudFile f in files)
                                     {
-                                        continue;
-                                    }
+                                        if (f == null)
+                                        {
+                                            continue;
+                                        }
 
-                                    d.Server = this;
+                                        f.Server = this;
+                                    }
                                 }
+
+
 
                                 return result;
                             }
@@ -352,10 +352,8 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
                 throw new IOException();
             }
 
-            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(this.GetFilesUri());
-            SetupRequestWirhCredentials(httpRequest);
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri());
             httpRequest.Method = "PUT";
-            httpRequest.AllowAutoRedirect = false;
             httpRequest.SendChunked = true;
 
             if (path != null)
@@ -372,7 +370,17 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
 
             httpRequest.GetResponse().Close();
         }
-        // Private Methods (1) 
+        // Private Methods (2) 
+
+        private HttpWebRequest CreateHttpRequest(string url)
+        {
+            HttpWebRequest result = (HttpWebRequest)HttpWebRequest.Create(url);
+            result.AllowAutoRedirect = false;
+
+            SetupRequestWirhCredentials(result);
+
+            return result;
+        }
 
         private void SetupRequestWirhCredentials(HttpWebRequest httpRequest)
         {

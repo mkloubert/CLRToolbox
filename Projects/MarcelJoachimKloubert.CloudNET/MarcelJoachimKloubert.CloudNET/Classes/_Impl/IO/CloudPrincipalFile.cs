@@ -21,6 +21,15 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Fields
 
+        #region Constructors (1)
+
+        ~CloudPrincipalFile()
+        {
+            this.Dispose(false);
+        }
+
+        #endregion Constructors
+
         #region Properties (10)
 
         internal CloudPrincipalDirectory Directory
@@ -90,7 +99,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Properties
 
-        #region Methods (4)
+        #region Methods (5)
 
         // Public Methods (2) 
 
@@ -109,7 +118,16 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
             return new CryptoHelper().GetDecryptionStream(File.OpenRead(this.LocalPath),
                                                           this.Password);
         }
-        // Private Methods (1) 
+        // Private Methods (2) 
+
+        private void Dispose(bool disposing)
+        {
+            lock (this._SYNC)
+            {
+                using (var pwd = this.Password)
+                { }
+            }
+        }
 
         private void UpdateMetaData(XDocument xmlDoc)
         {

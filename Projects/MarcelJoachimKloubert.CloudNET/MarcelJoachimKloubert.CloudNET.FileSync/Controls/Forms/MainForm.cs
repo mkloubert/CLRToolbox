@@ -304,7 +304,12 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                             newLvi.ImageIndex = 1;
                             newLvi.Tag = dir;
                             newLvi.Text = dir.Name ?? string.Empty;
-                            newLvi.SubItems.Add("<DIR>");
+                            newLvi.SubItems.Add("<DIR>");  // size
+
+                            if (dir.WriteTime.HasValue)
+                            {
+                                newLvi.SubItems.Add(dir.WriteTime.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss"));
+                            }
 
                             lv.Items.Add(newLvi);
                         }
@@ -324,6 +329,11 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                             if (file.Size.HasValue)
                             {
                                 newLvi.SubItems.Add(file.Size.ToString());
+                            }
+
+                            if (file.WriteTime.HasValue)
+                            {
+                                newLvi.SubItems.Add(file.WriteTime.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss"));
                             }
 
                             lv.Items.Add(newLvi);

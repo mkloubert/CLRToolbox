@@ -32,7 +32,14 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
 
         #endregion Constructors
 
-        #region Properties (3)
+        #region Properties (5)
+
+        /// <inheriteddoc />
+        public abstract DateTime? CreationTime
+        {
+            get;
+            set;
+        }
 
         /// <inheriteddoc />
         public string DisplayName
@@ -52,11 +59,18 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
             get;
         }
 
+        /// <inheriteddoc />
+        public abstract DateTime? WriteTime
+        {
+            get;
+            set;
+        }
+
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (3)
 
-        // Public Methods (2) 
+        // Public Methods (3) 
 
         /// <inheriteddoc />
         public string GetDisplayName(CultureInfo culture)
@@ -68,6 +82,11 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
 
             return this.Name;
         }
+
+        /// <summary>
+        /// Updates the properties that store the timestamp values.
+        /// </summary>
+        public abstract void RefreshTimestamps();
 
         /// <inheriteddoc />
         public override string ToString()

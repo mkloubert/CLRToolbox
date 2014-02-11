@@ -3,7 +3,9 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CloudNET.Classes.IO;
 using MarcelJoachimKloubert.CloudNET.Classes.Web;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 {
     internal sealed class FilesHttpHandler : BasicAuthHttpHandlerBase
     {
-        #region Methods (5)
+        #region Methods (10)
 
         // Protected Methods (1) 
 
@@ -27,7 +29,7 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
             switch ((request.Context.Request.HttpMethod ?? string.Empty).ToUpper().Trim())
             {
                 case "DELETE":
-                    actionToInvoke = this.DeleteFile;
+                    actionToInvoke = this.Delete;
                     break;
 
                 case "GET":
@@ -50,7 +52,26 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                     break;
 
                 case "OPTIONS":
-                    request.Context.Response.Headers["Allow"] = "DELETE,GET,OPTIONS,PUT";
+                    request.Context.Response.Headers["Allow"] = "DELETE,GET,OPTIONS,PATCH,PUT";
+                    break;
+
+                case "PATCH":
+                    {
+                        switch ((request.Context.Request.Params["type"] ?? string.Empty).ToLower().Trim())
+                        {
+                            case "creationtime":
+                                actionToInvoke = this.UpdateCreationWriteTime;
+                                break;
+
+                            case "writetime":
+                                actionToInvoke = this.UpdateWriteTime;
+                                break;
+
+                            default:
+                                request.Context.Response.StatusCode = (int)HttpStatusCode.PreconditionFailed;
+                                break;
+                        }
+                    }
                     break;
 
                 case "PUT":
@@ -67,7 +88,29 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                 actionToInvoke(request);
             }
         }
-        // Private Methods (4) 
+        // Private Methods (9) 
+
+        private void Delete(ICloudRequest request)
+        {
+            this.DeleteFile(request);
+            this.DeleteDirectory(request);
+        }
+
+        private void DeleteDirectory(ICloudRequest request)
+        {
+            var fm = request.Principal.Files;
+            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-Directory"].Trim();
+
+            var dir = fm.GetDirectory(path);
+            if (dir != null)
+            {
+                dir.Delete();
+            }
+            else
+            {
+                request.Context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            }
+        }
 
         private void DeleteFile(ICloudRequest request)
         {
@@ -118,6 +161,9 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                 {
                     dirList.Add(new
                         {
+                            creationTime = subDir.CreationTime,
+                            lastWriteTime = subDir.WriteTime,
+                            isRoot = subDir.IsRoot,
                             name = subDir.Name,
                             path = subDir.FullPath,
                         });
@@ -128,17 +174,21 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                 {
                     fileList.Add(new
                         {
+                            creationTime = file.CreationTime,
+                            lastWriteTime = file.WriteTime,
                             name = file.Name,
                             path = file.FullPath,
-                            size = file.Size,
+                            size = file.Size < 0 ? (long?)null : file.Size,
                         });
                 }
 
                 var jsonResult = new
                     {
+                        creationTime = dir.CreationTime,
                         dirs = dirList,
                         files = fileList,
                         isRootDir = dir.IsRoot,
+                        lastWriteTime = dir.WriteTime,
                         parentPath = dir.Parent != null ? dir.Parent.FullPath : null,
                         path = dir.FullPath,
                     };
@@ -162,6 +212,78 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
             {
                 request.Context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
+        }
+
+        private void UpdateCreationWriteTime(ICloudRequest request)
+        {
+            this.UpdateTime(request,
+                            (item, time) => item.CreationTime = time);
+        }
+
+        private void UpdateTime(ICloudRequest request,
+                                Action<IFileSystemItem, DateTime?> updateAction)
+        {
+            // file
+            {
+                var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"].Trim();
+                if (path != null)
+                {
+                    var fm = request.Principal.Files;
+
+                    var strTicks = request.Context.Request.Headers["X-MJKTM-CloudNET-FileTime"];
+                    long? ticks = null;
+                    if (string.IsNullOrWhiteSpace(strTicks) == false)
+                    {
+                        ticks = GlobalConverter.Current
+                                               .ChangeType<long>(strTicks.Trim());
+                    }
+
+                    var file = fm.GetFile(path);
+                    if (file != null)
+                    {
+                        updateAction(file,
+                                     ticks.HasValue ? new DateTime(ticks.Value, DateTimeKind.Utc) : (DateTime?)null);
+                    }
+                    else
+                    {
+                        request.Context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    }
+                }
+            }
+
+            // directory
+            {
+                var path = request.Context.Request.Headers["X-MJKTM-CloudNET-Directory"];
+                if (path != null)
+                {
+                    var fm = request.Principal.Files;
+
+                    var strTicks = request.Context.Request.Headers["X-MJKTM-CloudNET-DirectoryTime"];
+                    long? ticks = null;
+                    if (string.IsNullOrWhiteSpace(strTicks) == false)
+                    {
+                        ticks = GlobalConverter.Current
+                                               .ChangeType<long>(strTicks.Trim());
+                    }
+
+                    var dir = fm.GetDirectory(path);
+                    if (dir != null)
+                    {
+                        updateAction(dir,
+                                     ticks.HasValue ? new DateTime(ticks.Value, DateTimeKind.Utc) : (DateTime?)null);
+                    }
+                    else
+                    {
+                        request.Context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    }
+                }
+            }
+        }
+
+        private void UpdateWriteTime(ICloudRequest request)
+        {
+            this.UpdateTime(request,
+                            (item, time) => item.WriteTime = time);
         }
 
         private void UploadFile(ICloudRequest request)

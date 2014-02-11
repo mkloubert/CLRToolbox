@@ -13,7 +13,12 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
     /// </summary>
     public interface IDirectory : IFileSystemItem
     {
-        #region Data Members (2)
+        #region Data Members (3)
+
+        /// <summary>
+        /// Gets if the directory still exists or not.
+        /// </summary>
+        bool Exists { get; }
 
         /// <summary>
         /// Gets if that directory represents the root directory or not.
@@ -27,7 +32,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
 
         #endregion Data Members
 
-        #region Operations (4)
+        #region Operations (5)
 
         /// <summary>
         /// Creates a directory.
@@ -41,6 +46,11 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
         /// <paramref name="name" /> is invalid.
         /// </exception>
         IDirectory CreateDirectory(IEnumerable<char> name);
+
+        /// <summary>
+        /// Deletes that directory and all its items.
+        /// </summary>
+        void Delete();
 
         /// <summary>
         /// Gets the list of sub directories.

@@ -16,7 +16,13 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
     /// </summary>
     public sealed class ListCloudDirectoryResult
     {
-        #region Fields (6)
+        #region Fields (8)
+
+        /// <summary>
+        /// Stores the creation time in UTC format.
+        /// </summary>
+        [JsonProperty(PropertyName = "creationTime")]
+        public DateTime? CreationTime;
 
         /// <summary>
         /// Stores the list of directories that are inside the directory.
@@ -51,6 +57,12 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </summary>
         public CloudServer Server;
 
+        /// <summary>
+        /// Stores the last write time in UTC format.
+        /// </summary>
+        [JsonProperty(PropertyName = "lastWriteTime")]
+        public DateTime? WriteTime;
+
         #endregion Fields
 
         #region Properties (2)
@@ -69,9 +81,35 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 
         #endregion Properties
 
-        #region Methods (1)
+        #region Methods (3)
 
-        // Public Methods (1) 
+        // Public Methods (3) 
+
+        /// <summary>
+        /// Updates the creation time of that directory.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="DirectoryNotFoundException">
+        /// Directory does not exist.
+        /// </exception>
+        public void UpdateCreationTime(DateTime? newValue)
+        {
+            this.Server.UpdateDirectoryCreationTime(this.Path, newValue);
+            this.CreationTime = newValue;
+        }
+
+        /// <summary>
+        /// Updates the write time of that directory.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="DirectoryNotFoundException">
+        /// Directory does not exist.
+        /// </exception>
+        public void UpdateWriteTime(DateTime? newValue)
+        {
+            this.Server.UpdateDirectoryWriteTime(this.Path, newValue);
+            this.WriteTime = newValue;
+        }
 
         /// <summary>
         /// Uploads a file to a server.

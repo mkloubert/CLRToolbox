@@ -4,6 +4,7 @@
 
 
 using MarcelJoachimKloubert.CLRToolbox;
+using System;
 
 namespace MarcelJoachimKloubert.CloudNET.Classes.IO
 {
@@ -12,12 +13,22 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
     /// </summary>
     public interface IFileSystemItem : IHasName
     {
-        #region Data Members (1)
+        #region Data Members (3)
+
+        /// <summary>
+        /// Gets or sets the creation timestamp.
+        /// </summary>
+        DateTime? CreationTime { get; set; }
 
         /// <summary>
         /// Returns the full path of that item.
         /// </summary>
         string FullPath { get; }
+
+        /// <summary>
+        /// Gets or sets the write time timestamp.
+        /// </summary>
+        DateTime? WriteTime { get; set; }
 
         #endregion Data Members
     }

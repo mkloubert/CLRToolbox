@@ -65,6 +65,7 @@
             this.Button_RefreshRemoteDirectory = new System.Windows.Forms.Button();
             this.TextBox_RemotePath = new System.Windows.Forms.TextBox();
             this.Label_RemotePath = new System.Windows.Forms.Label();
+            this.ColumnHeader_RemoteFiles_LastWriteTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GroupBox_Server.SuspendLayout();
             this.TabControl_Main.SuspendLayout();
             this.TabPage_Main_LocalSystem.SuspendLayout();
@@ -276,7 +277,8 @@
             // 
             this.ListView_RemoteFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader_RemoteFiles_Name,
-            this.ColumnHeader_RemoteFiles_Size});
+            this.ColumnHeader_RemoteFiles_Size,
+            this.ColumnHeader_RemoteFiles_LastWriteTime});
             this.ListView_RemoteFiles.ContextMenuStrip = this.ContextMenuStrip_RemoteFiles;
             this.ListView_RemoteFiles.FullRowSelect = true;
             this.ListView_RemoteFiles.LargeImageList = this.ImageList_RemoteFiles;
@@ -292,12 +294,12 @@
             // ColumnHeader_RemoteFiles_Name
             // 
             this.ColumnHeader_RemoteFiles_Name.Text = "Name";
-            this.ColumnHeader_RemoteFiles_Name.Width = 310;
+            this.ColumnHeader_RemoteFiles_Name.Width = 200;
             // 
             // ColumnHeader_RemoteFiles_Size
             // 
             this.ColumnHeader_RemoteFiles_Size.Text = "Size";
-            this.ColumnHeader_RemoteFiles_Size.Width = 120;
+            this.ColumnHeader_RemoteFiles_Size.Width = 96;
             // 
             // ContextMenuStrip_RemoteFiles
             // 
@@ -308,7 +310,7 @@
             this.ToolStripMenuItem_RemoteFiles_File_Separator1,
             this.ToolStripMenuItem_RemoteFiles_File_Open});
             this.ContextMenuStrip_RemoteFiles.Name = "ContextMenuStrip_SyncLog";
-            this.ContextMenuStrip_RemoteFiles.Size = new System.Drawing.Size(153, 104);
+            this.ContextMenuStrip_RemoteFiles.Size = new System.Drawing.Size(131, 82);
             this.ContextMenuStrip_RemoteFiles.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip_RemoteFiles_Opening);
             // 
             // ToolStripMenuItem_RemoteFiles_Dir_Open
@@ -316,14 +318,14 @@
             this.ToolStripMenuItem_RemoteFiles_Dir_Open.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToolStripMenuItem_RemoteFiles_Dir_Open.Image = global::MarcelJoachimKloubert.CloudNET.FileSync.Properties.Resources.icon_openfolder;
             this.ToolStripMenuItem_RemoteFiles_Dir_Open.Name = "ToolStripMenuItem_RemoteFiles_Dir_Open";
-            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Size = new System.Drawing.Size(130, 22);
             this.ToolStripMenuItem_RemoteFiles_Dir_Open.Text = "Open";
             this.ToolStripMenuItem_RemoteFiles_Dir_Open.Click += new System.EventHandler(this.ToolStripMenuItem_RemoteFiles_Dir_Open_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
             this.toolStripMenuItem1.Visible = false;
             // 
             // ToolStripMenuItem_RemoteFiles_File_Download
@@ -331,20 +333,20 @@
             this.ToolStripMenuItem_RemoteFiles_File_Download.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToolStripMenuItem_RemoteFiles_File_Download.Image = global::MarcelJoachimKloubert.CloudNET.FileSync.Properties.Resources.icon_download;
             this.ToolStripMenuItem_RemoteFiles_File_Download.Name = "ToolStripMenuItem_RemoteFiles_File_Download";
-            this.ToolStripMenuItem_RemoteFiles_File_Download.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Size = new System.Drawing.Size(130, 22);
             this.ToolStripMenuItem_RemoteFiles_File_Download.Text = "Download";
             this.ToolStripMenuItem_RemoteFiles_File_Download.Click += new System.EventHandler(this.ToolStripMenuItem_RemoteFiles_File_Download_Click);
             // 
             // ToolStripMenuItem_RemoteFiles_File_Separator1
             // 
             this.ToolStripMenuItem_RemoteFiles_File_Separator1.Name = "ToolStripMenuItem_RemoteFiles_File_Separator1";
-            this.ToolStripMenuItem_RemoteFiles_File_Separator1.Size = new System.Drawing.Size(149, 6);
+            this.ToolStripMenuItem_RemoteFiles_File_Separator1.Size = new System.Drawing.Size(127, 6);
             // 
             // ToolStripMenuItem_RemoteFiles_File_Open
             // 
             this.ToolStripMenuItem_RemoteFiles_File_Open.Image = global::MarcelJoachimKloubert.CloudNET.FileSync.Properties.Resources.icon_exec;
             this.ToolStripMenuItem_RemoteFiles_File_Open.Name = "ToolStripMenuItem_RemoteFiles_File_Open";
-            this.ToolStripMenuItem_RemoteFiles_File_Open.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_RemoteFiles_File_Open.Size = new System.Drawing.Size(130, 22);
             this.ToolStripMenuItem_RemoteFiles_File_Open.Text = "Open";
             this.ToolStripMenuItem_RemoteFiles_File_Open.Click += new System.EventHandler(this.ToolStripMenuItem_RemoteFiles_File_Open_Click);
             // 
@@ -381,6 +383,11 @@
             this.Label_RemotePath.Size = new System.Drawing.Size(71, 13);
             this.Label_RemotePath.TabIndex = 16;
             this.Label_RemotePath.Text = "Remote path:";
+            // 
+            // ColumnHeader_RemoteFiles_LastWriteTime
+            // 
+            this.ColumnHeader_RemoteFiles_LastWriteTime.Text = "Last write";
+            this.ColumnHeader_RemoteFiles_LastWriteTime.Width = 120;
             // 
             // MainForm
             // 
@@ -446,6 +453,7 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_RemoteFiles_File_Download;
         private System.Windows.Forms.ToolStripSeparator ToolStripMenuItem_RemoteFiles_File_Separator1;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_RemoteFiles_File_Open;
+        private System.Windows.Forms.ColumnHeader ColumnHeader_RemoteFiles_LastWriteTime;
     }
 }
 

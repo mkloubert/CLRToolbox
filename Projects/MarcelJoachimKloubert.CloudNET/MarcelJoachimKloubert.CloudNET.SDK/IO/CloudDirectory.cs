@@ -16,7 +16,19 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
     /// </summary>
     public sealed class CloudDirectory
     {
-        #region Fields (3)
+        #region Fields (6)
+
+        /// <summary>
+        /// Stores the creation time in UTC format.
+        /// </summary>
+        [JsonProperty(PropertyName = "creationTime")]
+        public DateTime? CreationTime;
+
+        /// <summary>
+        /// Stores if that directory is the root directory or not.
+        /// </summary>
+        [JsonProperty(PropertyName = "isRoot")]
+        public bool? IsRoot;
 
         /// <summary>
         /// Stores the name of the directory.
@@ -35,11 +47,36 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </summary>
         public CloudServer Server;
 
+        /// <summary>
+        /// Stores the last write time in UTC format.
+        /// </summary>
+        [JsonProperty(PropertyName = "lastWriteTime")]
+        public DateTime? WriteTime;
+
         #endregion Fields
 
-        #region Methods (2)
+        #region Methods (5)
 
-        // Public Methods (2) 
+        // Public Methods (5) 
+
+        /// <summary>
+        /// Deletes that directory on its server.
+        /// </summary>
+        /// <exception cref="DirectoryNotFoundException">
+        /// Directory does not exist.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Root directory cannot be deleted.
+        /// </exception>
+        public void Delete()
+        {
+            if (this.IsRoot == true)
+            {
+                throw new InvalidOperationException();
+            }
+
+            this.Server.DeleteDirectory(this.Path);
+        }
 
         /// <summary>
         /// Lists that directory.
@@ -51,6 +88,32 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         public ListCloudDirectoryResult List()
         {
             return this.Server.ListDirectory(this.Path);
+        }
+
+        /// <summary>
+        /// Updates the creation time of that directory.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="DirectoryNotFoundException">
+        /// Directory does not exist.
+        /// </exception>
+        public void UpdateCreationTime(DateTime? newValue)
+        {
+            this.Server.UpdateDirectoryCreationTime(this.Path, newValue);
+            this.CreationTime = newValue;
+        }
+
+        /// <summary>
+        /// Updates the write time of that directory.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="DirectoryNotFoundException">
+        /// Directory does not exist.
+        /// </exception>
+        public void UpdateWriteTime(DateTime? newValue)
+        {
+            this.Server.UpdateDirectoryWriteTime(this.Path, newValue);
+            this.WriteTime = newValue;
         }
 
         /// <summary>

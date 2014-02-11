@@ -93,6 +93,15 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     {
                         this.Server
                             .UploadFile(filePath, stream);
+
+                        var actions = new Action<CloudServer>[]
+                        {
+                            (srv) => srv.UpdateFileCreationTime(filePath, File.GetCreationTimeUtc(e.FullPath)),
+                            (srv) => srv.UpdateFileWriteTime(filePath, File.GetLastWriteTimeUtc(e.FullPath)),
+                        };
+
+                        actions.ForAll(ctx => ctx.Item(this.Server),
+                                       throwExceptions: false);
                     }
                 });
         }

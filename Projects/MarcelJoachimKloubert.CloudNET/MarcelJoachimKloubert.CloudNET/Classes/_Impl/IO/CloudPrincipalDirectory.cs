@@ -23,8 +23,10 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 {
     internal sealed class CloudPrincipalDirectory : FileSystemItemBase, IDirectory
     {
-        #region Fields (12)
+        #region Fields (16)
 
+        private DateTime? _creationTime;
+        private DateTime? _lastWrite;
         private const string _MASKED_FILE_EXTENSION = "bin";
         private string _name;
         private const string _PATH_SEPARATOR = "/";
@@ -37,10 +39,44 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
         private const string _XML_TAG_METAFILE_FILE = "file";
         private const string _XML_TAG_METAFILE_FILELIST = "files";
         private const string _XML_TAG_METAFILE_ROOT = "directory";
+        internal const string XML_ATTRIB_METAFILE_CREATIONTIME = "creationTime";
+        internal const string XML_ATTRIB_METAFILE_LASTWRITETIME = "lastWriteTime";
 
         #endregion Fields
 
-        #region Properties (9)
+        #region Properties (12)
+
+        public override DateTime? CreationTime
+        {
+            get { return this._creationTime; }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    this.Xml
+                        .SetAttributeValue(XML_ATTRIB_METAFILE_CREATIONTIME,
+                                           value.Value.ToUniversalTime().Ticks);
+                }
+                else
+                {
+                    var attrib = this.Xml.Attribute(XML_ATTRIB_METAFILE_CREATIONTIME);
+                    if (attrib != null)
+                    {
+                        attrib.Remove();
+                    }
+                }
+
+                this.UpdateMetaData(this.Xml.Document);
+
+                this._creationTime = value;
+            }
+        }
+
+        public bool Exists
+        {
+            get { return Directory.Exists(this.LocalPath); }
+        }
 
         internal CloudPrincipalFileManager FileManager
         {
@@ -111,6 +147,33 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
             set;
         }
 
+        public override DateTime? WriteTime
+        {
+            get { return this._lastWrite; }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    this.Xml
+                        .SetAttributeValue(XML_ATTRIB_METAFILE_LASTWRITETIME,
+                                           value.Value.ToUniversalTime().Ticks);
+                }
+                else
+                {
+                    var attrib = this.Xml.Attribute(XML_ATTRIB_METAFILE_LASTWRITETIME);
+                    if (attrib != null)
+                    {
+                        attrib.Remove();
+                    }
+                }
+
+                this.UpdateMetaData(this.Xml.Document);
+
+                this._lastWrite = value;
+            }
+        }
+
         internal XElement Xml
         {
             get;
@@ -119,9 +182,9 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (13)
 
-        // Public Methods (4) 
+        // Public Methods (6) 
 
         public IDirectory CreateDirectory(IEnumerable<char> name)
         {
@@ -216,6 +279,24 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                     result.Xml = directoryElement;
                     result.SetName(realName);
 
+                    // try update timestamps
+                    try
+                    {
+                        maskedDir.Refresh();
+
+                        var actions = new Action<CloudPrincipalDirectory, DirectoryInfo>[]
+                        {
+                            (cloudDir, localDir) => cloudDir.CreationTime = localDir.CreationTimeUtc,
+                            (cloudDir, localDir) => cloudDir.WriteTime = localDir.LastWriteTimeUtc,
+                        };
+                        actions.ForAll(ctx => ctx.Item(result, maskedDir),
+                                       throwExceptions: false);
+                    }
+                    catch
+                    {
+                        // ignore errors here
+                    }
+
                     return result;
                 }
                 catch
@@ -235,6 +316,24 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
                     throw;
                 }
+            }
+        }
+
+        public void Delete()
+        {
+            lock (this._SYNC)
+            {
+                if (this.IsRoot)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                var doc = this.Xml.Document;
+                this.Xml.Remove();
+
+                this.Parent.UpdateMetaData(doc);
+
+                Deltree(new DirectoryInfo(this.LocalPath));
             }
         }
 
@@ -286,6 +385,8 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         Xml = dirElement,
                     };
                 newDir.SetName(realName);
+
+                newDir.RefreshTimestamps();
 
                 yield return newDir;
             }
@@ -349,7 +450,6 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         FileManager = this.FileManager,
                         LocalPath = maskedFile.FullName,
                         Password = pwd,
-                        Size = -1,
                         Xml = fileElement,
                     };
 
@@ -365,7 +465,40 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
                 newFile.SetName(realName);
 
+                newFile.RefreshTimestamps();
+
                 yield return newFile;
+            }
+        }
+
+        public override void RefreshTimestamps()
+        {
+            var creationTimeAttrib = this.Xml.Attribute(XML_ATTRIB_METAFILE_CREATIONTIME);
+            if (creationTimeAttrib != null &&
+                string.IsNullOrWhiteSpace(creationTimeAttrib.Value) == false)
+            {
+                var ticks = GlobalConverter.Current.ChangeType<long>(creationTimeAttrib.Value.Trim(),
+                                                                     CultureInfo.InvariantCulture);
+
+                this._creationTime = new DateTime(ticks, DateTimeKind.Utc);
+            }
+            else
+            {
+                this._creationTime = null;
+            }
+
+            var writeTimeAttrib = this.Xml.Attribute(XML_ATTRIB_METAFILE_CREATIONTIME);
+            if (writeTimeAttrib != null &&
+                string.IsNullOrWhiteSpace(writeTimeAttrib.Value) == false)
+            {
+                var ticks = GlobalConverter.Current.ChangeType<long>(writeTimeAttrib.Value.Trim(),
+                                                                     CultureInfo.InvariantCulture);
+
+                this._lastWrite = new DateTime(ticks, DateTimeKind.Utc);
+            }
+            else
+            {
+                this._lastWrite = null;
             }
         }
 
@@ -532,17 +665,34 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         result.FileManager = this.FileManager;
                         result.LocalPath = maskedFile.FullName;
                         result.Password = secPwd;
-                        result.Size = -1;
                         result.Xml = fileElement;
                         result.SetName(realName);
 
-                        // stored file size
+                        // store file size
                         var sizeAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
                         if (sizeAttrib != null &&
                             string.IsNullOrWhiteSpace(sizeAttrib.Value) == false)
                         {
                             result.Size = GlobalConverter.Current.ChangeType<long>(sizeAttrib.Value.Trim(),
                                                                                    CultureInfo.InvariantCulture);
+                        }
+
+                        // try update timestamps
+                        try
+                        {
+                            maskedFile.Refresh();
+
+                            var actions = new Action<CloudPrincipalFile, FileInfo>[]
+                            {
+                                (cloudFile, localFile) => cloudFile.CreationTime = localFile.CreationTimeUtc,
+                                (cloudFile, localFile) => cloudFile.WriteTime = localFile.LastWriteTimeUtc,
+                            };
+                            actions.ForAll(ctx => ctx.Item(result, maskedFile),
+                                           throwExceptions: false);
+                        }
+                        catch
+                        {
+                            // ignore errors here
                         }
 
                         return result;
@@ -573,7 +723,22 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 }
             }
         }
-        // Private Methods (3) 
+        // Private Methods (4) 
+
+        private static void Deltree(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
+            {
+                Deltree(subDir);
+            }
+
+            foreach (var file in dir.GetFiles())
+            {
+                file.Delete();
+            }
+
+            dir.Delete();
+        }
 
         private DirectoryInfo GetNextMaskedDirectory()
         {

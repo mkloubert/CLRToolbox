@@ -14,7 +14,13 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
     /// </summary>
     public sealed class CloudFile
     {
-        #region Fields (4)
+        #region Fields (6)
+
+        /// <summary>
+        /// Stores the creation time in UTC format.
+        /// </summary>
+        [JsonProperty(PropertyName = "creationTime")]
+        public DateTime? CreationTime;
 
         /// <summary>
         /// Stores the name of the file.
@@ -36,26 +42,20 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// <summary>
         /// Stores the size of the file.
         /// </summary>
+        [JsonProperty(PropertyName = "size")]
         public long? Size;
+
+        /// <summary>
+        /// Stores the last write time in UTC format.
+        /// </summary>
+        [JsonProperty(PropertyName = "lastWriteTime")]
+        public DateTime? WriteTime;
 
         #endregion Fields
 
-        #region Properties (1)
+        #region Methods (5)
 
-        [JsonProperty(PropertyName = "size")]
-        private long sizeInner
-        {
-            set
-            {
-                this.Size = value > -1 ? value : (long?)null;
-            }
-        }
-
-        #endregion Properties
-
-        #region Methods (3)
-
-        // Public Methods (3) 
+        // Public Methods (5) 
 
         /// <summary>
         /// Deletes that file.
@@ -99,6 +99,30 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         {
             this.Server
                 .DownloadFile(this.Path, target);
+        }
+
+        /// <summary>
+        /// Updates the creation time of that file.
+        /// </summary>
+        /// <exception cref="FileNotFoundException">
+        /// File does not exist.
+        /// </exception>
+        public void UpdateCreationTime(DateTime? newValue)
+        {
+            this.Server.UpdateFileCreationTime(this.Path, newValue);
+            this.CreationTime = newValue;
+        }
+
+        /// <summary>
+        /// Updates the write time of that file.
+        /// </summary>
+        /// <exception cref="FileNotFoundException">
+        /// File does not exist.
+        /// </exception>
+        public void UpdateWriteTime(DateTime? newValue)
+        {
+            this.Server.UpdateFileWriteTime(this.Path, newValue);
+            this.WriteTime = newValue;
         }
 
         #endregion Methods

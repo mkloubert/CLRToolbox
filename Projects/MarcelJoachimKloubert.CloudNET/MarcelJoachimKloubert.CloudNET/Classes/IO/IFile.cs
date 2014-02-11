@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes.IO
         /// <summary>
         /// Gets the size of the file.
         /// </summary>
-        long Size { get; }
+        long? Size { get; }
 
         #endregion Data Members
 

@@ -19,6 +19,13 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
     /// </summary>
     public sealed class CloudServer
     {
+        #region Fields (2)
+
+        private const string _PATCH_TYPE_CREATIONTIME = "creationtime";
+        private const string _PATCH_TYPE_WRITETIME = "writetime";
+
+        #endregion Fields
+
         #region Properties (4)
 
         /// <summary>
@@ -59,14 +66,64 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
 
         #endregion Properties
 
-        #region Methods (11)
+        #region Methods (18)
 
-        // Public Methods (9) 
+        // Public Methods (14) 
+
+        /// <summary>
+        /// Deletes a directory on this server.
+        /// </summary>
+        /// <param name="dirPath">The full path of the directory that should be deleted</param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="dirPath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirPath" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="DirectoryNotFoundException">
+        /// <paramref name="dirPath" /> does not exist.
+        /// </exception>
+        public void DeleteDirectory(IEnumerable<char> dirPath)
+        {
+            string path = StringHelper.AsString(dirPath);
+            if (path == null)
+            {
+                throw new ArgumentNullException("dirPath");
+            }
+
+            path = path.Trim();
+            if (path == string.Empty)
+            {
+                throw new ArgumentException("dirPath");
+            }
+
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri());
+            httpRequest.Method = "DELETE";
+            httpRequest.Headers["X-MJKTM-CloudNET-Directory"] = path;
+
+            try
+            {
+                httpRequest.GetResponse().Close();
+            }
+            catch (WebException wex)
+            {
+                HttpWebResponse resp = wex.Response as HttpWebResponse;
+                if (resp != null)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new DirectoryNotFoundException(path ?? string.Empty);
+                    }
+                }
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// Deletes a file on this server.
         /// </summary>
-        /// <param name="filePath">The full path where the file should be stored.</param>
+        /// <param name="filePath">The full path of the file that should be deleted</param>
         /// <exception cref="ArgumentException">
         /// <paramref name="filePath" /> is invalid.
         /// </exception>
@@ -378,6 +435,90 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
         }
 
         /// <summary>
+        /// Updates the creation time of a directory.
+        /// </summary>
+        /// <param name="dirPath">The path to the directory.</param>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="dirPath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirPath" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="DirectoryNotFoundException">
+        /// <paramref name="dirPath" /> does not exist.
+        /// </exception>
+        public void UpdateDirectoryCreationTime(IEnumerable<char> dirPath, DateTime? newValue)
+        {
+            this.UpdateDirectoryTime(StringHelper.AsString(dirPath),
+                                     newValue,
+                                     _PATCH_TYPE_CREATIONTIME);
+        }
+
+        /// <summary>
+        /// Updates the write time of a directory.
+        /// </summary>
+        /// <param name="dirPath">The path to the directory.</param>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="dirPath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirPath" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="DirectoryNotFoundException">
+        /// <paramref name="dirPath" /> does not exist.
+        /// </exception>
+        public void UpdateDirectoryWriteTime(IEnumerable<char> dirPath, DateTime? newValue)
+        {
+            this.UpdateDirectoryTime(StringHelper.AsString(dirPath),
+                                     newValue,
+                                     _PATCH_TYPE_WRITETIME);
+        }
+
+        /// <summary>
+        /// Updates the creation time of a file.
+        /// </summary>
+        /// <param name="filePath">The path to the file.</param>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filePath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="filePath" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// <paramref name="filePath" /> does not exist.
+        /// </exception>
+        public void UpdateFileCreationTime(IEnumerable<char> filePath, DateTime? newValue)
+        {
+            this.UpdateFileTime(StringHelper.AsString(filePath),
+                                newValue,
+                                _PATCH_TYPE_CREATIONTIME);
+        }
+
+        /// <summary>
+        /// Updates the write time of a file.
+        /// </summary>
+        /// <param name="filePath">The path to the file.</param>
+        /// <param name="newValue">The new value.</param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filePath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="filePath" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// <paramref name="filePath" /> does not exist.
+        /// </exception>
+        public void UpdateFileWriteTime(IEnumerable<char> filePath, DateTime? newValue)
+        {
+            this.UpdateFileTime(StringHelper.AsString(filePath),
+                                newValue,
+                                _PATCH_TYPE_WRITETIME);
+        }
+
+        /// <summary>
         /// Uploads a file to this server.
         /// </summary>
         /// <param name="filePath">The full path where the file should be stored.</param>
@@ -434,7 +575,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
 
             httpRequest.GetResponse().Close();
         }
-        // Private Methods (2) 
+        // Private Methods (4) 
 
         private HttpWebRequest CreateHttpRequest(string url)
         {
@@ -477,6 +618,80 @@ namespace MarcelJoachimKloubert.CloudNET.SDK
             httpRequest.Headers["Authorization"] = string.Format("Basic {0}",
                                                                  Convert.ToBase64String(Encoding.ASCII
                                                                                                 .GetBytes(authInfo)));
+        }
+
+        private void UpdateDirectoryTime(string path, DateTime? newValue, string type)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
+
+            path = path.Trim();
+            if (path == string.Empty)
+            {
+                throw new ArgumentException("path");
+            }
+
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri() + "?type=" + type);
+            httpRequest.Method = "PATCH";
+            httpRequest.Headers["X-MJKTM-CloudNET-Directory"] = path;
+            httpRequest.Headers["X-MJKTM-CloudNET-DirectoryTime"] = newValue.HasValue ? newValue.Value.ToUniversalTime().Ticks.ToString() : string.Empty;
+
+            try
+            {
+                httpRequest.GetResponse().Close();
+            }
+            catch (WebException wex)
+            {
+                HttpWebResponse resp = wex.Response as HttpWebResponse;
+                if (resp != null)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new DirectoryNotFoundException(path ?? string.Empty);
+                    }
+                }
+
+                throw;
+            }
+        }
+
+        private void UpdateFileTime(string path, DateTime? newValue, string type)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
+
+            path = path.Trim();
+            if (path == string.Empty)
+            {
+                throw new ArgumentException("path");
+            }
+
+            HttpWebRequest httpRequest = this.CreateHttpRequest(this.GetFilesUri() + "?type=" + type);
+            httpRequest.Method = "PATCH";
+            httpRequest.Headers["X-MJKTM-CloudNET-File"] = path;
+            httpRequest.Headers["X-MJKTM-CloudNET-FileTime"] = newValue.HasValue ? newValue.Value.ToUniversalTime().Ticks.ToString() : string.Empty;
+
+            try
+            {
+                httpRequest.GetResponse().Close();
+            }
+            catch (WebException wex)
+            {
+                HttpWebResponse resp = wex.Response as HttpWebResponse;
+                if (resp != null)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new DirectoryNotFoundException(path ?? string.Empty);
+                    }
+                }
+
+                throw;
+            }
         }
 
         #endregion Methods

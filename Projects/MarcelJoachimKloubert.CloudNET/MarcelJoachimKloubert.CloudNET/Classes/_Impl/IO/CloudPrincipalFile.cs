@@ -5,8 +5,11 @@
 
 using MarcelJoachimKloubert.CloudNET.Classes.Helpers;
 using MarcelJoachimKloubert.CloudNET.Classes.IO;
+using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Security;
 using System.Xml.Linq;
@@ -15,8 +18,10 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 {
     internal sealed class CloudPrincipalFile : FileSystemItemBase, IFile
     {
-        #region Fields (1)
+        #region Fields (3)
 
+        private DateTime? _creationTime;
+        private DateTime? _lastWrite;
         private string _name;
 
         #endregion Fields
@@ -30,7 +35,34 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Constructors
 
-        #region Properties (10)
+        #region Properties (12)
+
+        public override DateTime? CreationTime
+        {
+            get { return this._creationTime; }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    this.Xml
+                        .SetAttributeValue(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_CREATIONTIME,
+                                           value.Value.ToUniversalTime().Ticks);
+                }
+                else
+                {
+                    var attrib = this.Xml.Attribute(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_CREATIONTIME);
+                    if (attrib != null)
+                    {
+                        attrib.Remove();
+                    }
+                }
+
+                this.UpdateMetaData(this.Xml.Document);
+
+                this._creationTime = value;
+            }
+        }
 
         internal CloudPrincipalDirectory Directory
         {
@@ -85,10 +117,37 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
             set;
         }
 
-        public long Size
+        public long? Size
         {
             get;
             internal set;
+        }
+
+        public override DateTime? WriteTime
+        {
+            get { return this._lastWrite; }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    this.Xml
+                        .SetAttributeValue(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_LASTWRITETIME,
+                                           value.Value.ToUniversalTime().Ticks);
+                }
+                else
+                {
+                    var attrib = this.Xml.Attribute(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_LASTWRITETIME);
+                    if (attrib != null)
+                    {
+                        attrib.Remove();
+                    }
+                }
+
+                this.UpdateMetaData(this.Xml.Document);
+
+                this._lastWrite = value;
+            }
         }
 
         internal XElement Xml
@@ -99,9 +158,9 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Properties
 
-        #region Methods (5)
+        #region Methods (6)
 
-        // Public Methods (2) 
+        // Public Methods (3) 
 
         public void Delete()
         {
@@ -117,6 +176,37 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
         {
             return new CryptoHelper().GetDecryptionStream(File.OpenRead(this.LocalPath),
                                                           this.Password);
+        }
+
+        public override void RefreshTimestamps()
+        {
+            var creationTimeAttrib = this.Xml.Attribute(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_CREATIONTIME);
+            if (creationTimeAttrib != null &&
+                string.IsNullOrWhiteSpace(creationTimeAttrib.Value) == false)
+            {
+                var ticks = GlobalConverter.Current.ChangeType<long>(creationTimeAttrib.Value.Trim(),
+                                                                     CultureInfo.InvariantCulture);
+
+                this._creationTime = new DateTime(ticks, DateTimeKind.Utc);
+            }
+            else
+            {
+                this._creationTime = null;
+            }
+
+            var writeTimeAttrib = this.Xml.Attribute(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_CREATIONTIME);
+            if (writeTimeAttrib != null &&
+                string.IsNullOrWhiteSpace(writeTimeAttrib.Value) == false)
+            {
+                var ticks = GlobalConverter.Current.ChangeType<long>(writeTimeAttrib.Value.Trim(),
+                                                                     CultureInfo.InvariantCulture);
+
+                this._lastWrite = new DateTime(ticks, DateTimeKind.Utc);
+            }
+            else
+            {
+                this._lastWrite = null;
+            }
         }
         // Private Methods (2) 
 

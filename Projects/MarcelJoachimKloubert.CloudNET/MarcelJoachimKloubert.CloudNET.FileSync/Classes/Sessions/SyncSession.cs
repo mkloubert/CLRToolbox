@@ -101,7 +101,18 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
         {
             return new Action<ListViewItem>((logItem) =>
                 {
+                    if (Directory.Exists(e.FullPath) == false)
+                    {
+                        return;
+                    }
 
+                    var dir = new DirectoryInfo(e.FullPath);
+                    if (dir.FullName.ToLower().Trim() == this.DirectoryToSync.ToLower().Trim())
+                    {
+                        return;
+                    }
+
+                    //TODO implement creating directory on remote server
                 });
         }
 

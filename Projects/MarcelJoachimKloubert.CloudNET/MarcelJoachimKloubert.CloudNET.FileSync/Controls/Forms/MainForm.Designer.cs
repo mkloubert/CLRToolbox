@@ -32,19 +32,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.NotifyIcon_Main = new System.Windows.Forms.NotifyIcon(this.components);
             this.GroupBox_Server = new System.Windows.Forms.GroupBox();
-            this.Button_StartStop = new System.Windows.Forms.Button();
-            this.Local_ServerAddress = new System.Windows.Forms.Label();
-            this.ComboBox_Protocol = new System.Windows.Forms.ComboBox();
-            this.TextBox_ServerAddress = new System.Windows.Forms.TextBox();
-            this.TextBox_ServerPort = new System.Windows.Forms.TextBox();
-            this.Local_ServerUser = new System.Windows.Forms.Label();
-            this.Local_ServerPassword = new System.Windows.Forms.Label();
-            this.TextBox_ServerUser = new System.Windows.Forms.TextBox();
             this.TextBox_ServerPassword = new System.Windows.Forms.TextBox();
+            this.TextBox_ServerUser = new System.Windows.Forms.TextBox();
+            this.Local_ServerPassword = new System.Windows.Forms.Label();
+            this.Local_ServerUser = new System.Windows.Forms.Label();
+            this.TextBox_ServerPort = new System.Windows.Forms.TextBox();
+            this.TextBox_ServerAddress = new System.Windows.Forms.TextBox();
+            this.ComboBox_Protocol = new System.Windows.Forms.ComboBox();
+            this.Local_ServerAddress = new System.Windows.Forms.Label();
+            this.Button_StartStop = new System.Windows.Forms.Button();
             this.ContextMenuStrip_SyncLog = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TabControl_Main = new System.Windows.Forms.TabControl();
             this.TabPage_Main_LocalSystem = new System.Windows.Forms.TabPage();
-            this.TabPage_Main_Server = new System.Windows.Forms.TabPage();
             this.ListView_SyncLog = new System.Windows.Forms.ListView();
             this.ColumnHeader_SyncLog_Time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_SyncLog_Subject = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -52,16 +51,25 @@
             this.Button_SelectSyncDirectory = new System.Windows.Forms.Button();
             this.TextBox_SyncDirectory = new System.Windows.Forms.TextBox();
             this.Label_DirectoryToSync = new System.Windows.Forms.Label();
-            this.TextBox_RemotePath = new System.Windows.Forms.TextBox();
-            this.Label_RemotePath = new System.Windows.Forms.Label();
-            this.Button_RefreshRemoteDirectory = new System.Windows.Forms.Button();
+            this.TabPage_Main_Server = new System.Windows.Forms.TabPage();
             this.ListView_RemoteFiles = new System.Windows.Forms.ListView();
             this.ColumnHeader_RemoteFiles_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_RemoteFiles_Size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ContextMenuStrip_RemoteFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolStripMenuItem_RemoteFiles_File_Download = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_RemoteFiles_File_Separator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolStripMenuItem_RemoteFiles_File_Open = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImageList_RemoteFiles = new System.Windows.Forms.ImageList(this.components);
+            this.Button_RefreshRemoteDirectory = new System.Windows.Forms.Button();
+            this.TextBox_RemotePath = new System.Windows.Forms.TextBox();
+            this.Label_RemotePath = new System.Windows.Forms.Label();
             this.GroupBox_Server.SuspendLayout();
             this.TabControl_Main.SuspendLayout();
             this.TabPage_Main_LocalSystem.SuspendLayout();
             this.TabPage_Main_Server.SuspendLayout();
+            this.ContextMenuStrip_RemoteFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // NotifyIcon_Main
@@ -87,24 +95,53 @@
             this.GroupBox_Server.TabStop = false;
             this.GroupBox_Server.Text = " Server ";
             // 
-            // Button_StartStop
+            // TextBox_ServerPassword
             // 
-            this.Button_StartStop.Location = new System.Drawing.Point(12, 301);
-            this.Button_StartStop.Name = "Button_StartStop";
-            this.Button_StartStop.Size = new System.Drawing.Size(472, 32);
-            this.Button_StartStop.TabIndex = 14;
-            this.Button_StartStop.Text = "Start";
-            this.Button_StartStop.UseVisualStyleBackColor = true;
-            this.Button_StartStop.Click += new System.EventHandler(this.Button_StartStop_Click);
+            this.TextBox_ServerPassword.Location = new System.Drawing.Point(309, 52);
+            this.TextBox_ServerPassword.Name = "TextBox_ServerPassword";
+            this.TextBox_ServerPassword.PasswordChar = '*';
+            this.TextBox_ServerPassword.Size = new System.Drawing.Size(157, 20);
+            this.TextBox_ServerPassword.TabIndex = 8;
+            this.TextBox_ServerPassword.UseSystemPasswordChar = true;
             // 
-            // Local_ServerAddress
+            // TextBox_ServerUser
             // 
-            this.Local_ServerAddress.AutoSize = true;
-            this.Local_ServerAddress.Location = new System.Drawing.Point(6, 25);
-            this.Local_ServerAddress.Name = "Local_ServerAddress";
-            this.Local_ServerAddress.Size = new System.Drawing.Size(48, 13);
-            this.Local_ServerAddress.TabIndex = 1;
-            this.Local_ServerAddress.Text = "Address:";
+            this.TextBox_ServerUser.Location = new System.Drawing.Point(60, 52);
+            this.TextBox_ServerUser.Name = "TextBox_ServerUser";
+            this.TextBox_ServerUser.Size = new System.Drawing.Size(169, 20);
+            this.TextBox_ServerUser.TabIndex = 6;
+            // 
+            // Local_ServerPassword
+            // 
+            this.Local_ServerPassword.AutoSize = true;
+            this.Local_ServerPassword.Location = new System.Drawing.Point(247, 52);
+            this.Local_ServerPassword.Name = "Local_ServerPassword";
+            this.Local_ServerPassword.Size = new System.Drawing.Size(56, 13);
+            this.Local_ServerPassword.TabIndex = 7;
+            this.Local_ServerPassword.Text = "Password:";
+            // 
+            // Local_ServerUser
+            // 
+            this.Local_ServerUser.AutoSize = true;
+            this.Local_ServerUser.Location = new System.Drawing.Point(10, 52);
+            this.Local_ServerUser.Name = "Local_ServerUser";
+            this.Local_ServerUser.Size = new System.Drawing.Size(32, 13);
+            this.Local_ServerUser.TabIndex = 5;
+            this.Local_ServerUser.Text = "User:";
+            // 
+            // TextBox_ServerPort
+            // 
+            this.TextBox_ServerPort.Location = new System.Drawing.Point(397, 25);
+            this.TextBox_ServerPort.Name = "TextBox_ServerPort";
+            this.TextBox_ServerPort.Size = new System.Drawing.Size(69, 20);
+            this.TextBox_ServerPort.TabIndex = 4;
+            // 
+            // TextBox_ServerAddress
+            // 
+            this.TextBox_ServerAddress.Location = new System.Drawing.Point(155, 25);
+            this.TextBox_ServerAddress.Name = "TextBox_ServerAddress";
+            this.TextBox_ServerAddress.Size = new System.Drawing.Size(236, 20);
+            this.TextBox_ServerAddress.TabIndex = 3;
             // 
             // ComboBox_Protocol
             // 
@@ -118,53 +155,24 @@
             this.ComboBox_Protocol.Size = new System.Drawing.Size(89, 21);
             this.ComboBox_Protocol.TabIndex = 2;
             // 
-            // TextBox_ServerAddress
+            // Local_ServerAddress
             // 
-            this.TextBox_ServerAddress.Location = new System.Drawing.Point(155, 25);
-            this.TextBox_ServerAddress.Name = "TextBox_ServerAddress";
-            this.TextBox_ServerAddress.Size = new System.Drawing.Size(236, 20);
-            this.TextBox_ServerAddress.TabIndex = 3;
+            this.Local_ServerAddress.AutoSize = true;
+            this.Local_ServerAddress.Location = new System.Drawing.Point(6, 25);
+            this.Local_ServerAddress.Name = "Local_ServerAddress";
+            this.Local_ServerAddress.Size = new System.Drawing.Size(48, 13);
+            this.Local_ServerAddress.TabIndex = 1;
+            this.Local_ServerAddress.Text = "Address:";
             // 
-            // TextBox_ServerPort
+            // Button_StartStop
             // 
-            this.TextBox_ServerPort.Location = new System.Drawing.Point(397, 25);
-            this.TextBox_ServerPort.Name = "TextBox_ServerPort";
-            this.TextBox_ServerPort.Size = new System.Drawing.Size(69, 20);
-            this.TextBox_ServerPort.TabIndex = 4;
-            // 
-            // Local_ServerUser
-            // 
-            this.Local_ServerUser.AutoSize = true;
-            this.Local_ServerUser.Location = new System.Drawing.Point(10, 52);
-            this.Local_ServerUser.Name = "Local_ServerUser";
-            this.Local_ServerUser.Size = new System.Drawing.Size(32, 13);
-            this.Local_ServerUser.TabIndex = 5;
-            this.Local_ServerUser.Text = "User:";
-            // 
-            // Local_ServerPassword
-            // 
-            this.Local_ServerPassword.AutoSize = true;
-            this.Local_ServerPassword.Location = new System.Drawing.Point(247, 52);
-            this.Local_ServerPassword.Name = "Local_ServerPassword";
-            this.Local_ServerPassword.Size = new System.Drawing.Size(56, 13);
-            this.Local_ServerPassword.TabIndex = 7;
-            this.Local_ServerPassword.Text = "Password:";
-            // 
-            // TextBox_ServerUser
-            // 
-            this.TextBox_ServerUser.Location = new System.Drawing.Point(60, 52);
-            this.TextBox_ServerUser.Name = "TextBox_ServerUser";
-            this.TextBox_ServerUser.Size = new System.Drawing.Size(169, 20);
-            this.TextBox_ServerUser.TabIndex = 6;
-            // 
-            // TextBox_ServerPassword
-            // 
-            this.TextBox_ServerPassword.Location = new System.Drawing.Point(309, 52);
-            this.TextBox_ServerPassword.Name = "TextBox_ServerPassword";
-            this.TextBox_ServerPassword.PasswordChar = '*';
-            this.TextBox_ServerPassword.Size = new System.Drawing.Size(157, 20);
-            this.TextBox_ServerPassword.TabIndex = 8;
-            this.TextBox_ServerPassword.UseSystemPasswordChar = true;
+            this.Button_StartStop.Location = new System.Drawing.Point(12, 301);
+            this.Button_StartStop.Name = "Button_StartStop";
+            this.Button_StartStop.Size = new System.Drawing.Size(472, 32);
+            this.Button_StartStop.TabIndex = 14;
+            this.Button_StartStop.Text = "Start";
+            this.Button_StartStop.UseVisualStyleBackColor = true;
+            this.Button_StartStop.Click += new System.EventHandler(this.Button_StartStop_Click);
             // 
             // ContextMenuStrip_SyncLog
             // 
@@ -194,20 +202,6 @@
             this.TabPage_Main_LocalSystem.TabIndex = 0;
             this.TabPage_Main_LocalSystem.Text = "Local system";
             this.TabPage_Main_LocalSystem.UseVisualStyleBackColor = true;
-            // 
-            // TabPage_Main_Server
-            // 
-            this.TabPage_Main_Server.Controls.Add(this.ListView_RemoteFiles);
-            this.TabPage_Main_Server.Controls.Add(this.Button_RefreshRemoteDirectory);
-            this.TabPage_Main_Server.Controls.Add(this.TextBox_RemotePath);
-            this.TabPage_Main_Server.Controls.Add(this.Label_RemotePath);
-            this.TabPage_Main_Server.Location = new System.Drawing.Point(4, 22);
-            this.TabPage_Main_Server.Name = "TabPage_Main_Server";
-            this.TabPage_Main_Server.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage_Main_Server.Size = new System.Drawing.Size(458, 171);
-            this.TabPage_Main_Server.TabIndex = 1;
-            this.TabPage_Main_Server.Text = "Server";
-            this.TabPage_Main_Server.UseVisualStyleBackColor = true;
             // 
             // ListView_SyncLog
             // 
@@ -264,6 +258,113 @@
             this.Label_DirectoryToSync.TabIndex = 14;
             this.Label_DirectoryToSync.Text = "Directory to sync:";
             // 
+            // TabPage_Main_Server
+            // 
+            this.TabPage_Main_Server.Controls.Add(this.ListView_RemoteFiles);
+            this.TabPage_Main_Server.Controls.Add(this.Button_RefreshRemoteDirectory);
+            this.TabPage_Main_Server.Controls.Add(this.TextBox_RemotePath);
+            this.TabPage_Main_Server.Controls.Add(this.Label_RemotePath);
+            this.TabPage_Main_Server.Location = new System.Drawing.Point(4, 22);
+            this.TabPage_Main_Server.Name = "TabPage_Main_Server";
+            this.TabPage_Main_Server.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage_Main_Server.Size = new System.Drawing.Size(458, 171);
+            this.TabPage_Main_Server.TabIndex = 1;
+            this.TabPage_Main_Server.Text = "Server";
+            this.TabPage_Main_Server.UseVisualStyleBackColor = true;
+            // 
+            // ListView_RemoteFiles
+            // 
+            this.ListView_RemoteFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnHeader_RemoteFiles_Name,
+            this.ColumnHeader_RemoteFiles_Size});
+            this.ListView_RemoteFiles.ContextMenuStrip = this.ContextMenuStrip_RemoteFiles;
+            this.ListView_RemoteFiles.FullRowSelect = true;
+            this.ListView_RemoteFiles.LargeImageList = this.ImageList_RemoteFiles;
+            this.ListView_RemoteFiles.Location = new System.Drawing.Point(9, 34);
+            this.ListView_RemoteFiles.Name = "ListView_RemoteFiles";
+            this.ListView_RemoteFiles.Size = new System.Drawing.Size(443, 131);
+            this.ListView_RemoteFiles.SmallImageList = this.ImageList_RemoteFiles;
+            this.ListView_RemoteFiles.TabIndex = 19;
+            this.ListView_RemoteFiles.UseCompatibleStateImageBehavior = false;
+            this.ListView_RemoteFiles.View = System.Windows.Forms.View.Details;
+            this.ListView_RemoteFiles.DoubleClick += new System.EventHandler(this.ListView_RemoteFiles_DoubleClick);
+            // 
+            // ColumnHeader_RemoteFiles_Name
+            // 
+            this.ColumnHeader_RemoteFiles_Name.Text = "Name";
+            this.ColumnHeader_RemoteFiles_Name.Width = 310;
+            // 
+            // ColumnHeader_RemoteFiles_Size
+            // 
+            this.ColumnHeader_RemoteFiles_Size.Text = "Size";
+            this.ColumnHeader_RemoteFiles_Size.Width = 120;
+            // 
+            // ContextMenuStrip_RemoteFiles
+            // 
+            this.ContextMenuStrip_RemoteFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open,
+            this.toolStripMenuItem1,
+            this.ToolStripMenuItem_RemoteFiles_File_Download,
+            this.ToolStripMenuItem_RemoteFiles_File_Separator1,
+            this.ToolStripMenuItem_RemoteFiles_File_Open});
+            this.ContextMenuStrip_RemoteFiles.Name = "ContextMenuStrip_SyncLog";
+            this.ContextMenuStrip_RemoteFiles.Size = new System.Drawing.Size(153, 104);
+            this.ContextMenuStrip_RemoteFiles.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip_RemoteFiles_Opening);
+            // 
+            // ToolStripMenuItem_RemoteFiles_Dir_Open
+            // 
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Image = global::MarcelJoachimKloubert.CloudNET.FileSync.Properties.Resources.icon_openfolder;
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Name = "ToolStripMenuItem_RemoteFiles_Dir_Open";
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Text = "Open";
+            this.ToolStripMenuItem_RemoteFiles_Dir_Open.Click += new System.EventHandler(this.ToolStripMenuItem_RemoteFiles_Dir_Open_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Visible = false;
+            // 
+            // ToolStripMenuItem_RemoteFiles_File_Download
+            // 
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Image = global::MarcelJoachimKloubert.CloudNET.FileSync.Properties.Resources.icon_download;
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Name = "ToolStripMenuItem_RemoteFiles_File_Download";
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Text = "Download";
+            this.ToolStripMenuItem_RemoteFiles_File_Download.Click += new System.EventHandler(this.ToolStripMenuItem_RemoteFiles_File_Download_Click);
+            // 
+            // ToolStripMenuItem_RemoteFiles_File_Separator1
+            // 
+            this.ToolStripMenuItem_RemoteFiles_File_Separator1.Name = "ToolStripMenuItem_RemoteFiles_File_Separator1";
+            this.ToolStripMenuItem_RemoteFiles_File_Separator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // ToolStripMenuItem_RemoteFiles_File_Open
+            // 
+            this.ToolStripMenuItem_RemoteFiles_File_Open.Image = global::MarcelJoachimKloubert.CloudNET.FileSync.Properties.Resources.icon_exec;
+            this.ToolStripMenuItem_RemoteFiles_File_Open.Name = "ToolStripMenuItem_RemoteFiles_File_Open";
+            this.ToolStripMenuItem_RemoteFiles_File_Open.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_RemoteFiles_File_Open.Text = "Open";
+            this.ToolStripMenuItem_RemoteFiles_File_Open.Click += new System.EventHandler(this.ToolStripMenuItem_RemoteFiles_File_Open_Click);
+            // 
+            // ImageList_RemoteFiles
+            // 
+            this.ImageList_RemoteFiles.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList_RemoteFiles.ImageStream")));
+            this.ImageList_RemoteFiles.TransparentColor = System.Drawing.Color.Transparent;
+            this.ImageList_RemoteFiles.Images.SetKeyName(0, "icon_file.png");
+            this.ImageList_RemoteFiles.Images.SetKeyName(1, "icon_folder.png");
+            // 
+            // Button_RefreshRemoteDirectory
+            // 
+            this.Button_RefreshRemoteDirectory.Location = new System.Drawing.Point(412, 8);
+            this.Button_RefreshRemoteDirectory.Name = "Button_RefreshRemoteDirectory";
+            this.Button_RefreshRemoteDirectory.Size = new System.Drawing.Size(42, 20);
+            this.Button_RefreshRemoteDirectory.TabIndex = 18;
+            this.Button_RefreshRemoteDirectory.Text = "...";
+            this.Button_RefreshRemoteDirectory.UseVisualStyleBackColor = true;
+            this.Button_RefreshRemoteDirectory.Click += new System.EventHandler(this.Button_RefreshRemoteDirectory_Click);
+            // 
             // TextBox_RemotePath
             // 
             this.TextBox_RemotePath.Location = new System.Drawing.Point(83, 8);
@@ -280,41 +381,6 @@
             this.Label_RemotePath.Size = new System.Drawing.Size(71, 13);
             this.Label_RemotePath.TabIndex = 16;
             this.Label_RemotePath.Text = "Remote path:";
-            // 
-            // Button_RefreshRemoteDirectory
-            // 
-            this.Button_RefreshRemoteDirectory.Location = new System.Drawing.Point(412, 8);
-            this.Button_RefreshRemoteDirectory.Name = "Button_RefreshRemoteDirectory";
-            this.Button_RefreshRemoteDirectory.Size = new System.Drawing.Size(42, 20);
-            this.Button_RefreshRemoteDirectory.TabIndex = 18;
-            this.Button_RefreshRemoteDirectory.Text = "...";
-            this.Button_RefreshRemoteDirectory.UseVisualStyleBackColor = true;
-            this.Button_RefreshRemoteDirectory.Click += new System.EventHandler(this.Button_RefreshRemoteDirectory_Click);
-            // 
-            // ListView_RemoteFiles
-            // 
-            this.ListView_RemoteFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader_RemoteFiles_Name,
-            this.ColumnHeader_RemoteFiles_Size});
-            this.ListView_RemoteFiles.ContextMenuStrip = this.ContextMenuStrip_SyncLog;
-            this.ListView_RemoteFiles.FullRowSelect = true;
-            this.ListView_RemoteFiles.Location = new System.Drawing.Point(9, 34);
-            this.ListView_RemoteFiles.Name = "ListView_RemoteFiles";
-            this.ListView_RemoteFiles.Size = new System.Drawing.Size(443, 131);
-            this.ListView_RemoteFiles.TabIndex = 19;
-            this.ListView_RemoteFiles.UseCompatibleStateImageBehavior = false;
-            this.ListView_RemoteFiles.View = System.Windows.Forms.View.Details;
-            this.ListView_RemoteFiles.DoubleClick += new System.EventHandler(this.ListView_RemoteFiles_DoubleClick);
-            // 
-            // ColumnHeader_RemoteFiles_Name
-            // 
-            this.ColumnHeader_RemoteFiles_Name.Text = "Name";
-            this.ColumnHeader_RemoteFiles_Name.Width = 310;
-            // 
-            // ColumnHeader_RemoteFiles_Size
-            // 
-            this.ColumnHeader_RemoteFiles_Size.Text = "Size";
-            this.ColumnHeader_RemoteFiles_Size.Width = 120;
             // 
             // MainForm
             // 
@@ -338,6 +404,7 @@
             this.TabPage_Main_LocalSystem.PerformLayout();
             this.TabPage_Main_Server.ResumeLayout(false);
             this.TabPage_Main_Server.PerformLayout();
+            this.ContextMenuStrip_RemoteFiles.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -372,6 +439,13 @@
         private System.Windows.Forms.Button Button_RefreshRemoteDirectory;
         private System.Windows.Forms.TextBox TextBox_RemotePath;
         private System.Windows.Forms.Label Label_RemotePath;
+        private System.Windows.Forms.ImageList ImageList_RemoteFiles;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuStrip_RemoteFiles;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_RemoteFiles_Dir_Open;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_RemoteFiles_File_Download;
+        private System.Windows.Forms.ToolStripSeparator ToolStripMenuItem_RemoteFiles_File_Separator1;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_RemoteFiles_File_Open;
     }
 }
 

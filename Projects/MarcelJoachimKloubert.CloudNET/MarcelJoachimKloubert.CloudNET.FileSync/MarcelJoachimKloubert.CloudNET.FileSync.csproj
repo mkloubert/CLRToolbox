@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>app.ico</ApplicationIcon>
@@ -76,6 +78,7 @@
     </Compile>
     <Compile Include="Classes\Sessions\SyncLogEventArgs.cs" />
     <Compile Include="Classes\Sessions\SyncSession.cs" />
+    <Compile Include="Classes\_Externals\RegisteredFileType.cs" />
     <Compile Include="Controls\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +98,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="LICENSE" />
     <None Include="Properties\Settings.settings">
@@ -118,6 +122,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon_exec.png" />
+    <None Include="Resources\icon_download.png" />
+    <None Include="Resources\icon_openfolder.png" />
+    <None Include="Resources\icon_folder.png" />
+    <None Include="Resources\icon_file.png" />
     <Content Include="app.ico" />
   </ItemGroup>
   <ItemGroup />

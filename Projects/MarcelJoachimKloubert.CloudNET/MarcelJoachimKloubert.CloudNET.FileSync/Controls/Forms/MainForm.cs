@@ -3,12 +3,16 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using FileTypeAndIcon;
 using MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions;
 using MarcelJoachimKloubert.CloudNET.SDK;
 using MarcelJoachimKloubert.CloudNET.SDK.IO;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -67,9 +71,9 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
         #endregion Properties
 
-        #region Methods (8)
+        #region Methods (16)
 
-        // Private Methods (8) 
+        // Private Methods (16) 
 
         private void Button_RefreshRemoteDirectory_Click(object sender, EventArgs e)
         {
@@ -97,6 +101,58 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
             {
                 session.Stop();
                 this.CurrentSession = null;
+            }
+        }
+
+        private void ContextMenuStrip_RemoteFiles_Opening(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+
+            var selectedItem = this.TryGetSelectedRemoteFileItem();
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            e.Cancel = false;
+
+            var menuItems = this.ContextMenuStrip_RemoteFiles
+                                .Items
+                                .ToEnumerableSafe()
+                                .OfType<ToolStripItem>();
+
+            foreach (var tsi in menuItems)
+            {
+                tsi.Visible = false;
+            }
+
+            var showDirItems = new Action(() =>
+                {
+                    foreach (var tsi in menuItems.Where(i => (i.Name ?? string.Empty).StartsWith("ToolStripMenuItem_RemoteFiles_Dir_")))
+                    {
+                        tsi.Visible = true;
+                    }
+                });
+
+            var showFileItems = new Action(() =>
+                {
+                    foreach (var tsi in menuItems.Where(i => (i.Name ?? string.Empty).StartsWith("ToolStripMenuItem_RemoteFiles_File_")))
+                    {
+                        tsi.Visible = true;
+                    }
+                });
+
+            if ((selectedItem.Tag is CloudDirectory) ||
+                (selectedItem.Tag is ListCloudDirectoryResult))
+            {
+                showDirItems();
+                return;
+            }
+
+            if ((selectedItem.Tag is CloudFile))
+            {
+                showFileItems();
+                return;
             }
         }
 
@@ -150,17 +206,25 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
             }
         }
 
+        private void DownloadFileTo(CloudFile file, string targetFile)
+        {
+            using (var stream = new FileStream(targetFile,
+                                               FileMode.Create,
+                                               FileAccess.ReadWrite))
+            {
+                file.Download(stream);
+            }
+        }
+
         private void ListView_RemoteFiles_DoubleClick(object sender, EventArgs e)
         {
             var lv = (ListView)sender;
 
-            var allSelectedItems = lv.SelectedItems.Cast<ListViewItem>().ToArray();
-            if (allSelectedItems.Length != 1)
+            var selectedItem = TryGetSelectedRemoteFileItem(lv);
+            if (selectedItem == null)
             {
                 return;
             }
-
-            var selectedItem = allSelectedItems[0];
 
             var dir = selectedItem.Tag as CloudDirectory;
             if (dir != null)
@@ -184,16 +248,11 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                         return;
                     }
 
-                    using (var stream = new FileStream(dialog.FileName,
-                                                       FileMode.Create,
-                                                       FileAccess.ReadWrite))
-                    {
-                        file.Download(stream);
-                    }
+                    this.DownloadFileTo(file, dialog.FileName);
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    this.ShowErrorMessage(ex);
                 }
 
                 return;
@@ -206,9 +265,9 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                 {
                     this.LoadRemoteDirectory(listDirResult.ParentPath);
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    this.ShowErrorMessage(ex);
                 }
 
                 return;
@@ -226,6 +285,8 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
                         if (state.Directory.IsRootDirectory == false)
                         {
+                            // parent directory
+
                             var newLvi = new ListViewItem();
                             newLvi.Tag = state.Directory;
                             newLvi.Text = "..";
@@ -233,12 +294,14 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                             lv.Items.Add(newLvi);
                         }
 
+                        // sub directories
                         foreach (var dir in state.Directory
                                                  .Directories
                                                  .ToEnumerableSafe(ofType: true)
                                                  .OrderBy(d => d.Name, StringComparer.InvariantCultureIgnoreCase))
                         {
                             var newLvi = new ListViewItem();
+                            newLvi.ImageIndex = 1;
                             newLvi.Tag = dir;
                             newLvi.Text = dir.Name ?? string.Empty;
                             newLvi.SubItems.Add("<DIR>");
@@ -246,12 +309,15 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                             lv.Items.Add(newLvi);
                         }
 
+                        // files
+                        var fileItems = new List<ListViewItem>();
                         foreach (var file in state.Directory
                                                   .Files
                                                   .ToEnumerableSafe(ofType: true)
                                                   .OrderBy(d => d.Name, StringComparer.InvariantCultureIgnoreCase))
                         {
                             var newLvi = new ListViewItem();
+                            newLvi.ImageIndex = 0;
                             newLvi.Tag = file;
                             newLvi.Text = file.Name ?? string.Empty;
 
@@ -261,15 +327,77 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                             }
 
                             lv.Items.Add(newLvi);
+                            fileItems.Add(newLvi);
+                        }
+
+                        // collect available file extensions
+                        var extensions = fileItems.Select(i => (CloudFile)i.Tag)
+                                                  .Select(f =>
+                                                          {
+                                                              try
+                                                              {
+                                                                  return Path.GetExtension(f.Name).ToLower().Trim();
+                                                              }
+                                                              catch
+                                                              {
+                                                                  return null;
+                                                              }
+                                                          }).Where(e => string.IsNullOrWhiteSpace(e) == false)
+                                                            .Distinct();
+
+                        // remove old icons
+                        const int MIN_IMAGE_COUNT = 2;
+                        while (state.ImageList.Images.Count > MIN_IMAGE_COUNT)
+                        {
+                            using (var img = state.ImageList.Images[MIN_IMAGE_COUNT])
+                            {
+                                state.ImageList.Images.RemoveAt(MIN_IMAGE_COUNT);
+                            }
+                        }
+
+                        // load and set icons for entries
+                        var allIcons = RegisteredFileType.GetFileTypeAndIcon();
+                        foreach (var ext in extensions)
+                        {
+                            try
+                            {
+                                var iconFile = (string)allIcons[ext];
+                                if (string.IsNullOrWhiteSpace(iconFile) == false)
+                                {
+                                    var icon = RegisteredFileType.ExtractIconFromFile(iconFile, false);
+                                    if (icon != null)
+                                    {
+                                        var matchingItems = fileItems.Where(i =>
+                                            {
+                                                var f = (CloudFile)i.Tag;
+
+                                                return (f.Name ?? string.Empty).ToLower()
+                                                                               .Trim()
+                                                                               .EndsWith(ext);
+                                            });
+
+                                        state.ImageList.Images.Add(icon);
+                                        foreach (var mi in matchingItems)
+                                        {
+                                            mi.ImageIndex = state.ImageList.Images.Count - 1;
+                                        }
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                // ignore here
+                            }
                         }
                     }, new
                     {
                         Directory = result,
+                        ImageList = this.ImageList_RemoteFiles,
                     });
             }
-            catch
+            catch (Exception ex)
             {
-
+                this.ShowErrorMessage(ex);
             }
         }
 
@@ -295,9 +423,9 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                 var result = server.ListDirectory(path);
                 this.LoadRemoteDirectory(result);
             }
-            catch
+            catch (Exception ex)
             {
-
+                this.ShowErrorMessage(ex);
             }
         }
 
@@ -370,6 +498,102 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
             {
                 this.Button_StartStop_Click(this.Button_StartStop, EventArgs.Empty);
             }
+        }
+
+        private void ShowErrorMessage(Exception ex)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+
+            this.InvokeSafe((form, state) =>
+                {
+                    MessageBox.Show(form,
+                                    state.Exception.ToString(),
+                                    state.Exception.GetType().FullName,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }, new
+                {
+                    Exception = ex.GetBaseException() ?? ex,
+                });
+        }
+
+        private void ToolStripMenuItem_RemoteFiles_Dir_Open_Click(object sender, EventArgs e)
+        {
+            var selectedItem = this.TryGetSelectedRemoteFileItem();
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            if ((selectedItem.Tag is CloudDirectory) ||
+                (selectedItem.Tag is ListCloudDirectoryResult))
+            {
+                this.ListView_RemoteFiles_DoubleClick(this.ListView_RemoteFiles, EventArgs.Empty);
+                return;
+            }
+        }
+
+        private void ToolStripMenuItem_RemoteFiles_File_Download_Click(object sender, EventArgs e)
+        {
+            var selectedItem = this.TryGetSelectedRemoteFileItem();
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            if (selectedItem.Tag is CloudFile)
+            {
+                this.ListView_RemoteFiles_DoubleClick(this.ListView_RemoteFiles, EventArgs.Empty);
+                return;
+            }
+        }
+
+        private void ToolStripMenuItem_RemoteFiles_File_Open_Click(object sender, EventArgs e)
+        {
+            var selectedItem = this.TryGetSelectedRemoteFileItem();
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            var file = selectedItem.Tag as CloudFile;
+            if (file != null)
+            {
+
+                try
+                {
+                    string targetFile = Path.Combine(Path.GetTempPath(),
+                                                     file.Name);
+
+                    this.DownloadFileTo(file, targetFile);
+                    Process.Start(targetFile);
+                }
+                catch (Exception ex)
+                {
+                    this.ShowErrorMessage(ex);
+                }
+
+                return;
+            }
+        }
+
+        private ListViewItem TryGetSelectedRemoteFileItem()
+        {
+            return TryGetSelectedRemoteFileItem(this.ListView_RemoteFiles);
+        }
+
+        private static ListViewItem TryGetSelectedRemoteFileItem(ListView lv)
+        {
+            var allSelectedItems = lv.SelectedItems.Cast<ListViewItem>().ToArray();
+            if (allSelectedItems.Length != 1)
+            {
+                return null;
+            }
+
+            return allSelectedItems[0];
         }
 
         #endregion Methods

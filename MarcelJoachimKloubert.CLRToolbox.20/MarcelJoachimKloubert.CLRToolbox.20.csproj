@@ -523,6 +523,8 @@
     <Compile Include="Security\Cryptography\IHasher.SecureString.cs">
       <DependentUpon>IHasher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Security\Cryptography\Passwords\GeneralPasswordHasher.cs" />
+    <Compile Include="Security\Cryptography\Passwords\IPasswordHasher.cs" />
     <Compile Include="Security\UsernamePasswordValidator.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Json\JsonParameterResult.cs" />

@@ -20,7 +20,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </summary>
         /// <param name="secStr">the secure string.</param>
         /// <returns>
-        /// The UNsecure string or <see langword="null" /> id <paramref name="secStr" />
+        /// The UNsecure string or <see langword="null" /> if <paramref name="secStr" />
         /// is also <see langword="null" />.
         /// </returns>
         public static string ToUnsecureString(SecureString secStr)

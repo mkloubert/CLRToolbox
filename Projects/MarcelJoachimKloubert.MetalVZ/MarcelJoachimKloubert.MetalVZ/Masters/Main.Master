@@ -1,21 +1,50 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="MarcelJoachimKloubert.MetalVZ.Masters.Main" %>
-
 <!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Meine Homepage :: @TODO</title>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        <meta http-equiv="Content-Language" content="de-DE" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="generator" content="Marcel Joachim Kloubert's Huge Male Brain v$.0" />
+        <meta name="author" content="Marcel Joachim Kloubert" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta name="description" content="Heavy Black Death Speed Melodic Metal Hardcore Punk Gothic Industrial Ska Hard Rock Music Musik Verzeichnis Festivals Events Concerts Konverte Open Air" />
+        <meta name="keywords" content="heavy black death speed melodic metal hardcore punk gothic industrial ska hard rock music musik verzeichnis festivals events converts konzerte open air" />
         
-        </asp:ContentPlaceHolder>
-    </div>
-    </form>
-</body>
+        <script type="text/javascript" src="/js/jquery.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+        <asp:ContentPlaceHolder ID="MVZHeader" runat="server" />
+    </head>
+ 
+    <body>
+        <div id="overallHeader">
+            <div class="logo">
+                <div class="left"></div>
+ 
+                <div class="right"></div>
+            </div>
+ 
+            <div class="menu">
+                <div class="left">HEADER LEFT</div>
+ 
+                <div class="right">HEADER RIGHT</div>
+            </div>
+        </div>
+ 
+        <div id="overallFooter">
+            <div class="left">FOOTER LEFT</div>
+ 
+            <div class="right">FOOTER RIGHT</div>
+        </div>
+ 
+        <div id="overallContentArea">
+            <asp:ContentPlaceHolder ID="MVZContent" runat="server" />
+        </div>
+    </body>
 </html>

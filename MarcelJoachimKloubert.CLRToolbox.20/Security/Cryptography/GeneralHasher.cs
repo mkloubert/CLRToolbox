@@ -3,11 +3,11 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 {
@@ -19,20 +19,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         #region Fields (2)
 
         private readonly HashAlgorithm _ALGORITHM;
-        private byte[] _salt;
+        /// <summary>
+        /// Stores the optional salt.
+        /// </summary>
+        protected readonly byte[] _SALT;
 
         #endregion Fields
 
         #region Constructors (2)
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GeneralHasher" /> class.
-        /// </summary>
-        /// <param name="algo">The algoithm to use.</param>
-        /// <param name="salt">The optional salt.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="algo" /> is <see langword="null" />.
-        /// </exception>
+        /// <inheriteddoc />
         public GeneralHasher(HashAlgorithm algo, IEnumerable<byte> salt)
             : base()
         {
@@ -42,15 +38,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
             }
 
             this._ALGORITHM = algo;
-            this._salt = CollectionHelper.AsArray(salt);
+            this._SALT = CollectionHelper.AsArray(salt);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GeneralHasher" /> class.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="algo" /> is <see langword="null" />.
-        /// </exception>
+        /// <inheriteddoc />
         public GeneralHasher(HashAlgorithm algo)
             : this(algo, null)
         {
@@ -88,10 +79,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         }
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="HasherBase.OnHash(byte[], Stream)" />
+        /// <inheriteddoc />
         protected override sealed void OnHash(byte[] data, Stream targetStream)
         {
             byte[] hash;
@@ -99,7 +87,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
             {
                 temp.Write(data, 0, data.Length);
 
-                byte[] salt = this._salt;
+                byte[] salt = this._SALT;
                 if (salt != null)
                 {
                     // use salt

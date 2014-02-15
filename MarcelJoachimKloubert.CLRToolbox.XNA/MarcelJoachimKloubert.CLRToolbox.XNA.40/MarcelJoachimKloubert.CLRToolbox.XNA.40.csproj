@@ -739,6 +739,12 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\IHasher.cs">
       <Link>Security\Cryptography\IHasher.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\Passwords\GeneralPasswordHasher.cs">
+      <Link>Security\Cryptography\Passwords\GeneralPasswordHasher.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\Passwords\IPasswordHasher.cs">
+      <Link>Security\Cryptography\Passwords\IPasswordHasher.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Security\UsernamePasswordValidator.cs">
       <Link>Security\UsernamePasswordValidator.cs</Link>
     </Compile>

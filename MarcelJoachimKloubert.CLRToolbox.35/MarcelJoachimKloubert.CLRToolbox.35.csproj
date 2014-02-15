@@ -877,6 +877,12 @@
       <Link>Security\Cryptography\IHasher.SecureString.cs</Link>
       <DependentUpon>IHasher.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\Passwords\GeneralPasswordHasher.cs">
+      <Link>Security\Cryptography\Passwords\GeneralPasswordHasher.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Security\Cryptography\Passwords\IPasswordHasher.cs">
+      <Link>Security\Cryptography\Passwords\IPasswordHasher.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\UsernamePasswordValidator.cs">
       <Link>Security\UsernamePasswordValidator.cs</Link>
     </Compile>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45.Web", "..\..\MarcelJoachimKloubert.CLRToolbox.45.Web\MarcelJoachimKloubert.CLRToolbox.45.Web.csproj", "{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External libs", "External libs", "{77F4EE95-EBDC-406B-BD98-D0C8CFF5DF5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +30,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641} = {77F4EE95-EBDC-406B-BD98-D0C8CFF5DF5B}
+		{2F8D4198-6DE0-43BE-91CA-5B4B2BBCDAE0} = {77F4EE95-EBDC-406B-BD98-D0C8CFF5DF5B}
 	EndGlobalSection
 EndGlobal

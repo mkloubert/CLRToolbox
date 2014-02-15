@@ -87,7 +87,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 
             #endregion Delegates and Events
 
-            #region Methods (6)
+            #region Methods (8)
 
             // Public Methods (3) 
 
@@ -231,10 +231,6 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
                                     {
                                         doUpdateTimeStamps = true;
                                     }
-                                    else
-                                    {
-
-                                    }
                                 }
 
                                 // update timestamps
@@ -364,13 +360,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
                                     }
 
                                     if (AreEqual(localFile.CreationTimeUtc, matchingFile.CreationTime) == false ||
-                                        AreEqual(localFile.LastWriteTimeUtc,  matchingFile.WriteTime) == false)
+                                        AreEqual(localFile.LastWriteTimeUtc, matchingFile.WriteTime) == false)
                                     {
                                         doUpdateTimeStamps = true;
-                                    }
-                                    else
-                                    {
-
                                     }
                                 }
 
@@ -438,7 +430,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
                     this.IsCancelling = false;
                 }
             }
-            // Private Methods (3) 
+            // Private Methods (5) 
 
             private static bool AreEqual(DateTime? x, DateTime? y)
             {

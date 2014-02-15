@@ -24,33 +24,40 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </summary>
         [JsonProperty(PropertyName = "creationTime")]
         public DateTime? CreationTime;
+
         /// <summary>
         /// Stores the list of directories that are inside the directory.
         /// </summary>
         public CloudDirectoryCollection Directories;
+
         /// <summary>
         /// Stores the list of files that are inside the directory.
         /// </summary>
         public CloudFileCollection Files;
+
         /// <summary>
         /// Stores if the underlying directory is the root directory or not.
         /// </summary>
         [JsonProperty(PropertyName = "isRootDir")]
         public bool? IsRootDirectory;
+
         /// <summary>
         /// Stores the path of parent directory if available.
         /// </summary>
         [JsonProperty(PropertyName = "parentPath")]
         public string ParentPath;
+
         /// <summary>
         /// Stores the underlying path.
         /// </summary>
         [JsonProperty(PropertyName = "path")]
         public string Path;
+
         /// <summary>
         /// Stores the underlying server.
         /// </summary>
         public CloudServer Server;
+
         /// <summary>
         /// Stores the last write time in UTC format.
         /// </summary>

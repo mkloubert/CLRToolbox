@@ -87,11 +87,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
             {
                 temp.Write(data, 0, data.Length);
 
-                byte[] salt = this._SALT;
-                if (salt != null)
+                if (this._SALT != null)
                 {
                     // use salt
-                    temp.Write(salt, 0, salt.Length);
+
+                    temp.Write(this._SALT,
+                               0,
+                               this._SALT.Length);
                 }
 
                 temp.Position = 0;

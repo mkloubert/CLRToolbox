@@ -23,8 +23,9 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 {
     internal sealed class CloudPrincipalDirectory : FileSystemItemBase, IDirectory
     {
-        #region Fields (16)
+        #region Fields (17)
 
+        private XDocument _cachedMetaData = null;
         private DateTime? _creationTime;
         private DateTime? _lastWrite;
         private const string _MASKED_FILE_EXTENSION = "bin";
@@ -56,7 +57,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 {
                     this.Xml
                         .SetAttributeValue(XML_ATTRIB_METAFILE_CREATIONTIME,
-                                           value.Value.ToUniversalTime().Ticks);
+                                           TimeHelper.NormalizeValue(value).Value.ToUniversalTime().Ticks);
                 }
                 else
                 {
@@ -157,7 +158,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 {
                     this.Xml
                         .SetAttributeValue(XML_ATTRIB_METAFILE_LASTWRITETIME,
-                                           value.Value.ToUniversalTime().Ticks);
+                                           TimeHelper.NormalizeValue(value).Value.ToUniversalTime().Ticks);
                 }
                 else
                 {
@@ -182,7 +183,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Properties
 
-        #region Methods (13)
+        #region Methods (14)
 
         // Public Methods (6) 
 
@@ -347,30 +348,42 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
             var dir = new DirectoryInfo(this.LocalPath);
 
-            foreach (var dirElement in meta.XPathSelectElements("//" + _XML_TAG_METAFILE_ROOT + "/" + _XML_TAG_METAFILE_DIRLIST + "/" + _XML_TAG_METAFILE_DIR))
+            foreach (var grp in meta.XPathSelectElements("//" + _XML_TAG_METAFILE_ROOT + "/" + _XML_TAG_METAFILE_DIRLIST + "/" + _XML_TAG_METAFILE_DIR)
+                                    .Select(de =>
+                                    {
+                                        string maskedName = null;
+                                        string realName;
+
+                                        var maskedNameAttrib = de.Attribute(_XML_ATTRIB_METAFILE_MASKEDNAME);
+                                        if (maskedNameAttrib != null)
+                                        {
+                                            maskedName = maskedNameAttrib.Value;
+                                        }
+
+                                        var realNameAttrib = de.Attribute(_XML_ATTRIB_METAFILE_REALNAME);
+                                        if (realNameAttrib == null ||
+                                            string.IsNullOrWhiteSpace(realNameAttrib.Value))
+                                        {
+                                            realName = maskedName;
+                                        }
+                                        else
+                                        {
+                                            realName = realNameAttrib.Value.Trim();
+                                        }
+
+                                        return new
+                                        {
+                                            MaskedName = maskedName,
+                                            RealName = realName,
+                                            XmlElement = de,
+                                        };
+                                    }).Where(i => string.IsNullOrWhiteSpace(i.MaskedName) == false &&
+                                                  string.IsNullOrWhiteSpace(i.RealName) == false)
+                                      .GroupBy(i => i.MaskedName.ToLower().Trim()))
             {
-                var maskedNameAttrib = dirElement.Attribute(_XML_ATTRIB_METAFILE_MASKEDNAME);
-                if (maskedNameAttrib == null ||
-                    string.IsNullOrWhiteSpace(maskedNameAttrib.Value))
-                {
-                    continue;
-                }
+                var item = grp.Last();
 
-                var maskedName = maskedNameAttrib.Value.Trim();
-                string realName;
-
-                var realNameAttrib = dirElement.Attribute(_XML_ATTRIB_METAFILE_REALNAME);
-                if (realNameAttrib == null ||
-                    string.IsNullOrWhiteSpace(realNameAttrib.Value))
-                {
-                    realName = maskedName;
-                }
-                else
-                {
-                    realName = realNameAttrib.Value.Trim();
-                }
-
-                var maskedDir = new DirectoryInfo(Path.Combine(dir.FullName, maskedName));
+                var maskedDir = new DirectoryInfo(Path.Combine(dir.FullName, item.MaskedName));
                 if (maskedDir.Exists == false)
                 {
                     continue;
@@ -382,9 +395,9 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         IsRoot = false,
                         LocalPath = maskedDir.FullName,
                         Parent = this,
-                        Xml = dirElement,
+                        Xml = item.XmlElement,
                     };
-                newDir.SetName(realName);
+                newDir.SetName(item.RealName);
 
                 newDir.RefreshTimestamps();
 
@@ -402,30 +415,42 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
             var dir = new DirectoryInfo(this.LocalPath);
 
-            foreach (var fileElement in meta.XPathSelectElements("//" + _XML_TAG_METAFILE_ROOT + "/" + _XML_TAG_METAFILE_FILELIST + "/" + _XML_TAG_METAFILE_FILE))
+            foreach (var grp in meta.XPathSelectElements("//" + _XML_TAG_METAFILE_ROOT + "/" + _XML_TAG_METAFILE_FILELIST + "/" + _XML_TAG_METAFILE_FILE)
+                                    .Select(fe =>
+                                     {
+                                         string maskedName = null;
+                                         string realName;
+
+                                         var maskedNameAttrib = fe.Attribute(_XML_ATTRIB_METAFILE_MASKEDNAME);
+                                         if (maskedNameAttrib != null)
+                                         {
+                                             maskedName = maskedNameAttrib.Value;
+                                         }
+
+                                         var realNameAttrib = fe.Attribute(_XML_ATTRIB_METAFILE_REALNAME);
+                                         if (realNameAttrib == null ||
+                                             string.IsNullOrWhiteSpace(realNameAttrib.Value))
+                                         {
+                                             realName = maskedName;
+                                         }
+                                         else
+                                         {
+                                             realName = realNameAttrib.Value.Trim();
+                                         }
+
+                                         return new
+                                         {
+                                             MaskedName = maskedName,
+                                             RealName = realName,
+                                             XmlElement = fe,
+                                         };
+                                     }).Where(i => string.IsNullOrWhiteSpace(i.MaskedName) == false &&
+                                                   string.IsNullOrWhiteSpace(i.RealName) == false)
+                                       .GroupBy(i => i.MaskedName.ToLower().Trim()))
             {
-                var maskedNameAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_MASKEDNAME);
-                if (maskedNameAttrib == null ||
-                    string.IsNullOrWhiteSpace(maskedNameAttrib.Value))
-                {
-                    continue;
-                }
+                var item = grp.Last();
 
-                var maskedName = maskedNameAttrib.Value.Trim();
-                string realName;
-
-                var realNameAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_REALNAME);
-                if (realNameAttrib == null ||
-                    string.IsNullOrWhiteSpace(realNameAttrib.Value))
-                {
-                    realName = maskedName;
-                }
-                else
-                {
-                    realName = realNameAttrib.Value.Trim();
-                }
-
-                var maskedFile = new FileInfo(Path.Combine(dir.FullName, maskedName));
+                var maskedFile = new FileInfo(Path.Combine(dir.FullName, item.MaskedName));
                 if (maskedFile.Exists == false)
                 {
                     continue;
@@ -433,7 +458,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
                 SecureString pwd = null;
 
-                var passwordAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_PASSWORD);
+                var passwordAttrib = item.XmlElement.Attribute(_XML_ATTRIB_METAFILE_PASSWORD);
                 if (passwordAttrib != null &&
                     string.IsNullOrWhiteSpace(passwordAttrib.Value) == false)
                 {
@@ -450,11 +475,12 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                         FileManager = this.FileManager,
                         LocalPath = maskedFile.FullName,
                         Password = pwd,
-                        Xml = fileElement,
+                        Xml = item.XmlElement,
                     };
+                newFile.SetName(item.RealName);
 
                 // try get file size
-                var sizeAttrib = fileElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
+                var sizeAttrib = item.XmlElement.Attribute(_XML_ATTRIB_METAFILE_SIZE);
                 if (sizeAttrib != null &&
                     string.IsNullOrWhiteSpace(sizeAttrib.Value) == false)
                 {
@@ -462,8 +488,6 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                                                   .ChangeType<long>(sizeAttrib.Value.Trim(),
                                                                     CultureInfo.InvariantCulture);
                 }
-
-                newFile.SetName(realName);
 
                 newFile.RefreshTimestamps();
 
@@ -723,7 +747,17 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 }
             }
         }
-        // Private Methods (4) 
+        // Private Methods (5) 
+
+        private void CleanupMetaData(XDocument xmlDoc)
+        {
+            if (xmlDoc == null)
+            {
+                return;
+            }
+
+            //TODO
+        }
 
         private static void Deltree(DirectoryInfo dir)
         {
@@ -781,24 +815,30 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         private XDocument TryGetMetaData()
         {
-            try
+            lock (this.FileManager.SyncRoot)
             {
-                var metaFile = this.GetMetaFile();
-                if (metaFile.Exists)
+                if (this._cachedMetaData == null)
                 {
-                    using (var stream = new CryptoHelper().GetDecryptionStream(metaFile.OpenRead(),
-                                                                               this.FileManager.Password))
+                    try
                     {
-                        return XDocument.Load(stream);
+                        var metaFile = this.GetMetaFile();
+                        if (metaFile.Exists)
+                        {
+                            using (var stream = new CryptoHelper().GetDecryptionStream(metaFile.OpenRead(),
+                                                                                       this.FileManager.Password))
+                            {
+                                this._cachedMetaData = XDocument.Load(stream);
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        // ignore here
                     }
                 }
             }
-            catch
-            {
-                // ignore here
-            }
 
-            return null;
+            return this._cachedMetaData;
         }
         // Internal Methods (3) 
 
@@ -814,64 +854,70 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         internal void UpdateMetaData(XDocument xmlDoc)
         {
-            var deleteBackupFile = false;
-            var metaFile = this.GetMetaFile();
-            var metaFileBackup = new FileInfo(metaFile.FullName + ".bak");
-
-            try
+            lock (this.FileManager.SyncRoot)
             {
-                if (metaFile.Exists)
+                var deleteBackupFile = false;
+                var metaFile = this.GetMetaFile();
+                var metaFileBackup = new FileInfo(metaFile.FullName + ".bak");
+
+                try
                 {
-                    // create backup of old file
-
-                    File.Copy(metaFile.FullName,
-                              metaFileBackup.FullName,
-                              true);
-
-                    metaFile.Delete();
-                    metaFile.Refresh();
-                }
-
-                using (var stream = new CryptoHelper().GetEncryptionStream(new FileStream(metaFile.FullName,
-                                                                                          FileMode.CreateNew,
-                                                                                          FileAccess.ReadWrite),
-                                                                           this.FileManager.Password))
-                {
-                    if (xmlDoc != null)
+                    if (metaFile.Exists)
                     {
-                        xmlDoc.Save(stream);
+                        // create backup of old file
+
+                        File.Copy(metaFile.FullName,
+                                  metaFileBackup.FullName,
+                                  true);
+
+                        metaFile.Delete();
+                        metaFile.Refresh();
                     }
 
-                    stream.Flush();
-                    stream.Close();
-                }
+                    this.CleanupMetaData(xmlDoc);
 
-                deleteBackupFile = true;
-            }
-            catch
-            {
-                metaFileBackup.Refresh();
-                if (metaFileBackup.Exists)
-                {
-                    // try restore backup
-                    File.Copy(metaFileBackup.FullName,
-                              metaFile.FullName,
-                              true);
+                    using (var stream = new CryptoHelper().GetEncryptionStream(new FileStream(metaFile.FullName,
+                                                                                              FileMode.CreateNew,
+                                                                                              FileAccess.ReadWrite),
+                                                                               this.FileManager.Password))
+                    {
+                        if (xmlDoc != null)
+                        {
+                            xmlDoc.Save(stream);
+                        }
 
-                    // succeeded, so delete backup file
+                        stream.Flush();
+                        stream.Close();
+                    }
+
                     deleteBackupFile = true;
+                    this._cachedMetaData = xmlDoc;
                 }
-
-                throw;
-            }
-            finally
-            {
-                if (deleteBackupFile)
+                catch
                 {
                     metaFileBackup.Refresh();
                     if (metaFileBackup.Exists)
                     {
-                        metaFileBackup.Delete();
+                        // try restore backup
+                        File.Copy(metaFileBackup.FullName,
+                                  metaFile.FullName,
+                                  true);
+
+                        // succeeded, so delete backup file
+                        deleteBackupFile = true;
+                    }
+
+                    throw;
+                }
+                finally
+                {
+                    if (deleteBackupFile)
+                    {
+                        metaFileBackup.Refresh();
+                        if (metaFileBackup.Exists)
+                        {
+                            metaFileBackup.Delete();
+                        }
                     }
                 }
             }

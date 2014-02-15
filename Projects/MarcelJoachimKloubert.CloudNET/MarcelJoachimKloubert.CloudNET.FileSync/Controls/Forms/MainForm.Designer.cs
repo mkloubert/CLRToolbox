@@ -40,7 +40,7 @@
             this.TextBox_ServerAddress = new System.Windows.Forms.TextBox();
             this.ComboBox_Protocol = new System.Windows.Forms.ComboBox();
             this.Local_ServerAddress = new System.Windows.Forms.Label();
-            this.Button_StartStop = new System.Windows.Forms.Button();
+            this.Button_Sync = new System.Windows.Forms.Button();
             this.ContextMenuStrip_SyncLog = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TabControl_Main = new System.Windows.Forms.TabControl();
             this.TabPage_Main_LocalSystem = new System.Windows.Forms.TabPage();
@@ -55,6 +55,7 @@
             this.ListView_RemoteFiles = new System.Windows.Forms.ListView();
             this.ColumnHeader_RemoteFiles_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_RemoteFiles_Size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnHeader_RemoteFiles_LastWriteTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ContextMenuStrip_RemoteFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_RemoteFiles_Dir_Open = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -65,7 +66,6 @@
             this.Button_RefreshRemoteDirectory = new System.Windows.Forms.Button();
             this.TextBox_RemotePath = new System.Windows.Forms.TextBox();
             this.Label_RemotePath = new System.Windows.Forms.Label();
-            this.ColumnHeader_RemoteFiles_LastWriteTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GroupBox_Server.SuspendLayout();
             this.TabControl_Main.SuspendLayout();
             this.TabPage_Main_LocalSystem.SuspendLayout();
@@ -91,17 +91,17 @@
             this.GroupBox_Server.Controls.Add(this.Local_ServerAddress);
             this.GroupBox_Server.Location = new System.Drawing.Point(12, 12);
             this.GroupBox_Server.Name = "GroupBox_Server";
-            this.GroupBox_Server.Size = new System.Drawing.Size(472, 80);
+            this.GroupBox_Server.Size = new System.Drawing.Size(600, 80);
             this.GroupBox_Server.TabIndex = 0;
             this.GroupBox_Server.TabStop = false;
             this.GroupBox_Server.Text = " Server ";
             // 
             // TextBox_ServerPassword
             // 
-            this.TextBox_ServerPassword.Location = new System.Drawing.Point(309, 52);
+            this.TextBox_ServerPassword.Location = new System.Drawing.Point(361, 51);
             this.TextBox_ServerPassword.Name = "TextBox_ServerPassword";
             this.TextBox_ServerPassword.PasswordChar = '*';
-            this.TextBox_ServerPassword.Size = new System.Drawing.Size(157, 20);
+            this.TextBox_ServerPassword.Size = new System.Drawing.Size(233, 20);
             this.TextBox_ServerPassword.TabIndex = 8;
             this.TextBox_ServerPassword.UseSystemPasswordChar = true;
             // 
@@ -109,13 +109,13 @@
             // 
             this.TextBox_ServerUser.Location = new System.Drawing.Point(60, 52);
             this.TextBox_ServerUser.Name = "TextBox_ServerUser";
-            this.TextBox_ServerUser.Size = new System.Drawing.Size(169, 20);
+            this.TextBox_ServerUser.Size = new System.Drawing.Size(233, 20);
             this.TextBox_ServerUser.TabIndex = 6;
             // 
             // Local_ServerPassword
             // 
             this.Local_ServerPassword.AutoSize = true;
-            this.Local_ServerPassword.Location = new System.Drawing.Point(247, 52);
+            this.Local_ServerPassword.Location = new System.Drawing.Point(299, 55);
             this.Local_ServerPassword.Name = "Local_ServerPassword";
             this.Local_ServerPassword.Size = new System.Drawing.Size(56, 13);
             this.Local_ServerPassword.TabIndex = 7;
@@ -132,7 +132,7 @@
             // 
             // TextBox_ServerPort
             // 
-            this.TextBox_ServerPort.Location = new System.Drawing.Point(397, 25);
+            this.TextBox_ServerPort.Location = new System.Drawing.Point(525, 26);
             this.TextBox_ServerPort.Name = "TextBox_ServerPort";
             this.TextBox_ServerPort.Size = new System.Drawing.Size(69, 20);
             this.TextBox_ServerPort.TabIndex = 4;
@@ -141,7 +141,7 @@
             // 
             this.TextBox_ServerAddress.Location = new System.Drawing.Point(155, 25);
             this.TextBox_ServerAddress.Name = "TextBox_ServerAddress";
-            this.TextBox_ServerAddress.Size = new System.Drawing.Size(236, 20);
+            this.TextBox_ServerAddress.Size = new System.Drawing.Size(364, 20);
             this.TextBox_ServerAddress.TabIndex = 3;
             // 
             // ComboBox_Protocol
@@ -165,15 +165,15 @@
             this.Local_ServerAddress.TabIndex = 1;
             this.Local_ServerAddress.Text = "Address:";
             // 
-            // Button_StartStop
+            // Button_Sync
             // 
-            this.Button_StartStop.Location = new System.Drawing.Point(12, 301);
-            this.Button_StartStop.Name = "Button_StartStop";
-            this.Button_StartStop.Size = new System.Drawing.Size(472, 32);
-            this.Button_StartStop.TabIndex = 14;
-            this.Button_StartStop.Text = "Start";
-            this.Button_StartStop.UseVisualStyleBackColor = true;
-            this.Button_StartStop.Click += new System.EventHandler(this.Button_StartStop_Click);
+            this.Button_Sync.Location = new System.Drawing.Point(12, 397);
+            this.Button_Sync.Name = "Button_Sync";
+            this.Button_Sync.Size = new System.Drawing.Size(600, 32);
+            this.Button_Sync.TabIndex = 14;
+            this.Button_Sync.Text = "Synchronize";
+            this.Button_Sync.UseVisualStyleBackColor = true;
+            this.Button_Sync.Click += new System.EventHandler(this.Button_Sync_Click);
             // 
             // ContextMenuStrip_SyncLog
             // 
@@ -187,7 +187,7 @@
             this.TabControl_Main.Location = new System.Drawing.Point(12, 98);
             this.TabControl_Main.Name = "TabControl_Main";
             this.TabControl_Main.SelectedIndex = 0;
-            this.TabControl_Main.Size = new System.Drawing.Size(466, 197);
+            this.TabControl_Main.Size = new System.Drawing.Size(600, 293);
             this.TabControl_Main.TabIndex = 16;
             // 
             // TabPage_Main_LocalSystem
@@ -199,7 +199,7 @@
             this.TabPage_Main_LocalSystem.Location = new System.Drawing.Point(4, 22);
             this.TabPage_Main_LocalSystem.Name = "TabPage_Main_LocalSystem";
             this.TabPage_Main_LocalSystem.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage_Main_LocalSystem.Size = new System.Drawing.Size(458, 171);
+            this.TabPage_Main_LocalSystem.Size = new System.Drawing.Size(592, 267);
             this.TabPage_Main_LocalSystem.TabIndex = 0;
             this.TabPage_Main_LocalSystem.Text = "Local system";
             this.TabPage_Main_LocalSystem.UseVisualStyleBackColor = true;
@@ -214,7 +214,7 @@
             this.ListView_SyncLog.FullRowSelect = true;
             this.ListView_SyncLog.Location = new System.Drawing.Point(9, 34);
             this.ListView_SyncLog.Name = "ListView_SyncLog";
-            this.ListView_SyncLog.Size = new System.Drawing.Size(443, 131);
+            this.ListView_SyncLog.Size = new System.Drawing.Size(577, 227);
             this.ListView_SyncLog.TabIndex = 17;
             this.ListView_SyncLog.UseCompatibleStateImageBehavior = false;
             this.ListView_SyncLog.View = System.Windows.Forms.View.Details;
@@ -236,7 +236,7 @@
             // 
             // Button_SelectSyncDirectory
             // 
-            this.Button_SelectSyncDirectory.Location = new System.Drawing.Point(410, 8);
+            this.Button_SelectSyncDirectory.Location = new System.Drawing.Point(544, 8);
             this.Button_SelectSyncDirectory.Name = "Button_SelectSyncDirectory";
             this.Button_SelectSyncDirectory.Size = new System.Drawing.Size(42, 20);
             this.Button_SelectSyncDirectory.TabIndex = 16;
@@ -247,7 +247,7 @@
             // 
             this.TextBox_SyncDirectory.Location = new System.Drawing.Point(97, 8);
             this.TextBox_SyncDirectory.Name = "TextBox_SyncDirectory";
-            this.TextBox_SyncDirectory.Size = new System.Drawing.Size(307, 20);
+            this.TextBox_SyncDirectory.Size = new System.Drawing.Size(441, 20);
             this.TextBox_SyncDirectory.TabIndex = 15;
             // 
             // Label_DirectoryToSync
@@ -268,7 +268,7 @@
             this.TabPage_Main_Server.Location = new System.Drawing.Point(4, 22);
             this.TabPage_Main_Server.Name = "TabPage_Main_Server";
             this.TabPage_Main_Server.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage_Main_Server.Size = new System.Drawing.Size(458, 171);
+            this.TabPage_Main_Server.Size = new System.Drawing.Size(592, 267);
             this.TabPage_Main_Server.TabIndex = 1;
             this.TabPage_Main_Server.Text = "Server";
             this.TabPage_Main_Server.UseVisualStyleBackColor = true;
@@ -284,7 +284,7 @@
             this.ListView_RemoteFiles.LargeImageList = this.ImageList_RemoteFiles;
             this.ListView_RemoteFiles.Location = new System.Drawing.Point(9, 34);
             this.ListView_RemoteFiles.Name = "ListView_RemoteFiles";
-            this.ListView_RemoteFiles.Size = new System.Drawing.Size(443, 131);
+            this.ListView_RemoteFiles.Size = new System.Drawing.Size(577, 227);
             this.ListView_RemoteFiles.SmallImageList = this.ImageList_RemoteFiles;
             this.ListView_RemoteFiles.TabIndex = 19;
             this.ListView_RemoteFiles.UseCompatibleStateImageBehavior = false;
@@ -294,12 +294,19 @@
             // ColumnHeader_RemoteFiles_Name
             // 
             this.ColumnHeader_RemoteFiles_Name.Text = "Name";
-            this.ColumnHeader_RemoteFiles_Name.Width = 200;
+            this.ColumnHeader_RemoteFiles_Name.Width = 350;
             // 
             // ColumnHeader_RemoteFiles_Size
             // 
             this.ColumnHeader_RemoteFiles_Size.Text = "Size";
+            this.ColumnHeader_RemoteFiles_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ColumnHeader_RemoteFiles_Size.Width = 96;
+            // 
+            // ColumnHeader_RemoteFiles_LastWriteTime
+            // 
+            this.ColumnHeader_RemoteFiles_LastWriteTime.Text = "Last write";
+            this.ColumnHeader_RemoteFiles_LastWriteTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ColumnHeader_RemoteFiles_LastWriteTime.Width = 120;
             // 
             // ContextMenuStrip_RemoteFiles
             // 
@@ -359,7 +366,7 @@
             // 
             // Button_RefreshRemoteDirectory
             // 
-            this.Button_RefreshRemoteDirectory.Location = new System.Drawing.Point(412, 8);
+            this.Button_RefreshRemoteDirectory.Location = new System.Drawing.Point(544, 8);
             this.Button_RefreshRemoteDirectory.Name = "Button_RefreshRemoteDirectory";
             this.Button_RefreshRemoteDirectory.Size = new System.Drawing.Size(42, 20);
             this.Button_RefreshRemoteDirectory.TabIndex = 18;
@@ -371,7 +378,7 @@
             // 
             this.TextBox_RemotePath.Location = new System.Drawing.Point(83, 8);
             this.TextBox_RemotePath.Name = "TextBox_RemotePath";
-            this.TextBox_RemotePath.Size = new System.Drawing.Size(323, 20);
+            this.TextBox_RemotePath.Size = new System.Drawing.Size(455, 20);
             this.TextBox_RemotePath.TabIndex = 17;
             this.TextBox_RemotePath.Text = "/";
             // 
@@ -384,18 +391,13 @@
             this.Label_RemotePath.TabIndex = 16;
             this.Label_RemotePath.Text = "Remote path:";
             // 
-            // ColumnHeader_RemoteFiles_LastWriteTime
-            // 
-            this.ColumnHeader_RemoteFiles_LastWriteTime.Text = "Last write";
-            this.ColumnHeader_RemoteFiles_LastWriteTime.Width = 120;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 345);
+            this.ClientSize = new System.Drawing.Size(624, 441);
             this.Controls.Add(this.TabControl_Main);
-            this.Controls.Add(this.Button_StartStop);
+            this.Controls.Add(this.Button_Sync);
             this.Controls.Add(this.GroupBox_Server);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -421,7 +423,7 @@
         private System.Windows.Forms.NotifyIcon NotifyIcon_Main;
         private System.Windows.Forms.GroupBox GroupBox_Server;
         private System.Windows.Forms.Label Local_ServerAddress;
-        private System.Windows.Forms.Button Button_StartStop;
+        private System.Windows.Forms.Button Button_Sync;
         private System.Windows.Forms.TextBox TextBox_ServerPassword;
         private System.Windows.Forms.TextBox TextBox_ServerUser;
         private System.Windows.Forms.Label Local_ServerPassword;

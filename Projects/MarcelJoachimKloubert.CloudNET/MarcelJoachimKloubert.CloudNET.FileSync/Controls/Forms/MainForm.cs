@@ -26,6 +26,15 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
     /// </summary>
     public partial class MainForm : Form
     {
+        #region Fields (1)
+
+        private static string[] _FILESIZE_UNITS = new string[]
+        {
+            "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", 
+        };
+
+        #endregion Fields
+
         #region Constructors (2)
 
         /// <summary>
@@ -71,16 +80,16 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
         #endregion Properties
 
-        #region Methods (16)
+        #region Methods (17)
 
-        // Private Methods (16) 
+        // Private Methods (17) 
 
         private void Button_RefreshRemoteDirectory_Click(object sender, EventArgs e)
         {
             this.LoadRemoteDirectory(this.TextBox_RemotePath.Text);
         }
 
-        private void Button_StartStop_Click(object sender, EventArgs e)
+        private void Button_Sync_Click(object sender, EventArgs e)
         {
             var session = this.CurrentSession;
             if (session == null)
@@ -93,9 +102,17 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
                 session = new SyncSession(server, this.TextBox_SyncDirectory.Text);
                 session.LogItemReceived += this.CurrentSession_LogItemReceived;
-                session.Start();
 
-                this.CurrentSession = session;
+                var syncFrm = new SyncForm(session, true);
+                syncFrm.FormClosed += (sender2, e2) =>
+                    {
+                        if (syncFrm.DialogResult == DialogResult.OK)
+                        {
+                            // session.Start();
+                            this.CurrentSession = session;
+                        }
+                    };
+                syncFrm.ShowDialogAndStart(this);
             }
             else
             {
@@ -173,6 +190,17 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
                 result.Credentials = new NetworkCredential(this.TextBox_ServerUser.Text.Trim(),
                                                            pwd);
+            }
+
+            switch (this.ComboBox_Protocol.SelectedItem.AsString())
+            {
+                case "http":
+                    result.IsSecure = false;
+                    break;
+
+                default:
+                    result.IsSecure = true;
+                    break;
             }
 
             return result;
@@ -328,7 +356,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
                             if (file.Size.HasValue)
                             {
-                                newLvi.SubItems.Add(file.Size.ToString());
+                                newLvi.SubItems.Add(MakeFileSizeHumanReadable(file.Size));
                             }
 
                             if (file.WriteTime.HasValue)
@@ -430,7 +458,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
                     return;
                 }
 
-                var result = server.ListDirectory(path);
+                var result = server.FileSystem.ListDirectory(path);
                 this.LoadRemoteDirectory(result);
             }
             catch (Exception ex)
@@ -506,8 +534,33 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms
 
             if (startSync)
             {
-                this.Button_StartStop_Click(this.Button_StartStop, EventArgs.Empty);
+                this.Button_Sync_Click(this.Button_Sync, EventArgs.Empty);
             }
+        }
+
+        private static string MakeFileSizeHumanReadable(long? fileSize)
+        {
+            if (fileSize.HasValue == false)
+            {
+                return "---";
+            }
+
+            double result = fileSize.Value;
+
+            var level = (int)Math.Floor(Math.Log(result, 1000));
+            if (level < 1)
+            {
+                return result.ToString();
+            }
+
+            if (level > 7)
+            {
+                level = 7;
+            }
+
+            result = result / Math.Pow(1000, level);
+
+            return result.ToString("0.00") + " " + _FILESIZE_UNITS[level - 1];
         }
 
         private void ShowErrorMessage(Exception ex)

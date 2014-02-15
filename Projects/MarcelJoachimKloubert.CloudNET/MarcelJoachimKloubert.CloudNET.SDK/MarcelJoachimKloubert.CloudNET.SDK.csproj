@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudServer.cs" />
+    <Compile Include="CloudServerObjectBase.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\IOHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
@@ -47,7 +48,13 @@
     <Compile Include="IO\CloudDirectoryCollection.cs" />
     <Compile Include="IO\CloudFile.cs" />
     <Compile Include="IO\CloudFileCollection.cs" />
+    <Compile Include="IO\CloudFileSystem.cs" />
+    <Compile Include="IO\ISyncWithLocalDirectoryExecutionContext.cs" />
     <Compile Include="IO\ListCloudDirectoryResult.cs" />
+    <Compile Include="IO\ListCloudDirectoryResult.SyncWithLocalDirectoryExecutionContext.cs">
+      <DependentUpon>ListCloudDirectoryResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\SyncCloudDirectoryProgressEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Embedded\JSON.NET\Bson\BsonBinaryType.cs" />
     <Compile Include="_Embedded\JSON.NET\Bson\BsonBinaryWriter.cs" />
@@ -239,7 +246,6 @@
   <ItemGroup>
     <EmbeddedResource Include="LICENSE" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="_Embedded\JSON.NET\license.txt" />
     <EmbeddedResource Include="_Embedded\JSON.NET\readme.txt" />

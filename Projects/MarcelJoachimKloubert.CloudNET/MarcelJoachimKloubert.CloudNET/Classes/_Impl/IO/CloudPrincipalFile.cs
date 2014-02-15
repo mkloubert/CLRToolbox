@@ -47,7 +47,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 {
                     this.Xml
                         .SetAttributeValue(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_CREATIONTIME,
-                                           value.Value.ToUniversalTime().Ticks);
+                                           TimeHelper.NormalizeValue(value).Value.ToUniversalTime().Ticks);
                 }
                 else
                 {
@@ -133,7 +133,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
                 {
                     this.Xml
                         .SetAttributeValue(CloudPrincipalDirectory.XML_ATTRIB_METAFILE_LASTWRITETIME,
-                                           value.Value.ToUniversalTime().Ticks);
+                                           TimeHelper.NormalizeValue(value).Value.ToUniversalTime().Ticks);
                 }
                 else
                 {

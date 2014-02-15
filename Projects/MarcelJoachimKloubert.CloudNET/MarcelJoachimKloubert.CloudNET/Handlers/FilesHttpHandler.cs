@@ -5,10 +5,10 @@
 
 using MarcelJoachimKloubert.CloudNET.Classes.IO;
 using MarcelJoachimKloubert.CloudNET.Classes.Web;
-using MarcelJoachimKloubert.CLRToolbox.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,7 +18,13 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 {
     internal sealed class FilesHttpHandler : BasicAuthHttpHandlerBase
     {
-        #region Methods (10)
+        #region Fields (1)
+
+        private const string _DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
+
+        #endregion Fields
+
+        #region Methods (13)
 
         // Protected Methods (1) 
 
@@ -60,7 +66,7 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                         switch ((request.Context.Request.Params["type"] ?? string.Empty).ToLower().Trim())
                         {
                             case "creationtime":
-                                actionToInvoke = this.UpdateCreationWriteTime;
+                                actionToInvoke = this.UpdateCreationTime;
                                 break;
 
                             case "writetime":
@@ -75,7 +81,7 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                     break;
 
                 case "PUT":
-                    actionToInvoke = this.UploadFile;
+                    actionToInvoke = this.UploadFileOrCreateDirectory;
                     break;
 
                 default:
@@ -88,7 +94,21 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                 actionToInvoke(request);
             }
         }
-        // Private Methods (9) 
+        // Private Methods (12) 
+
+        private void CreateDirectory(ICloudRequest request)
+        {
+            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-Directory"];
+            if (path == null)
+            {
+                return;
+            }
+
+            path = path.Trim();
+            var fm = request.Principal.Files;
+
+            fm.GetDirectory(path, true);
+        }
 
         private void Delete(ICloudRequest request)
         {
@@ -98,8 +118,14 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 
         private void DeleteDirectory(ICloudRequest request)
         {
+            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-Directory"];
+            if (path == null)
+            {
+                return;
+            }
+
+            path = path.Trim();
             var fm = request.Principal.Files;
-            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-Directory"].Trim();
 
             var dir = fm.GetDirectory(path);
             if (dir != null)
@@ -114,8 +140,14 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 
         private void DeleteFile(ICloudRequest request)
         {
+            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"];
+            if (path == null)
+            {
+                return;
+            }
+
+            path = path.Trim();
             var fm = request.Principal.Files;
-            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"].Trim();
 
             var file = fm.GetFile(path);
             if (file != null)
@@ -130,8 +162,8 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 
         private void DownloadFile(ICloudRequest request)
         {
-            var fm = request.Principal.Files;
             var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"].Trim();
+            var fm = request.Principal.Files;
 
             var file = fm.GetFile(path);
             if (file != null)
@@ -214,7 +246,17 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
             }
         }
 
-        private void UpdateCreationWriteTime(ICloudRequest request)
+        private static DateTime? ToFileSystemTimeValue(DateTimeOffset? input)
+        {
+            if (input.HasValue)
+            {
+                return input.Value.DateTime;
+            }
+
+            return null;
+        }
+
+        private void UpdateCreationTime(ICloudRequest request)
         {
             this.UpdateTime(request,
                             (item, time) => item.CreationTime = time);
@@ -225,24 +267,25 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
         {
             // file
             {
-                var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"].Trim();
+                var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"];
                 if (path != null)
                 {
+                    path = path.Trim();
                     var fm = request.Principal.Files;
 
-                    var strTicks = request.Context.Request.Headers["X-MJKTM-CloudNET-FileTime"];
-                    long? ticks = null;
-                    if (string.IsNullOrWhiteSpace(strTicks) == false)
+                    var strTime = request.Context.Request.Headers["X-MJKTM-CloudNET-FileTime"];
+                    DateTime? time = null;
+                    if (string.IsNullOrWhiteSpace(strTime) == false)
                     {
-                        ticks = GlobalConverter.Current
-                                               .ChangeType<long>(strTicks.Trim());
+                        time = DateTimeOffset.ParseExact(strTime.Trim(), _DATEFORMAT, CultureInfo.InvariantCulture)
+                                             .DateTime;
                     }
 
                     var file = fm.GetFile(path);
                     if (file != null)
                     {
                         updateAction(file,
-                                     ticks.HasValue ? new DateTime(ticks.Value, DateTimeKind.Utc) : (DateTime?)null);
+                                     time.HasValue ? time.Value.ToUniversalTime() : (DateTime?)null);
                     }
                     else
                     {
@@ -256,21 +299,22 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                 var path = request.Context.Request.Headers["X-MJKTM-CloudNET-Directory"];
                 if (path != null)
                 {
+                    path = path.Trim();
                     var fm = request.Principal.Files;
 
-                    var strTicks = request.Context.Request.Headers["X-MJKTM-CloudNET-DirectoryTime"];
-                    long? ticks = null;
-                    if (string.IsNullOrWhiteSpace(strTicks) == false)
+                    var strTime = request.Context.Request.Headers["X-MJKTM-CloudNET-DirectoryTime"];
+                    DateTime? time = null;
+                    if (string.IsNullOrWhiteSpace(strTime) == false)
                     {
-                        ticks = GlobalConverter.Current
-                                               .ChangeType<long>(strTicks.Trim());
+                        time = DateTimeOffset.ParseExact(strTime.Trim(), _DATEFORMAT, CultureInfo.InvariantCulture)
+                                             .DateTime;
                     }
 
                     var dir = fm.GetDirectory(path);
                     if (dir != null)
                     {
                         updateAction(dir,
-                                     ticks.HasValue ? new DateTime(ticks.Value, DateTimeKind.Utc) : (DateTime?)null);
+                                     time.HasValue ? time.Value.ToUniversalTime() : (DateTime?)null);
                     }
                     else
                     {
@@ -288,8 +332,14 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 
         private void UploadFile(ICloudRequest request)
         {
+            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"];
+            if (path == null)
+            {
+                return;
+            }
+
+            path = path.Trim();
             var fm = request.Principal.Files;
-            var path = request.Context.Request.Headers["X-MJKTM-CloudNET-File"].Trim();
 
             var dirPathParts = path.Split('/');
 
@@ -302,6 +352,12 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
                 dir.SaveFile(dirPathParts.Last().Trim(),
                              stream);
             }
+        }
+
+        private void UploadFileOrCreateDirectory(ICloudRequest request)
+        {
+            this.CreateDirectory(request);
+            this.UploadFile(request);
         }
 
         #endregion Methods

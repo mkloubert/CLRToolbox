@@ -30,10 +30,12 @@ namespace MarcelJoachimKloubert.CloudNET
         /// The name of the application variable for storing the global application context.
         /// </summary>
         public const string APP_VAR_APPCONTEXT = "ApplicationContext";
+
         /// <summary>
         /// The name of the application variable for storing the principal repository.
         /// </summary>
         public const string APP_VAR_PRINCIPALS = "Principals";
+
         /// <summary>
         /// The name of the session variable that stores the session context object.
         /// </summary>
@@ -127,6 +129,8 @@ namespace MarcelJoachimKloubert.CloudNET
                 {
                     pricRepo.UserRepository = new IniFileConfigRepository(iniFile);
                 }
+
+                pricRepo.Reload();
             }
 
             // files

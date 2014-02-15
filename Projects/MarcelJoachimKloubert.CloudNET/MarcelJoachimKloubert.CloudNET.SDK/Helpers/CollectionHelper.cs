@@ -11,9 +11,37 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.Helpers
 {
     internal static class CollectionHelper
     {
-        #region Methods (1)
+        #region Methods (2)
 
-        // Internal Methods (1) 
+        // Internal Methods (2) 
+
+        internal static T FirstOrDefault<T>(IEnumerable<T> seq, Func<T, bool> predicate)
+        {
+            if (seq == null)
+            {
+                throw new ArgumentNullException("seq");
+            }
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate");
+            }
+
+            using (IEnumerator<T> enumerator = seq.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                {
+                    T current = enumerator.Current;
+
+                    if (predicate(current))
+                    {
+                        return current;
+                    }
+                }
+            }
+
+            return default(T);
+        }
 
         internal static T SingleOrDefault<T>(IEnumerable<T> seq, Func<T, bool> predicate)
         {

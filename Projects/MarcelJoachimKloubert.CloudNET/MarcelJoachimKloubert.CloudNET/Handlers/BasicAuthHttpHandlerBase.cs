@@ -137,9 +137,10 @@ namespace MarcelJoachimKloubert.CloudNET.Handlers
 
                 this.OnProcessRequest(req);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.StatusDescription = (ex.GetBaseException() ?? ex).Message ?? string.Empty;
             }
             finally
             {

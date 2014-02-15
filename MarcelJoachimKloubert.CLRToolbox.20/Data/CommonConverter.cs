@@ -3,8 +3,8 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data
 {

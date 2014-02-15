@@ -22,14 +22,14 @@ namespace MarcelJoachimKloubert.CloudNET.Test
             server.Port = 48109;
             server.Credentials = new NetworkCredential("admin", "admin");
 
-            var rootDir = server.ListRootDirectory();
+            var rootDir = server.FileSystem.ListRootDirectory();
 
             using (var stream = File.OpenRead(@"C:\debian-7.0.0-amd64-netinst.iso"))
             {
                 rootDir.UploadFile("test.iso", stream);
             }
 
-            rootDir = server.ListRootDirectory();
+            rootDir = server.FileSystem.ListRootDirectory();
 
             using (var stream = File.OpenWrite(@"C:\debian-7.0.0-amd64-netinst.iso"))
             {

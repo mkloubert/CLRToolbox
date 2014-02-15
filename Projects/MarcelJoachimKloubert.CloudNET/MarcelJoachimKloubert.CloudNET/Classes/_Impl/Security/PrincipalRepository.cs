@@ -29,12 +29,18 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.Security
 
         #endregion Fields
 
-        #region Properties (2)
+        #region Properties (3)
 
         internal string LocalDataDirectory
         {
             get;
             set;
+        }
+
+        internal IList<CloudPrincipal> PrincipalTemplates
+        {
+            get;
+            private set;
         }
 
         internal IConfigRepository UserRepository
@@ -45,7 +51,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.Security
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (4)
 
         // Public Methods (1) 
 
@@ -68,149 +74,114 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.Security
                 }
             }
 
-            var matchingUsers = new List<ICloudPrincipal>();
-
-            var userRepo = this.UserRepository;
-            if (userRepo != null)
+            var templates = this.PrincipalTemplates;
+            if (templates == null)
             {
-                foreach (var category in userRepo.GetCategoryNames())
-                {
-                    if (string.IsNullOrWhiteSpace(category))
-                    {
-                        continue;
-                    }
-
-                    if (category.ToLower().Trim().StartsWith("user") == false)
-                    {
-                        continue;
-                    }
-
-                    string iniUser;
-                    if (userRepo.TryGetValue<string>("name", out iniUser, category) == false)
-                    {
-                        // no user name defined
-                        continue;
-                    }
-
-                    // get MD5 hased password
-                    string iniPwd;
-                    userRepo.TryGetValue<string>("password", out iniPwd, category);
-
-                    ParseUsernameAndPassword(ref iniUser, ref iniPwd);
-
-                    if (iniPwd != null)
-                    {
-                        iniPwd = iniPwd.ToLower().Trim();
-                    }
-
-                    if ((user == iniUser) && (md5Pwd == iniPwd))
-                    {
-                        // found
-
-                        var id = new CloudIdentity();
-                        id.AuthenticationType = "Basic";
-                        id.IsAuthenticated = true;
-                        id.Name = iniUser;
-
-                        var acl = new SimpleAcl();
-
-                        var rootDir = new DirectoryInfo(Path.Combine(this.LocalDataDirectory, user));
-                        if (rootDir.Exists == false)
-                        {
-                            // no root directory
-
-                            rootDir.Create();
-                            rootDir.Refresh();
-                        }
-
-                        SecureString cryptFilePwd = null;
-                        if (pwd != null)
-                        {
-                            cryptFilePwd = new SecureString();
-                            cryptFilePwd.Append(pwd);
-                            cryptFilePwd.MakeReadOnly();
-                        }
-
-                        SecureString secPwd = null;
-                        var createNewCryptFile = false;
-
-                        // read real password from file
-                        var cryptFile = new FileInfo(Path.Combine(this.LocalDataDirectory, user + ".crypt"));
-                        if (cryptFile.Exists == false)
-                        {
-                            // does not exist => create new one
-                            createNewCryptFile = true;
-                        }
-                        else
-                        {
-                            try
-                            {
-                                secPwd = LoadPasswordFromFile(cryptFile, cryptFilePwd);
-                            }
-                            catch
-                            {
-                                // reading password file failed => create new one
-                                createNewCryptFile = true;
-                            }
-                        }
-
-                        if (createNewCryptFile)
-                        {
-                            // create password file
-
-                            cryptFile.Refresh();
-                            if (cryptFile.Exists)
-                            {
-                                // delete existing one
-
-                                cryptFile.Delete();
-                                cryptFile.Refresh();
-                            }
-
-                            Rijndael alg;
-                            Rfc2898DeriveBytes pdb;
-                            var pwdBuffer = new byte[48];
-                            try
-                            {
-                                var rng = new RNGCryptoServiceProvider();
-                                rng.GetBytes(pwdBuffer);
-
-                                // password to file file
-                                using (var stream = new CryptoHelper().GetEncryptionStream(new FileStream(cryptFile.FullName,
-                                                                                                          FileMode.CreateNew,
-                                                                                                          FileAccess.ReadWrite),
-                                                                                           cryptFilePwd))
-                                {
-                                    stream.Write(pwdBuffer, 0, pwdBuffer.Length);
-
-                                    stream.Flush();
-                                    stream.Close();
-                                }
-
-                                secPwd = LoadPasswordFromFile(cryptFile, cryptFilePwd);
-                            }
-                            finally
-                            {
-                                alg = null;
-                                pdb = null;
-                                pwdBuffer = null;
-                            }
-                        }
-
-                        var princ = new CloudPrincipal(id, acl);
-                        princ.Files = new CloudPrincipalFileManager()
-                            {
-                                LocalRootDirectory = rootDir.FullName,
-                                Password = secPwd,
-                                Principal = princ,
-                            };
-
-                        matchingUsers.Add(princ);
-                    }
-                }
+                return null;
             }
 
-            return matchingUsers.SingleOrDefault();
+            SecureString cryptFilePwd = null;
+            try
+            {
+                if (pwd != null)
+                {
+                    cryptFilePwd = new SecureString();
+                    cryptFilePwd.Append(pwd);
+                    cryptFilePwd.MakeReadOnly();
+                }
+
+                return templates.Where(tpl => tpl.Identity.Name == user &&
+                                              ((CloudIdentity)tpl.Identity).Password.ToUnsecureString() == md5Pwd)
+                                .Select(tpl => new
+                                    {
+                                        CryptFilePassword = cryptFilePwd,
+                                        DataDirectory = this.LocalDataDirectory,
+                                        Template = tpl,
+                                        Username = user,
+                                    })
+                                .Select(x =>
+                                    {
+                                        var tplClone = x.Template.Clone(markAsAuthenticated: true);
+
+                                        var fileManager = tplClone.Files;
+                                        lock (fileManager)
+                                        {
+
+
+                                            SecureString secPwd = null;
+                                            var createNewCryptFile = false;
+
+                                            // read real password from file
+                                            var cryptFile = new FileInfo(Path.Combine(x.DataDirectory, x.Username + ".crypt"));
+                                            if (cryptFile.Exists == false)
+                                            {
+                                                // does not exist => create new one
+                                                createNewCryptFile = true;
+                                            }
+                                            else
+                                            {
+                                                try
+                                                {
+                                                    secPwd = LoadPasswordFromFile(cryptFile, cryptFilePwd);
+                                                }
+                                                catch
+                                                {
+                                                    // reading password file failed => create new one
+                                                    createNewCryptFile = true;
+                                                }
+                                            }
+
+                                            if (createNewCryptFile)
+                                            {
+                                                // create password file
+
+                                                cryptFile.Refresh();
+                                                if (cryptFile.Exists)
+                                                {
+                                                    // delete existing one
+
+                                                    cryptFile.Delete();
+                                                    cryptFile.Refresh();
+                                                }
+
+                                                var pwdBuffer = new byte[48];
+                                                try
+                                                {
+                                                    var rng = new RNGCryptoServiceProvider();
+                                                    rng.GetBytes(pwdBuffer);
+
+                                                    // password to file file
+                                                    using (var stream = new CryptoHelper().GetEncryptionStream(new FileStream(cryptFile.FullName,
+                                                                                                                              FileMode.CreateNew,
+                                                                                                                              FileAccess.ReadWrite),
+                                                                                                               cryptFilePwd))
+                                                    {
+                                                        stream.Write(pwdBuffer, 0, pwdBuffer.Length);
+
+                                                        stream.Flush();
+                                                        stream.Close();
+                                                    }
+
+                                                    secPwd = LoadPasswordFromFile(cryptFile, cryptFilePwd);
+                                                }
+                                                finally
+                                                {
+                                                    pwdBuffer = null;
+                                                }
+                                            }
+
+                                            fileManager.Password = secPwd;
+                                        }
+
+                                        return tplClone;
+                                    })
+                                .SingleOrDefault();
+            }
+            finally
+            {
+                using (var cpwd = cryptFilePwd)
+                { }
+            }
         }
         // Private Methods (2) 
 
@@ -247,6 +218,79 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.Security
             {
                 pwd = null;
             }
+        }
+        // Internal Methods (1) 
+
+        internal void Reload()
+        {
+            IList<CloudPrincipal> loadedPrincipals = new SynchronizedCollection<CloudPrincipal>();
+
+            var userRepo = this.UserRepository;
+            if (userRepo != null)
+            {
+                foreach (var category in userRepo.GetCategoryNames())
+                {
+                    if (string.IsNullOrWhiteSpace(category))
+                    {
+                        continue;
+                    }
+
+                    if (category.ToLower().Trim().StartsWith("user") == false)
+                    {
+                        continue;
+                    }
+
+                    string user;
+                    if (userRepo.TryGetValue<string>("name", out user, category) == false)
+                    {
+                        // no user name defined
+                        continue;
+                    }
+
+                    // get MD5 hased password
+                    string hashedPwd;
+                    userRepo.TryGetValue<string>("password", out hashedPwd, category);
+
+                    ParseUsernameAndPassword(ref user, ref hashedPwd);
+
+                    SecureString secHashedPwd = null;
+                    if (hashedPwd != null)
+                    {
+                        hashedPwd = hashedPwd.ToLower().Trim();
+
+                        secHashedPwd = new SecureString();
+                        secHashedPwd.Append(hashedPwd);
+                        secHashedPwd.MakeReadOnly();
+                    }
+
+                    var id = new CloudIdentity();
+                    id.AuthenticationType = "Basic";
+                    id.IsAuthenticated = true;
+                    id.Name = user;
+                    id.Password = secHashedPwd;
+
+                    var acl = new SimpleAcl();
+
+                    var rootDir = new DirectoryInfo(Path.Combine(this.LocalDataDirectory, user));
+                    if (rootDir.Exists == false)
+                    {
+                        // no root directory
+
+                        rootDir.Create();
+                        rootDir.Refresh();
+                    }
+
+                    var princ = new CloudPrincipal(id, acl);
+                    princ.Files = new CloudPrincipalFileManager()
+                        {
+                            LocalRootDirectory = rootDir.FullName,
+                        };
+
+                    loadedPrincipals.Add(princ);
+                }
+            }
+
+            this.PrincipalTemplates = loadedPrincipals;
         }
 
         #endregion Methods

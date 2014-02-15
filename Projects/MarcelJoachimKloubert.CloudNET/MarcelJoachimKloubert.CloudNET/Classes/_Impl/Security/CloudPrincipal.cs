@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.Security
 
         #region Constructors (1)
 
-        internal CloudPrincipal(ICloudIdentity id, IAccessControlList acl)
+        internal CloudPrincipal(CloudIdentity id, IAccessControlList acl)
             : base(acl)
         {
             this._ID = id;
@@ -53,5 +53,22 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.Security
         }
 
         #endregion Properties
+
+        #region Methods (1)
+
+        // Internal Methods (1) 
+
+        internal CloudPrincipal Clone(bool? markAsAuthenticated = null)
+        {
+            var id = (CloudIdentity)this.Identity;
+            var acl = this.AccessControlList;
+
+            return new CloudPrincipal(id.Clone(markAsAuthenticated: markAsAuthenticated), this.AccessControlList)
+                {
+                    Files = this.Files,
+                };
+        }
+
+        #endregion Methods
     }
 }

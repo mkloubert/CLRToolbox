@@ -5,6 +5,7 @@
 
 using MarcelJoachimKloubert.CloudNET.SDK.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
     /// <summary>
     /// Stores the result of listening a cloud directory.
     /// </summary>
-    public sealed class ListCloudDirectoryResult
+    public sealed partial class ListCloudDirectoryResult
     {
         #region Fields (8)
 
@@ -23,40 +24,33 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </summary>
         [JsonProperty(PropertyName = "creationTime")]
         public DateTime? CreationTime;
-
         /// <summary>
         /// Stores the list of directories that are inside the directory.
         /// </summary>
         public CloudDirectoryCollection Directories;
-
         /// <summary>
         /// Stores the list of files that are inside the directory.
         /// </summary>
         public CloudFileCollection Files;
-
         /// <summary>
         /// Stores if the underlying directory is the root directory or not.
         /// </summary>
         [JsonProperty(PropertyName = "isRootDir")]
         public bool? IsRootDirectory;
-
         /// <summary>
         /// Stores the path of parent directory if available.
         /// </summary>
         [JsonProperty(PropertyName = "parentPath")]
         public string ParentPath;
-
         /// <summary>
         /// Stores the underlying path.
         /// </summary>
         [JsonProperty(PropertyName = "path")]
         public string Path;
-
         /// <summary>
         /// Stores the underlying server.
         /// </summary>
         public CloudServer Server;
-
         /// <summary>
         /// Stores the last write time in UTC format.
         /// </summary>
@@ -81,9 +75,184 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (10)
 
-        // Public Methods (3) 
+        // Public Methods (10) 
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dirName">The name of the directory to create.</param>
+        /// <returns>The created directory.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="dirName" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirName" /> is <see langword="null" />.
+        /// </exception>
+        public ListCloudDirectoryResult CreateDirectory(IEnumerable<char> dirName)
+        {
+            string name = StringHelper.AsString(dirName);
+            if (name == null)
+            {
+                throw new ArgumentNullException("dirName");
+            }
+
+            name = name.Trim();
+            if (name == string.Empty)
+            {
+                throw new ArgumentException("dirName");
+            }
+
+            string path = (this.Path ?? string.Empty).Trim();
+
+            if (path.StartsWith("/") == false)
+            {
+                path = "/" + path;
+            }
+
+            if (path.EndsWith("/") == false)
+            {
+                path += "/";
+            }
+
+            path += name + "/";
+
+            this.Server
+                .FileSystem
+                .CreateDirectory(path);
+
+            return this.Server
+                       .FileSystem
+                       .ListDirectory(path);
+        }
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dirPath">The path of the local directory.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="dirPath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirPath" /> seems to represent a non existing directory.
+        /// </exception>
+        /// <remarks>
+        /// Directory is synced recursivly and process is started autmatically.
+        /// </remarks>
+        public ISyncWithLocalDirectoryExecutionContext SyncWithLocalDirectory(IEnumerable<char> dirPath)
+        {
+            return this.SyncWithLocalDirectory(dirPath, true);
+        }
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dir">The local directory.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dir" /> is <see langword="null" />.
+        /// </exception>
+        /// <remarks>
+        /// Directory is synced recursivly and process is started autmatically.
+        /// </remarks>
+        public ISyncWithLocalDirectoryExecutionContext SyncWithLocalDirectory(DirectoryInfo dir)
+        {
+            return this.SyncWithLocalDirectory(dir, true);
+        }
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dirPath">The path of the local directory.</param>
+        /// <param name="recursive">Sync recursively or not.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="dirPath" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirPath" /> seems to represent a non existing directory.
+        /// </exception>
+        /// <remarks>
+        /// Sync process is started autmatically.
+        /// </remarks>
+        public ISyncWithLocalDirectoryExecutionContext SyncWithLocalDirectory(IEnumerable<char> dirPath,
+                                                                              bool recursive)
+        {
+            return this.SyncWithLocalDirectory(new DirectoryInfo(StringHelper.AsString(dirPath)),
+                                               recursive);
+        }
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dir">The local directory.</param>
+        /// <param name="recursive">Sync recursively or not.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dir" /> is <see langword="null" />.
+        /// </exception>
+        /// <remarks>
+        /// Sync process is started autmatically.
+        /// </remarks>
+        public ISyncWithLocalDirectoryExecutionContext SyncWithLocalDirectory(DirectoryInfo dir,
+                                                                              bool recursive)
+        {
+            return this.SyncWithLocalDirectory(dir,
+                                               recursive,
+                                               true);
+        }
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dirPath">The path of the local directory.</param>
+        /// <param name="recursive">Sync recursively or not.</param>
+        /// <param name="autostart">Start sync process automatically or not.</param>
+        /// <returns>The execution context.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dirPath" /> is <see langword="null" />.
+        /// </exception>
+        public ISyncWithLocalDirectoryExecutionContext SyncWithLocalDirectory(IEnumerable<char> dirPath,
+                                                                              bool recursive,
+                                                                              bool autostart)
+        {
+            return this.SyncWithLocalDirectory(new DirectoryInfo(StringHelper.AsString(dirPath)),
+                                               recursive,
+                                               true);
+        }
+
+        /// <summary>
+        /// Creates a new directory.
+        /// </summary>
+        /// <param name="dir">The local directory.</param>
+        /// <param name="recursive">Sync recursively or not.</param>
+        /// <param name="autostart">Start sync process automatically or not.</param>
+        /// <returns>The created directory.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="dir" /> is <see langword="null" />.
+        /// </exception>
+        public ISyncWithLocalDirectoryExecutionContext SyncWithLocalDirectory(DirectoryInfo dir,
+                                                                              bool recursive,
+                                                                              bool autostart)
+        {
+            if (dir == null)
+            {
+                throw new ArgumentNullException("dir");
+            }
+
+            SyncWithLocalDirectoryExecutionContext ctx = new SyncWithLocalDirectoryExecutionContext();
+            ctx.LocalDirectory = dir.FullName;
+            ctx.RemoteDirectory = this;
+
+            if (autostart)
+            {
+                ctx.Start();
+            }
+
+            return ctx;
+        }
 
         /// <summary>
         /// Updates the creation time of that directory.
@@ -94,7 +263,10 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public void UpdateCreationTime(DateTime? newValue)
         {
-            this.Server.UpdateDirectoryCreationTime(this.Path, newValue);
+            this.Server
+                .FileSystem
+                .UpdateDirectoryCreationTime(this.Path, newValue);
+
             this.CreationTime = newValue;
         }
 
@@ -107,7 +279,10 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public void UpdateWriteTime(DateTime? newValue)
         {
-            this.Server.UpdateDirectoryWriteTime(this.Path, newValue);
+            this.Server
+                .FileSystem
+                .UpdateDirectoryWriteTime(this.Path, newValue);
+
             this.WriteTime = newValue;
         }
 
@@ -154,7 +329,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 
             path += name;
 
-            this.Server.UploadFile(path, data);
+            this.Server
+                .FileSystem
+                .UploadFile(path, data);
         }
 
         #endregion Methods

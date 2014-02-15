@@ -66,6 +66,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         public void Delete()
         {
             this.Server
+                .FileSystem
                 .DeleteFile(this.Path);
         }
 
@@ -79,6 +80,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         public byte[] Download()
         {
             return this.Server
+                       .FileSystem
                        .DownloadFile(this.Path);
         }
 
@@ -98,6 +100,7 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         public void Download(Stream target)
         {
             this.Server
+                .FileSystem
                 .DownloadFile(this.Path, target);
         }
 
@@ -109,7 +112,10 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public void UpdateCreationTime(DateTime? newValue)
         {
-            this.Server.UpdateFileCreationTime(this.Path, newValue);
+            this.Server
+                .FileSystem
+                .UpdateFileCreationTime(this.Path, newValue);
+
             this.CreationTime = newValue;
         }
 
@@ -121,7 +127,10 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public void UpdateWriteTime(DateTime? newValue)
         {
-            this.Server.UpdateFileWriteTime(this.Path, newValue);
+            this.Server
+                .FileSystem
+                .UpdateFileWriteTime(this.Path, newValue);
+
             this.WriteTime = newValue;
         }
 

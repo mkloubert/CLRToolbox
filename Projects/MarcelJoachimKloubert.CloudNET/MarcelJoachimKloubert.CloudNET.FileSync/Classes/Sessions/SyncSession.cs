@@ -10,6 +10,7 @@ using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
@@ -18,7 +19,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
     {
         #region Fields (2)
 
-        private readonly Queue<Action<ListViewItem>> _ACTION_QUEUE = new Queue<Action<ListViewItem>>();
+        private readonly SynchronizedCollection<ActionQueueItem> _ACTION_QUEUE = new SynchronizedCollection<ActionQueueItem>();
         private const string _FORMAT_LOGDATE = "yyyy-MM-dd HH:mm:ss";
 
         #endregion Fields
@@ -29,6 +30,8 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
         {
             this.Server = server;
             this.DirectoryToSync = dirToSync;
+
+            this.ClearActionQueue();
         }
 
         #endregion Constructors
@@ -79,9 +82,14 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
 
         #endregion Delegates and Events
 
-        #region Methods (12)
+        #region Methods (14)
 
         // Private Methods (10) 
+
+        private void ClearActionQueue()
+        {
+            this._ACTION_QUEUE.Clear();
+        }
 
         private Action<ListViewItem> CreateFileChangedAction(FileSystemEventArgs e)
         {
@@ -92,12 +100,13 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     using (var stream = File.OpenRead(e.FullPath))
                     {
                         this.Server
+                            .FileSystem
                             .UploadFile(filePath, stream);
 
                         var actions = new Action<CloudServer>[]
                         {
-                            (srv) => srv.UpdateFileCreationTime(filePath, File.GetCreationTimeUtc(e.FullPath)),
-                            (srv) => srv.UpdateFileWriteTime(filePath, File.GetLastWriteTimeUtc(e.FullPath)),
+                            (srv) => srv.FileSystem.UpdateFileCreationTime(filePath, File.GetCreationTimeUtc(e.FullPath)),
+                            (srv) => srv.FileSystem.UpdateFileWriteTime(filePath, File.GetLastWriteTimeUtc(e.FullPath)),
                         };
 
                         actions.ForAll(ctx => ctx.Item(this.Server),
@@ -132,6 +141,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     var filePath = this.ToServerFilePath(e.FullPath);
 
                     this.Server
+                        .FileSystem
                         .DeleteFile(filePath);
                 });
         }
@@ -146,6 +156,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     try
                     {
                         this.Server
+                            .FileSystem
                             .DeleteFile(oldFilePath);
                     }
                     catch
@@ -156,6 +167,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     using (var stream = File.OpenRead(e.FullPath))
                     {
                         this.Server
+                            .FileSystem
                             .UploadFile(newFilePath, stream);
                     }
                 });
@@ -189,55 +201,71 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
 
         private void FileWatcher_Change(object sender, FileSystemEventArgs e)
         {
-            lock (this._SYNC)
+            var now = DateTimeOffset.Now;
+
+            try
             {
-                try
+                if (this.IsRunning == false)
                 {
-                    if (this.IsRunning == false)
+                    return;
+                }
+
+                var fw = (FileSystemWatcher)sender;
+
+                Action<ListViewItem> actionToEnqueue = null;
+
+                if (File.Exists(e.FullPath))
+                {
+                    var re = e as RenamedEventArgs;
+                    if (re == null)
                     {
-                        return;
-                    }
-
-                    var fw = (FileSystemWatcher)sender;
-
-                    Action<ListViewItem> actionToEnqueue = null;
-
-                    if (File.Exists(e.FullPath))
-                    {
-                        var re = e as RenamedEventArgs;
-                        if (re == null)
+                        switch (e.ChangeType)
                         {
-                            switch (e.ChangeType)
-                            {
-                                case WatcherChangeTypes.Changed:
-                                    actionToEnqueue = this.CreateFileChangedAction(e);
-                                    break;
+                            case WatcherChangeTypes.Changed:
+                                actionToEnqueue = this.CreateFileChangedAction(e);
+                                break;
 
-                                case WatcherChangeTypes.Created:
+                            case WatcherChangeTypes.Created:
+                                if (Directory.Exists(e.FullPath))
+                                {
                                     actionToEnqueue = this.CreateFileCreatedAction(e);
-                                    break;
+                                }
+                                break;
 
-                                case WatcherChangeTypes.Deleted:
-                                    actionToEnqueue = this.CreateFileDeletedAction(e);
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            // rename operation
-                            actionToEnqueue = this.CreateFileRenamedAction(re);
+                            case WatcherChangeTypes.Deleted:
+                                actionToEnqueue = this.CreateFileDeletedAction(e);
+                                break;
                         }
                     }
-
-                    if (actionToEnqueue != null)
+                    else
                     {
-                        this._ACTION_QUEUE.Enqueue(actionToEnqueue);
+                        // rename operation
+                        actionToEnqueue = this.CreateFileRenamedAction(re);
                     }
                 }
-                catch
+
+                if (actionToEnqueue != null)
                 {
-                    //TODO log
+                    var newActionItem = new ActionQueueItem(e.ChangeType, e.FullPath,
+                                                            now,
+                                                            actionToEnqueue);
+
+                    // find similar / existing queue item
+                    var existingActionItem = this._ACTION_QUEUE
+                                                 .FirstOrDefault(i => newActionItem.Equals(i));
+
+                    if (existingActionItem == null)
+                    {
+                        // add if does not exist in current queue
+
+                        this._ACTION_QUEUE
+                            .Add(newActionItem);
+                    }
                 }
+            }
+            catch
+            {
+                //TODO log
             }
         }
 
@@ -274,7 +302,10 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     {
                         timer.Stop();
 
-                        while (this._ACTION_QUEUE.Count > 0)
+                        ActionQueueItem item;
+                        while ((item = this._ACTION_QUEUE
+                                           .OrderByDescending(i => i.TIME)
+                                           .FirstOrDefault()) != null)
                         {
                             try
                             {
@@ -289,8 +320,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                                     handler(this, new SyncLogEventArgs(logItem));
                                 }
 
-                                var action = this._ACTION_QUEUE.Dequeue();
-                                action(logItem);
+                                item.ACTION(logItem);
                             }
                             catch
                             {
@@ -308,36 +338,6 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                     //TODO log
                 }
             }
-        }
-
-        private string ToServerFilePath(string path)
-        {
-            var rootDir = Path.GetFullPath(this.DirectoryToSync ?? string.Empty).TrimEnd();
-            if (rootDir.EndsWith("\\") == false)
-            {
-                rootDir += "\\";
-            }
-
-            path = Path.GetFullPath(path ?? string.Empty).TrimEnd();
-            if (path.EndsWith("\\") == false)
-            {
-                path += "\\";
-            }
-
-            var result = Uri.UnescapeDataString(new Uri(rootDir).MakeRelativeUri(new Uri(path))
-                                                                .ToString());
-
-            while (result.EndsWith("/"))
-            {
-                result = result.Substring(0, result.Length - 1).Trim();
-            }
-
-            if (result.StartsWith("/") == false)
-            {
-                result = "/" + result;
-            }
-
-            return result;
         }
 
         private void UpdateLogItem(ListViewItem logItem,
@@ -385,7 +385,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
                 // ignore errors here
             }
         }
-        // Internal Methods (2) 
+        // Internal Methods (4) 
 
         internal void Start()
         {
@@ -402,7 +402,7 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
 
                 try
                 {
-                    this._ACTION_QUEUE.Clear();
+                    this.ClearActionQueue();
 
                     this.FileWatcher = new FileSystemWatcher(this.DirectoryToSync);
                     this.FileWatcher.IncludeSubdirectories = true;
@@ -439,10 +439,108 @@ namespace MarcelJoachimKloubert.CloudNET.FileSync.Classes.Sessions
 
                 this.DisposeTimerAndWatcher();
 
-                this._ACTION_QUEUE.Clear();
+                this.ClearActionQueue();
             }
         }
 
+        internal void SyncWithLocalDirectory()
+        {
+            this.Server
+                .FileSystem
+                .ListRootDirectory()
+                .SyncWithLocalDirectory(this.DirectoryToSync);
+        }
+
+        internal string ToServerFilePath(string path)
+        {
+            var rootDir = Path.GetFullPath(this.DirectoryToSync ?? string.Empty).TrimEnd();
+            if (rootDir.EndsWith("\\") == false)
+            {
+                rootDir += "\\";
+            }
+
+            path = Path.GetFullPath(path ?? string.Empty).TrimEnd();
+            if (path.EndsWith("\\") == false)
+            {
+                path += "\\";
+            }
+
+            var result = Uri.UnescapeDataString(new Uri(rootDir).MakeRelativeUri(new Uri(path))
+                                                                .ToString());
+
+            while (result.EndsWith("/"))
+            {
+                result = result.Substring(0, result.Length - 1).Trim();
+            }
+
+            if (result.StartsWith("/") == false)
+            {
+                result = "/" + result;
+            }
+
+            return result;
+        }
+
         #endregion Methods
+
+        #region Nested Classes (1)
+
+
+        private sealed class ActionQueueItem : IEquatable<ActionQueueItem>
+        {
+            #region Fields (4)
+
+            internal readonly WatcherChangeTypes _CHANGE_TYPE;
+            private readonly string _FILEPATH;
+            internal readonly Action<ListViewItem> ACTION;
+            internal readonly DateTimeOffset TIME;
+
+            #endregion Fields
+
+            #region Constructors (1)
+
+            internal ActionQueueItem(WatcherChangeTypes changeType,
+                                     string filePath,
+                                     DateTimeOffset time,
+                                     Action<ListViewItem> action)
+            {
+                this._CHANGE_TYPE = changeType;
+                this._FILEPATH = (filePath ?? string.Empty).ToLower().Trim();
+
+                this.TIME = time;
+
+                this.ACTION = action;
+            }
+
+            #endregion Constructors
+
+            #region Methods (3)
+
+            // Public Methods (3) 
+
+            public bool Equals(ActionQueueItem other)
+            {
+                return other == null ? false :
+                                       other._FILEPATH == this._FILEPATH;
+            }
+
+            public override bool Equals(object other)
+            {
+                if (other is ActionQueueItem)
+                {
+                    return this.Equals((ActionQueueItem)other);
+                }
+
+                return base.Equals(other);
+            }
+
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
+
+            #endregion Methods
+        }
+        #endregion Nested Classes
     }
 }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
+    #region CLASS: DelegateEqualityComparer<T>
+
     /// <summary>
     /// An <see cref="EqualityComparer{T}" /> based on delegates.
     /// </summary>
@@ -102,7 +104,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         /// <param name="y">The right value.</param>
         /// <returns>Are equal or not.</returns>
         public delegate bool EqualsHandler(T x, T y);
-
         /// <summary>
         /// Describes a handler for <see cref="DelegateEqualityComparer{T}.GetHashCode(T)" /> method.
         /// </summary>
@@ -136,4 +137,60 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         #endregion Methods
     }
+
+    #endregion
+
+    #region CLASS: DelegateEqualityComparer
+
+    /// <summary>
+    /// Factory class for creating <see cref="DelegateEqualityComparer{T}" /> instances.
+    /// </summary>
+    public static class DelegateEqualityComparer
+    {
+        #region Methods (4)
+
+        // Public Methods (4) 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer()" />
+        public static DelegateEqualityComparer<T> Create<T>(T dummyObj)
+        {
+            return new DelegateEqualityComparer<T>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer(DelegateEqualityComparer{T}.EqualsHandler)" />
+        public static DelegateEqualityComparer<T> Create<T>(T dummyObj,
+                                                            DelegateEqualityComparer<T>.EqualsHandler equalsHandler)
+        {
+            return new DelegateEqualityComparer<T>(equalsHandler);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer(DelegateEqualityComparer{T}.GetHashCodeHandler)" />
+        public static DelegateEqualityComparer<T> Create<T>(T dummyObj,
+                                                            DelegateEqualityComparer<T>.GetHashCodeHandler getHashCodeHandler)
+        {
+            return new DelegateEqualityComparer<T>(getHashCodeHandler);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer(DelegateEqualityComparer{T}.EqualsHandler, DelegateEqualityComparer{T}.GetHashCodeHandler)" />
+        public static DelegateEqualityComparer<T> Create<T>(T dummyObj,
+                                                            DelegateEqualityComparer<T>.EqualsHandler equalsHandler,
+                                                            DelegateEqualityComparer<T>.GetHashCodeHandler getHashCodeHandler)
+        {
+            return new DelegateEqualityComparer<T>(equalsHandler, getHashCodeHandler);
+        }
+
+        #endregion Methods
+    }
+
+    #endregion
 }

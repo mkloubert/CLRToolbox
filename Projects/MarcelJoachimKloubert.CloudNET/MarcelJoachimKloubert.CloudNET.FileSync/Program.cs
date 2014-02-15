@@ -4,13 +4,24 @@
 
 
 using MarcelJoachimKloubert.CloudNET.FileSync.Controls.Forms;
+using MarcelJoachimKloubert.CloudNET.SDK;
 using System;
+using System.Net;
 using System.Windows.Forms;
 
 namespace MarcelJoachimKloubert.CloudNET.FileSync
 {
     internal static class Program
     {
+        #region Constructors (1)
+
+        static Program()
+        {
+            ServicePointManager.ServerCertificateValidationCallback = CloudServer.AllowAnySslCertificate;
+        }
+
+        #endregion Constructors
+
         #region Methods (1)
 
         // Private Methods (1) 

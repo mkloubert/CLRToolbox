@@ -75,7 +75,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
                 throw new InvalidOperationException();
             }
 
-            this.Server.DeleteDirectory(this.Path);
+            this.Server
+                .FileSystem
+                .DeleteDirectory(this.Path);
         }
 
         /// <summary>
@@ -87,7 +89,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public ListCloudDirectoryResult List()
         {
-            return this.Server.ListDirectory(this.Path);
+            return this.Server
+                       .FileSystem
+                       .ListDirectory(this.Path);
         }
 
         /// <summary>
@@ -99,7 +103,10 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public void UpdateCreationTime(DateTime? newValue)
         {
-            this.Server.UpdateDirectoryCreationTime(this.Path, newValue);
+            this.Server
+                .FileSystem
+                .UpdateDirectoryCreationTime(this.Path, newValue);
+
             this.CreationTime = newValue;
         }
 
@@ -112,7 +119,10 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
         /// </exception>
         public void UpdateWriteTime(DateTime? newValue)
         {
-            this.Server.UpdateDirectoryWriteTime(this.Path, newValue);
+            this.Server
+                .FileSystem
+                .UpdateDirectoryWriteTime(this.Path, newValue);
+
             this.WriteTime = newValue;
         }
 
@@ -159,7 +169,9 @@ namespace MarcelJoachimKloubert.CloudNET.SDK.IO
 
             path += name;
 
-            this.Server.UploadFile(path, data);
+            this.Server
+                .FileSystem
+                .UploadFile(path, data);
         }
 
         #endregion Methods

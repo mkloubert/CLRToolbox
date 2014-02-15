@@ -32,11 +32,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
 
             InvokeSafe<TCtrl, object>(ctrl,
-                                     delegate(TCtrl c, object s)
-                                     {
-                                         action(c);
-                                     },
-                                     null);
+                                      delegate(TCtrl c, object s)
+                                      {
+                                          action(c);
+                                      },
+                                      delegate(TCtrl c)
+                                      {
+                                          return null;
+                                      });
         }
 
         /// <summary>
@@ -64,7 +67,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                                                       {
                                                           return func(c);
                                                       },
-                                                      null);
+                                                      delegate(TCtrl c)
+                                                      {
+                                                          return null;
+                                                      });
         }
 
         /// <summary>
@@ -140,11 +146,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                                                                  TState funcState) where TCtrl : global::System.Windows.Forms.Control
         {
             return InvokeSafe<TCtrl, TState, TResult>(ctrl,
-                                                func,
-                                                delegate(TCtrl c)
-                                                {
-                                                    return funcState;
-                                                });
+                                                      func,
+                                                      delegate(TCtrl c)
+                                                      {
+                                                          return funcState;
+                                                      });
         }
 
         /// <summary>

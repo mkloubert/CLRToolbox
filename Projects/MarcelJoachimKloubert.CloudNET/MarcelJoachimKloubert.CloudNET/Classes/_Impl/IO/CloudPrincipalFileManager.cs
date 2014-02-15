@@ -3,7 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using MarcelJoachimKloubert.CloudNET.Classes._Impl.Security;
 using MarcelJoachimKloubert.CloudNET.Classes.IO;
 using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -33,7 +32,7 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
 
         #endregion Constructors
 
-        #region Properties (4)
+        #region Properties (3)
 
         internal string LocalRootDirectory
         {
@@ -42,12 +41,6 @@ namespace MarcelJoachimKloubert.CloudNET.Classes._Impl.IO
         }
 
         internal SecureString Password
-        {
-            get;
-            set;
-        }
-
-        internal CloudPrincipal Principal
         {
             get;
             set;

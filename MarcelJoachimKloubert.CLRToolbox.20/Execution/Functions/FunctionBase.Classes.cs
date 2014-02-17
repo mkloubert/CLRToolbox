@@ -3,11 +3,11 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System;
-using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 {
@@ -304,7 +304,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
                     DateTimeOffset startTime = DateTimeOffset.Now;
                     while (this.IsBusy)
                     {
-                        if (!timeout.HasValue)
+                        if (timeout.HasValue == false)
                         {
                             // no timeout defined
                             continue;

@@ -26,7 +26,7 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Sessions
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (4)
 
         public Guid Id
         {
@@ -38,6 +38,17 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Sessions
         {
             get;
             internal set;
+        }
+
+        public string SystemId
+        {
+            get { return this.SystemIdProvider(); }
+        }
+
+        internal Func<string> SystemIdProvider
+        {
+            get;
+            set;
         }
 
         #endregion Properties

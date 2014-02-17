@@ -13,12 +13,17 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes.Sessions
     /// </summary>
     public interface IMVZSession : IMVZObject, IIdentifiable
     {
-        #region Data Members (1)
+        #region Data Members (2)
 
         /// <summary>
         /// Gets the time the session started.
         /// </summary>
         DateTimeOffset StartTime { get; }
+
+        /// <summary>
+        /// Gets the ID of the session that is defined by the system (like ASP.NET).
+        /// </summary>
+        string SystemId { get; }
 
         #endregion Data Members
     }

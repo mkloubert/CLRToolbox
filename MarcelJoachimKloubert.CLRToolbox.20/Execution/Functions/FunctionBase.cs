@@ -3,12 +3,12 @@
 // s. http://blog.marcel-kloubert.de
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 {
@@ -70,19 +70,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             get { return null; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasName.DisplayName" />
+        /// <inheriteddoc />
         public string DisplayName
         {
             get { return this.GetDisplayName(CultureInfo.CurrentCulture); }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunction.FullName" />
+        /// <inheriteddoc />
         public string FullName
         {
             get
@@ -110,28 +104,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IIdentifiable.Id" />
+        /// <inheriteddoc />
         public Guid Id
         {
             get { return this._id; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasName.Name" />
+        /// <inheriteddoc />
         public virtual string Name
         {
             get { return this.GetType().Name; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunction.Namespace" />
+        /// <inheriteddoc />
         public virtual string Namespace
         {
             get
@@ -156,10 +141,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
         // Public Methods (10) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="object.Equals(object)" />
+        /// <inheriteddoc />
         public override bool Equals(object other)
         {
             if (other is IIdentifiable)
@@ -175,56 +157,38 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             return base.Equals(other);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IEquatable{T}.Equals(T)" />
+        /// <inheriteddoc />
         public bool Equals(IIdentifiable other)
         {
             return other != null ? this.Equals(other.Id) : false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IEquatable{T}.Equals(T)" />
+        /// <inheriteddoc />
         public bool Equals(Guid other)
         {
             return this.Id == other;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunction.Execute()" />
+        /// <inheriteddoc />
         public IFunctionExecutionContext Execute()
         {
             return this.Execute(CollectionHelper.Empty<KeyValuePair<string, object>>());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunction.Execute(bool)" />
+        /// <inheriteddoc />
         public IFunctionExecutionContext Execute(bool autoStart)
         {
             return this.Execute(CollectionHelper.Empty<KeyValuePair<string, object>>(),
                                 autoStart);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunction.Execute(IEnumerable{KeyValuePair{string, object}}, bool)" />
+        /// <inheriteddoc />
         public IFunctionExecutionContext Execute(IEnumerable<KeyValuePair<string, object>> parameters)
         {
             return this.Execute(parameters, true);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunction.Execute(IEnumerable{KeyValuePair{string, object}}, bool)" />
+        /// <inheriteddoc />
         public IFunctionExecutionContext Execute(IEnumerable<KeyValuePair<string, object>> parameters,
                                                  bool autoStart)
         {
@@ -257,10 +221,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasName.GetDisplayName(CultureInfo)" />
+        /// <inheriteddoc />
         public string GetDisplayName(CultureInfo culture)
         {
             if (culture == null)
@@ -271,19 +232,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             return StringHelper.AsString(this.OnGetDisplayName(culture));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="object.GetHashCode()" />
+        /// <inheriteddoc />
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="object.ToString()" />
+        /// <inheriteddoc />
         public override string ToString()
         {
             return string.Format("{0} ({1}) :: #{2}", this.FullName

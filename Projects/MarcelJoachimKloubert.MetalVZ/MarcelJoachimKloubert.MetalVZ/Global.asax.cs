@@ -63,7 +63,7 @@ namespace MarcelJoachimKloubert.MetalVZ
 
         #endregion Properties
 
-        #region Methods (10)
+        #region Methods (11)
 
         // Protected Methods (7) 
 
@@ -141,11 +141,12 @@ namespace MarcelJoachimKloubert.MetalVZ
 
             var newSession = new MVZSession();
             newSession.StartTime = now;
+            newSession.SystemIdProvider = GetSessionIdBySystem;
 
             this.Session.Add(SESSION_VAR_MVZSESSION, newSession);
             sessionMgr.Register(newSession);
         }
-        // Private Methods (3) 
+        // Private Methods (4) 
 
         private IEnumerable<IMVZSession> GetAllSessions(IServiceLocator baseLocator, object key)
         {
@@ -164,6 +165,11 @@ namespace MarcelJoachimKloubert.MetalVZ
         private static IMVZSession GetCurrentSession()
         {
             return (IMVZSession)HttpContext.Current.Session[SESSION_VAR_MVZSESSION];
+        }
+
+        private static string GetSessionIdBySystem()
+        {
+            return HttpContext.Current.Session.SessionID;
         }
 
         private IMVZSession GetSingleSession(IServiceLocator baseLocator, object key)

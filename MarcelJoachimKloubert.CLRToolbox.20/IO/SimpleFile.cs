@@ -3,13 +3,13 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Data;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Data;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
@@ -126,7 +126,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// </summary>
         /// <param name="file">The underlying instance.</param>
         public delegate void DestructorHandler(SimpleFile file);
-
         /// <summary>
         /// Describes logic for the <see cref="SimpleFile.GetDisplayName(CultureInfo)" /> method.
         /// </summary>
@@ -134,7 +133,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <param name="culture">The underlying culture.</param>
         /// <returns>The display name.</returns>
         public delegate IEnumerable<char> GetDisplayNameHandler(SimpleFile file, CultureInfo culture);
-
         /// <summary>
         /// Describes logic for the <see cref="SimpleFile.OpenStream()" /> method.
         /// </summary>
@@ -179,50 +177,60 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// Sets the value for <see cref="SimpleFile.ContentType" /> property.
         /// </summary>
         /// <param name="newValue">The new value.</param>
-        public void SetContentType(IEnumerable<char> newValue)
+        /// <returns>That instance.</returns>
+        public SimpleFile SetContentType(IEnumerable<char> newValue)
         {
             this._contentType = StringHelper.AsString(newValue);
+            return this;
         }
 
         /// <summary>
         /// Sets the data of this file.
         /// </summary>
         /// <param name="data">The data to set.</param>
+        /// <returns>That instance.</returns>
         /// <remarks>
         /// If <paramref name="data" /> is <see langword="null" /> <see cref="SimpleFile.OpenStreamFunc" />
         /// will also be set to <see langword="null" />.
         /// </remarks>
-        public void SetData(IEnumerable<byte> data)
+        public SimpleFile SetData(IEnumerable<byte> data)
         {
             this.OpenStreamFunc = data == null ? null : new OpenStreamHandler(delegate()
                 {
                     return new MemoryStream(CollectionHelper.AsArray(data));
                 });
+
+            return this;
         }
 
         /// <summary>
         /// Sets the value for <see cref="SimpleFile.Encoding" /> property.
         /// </summary>
         /// <param name="newValue">The new value.</param>
-        public void SetEncoding(Encoding newValue)
+        /// <returns>That instance.</returns>
+        public SimpleFile SetEncoding(Encoding newValue)
         {
             this._encoding = newValue;
+            return this;
         }
 
         /// <summary>
         /// Sets the stream of this file.
         /// </summary>
         /// <param name="stream">The stream to set.</param>
+        /// <returns>That instance.</returns>
         /// <remarks>
-        /// If <paramref name="stream" /> is <see langword="null" /> <see cref="SimpleFile.OpenStreamFunc" />
+        /// If <paramref name="stream" /> is <see langword="null" />, <see cref="SimpleFile.OpenStreamFunc" />
         /// will also be set to <see langword="null" />.
         /// </remarks>
-        public void SetStream(Stream stream)
+        public SimpleFile SetStream(Stream stream)
         {
             this.OpenStreamFunc = stream == null ? null : new OpenStreamHandler(delegate()
                 {
                     return stream;
                 });
+
+            return this;
         }
 
         #endregion Methods

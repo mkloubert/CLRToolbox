@@ -3,11 +3,11 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace System
 {
@@ -188,19 +188,23 @@ namespace System
             List<Exception> list = null;
             for (int i = 0; i < this._INNER_EXCEPTIONS.Count; i++)
             {
-                if (!predicate(this._INNER_EXCEPTIONS[i]))
+                if (predicate(this._INNER_EXCEPTIONS[i]))
                 {
-                    if (list == null)
-                    {
-                        list = new List<Exception>();
-                    }
-
-                    list.Add(this._INNER_EXCEPTIONS[i]);
+                    // handled
+                    continue;
                 }
+
+                if (list == null)
+                {
+                    list = new List<Exception>();
+                }
+
+                list.Add(this._INNER_EXCEPTIONS[i]);
             }
 
             if (list != null)
             {
+                // at least one exception was not handled
                 throw new AggregateException(this.Message, list);
             }
         }

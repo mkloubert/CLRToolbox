@@ -3,6 +3,8 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Data;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,8 +12,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MarcelJoachimKloubert.CLRToolbox.Data;
-using MarcelJoachimKloubert.CLRToolbox.IO;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -78,10 +78,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
             else if (obj is IEnumerable<byte>)
             {
-                // handle blob as UTF-8 string
-                byte[] utf8Blob = CollectionHelper.AsArray(obj as IEnumerable<byte>);
-
-                return Encoding.UTF8.GetString(utf8Blob, 0, utf8Blob.Length);
+                // hex string
+                return AsHexString(obj as IEnumerable<byte>, true);
             }
             else if (obj is Stream)
             {

@@ -16,14 +16,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
     /// <typeparam name="TValue">Type of the values.</typeparam>
     public class TMReadOnlyDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {
-
-
         #region Fields (1)
 
         private readonly IDictionary<TKey, TValue> _DICTIONARY;
 
         #endregion Fields
-
 
         #region Constructors (1)
 
@@ -46,40 +43,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
 
         #endregion Constructors
 
-
         #region Properties (4)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IReadOnlyCollection{T}.Count" />
+        /// <inheriteddoc />
         public int Count
         {
             get { return this._DICTIONARY.Count; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IReadOnlyDictionary{TKey, TValue}.Keys" />
+        /// <inheriteddoc />
         public IEnumerable<TKey> Keys
         {
             get { return this._DICTIONARY.Keys; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IReadOnlyDictionary{TKey, TValue}.this[TKey]" />
+        /// <inheriteddoc />
         public TValue this[TKey key]
         {
             get { return this._DICTIONARY[key]; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IReadOnlyDictionary{TKey, TValue}.Values" />
+        /// <inheriteddoc />
         public IEnumerable<TValue> Values
         {
             get { return this._DICTIONARY.Values; }
@@ -87,34 +71,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
 
         #endregion Properties
 
-
         #region Methods (4)
 
         // Public Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IReadOnlyDictionary{TKey, TValue}.ContainsKey(TKey)" />
+        /// <inheriteddoc />
         public bool ContainsKey(TKey key)
         {
             return this._DICTIONARY.ContainsKey(key);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IEnumerable{T}.GetEnumerator()" />
+        /// <inheriteddoc />
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return this._DICTIONARY
                        .GetEnumerator();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IReadOnlyDictionary{TKey, TValue}.TryGetValue(TKey, out TValue)" />
+        /// <inheriteddoc />
         public bool TryGetValue(TKey key, out TValue value)
         {
             return this._DICTIONARY

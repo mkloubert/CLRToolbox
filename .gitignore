@@ -215,3 +215,8 @@ Projects/MarcelJoachimKloubert.FileBox/MarcelJoachimKloubert.FileBox.v11.suo
 Projects/MarcelJoachimKloubert.CloudNET/MarcelJoachimKloubert.CloudNET.FileSync/MarcelJoachimKloubert.CloudNET.FileSync.csproj.user
 Projects/MarcelJoachimKloubert.CloudNET/MarcelJoachimKloubert.CloudNET.SDK/MarcelJoachimKloubert.CloudNET.SDK.csproj.user
 Projects/MarcelJoachimKloubert.MetalVZ/MarcelJoachimKloubert.MetalVZ/config.ini
+/Projects/MarcelJoachimKloubert.MetalVZ/MarcelJoachimKloubert.MetalVZ.Database/Security
+/Projects/MarcelJoachimKloubert.MetalVZ/MarcelJoachimKloubert.MetalVZ.Database/bin
+/Projects/MarcelJoachimKloubert.MetalVZ/MarcelJoachimKloubert.MetalVZ.Database/obj
+Projects/MarcelJoachimKloubert.MetalVZ/MarcelJoachimKloubert.MetalVZ.Database/MarcelJoachimKloubert.MetalVZ.Database.sqlproj.user
+Projects/MarcelJoachimKloubert.MetalVZ/MarcelJoachimKloubert.MetalVZ.Database/MarcelJoachimKloubert.MetalVZ.Database.dbmdl

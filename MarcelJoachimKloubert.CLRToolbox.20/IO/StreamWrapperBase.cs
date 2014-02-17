@@ -3,10 +3,10 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.IO;
 using System.Reflection;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
@@ -316,7 +316,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
                                                                    if (m.GetGenericArguments().Length != 0)
                                                                    {
-                                                                       // must NOT habe generic arguments
+                                                                       // must NOT have generic arguments
                                                                        return false;
                                                                    }
 

@@ -9,7 +9,7 @@ using System.Linq;
 namespace MarcelJoachimKloubert.MetalVZ.Classes.Data
 {
     /// <summary>
-    /// Describes an object that accesses the data for the current MetalVZ application.
+    /// Describes an object that accesses the data(base) of the current MetalVZ application.
     /// </summary>
     public interface IMVZDatabase : IMVZObject, IQueryableDatabase
     {

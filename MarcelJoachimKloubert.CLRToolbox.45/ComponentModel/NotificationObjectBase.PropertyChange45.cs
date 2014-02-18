@@ -22,7 +22,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <param name="field">The field where the (current) value of the property is stored.</param>
         /// <param name="newValue">The new value.</param>
         /// <param name="propertyName">
-        /// Name name of the property. Should be automatically be set by compiler when that
+        /// Name of the property. Should be automatically be set by compiler if that
         /// method is called from inside the underlying property.
         /// </param>
         /// <returns>
@@ -32,7 +32,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                       T newValue,
                                       [CallerMemberName] IEnumerable<char> propertyName = null)
         {
-            if (!EqualityComparer<T>.Default.Equals(field, newValue))
+            if (EqualityComparer<T>.Default.Equals(field, newValue) == false)
             {
                 this.OnPropertyChanging(propertyName);
                 field = newValue;

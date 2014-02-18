@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Handlers\BasicAuthHttpHandlerBase.cs" />
     <Compile Include="Handlers\FilesHttpHandler.cs" />
+    <Compile Include="Handlers\MessagesHttpHandler.cs" />
     <Compile Include="Masters\Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

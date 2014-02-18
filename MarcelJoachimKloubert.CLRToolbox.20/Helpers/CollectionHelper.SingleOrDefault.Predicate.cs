@@ -22,7 +22,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <param name="predicate">The element filter / predicate.</param>
         /// <returns>The only element or the default value of the type if no element exists in the sequence.</returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="seq" /> and / or <paramref name="predicate" /> are <see langword="null" />.
+        /// <paramref name="seq" /> and/or <paramref name="predicate" /> are <see langword="null" />.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// <paramref name="seq" /> contains more than one element.

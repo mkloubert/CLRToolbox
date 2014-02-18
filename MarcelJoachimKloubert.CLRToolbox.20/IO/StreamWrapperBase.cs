@@ -21,6 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// Stores the inner stream.
         /// </summary>
         protected readonly Stream _BASE_STREAM;
+
         /// <summary>
         /// An unique object for thread safe operations.
         /// </summary>

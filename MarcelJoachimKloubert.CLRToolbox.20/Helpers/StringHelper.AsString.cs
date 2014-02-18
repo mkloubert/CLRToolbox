@@ -136,13 +136,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 IEnumerable seq = (IEnumerable)obj;
                 IEnumerable<object> objSeq = CollectionHelper.Cast<object>(seq);
 
-                IEnumerable<string> strSeq = CollectionHelper.Select(objSeq,
-                                                                     delegate(object item)
-                                                                     {
-                                                                         return AsString(item, true);
-                                                                     });
+                StringBuilder concatedStrList = new StringBuilder();
+                foreach (object item in objSeq)
+                {
+                    concatedStrList.Append(AsString(item, true));
+                }
 
-                return string.Concat(CollectionHelper.AsArray(strSeq));
+                return concatedStrList.ToString();
             }
 
             bool extensionHandled = false;

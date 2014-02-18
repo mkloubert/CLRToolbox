@@ -47,10 +47,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #region Properties (7)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ContentProviderBase.ContentType" />
+        /// <inheriteddoc />
         public override string ContentType
         {
             get { return this._contentType; }
@@ -66,19 +63,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             set { this._destructor = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasName.DisplayName" />
+        /// <inheriteddoc />
         public string DisplayName
         {
             get { return this.GetDisplayName(CultureInfo.CurrentCulture); }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ContentProviderBase.Encoding" />
+        /// <inheriteddoc />
         public override Encoding Encoding
         {
             get { return this._encoding; }
@@ -94,10 +85,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             set { this._getDisplayNameFunc = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasName.Name" />
+        /// <inheriteddoc />
         public string Name
         {
             get { return this._name; }
@@ -126,6 +114,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// </summary>
         /// <param name="file">The underlying instance.</param>
         public delegate void DestructorHandler(SimpleFile file);
+
         /// <summary>
         /// Describes logic for the <see cref="SimpleFile.GetDisplayName(CultureInfo)" /> method.
         /// </summary>
@@ -133,6 +122,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <param name="culture">The underlying culture.</param>
         /// <returns>The display name.</returns>
         public delegate IEnumerable<char> GetDisplayNameHandler(SimpleFile file, CultureInfo culture);
+
         /// <summary>
         /// Describes logic for the <see cref="SimpleFile.OpenStream()" /> method.
         /// </summary>
@@ -144,10 +134,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         // Public Methods (6) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasName.GetDisplayName(CultureInfo)" />
+        /// <inheriteddoc />
         public string GetDisplayName(CultureInfo culture)
         {
             if (culture == null)
@@ -164,10 +151,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             return this.Name;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ContentProviderBase.OpenStream()" />
+        /// <inheriteddoc />
         public override Stream OpenStream()
         {
             return this.OpenStreamFunc();

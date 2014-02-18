@@ -56,19 +56,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #region Properties (2)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.CanRead" />
+        /// <inheriteddoc />
         public virtual bool CanRead
         {
             get { return true; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.CanWrite" />
+        /// <inheriteddoc />
         public virtual bool CanWrite
         {
             get { return true; }
@@ -80,10 +74,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         // Public Methods (21) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.Clear()" />
+        /// <inheriteddoc />
         public bool Clear()
         {
             lock (this._SYNC)
@@ -97,19 +88,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.ContainsValue(IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool ContainsValue(IEnumerable<char> name)
         {
             return this.ContainsValue(name, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.ContainsValue(IEnumerable{char}, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool ContainsValue(IEnumerable<char> name, IEnumerable<char> category)
         {
             lock (this._SYNC)
@@ -126,19 +111,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.DeleteValue(IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool DeleteValue(IEnumerable<char> name)
         {
             return this.DeleteValue(name, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.DeleteValue(IEnumerable{char}, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool DeleteValue(IEnumerable<char> name, IEnumerable<char> category)
         {
             lock (this._SYNC)
@@ -157,10 +136,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.GetCategoryNames()" />
+        /// <inheriteddoc />
         public IList<string> GetCategoryNames()
         {
             lock (this._SYNC)
@@ -178,37 +154,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.GetValue(IEnumerable{char})" />
+        /// <inheriteddoc />
         public object GetValue(IEnumerable<char> name)
         {
             return this.GetValue(name, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.GetValue{T}(IEnumerable{char})" />
+        /// <inheriteddoc />
         public T GetValue<T>(IEnumerable<char> name)
         {
             return this.GetValue<T>(name, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.GetValue(IEnumerable{char}, IEnumerable{char})" />
+        /// <inheriteddoc />
         public object GetValue(IEnumerable<char> name, IEnumerable<char> category)
         {
             return this.GetValue<object>(name, category);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.GetValue{T}(IEnumerable{char}, IEnumerable{char})" />
+        /// <inheriteddoc />
         public T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category)
         {
             T result;
@@ -232,37 +196,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             return new ReadOnlyConfigRepositoryWrapper(this);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.SetValue(IEnumerable{char}, object, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool SetValue(IEnumerable<char> name, object value)
         {
             return this.SetValue(name, value, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.SetValue{T}(IEnumerable{char}, T)" />
+        /// <inheriteddoc />
         public bool SetValue<T>(IEnumerable<char> name, T value)
         {
             return this.SetValue<T>(name, value, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.SetValue(IEnumerable{char}, object, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool SetValue(IEnumerable<char> name, object value, IEnumerable<char> category)
         {
             return this.SetValue<object>(name, value, category);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.SetValue{T}(IEnumerable{char}, T, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool SetValue<T>(IEnumerable<char> name, T value, IEnumerable<char> category)
         {
             lock (this._SYNC)
@@ -283,46 +235,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T)" />
+        /// <inheriteddoc />
         public bool TryGetValue<T>(IEnumerable<char> name, out T value)
         {
             return this.TryGetValue<T>(name, out value, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue(IEnumerable{char}, out object)" />
+        /// <inheriteddoc />
         public bool TryGetValue(IEnumerable<char> name, out object value)
         {
             return this.TryGetValue(name, out value, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category)
         {
             return this.TryGetValue<T>(name, out value, category, default(T));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue(IEnumerable{char}, out object, IEnumerable{char})" />
+        /// <inheriteddoc />
         public bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category)
         {
             return this.TryGetValue(name, out value, category, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue(IEnumerable{char}, out object, IEnumerable{char}, object)" />
+        /// <inheriteddoc />
         public bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category, object defaultVal)
         {
             return this.TryGetValue<object>(name,
@@ -331,10 +268,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                                             defaultVal);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConfigRepository.TryGetValue{T}(IEnumerable{char}, out T, IEnumerable{char}, T)" />
+        /// <inheriteddoc />
         public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, T defaultVal)
         {
             lock (this._SYNC)

@@ -133,12 +133,22 @@ namespace MarcelJoachimKloubert.CloudNET
                 pricRepo.Reload();
             }
 
-            // files
-            RouteTable.Routes.Add(new Route
-                (
-                    "files",
-                    new FilesHttpHandler()
-                ));
+            // URL routes
+            {
+                // files
+                RouteTable.Routes.Add(new Route
+                    (
+                        "files",
+                        new FilesHttpHandler()
+                    ));
+
+                // messages
+                RouteTable.Routes.Add(new Route
+                    (
+                        "messages",
+                        new MessagesHttpHandler()
+                    ));
+            }
 
             // ServiceLocator
             {

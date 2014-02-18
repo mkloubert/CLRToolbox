@@ -3,11 +3,11 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 {
@@ -45,39 +45,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 
         // Public Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasher.Hash(IEnumerable{byte})" />
+        /// <inheriteddoc />
         public byte[] Hash(IEnumerable<byte> data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException("data");
             }
-
-            using (MemoryStream targetStream = new MemoryStream())
+            using (MemoryStream srcStream = new MemoryStream(CollectionHelper.AsArray(data), false))
             {
-                this.OnHash(CollectionHelper.AsArray(data),
-                            targetStream);
+                using (MemoryStream targetStream = new MemoryStream())
+                {
+                    this.OnHash(srcStream, targetStream);
 
-                return targetStream.ToArray();
+                    return targetStream.ToArray();
+                }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasher.Hash(IEnumerable{char})" />
+        /// <inheriteddoc />
         public byte[] Hash(IEnumerable<char> chars)
         {
             return this.Hash(chars, Encoding.UTF8);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHasher.Hash(IEnumerable{char}, Encoding)" />
+        /// <inheriteddoc />
         public byte[] Hash(IEnumerable<char> chars, Encoding enc)
         {
             if (chars == null)
@@ -97,9 +89,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         /// <summary>
         /// The logic for <see cref="HasherBase.Hash(IEnumerable{byte})" /> method.
         /// </summary>
-        /// <param name="data">The data to hash.</param>
+        /// <param name="srcStream">The stream with the data that should be hashed.</param>
         /// <param name="targetStream">The stream where to write the hash to.</param>
-        protected abstract void OnHash(byte[] data, Stream targetStream);
+        protected abstract void OnHash(Stream srcStream, Stream targetStream);
 
         #endregion Methods
     }

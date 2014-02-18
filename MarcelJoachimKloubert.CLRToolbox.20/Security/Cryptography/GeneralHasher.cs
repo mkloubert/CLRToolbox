@@ -19,6 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         #region Fields (2)
 
         private readonly HashAlgorithm _ALGORITHM;
+
         /// <summary>
         /// Stores the optional salt.
         /// </summary>
@@ -80,12 +81,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         // Protected Methods (1) 
 
         /// <inheriteddoc />
-        protected override sealed void OnHash(byte[] data, Stream targetStream)
+        protected override sealed void OnHash(Stream srcStream, Stream targetStream)
         {
             byte[] hash;
             using (MemoryStream temp = new MemoryStream())
             {
-                temp.Write(data, 0, data.Length);
+                IOHelper.CopyTo(srcStream, temp);
 
                 if (this._SALT != null)
                 {

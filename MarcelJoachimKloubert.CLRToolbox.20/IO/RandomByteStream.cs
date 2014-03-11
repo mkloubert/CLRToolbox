@@ -83,9 +83,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             byte[] randomData = new byte[count];
             this._RANDOM_BYTE_FILLER(randomData);
 
-            Array.Copy(randomData, 0,
-                       buffer, offset,
-                       randomData.Length);
+            try
+            {
+                Array.Copy(randomData, 0,
+                           buffer, offset,
+                           randomData.Length);
+            }
+            finally
+            {
+                randomData = null;
+            }
         }
 
         #endregion Methods

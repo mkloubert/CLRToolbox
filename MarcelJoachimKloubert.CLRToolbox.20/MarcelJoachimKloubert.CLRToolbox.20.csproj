@@ -419,6 +419,8 @@
       <DependentUpon>NonDisposableStream.cs</DependentUpon>
     </Compile>
     <Compile Include="IO\NonDisposableStream.cs" />
+    <Compile Include="IO\RandomByteStream.cs" />
+    <Compile Include="IO\ReadOnlyStreamBase.cs" />
     <Compile Include="IO\SimpleFile.cs" />
     <Compile Include="IO\StreamWrapperBase.cs" />
     <Compile Include="IO\SystemConsole.cs" />
@@ -429,6 +431,7 @@
       <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="IO\TextReaderWriterConsole.cs" />
+    <Compile Include="IO\ZeroByteStream.cs" />
     <Compile Include="IRunnable.cs" />
     <Compile Include="ITMDisposable.cs" />
     <Compile Include="ITMEquatable.cs" />

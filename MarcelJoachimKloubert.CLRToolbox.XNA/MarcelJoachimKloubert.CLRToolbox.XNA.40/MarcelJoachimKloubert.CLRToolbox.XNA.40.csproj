@@ -542,6 +542,12 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\NonDisposableStream.cs">
       <Link>IO\NonDisposableStream.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\RandomByteStream.cs">
+      <Link>IO\RandomByteStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\ReadOnlyStreamBase.cs">
+      <Link>IO\ReadOnlyStreamBase.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\SimpleFile.cs">
       <Link>IO\SimpleFile.cs</Link>
     </Compile>
@@ -553,6 +559,9 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextReaderWriterConsole.cs">
       <Link>IO\TextReaderWriterConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\ZeroByteStream.cs">
+      <Link>IO\ZeroByteStream.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IRunnable.cs">
       <Link>IRunnable.cs</Link>

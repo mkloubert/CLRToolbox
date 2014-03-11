@@ -50,14 +50,22 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes.UI
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (4)
 
-        // Protected Methods (2) 
+        // Protected Methods (4) 
 
         /// <summary>
         /// Is invoked when page is loaded.
         /// </summary>
         protected virtual void OnPageLoad()
+        {
+            // dummy
+        }
+
+        /// <summary>
+        /// Is invoked before page starts to be initialized.
+        /// </summary>
+        protected virtual void OnPagePreInit()
         {
             // dummy
         }
@@ -72,6 +80,19 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes.UI
             lock (this._SYNC)
             {
                 this.OnPageLoad();
+            }
+        }
+
+        /// <summary>
+        /// The event that invokes the <see cref="MVZPageBase.OnPagePreInit()" /> method.
+        /// </summary>
+        /// <param name="sender">The sending object.</param>
+        /// <param name="e">The event arguments.</param>
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            lock (this._SYNC)
+            {
+                this.OnPagePreInit();
             }
         }
 

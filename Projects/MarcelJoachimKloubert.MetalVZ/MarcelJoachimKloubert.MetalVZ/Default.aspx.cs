@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.MetalVZ
 
             var sessionMgr = ServiceLocator.Current.GetInstance<IMVZSessionManager>();
 
-            var users = db.Query<Users>().ToArray();
+            var users = db.Query<Users>();
         }
 
         #endregion Methods

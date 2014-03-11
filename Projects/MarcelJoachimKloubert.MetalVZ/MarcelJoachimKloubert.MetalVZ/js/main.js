@@ -23,7 +23,7 @@ MetalVZ.page = {};
                     return decodeURIComponent(s.split('+').join(' '));
                 };
 
-                MetalVZ.page.request.GET[mvzUrlDecode(arguments[1])] = url_decode(arguments[2]);
+                MetalVZ.page.request.GET[url_decode(arguments[1])] = url_decode(arguments[2]);
             });
         }
     }

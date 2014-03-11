@@ -37,28 +37,25 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Data
             {
                 this._ENTITY_ASSEMBLIES = new Assembly[] { typeof(global::MarcelJoachimKloubert.MetalVZ.Classes.Data.Entities.IMVZEntity).Assembly };
 
-                this.InvokeForDbSetList(list =>
-                                        {
-                                            foreach (var et in this.GetEntityTypes())
-                                            {
-                                                // DbContext.Set<E>()
-                                                var setMethod = this.GetType()
-                                                                    .GetMethods(BindingFlags.Instance | BindingFlags.Public)
-                                                                    .Single(m => m.Name == "Set" &&
-                                                                                 m.GetGenericArguments().Length == 1 &&
-                                                                                 m.GetParameters().Length == 0)
-                                                                    .MakeGenericMethod(et);
+                foreach (var et in this.GetEntityTypes())
+                {
+                    // DbContext.Set<E>()
+                    var setMethod = CollectionHelper.Single(this.GetType()
+                                                                .GetMethods(BindingFlags.Instance | BindingFlags.Public),
+                                                            m => m.Name == "Set" &&
+                                                                 m.GetGenericArguments().Length == 1 &&
+                                                                 m.GetParameters().Length == 0)
+                                                    .MakeGenericMethod(et);
 
-                                                list.Add(et,
-                                                         setMethod.Invoke(this,
-                                                                          new object[0]));
-                                            }
-                                        });
+                    this._DB_SETS
+                        .Add(et,
+                             setMethod.Invoke(this, new object[0]));
+                }
             }
 
             #endregion Constructors
 
-            #region Methods (5)
+            #region Methods (4)
 
             // Protected Methods (1) 
 
@@ -86,10 +83,9 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Data
                     var keyProperties = et.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                           .Where(p =>
                                           {
-                                              return p.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumnAttribute), true)
-                                                      .Cast<TMColumnAttribute>()
-                                                      .Where(a => a.IsKey)
-                                                      .SingleOrDefault() != null;
+                                              return CollectionHelper.SingleOrDefault(p.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Data.TMColumnAttribute), true)
+                                                                                       .Cast<TMColumnAttribute>(),
+                                                                                      a => a.IsKey) != null;
                                           });
 
                     // not marked as scalar properties
@@ -130,8 +126,7 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Data
                         CollectionHelper.Single(entityTypeConfType.GetMethods(BindingFlags.Instance | BindingFlags.Public),
                                                 m => m.Name == "ToTable" &&
                                                      m.GetParameters().Length == args.Length)
-                                        .Invoke(entityTypeConf,
-                                                args);
+                                        .Invoke(entityTypeConf, args);
                     }
 
                     // map primary keys
@@ -153,15 +148,16 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Data
                     }
                 }
             }
-            // Private Methods (3) 
+            // Private Methods (2) 
 
             private IEnumerable<Type> GetEntityTypes()
             {
                 return this._ENTITY_ASSEMBLIES
                            .SelectMany(asm => asm.GetTypes())
                            .Where(t => t.IsClass &&
-                                       !t.IsAbstract && t.GetInterfaces()
-                                                         .Contains(typeof(global::MarcelJoachimKloubert.MetalVZ.Classes.Data.Entities.IMVZEntity)));
+                                       t.IsAbstract == false &&
+                                       t.GetInterfaces()
+                                        .Contains(typeof(global::MarcelJoachimKloubert.MetalVZ.Classes.Data.Entities.IMVZEntity)));
             }
 
             private static void InvokeEntityTypeConfigMethodWithLambdaExpr(Type entityType,
@@ -183,14 +179,26 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Data
                     var propertyExpr = Expression.Property(funcParam,
                                                            entityProperty);
 
-                    // Expression.Lambda(Expression, ParameterExpression[])
-                    var lambdaMethod = typeof(global::System.Linq.Expressions.Expression).GetMethods(BindingFlags.Static | BindingFlags.Public)
-                                                                                         .Single(m => m.Name == "Lambda" &&
-                                                                                                      m.GetGenericArguments().Length == 1 &&
-                                                                                                      m.GetParameters().Length == 2 &&
-                                                                                                      m.GetParameters()[0].ParameterType.Equals(typeof(global::System.Linq.Expressions.Expression)) &&
-                                                                                                      m.GetParameters()[1].ParameterType.Equals(typeof(global::System.Linq.Expressions.ParameterExpression[])))
-                                                                                         .MakeGenericMethod(funcType);
+                    // Expression.Lambda<TDelegate>(Expression, ParameterExpression[])
+                    var lambdaMethod = CollectionHelper.Single(typeof(global::System.Linq.Expressions.Expression).GetMethods(BindingFlags.Static | BindingFlags.Public),
+                                                               m =>
+                                                               {
+                                                                   if (m.Name != "Lambda")
+                                                                   {
+                                                                       return false;
+                                                                   }
+
+                                                                   if (m.GetGenericArguments().Length != 1)
+                                                                   {
+                                                                       return false;
+                                                                   }
+
+                                                                   var @params = m.GetParameters();
+                                                                   return @params.Length == 2 &&
+                                                                          @params[0].ParameterType.Equals(typeof(global::System.Linq.Expressions.Expression)) &&
+                                                                          @params[1].ParameterType.Equals(typeof(global::System.Linq.Expressions.ParameterExpression[]));
+                                                               })
+                                                       .MakeGenericMethod(funcType);
 
                     methodParam = (Expression)lambdaMethod.Invoke(null,
                                                                   new object[]
@@ -206,24 +214,11 @@ namespace MarcelJoachimKloubert.MetalVZ.Classes._Impl.Data
                                   methodParam,
                               });
             }
-
-            private void InvokeForDbSetList(Action<IDictionary<Type, object>> action)
-            {
-                action(this._DB_SETS);
-            }
             // Internal Methods (1) 
 
             internal DbSet<E> GetDbSet<E>() where E : class, global::MarcelJoachimKloubert.MetalVZ.Classes.Data.Entities.IMVZEntity
             {
-                var entityType = typeof(E);
-
-                object result = null;
-                this.InvokeForDbSetList(list =>
-                    {
-                        result = list[entityType];
-                    });
-
-                return (DbSet<E>)result;
+                return (DbSet<E>)this._DB_SETS[typeof(E)];
             }
 
             #endregion Methods

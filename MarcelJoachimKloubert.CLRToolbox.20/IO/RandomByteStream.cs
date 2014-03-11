@@ -83,7 +83,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             byte[] randomData = new byte[count];
             this._RANDOM_BYTE_FILLER(randomData);
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < randomData.Length; i++)
             {
                 buffer[offset + i] = randomData[i];
             }

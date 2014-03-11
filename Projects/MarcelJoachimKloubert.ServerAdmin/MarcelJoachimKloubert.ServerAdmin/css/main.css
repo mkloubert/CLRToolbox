@@ -1,0 +1,312 @@
+﻿
+a {
+    color: #467AA7;
+    font-weight: bold;	
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2A5A8A;
+    text-decoration: underline;
+}
+
+body {
+    background-color: #FFFFFF;
+    border: 0;
+    font-family: Verdana,Tahoma,Arial,sans-serif;
+    font-size: 12px;
+    height: 100%; 
+    margin: 0;
+    max-height: 100%; 
+    overflow: hidden;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    padding: 2px 10px 1px 0;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h6 {
+    font-weight: normal;
+}
+
+        
+input.ui-button {
+    padding: 0px;
+}
+
+#overallContentArea {
+    background: transparent;
+    bottom: 25px;
+    color: #303030;
+    font-size: 0.9em;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 105px;
+    z-index: 0;
+}
+
+#overallContentArea .twoColumnContent {
+    height: 100%;
+    width: 100%;
+}
+
+#overallContentArea .twoColumnContent .left {
+    padding: 8px 12px 0px 12px;
+    vertical-align: top !important;
+}
+
+#overallContentArea .twoColumnContent .left table {
+    border: 1px solid #E4E4E4;
+    border-collapse: collapse;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+#overallContentArea .twoColumnContent .left table td {
+    padding: 2px;
+    vertical-align: top;
+}                
+
+#overallContentArea .twoColumnContent .left table th {
+    background-color: #EEEEEE;
+    padding: 4px;
+    white-space: nowrap;        
+}                
+
+#overallContentArea .twoColumnContent .left table tr.cycle1 {
+    background-color: #F6F7F8;
+}
+
+#overallContentArea .twoColumnContent .left table tr.row:hover {
+    background-color: #FFFFDD;
+}
+
+#overallContentArea .twoColumnContent .right {
+    background-color: #E8EAEC;
+    padding-left: 22px;
+    padding-top: 22px;
+    padding-right: 12px;
+    vertical-align: top !important;
+    width: 236px;
+}
+
+#overallContentArea .twoColumnContent .right h1 {
+    font-size: 18px;
+}
+
+#overallContentArea .twoColumnContent .right h2 {
+    font-size: 16px;
+}
+
+#overallContentArea .twoColumnContent .right h3 {
+    font-size: 14px;
+}
+
+#overallContentArea .twoColumnContent .right h4 {
+    font-size: 12px;
+}
+
+#overallContentArea .twoColumnContent .right h5 {
+    font-size: 12px;
+}
+
+#overallContentArea .twoColumnContent .right h6 {
+    font-size: 12px;
+}
+
+#overallContentArea .twoColumnContent .right table {
+    border: 1px solid #999999;
+    border-collapse: collapse;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+#overallContentArea .twoColumnContent .right table td {
+    padding: 2px;
+    vertical-align: top;
+}                
+
+#overallContentArea .twoColumnContent .right table th {
+    background-color: #CCCCCC;
+    padding: 4px;
+    white-space: nowrap;        
+}                
+
+#overallContentArea .twoColumnContent .right table tr.cycle1 {
+    background-color: #F6F7F8;
+}
+
+#overallContentArea .twoColumnContent .right table tr.row:hover {
+    background-color: #FFFFDD;
+}
+
+#overallFooter {
+    background-color: #578BB8;
+    border-top: 0px none transparent;
+    color: #ffffff;
+    bottom: 0;
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    top: auto;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+} 
+           
+#overallFooter a,
+#overallFooter a:visited,
+#overallFooter a:hover {
+    color: #ffff00;
+}
+
+#overallHeader {
+    color: #ffffff;
+    height: 104px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}       
+
+#overallHeader .top .header .left {
+    float: left;
+}
+
+#overallHeader .top .header .right {
+    float: right;
+    line-height: 60px;
+    padding-right: 12px;
+}
+
+#overallHeader .top .header .right form {
+    float: left;
+}
+
+#overallHeader .menu {
+    background-color: #578BB8;
+    border-top: 1px solid #FFFFFF;
+    clear: both;
+    display: block;
+    height: 22px;
+    overflow: hidden;
+    padding-top: 2px;
+}
+
+#overallHeader .menu ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+#overallHeader .menu ul li {
+    border-right: 1px solid #FFFFFF;
+    float: left;
+    height: 26px;
+    list-style-type: none;
+    margin-top: -2px;
+    overflow: hidden;
+    padding-top: 3px;
+    white-space: nowrap;
+}
+
+#overallHeader .menu ul li a {
+    color: #ffffff;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 6px 12px 4px 8px;
+}
+
+#overallHeader .menu ul li:hover, #overallHeader .menu ul li.current {
+    background-color: #80B0DA;
+}
+
+#overallHeader .menu ul li a:hover {
+    text-decoration: none;
+}
+
+#overallHeader .top {
+    background-color: #578BB8;
+    clear: both;
+    display: block;
+    height: 80px;
+}
+ 
+#overallHeader .top .header {
+    background-color: #467AA7;
+    clear: both;
+    display: block;
+    height: 60px;
+    overflow: hidden;
+}
+
+#overallHeader .top .header h1 {
+    background-image: url(/images/1392928707_server.png);
+    background-position: 10px 2px;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-size: 24px;
+    margin-top: 10px;
+    padding-left: 56px;
+}            
+
+#overallHeader .top .menu {
+    background-color: #578BB8;
+    border: 0px none transparent;
+    clear: both;
+    display: block;
+    height: 22px;
+    overflow: hidden;
+    padding-left: 8px;
+    padding-top: 0px;
+}
+
+#overallHeader .top .menu a {
+    color: #ffffff;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-right: 12px;
+    padding-left: 24px;
+}
+
+#overallHeader .top .menu a.home {
+    background-image: url(/images/folder_home_16x16.png);
+    background-position: left -1px;
+    background-repeat: no-repeat;
+}
+
+
+#overallHeader .menu ul li a.generalOverview {
+    background-image: url(/images/menu/1392950197_overview3d.png);
+    background-position: 8px 5px;
+    background-repeat: no-repeat;
+    padding-left: 32px;
+}
+
+#overallHeader .menu ul li a.generalProcesses {
+    background-image: url(/images/menu/1392950049_kservices.png);
+    background-position: 8px 5px;
+    background-repeat: no-repeat;
+    padding-left: 32px;
+}

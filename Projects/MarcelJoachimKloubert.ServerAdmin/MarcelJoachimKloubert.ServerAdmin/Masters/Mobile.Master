@@ -1,0 +1,14 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Mobile.master.cs" Inherits="MarcelJoachimKloubert.ServerAdmin.Masters.Mobile" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/metro-bootstrap.css">
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/jquery/jquery.ui.min.js"></script>
+    <script src="js/metro/metro.min.js"></script>
+</head>
+<body class="metro">
+    ... markup page ...
+</body>
+</html>

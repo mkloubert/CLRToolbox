@@ -1,0 +1,114 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Mobile.master.cs" Inherits="MarcelJoachimKloubert.ServerAdmin.Masters.Mobile" %>
+
+<!DOCTYPE html>
+<html>
+    <head runat="server">
+        <title>Server Admin :: <%= this.Page.Title %></title>
+
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="content-language" content="en" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="pragma" content="no-cache" />
+        
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+
+        <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+        <script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery/jquery.ui.min.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(
+                function() {
+                    $('button, input[type=button], input[type=submit]').button();
+                });			
+        </script>
+
+        <script runat="server">
+            
+            private readonly DateTimeOffset _NOW = DateTimeOffset.Now;
+
+            private IList<MenuItem> GetMenuItems()
+            {
+                var result = new List<MenuItem>();
+                
+                try
+                {
+                    var admPage = this.Page as MarcelJoachimKloubert.ServerAdmin.Classes.UI.ServerAdminPageBase;
+                    if (admPage != null)
+                    {
+                        var dynamicItems = admPage.MenuItems;
+                        if (dynamicItems != null)
+                        {
+                            result.AddRange(dynamicItems.Select(di => MenuItem.FromDynamic(di))
+                                                        .OfType<MenuItem>());
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore errors here
+                }
+
+                return result;
+            }
+            
+            private string GetYear()
+            {
+                return this._NOW.ToString("yyyy");
+            }
+            
+        </script>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder_Header" runat="server" />
+    </head>
+ 
+    <body>
+        <div id="overallHeader">
+            <div class="top">
+                <div class="menu">
+                    <a href="/" class="home">Home</a>
+                </div>
+                            
+                <div class="header">
+                    <div class="left">
+                        <h1>Server Admin</h1>
+                    </div>
+                    
+                    <div class="right">
+                        @TODO
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="menu">
+                <ul>
+                    <%
+                    
+                        foreach (var mi in this.GetMenuItems())
+                        {
+                            %><li><a href="<%= HttpUtility.HtmlAttributeEncode(mi.Link) %>" class="<%= HttpUtility.HtmlAttributeEncode(mi.Class) %>"><%= HttpUtility.HtmlEncode(mi.Caption) %></a></li><%
+                        }
+                            
+                    %>
+                </ul>
+            </div>
+        </div>
+ 
+        <div id="overallFooter">
+            Copyright &copy; 2013-<%= this.GetYear() %> <a href="http://blog.marcel-kloubert.de/" target="_blank">Marcel Joachim Kloubert</a>
+        </div>
+ 
+        <div id="overallContentArea">
+            <table class="twoColumnContent" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="left"><asp:ContentPlaceHolder ID="ContentPlaceHolder_Content" runat="server" /></td>
+ 
+                    <td class="right"><asp:ContentPlaceHolder ID="ContentPlaceHolder_Sidebar" runat="server" /></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

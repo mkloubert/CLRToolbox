@@ -15,9 +15,9 @@
     <AssemblyName>MarcelJoachimKloubert.ServerAdmin</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,27 +58,105 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="css\jquery\jquery.ui.min.css" />
+    <Content Include="css\main.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="images\1392928707_server.png" />
+    <Content Include="images\ajax_loader_66x66.gif" />
+    <Content Include="images\folder_home_16x16.png" />
+    <Content Include="images\jquery\animated-overlay.gif" />
+    <Content Include="images\jquery\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="images\jquery\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="images\jquery\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="images\jquery\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="images\jquery\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="images\jquery\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="images\jquery\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="images\jquery\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="images\jquery\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="images\jquery\ui-icons_0078ae_256x240.png" />
+    <Content Include="images\jquery\ui-icons_056b93_256x240.png" />
+    <Content Include="images\jquery\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="images\jquery\ui-icons_e0fdff_256x240.png" />
+    <Content Include="images\jquery\ui-icons_f5e175_256x240.png" />
+    <Content Include="images\jquery\ui-icons_f7a50d_256x240.png" />
+    <Content Include="images\jquery\ui-icons_fcd113_256x240.png" />
+    <Content Include="images\menu\1392950049_kservices.png" />
+    <Content Include="images\menu\1392950197_overview3d.png" />
+    <Content Include="js\jquery\jquery.ui.min.js" />
+    <Content Include="js\jquery\jquery.min.js" />
+    <Content Include="js\main.js" />
+    <Content Include="processes.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="Classes\Sessions\ISession.cs" />
+    <Compile Include="Classes\UI\General\GeneralPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="Classes\UI\ServerAdminMasterPageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\UI\ServerAdminMasterPageBase.MenuItem.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ServerAdminMasterPageBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\UI\ServerAdminPageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\_Impl\Sessions\ServerAdminSession.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IServerAdminObject.cs" />
+    <Compile Include="Masters\Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Mobile.Master.cs">
+      <DependentUpon>Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\Mobile.Master.designer.cs">
+      <DependentUpon>Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="processes.aspx.cs">
+      <DependentUpon>processes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="processes.aspx.designer.cs">
+      <DependentUpon>processes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LICENSE" />
+    <Content Include="Masters\Main.Master" />
+    <Content Include="Masters\Mobile.Master" />
+    <None Include="config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config.sample.ini" />
+    <Content Include="MarcelJoachimKloubert.ServerAdmin.snk" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="_Libs\jonthornton-jquery-timepicker-1.3.3-1.zip" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40.Web\MarcelJoachimKloubert.CLRToolbox.40.Web.csproj">
@@ -89,9 +168,18 @@
       <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MarcelJoachimKloubert.ServerAdmin.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

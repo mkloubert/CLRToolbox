@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CryptCommander", "MarcelJoachimKloubert.CryptCommander\MarcelJoachimKloubert.CryptCommander.csproj", "{1076FE74-4624-419E-AC9E-7849D7D0CF0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40", "..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj", "{50E0CDB2-BC51-4C46-949A-387E3534041F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40.WinForms", "..\..\MarcelJoachimKloubert.CLRToolbox.40.WinForms\MarcelJoachimKloubert.CLRToolbox.40.WinForms.csproj", "{BC5D8CA7-49D2-4554-ADAA-465DC41D71A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{1AB2BD74-BDAF-4F4E-AE5B-4D0519FAE219}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1076FE74-4624-419E-AC9E-7849D7D0CF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1076FE74-4624-419E-AC9E-7849D7D0CF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1076FE74-4624-419E-AC9E-7849D7D0CF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1076FE74-4624-419E-AC9E-7849D7D0CF0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5D8CA7-49D2-4554-ADAA-465DC41D71A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5D8CA7-49D2-4554-ADAA-465DC41D71A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5D8CA7-49D2-4554-ADAA-465DC41D71A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5D8CA7-49D2-4554-ADAA-465DC41D71A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50E0CDB2-BC51-4C46-949A-387E3534041F} = {1AB2BD74-BDAF-4F4E-AE5B-4D0519FAE219}
+		{BC5D8CA7-49D2-4554-ADAA-465DC41D71A9} = {1AB2BD74-BDAF-4F4E-AE5B-4D0519FAE219}
+	EndGlobalSection
+EndGlobal

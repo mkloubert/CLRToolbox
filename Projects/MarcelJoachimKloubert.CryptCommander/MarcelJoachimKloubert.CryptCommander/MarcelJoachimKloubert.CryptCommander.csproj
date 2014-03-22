@@ -47,6 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\IO\IDirectory.cs" />
+    <Compile Include="Classes\IO\IDrive.cs" />
+    <Compile Include="Classes\IO\IFile.cs" />
+    <Compile Include="Classes\IO\IFileSystem.cs" />
+    <Compile Include="Classes\IO\Local\LocalDirectory.cs" />
+    <Compile Include="Classes\IO\Local\LocalDrive.cs" />
+    <Compile Include="Classes\IO\Local\LocalFile.cs" />
+    <Compile Include="Classes\IO\Local\LocalFileSystem.cs" />
+    <Compile Include="Classes\IO\Local\LocalFileSystemObjectBase.cs" />
     <Compile Include="Controls\FileBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,6 +84,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="LICENSE" />
     <None Include="Properties\Settings.settings">
@@ -100,10 +110,10 @@
   <ItemGroup>
     <Content Include="app.ico" />
     <Content Include="README.txt" />
+    <None Include="Resources\1395471833_unknown.png" />
+    <None Include="Resources\1395471792_gtk-directory.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

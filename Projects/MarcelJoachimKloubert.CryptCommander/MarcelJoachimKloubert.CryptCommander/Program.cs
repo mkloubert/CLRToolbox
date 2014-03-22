@@ -1,4 +1,9 @@
-﻿using MarcelJoachimKloubert.CryptCommander.Forms;
+﻿// LICENSE: GPL 3 - https://www.gnu.org/licenses/gpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+
+using MarcelJoachimKloubert.CryptCommander.Forms;
 using System;
 using System.Windows.Forms;
 
@@ -10,9 +15,6 @@ namespace MarcelJoachimKloubert.CryptCommander
 
         // Private Methods (1) 
 
-        /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
-        /// </summary>
         [STAThread]
         private static void Main()
         {

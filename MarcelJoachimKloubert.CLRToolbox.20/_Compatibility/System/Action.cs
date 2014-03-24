@@ -7,6 +7,14 @@ namespace System
 {
     #region DELEGATE: Action<T1, T2>
 
+#if NET2 || NET20
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <see href="http://msdn.microsoft.com/en-us/library/system.action%28v=vs.110%29.aspx" />
+    public delegate void Action();
+
+#endif
     /// <summary>
     /// 
     /// </summary>

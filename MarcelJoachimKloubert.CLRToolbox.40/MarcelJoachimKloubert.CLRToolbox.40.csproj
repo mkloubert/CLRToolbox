@@ -633,6 +633,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IFile.cs">
       <Link>IO\IFile.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IStreamCopyExecutionContext.cs">
+      <Link>IO\IStreamCopyExecutionContext.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\NonDisposableStream.CallBehaviour.cs">
       <Link>IO\NonDisposableStream.CallBehaviour.cs</Link>
       <DependentUpon>NonDisposableStream.cs</DependentUpon>
@@ -648,6 +651,19 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\SimpleFile.cs">
       <Link>IO\SimpleFile.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopier.cs">
+      <Link>IO\StreamCopier.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopier.StreamCopyExecutionContext.cs">
+      <Link>IO\StreamCopier.StreamCopyExecutionContext.cs</Link>
+      <DependentUpon>StreamCopier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopyProgressErrorEventArgs.cs">
+      <Link>IO\StreamCopyProgressErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopyProgressEventArgs.cs">
+      <Link>IO\StreamCopyProgressEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamWrapperBase.cs">
       <Link>IO\StreamWrapperBase.cs</Link>

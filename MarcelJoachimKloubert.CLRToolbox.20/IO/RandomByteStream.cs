@@ -80,11 +80,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <inheriteddoc />
         protected override void OnRead(byte[] buffer, int offset, int count, ref int bytesRead)
         {
-            byte[] randomData = new byte[count];
-            this._RANDOM_BYTE_FILLER(randomData);
-
+            byte[] randomData;
             try
             {
+                randomData = new byte[count];
+                this._RANDOM_BYTE_FILLER(randomData);
+
                 Array.Copy(randomData, 0,
                            buffer, offset,
                            randomData.Length);

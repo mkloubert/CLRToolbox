@@ -415,6 +415,7 @@
     </Compile>
     <Compile Include="Data\IContentProvider.cs" />
     <Compile Include="IO\IFile.cs" />
+    <Compile Include="IO\IStreamCopyExecutionContext.cs" />
     <Compile Include="IO\NonDisposableStream.CallBehaviour.cs">
       <DependentUpon>NonDisposableStream.cs</DependentUpon>
     </Compile>
@@ -422,6 +423,12 @@
     <Compile Include="IO\RandomByteStream.cs" />
     <Compile Include="IO\ReadOnlyStreamBase.cs" />
     <Compile Include="IO\SimpleFile.cs" />
+    <Compile Include="IO\StreamCopier.cs" />
+    <Compile Include="IO\StreamCopier.StreamCopyExecutionContext.cs">
+      <DependentUpon>StreamCopier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\StreamCopyProgressErrorEventArgs.cs" />
+    <Compile Include="IO\StreamCopyProgressEventArgs.cs" />
     <Compile Include="IO\StreamWrapperBase.cs" />
     <Compile Include="IO\SystemConsole.cs" />
     <Compile Include="IO\SystemConsole.dotNET.cs">

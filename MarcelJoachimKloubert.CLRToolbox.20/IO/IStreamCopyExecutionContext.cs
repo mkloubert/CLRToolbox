@@ -44,9 +44,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #endregion Data Members
 
-        #region Delegates and Events (4)
+        #region Delegates and Events (5)
 
-        // Events (4) 
+        // Events (5) 
+
+        /// <summary>
+        /// Is invoked before write process starts.
+        /// </summary>
+        event EventHandler<StreamCopyBeforeWriteEventArgs> BeforeWrite;
 
         /// <summary>
         /// Is invoked when copy progress has been completed.

@@ -183,6 +183,9 @@
     <Compile Include="Helpers\CollectionHelper.Sort.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Take.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -416,6 +419,7 @@
     <Compile Include="Data\IContentProvider.cs" />
     <Compile Include="IO\IFile.cs" />
     <Compile Include="IO\IStreamCopyExecutionContext.cs" />
+    <Compile Include="IO\StreamCopyBeforeWriteEventArgs.cs" />
     <Compile Include="IO\NonDisposableStream.CallBehaviour.cs">
       <DependentUpon>NonDisposableStream.cs</DependentUpon>
     </Compile>

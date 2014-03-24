@@ -32,7 +32,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <param name="bytesCopied">The bytes copied.</param>
         /// <param name="totalBytesCopies">The total bytes copies.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="bytesCopied" /> and/or <paramref name="bytesCopied" /> are invalid.
+        /// <paramref name="bytesCopied" /> and/or <paramref name="totalBytesCopies" /> are invalid.
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="ex" />, <paramref name="src" /> and/or <paramref name="dest" /> are <see langword="null" />.
@@ -63,10 +63,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <paramref name="ex" /> is <see langword="null" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="bytesCopied" /> and/or <paramref name="bytesCopied" /> are invalid.
+        /// <paramref name="bytesCopied" /> and/or <paramref name="totalBytesCopies" /> are invalid.
         /// </exception>
         /// <exception cref="NullReferenceException">
-        /// <paramref name="copier" /> is <see langword="null" />.
+        /// <paramref name="ex" /> and/or <paramref name="copier" /> are <see langword="null" />.
         /// </exception>
         public StreamCopyProgressErrorEventArgs(Exception ex, StreamCopier copier, long bytesCopied, long totalBytesCopies)
             : this(ex, copier.Source, copier.Destination, bytesCopied, totalBytesCopies)

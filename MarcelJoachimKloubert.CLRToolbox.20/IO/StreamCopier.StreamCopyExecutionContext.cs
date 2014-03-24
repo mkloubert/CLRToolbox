@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,9 +83,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             #endregion Properties
 
-            #region Delegates and Events (4)
+            #region Delegates and Events (5)
 
-            // Events (4) 
+            // Events (5) 
+
+            public event EventHandler<StreamCopyBeforeWriteEventArgs> BeforeWrite;
 
             public event EventHandler Completed;
 
@@ -96,7 +99,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             #endregion Delegates and Events
 
-            #region Methods (5)
+            #region Methods (6)
 
             // Public Methods (2) 
 
@@ -145,11 +148,39 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                                     break;
                                 }
 
-                                this._COPIER.Destination.Write(buffer, 0, bytesRead);
-                                totalCopied += bytesRead;
+                                StreamCopyBeforeWriteEventArgs bwe = new StreamCopyBeforeWriteEventArgs(CollectionHelper.Take(buffer, bytesRead),
+                                                                                                        this._COPIER,
+                                                                                                        totalCopied);
+                                this.OnBeforeWrite(bwe);
+
+                                if (bwe.Cancel)
+                                {
+                                    this.IsCancelling = true;
+                                    break;
+                                }
+
+                                if (bwe.Skip)
+                                {
+                                    // skip write operation
+                                    continue;
+                                }
+
+                                int bytesCopied = 0;
+
+                                byte[] dataToWrite = CollectionHelper.AsArray(bwe.Data);
+                                if (dataToWrite != null)
+                                {
+                                    if (dataToWrite.Length > 0)
+                                    {
+                                        bytesCopied = dataToWrite.Length;
+
+                                        this._COPIER.Destination.Write(dataToWrite, 0, bytesCopied);
+                                        totalCopied += bytesCopied;
+                                    }
+                                }
 
                                 StreamCopyProgressEventArgs e = new StreamCopyProgressEventArgs(this._COPIER,
-                                                                                                bytesRead, totalCopied);
+                                                                                                bytesCopied, totalCopied);
                                 this.OnProgress(e);
 
                                 if (e.Cancel)
@@ -208,7 +239,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     }
                 }
             }
-            // Private Methods (3) 
+            // Private Methods (4) 
+
+            private bool OnBeforeWrite(StreamCopyBeforeWriteEventArgs e)
+            {
+                EventHandler<StreamCopyBeforeWriteEventArgs> handler = this.BeforeWrite;
+                if (handler != null)
+                {
+                    handler(this, e);
+                    return true;
+                }
+
+                return false;
+            }
 
             private bool OnProgress(StreamCopyProgressEventArgs e)
             {

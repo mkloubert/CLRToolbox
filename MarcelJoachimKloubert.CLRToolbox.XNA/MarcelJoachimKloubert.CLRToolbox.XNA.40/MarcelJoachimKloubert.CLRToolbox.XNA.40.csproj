@@ -375,6 +375,10 @@
       <Link>Helpers\CollectionHelper.Sort.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Take.cs">
+      <Link>Helpers\CollectionHelper.Take.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
       <Link>Helpers\CollectionHelper.ToArray.IEnumerable.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -560,6 +564,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopier.StreamCopyExecutionContext.cs">
       <Link>IO\StreamCopier.StreamCopyExecutionContext.cs</Link>
       <DependentUpon>StreamCopier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopyBeforeWriteEventArgs.cs">
+      <Link>IO\StreamCopyBeforeWriteEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\StreamCopyProgressErrorEventArgs.cs">
       <Link>IO\StreamCopyProgressErrorEventArgs.cs</Link>

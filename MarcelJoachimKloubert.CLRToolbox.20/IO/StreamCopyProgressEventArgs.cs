@@ -35,7 +35,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <param name="bytesCopied">The bytes copied.</param>
         /// <param name="totalBytesCopies">The total bytes copies.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="bytesCopied" /> and/or <paramref name="bytesCopied" /> are invalid.
+        /// <paramref name="bytesCopied" /> and/or <paramref name="totalBytesCopies" /> are invalid.
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="src" /> and/or <paramref name="dest" /> are <see langword="null" />.
@@ -93,7 +93,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <param name="bytesCopied">The bytes copied.</param>
         /// <param name="totalBytesCopies">The total bytes copies.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="bytesCopied" /> and/or <paramref name="bytesCopied" /> are invalid.
+        /// <paramref name="bytesCopied" /> and/or <paramref name="totalBytesCopies" /> are invalid.
         /// </exception>
         /// <exception cref="NullReferenceException">
         /// <paramref name="copier" /> is <see langword="null" />.

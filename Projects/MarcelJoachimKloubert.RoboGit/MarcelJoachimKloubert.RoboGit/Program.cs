@@ -1,4 +1,9 @@
-﻿using LibGit2Sharp;
+﻿// LICENSE: GPL 3 - https://www.gnu.org/licenses/gpl-3.0.txt
+
+// s. http://blog.marcel-kloubert.de
+
+
+using LibGit2Sharp;
 using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.IO;
@@ -33,20 +38,20 @@ namespace MarcelJoachimKloubert.RoboGit
             return (float)current / (float)total * 100.0f;
         }
 
-        private static void InvokeForConsoleColor(this IConsole console,
-                                                  Action<IConsole> action,
-                                                  ConsoleColor? foreColor = null, ConsoleColor? bgColor = null)
+        private static IConsole InvokeForConsoleColor(this IConsole console,
+                                                      Action<IConsole> action,
+                                                      ConsoleColor? foreColor = null, ConsoleColor? bgColor = null)
         {
-            InvokeForConsoleColor<object>(console,
-                                          (c, state) => action(c),
-                                          actionState: null,
-                                          foreColor: foreColor, bgColor: bgColor);
+            return InvokeForConsoleColor<object>(console,
+                                                 (c, state) => action(c),
+                                                 actionState: null,
+                                                 foreColor: foreColor, bgColor: bgColor);
         }
 
-        private static void InvokeForConsoleColor<T>(this IConsole console,
-                                                     Action<IConsole, T> action,
-                                                     T actionState,
-                                                     ConsoleColor? foreColor = null, ConsoleColor? bgColor = null)
+        private static IConsole InvokeForConsoleColor<T>(this IConsole console,
+                                                         Action<IConsole, T> action,
+                                                         T actionState,
+                                                         ConsoleColor? foreColor = null, ConsoleColor? bgColor = null)
         {
             lock (_SYNC_CONSOLE)
             {
@@ -73,6 +78,8 @@ namespace MarcelJoachimKloubert.RoboGit
                     console.BackgroundColor = oldBgColor;
                 }
             }
+
+            return console;
         }
 
         private static void Main(string[] args)
@@ -345,6 +352,10 @@ namespace MarcelJoachimKloubert.RoboGit
                 }
 
                 repo.Fetch(rem.Name, fetchOpts);
+
+                GlobalConsole.Current
+                             .InvokeForConsoleColor((c) => c.WriteLine("[OK]"),
+                                                    foreColor: ConsoleColor.Green);
 
                 // merge with remote branches
                 foreach (var b in repo.Branches.Where(x => x.IsRemote))

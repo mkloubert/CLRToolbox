@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.RoboGit", "MarcelJoachimKloubert.RoboGit\MarcelJoachimKloubert.RoboGit.csproj", "{CBAB652E-8A0D-43F2-8F2E-5DD0B075471C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.40", "..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj", "{50E0CDB2-BC51-4C46-949A-387E3534041F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBAB652E-8A0D-43F2-8F2E-5DD0B075471C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBAB652E-8A0D-43F2-8F2E-5DD0B075471C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBAB652E-8A0D-43F2-8F2E-5DD0B075471C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBAB652E-8A0D-43F2-8F2E-5DD0B075471C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E0CDB2-BC51-4C46-949A-387E3534041F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

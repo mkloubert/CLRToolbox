@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("MarcelJoachimKloubert.GitThemAll")]
+[assembly: AssemblyTitle("MarcelJoachimKloubert.RoboGit")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MarcelJoachimKloubert.GitThemAll")]
+[assembly: AssemblyProduct("MarcelJoachimKloubert.RoboGit")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("30e04969-77dc-4f1f-9c87-99965c80dbd1")]
+[assembly: Guid("607dd0cd-b583-4342-a3f9-fe30a26275ae")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //

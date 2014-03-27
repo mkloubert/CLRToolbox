@@ -90,8 +90,6 @@ namespace MarcelJoachimKloubert.RoboGit
 
                 foreach (var taskName in config.GetCategoryNames())
                 {
-
-
                     bool isActive;
                     config.TryGetValue<bool>(category: taskName,
                                              name: "is_active",

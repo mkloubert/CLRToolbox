@@ -571,6 +571,7 @@
     <Compile Include="Templates\Text\IStringTemplate.cs" />
     <Compile Include="Templates\Text\StringTemplateBase.cs" />
     <Compile Include="Timing\ITimeProvider.cs" />
+    <Compile Include="Timing\Time.cs" />
     <Compile Include="TMApplication.cs" />
     <Compile Include="Data\GlobalConverter.cs" />
     <Compile Include="DisposableBase.cs" />

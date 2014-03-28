@@ -986,6 +986,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\timing\ITimeProvider.cs">
       <Link>Timing\ITimeProvider.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Timing\Time.cs">
+      <Link>Timing\Time.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TMApplication.cs">
       <Link>TMApplication.cs</Link>
     </Compile>

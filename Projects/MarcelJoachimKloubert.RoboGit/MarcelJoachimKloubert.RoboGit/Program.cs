@@ -240,10 +240,6 @@ namespace MarcelJoachimKloubert.RoboGit
                                                        useCredentials,
                                                        username, email, pwd);
                                             }
-
-                                            GlobalConsole.Current
-                                                         .InvokeForConsoleColor((c) => c.WriteLine("[OK]"),
-                                                                                foreColor: ConsoleColor.Green);
                                         }
                                         catch (Exception ex)
                                         {
@@ -253,10 +249,6 @@ namespace MarcelJoachimKloubert.RoboGit
                                                                                 {
                                                                                     Exception = ex.GetBaseException() ?? ex,
                                                                                 }, foreColor: ConsoleColor.Red);
-                                        }
-                                        finally
-                                        {
-                                            GlobalConsole.Current.WriteLine();
                                         }
                                     }
                                     else

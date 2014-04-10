@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox
@@ -11,25 +12,18 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public static class AppTime
     {
-        /// <summary>
-        /// Decribes a method or function that returns a time.
-        /// </summary>
-        /// <returns>The time.</returns>
-        public delegate DateTimeOffset TimeProvider();
+        #region Fields (3)
 
-        /// <summary>
-        /// Decribes a method or function that returns a run time.
-        /// </summary>
-        /// <returns>The run time.</returns>
-        public delegate TimeSpan TimeSpanProvider();
-
+        private static TimeProvider _nowProvider;
+        private static TimeSpanProvider _runTimeProvider;
         /// <summary>
         /// Stores the real start time of the app.
         /// </summary>
         public static readonly DateTimeOffset START_TIME;
 
-        private static TimeProvider _nowProvider;
-        private static TimeSpanProvider _runTimeProvider;
+        #endregion Fields
+
+        #region Constructors (1)
 
         /// <summary>
         /// Initilizes the <see cref="AppTime" /> class.
@@ -49,6 +43,10 @@ namespace MarcelJoachimKloubert.CLRToolbox
             START_TIME = global::System.DateTimeOffset.Now;
 #endif
         }
+
+        #endregion Constructors
+
+        #region Properties (5)
 
         /// <summary>
         /// Gets the current time.
@@ -96,6 +94,30 @@ namespace MarcelJoachimKloubert.CLRToolbox
             get { return Now.Date; }
         }
 
+        #endregion Properties
+
+        #region Delegates and Events (2)
+
+        // Delegates (2) 
+
+        /// <summary>
+        /// Decribes a method or function that returns a time.
+        /// </summary>
+        /// <returns>The time.</returns>
+        public delegate DateTimeOffset TimeProvider();
+
+        /// <summary>
+        /// Decribes a method or function that returns a run time.
+        /// </summary>
+        /// <returns>The run time.</returns>
+        public delegate TimeSpan TimeSpanProvider();
+
+        #endregion Delegates and Events
+
+        #region Methods (2)
+
+        // Private Methods (2) 
+
         private static DateTimeOffset GetNow()
         {
             return DateTimeOffset.Now;
@@ -105,5 +127,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             return DateTimeOffset.Now - START_TIME;
         }
+
+        #endregion Methods
     }
 }

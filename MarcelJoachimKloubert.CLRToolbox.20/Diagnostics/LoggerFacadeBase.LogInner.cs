@@ -3,14 +3,14 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
-using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution;
-using MarcelJoachimKloubert.CLRToolbox.Execution;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 {
@@ -57,13 +57,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
                 // collect categories
                 List<LoggerFacadeCategories> listOfCategories = new List<LoggerFacadeCategories>();
-                foreach (string s in categories.ToString()
-                                               .Split(','))
+
+                string strCategories = categories.ToString();
+                if (StringHelper.IsNullOrWhiteSpace(strCategories) == false)
                 {
-                    LoggerFacadeCategories loggerCat = (LoggerFacadeCategories)Enum.Parse(typeof(LoggerFacadeCategories), s, false);
-                    if (!listOfCategories.Contains(loggerCat))
+                    foreach (string s in strCategories.Split(','))
                     {
-                        listOfCategories.Add(loggerCat);
+                        LoggerFacadeCategories loggerCat = (LoggerFacadeCategories)Enum.Parse(typeof(global::MarcelJoachimKloubert.CLRToolbox.Diagnostics.LoggerFacadeCategories), s, false);
+                        if (listOfCategories.Contains(loggerCat) == false)
+                        {
+                            listOfCategories.Add(loggerCat);
+                        }
                     }
                 }
 

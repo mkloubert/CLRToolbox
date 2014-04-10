@@ -113,9 +113,11 @@
     <Compile Include="Data\IDataConnection.cs" />
     <Compile Include="Data\TMColumnAttribute.cs" />
     <Compile Include="Data\TMTableAttribute.cs" />
+    <Compile Include="Diagnostics\GlobalLogger.cs" />
     <Compile Include="Diagnostics\ILogMessage.dotNET.cs">
       <DependentUpon>ILogMessage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diagnostics\Impl\ConsoleLogger.cs" />
     <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>

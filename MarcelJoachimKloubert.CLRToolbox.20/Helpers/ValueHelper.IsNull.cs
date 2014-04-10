@@ -31,9 +31,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <typeparam name="T">Type of the object.</typeparam>
         /// <param name="value">The value to check.</param>
         /// <returns>Is <see langword="null" /> or not.</returns>
-        public static bool IsNull<T>(T? value) where T : struct
+        public static bool IsNull<T>(Nullable<T> value) where T : struct
         {
-            return !value.HasValue;
+            return value.HasValue == false;
         }
 
         #endregion Methods

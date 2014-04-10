@@ -4,6 +4,7 @@
 
 
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
@@ -26,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         /// 
         /// </summary>
         /// <see cref="ValueHelper.IsNotNull{T}(T?)" />
-        public static bool IsNotNull<T>(this T? obj) where T : struct
+        public static bool IsNotNull<T>(this Nullable<T> obj) where T : struct
         {
             return ValueHelper.IsNotNull<T>(obj);
         }

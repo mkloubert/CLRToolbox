@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <returns>Is <see langword="null" />/<see cref="DBNull" /> (<see langword="false" />) or not (<see langword="true" />).</returns>
         public static bool IsNotNull<T>(T obj) where T : class
         {
-            return !IsNull<T>(obj);
+            return IsNull<T>(obj) == false;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <returns>Is <see langword="null" /> (<see langword="false" />) or not (<see langword="true" />).</returns>
         public static bool IsNotNull<T>(Nullable<T> value) where T : struct
         {
-            return !IsNull<T>(value);
+            return IsNull<T>(value) == false;
         }
 
         #endregion Methods

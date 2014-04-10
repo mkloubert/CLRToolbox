@@ -40,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         // Delegates (1) 
 
         /// <summary>
-        ///  Describes a function or method that handles a log message.
+        /// Describes a function or method that handles a log message.
         /// </summary>
         /// <param name="msg">The message to handle.</param>
         public delegate void LogMessageHandler(ILogMessage msg);

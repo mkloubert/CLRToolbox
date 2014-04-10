@@ -231,6 +231,9 @@
       <Link>Diagnostics\Execution\LogCommandBase.LogCommandExecutionResult.cs</Link>
       <DependentUpon>LogCommandBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\GlobalLogger.cs">
+      <Link>Diagnostics\GlobalLogger.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\ILoggerFacade.cs">
       <Link>Diagnostics\ILoggerFacade.cs</Link>
     </Compile>
@@ -246,6 +249,9 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\AsyncLogger.cs">
       <Link>Diagnostics\Impl\AsyncLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\ConsoleLogger.cs">
+      <Link>Diagnostics\Impl\ConsoleLogger.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\impl\DelegateLogger.cs">
       <Link>Diagnostics\Impl\DelegateLogger.cs</Link>

@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         #region Properties (1)
 
         /// <summary>
-        /// Gets the global converter instance.
+        /// Gets the global console instance.
         /// </summary>
         public static IConsole Current
         {
@@ -45,9 +45,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         // Delegates (1) 
 
         /// <summary>
-        /// Describes the logic that returns the global converter.
+        /// Describes the logic that returns the global console.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The global console instance.</returns>
         public delegate IConsole ConsoleProvider();
 
         #endregion Delegates and Events

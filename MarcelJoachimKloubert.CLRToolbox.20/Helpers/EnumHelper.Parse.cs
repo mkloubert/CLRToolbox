@@ -61,12 +61,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 enumType = underlyingType;
             }
 
-            if (!enumType.IsEnum)
+            if (enumType.IsEnum == false)
             {
                 throw new ArgumentException("enumType");
             }
 
-            if (!StringHelper.IsNullOrWhiteSpace(value))
+            if (StringHelper.IsNullOrWhiteSpace(value) == false)
             {
                 try
                 {

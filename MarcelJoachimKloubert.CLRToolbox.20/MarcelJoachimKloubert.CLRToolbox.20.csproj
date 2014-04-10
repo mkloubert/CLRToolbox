@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppTime.cs" />
     <Compile Include="Caching\DelegateCache.CachedItem.cs">
       <DependentUpon>DelegateCache.cs</DependentUpon>
     </Compile>

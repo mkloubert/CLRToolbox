@@ -89,7 +89,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
-        /// Gets the date part of <see cref="App.Now" />.
+        /// Gets the date part of <see cref="AppTime.Now" />.
         /// </summary>
         public static DateTime Today
         {

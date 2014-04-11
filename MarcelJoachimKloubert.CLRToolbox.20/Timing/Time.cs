@@ -69,7 +69,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             get
             {
-                var now = DateTime.Now;
+                DateTime now = DateTime.Now;
                 return new Time(now.Ticks - now.Date.Ticks);
             }
         }
@@ -139,7 +139,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
 
         #endregion Data Members
 
-        #region Methods (47)
+        #region Methods (49)
 
         /// <summary>
         /// 
@@ -148,6 +148,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         public static Time operator -(Time clock, long ticks)
         {
             return clock.Subtract(ticks);
+        }
+
+        /// <summary>
+        /// Subtracts the ticks of a <see cref="Time" /> instance from a <see cref="long" /> value.
+        /// </summary>
+        public static long operator -(long ticks, Time clock)
+        {
+            return ticks - clock._TICKS;
         }
 
         /// <summary>
@@ -212,6 +220,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         public static Time operator +(Time clock, long ticks)
         {
             return clock.Add(ticks);
+        }
+
+        /// <summary>
+        /// Adds the ticks of a <see cref="Time" /> instance to a <see cref="long" /> value.
+        /// </summary>
+        public static long operator +(long ticks, Time clock)
+        {
+            return ticks + clock._TICKS;
         }
 
         /// <summary>
@@ -337,9 +353,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                 return 1;
             }
 
-            var otherClock = (Time)other;
+            Time otherClock = (Time)other;
 
-            var ticks = otherClock._TICKS;
+            long ticks = otherClock._TICKS;
             if (this._TICKS > ticks)
             {
                 return 1;
@@ -734,6 +750,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
             return new Time(global::System.TimeSpan.Parse(global::MarcelJoachimKloubert.CLRToolbox.Helpers.StringHelper.AsString(str),
                                                           formatProvider));
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -746,6 +763,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                                                             global::MarcelJoachimKloubert.CLRToolbox.Helpers.StringHelper.AsString(format),
                                                             formatProvider);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -763,6 +781,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                                                             formats == null ? null : global::MarcelJoachimKloubert.CLRToolbox.Helpers.CollectionHelper.ToArray(strFormats),
                                                             formatProvider);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -772,6 +791,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
             return TimeSpan.FromTicks(this._TICKS)
                            .ToString(StringHelper.AsString(format));
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -783,6 +803,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                                           .ToString(global::MarcelJoachimKloubert.CLRToolbox.Helpers.StringHelper.AsString(format),
                                                     formatProvider);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -798,6 +819,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                 }, str
                  , out result);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -814,6 +836,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                 }, str
                  , out result);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -837,6 +860,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                 }, str
                  , out result);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -851,6 +875,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                                                             formatProvider,
                                                             styles);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -870,6 +895,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                                                             formatProvider,
                                                             styles);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -887,6 +913,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                 }, str
                  , out result);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -912,6 +939,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
                 }, str
                  , out result);
         }
+
 #endif
         /// <summary>
         /// Checks if a left value is greater than a right value.
@@ -923,6 +951,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return left.CompareTo(right) > 0;
         }
+
         /// <summary>
         /// Checks if a left value is greater or equal than a right value.
         /// </summary>
@@ -933,6 +962,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return left.CompareTo(right) >= 0;
         }
+
         /// <summary>
         /// Checks if a left value is less than a right value.
         /// </summary>
@@ -943,6 +973,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return right > left;
         }
+
         /// <summary>
         /// Checks if a left value is less or equal than a right value.
         /// </summary>
@@ -953,6 +984,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return right >= left;
         }
+
         /// <summary>
         /// Checks if a <see cref="TimeSpan" /> value is greater than a <see cref="Time" /> value.
         /// </summary>
@@ -963,6 +995,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return ts.Ticks > clock._TICKS;
         }
+
         /// <summary>
         /// Checks if a <see cref="TimeSpan" /> value is greater or equal than a <see cref="Time" /> value.
         /// </summary>
@@ -973,6 +1006,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return ts.Ticks >= clock._TICKS;
         }
+
         /// <summary>
         /// Checks if a <see cref="TimeSpan" /> value is less than a <see cref="Time" /> value.
         /// </summary>
@@ -983,6 +1017,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return clock > ts;
         }
+
         /// <summary>
         /// Checks if a <see cref="TimeSpan" /> value is less or equal than a <see cref="Time" /> value.
         /// </summary>
@@ -993,6 +1028,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return clock >= ts;
         }
+
         /// <summary>
         /// Checks if a <see cref="Time" /> value is greater than a <see cref="TimeSpan" /> value.
         /// </summary>
@@ -1003,6 +1039,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return ts < clock;
         }
+
         /// <summary>
         /// Checks if a <see cref="Time" /> value is greater or equal than a <see cref="TimeSpan" /> value.
         /// </summary>
@@ -1013,6 +1050,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return ts <= clock;
         }
+
         /// <summary>
         /// Checks if a <see cref="Time" /> value is less than a <see cref="TimeSpan" /> value.
         /// </summary>
@@ -1023,6 +1061,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return ts > clock;
         }
+
         /// <summary>
         /// Checks if a <see cref="Time" /> value is less or equal than a <see cref="TimeSpan" /> value.
         /// </summary>
@@ -1033,6 +1072,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         {
             return ts >= clock;
         }
+
         private delegate bool TryParseInnerHandler(string str, out TimeSpan result);
     }
 }

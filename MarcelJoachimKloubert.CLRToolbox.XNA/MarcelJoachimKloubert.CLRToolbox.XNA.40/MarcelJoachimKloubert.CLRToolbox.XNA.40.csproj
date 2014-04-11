@@ -61,6 +61,9 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\AggregateDisposer.cs">
+      <Link>AggregateDisposer.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\AppTime.cs">
       <Link>AppTime.cs</Link>
     </Compile>
@@ -275,6 +278,9 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\DisposableBase.cs">
       <Link>DisposableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\DisposeObjectEventArgs.cs">
+      <Link>DisposeObjectEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ErrorHandlerBase.cs">
       <Link>ErrorHandlerBase.cs</Link>

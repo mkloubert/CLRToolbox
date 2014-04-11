@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregateDisposer.cs" />
     <Compile Include="AppTime.cs" />
     <Compile Include="Caching\DelegateCache.CachedItem.cs">
       <DependentUpon>DelegateCache.cs</DependentUpon>
@@ -122,6 +123,7 @@
     <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisposeObjectEventArgs.cs" />
     <Compile Include="ErrorHandlerBase.cs" />
     <Compile Include="Execution\Functions\FunctionBase.Classes.cs">
       <DependentUpon>FunctionBase.cs</DependentUpon>

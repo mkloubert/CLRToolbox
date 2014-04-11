@@ -162,11 +162,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <see cref="IHttpRequest.GetBodyData()" />
         public byte[] GetBodyData()
         {
-            using (var stream = this.GetBody())
+            using (Stream stream = this.GetBody())
             {
                 if (stream != null)
                 {
-                    using (var temp = new MemoryStream())
+                    using (MemoryStream temp = new MemoryStream())
                     {
                         IOHelper.CopyTo(stream, temp);
 

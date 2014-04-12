@@ -221,10 +221,10 @@ namespace MarcelJoachimKloubert.CryptoCopy
             finally
             {
 #if DEBUG
-                GlobalConsole.Current.WriteLine();
-                GlobalConsole.Current.WriteLine();
-                GlobalConsole.Current.WriteLine("===== ENTER ====");
-                GlobalConsole.Current.ReadLine();
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.WriteLine();
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.WriteLine();
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.WriteLine("===== ENTER ====");
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.ReadLine();
 #endif
             }
         }

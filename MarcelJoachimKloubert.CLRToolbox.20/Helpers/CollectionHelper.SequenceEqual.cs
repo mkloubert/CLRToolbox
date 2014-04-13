@@ -68,47 +68,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 equalsFunc = comparer.Equals;
             }
 
-            bool checkCount = true;
-
-            // first try to check size by using
-            // generic ICollection<T> interface
-            if (checkCount)
+            long? countLeft = TryGetCountFromProperty<T>(left);
+            long? countRight = TryGetCountFromProperty<T>(right);
+            if (countLeft.HasValue &&
+                countRight.HasValue)
             {
-                ICollection<T> collLeft = left as ICollection<T>;
-                if (collLeft != null)
+                if (countLeft.Value != countRight.Value)
                 {
-                    ICollection<T> collRight = right as ICollection<T>;
-                    if (collRight != null)
-                    {
-                        checkCount = false;
-
-                        if (collLeft.Count != collRight.Count)
-                        {
-                            // unique sizes
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            // now try to check size by using general
-            // ICollection interface
-            if (checkCount)
-            {
-                ICollection collLeft = left as ICollection;
-                if (collLeft != null)
-                {
-                    ICollection collRight = right as ICollection;
-                    if (collRight != null)
-                    {
-                        checkCount = false;
-
-                        if (collLeft.Count != collRight.Count)
-                        {
-                            // unique sizes
-                            return false;
-                        }
-                    }
+                    return false;
                 }
             }
 
@@ -118,7 +85,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 {
                     while (enumeratorLeft.MoveNext())
                     {
-                        if (!enumeratorRight.MoveNext() || !equalsFunc(enumeratorLeft.Current, enumeratorRight.Current))
+                        if ((false == enumeratorRight.MoveNext()) ||
+                            (false == equalsFunc(enumeratorLeft.Current, enumeratorRight.Current)))
                         {
                             // left has more elements than right
                             // OR current items are different

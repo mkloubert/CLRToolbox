@@ -620,6 +620,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IIdentifiable.cs">
       <Link>IIdentifiable.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\CompareFileSystemItemsEventArgs.cs">
+      <Link>IO\CompareFileSystemItemsEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\io\ConsoleBase.cs">
       <Link>IO\ConsoleBase.cs</Link>
     </Compile>
@@ -635,6 +638,19 @@
       <Link>IO\ConsoleBase.ReadPassword.cs</Link>
       <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\DirectoryComparer.cs">
+      <Link>IO\DirectoryComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\DirectoryComparer.DirectoryComparerExecutionContext.cs">
+      <Link>IO\DirectoryComparer.DirectoryComparerExecutionContext.cs</Link>
+      <DependentUpon>DirectoryComparer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\FileSystemItemDifferences.cs">
+      <Link>IO\FileSystemItemDifferences.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\FoundDifferentFileSystemItemsEventArgs.cs">
+      <Link>IO\FoundDifferentFileSystemItemsEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\GlobalConsole.cs">
       <Link>IO\GlobalConsole.cs</Link>
     </Compile>
@@ -648,6 +664,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IConsole.ReadPassword.cs">
       <Link>IO\IConsole.ReadPassword.cs</Link>
       <DependentUpon>IConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IDirectoryComparerExecutionContext.cs">
+      <Link>IO\IDirectoryComparerExecutionContext.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\IFile.cs">
       <Link>IO\IFile.cs</Link>

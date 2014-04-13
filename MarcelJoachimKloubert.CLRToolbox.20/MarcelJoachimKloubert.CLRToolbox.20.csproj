@@ -318,6 +318,8 @@
     <Compile Include="Helpers\ValueHelper.cs" />
     <Compile Include="IErrorHandler.cs" />
     <Compile Include="IHasName.cs" />
+    <Compile Include="IO\FoundDifferentFileSystemItemsEventArgs.cs" />
+    <Compile Include="IO\CompareFileSystemItemsEventArgs.cs" />
     <Compile Include="IO\ConsoleBase.cs" />
     <Compile Include="IO\ConsoleBase.dotNET.cs">
       <DependentUpon>ConsoleBase.cs</DependentUpon>
@@ -328,6 +330,11 @@
     <Compile Include="IO\ConsoleBase.ReadPassword.cs">
       <DependentUpon>ConsoleBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\DirectoryComparer.cs" />
+    <Compile Include="IO\DirectoryComparer.DirectoryComparerExecutionContext.cs">
+      <DependentUpon>DirectoryComparer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\FileSystemItemDifferences.cs" />
     <Compile Include="IO\GlobalConsole.cs" />
     <Compile Include="IO\IConsole.cs" />
     <Compile Include="Diagnostics\Execution\Impl\DelegateLogCommand.cs" />
@@ -422,6 +429,7 @@
       <DependentUpon>IConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\IContentProvider.cs" />
+    <Compile Include="IO\IDirectoryComparerExecutionContext.cs" />
     <Compile Include="IO\IFile.cs" />
     <Compile Include="IO\IStreamCopyExecutionContext.cs" />
     <Compile Include="IO\StreamCopyBeforeWriteEventArgs.cs" />

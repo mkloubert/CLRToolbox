@@ -37,6 +37,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 return coll.Count;
             }
 
+            ICollection generalColl = seq as ICollection;
+            if (generalColl != null)
+            {
+                return generalColl.Count;
+            }
+
             long result = 0;
             using (IEnumerator<T> enumerator = seq.GetEnumerator())
             {
@@ -68,6 +74,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             if (coll != null)
             {
                 return coll.Count;
+            }
+
+            ICollection<object> genericColl = seq as ICollection<object>;
+            if (genericColl != null)
+            {
+                return genericColl.Count;
             }
 
             long result = 0;

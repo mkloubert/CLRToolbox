@@ -3,6 +3,9 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     /// <summary>
@@ -16,5 +19,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         private const string _ERR_MSG_SINGLE_NO_ELEMENTS = "The sequence contains no element!";
 
         #endregion Fields
+
+        #region Methods (1)
+
+        // Private Methods (1) 
+
+        private static long? TryGetCountFromProperty<T>(IEnumerable<T> seq)
+        {
+            // try cast as generic collection
+            ICollection<T> coll = seq as ICollection<T>;
+            if (coll != null)
+            {
+                return coll.Count;
+            }
+
+            // try cast as GENERAL collection
+            ICollection coll2 = seq as ICollection;
+            if (coll2 != null)
+            {
+                return coll2.Count;
+            }
+
+            // has no property
+            return null;
+        }
+
+        #endregion Methods
     }
 }

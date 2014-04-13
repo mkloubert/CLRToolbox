@@ -55,9 +55,6 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\behaviours\WebBrowser.cs">
       <Link>Behaviours\WebBrowser.cs</Link>
     </Compile>
-    <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\collections\objectmodel\SynchronizedObservableCollection.cs">
-      <Link>Collections\ObjectModel\SynchronizedObservableCollection.cs</Link>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\CommandValueConverterBase.cs">
       <Link>Data\CommandValueConverterBase.cs</Link>
     </Compile>

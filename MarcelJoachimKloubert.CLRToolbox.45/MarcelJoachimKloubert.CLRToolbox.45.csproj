@@ -1024,6 +1024,9 @@
       <Link>TMObject.Fields.cs</Link>
       <DependentUpon>TMObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TrafficLights.cs">
+      <Link>TrafficLights.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\WritableTuple.cs">
       <Link>WritableTuple.cs</Link>
     </Compile>

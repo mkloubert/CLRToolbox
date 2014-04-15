@@ -14,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// </summary>
     public interface IDirectoryComparerExecutionContext
     {
-        #region Data Members (6)
+        #region Data Members (7)
 
         /// <summary>
         /// Gets the duration of the execution.
@@ -31,6 +31,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// Is <see langword="null" /> while comparison is in progress.
         /// </summary>
         IList<Exception> Errors { get; }
+
+        /// <summary>
+        /// Gets if the execution is currently cancelling or not.
+        /// </summary>
+        bool IsCanceling { get; }
 
         /// <summary>
         /// Gets if comparison is in progress or not.
@@ -75,7 +80,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #endregion Delegates and Events
 
-        #region Operations (1)
+        #region Operations (3)
+
+        /// <summary>
+        /// Cancels the current execution.
+        /// </summary>
+        /// <remarks>It is waited until operation has been completed.</remarks>
+        void Cancel();
+
+        /// <summary>
+        /// Cancels the current execution.
+        /// </summary>
+        /// <param name="wait">Wait until operation has been completed or not.</param>
+        void Cancel(bool wait);
 
         /// <summary>
         /// Starts the execution.

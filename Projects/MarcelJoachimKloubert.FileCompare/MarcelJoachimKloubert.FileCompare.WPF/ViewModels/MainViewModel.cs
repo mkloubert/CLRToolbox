@@ -3,27 +3,40 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
+using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using MarcelJoachimKloubert.FileCompare.WPF.Classes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace MarcelJoachimKloubert.FileCompare.WPF.ViewModels
 {
+    /// <summary>
+    /// The main view model.
+    /// </summary>
     public sealed class MainViewModel : NotificationObjectBase
     {
-        private IEnumerable<CompareTask> _tasks;
+        #region Fields (2)
+
         private CompareTask _selectedTask;
+        private IEnumerable<CompareTask> _tasks;
 
-        public IEnumerable<CompareTask> Tasks
+        #endregion Fields
+
+        #region Properties (3)
+
+        /// <summary>
+        /// Gets the command that opens a directory.
+        /// </summary>
+        public SimpleCommand<string> OpenDirectoryCommand
         {
-            get { return this._tasks; }
-
-            set { this.SetProperty(ref this._tasks, value); }
+            get;
+            private set;
         }
 
+        /// <summary>
+        /// Gets or sets the selected task.
+        /// </summary>
         public CompareTask SelectedTask
         {
             get { return this._selectedTask; }
@@ -31,10 +44,42 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.ViewModels
             set { this.SetProperty(ref this._selectedTask, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the list of available tasks.
+        /// </summary>
+        public IEnumerable<CompareTask> Tasks
+        {
+            get { return this._tasks; }
+
+            set { this.SetProperty(ref this._tasks, value); }
+        }
+
+        #endregion Properties
+
+        #region Methods (2)
+
+        // Protected Methods (1) 
+
         /// <inheriteddoc />
         protected override void OnConstructor()
         {
-            base.OnConstructor();
+            this.OpenDirectoryCommand = new SimpleCommand<string>(this.OpenDirectory);
         }
+
+        // Private Methods (1) 
+
+        private void OpenDirectory(string path)
+        {
+            try
+            {
+                Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                this.OnError(ex);
+            }
+        }
+
+        #endregion Methods
     }
 }

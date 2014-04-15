@@ -1,16 +1,21 @@
-﻿// LICENSE: LGPL 3 - https://www.gnu.org/licenses/lgpl-3.0.txt
+﻿// LICENSE: GPL 3 - https://www.gnu.org/licenses/gpl-3.0.txt
 
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.IO;
 using MarcelJoachimKloubert.CLRToolbox.Security.Cryptography;
+using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,9 +23,12 @@ using TaskTuple = System.Tuple<MarcelJoachimKloubert.FileCompare.WPF.Classes.Com
 
 namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 {
+    /// <summary>
+    /// A compare task.
+    /// </summary>
     public sealed class CompareTask : NotificationObjectBase, IHasName, IRunnable
     {
-        #region Fields (8)
+        #region Fields (10)
 
         private CancellationTokenSource _cancelSource;
         private const string _CONFIG_NAME_DEST = "destination";
@@ -29,7 +37,9 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         private const string _CONFIG_NAME_RECURSIVE = "recursive";
         private const string _CONFIG_NAME_SOURCE = "source";
         private const string _CONFIG_NAME_TASKNAME = "name";
+        private bool _isRunning;
         private readonly AggregateLogger _LOGGER;
+        private CompareProgress _progress;
 
         #endregion Fields
 
@@ -42,7 +52,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #endregion Constructors
 
-        #region Properties (12)
+        #region Properties (16)
 
         /// <inheriteddoc />
         public bool CanRestart
@@ -66,6 +76,15 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// Gets the path of the destination directory.
         /// </summary>
         public string Destination
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the list of differences.
+        /// </summary>
+        public SynchronizedObservableCollection<CompareDifference> Differences
         {
             get;
             private set;
@@ -99,8 +118,9 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// <inheriteddoc />
         public bool IsRunning
         {
-            get;
-            private set;
+            get { return this._isRunning; }
+
+            private set { this.SetProperty(ref this._isRunning, value); }
         }
 
         /// <inheriteddoc />
@@ -108,6 +128,16 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Gets the current progress context.
+        /// </summary>
+        public CompareProgress Progress
+        {
+            get { return this._progress; }
+
+            private set { this.SetProperty(ref this._progress, value); }
         }
 
         /// <summary>
@@ -123,6 +153,24 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// Gets the path of the source directory.
         /// </summary>
         public string Source
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the command to start that task.
+        /// </summary>
+        public SimpleCommand StartCommand
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the command to stop that task.
+        /// </summary>
+        public SimpleCommand StopCommand
         {
             get;
             private set;
@@ -165,7 +213,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #endregion Delegates and Events
 
-        #region Methods (11)
+        #region Methods (12)
 
         // Public Methods (7) 
 
@@ -359,6 +407,17 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             }
         }
 
+        // Protected Methods (1) 
+
+        /// <inheriteddoc />
+        protected override void OnConstructor()
+        {
+            this.StartCommand = new SimpleCommand(this.Start);
+            this.StopCommand = new SimpleCommand(this.Stop);
+
+            this.Differences = new SynchronizedObservableCollection<CompareDifference>();
+        }
+
         // Private Methods (4) 
 
         private static DateTime NormalizeTimestamp(DateTime input)
@@ -402,6 +461,17 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
             try
             {
+                task.Progress = new CompareProgress(task);
+
+                App.Current
+                   .BeginInvoke((a, appState) =>
+                       {
+                           appState.Task.Differences.Clear();
+                       }, actionState: new
+                       {
+                           Task = task,
+                       });
+
                 task.IsRunning = true;
                 task.RaiseEventHandler(task.Started);
 
@@ -415,7 +485,160 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                     {
                         try
                         {
-                            task.RaiseEventHandler(task.ComparingItems, e);
+                            e.Handled = true;
+
+                            task.Progress.Source = e.Source;
+                            task.Progress.Destination = e.Destination;
+
+                            task.Progress.StatusText = null;
+                            task.Progress.ContentState = null;
+                            task.Progress.SizeState = null;
+                            task.Progress.TimestampState = null;
+
+                            if (e.Source is DirectoryInfo)
+                            {
+                                var srcDir = (DirectoryInfo)e.Source;
+                                var destDir = (DirectoryInfo)e.Destination;
+
+                                if (srcDir.Exists)
+                                {
+                                    if (destDir.Exists)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        e.Differences |= FileSystemItemDifferences.IsMissing;
+                                    }
+                                }
+                                else
+                                {
+                                    if (destDir.Exists)
+                                    {
+                                        e.Differences |= FileSystemItemDifferences.IsExtra;
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
+                            }
+                            else if (e.Source is FileInfo)
+                            {
+                                var srcFile = (FileInfo)e.Source;
+                                var destFile = (FileInfo)e.Destination;
+
+                                if (srcFile.Exists)
+                                {
+                                    if (destFile.Exists)
+                                    {
+                                        var doHash = true;
+
+                                        // timestamp
+                                        task.Progress.StatusText = "Checking last write time...";
+                                        try
+                                        {
+                                            task.Progress.TimestampState = CompareState.InProgress;
+
+                                            if (NormalizeTimestamp(srcFile.LastWriteTimeUtc) != NormalizeTimestamp(destFile.LastWriteTimeUtc))
+                                            {
+                                                e.Differences |= FileSystemItemDifferences.LastWriteTime;
+                                                task.Progress.TimestampState = CompareState.Different;
+
+                                                doHash = true;
+                                            }
+                                            else
+                                            {
+                                                task.Progress.TimestampState = CompareState.Match;
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            task.Progress.TimestampState = CompareState.Failed;
+                                        }
+
+                                        // size
+                                        task.Progress.StatusText = "Checking file size...";
+                                        try
+                                        {
+                                            task.Progress.SizeState = CompareState.InProgress;
+
+                                            if (srcFile.Length != destFile.Length)
+                                            {
+                                                e.Differences |= FileSystemItemDifferences.Size;
+
+                                                task.Progress.SizeState = CompareState.Different;
+                                                task.Progress.ContentState = CompareState.Different;
+
+                                                doHash = false;
+                                            }
+                                            else
+                                            {
+                                                task.Progress.SizeState = CompareState.Match;
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            task.Progress.SizeState = CompareState.Failed;
+                                        }
+
+                                        if (doHash && task.Hash != null)
+                                        {
+                                            task.Progress.StatusText = "Hashing files...";
+
+                                            // hash content
+                                            try
+                                            {
+                                                task.Progress.ContentState = CompareState.InProgress;
+
+                                                task.Progress.StatusText = "Hashing source file...";
+                                                byte[] hashSrc;
+                                                using (var algo = (HashAlgorithm)Activator.CreateInstance(task.Hash))
+                                                {
+                                                    using (var stream = srcFile.OpenRead())
+                                                    {
+                                                        hashSrc = algo.ComputeHash(stream);
+                                                    }
+                                                }
+
+                                                task.Progress.StatusText = "Hashing destination file...";
+                                                byte[] hashDest;
+                                                using (var algo = (HashAlgorithm)Activator.CreateInstance(task.Hash))
+                                                {
+                                                    using (var stream = destFile.OpenRead())
+                                                    {
+                                                        hashDest = algo.ComputeHash(stream);
+                                                    }
+                                                }
+
+                                                if (CollectionHelper.SequenceEqual(hashSrc, hashDest))
+                                                {
+                                                    task.Progress.ContentState = CompareState.Match;
+                                                }
+                                                else
+                                                {
+                                                    task.Progress.ContentState = CompareState.Different;
+
+                                                    e.Differences |= FileSystemItemDifferences.Content;
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                task.Progress.TimestampState = CompareState.Failed;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        e.Differences |= FileSystemItemDifferences.IsMissing;
+                                    }
+                                }
+                                else
+                                {
+                                    if (destFile.Exists)
+                                    {
+                                        e.Differences |= FileSystemItemDifferences.IsExtra;
+                                    }
+                                }
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -427,7 +650,17 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                     {
                         try
                         {
-                            task.RaiseEventHandler(task.DifferentItemsFound, e);
+                            App.Current
+                               .BeginInvoke((a, appState) =>
+                               {
+                                   appState.Task
+                                           .Differences
+                                           .Add(appState.Difference);
+                               }, actionState: new
+                               {
+                                   Difference = new CompareDifference(e),
+                                   Task = task,
+                               });
                         }
                         catch (Exception ex)
                         {
@@ -435,7 +668,28 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                         }
                     };
 
-                ctx.Start();
+                var t = Task.Factory.StartNew(() =>
+                    {
+                        try
+                        {
+                            ctx.Start();
+                        }
+                        catch (Exception ex)
+                        {
+                            task.OnError(ex);
+                        }
+                    });
+
+                while (t.Status == TaskStatus.WaitingToRun) { }
+
+                while (t.Status == TaskStatus.Running)
+                {
+                    if (cancelTokenSrc.Token.IsCancellationRequested)
+                    {
+                        ctx.Cancel();
+                        break;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -445,6 +699,8 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             {
                 task.IsRunning = false;
                 task.RaiseEventHandler(task.Stopped);
+
+                task.Progress = null;
             }
         }
 

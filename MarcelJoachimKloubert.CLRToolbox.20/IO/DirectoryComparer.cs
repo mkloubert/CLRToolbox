@@ -44,7 +44,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             }
 
             this._SOURCE = Path.GetFullPath(StringHelper.AsString(src));
-            this._DESTINATION = Path.GetFullPath(StringHelper.AsString(src));
+            this._DESTINATION = Path.GetFullPath(StringHelper.AsString(dest));
         }
 
         /// <summary>
@@ -226,7 +226,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     return this.Execute();
                 });
         }
-
         /// <summary>
         /// Creates a task that executes a comparer process async.
         /// </summary>
@@ -239,7 +238,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     return this.Execute(recursive: recursive);
                 });
         }
-
         /// <summary>
         /// Creates a task that executes a comparer process async.
         /// </summary>
@@ -252,7 +250,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     return this.Execute(state: state);
                 });
         }
-
         /// <summary>
         /// Creates a task that executes a comparer process async.
         /// </summary>
@@ -267,7 +264,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                                         recursive: recursive);
                 });
         }
-
         /// <summary>
         /// Executes <see cref="DirectoryComparer.Execute()" /> method async.
         /// </summary>
@@ -279,7 +275,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             return task;
         }
-
         /// <summary>
         /// Executes <see cref="DirectoryComparer.Execute(bool)" /> method async.
         /// </summary>
@@ -292,7 +287,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             return task;
         }
-
         /// <summary>
         /// Executes <see cref="DirectoryComparer.Execute{T}(T)" /> method async.
         /// </summary>
@@ -305,7 +299,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             return task;
         }
-
         /// <summary>
         /// Executes <see cref="DirectoryComparer.Execute{T}(T, bool)" /> method async.
         /// </summary>

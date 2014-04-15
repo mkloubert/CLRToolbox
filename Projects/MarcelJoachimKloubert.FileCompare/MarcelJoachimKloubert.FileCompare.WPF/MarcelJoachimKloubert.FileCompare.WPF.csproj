@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -55,6 +56,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CompareDifference.cs" />
+    <Compile Include="Classes\CompareProgress.cs" />
+    <Compile Include="Classes\CompareState.cs" />
+    <Compile Include="Classes\Win32Helper.cs" />
+    <Compile Include="Converters\CompareTaskValueConverter.cs" />
+    <Compile Include="Converters\ContentStateToIconConverter.cs" />
+    <Compile Include="Converters\RunningStateToIconConverter.cs" />
+    <Compile Include="Converters\BooleanToEnabledConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +144,44 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Backup and Restore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\same.png" />
+    <Resource Include="Resources\Icons\failed.png" />
+    <Resource Include="Resources\Icons\different.png" />
+    <Resource Include="Resources\Icons\unknown.png" />
+    <Resource Include="Resources\Icons\working.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\start.png" />
+    <Resource Include="Resources\Icons\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\working2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\unknown2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\different2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\lastWriteTime.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\content.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\size.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\missing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\file.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿<MahApps:MetroWindow x:Class="MarcelJoachimKloubert.FileCompare.WPF.Controls.Windows.MainWindow"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                     xmlns:conv="clr-namespace:MarcelJoachimKloubert.FileCompare.WPF.Converters"
                      xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      Title="FileCompare GUI"
                      Width="800" Height="600"
@@ -9,6 +9,16 @@
                      Icon="/Resources/Live Sync.png"
                      Loaded="MetroWindow_Loaded">
 
+    
+    <MahApps:MetroWindow.Resources>
+        <conv:BooleanToEnabledConverter x:Key="tmBooleanToEnabledConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="tmBooleanToVisibilityConverter" />
+        <conv:ObjectToVisibilityConverter x:Key="tmObjectToVisibilityConverter" />
+        <conv:RunningStateToIconConverter x:Key="tmRunningStateToIconConverter" />
+        <conv:ContentStateToIconConverter x:Key="tmContentStateToIconConverter" />
+        <conv:CompareTaskValueConverter x:Key="tmCompareTaskValueConverter" />
+    </MahApps:MetroWindow.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -27,7 +37,55 @@
                 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=DisplayName, Mode=OneWay}" />
+                        <Grid>
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <ContextMenu.Resources>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Setter Property="Width" Value="16px" />
+                                        </Style>
+                                    </ContextMenu.Resources>
+                                    
+                                    <MenuItem Header="Start"
+                                              Command="{Binding Path=StartCommand, Mode=OneWay}"
+                                              IsEnabled="{Binding Path=IsRunning, Mode=OneWay,
+                                                                  Converter={StaticResource tmBooleanToEnabledConverter},
+                                                                  ConverterParameter='Invert'}">
+                                        
+                                        <MenuItem.Icon>
+                                            <Image Source="../../Resources/Icons/start.png" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Stop"
+                                              Command="{Binding Path=StopCommand, Mode=OneWay}"
+                                              IsEnabled="{Binding Path=IsRunning, Mode=OneWay,
+                                                                  Converter={StaticResource tmBooleanToEnabledConverter}}">
+                                        
+                                        <MenuItem.Icon>
+                                            <Image Source="../../Resources/Icons/stop.png" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
+                            
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="24px" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0"
+                                       Source="{Binding Path=IsRunning, Mode=OneWay,
+                                                        Converter={StaticResource tmRunningStateToIconConverter}}"
+                                       Width="16px" />
+                                
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Path=DisplayName, Mode=OneWay}">
+
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -36,9 +94,320 @@
         <GroupBox Grid.Column="1" Grid.Row="0" Margin="4,8,8,8"
                   Header="Details">
 
-            <ContentControl DataContext="{Binding Path=SelectedTask, Mode=OneWay}">
-                <TextBlock Text="{Binding Path=DisplayName, Mode=OneWay}" />
-            </ContentControl>
+            <Grid Visibility="{Binding Path=SelectedTask, Mode=OneWay, Converter={StaticResource tmObjectToVisibilityConverter}}">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MetroGroupBox}">
+                        <Setter Property="Control.Background" Value="Olive" />
+                        <Setter Property="Control.BorderBrush" Value="gray" />
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <!-- settings -->
+                <GroupBox Header="Settings" Grid.Row="0">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                                <Setter Property="VerticalAlignment" Value="Top" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="92px" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24px" />
+                            <RowDefinition Height="24px" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- source -->
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Margin="0,0,8,0"
+                                   TextAlignment="Right">Compare:</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="1" ToolTip="Click to open...">
+                            <Hyperlink Command="{Binding Path=OpenDirectoryCommand, Mode=OneWay}"
+                                       CommandParameter="{Binding Path=SelectedTask.Source, Mode=OneWay}">
+                            
+                                <Run Text="{Binding Path=SelectedTask, Mode=OneWay,
+                                                    Converter={StaticResource tmCompareTaskValueConverter},
+                                                    ConverterParameter='source'}" />
+                            </Hyperlink>
+                        </TextBlock>
+
+                        <!-- destination -->
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Margin="0,0,8,0"
+                                   TextAlignment="Right">With:</TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1" ToolTip="Click to open...">
+                            <Hyperlink Command="{Binding Path=OpenDirectoryCommand, Mode=OneWay}"
+                                       CommandParameter="{Binding Path=SelectedTask.Destination, Mode=OneWay}">
+                            
+                                <Run Text="{Binding Path=SelectedTask, Mode=OneWay,
+                                                    Converter={StaticResource tmCompareTaskValueConverter},
+                                                    ConverterParameter='destination'}" />
+                            </Hyperlink>
+                        </TextBlock>
+
+                        <!-- recursive? -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Margin="0,4,8,0"
+                                   TextAlignment="Right">Recursive:</TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1"
+                                   Margin="0,4,0,0">
+                            
+                            <Run Text="{Binding Path=SelectedTask, Mode=OneWay,
+                                                Converter={StaticResource tmCompareTaskValueConverter},
+                                                ConverterParameter='scan_recursive'}" />
+                        </TextBlock>
+
+                        <!-- hash -->
+                        <TextBlock Grid.Row="3" Grid.Column="0"
+                                   Margin="0,12,8,4"
+                                   TextAlignment="Right">Hash:</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="1"
+                                   Margin="0,12,8,4">
+                            
+                            <Run Text="{Binding Path=SelectedTask, Mode=OneWay,
+                                                Converter={StaticResource tmCompareTaskValueConverter},
+                                                ConverterParameter='hash'}" />
+                        </TextBlock>
+                    </Grid>
+                </GroupBox>
+
+                <!-- in progress -->
+                <GroupBox Header="In progress" Grid.Row="1"
+                          DataContext="{Binding Path=SelectedTask.Progress, Mode=OneWay}"
+                          Visibility="{Binding Mode=OneWay, Converter={StaticResource tmObjectToVisibilityConverter}}">
+
+                    <StackPanel>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                </Style>
+                            </Grid.Resources>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92px" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24px" />
+                                <RowDefinition Height="24px" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       Margin="0,0,8,0"
+                                       TextAlignment="Right">Source:</TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" ToolTip="Click to open...">
+                                <Hyperlink Command="{Binding Path=OpenItemCommand, Mode=OneWay}"
+                                           CommandParameter="{Binding Path=Source, Mode=OneWay}">
+                            
+                                    <Run Text="{Binding Path=Source.FullName, Mode=OneWay}" />
+                                </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       Margin="0,0,8,0"
+                                       TextAlignment="Right">Destination:</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="1" ToolTip="Click to open...">
+                                <Hyperlink Command="{Binding Path=OpenItemCommand, Mode=OneWay}"
+                                           CommandParameter="{Binding Path=Destination, Mode=OneWay}">
+                            
+                                    <Run Text="{Binding Path=Destination.FullName, Mode=OneWay}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </Grid>
+
+                        <TextBlock Margin="8,16,0,0"
+                                   Text="{Binding Path=StatusText, Mode=OneWay}"
+                                   Visibility="{Binding Path=StatusText, Mode=OneWay,
+                                                        Converter={StaticResource tmObjectToVisibilityConverter}}" />
+                        
+                        <Grid Margin="0,16,0,0">
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Width" Value="16px" />
+                                </Style>
+                            </Grid.Resources>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24px" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24px" />
+                                <RowDefinition Height="24px" />
+                                <RowDefinition Height="24px" />
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="{Binding Path=TimestampState, Mode=OneWay,
+                                                    Converter={StaticResource tmContentStateToIconConverter}}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1"
+                                       VerticalAlignment="Center">Last write time</TextBlock>
+                            
+                            <Image Grid.Row="1" Grid.Column="0"
+                                   Source="{Binding Path=SizeState, Mode=OneWay,
+                                                    Converter={StaticResource tmContentStateToIconConverter}}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1"
+                                       VerticalAlignment="Center">Size</TextBlock>
+
+                            <Image Grid.Row="2" Grid.Column="0"
+                                   Source="{Binding Path=ContentState, Mode=OneWay,
+                                                    Converter={StaticResource tmContentStateToIconConverter}}" />
+                            <TextBlock Grid.Row="2" Grid.Column="1"
+                                       VerticalAlignment="Center">Content</TextBlock>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- results -->
+                <GroupBox Header="Results" Grid.Row="2"
+                          DataContext="{Binding Path=SelectedTask, Mode=OneWay}">
+                    
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Margin" Value="8" />
+                                
+                                <Style.Triggers>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                        <Setter Property="Background" Value="#000"></Setter>
+                                    </Trigger>
+                                    
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                        <Setter Property="Background" Value="#111"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        
+                        <ListBox ItemsSource="{Binding Path=Differences, Mode=OneWay}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 AlternationCount="2">
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,4,8,4"
+                                            Padding="0,4,4,4"
+                                            BorderBrush="#333">
+
+                                        <Border.Resources>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="TextWrapping" Value="Wrap" />
+                                                <Setter Property="VerticalAlignment" Value="Top" />
+                                            </Style>
+                                        </Border.Resources>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <Image Grid.Column="0"
+                                                   Margin="8,8,16,0"
+                                                   Source="{Binding Path=Icon, Mode=OneWay}"
+                                                   VerticalAlignment="Top"
+                                                   Width="48px" />
+
+                                            <Grid Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="92px" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition MinHeight="24px" />
+                                                    <RowDefinition MinHeight="24px" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                                           Margin="0,0,8,0"
+                                                           TextAlignment="Right">Source:</TextBlock>
+                                                <TextBlock Grid.Row="0" Grid.Column="1"
+                                                           ToolTip="Click to open...">
+                                                    <Hyperlink Command="{Binding Path=OpenItemCommand, Mode=OneWay}"
+                                                               CommandParameter="{Binding Path=Source, Mode=OneWay}"
+                                                               IsEnabled="{Binding Path=Source.Exists, Mode=OneWay}">
+                            
+                                                        <Run Text="{Binding Path=Source.FullName, Mode=OneWay}" />
+                                                    </Hyperlink>
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="1" Grid.Column="0"
+                                                           Margin="0,0,8,0"
+                                                           TextAlignment="Right">Destination:</TextBlock>
+                                                <TextBlock Grid.Row="1" Grid.Column="1"
+                                                           ToolTip="Click to open...">
+                                                    <Hyperlink Command="{Binding Path=OpenItemCommand, Mode=OneWay}"
+                                                               CommandParameter="{Binding Path=Destination, Mode=OneWay}"
+                                                               IsEnabled="{Binding Path=Destination.Exists, Mode=OneWay}">
+                            
+                                                        <Run Text="{Binding Path=Destination.FullName, Mode=OneWay}" />
+                                                    </Hyperlink>
+                                                </TextBlock>
+
+                                                <WrapPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                           Margin="16,16,0,16"
+                                                           Orientation="Horizontal">
+
+                                                    <WrapPanel.Resources>
+                                                        <Style TargetType="{x:Type Image}">
+                                                            <Setter Property="Margin" Value="0,0,8,8" />
+                                                            <Setter Property="Width" Value="32px" />
+                                                        </Style>
+                                                    </WrapPanel.Resources>
+                                                    
+                                                    <Image Source="../../Resources/Icons/missing.png"
+                                                           Visibility="{Binding Path=IsMissing, Mode=OneWay,
+                                                                                Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                           ToolTip="Missing" />
+                                                    
+                                                    <Image Source="../../Resources/Icons/size.png"
+                                                           Visibility="{Binding Path=HasDifferentSizes, Mode=OneWay,
+                                                                                Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                           ToolTip="Different sizes" />
+
+                                                    <Image Source="../../Resources/Icons/content.png"
+                                                           Visibility="{Binding Path=HasDifferentContents, Mode=OneWay,
+                                                                                Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                           ToolTip="Different contents" />
+
+                                                    <Image Source="../../Resources/Icons/lastWriteTime.png"
+                                                           Visibility="{Binding Path=HasDifferentTimeStamps, Mode=OneWay,
+                                                                                Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                           ToolTip="Different last write timestamps" />
+                                                </WrapPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
         </GroupBox>
     </Grid>
 </MahApps:MetroWindow>

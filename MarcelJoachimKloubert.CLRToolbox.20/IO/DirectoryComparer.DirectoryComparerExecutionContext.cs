@@ -15,11 +15,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         private sealed class DirectoryComparerExecutionContext<TState> : IDirectoryComparerExecutionContext<TState>
         {
-            #region Fields (8)
+            #region Fields (9)
 
             private readonly DirectoryComparer _COMPARER;
             private DateTimeOffset? _endTime;
             private IList<Exception> _errors;
+            private bool _isCanceling;
             private bool _isRunning;
             private bool _recurive;
             private DateTimeOffset? _startTime;
@@ -37,7 +38,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             #endregion Constructors
 
-            #region Properties (7)
+            #region Properties (8)
 
             public TimeSpan? Duration
             {
@@ -67,6 +68,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                 get { return this._errors; }
 
                 private set { this._errors = value; }
+            }
+
+            public bool IsCanceling
+            {
+                get { return this._isCanceling; }
+
+                private set { this._isCanceling = value; }
             }
 
             public bool IsRunning
@@ -113,9 +121,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             #endregion Delegates and Events
 
-            #region Methods (5)
+            #region Methods (7)
 
-            // Public Methods (1) 
+            // Public Methods (3) 
+
+            public void Cancel()
+            {
+                this.Cancel(true);
+            }
+
+            public void Cancel(bool wait)
+            {
+                if (this.IsCanceling == false)
+                {
+                    this.IsCanceling = true;
+                }
+
+                if (wait)
+                {
+                    while (this.IsRunning && this.IsCanceling)
+                    { }
+
+                    this.IsCanceling = false;
+                }
+            }
 
             public void Start()
             {
@@ -126,6 +155,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
                     try
                     {
+                        this._isCanceling = false;
                         this._isRunning = true;
                         this._errors = null;
 
@@ -143,6 +173,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     {
                         this._errors = occuredErrors.ToArray();
                         this._isRunning = false;
+                        this._isCanceling = false;
 
                         this._endTime = AppTime.Now;
                         this.RaiseEventHandler(this.Completed);
@@ -153,6 +184,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             private void CompareDirectories(DirectoryInfo src, DirectoryInfo dest, ICollection<Exception> errList)
             {
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 EventHandler<CompareFileSystemItemsEventArgs> compareHandler = this.ComparingItems;
 
                 if (src.Exists == false || dest.Exists == false)
@@ -178,6 +214,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     return;
                 }
 
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 IEnumerable<DirectoryInfo> subDirsOfSource;
                 try
                 {
@@ -190,11 +231,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     subDirsOfSource = CollectionHelper.Empty<DirectoryInfo>();
                 }
 
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 // compare directories
                 try
                 {
                     foreach (DirectoryInfo subDir in subDirsOfSource)
                     {
+                        if (this.IsCanceling)
+                        {
+                            return;
+                        }
+
                         try
                         {
                             DirectoryInfo destDir = new DirectoryInfo(Path.Combine(dest.FullName,
@@ -233,11 +284,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     errList.Add(ex);
                 }
 
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 // check for extra directories
                 try
                 {
                     foreach (DirectoryInfo subDir in dest.GetDirectories())
                     {
+                        if (this.IsCanceling)
+                        {
+                            return;
+                        }
+
                         try
                         {
                             DirectoryInfo srcDir = new DirectoryInfo(Path.Combine(src.FullName,
@@ -276,15 +337,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     errList.Add(ex);
                 }
 
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 // compare files
                 try
                 {
                     foreach (FileInfo file in src.GetFiles())
                     {
+                        if (this.IsCanceling)
+                        {
+                            return;
+                        }
+
                         try
                         {
-                            DirectoryInfo destFile = new DirectoryInfo(Path.Combine(dest.FullName,
-                                                                                    file.Name));
+                            FileInfo destFile = new FileInfo(Path.Combine(dest.FullName,
+                                                                          file.Name));
 
                             CompareFileSystemItemsEventArgs e = new CompareFileSystemItemsEventArgs(file, destFile);
                             if (compareHandler != null)
@@ -327,11 +398,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     errList.Add(ex);
                 }
 
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 // check for extra files
                 try
                 {
                     foreach (FileInfo file in dest.GetFiles())
                     {
+                        if (this.IsCanceling)
+                        {
+                            return;
+                        }
+
                         try
                         {
                             FileInfo srcFile = new FileInfo(Path.Combine(src.FullName,
@@ -370,10 +451,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                     errList.Add(ex);
                 }
 
+                if (this.IsCanceling)
+                {
+                    return;
+                }
+
                 if (this.Recursive)
                 {
                     foreach (DirectoryInfo subDir in subDirsOfSource)
                     {
+                        if (this.IsCanceling)
+                        {
+                            return;
+                        }
+
                         try
                         {
                             DirectoryInfo destDir = new DirectoryInfo(Path.Combine(dest.FullName,

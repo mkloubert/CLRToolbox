@@ -189,7 +189,7 @@
                           DataContext="{Binding Path=SelectedTask.Progress, Mode=OneWay}"
                           Visibility="{Binding Mode=OneWay, Converter={StaticResource tmObjectToVisibilityConverter}}">
 
-                    <StackPanel>
+                    <StackPanel Margin="8,0,8,0">
                         <Grid>
                             <Grid.Resources>
                                 <Style TargetType="{x:Type TextBlock}">
@@ -231,7 +231,8 @@
                             </TextBlock>
                         </Grid>
 
-                        <TextBlock Margin="8,16,0,0"
+                        <!-- status text -->
+                        <TextBlock Margin="0,16,0,0"
                                    Text="{Binding Path=StatusText, Mode=OneWay}"
                                    Visibility="{Binding Path=StatusText, Mode=OneWay,
                                                         Converter={StaticResource tmObjectToVisibilityConverter}}" />
@@ -254,18 +255,21 @@
                                 <RowDefinition Height="24px" />
                             </Grid.RowDefinitions>
 
+                            <!-- last write time -->
                             <Image Grid.Row="0" Grid.Column="0"
                                    Source="{Binding Path=TimestampState, Mode=OneWay,
                                                     Converter={StaticResource tmContentStateToIconConverter}}" />
                             <TextBlock Grid.Row="0" Grid.Column="1"
                                        VerticalAlignment="Center">Last write time</TextBlock>
                             
+                            <!-- size -->
                             <Image Grid.Row="1" Grid.Column="0"
                                    Source="{Binding Path=SizeState, Mode=OneWay,
                                                     Converter={StaticResource tmContentStateToIconConverter}}" />
                             <TextBlock Grid.Row="1" Grid.Column="1"
                                        VerticalAlignment="Center">Size</TextBlock>
 
+                            <!-- content -->
                             <Image Grid.Row="2" Grid.Column="0"
                                    Source="{Binding Path=ContentState, Mode=OneWay,
                                                     Converter={StaticResource tmContentStateToIconConverter}}" />

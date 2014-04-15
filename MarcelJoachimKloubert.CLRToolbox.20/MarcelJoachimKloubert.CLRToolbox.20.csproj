@@ -596,6 +596,7 @@
       <DependentUpon>TMObject.cs</DependentUpon>
     </Compile>
     <Compile Include="TrafficLights.cs" />
+    <Compile Include="Values\ProgressValue.cs" />
     <Compile Include="WritableTuple.cs" />
     <Compile Include="_Compatibility\System\Action.cs" />
     <Compile Include="_Compatibility\System\AggregateException.cs" />

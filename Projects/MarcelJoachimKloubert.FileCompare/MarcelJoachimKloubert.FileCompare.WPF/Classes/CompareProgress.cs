@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
+using MarcelJoachimKloubert.CLRToolbox.Values;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
 using System.Diagnostics;
@@ -15,27 +16,29 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
     /// </summary>
     public sealed class CompareProgress : NotificationObjectBase
     {
-        #region Fields (6)
+        #region Fields (8) 
 
         private CompareState? _contentState;
+        private ProgressValue _currentItemProgress;
         private FileSystemInfo _destination;
+        private ProgressValue _overallProgress;
         private CompareState? _sizeState;
         private FileSystemInfo _source;
         private string _statusText;
         private CompareState? _timestampState;
 
-        #endregion Fields
+        #endregion Fields 
 
-        #region Constructors (1)
+        #region Constructors (1) 
 
         internal CompareProgress(CompareTask task)
         {
             this.Task = task;
         }
 
-        #endregion Constructors
+        #endregion Constructors 
 
-        #region Properties (8)
+        #region Properties (10) 
 
         /// <summary>
         /// Gets the state of the contents of <see cref="CompareProgress.Source" /> and <see cref="CompareProgress.Destination" />.
@@ -45,6 +48,16 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             get { return this._contentState; }
 
             internal set { this.SetProperty(ref this._contentState, value); }
+        }
+
+        /// <summary>
+        /// Gets the progress value for the current item.
+        /// </summary>
+        public ProgressValue CurrentItemProgress
+        {
+            get { return this._currentItemProgress; }
+
+            internal set { this.SetProperty(ref this._currentItemProgress, value); }
         }
 
         /// <summary>
@@ -64,6 +77,16 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         {
             get;
             private set;
+        }
+        
+        /// <summary>
+        /// Gets the progress value for overall context.
+        /// </summary>
+        public ProgressValue OverallProgress
+        {
+            get { return this._overallProgress; }
+
+            internal set { this.SetProperty(ref this._overallProgress, value); }
         }
 
         /// <summary>
@@ -86,6 +109,9 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             internal set { this.SetProperty(ref this._source, value); }
         }
 
+        /// <summary>
+        /// Gets the status text.
+        /// </summary>
         public string StatusText
         {
             get { return this._statusText; }
@@ -112,9 +138,9 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             internal set { this.SetProperty(ref this._timestampState, value); }
         }
 
-        #endregion Properties
+        #endregion Properties 
 
-        #region Methods (2)
+        #region Methods (2) 
 
         // Protected Methods (1) 
 
@@ -123,7 +149,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         {
             this.OpenItemCommand = new SimpleCommand<FileSystemInfo>(this.OpenItem);
         }
-
         // Private Methods (1) 
 
         private void OpenItem(FileSystemInfo item)
@@ -152,6 +177,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             }
         }
 
-        #endregion Methods
+        #endregion Methods 
     }
 }

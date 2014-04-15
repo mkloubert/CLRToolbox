@@ -1023,6 +1023,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\TrafficLights.cs">
       <Link>TrafficLights.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\values\ProgressValue.cs">
+      <Link>Values\ProgressValue.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\WritableTuple.cs">
       <Link>WritableTuple.cs</Link>
     </Compile>

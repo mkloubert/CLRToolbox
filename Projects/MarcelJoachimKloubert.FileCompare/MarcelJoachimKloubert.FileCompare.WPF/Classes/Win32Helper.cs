@@ -40,18 +40,22 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             //IntPtr hImgLarge; //the handle to the system image list
             SHFILEINFO shinfo = new SHFILEINFO();
             hImgSmall = SHGetFileInfo(sFilename, 0, ref shinfo,
-                                      (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_SMALLICON);
+                                      (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_LARGEICON);
 
             //Use this to get the large Icon
             //hImgLarge = SHGetFileInfo(fName, 0,
             //	ref shinfo, (uint)Marshal.SizeOf(shinfo),
             //	Win32.SHGFI_ICON | Win32.SHGFI_LARGEICON);
 
-            //The icon is returned in the hIcon member of the shinfo struct
-            Icon myIcon = (Icon)Icon.FromHandle(shinfo.hIcon).Clone();
-            DestroyIcon(shinfo.hIcon); // Cleanup
-
-            return myIcon;
+            var ico = Icon.FromHandle(shinfo.hIcon);
+            try
+            {
+                return ico.Clone() as Icon;
+            }
+            finally
+            {
+                DestroyIcon(shinfo.hIcon);
+            }
         }
 
         [DllImport("shell32.dll")]

@@ -92,7 +92,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
         /// </summary>
         public void RefeshIfNeeded()
         {
-            if (!this._refreshDone)
+            if (this._refreshDone == false)
             {
                 this.Refesh();
             }

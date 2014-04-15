@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows;
 using MarcelJoachimKloubert.CLRToolbox.IO;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
@@ -18,7 +17,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
     /// <summary>
     /// Stores data for an entry that describes the differences between two items.
     /// </summary>
-    public sealed class CompareDifference : NotificationObjectBase
+    public sealed class CompareDifference : CompareResultBase
     {
         #region Fields (2)
 
@@ -46,10 +45,8 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #region Properties (9)
 
-        /// <summary>
-        /// Gets the destination object.
-        /// </summary>
-        public FileSystemInfo Destination
+        /// <inheriteddoc />
+        public override FileSystemInfo Destination
         {
             get { return this._EVENT_ARGS.Destination; }
         }
@@ -99,6 +96,9 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets the icon.
+        /// </summary>
         public ImageSource Icon
         {
             get { return this._icon; }
@@ -128,10 +128,8 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             private set;
         }
 
-        /// <summary>
-        /// Gets the source object.
-        /// </summary>
-        public FileSystemInfo Source
+        /// <inheriteddoc />
+        public override FileSystemInfo Source
         {
             get { return this._EVENT_ARGS.Source; }
         }

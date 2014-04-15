@@ -472,6 +472,10 @@
       <Link>Helpers\DataHelper.GetBytes.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToCsv.cs">
+      <Link>Helpers\DataHelper.ToCsv.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToDbValue.cs">
       <Link>Helpers\DataHelper.ToDbValue.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
@@ -1887,6 +1891,9 @@
     <Compile Include="Extensions\Data.GetBytes.cs">
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\Data.ToCsv.cs">
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Data.ToDbValue.cs">
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
@@ -1999,6 +2006,12 @@
     </Compile>
     <Compile Include="Extensions\ValuesAndObjects.cs" />
     <Compile Include="Extensions\ValuesAndObjects.IsNull.cs">
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\ValuesAndObjects.IsFalse.cs">
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\ValuesAndObjects.IsTrue.cs">
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Cast.cs" />

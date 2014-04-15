@@ -1082,12 +1082,20 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.cs">
       <Link>Extensions\ValuesAndObjects.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsFalse.cs">
+      <Link>Extensions\ValuesAndObjects.IsFalse.cs</Link>
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsNotNull.cs">
       <Link>Extensions\ValuesAndObjects.IsNotNull.cs</Link>
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsNull.cs">
       <Link>Extensions\ValuesAndObjects.IsNull.cs</Link>
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsTrue.cs">
+      <Link>Extensions\ValuesAndObjects.IsTrue.cs</Link>
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">

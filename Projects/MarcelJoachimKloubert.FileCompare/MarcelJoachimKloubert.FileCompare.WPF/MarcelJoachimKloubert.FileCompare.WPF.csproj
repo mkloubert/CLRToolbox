@@ -57,8 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CompareDifference.cs" />
+    <Compile Include="Classes\CompareError.cs" />
     <Compile Include="Classes\CompareProgress.cs" />
+    <Compile Include="Classes\CompareResultBase.cs" />
     <Compile Include="Classes\CompareState.cs" />
+    <Compile Include="Classes\ICompareResult.cs" />
     <Compile Include="Classes\Win32Helper.cs" />
     <Compile Include="Converters\CompareTaskValueConverter.cs" />
     <Compile Include="Converters\ContentStateToIconConverter.cs" />

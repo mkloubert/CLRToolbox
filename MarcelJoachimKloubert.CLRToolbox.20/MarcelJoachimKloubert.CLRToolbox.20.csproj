@@ -214,6 +214,9 @@
     <Compile Include="Helpers\DataHelper.GetBytes.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataHelper.ToCsv.cs">
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\DataHelper.ToDbValue.cs">
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>

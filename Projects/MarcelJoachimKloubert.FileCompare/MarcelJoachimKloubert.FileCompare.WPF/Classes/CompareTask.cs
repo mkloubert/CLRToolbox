@@ -7,18 +7,26 @@ using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Extensions.Data;
 using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.IO;
 using MarcelJoachimKloubert.CLRToolbox.Security.Cryptography;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using TaskTuple = System.Tuple<MarcelJoachimKloubert.FileCompare.WPF.Classes.CompareTask, System.Threading.CancellationTokenSource>;
 
 namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
@@ -52,7 +60,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #endregion Constructors
 
-        #region Properties (16)
+        #region Properties (17)
 
         /// <inheriteddoc />
         public bool CanRestart
@@ -76,15 +84,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// Gets the path of the destination directory.
         /// </summary>
         public string Destination
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the list of differences.
-        /// </summary>
-        public SynchronizedObservableCollection<CompareDifference> Differences
         {
             get;
             private set;
@@ -144,6 +143,21 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// Gets if <see cref="CompareTask.Source" /> and <see cref="CompareTask.Destination" /> should be compared recursivly or not.
         /// </summary>
         public bool Recursive
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the list of results.
+        /// </summary>
+        public SynchronizedObservableCollection<ICompareResult> Results
+        {
+            get;
+            private set;
+        }
+
+        public SimpleCommand SaveResultCommand
         {
             get;
             private set;
@@ -213,7 +227,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #endregion Delegates and Events
 
-        #region Methods (12)
+        #region Methods (17)
 
         // Public Methods (7) 
 
@@ -412,13 +426,15 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// <inheriteddoc />
         protected override void OnConstructor()
         {
+            this.SaveResultCommand = new SimpleCommand(this.SaveResult);
+
             this.StartCommand = new SimpleCommand(this.Start);
             this.StopCommand = new SimpleCommand(this.Stop);
 
-            this.Differences = new SynchronizedObservableCollection<CompareDifference>();
+            this.Results = new SynchronizedObservableCollection<ICompareResult>();
         }
 
-        // Private Methods (4) 
+        // Private Methods (9) 
 
         private static DateTime NormalizeTimestamp(DateTime input)
         {
@@ -452,6 +468,175 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             }
         }
 
+        private void SaveResult()
+        {
+            try
+            {
+                var results = CollectionHelper.AsArray(this.Results);
+                if (results.Length < 1)
+                {
+                    return;
+                }
+
+                var dialog = new SaveFileDialog();
+                dialog.Filter = "XML files (*.xml)|*.xml|HTML files (*.htm; *.html)|*.htm;*.html|JSON files (*.json)|*.json|CSV files (*.csv; *.txt)|*.csv;*.txt|All files (*.*)|*.*";
+                dialog.OverwritePrompt = true;
+                if (dialog.ShowDialog().IsNotTrue())
+                {
+                    return;
+                }
+
+                var outputFile = new FileInfo(dialog.FileName);
+
+                Action<Stream, IList<ICompareResult>> actionToInvoke;
+                switch ((Path.GetExtension(outputFile.Name) ?? string.Empty).ToLower().Trim())
+                {
+                    case ".htm":
+                    case ".html":
+                        actionToInvoke = this.SaveResult_Html;
+                        break;
+
+                    case ".json":
+                        actionToInvoke = this.SaveResult_Json;
+                        break;
+
+                    case ".csv":
+                    case ".txt":
+                        actionToInvoke = this.SaveResult_PlainText;
+                        break;
+
+                    default:
+                        actionToInvoke = this.SaveResult_Xml;
+                        break;
+                }
+
+                using (var stream = new FileStream(outputFile.FullName,
+                                                   FileMode.Create, FileAccess.ReadWrite))
+                {
+                    actionToInvoke(stream, results);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.OnError(ex);
+            }
+        }
+
+        private void SaveResult_Html(Stream output, IList<ICompareResult> results)
+        {
+        }
+
+        private void SaveResult_Json(Stream output, IList<ICompareResult> results)
+        {
+            var obj = new
+            {
+                differences = new List<object>(),
+
+                errors = new List<object>(),
+            };
+
+            foreach (var diff in results.OfType<CompareDifference>())
+            {
+                obj.differences.Add(new
+                {
+                    destination = new
+                    {
+                        path = diff.Destination != null ? diff.Destination.FullName : null,
+                    },
+
+                    source = new
+                    {
+                        path = diff.Source != null ? diff.Source.FullName : null,
+                    },
+                });
+            }
+
+            foreach (var err in results.OfType<CompareError>())
+            {
+                obj.errors.Add(new
+                {
+                    destination = new
+                    {
+                        path = err.Destination != null ? err.Destination.FullName : null,
+                    },
+
+                    source = new
+                    {
+                        path = err.Source != null ? err.Source.FullName : null,
+                    },
+                });
+            }
+
+            var serializer = new JsonSerializer();
+
+            using (var streamWriter = new StreamWriter(output, Encoding.UTF8))
+            {
+                serializer.Serialize(streamWriter, obj);
+
+                streamWriter.Flush();
+            }
+        }
+
+        private void SaveResult_PlainText(Stream output, IList<ICompareResult> results)
+        {
+            var table = new DataTable();
+
+            table.Columns.Add("Type");
+            table.Columns.Add("Source");
+            table.Columns.Add("Destination");
+
+            foreach (var r in results)
+            {
+                List<object> cells = new List<object>();
+
+                if (r is CompareDifference)
+                {
+                    var diff = (CompareDifference)r;
+
+                    cells.Add("difference");
+                    cells.Add(diff.Source != null ? diff.Source.FullName : null);
+                    cells.Add(diff.Destination != null ? diff.Destination.FullName : null);
+                }
+                else if (r is CompareError)
+                {
+                    var err = (CompareError)r;
+
+                    cells.Add("error");
+                    cells.Add(err.Source != null ? err.Source.FullName : null);
+                    cells.Add(err.Destination != null ? err.Destination.FullName : null);
+                }
+
+                table.Rows.Add(cells.ToArray());
+            }
+
+            using (var streamWriter = new StreamWriter(output, Encoding.UTF8))
+            {
+                table.ToCsv(streamWriter);
+            }
+        }
+
+        private void SaveResult_Xml(Stream output, IList<ICompareResult> results)
+        {
+            var xmlDoc = new XDocument(new XDeclaration("1.0", Encoding.UTF8.WebName, "yes"));
+            xmlDoc.Add(new XElement("fileComparer"));
+
+            // differences
+            {
+                var differencesElement = new XElement("differences");
+
+                xmlDoc.Root.Add(differencesElement);
+            }
+
+            // errors
+            {
+                var errorsElement = new XElement("errors");
+
+                xmlDoc.Root.Add(errorsElement);
+            }
+
+            xmlDoc.Save(output);
+        }
+
         private static void TaskAction(object state)
         {
             var tuple = (TaskTuple)state;
@@ -466,7 +651,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                 App.Current
                    .BeginInvoke((a, appState) =>
                        {
-                           appState.Task.Differences.Clear();
+                           appState.Task.Results.Clear();
                        }, actionState: new
                        {
                            Task = task,
@@ -483,6 +668,18 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
                 ctx.ComparingItems += (sender, e) =>
                     {
+                        Action<Exception> addError = (err) =>
+                            {
+                                try
+                                {
+                                    task.Results.Add(new CompareError(e, err));
+                                }
+                                catch (Exception ex)
+                                {
+                                    task.OnError(new AggregateException(ex, err));
+                                }
+                            };
+
                         try
                         {
                             e.Handled = true;
@@ -550,8 +747,10 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                                                 task.Progress.TimestampState = CompareState.Match;
                                             }
                                         }
-                                        catch
+                                        catch (Exception ex)
                                         {
+                                            addError(ex);
+
                                             task.Progress.TimestampState = CompareState.Failed;
                                         }
 
@@ -575,8 +774,10 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                                                 task.Progress.SizeState = CompareState.Match;
                                             }
                                         }
-                                        catch
+                                        catch (Exception ex)
                                         {
+                                            addError(ex);
+
                                             task.Progress.SizeState = CompareState.Failed;
                                         }
 
@@ -620,8 +821,10 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                                                     e.Differences |= FileSystemItemDifferences.Content;
                                                 }
                                             }
-                                            catch
+                                            catch (Exception ex)
                                             {
+                                                addError(ex);
+
                                                 task.Progress.TimestampState = CompareState.Failed;
                                             }
                                         }
@@ -642,7 +845,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                         }
                         catch (Exception ex)
                         {
-                            task.OnError(ex);
+                            addError(ex);
                         }
                     };
 
@@ -654,7 +857,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                                .BeginInvoke((a, appState) =>
                                {
                                    appState.Task
-                                           .Differences
+                                           .Results
                                            .Add(appState.Difference);
                                }, actionState: new
                                {

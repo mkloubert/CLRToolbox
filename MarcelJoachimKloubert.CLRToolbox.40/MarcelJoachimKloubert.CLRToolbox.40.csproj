@@ -459,6 +459,10 @@
       <Link>Helpers\DataHelper.GetBytes.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToCsv.cs">
+      <Link>Helpers\DataHelper.ToCsv.cs</Link>
+      <DependentUpon>DataHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\DataHelper.ToDbValue.cs">
       <Link>Helpers\DataHelper.ToDbValue.cs</Link>
       <DependentUpon>DataHelper.cs</DependentUpon>
@@ -1937,6 +1941,10 @@
       <Link>Extensions\Data.GetBytes.cs</Link>
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ToCsv.cs">
+      <Link>Extensions\Data.ToCsv.cs</Link>
+      <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ToDbValue.cs">
       <Link>Extensions\Data.ToDbValue.cs</Link>
       <DependentUpon>Data.cs</DependentUpon>
@@ -2063,12 +2071,20 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.cs">
       <Link>Extensions\ValuesAndObjects.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsFalse.cs">
+      <Link>Extensions\ValuesAndObjects.IsFalse.cs</Link>
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsNotNull.cs">
       <Link>Extensions\ValuesAndObjects.IsNotNull.cs</Link>
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsNull.cs">
       <Link>Extensions\ValuesAndObjects.IsNull.cs</Link>
+      <DependentUpon>ValuesAndObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ValuesAndObjects.IsTrue.cs">
+      <Link>Extensions\ValuesAndObjects.IsTrue.cs</Link>
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">

@@ -16,6 +16,7 @@ using MarcelJoachimKloubert.CLRToolbox.Security.Cryptography;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -533,12 +534,97 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             // differences
             foreach (var diff in results.OfType<CompareDifference>())
             {
+                var foundFlags = new List<IDictionary<string, object>>();
+
+                if (diff.Differences.HasValue)
+                {
+                    var dv = diff.Differences.Value;
+
+                    foreach (var fsDiff in Enum.GetValues(typeof(FileSystemItemDifferences))
+                                               .Cast<FileSystemItemDifferences>()
+                                               .Where(f => f != FileSystemItemDifferences.None)
+                                               .OrderBy(f => f.ToString(), StringComparer.InvariantCultureIgnoreCase))
+                    {
+                        if (dv.HasFlag(fsDiff))
+                        {
+                            var data = new Dictionary<string, object>();
+                            data["type"] = fsDiff.ToString();
+
+                            switch (fsDiff)
+                            {
+                                case FileSystemItemDifferences.LastWriteTime:
+                                    {
+                                        try
+                                        {
+                                            if (diff.Source != null)
+                                            {
+                                                data["source"] = diff.Source.LastWriteTimeUtc;
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+
+                                        try
+                                        {
+                                            if (diff.Destination != null)
+                                            {
+                                                data["destination"] = diff.Source.LastWriteTimeUtc;
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+                                    }
+                                    break;
+
+                                case FileSystemItemDifferences.Size:
+                                    {
+                                        try
+                                        {
+                                            var file = diff.Source as FileInfo;
+                                            if (file != null)
+                                            {
+                                                data["source"] = file.Length;
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+
+                                        try
+                                        {
+                                            var file = diff.Destination as FileInfo;
+                                            if (file != null)
+                                            {
+                                                data["destination"] = file.Length;
+                                            }
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            foundFlags.Add(data);
+                        }
+                    }
+
+                }
+
                 obj.differences.Add(new
                 {
                     destination = new
                     {
                         path = diff.Destination != null ? diff.Destination.FullName : null,
                     },
+
+                    found = foundFlags.ToArray(),
 
                     source = new
                     {
@@ -573,11 +659,16 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
             var serializer = new JsonSerializer();
 
-            using (var streamWriter = new StreamWriter(output, Encoding.UTF8))
+            using (var tempWriter = new StringWriter())
             {
-                serializer.Serialize(streamWriter, obj);
+                serializer.Serialize(tempWriter, obj);
 
-                streamWriter.Flush();
+                using (var streamWriter = new StreamWriter(output, Encoding.UTF8))
+                {
+                    streamWriter.Write(JObject.Parse(tempWriter.ToString()));
+
+                    streamWriter.Flush();
+                }
             }
         }
 

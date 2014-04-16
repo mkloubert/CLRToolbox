@@ -17,9 +17,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
         private static string ParseForCsvCell(object obj)
         {
-            return GlobalConverter.Current
-                                  .ChangeType<string>(obj,
-                                                      CultureInfo.InvariantCulture);
+            return string.Format("\"{0}\"",
+                                 GlobalConverter.Current
+                                                .ChangeType<string>(obj,
+                                                                    CultureInfo.InvariantCulture));
         }
 
         #endregion Methods

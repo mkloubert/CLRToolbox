@@ -679,6 +679,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             table.Columns.Add("Type");
             table.Columns.Add("Source");
             table.Columns.Add("Destination");
+            table.Columns.Add("Data");
 
             foreach (var r in results)
             {
@@ -691,6 +692,25 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                     cells.Add("difference");
                     cells.Add(diff.Source != null ? diff.Source.FullName : null);
                     cells.Add(diff.Destination != null ? diff.Destination.FullName : null);
+
+                    // data
+                    {
+                        string data = null;
+                        if (diff.Differences.HasValue)
+                        {
+                            var dv = diff.Differences.Value;
+
+                            data = string.Join("|",
+                                               Enum.GetValues(typeof(FileSystemItemDifferences))
+                                                   .Cast<FileSystemItemDifferences>()
+                                                   .Where(f => f != FileSystemItemDifferences.None)
+                                                   .OrderBy(f => f.ToString(), StringComparer.InvariantCultureIgnoreCase)
+                                                   .Where(f => dv.HasFlag(f))
+                                                   .Distinct());
+                        }
+
+                        cells.Add(data);
+                    }
                 }
                 else if (r is CompareError)
                 {
@@ -699,6 +719,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                     cells.Add("error");
                     cells.Add(err.Source != null ? err.Source.FullName : null);
                     cells.Add(err.Destination != null ? err.Destination.FullName : null);
+                    cells.Add(err.Exception);
                 }
 
                 table.Rows.Add(cells.ToArray());

@@ -922,11 +922,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                         {
                             e.Handled = true;
 
-                            if (e.Source.Name == "Program.cs")
-                            {
-                                throw new Exception("Wurst");
-                            }
-
                             task.Progress.Source = e.Source;
                             task.Progress.Destination = e.Destination;
 

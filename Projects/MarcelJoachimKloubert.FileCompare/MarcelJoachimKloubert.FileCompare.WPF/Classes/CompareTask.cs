@@ -36,7 +36,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
     /// </summary>
     public sealed class CompareTask : NotificationObjectBase, IHasName, IRunnable
     {
-        #region Fields (10)
+        #region Fields (11)
 
         private CancellationTokenSource _cancelSource;
         private const string _CONFIG_NAME_DEST = "destination";
@@ -45,6 +45,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         private const string _CONFIG_NAME_RECURSIVE = "recursive";
         private const string _CONFIG_NAME_SOURCE = "source";
         private const string _CONFIG_NAME_TASKNAME = "name";
+        private const string _FORMAT_FILETIME = "yyyy-MM-dd HH:mm:ss";
         private bool _isRunning;
         private readonly AggregateLogger _LOGGER;
         private CompareProgress _progress;
@@ -157,6 +158,9 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             private set;
         }
 
+        /// <summary>
+        /// Gets the command that saves a result list to a file.
+        /// </summary>
         public SimpleCommand SaveResultCommand
         {
             get;
@@ -227,7 +231,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #endregion Delegates and Events
 
-        #region Methods (17)
+        #region Methods (16)
 
         // Public Methods (7) 
 
@@ -434,7 +438,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             this.Results = new SynchronizedObservableCollection<ICompareResult>();
         }
 
-        // Private Methods (9) 
+        // Private Methods (8) 
 
         private static DateTime NormalizeTimestamp(DateTime input)
         {
@@ -479,7 +483,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                 }
 
                 var dialog = new SaveFileDialog();
-                dialog.Filter = "XML files (*.xml)|*.xml|HTML files (*.htm; *.html)|*.htm;*.html|JSON files (*.json)|*.json|CSV files (*.csv; *.txt)|*.csv;*.txt|All files (*.*)|*.*";
+                dialog.Filter = "XML files (*.xml)|*.xml|JSON files (*.json)|*.json|CSV files (*.csv; *.txt)|*.csv;*.txt|All files (*.*)|*.*";
                 dialog.OverwritePrompt = true;
                 if (dialog.ShowDialog().IsNotTrue())
                 {
@@ -491,11 +495,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                 Action<Stream, IList<ICompareResult>> actionToInvoke;
                 switch ((Path.GetExtension(outputFile.Name) ?? string.Empty).ToLower().Trim())
                 {
-                    case ".htm":
-                    case ".html":
-                        actionToInvoke = this.SaveResult_Html;
-                        break;
-
                     case ".json":
                         actionToInvoke = this.SaveResult_Json;
                         break;
@@ -522,10 +521,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             }
         }
 
-        private void SaveResult_Html(Stream output, IList<ICompareResult> results)
-        {
-        }
-
         private void SaveResult_Json(Stream output, IList<ICompareResult> results)
         {
             var obj = new
@@ -535,6 +530,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                 errors = new List<object>(),
             };
 
+            // differences
             foreach (var diff in results.OfType<CompareDifference>())
             {
                 obj.differences.Add(new
@@ -551,6 +547,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                 });
             }
 
+            // errors
             foreach (var err in results.OfType<CompareError>())
             {
                 obj.errors.Add(new
@@ -558,6 +555,13 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                     destination = new
                     {
                         path = err.Destination != null ? err.Destination.FullName : null,
+                    },
+
+                    exception = new
+                    {
+                        message = err.Exception.ToString(),
+
+                        type = err.Exception.GetType().FullName,
                     },
 
                     source = new
@@ -623,6 +627,106 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             // differences
             {
                 var differencesElement = new XElement("differences");
+                foreach (var diff in results.OfType<CompareDifference>())
+                {
+                    var newDifferenceElement = new XElement("difference");
+
+                    if (diff.Source != null)
+                    {
+                        newDifferenceElement.SetAttributeValue("source",
+                                                               diff.Source.FullName);
+                    }
+
+                    if (diff.Destination != null)
+                    {
+                        newDifferenceElement.SetAttributeValue("destination",
+                                                               diff.Destination.FullName);
+                    }
+
+                    if (diff.Differences.HasValue)
+                    {
+                        var dv = diff.Differences.Value;
+
+                        foreach (var fsDiff in Enum.GetValues(typeof(FileSystemItemDifferences))
+                                                   .Cast<FileSystemItemDifferences>()
+                                                   .Where(f => f != FileSystemItemDifferences.None)
+                                                   .OrderBy(f => f.ToString(), StringComparer.InvariantCultureIgnoreCase))
+                        {
+                            if (dv.HasFlag(fsDiff))
+                            {
+                                var newElement = new XElement(fsDiff.ToString());
+                                switch (fsDiff)
+                                {
+                                    case FileSystemItemDifferences.LastWriteTime:
+                                        {
+                                            try
+                                            {
+                                                if (diff.Source != null)
+                                                {
+                                                    newElement.SetAttributeValue("source",
+                                                                                 diff.Source.LastWriteTimeUtc.ToString(_FORMAT_FILETIME));
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                // ignore
+                                            }
+
+                                            try
+                                            {
+                                                if (diff.Destination != null)
+                                                {
+                                                    newElement.SetAttributeValue("destination",
+                                                                                 diff.Destination.LastWriteTimeUtc.ToString(_FORMAT_FILETIME));
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                // ignore
+                                            }
+                                        }
+                                        break;
+
+                                    case FileSystemItemDifferences.Size:
+                                        {
+                                            try
+                                            {
+                                                var file = diff.Source as FileInfo;
+                                                if (file != null)
+                                                {
+                                                    newElement.SetAttributeValue("source",
+                                                                                 file.Length);
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                // ignore
+                                            }
+
+                                            try
+                                            {
+                                                var file = diff.Destination as FileInfo;
+                                                if (file != null)
+                                                {
+                                                    newElement.SetAttributeValue("destination",
+                                                                                 file.Length);
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                // ignore
+                                            }
+                                        }
+                                        break;
+                                }
+
+                                newDifferenceElement.Add(newElement);
+                            }
+                        }
+                    }
+
+                    differencesElement.Add(newDifferenceElement);
+                }
 
                 xmlDoc.Root.Add(differencesElement);
             }
@@ -630,6 +734,28 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             // errors
             {
                 var errorsElement = new XElement("errors");
+                foreach (var err in results.OfType<CompareError>())
+                {
+                    var newErrorElement = new XElement("error");
+                    newErrorElement.SetAttributeValue("type",
+                                                      err.Exception.GetType().FullName);
+
+                    if (err.Source != null)
+                    {
+                        newErrorElement.SetAttributeValue("source",
+                                                          err.Source.FullName);
+                    }
+
+                    if (err.Destination != null)
+                    {
+                        newErrorElement.SetAttributeValue("destination",
+                                                          err.Destination.FullName);
+                    }
+
+                    newErrorElement.Value = err.Exception.ToString();
+
+                    errorsElement.Add(newErrorElement);
+                }
 
                 xmlDoc.Root.Add(errorsElement);
             }
@@ -683,6 +809,11 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
                         try
                         {
                             e.Handled = true;
+
+                            if (e.Source.Name == "Program.cs")
+                            {
+                                throw new Exception("Wurst");
+                            }
 
                             task.Progress.Source = e.Source;
                             task.Progress.Destination = e.Destination;

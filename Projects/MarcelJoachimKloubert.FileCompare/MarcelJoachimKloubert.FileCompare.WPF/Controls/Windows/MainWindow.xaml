@@ -376,8 +376,8 @@
                                                     </Hyperlink>
                                                 </TextBlock>
 
-                                                <WrapPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                                                           Margin="16,16,0,16"
+                                                <WrapPanel Grid.Row="2" Grid.Column="1"
+                                                           Margin="0,16,0,16"
                                                            Orientation="Horizontal">
 
                                                     <WrapPanel.Resources>
@@ -407,6 +407,77 @@
                                                                                 Converter={StaticResource BooleanToVisibilityConverter}}"
                                                            ToolTip="Different last write timestamps" />
                                                 </WrapPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+
+                                <!-- CompareError -->
+                                <DataTemplate DataType="{x:Type local:CompareError}">
+                                    <Border Margin="0,4,8,4"
+                                            Padding="0,4,4,4">
+
+                                        <Border.Resources>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="TextWrapping" Value="Wrap" />
+                                                <Setter Property="VerticalAlignment" Value="Top" />
+                                            </Style>
+                                        </Border.Resources>
+                                        
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Grid.Column="0"
+                                                   Margin="8,8,16,0"
+                                                   Source="../../Resources/Icons/error.png"
+                                                   VerticalAlignment="Top"
+                                                   Width="48px" />
+
+                                            <Grid Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="92px" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition MinHeight="24px" />
+                                                    <RowDefinition MinHeight="24px" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                                           Margin="0,0,8,0"
+                                                           TextAlignment="Right">Source:</TextBlock>
+                                                <TextBlock Grid.Row="0" Grid.Column="1"
+                                                           ToolTip="Click to open...">
+                                                    <Hyperlink Command="{Binding Path=OpenItemCommand, Mode=OneWay}"
+                                                               CommandParameter="{Binding Path=Source, Mode=OneWay}"
+                                                               IsEnabled="{Binding Path=Source.Exists, Mode=OneWay}">
+                            
+                                                        <Run Text="{Binding Path=Source.FullName, Mode=OneWay}" />
+                                                    </Hyperlink>
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="1" Grid.Column="0"
+                                                           Margin="0,0,8,0"
+                                                           TextAlignment="Right">Destination:</TextBlock>
+                                                <TextBlock Grid.Row="1" Grid.Column="1"
+                                                           ToolTip="Click to open...">
+                                                    <Hyperlink Command="{Binding Path=OpenItemCommand, Mode=OneWay}"
+                                                               CommandParameter="{Binding Path=Destination, Mode=OneWay}"
+                                                               IsEnabled="{Binding Path=Destination.Exists, Mode=OneWay}">
+                            
+                                                        <Run Text="{Binding Path=Destination.FullName, Mode=OneWay}" />
+                                                    </Hyperlink>
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="2" Grid.Column="1"
+                                                           Margin="0,16,0,16"
+                                                           FontFamily="Consolas"
+                                                           Text="{Binding Path=Exception, Mode=OneWay}" />
                                             </Grid>
                                         </Grid>
                                     </Border>

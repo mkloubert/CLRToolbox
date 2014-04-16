@@ -4,7 +4,6 @@
 
 using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows;
 using MarcelJoachimKloubert.CLRToolbox.IO;
-using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
 using System.Diagnostics;
 using System.Drawing.Imaging;
@@ -43,7 +42,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
 
         #endregion Constructors
 
-        #region Properties (9)
+        #region Properties (8)
 
         /// <inheriteddoc />
         public override FileSystemInfo Destination
@@ -119,15 +118,6 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
             }
         }
 
-        /// <summary>
-        /// Gets the command that opens a directory or file.
-        /// </summary>
-        public SimpleCommand<FileSystemInfo> OpenItemCommand
-        {
-            get;
-            private set;
-        }
-
         /// <inheriteddoc />
         public override FileSystemInfo Source
         {
@@ -143,7 +133,7 @@ namespace MarcelJoachimKloubert.FileCompare.WPF.Classes
         /// <inheriteddoc />
         protected override void OnConstructor()
         {
-            this.OpenItemCommand = new SimpleCommand<FileSystemInfo>(this.OpenItem);
+            base.OnConstructor();
 
             App.Current
                .BeginInvoke((a, appState) =>

@@ -88,7 +88,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
                 }
             }
 
-            return new AssemblyDocumentation(xml ?? new XElement("doc"))
+            return new AssemblyDocumentation(xml)
             {
                 ClrAssembly = asm,
             };

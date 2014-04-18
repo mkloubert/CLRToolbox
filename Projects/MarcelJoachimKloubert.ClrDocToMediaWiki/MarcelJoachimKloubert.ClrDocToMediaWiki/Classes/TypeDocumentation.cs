@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         #region Constructors (1)
 
         internal TypeDocumentation(AssemblyDocumentation asmDoc, Type type, XElement xml)
-            : base(xml ?? new XElement("member"))
+            : base(xml)
         {
             if (asmDoc == null)
             {

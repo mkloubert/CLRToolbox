@@ -25,7 +25,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// <paramref name="typeDoc" /> and/or <paramref name="member" /> are <see langword="null" />.
         /// </exception>
         protected MemberDocumentationBase(TypeDocumentation typeDoc, M member, XElement xml)
-            : base(xml: xml ?? new XElement("member"))
+            : base(xml: xml)
         {
             if (typeDoc == null)
             {

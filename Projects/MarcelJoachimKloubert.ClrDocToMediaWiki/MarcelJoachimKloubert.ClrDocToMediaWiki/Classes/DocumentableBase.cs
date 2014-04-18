@@ -19,16 +19,8 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// Initializes a new instance of <see cref="DocumentableBase" /> class.
         /// </summary>
         /// <param name="xml">The value for the <see cref="DocumentableBase.Xml" /> property.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="xml" /> is <see langword="null" />.
-        /// </exception>
         protected DocumentableBase(XElement xml)
         {
-            if (xml == null)
-            {
-                throw new ArgumentNullException("xml");
-            }
-
             this.Xml = xml;
 
             this.InitSummary();
@@ -71,9 +63,12 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// </summary>
         protected virtual void InitRemarks()
         {
-            this.Remarks = this.Xml
-                               .Elements("remarks")
-                               .FirstOrDefault();
+            if (this.Xml != null)
+            {
+                this.Remarks = this.Xml
+                                   .Elements("remarks")
+                                   .FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -81,9 +76,12 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// </summary>
         protected virtual void InitSummary()
         {
-            this.Summary = this.Xml
-                               .Elements("summary")
-                               .FirstOrDefault();
+            if (this.Xml != null)
+            {
+                this.Summary = this.Xml
+                                   .Elements("summary")
+                                   .FirstOrDefault();
+            }
         }
 
         #endregion Methods

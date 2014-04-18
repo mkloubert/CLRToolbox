@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         #region Constructors (1)
 
         internal MethodParameterDocumentation(MethodDocumentation parent, ParameterInfo parameter, XElement xml)
-            : base(parent, parameter, xml ?? new XElement("param"))
+            : base(parent, parameter, xml)
         {
 
         }

@@ -13,6 +13,10 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki
 {
     internal static class Program
     {
+        #region Methods (1)
+
+        // Private Methods (1) 
+
         private static int Main(string[] args)
         {
             try
@@ -71,7 +75,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki
                         foreach (var t in types)
                         {
                             var test = t.ClrType.IsPublic;
-                            
+
                             var constructors = t.GetConstructors().ToArray();
                             var events = t.GetEvents().ToArray();
                             var fields = t.GetFields().ToArray();
@@ -85,8 +89,6 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki
                         var page = new Page(site, "CLRToolbox:Sandbox");
                         page.LoadWithMetadata();
                         page.ResolveRedirect();
-                        
-
                     }
                     catch
                     {
@@ -100,5 +102,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki
                 return 1;
             }
         }
+
+        #endregion Methods
     }
 }

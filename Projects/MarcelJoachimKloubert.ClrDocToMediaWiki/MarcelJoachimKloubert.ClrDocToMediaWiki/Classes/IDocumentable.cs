@@ -11,8 +11,8 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
     /// </summary>
     public interface IDocumentable
     {
-        #region Data Members (2) 
-        
+        #region Data Members (3)
+
         /// <summary>
         /// Gets the remarks part of <see cref="IDocumentable.Xml" />.
         /// </summary>
@@ -28,6 +28,6 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// </summary>
         XElement Xml { get; }
 
-        #endregion Data Members 
+        #endregion Data Members
     }
 }

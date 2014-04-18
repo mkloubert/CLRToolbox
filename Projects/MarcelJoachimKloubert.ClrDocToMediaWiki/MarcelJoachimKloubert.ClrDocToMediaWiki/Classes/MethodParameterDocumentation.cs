@@ -17,7 +17,6 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         internal MethodParameterDocumentation(MethodDocumentation parent, ParameterInfo parameter, XElement xml)
             : base(parent, parameter, xml)
         {
-
         }
 
         #endregion Constructors

@@ -3,7 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.ClrDocToMediaWiki.Classes.Helpers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,6 +26,8 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         #endregion Constructors
 
         #region Methods (2)
+
+        // Public Methods (2) 
 
         /// <summary>
         /// Returns all parameters of that method.

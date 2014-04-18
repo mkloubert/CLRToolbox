@@ -3,9 +3,8 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.ClrDocToMediaWiki.Classes.Helpers;
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -22,12 +21,11 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         internal PropertyDocumentation(TypeDocumentation typeDoc, PropertyInfo property, XElement xml)
             : base(typeDoc, property, xml)
         {
-
         }
 
         #endregion Constructors
 
-        #region Methods (1)
+        #region Methods (2)
 
         // Public Methods (2) 
 

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -30,7 +29,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         #endregion Constructors
 
         #region Properties (3)
-        
+
         /// <inheriteddoc />
         public XElement Remarks
         {
@@ -56,8 +55,8 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
         #region Methods (2)
 
-        // Public Methods (2) 
-        
+        // Protected Methods (2) 
+
         /// <summary>
         /// Initializes the <see cref="DocumentableBase.Remarks" /> property.
         /// </summary>

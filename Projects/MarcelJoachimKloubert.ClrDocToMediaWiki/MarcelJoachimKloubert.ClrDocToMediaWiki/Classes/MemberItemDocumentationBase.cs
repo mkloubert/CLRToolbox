@@ -70,7 +70,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
         #region Methods (2)
 
-        // Public Methods (2) 
+        // Protected Methods (2) 
 
         /// <inheriteddoc />
         protected override void InitRemarks()

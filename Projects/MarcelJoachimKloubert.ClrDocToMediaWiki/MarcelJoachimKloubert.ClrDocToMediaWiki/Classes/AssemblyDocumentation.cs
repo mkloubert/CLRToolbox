@@ -30,7 +30,6 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         private AssemblyDocumentation(XElement xml)
             : base(xml: xml)
         {
-
         }
 
         #endregion Constructors
@@ -51,18 +50,6 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         #region Methods (5)
 
         // Public Methods (5) 
-
-        /// <summary>
-        /// Returns all cached items.
-        /// </summary>
-        /// <returns>Cached items.</returns>
-        public static IEnumerable<AssemblyDocumentation> GetCache()
-        {
-            foreach (var item in _CACHE.OrderBy(t => t.Key.FullName, StringComparer.InvariantCultureIgnoreCase))
-            {
-                yield return item.Value;
-            }
-        }
 
         /// <summary>
         /// Creates a new instance from an <see cref="Assembly" /> object.
@@ -141,8 +128,8 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
             {
                 xml = new XElement("doc");
             }
-            
-            var result =  new AssemblyDocumentation(xml)
+
+            var result = new AssemblyDocumentation(xml)
             {
                 ClrAssembly = asm,
             };
@@ -179,7 +166,19 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
             return FromAssembly(asm: asm,
                                 ignoreXmlDocErrors: ignoreXmlDocErrors,
-                                useCache:useCache);
+                                useCache: useCache);
+        }
+
+        /// <summary>
+        /// Returns all cached items.
+        /// </summary>
+        /// <returns>Cached items.</returns>
+        public static IEnumerable<AssemblyDocumentation> GetCache()
+        {
+            foreach (var item in _CACHE.OrderBy(t => t.Key.FullName, StringComparer.InvariantCultureIgnoreCase))
+            {
+                yield return item.Value;
+            }
         }
 
         /// <summary>

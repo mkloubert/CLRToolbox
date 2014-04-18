@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
@@ -17,10 +16,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
     /// </summary>
     public class IniFileConfigRepository : KeyValuePairConfigRepository
     {
-        #region Fields (2)
+        #region Fields (3)
 
         private readonly bool _CAN_WRITE;
         private readonly string _FILE_PATH;
+        private static readonly string _TEMP_CHAR = ((char)1).ToString();
 
         #endregion Fields
 
@@ -64,7 +64,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         public IniFileConfigRepository(FileInfo file, bool isReadOnly)
             : this(file.FullName, isReadOnly)
         {
-
         }
 
         /// <summary>
@@ -77,7 +76,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         public IniFileConfigRepository(IEnumerable<char> filePath)
             : this(filePath, true)
         {
-
         }
 
         /// <summary>
@@ -89,7 +87,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         public IniFileConfigRepository(FileInfo file)
             : this(file, true)
         {
-
         }
 
         #endregion Constructors
@@ -97,7 +94,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         #region Properties (2)
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="ConfigRepositoryBase.CanWrite" />
         public override bool CanWrite
@@ -126,17 +123,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <returns>The converted value.</returns>
         protected virtual IEnumerable<char> FromIniSectionValue(string input)
         {
-            string result = (input ?? string.Empty).Replace("\\n", "\n")
-                                                   .Replace("\\r", "\r")
-                                                   .Replace("\\0", "\0")
-                                                   .Replace("\\a", "\a")
-                                                   .Replace("\\b", "\b")
-                                                   .Replace("\\t", "\t")
-                                                   .Replace("\\;", ";")
-                                                   .Replace("\\#", "#")
-                                                   .Replace("\\=", "=")
-                                                   .Replace("\\:", ":")
-                                                   .Replace("\\\\", "\\");
+            string result = (input ?? string.Empty).Replace("\\\\", _TEMP_CHAR);
+
+            result = result.Replace("\\n", "\n")
+                           .Replace("\\r", "\r")
+                           .Replace("\\0", "\0")
+                           .Replace("\\a", "\a")
+                           .Replace("\\b", "\b")
+                           .Replace("\\t", "\t")
+                           .Replace("\\;", ";")
+                           .Replace("\\#", "#")
+                           .Replace("\\=", "=")
+                           .Replace("\\:", ":");
+
+            result = result.Replace(_TEMP_CHAR, "\\");
 
             return result != string.Empty ? result : null;
         }
@@ -151,7 +151,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="KeyValuePairConfigRepository.OnSetValue{T}(string, string, T, ref bool)"/>
         protected override void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet, bool invokeOnUpdated)
@@ -170,7 +170,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="KeyValuePairConfigRepository.OnTryGetValue{T}(string, string, ref T, ref bool)"/>
         protected override void OnTryGetValue<T>(string category, string name, ref T foundValue, ref bool valueWasFound)
@@ -193,7 +193,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
             if (strValue != null)
             {
                 throwException = true;
-
 
                 if (targetType.Equals(typeof(bool)) ||
                     targetType.Equals(typeof(bool?)))
@@ -255,7 +254,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="KeyValuePairConfigRepository.OnUpdated()" />
         protected override void OnUpdated()
@@ -366,6 +365,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                                                                        .Replace(":", "\\:")
                                                                        .Replace("\t", "\\t");
         }
+
         // Private Methods (1) 
 
         private void LoadIniFile()

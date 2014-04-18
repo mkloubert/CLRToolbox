@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7251BEA4-9133-4EFA-99F0-7A41B0D16916}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MarcelJoachimKloubert.ClrDocToMediaWiki</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.ClrDocToMediaWiki</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\AssemblyDocumentation.cs" />
+    <Compile Include="Classes\DocumentableBase.cs" />
+    <Compile Include="Classes\ConstructorDocumentation.cs" />
+    <Compile Include="Classes\EventDocumentation.cs" />
+    <Compile Include="Classes\FieldDocumentation.cs" />
+    <Compile Include="Classes\Helpers\ParameterHelper.cs" />
+    <Compile Include="Classes\IDocumentable.cs" />
+    <Compile Include="Classes\MemberDocumentationBase.cs" />
+    <Compile Include="Classes\MemberItemDocumentationBase.cs" />
+    <Compile Include="Classes\MethodDocumentation.cs" />
+    <Compile Include="Classes\PropertyParameterDocumentation.cs" />
+    <Compile Include="Classes\MethodParameterDocumentation.cs" />
+    <Compile Include="Classes\PropertyDocumentation.cs" />
+    <Compile Include="Classes\TypeDocumentation.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40.Web\MarcelJoachimKloubert.CLRToolbox.40.Web.csproj">
+      <Project>{dc3ca98c-2b04-4603-ac85-7ea34ecd393b}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.40.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
+      <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.sample.ini" />
+    <None Include="config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

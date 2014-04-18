@@ -53,6 +53,9 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.web\_embedded\dotnetwikibot\DotNetWikiBot.cs">
+      <Link>_Embedded\DotNetWikiBot\DotNetWikiBot.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

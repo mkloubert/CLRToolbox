@@ -2,6 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Configuration;
+using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
+using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MarcelJoachimKloubert.CryptoDrop.Forms
@@ -22,5 +26,20 @@ namespace MarcelJoachimKloubert.CryptoDrop.Forms
         }
 
         #endregion Constructors
+
+        public IConfigRepository Config
+        {
+            get;
+            private set;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var configFile = new FileInfo(Path.Combine(Environment.CurrentDirectory,
+                                                       "config.ini"));
+
+            this.Config = new IniFileConfigRepository(configFile,
+                                                      isReadOnly: false);
+        }
     }
 }

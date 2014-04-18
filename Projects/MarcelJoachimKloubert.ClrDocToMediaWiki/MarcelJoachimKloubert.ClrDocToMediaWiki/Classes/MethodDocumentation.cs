@@ -34,6 +34,11 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// <returns>The parameters of that method.</returns>
         public IEnumerable<MethodParameterDocumentation> GetParameters()
         {
+            if (this.Xml == null)
+            {
+                yield break;
+            }
+
             foreach (var param in this.ClrMember
                                       .GetParameters()
                                       .OrderBy(p => p.Position))

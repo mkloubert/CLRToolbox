@@ -37,6 +37,11 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         /// <returns>The index parameters of that property.</returns>
         public IEnumerable<PropertyParameterDocumentation> GetIndexParameters()
         {
+            if (this.Xml == null)
+            {
+                yield break;
+            }
+
             foreach (var param in this.ClrMember
                                       .GetIndexParameters()
                                       .OrderBy(p => p.Position))

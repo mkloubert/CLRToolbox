@@ -4,6 +4,7 @@
 
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,11 +19,18 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
     /// </summary>
     public sealed class AssemblyDocumentation : DocumentableBase
     {
+        #region Fields (1)
+
+        private static IDictionary<Assembly, AssemblyDocumentation> _CACHE = new ConcurrentDictionary<Assembly, AssemblyDocumentation>();
+
+        #endregion Fields
+
         #region Constructors (1)
 
         private AssemblyDocumentation(XElement xml)
             : base(xml: xml)
         {
+
         }
 
         #endregion Constructors
@@ -40,20 +48,127 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (5)
 
-        // Public Methods (3) 
+        // Public Methods (5) 
+
+        /// <summary>
+        /// Returns all cached items.
+        /// </summary>
+        /// <returns>Cached items.</returns>
+        public static IEnumerable<AssemblyDocumentation> GetCache()
+        {
+            foreach (var item in _CACHE.OrderBy(t => t.Key.FullName, StringComparer.InvariantCultureIgnoreCase))
+            {
+                yield return item.Value;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new instance from an <see cref="Assembly" /> object.
+        /// </summary>
+        /// <param name="asm">The underlying assembly object.</param>
+        /// <param name="ignoreXmlDocErrors">
+        /// Ignore errors if XML documentation could not be loaded or (re-)throw exceptions.
+        /// </param>
+        /// <returns>The created instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="asmFile" /> is <see langword="null" />.
+        /// </exception>
+        public static AssemblyDocumentation FromAssembly(Assembly asm,
+                                                         bool ignoreXmlDocErrors = true,
+                                                         bool useCache = true)
+        {
+            if (asm == null)
+            {
+                throw new ArgumentNullException("asm");
+            }
+
+            if (useCache)
+            {
+                AssemblyDocumentation cachedAsm;
+                if (_CACHE.TryGetValue(asm, out cachedAsm))
+                {
+                    return cachedAsm;
+                }
+            }
+
+            // try find XML file
+            FileInfo xmlFile = null;
+            try
+            {
+                var path = asm.Location;
+                if (string.IsNullOrWhiteSpace(path) == false)
+                {
+                    var asmFile = new FileInfo(path);
+
+                    xmlFile = CollectionHelper.SingleOrDefault(asmFile.Directory.GetFiles(),
+                                                               f => f.Name.ToLower().Trim() ==
+                                                                    string.Format("{0}.xml",
+                                                                                  Path.GetFileNameWithoutExtension(f.Name)).ToLower().Trim());
+                }
+            }
+            catch
+            {
+                xmlFile = null;
+            }
+
+            XElement xml = null;
+            if (xmlFile != null)
+            {
+                try
+                {
+                    if (xmlFile.Exists)
+                    {
+                        using (var stream = xmlFile.OpenRead())
+                        {
+                            xml = XDocument.Load(stream).Root;
+                        }
+                    }
+                }
+                catch
+                {
+                    xml = null;
+
+                    if (ignoreXmlDocErrors == false)
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            if (xml == null)
+            {
+                xml = new XElement("doc");
+            }
+            
+            var result =  new AssemblyDocumentation(xml)
+            {
+                ClrAssembly = asm,
+            };
+
+            if (useCache)
+            {
+                _CACHE[asm] = result;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Creates a new instance from an file.
         /// </summary>
         /// <param name="asmFile">The assembly file.</param>
         /// <param name="ignoreXmlDocErrors">
-        /// Ignore errors if XML documentation could not be loaded.
+        /// Ignore errors if XML documentation could not be loaded or (re-)throw exceptions.
         /// </param>
         /// <returns>The created instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="asmFile" /> is <see langword="null" />.
+        /// </exception>
         public static AssemblyDocumentation FromFile(FileInfo asmFile,
-                                                     bool ignoreXmlDocErrors = true)
+                                                     bool ignoreXmlDocErrors = true,
+                                                     bool useCache = false)
         {
             if (asmFile == null)
             {
@@ -62,36 +177,9 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
             var asm = Assembly.LoadFrom(asmFile.FullName);
 
-            XElement xml = null;
-            try
-            {
-                var xmlFile = CollectionHelper.SingleOrDefault(asmFile.Directory.GetFiles(),
-                                                               f => f.Name.ToLower().Trim() ==
-                                                                    string.Format("{0}.xml",
-                                                                                  Path.GetFileNameWithoutExtension(f.Name)).ToLower().Trim());
-
-                if (xmlFile.Exists)
-                {
-                    using (var stream = xmlFile.OpenRead())
-                    {
-                        xml = XDocument.Load(stream).Root;
-                    }
-                }
-            }
-            catch
-            {
-                xml = null;
-
-                if (ignoreXmlDocErrors == false)
-                {
-                    throw;
-                }
-            }
-
-            return new AssemblyDocumentation(xml)
-            {
-                ClrAssembly = asm,
-            };
+            return FromAssembly(asm: asm,
+                                ignoreXmlDocErrors: ignoreXmlDocErrors,
+                                useCache:useCache);
         }
 
         /// <summary>

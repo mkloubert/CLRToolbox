@@ -42,6 +42,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
             }
 
             this.Parent = parent;
+            this.ClrItem = item;
         }
 
         #endregion Constructors

@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes.Helpers
                 if (paramArray.Length > 0)
                 {
                     return "(" + string.Join(",",
-                                             paramArray.Select(p => p.ParameterType.FullName)) + ")";
+                                             paramArray.Select(p => TypeHelper.GetFullName(p.ParameterType))) + ")";
                 }
             }
 

@@ -2,7 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
@@ -53,9 +57,37 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (7)
 
-        // Protected Methods (2) 
+        // Public Methods (3) 
+
+        /// <inheriteddoc />
+        public string GetWikiPageName()
+        {
+            return this.OnGetWikiPageName().AsString();
+        }
+
+        /// <inheriteddoc />
+        public string ToMediaWiki()
+        {
+            var builder = new StringBuilder();
+            this.OnToMediaWiki(ref builder);
+
+            return builder != null ? builder.ToString() : null;
+        }
+
+        /// <inheriteddoc />
+        public void ToMediaWiki(StringBuilder builder)
+        {
+            if (builder == null)
+            {
+                throw new ArgumentNullException("builder");
+            }
+
+            this.OnToMediaWiki(ref builder);
+        }
+
+        // Protected Methods (4) 
 
         /// <summary>
         /// Initializes the <see cref="DocumentableBase.Remarks" /> property.
@@ -81,6 +113,24 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
                                    .Elements("summary")
                                    .FirstOrDefault();
             }
+        }
+
+        /// <summary>
+        /// Stores the logic for the <see cref="DocumentableBase.GetWikiPageName()" /> method.
+        /// </summary>
+        /// <returns>The result for <see cref="DocumentableBase.GetWikiPageName()" />.</returns>
+        protected virtual IEnumerable<char> OnGetWikiPageName()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Stores the logic for the <see cref="DocumentableBase.ToMediaWiki(StringBuilder)" /> method.
+        /// </summary>
+        /// <param name="builder">The builder that should be used to write the markup to.</param>
+        protected virtual void OnToMediaWiki(ref StringBuilder builder)
+        {
+            builder = null;
         }
 
         #endregion Methods

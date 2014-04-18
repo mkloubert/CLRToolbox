@@ -5,6 +5,8 @@
 using DotNetWikiBot;
 using MarcelJoachimKloubert.ClrDocToMediaWiki.Classes;
 using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.IO;
 using System;
 using System.IO;
 using System.Linq;
@@ -13,9 +15,61 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki
 {
     internal static class Program
     {
-        #region Methods (1)
+        #region Fields (1)
 
-        // Private Methods (1) 
+        // Private Fields (1) 
+
+        private static readonly object _SYNC_CONSOLE = new object();
+        
+        #endregion Fields
+
+        #region Methods (3)
+
+        // Private Methods (3) 
+
+        private static IConsole InvokeForConsoleColor(this IConsole console,
+                                                      Action<IConsole> action,
+                                                      ConsoleColor? foreColor = null, ConsoleColor? bgColor = null)
+        {
+            return InvokeForConsoleColor<object>(console,
+                                                 (c, state) => action(c),
+                                                 actionState: null,
+                                                 foreColor: foreColor, bgColor: bgColor);
+        }
+
+        private static IConsole InvokeForConsoleColor<T>(this IConsole console,
+                                                         Action<IConsole, T> action,
+                                                         T actionState,
+                                                         ConsoleColor? foreColor = null, ConsoleColor? bgColor = null)
+        {
+            lock (_SYNC_CONSOLE)
+            {
+                var oldForeColor = console.ForegroundColor;
+                var oldBgColor = console.BackgroundColor;
+
+                try
+                {
+                    if (foreColor.HasValue)
+                    {
+                        console.ForegroundColor = foreColor.Value;
+                    }
+
+                    if (bgColor.HasValue)
+                    {
+                        console.BackgroundColor = bgColor.Value;
+                    }
+
+                    action(console, actionState);
+                }
+                finally
+                {
+                    console.ForegroundColor = oldForeColor;
+                    console.BackgroundColor = oldBgColor;
+                }
+            }
+
+            return console;
+        }
 
         private static int Main(string[] args)
         {
@@ -26,80 +80,60 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki
 
                 var ini = new IniFileConfigRepository(configFile);
 
-                foreach (var task in ini.GetCategoryNames())
+                foreach (var settings in DocumentationSettings.FromConfig(ini)
+                                                              .Where(ds => ds.IsActive))
                 {
                     try
                     {
-                        var asmFile = new FileInfo(ini.GetValue<string>("assembly", task));
-                        var siteUrl = new Uri(ini.GetValue<string>("site", task));
+                        var site = new Site(settings.WikiUrl,
+                                            settings.Username, settings.Password.ToUnsecureString());
 
-                        var user = ini.GetValue<string>("user", task).Trim();
-                        var pwd = ini.GetValue<string>("password", task);
+                        var doc = AssemblyDocumentation.FromFile(new FileInfo(settings.AssemblyFile));
+                        doc.UpdateSettings(settings);
 
-                        string @namespace;
-                        ini.TryGetValue<string>("namespace", out @namespace, task);
+                        var asmPageName = doc.GetWikiPageName();
 
-                        if (string.IsNullOrWhiteSpace(@namespace))
-                        {
-                            @namespace = null;
-                        }
-                        else
-                        {
-                            @namespace = @namespace.Trim();
-                        }
+                        var asmPage = new Page(site, asmPageName);
+                        asmPage.LoadWithMetadata();
+                        asmPage.ResolveRedirect();
 
-                        if (@namespace != null)
-                        {
-                            while (@namespace.EndsWith("/"))
-                            {
-                                @namespace = @namespace.Substring(0, @namespace.Length - 1).Trim();
-                            }
-                        }
-
-                        if (string.IsNullOrWhiteSpace(@namespace))
-                        {
-                            @namespace = null;
-                        }
-                        else
-                        {
-                            @namespace = @namespace.Trim();
-                        }
-
-                        // CLRToolbox:Sandbox
-                        var site = new Site(siteUrl.ToString(),
-                                            user, pwd);
-
-                        var doc = AssemblyDocumentation.FromFile(asmFile);
-
-                        var types = doc.GetTypes().ToArray();
-                        foreach (var t in types)
-                        {
-                            var test = t.ClrType.IsPublic;
-
-                            var constructors = t.GetConstructors().ToArray();
-                            var events = t.GetEvents().ToArray();
-                            var fields = t.GetFields().ToArray();
-                            var methods = t.GetMethods().ToArray();
-                            var properties = t.GetProperties().ToArray();
-
-                            var m2 = methods.Where(m => m.GetParameters().Any()).ToArray();
-                            var p2 = properties.Where(p => p.GetIndexParameters().Any()).ToArray();
-                        }
-
-                        var page = new Page(site, "CLRToolbox:Sandbox");
-                        page.LoadWithMetadata();
-                        page.ResolveRedirect();
+                        asmPage.text = doc.ToMediaWiki();
+                        asmPage.Save();
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        GlobalConsole.Current
+                                     .InvokeForConsoleColor((c, state) => c.WriteLine(state.Exception),
+                                                            new
+                                                            {
+                                                                Exception = ex.GetBaseException() ?? ex,
+                                                            }, foreColor: ConsoleColor.Red
+                                                             , bgColor: ConsoleColor.Black);
                     }
                 }
 
                 return 0;
             }
-            catch
+            catch (Exception ex)
             {
+                GlobalConsole.Current
+                             .InvokeForConsoleColor((c, state) => c.WriteLine(state.Exception),
+                                                    new
+                                                    {
+                                                        Exception = ex.GetBaseException() ?? ex,
+                                                    }, foreColor: ConsoleColor.Yellow
+                                                     , bgColor: ConsoleColor.Red);
+
                 return 1;
+            }
+            finally
+            {
+#if DEBUG
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.WriteLine();
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.WriteLine();
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.WriteLine("===== ENTER ====");
+                global::MarcelJoachimKloubert.CLRToolbox.IO.GlobalConsole.Current.ReadLine();
+#endif
             }
         }
 

@@ -44,10 +44,13 @@
     <Compile Include="Classes\AssemblyDocumentation.cs" />
     <Compile Include="Classes\DocumentableBase.cs" />
     <Compile Include="Classes\ConstructorDocumentation.cs" />
+    <Compile Include="Classes\DocumentationSettings.cs" />
     <Compile Include="Classes\EventDocumentation.cs" />
     <Compile Include="Classes\FieldDocumentation.cs" />
     <Compile Include="Classes\Helpers\ParameterHelper.cs" />
+    <Compile Include="Classes\Helpers\TypeHelper.cs" />
     <Compile Include="Classes\IDocumentable.cs" />
+    <Compile Include="Classes\IDocumentationSettings.cs" />
     <Compile Include="Classes\MemberDocumentationBase.cs" />
     <Compile Include="Classes\MemberItemDocumentationBase.cs" />
     <Compile Include="Classes\MethodDocumentation.cs" />

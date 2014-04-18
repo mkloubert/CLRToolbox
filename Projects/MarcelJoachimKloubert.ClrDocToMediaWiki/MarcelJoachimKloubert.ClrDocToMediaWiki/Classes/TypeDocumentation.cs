@@ -16,6 +16,12 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
     /// </summary>
     public sealed class TypeDocumentation : DocumentableBase
     {
+        #region Fields (1)
+
+        private Lazy<IEnumerable<MethodDocumentation>> _methods;
+
+        #endregion Fields
+
         #region Constructors (1)
 
         internal TypeDocumentation(AssemblyDocumentation asmDoc, Type type, XElement xml)
@@ -33,11 +39,13 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
             this.Assembly = asmDoc;
             this.ClrType = type;
+
+            this.Reset();
         }
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (6)
 
         /// <summary>
         /// Gets the underlying assembly.
@@ -57,11 +65,57 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
             private set;
         }
 
+        /// <summary>
+        /// Gets the full display name.
+        /// </summary>
+        public string FullDisplayName
+        {
+            get
+            {
+                var result = this.FullName;
+                if (string.IsNullOrEmpty(result))
+                {
+                    return result;
+                }
+
+                var genArgs = this.GetGenericArguments().ToArray();
+                var displayArgs = "(" + string.Join(",",
+                                                    genArgs.Select(ga =>
+                                                    {
+                                                        if (ga.ClrType.IsGenericParameter)
+                                                        {
+                                                            return ga.Name;
+                                                        }
+
+                                                        return ga.FullDisplayName;
+                                                    })) + ")";
+
+                return result.Replace("`" + genArgs.Length,
+                                      displayArgs);
+            }
+        }
+
+        /// <summary>
+        /// Gets the full name of that type.
+        /// </summary>
+        public string FullName
+        {
+            get { return TypeHelper.GetFullName(this.ClrType); }
+        }
+
+        /// <summary>
+        /// Gets the short name of that type.
+        /// </summary>
+        public string Name
+        {
+            get { return TypeHelper.GetName(this.ClrType); }
+        }
+
         #endregion Properties
 
-        #region Methods (6)
+        #region Methods (10)
 
-        // Public Methods (6) 
+        // Public Methods (8) 
 
         /// <summary>
         /// Returns all constructors and their documentations.
@@ -124,24 +178,26 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
         }
 
         /// <summary>
+        /// Returns the documented generic arguments of that type.
+        /// </summary>
+        /// <returns>The generic arguments.</returns>
+        public IEnumerable<TypeDocumentation> GetGenericArguments()
+        {
+            foreach (var genArg in this.ClrType
+                                       .GetGenericArguments()
+                                       .OrderBy(ga => ga.Name, StringComparer.InvariantCultureIgnoreCase))
+            {
+                yield return TypeHelper.GetDocumentation(genArg);
+            }
+        }
+
+        /// <summary>
         /// Returns all methods and their documentations.
         /// </summary>
         /// <returns>The list of method documentations.</returns>
         public IEnumerable<MethodDocumentation> GetMethods()
         {
-            foreach (var method in this.ClrType
-                                       .GetMethods()
-                                       .OrderBy(m => m.Name, StringComparer.InvariantCultureIgnoreCase))
-            {
-                yield return new MethodDocumentation(this, method,
-                                                     this.Assembly
-                                                         .Xml
-                                                         .XPathSelectElements(string.Format("members/member[@name='M:{0}.{1}{2}']",
-                                                                                            this.ClrType.FullName,
-                                                                                            method.Name,
-                                                                                            ParameterHelper.CreateStringList(method.GetParameters())))
-                                                         .FirstOrDefault());
-            }
+            return this._methods.Value;
         }
 
         /// <summary>
@@ -165,10 +221,41 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
             }
         }
 
+        /// <summary>
+        /// Resets that instance.
+        /// </summary>
+        public void Reset()
+        {
+            this._methods = new Lazy<IEnumerable<MethodDocumentation>>(this.GetMethodsInner, isThreadSafe: true);
+        }
+
         /// <inheriteddoc />
         public override string ToString()
         {
-            return "T:" + this.ClrType.FullName;
+            return "T:" + this.FullDisplayName;
+        }
+        
+        // Private Methods (1) 
+
+        private IEnumerable<MethodDocumentation> GetMethodsInner()
+        {
+            var result = new List<MethodDocumentation>();
+
+            foreach (var method in this.ClrType
+                                       .GetMethods()
+                                       .OrderBy(m => m.Name, StringComparer.InvariantCultureIgnoreCase))
+            {
+                result.Add(new MethodDocumentation(this, method,
+                                                   this.Assembly
+                                                       .Xml
+                                                       .XPathSelectElements(string.Format("members/member[@name='M:{0}.{1}{2}']",
+                                                                                          this.ClrType.FullName,
+                                                                                          method.Name,
+                                                                                          ParameterHelper.CreateStringList(method.GetParameters())))
+                                                       .FirstOrDefault()));
+            }
+
+            return result.ToArray();
         }
 
         #endregion Methods

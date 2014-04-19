@@ -49,6 +49,7 @@
     <Compile Include="Classes\FieldDocumentation.cs" />
     <Compile Include="Classes\Helpers\ParameterHelper.cs" />
     <Compile Include="Classes\Helpers\TypeHelper.cs" />
+    <Compile Include="Classes\Helpers\WikiHelper.cs" />
     <Compile Include="Classes\IDocumentable.cs" />
     <Compile Include="Classes\IDocumentationSettings.cs" />
     <Compile Include="Classes\MemberDocumentationBase.cs" />

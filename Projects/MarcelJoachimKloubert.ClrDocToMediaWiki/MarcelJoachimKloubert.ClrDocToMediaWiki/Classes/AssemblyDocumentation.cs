@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.ClrDocToMediaWiki.Classes.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
@@ -321,7 +322,6 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
                 else
                 {
                     regex = new Regex(nsFilter);
-
                 }
             }
 
@@ -385,9 +385,9 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 
                         builder.AppendLine(@"|-
 ! style=""width: 192px"" |'''Name'''
+!'''Summary'''
 ! style=""width: 192px"" |'''Target type'''
-! style=""width: 192px"" |'''Namespace'''
-!'''Summary'''");
+! style=""width: 192px"" |'''Namespace'''");
 
                         foreach (var method in grpMethods.OrderBy(t => t.ClrMember.Name, StringComparer.InvariantCultureIgnoreCase)
                                                          .ThenBy(t => t.ToString(), StringComparer.InvariantCultureIgnoreCase))
@@ -398,10 +398,10 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
 |{1}
 |{2}
 |{3}
-", method.DisplayName
- , method.ExtensionMethodTargetType.FullDisplayName
- , method.ClrMember.DeclaringType.Namespace
- , null);
+", WikiHelper.ToTableCellValue(method.DisplayName)
+ , WikiHelper.ToTableCellValue((WikiHelper.ToWikiMarkup(method.Summary) ?? string.Empty).Trim())
+ , WikiHelper.ToTableCellValue(method.ExtensionMethodTargetType.FullDisplayName)
+ , WikiHelper.ToTableCellValue(method.ClrMember.DeclaringType.Namespace));
                         }
 
                         builder.AppendLine()
@@ -458,8 +458,8 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
                                .AppendFormat(@"|-
 |[[{0}]]
 |{1}
-", type.ClrType.Name
- , null);
+", WikiHelper.ToTableCellValue(type.ClrType.Name)
+ , (WikiHelper.ToWikiMarkup(type.Summary) ?? string.Empty).Trim());
                     }
 
                     builder.AppendLine()
@@ -467,7 +467,7 @@ namespace MarcelJoachimKloubert.ClrDocToMediaWiki.Classes
                 }
             }
         }
-        
+
         // Private Methods (1) 
 
         private IEnumerable<TypeDocumentation> GetTypesInner()

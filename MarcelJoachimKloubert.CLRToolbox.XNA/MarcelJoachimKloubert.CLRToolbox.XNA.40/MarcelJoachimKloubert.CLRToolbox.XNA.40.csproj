@@ -912,6 +912,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Tuple.cs">
       <Link>_Compatibility\System\Tuple.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\MarkdownSharp\Markdown.cs">
+      <Link>_Embedded\MarkdownSharp\Markdown.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Entities\EntityBase.GetPropertyName.cs">
       <Link>Data\Entities\EntityBase.GetPropertyName.cs</Link>
       <DependentUpon>EntityBase.cs</DependentUpon>

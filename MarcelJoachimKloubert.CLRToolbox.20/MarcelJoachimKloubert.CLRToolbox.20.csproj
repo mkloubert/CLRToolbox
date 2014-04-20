@@ -675,6 +675,7 @@
     <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipInputStream.cs" />
     <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipNameTransform.cs" />
     <Compile Include="_Embedded\ICSharpCode.SharpZLib\Zip\ZipOutputStream.cs" />
+    <Compile Include="_Embedded\MarkdownSharp\Markdown.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs" />
     <Compile Include="_Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs" />

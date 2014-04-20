@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.FileCompare
 {
     internal static class Program
     {
-        #region Methods (5) 
+        #region Methods (5)
 
         // Private Methods (5) 
 
@@ -404,7 +404,7 @@ namespace MarcelJoachimKloubert.FileCompare
 
                         ctx.Logger.WriteLine();
                         ctx.Logger.WriteLine();
-                        
+
                         double differentFilesPercentage = 0;
                         double missingFilesPercentage = 0;
                         double sameFilesPercentage = 0;
@@ -420,7 +420,7 @@ namespace MarcelJoachimKloubert.FileCompare
                                                        (double)ctx.ProcessedFiles;
                         }
 
-                        double differentDirsPercentage = 0; 
+                        double differentDirsPercentage = 0;
                         double missingDirsPercentage = 0;
                         double sameDirsPercentage = 0;
                         if (ctx.ProcessedDirs != 0)
@@ -509,13 +509,13 @@ namespace MarcelJoachimKloubert.FileCompare
         private static DateTime NormalizeDateTime(DateTime input)
         {
             return new DateTime(input.Year, input.Month, input.Day,
-                                input.Hour,input.Minute,input.Second);
+                                input.Hour, input.Minute, input.Second);
         }
 
         private static void ShowHelpScreen()
         {
         }
 
-        #endregion Methods 
+        #endregion Methods
     }
 }

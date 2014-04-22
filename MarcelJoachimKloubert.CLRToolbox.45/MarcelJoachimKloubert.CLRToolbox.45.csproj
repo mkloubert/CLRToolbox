@@ -1221,7 +1221,7 @@
       <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipOutputStream.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\markdownsharp\Markdown.cs">
-      <Link>MarkdownSharp\Markdown.cs</Link>
+      <Link>_Embedded\MarkdownSharp\Markdown.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\newtonsoft.json\bson\BsonBinaryType.cs">
       <Link>_Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>

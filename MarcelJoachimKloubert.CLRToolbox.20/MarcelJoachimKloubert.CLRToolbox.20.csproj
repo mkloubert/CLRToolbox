@@ -23,6 +23,7 @@
     <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>3021</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +42,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -614,6 +616,69 @@
     <Compile Include="_Compatibility\System\ITuple.cs" />
     <Compile Include="_Compatibility\System\Tuple.cs" />
     <Compile Include="_Compatibility\System\TMTupleBase.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\FreeImageBitmap.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\FreeImageEngine.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\FreeImagePlugin.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\FreeImageStreamIO.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\GifInformation.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\ImageMetadata.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\LocalPlugin.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\MemoryArray.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\MetadataModel.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\MetadataModels.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\MetadataTag.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\Palette.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\PluginRepository.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\Scanline.cs" />
+    <Compile Include="_Embedded\FreeImage\Classes\StreamWrapper.cs" />
+    <Compile Include="_Embedded\FreeImage\Delegates.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\DisposalMethodType.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_CHANNEL.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_DEPTH.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_OPTIONS.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_TYPE.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_COMPARE_FLAGS.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_DITHER.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_FILTER.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_FORMAT.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_JPEG_OPERATION.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_LOAD_FLAGS.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_MDMODEL.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_MDTYPE.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_METADATA_COPY.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_QUANTIZE.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_SAVE_FLAGS.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_TMO.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\FREE_IMAGE_TYPE.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\ICC_FLAGS.cs" />
+    <Compile Include="_Embedded\FreeImage\Enumerations\MD_SEARCH_FLAGS.cs" />
+    <Compile Include="_Embedded\FreeImage\FreeImageStaticImports.cs" />
+    <Compile Include="_Embedded\FreeImage\FreeImageWrapper.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\BITMAP.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\BITMAPINFO.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\BITMAPINFOHEADER.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FI16RGB555.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FI16RGB565.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FI1BIT.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FI4BIT.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIBITMAP.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FICOMPLEX.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIICCPROFILE.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIMEMORY.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIMETADATA.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIMULTIBITMAP.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIRational.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIRGB16.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIRGBA16.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIRGBAF.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIRGBF.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FITAG.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FIURational.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\fi_handle.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\FreeImageIO.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\Plugin.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\RGBQUAD.cs" />
+    <Compile Include="_Embedded\FreeImage\Structs\RGBTRIPLE.cs" />
     <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2.cs" />
     <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Constants.cs" />
     <Compile Include="_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Exception.cs" />
@@ -890,6 +955,14 @@
   <ItemGroup>
     <EmbeddedResource Include="_Embedded\Newtonsoft.Json\license.txt" />
     <EmbeddedResource Include="_Embedded\Newtonsoft.Json\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Embedded\FreeImage\license-fi.txt" />
+    <EmbeddedResource Include="_Embedded\FreeImage\license-gplv2.txt" />
+    <EmbeddedResource Include="_Embedded\FreeImage\license-gplv3.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_Embedded\FreeImage\Dist\3.1.6.0\x86\FreeImage.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

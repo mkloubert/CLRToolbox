@@ -24,6 +24,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.xml</DocumentationFile>
     <NoWarn>3021</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -1078,6 +1080,195 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Tuple.cs">
       <Link>_Compatibility\System\Tuple.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\FreeImageBitmap.cs">
+      <Link>_Embedded\FreeImage\Classes\FreeImageBitmap.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\FreeImageEngine.cs">
+      <Link>_Embedded\FreeImage\Classes\FreeImageEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\FreeImagePlugin.cs">
+      <Link>_Embedded\FreeImage\Classes\FreeImagePlugin.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\FreeImageStreamIO.cs">
+      <Link>_Embedded\FreeImage\Classes\FreeImageStreamIO.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\GifInformation.cs">
+      <Link>_Embedded\FreeImage\Classes\GifInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\ImageMetadata.cs">
+      <Link>_Embedded\FreeImage\Classes\ImageMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\LocalPlugin.cs">
+      <Link>_Embedded\FreeImage\Classes\LocalPlugin.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\MemoryArray.cs">
+      <Link>_Embedded\FreeImage\Classes\MemoryArray.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\MetadataModel.cs">
+      <Link>_Embedded\FreeImage\Classes\MetadataModel.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\MetadataModels.cs">
+      <Link>_Embedded\FreeImage\Classes\MetadataModels.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\MetadataTag.cs">
+      <Link>_Embedded\FreeImage\Classes\MetadataTag.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\Palette.cs">
+      <Link>_Embedded\FreeImage\Classes\Palette.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\PluginRepository.cs">
+      <Link>_Embedded\FreeImage\Classes\PluginRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\Scanline.cs">
+      <Link>_Embedded\FreeImage\Classes\Scanline.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Classes\StreamWrapper.cs">
+      <Link>_Embedded\FreeImage\Classes\StreamWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Delegates.cs">
+      <Link>_Embedded\FreeImage\Delegates.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\DisposalMethodType.cs">
+      <Link>_Embedded\FreeImage\Enumerations\DisposalMethodType.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_CHANNEL.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_CHANNEL.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_DEPTH.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_DEPTH.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_OPTIONS.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_OPTIONS.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_TYPE.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_COLOR_TYPE.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_COMPARE_FLAGS.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_COMPARE_FLAGS.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_DITHER.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_DITHER.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_FILTER.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_FILTER.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_FORMAT.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_FORMAT.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_JPEG_OPERATION.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_JPEG_OPERATION.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_LOAD_FLAGS.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_LOAD_FLAGS.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_MDMODEL.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_MDMODEL.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_MDTYPE.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_MDTYPE.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_METADATA_COPY.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_METADATA_COPY.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_QUANTIZE.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_QUANTIZE.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_SAVE_FLAGS.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_SAVE_FLAGS.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_TMO.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_TMO.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\FREE_IMAGE_TYPE.cs">
+      <Link>_Embedded\FreeImage\Enumerations\FREE_IMAGE_TYPE.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\ICC_FLAGS.cs">
+      <Link>_Embedded\FreeImage\Enumerations\ICC_FLAGS.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Enumerations\MD_SEARCH_FLAGS.cs">
+      <Link>_Embedded\FreeImage\Enumerations\MD_SEARCH_FLAGS.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\FreeImageStaticImports.cs">
+      <Link>_Embedded\FreeImage\FreeImageStaticImports.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\FreeImageWrapper.cs">
+      <Link>_Embedded\FreeImage\FreeImageWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\BITMAP.cs">
+      <Link>_Embedded\FreeImage\Structs\BITMAP.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\BITMAPINFO.cs">
+      <Link>_Embedded\FreeImage\Structs\BITMAPINFO.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\BITMAPINFOHEADER.cs">
+      <Link>_Embedded\FreeImage\Structs\BITMAPINFOHEADER.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FI16RGB555.cs">
+      <Link>_Embedded\FreeImage\Structs\FI16RGB555.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FI16RGB565.cs">
+      <Link>_Embedded\FreeImage\Structs\FI16RGB565.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FI1BIT.cs">
+      <Link>_Embedded\FreeImage\Structs\FI1BIT.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FI4BIT.cs">
+      <Link>_Embedded\FreeImage\Structs\FI4BIT.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIBITMAP.cs">
+      <Link>_Embedded\FreeImage\Structs\FIBITMAP.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FICOMPLEX.cs">
+      <Link>_Embedded\FreeImage\Structs\FICOMPLEX.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIICCPROFILE.cs">
+      <Link>_Embedded\FreeImage\Structs\FIICCPROFILE.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIMEMORY.cs">
+      <Link>_Embedded\FreeImage\Structs\FIMEMORY.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIMETADATA.cs">
+      <Link>_Embedded\FreeImage\Structs\FIMETADATA.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIMULTIBITMAP.cs">
+      <Link>_Embedded\FreeImage\Structs\FIMULTIBITMAP.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIRational.cs">
+      <Link>_Embedded\FreeImage\Structs\FIRational.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIRGB16.cs">
+      <Link>_Embedded\FreeImage\Structs\FIRGB16.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIRGBA16.cs">
+      <Link>_Embedded\FreeImage\Structs\FIRGBA16.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIRGBAF.cs">
+      <Link>_Embedded\FreeImage\Structs\FIRGBAF.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIRGBF.cs">
+      <Link>_Embedded\FreeImage\Structs\FIRGBF.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FITAG.cs">
+      <Link>_Embedded\FreeImage\Structs\FITAG.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FIURational.cs">
+      <Link>_Embedded\FreeImage\Structs\FIURational.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\fi_handle.cs">
+      <Link>_Embedded\FreeImage\Structs\fi_handle.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\FreeImageIO.cs">
+      <Link>_Embedded\FreeImage\Structs\FreeImageIO.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\Plugin.cs">
+      <Link>_Embedded\FreeImage\Structs\Plugin.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\RGBQUAD.cs">
+      <Link>_Embedded\FreeImage\Structs\RGBQUAD.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Structs\RGBTRIPLE.cs">
+      <Link>_Embedded\FreeImage\Structs\RGBTRIPLE.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2.cs">
       <Link>_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2.cs</Link>
     </Compile>
@@ -2049,6 +2240,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\Dist\3.1.6.0\x86\FreeImage.dll">
+      <Link>_Embedded\FreeImage\Dist\3.1.6.0\x86\FreeImage.dll</Link>
+    </Content>
+    <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\license-fi.txt">
+      <Link>_Embedded\FreeImage\license-fi.txt</Link>
+    </Content>
+    <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\license-gplv2.txt">
+      <Link>_Embedded\FreeImage\license-gplv2.txt</Link>
+    </Content>
+    <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\FreeImage\license-gplv3.txt">
+      <Link>_Embedded\FreeImage\license-gplv3.txt</Link>
+    </Content>
     <Content Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\doc\Changes.txt">
       <Link>_Embedded\ICSharpCode.SharpZLib\doc\Changes.txt</Link>
     </Content>

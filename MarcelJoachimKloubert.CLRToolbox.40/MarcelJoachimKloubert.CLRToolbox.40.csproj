@@ -1866,6 +1866,14 @@
       <Link>Extensions\Collections.IsNotEmpty.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.PeekOrDefault.cs">
+      <Link>Extensions\Collections.PeekOrDefault.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.PushRange.cs">
+      <Link>Extensions\Collections.PushRange.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.Randomize.cs">
       <Link>Extensions\Collections.Randomize.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
@@ -2133,6 +2141,10 @@
     <Compile Include="Diagnostics\Execution\LogCommandBase.Execute.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.ctor.cs" />
     <Compile Include="Diagnostics\Impl\AsyncLogger.OnLog.cs" />
+    <Compile Include="Extensions\Composition.AddExportedValueProvider.cs">
+      <DependentUpon>Composition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Composition.cs" />
     <Compile Include="Extensions\Scripting.SetAction.4.cs" />
     <Compile Include="Extensions\Scripting.SetFunc.4.cs" />
     <Compile Include="Helpers\CollectionHelper.ForAllAsync.Impl.cs" />

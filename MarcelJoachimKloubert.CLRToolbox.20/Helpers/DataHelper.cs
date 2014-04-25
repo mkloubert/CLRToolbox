@@ -4,6 +4,7 @@
 
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using System.Globalization;
+
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     /// <summary>

@@ -1843,6 +1843,12 @@
     <Compile Include="Extensions\Collections.IsNotEmpty.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\Collections.PeekOrDefault.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Collections.PushRange.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Collections.ToEnumerableSafe.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>

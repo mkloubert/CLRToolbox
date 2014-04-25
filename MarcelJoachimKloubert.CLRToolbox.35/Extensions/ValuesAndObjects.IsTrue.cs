@@ -16,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         // Public Methods (2) 
         
         /// <summary>
-        /// Checks if a nullable boolean value is NOT <see langword="langword" />.
+        /// Checks if a nullable boolean value is NOT <see langword="true" />.
         /// </summary>
         /// <param name="value">the value to check.</param>
         /// <returns>Is not <see langword="true" /> is <see langword="true" />.</returns>

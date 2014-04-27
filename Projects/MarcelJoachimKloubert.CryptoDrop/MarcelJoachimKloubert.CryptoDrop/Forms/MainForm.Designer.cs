@@ -62,7 +62,7 @@
             this.toolStripMenuItem1,
             this.ToolStripMenuItem_Main_Stop});
             this.ContextMenuStrip_Main.Name = "ContextMenuStrip_Main";
-            this.ContextMenuStrip_Main.Size = new System.Drawing.Size(180, 132);
+            this.ContextMenuStrip_Main.Size = new System.Drawing.Size(180, 154);
             // 
             // ToolStripMenuItem_Main_Mode
             // 
@@ -140,6 +140,8 @@
             // 
             // ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles
             // 
+            this.ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles.Checked = true;
+            this.ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles.Name = "ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles";
             this.ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles.Size = new System.Drawing.Size(210, 22);
             this.ToolStripMenuItem_Main_TargetFiles_OverwriteExistingFiles.Text = "Overwrite existing files";

@@ -16,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         // Public Methods (3) 
 
         /// <summary>
-        /// Adds the feature to all controls of a form to handle move of that form.
+        /// Adds the feature to all controls of a form to handle moving of that form by dragging its content or its controls.
         /// </summary>
         /// <param name="frm">The form that contains the controls.</param>
         /// <exception cref="ArgumentNullException">
@@ -40,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         }
 
         /// <summary>
-        /// Adds the feature to all controls of a form to handle move of that form.
+        /// Adds the feature to all controls of a form to handle moving of that form by dragging its content or its controls.
         /// </summary>
         /// <param name="frm">The form that contains the controls.</param>
         /// <param name="filter">
@@ -74,7 +74,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         }
 
         /// <summary>
-        /// Adds the feature to all controls of a form to handle move of that form.
+        /// Adds the feature to all controls of a form to handle moving of that form by dragging its content or its controls.
         /// </summary>
         /// <param name="frm">The form that contains the controls.</param>
         /// <param name="setupControlForMove">

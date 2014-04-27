@@ -43,14 +43,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.WinForms.Controls
         /// </summary>
         protected virtual void OnLoad()
         {
-            WinFormsHelper.MakeMoveable(this,
-                                        this.SetupMoveableForm);
+            // dummy
         }
 
         /// <inheriteddoc />
-        protected override void OnLoad(EventArgs e)
+        protected sealed override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            WinFormsHelper.MakeMoveable(this,
+                                        this.SetupMoveableForm);
 
             this.OnLoad();
         }

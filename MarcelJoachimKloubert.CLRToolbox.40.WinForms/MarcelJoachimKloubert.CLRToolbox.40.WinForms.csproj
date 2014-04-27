@@ -76,6 +76,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.cs">
       <Link>Extensions\Controls.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.EnumerateControls.cs">
+      <Link>Extensions\Controls.EnumerateControls.cs</Link>
+      <DependentUpon>Controls.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.InvokeSafe.cs">
       <Link>Extensions\Controls.InvokeSafe.cs</Link>
       <DependentUpon>Controls.cs</DependentUpon>

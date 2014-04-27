@@ -66,6 +66,9 @@
       <DependentUpon>WinFormsHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ClrToolboxWinFormsExtensionMethods.cs" />
+    <Compile Include="Extensions\Controls.EnumerateControls.cs">
+      <DependentUpon>Controls.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Controls.MakeMoveable.cs">
       <DependentUpon>Controls.cs</DependentUpon>
     </Compile>

@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms
 {
     static partial class ClrToolboxWinFormsExtensionMethods
     {
-        #region Methods (4) 
+        #region Methods (4)
 
         // Public Methods (4) 
 
@@ -50,6 +50,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms
             return WinFormsHelper.SendMessage(ctrl, hWnd, msg, wparam, lparam);
         }
 
-        #endregion Methods 
+        #endregion Methods
     }
 }

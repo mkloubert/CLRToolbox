@@ -101,7 +101,7 @@
             // ToolStripMenuItem_Main_UncryptedDir_Current
             // 
             this.ToolStripMenuItem_Main_UncryptedDir_Current.Name = "ToolStripMenuItem_Main_UncryptedDir_Current";
-            this.ToolStripMenuItem_Main_UncryptedDir_Current.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Main_UncryptedDir_Current.Size = new System.Drawing.Size(83, 22);
             this.ToolStripMenuItem_Main_UncryptedDir_Current.Text = "...";
             // 
             // ToolStripMenuItem_Main_CryptedDir
@@ -192,7 +192,6 @@
             this.Controls.Add(this.Label_Info);
             this.Controls.Add(this.ProgressBar_CurrentFile);
             this.Controls.Add(this.ProgressBar_AllFiles);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CryptoDrop";

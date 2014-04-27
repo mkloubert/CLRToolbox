@@ -157,6 +157,15 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\documents\IDocument.cs">
       <Link>Data\Documents\IDocument.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Documents\Svg\SvgChildBase.cs">
+      <Link>Data\Documents\Svg\SvgChildBase.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\documents\svg\SvgDocument.cs">
+      <Link>Data\Documents\Svg\SvgDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Documents\Svg\SvgGroup.cs">
+      <Link>Data\Documents\Svg\SvgGroup.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\entities\EntityBase.cs">
       <Link>Data\Entities\EntityBase.cs</Link>
     </Compile>

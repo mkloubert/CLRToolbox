@@ -53,6 +53,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Behaviours\WebBrowser.cs">
       <Link>Behaviours\WebBrowser.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Controls\SVGImage.xaml.cs">
+      <Link>Controls\SVGImage.xaml.cs</Link>
+      <DependentUpon>SVGImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\CommandValueConverterBase.cs">
       <Link>Data\CommandValueConverterBase.cs</Link>
     </Compile>
@@ -143,6 +147,13 @@
       <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Controls\SVGImage.xaml">
+      <Link>Controls\SVGImage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="Behaviours\WebBrowser.cs" />
     <Compile Include="Collections\ObjectModel\SynchronizedObservableCollection.cs" />
+    <Compile Include="Controls\SVGImage.xaml.cs">
+      <DependentUpon>SVGImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\CommandValueConverterBase.cs" />
     <Compile Include="Data\Impl\CommandValueConverter.cs" />
     <Compile Include="Data\Impl\DelegateToCommandValueConverter.cs" />
@@ -115,6 +118,12 @@
       <Project>{dcd0a910-1d32-43f1-bc05-edb6c19722ae}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.35</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\SVGImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

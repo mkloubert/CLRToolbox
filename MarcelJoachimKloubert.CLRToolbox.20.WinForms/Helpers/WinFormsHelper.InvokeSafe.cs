@@ -9,7 +9,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     static partial class WinFormsHelper
     {
-        #region Methods (6)
+        #region Methods (6) 
 
         // Public Methods (6) 
 
@@ -198,6 +198,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                         funcStateFactory(ctrl));
         }
 
-        #endregion Methods
+        #endregion Methods 
     }
 }

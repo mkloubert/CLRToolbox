@@ -91,6 +91,9 @@
     <Compile Include="Data\DataConnectionBase.cs" />
     <Compile Include="Data\Documents\DocumentBase.cs" />
     <Compile Include="Data\Documents\IDocument.cs" />
+    <Compile Include="Data\Documents\Svg\SvgChildBase.cs" />
+    <Compile Include="Data\Documents\Svg\SvgDocument.cs" />
+    <Compile Include="Data\Documents\Svg\SvgGroup.cs" />
     <Compile Include="Data\Entities\EntityBase.cs" />
     <Compile Include="Data\Entities\EntityBase.dotNet.cs">
       <DependentUpon>EntityBase.cs</DependentUpon>

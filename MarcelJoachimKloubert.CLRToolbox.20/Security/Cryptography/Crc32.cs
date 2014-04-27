@@ -62,10 +62,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 
         #region Properties (1)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="HashAlgorithm.HashSize" />
+        /// <inheriteddoc />
         public override int HashSize
         {
             get { return 32; }
@@ -77,30 +74,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
 
         // Public Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="HashAlgorithm.Initialize()" />
+        /// <inheriteddoc />
         public override void Initialize()
         {
             this._hash = this._SEED;
         }
         // Protected Methods (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="HashAlgorithm.HashCore(byte[], int, int)" />
+        /// <inheriteddoc />
         protected override void HashCore(byte[] buffer, int start, int length)
         {
             this._hash = CalculateHash(this._TABLE, this._hash,
                                        buffer, start, length);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="HashAlgorithm.HashFinal()" />
+        /// <inheriteddoc />
         protected override byte[] HashFinal()
         {
             return this.HashValue = UInt32ToBigEndianBytes(~this._hash);

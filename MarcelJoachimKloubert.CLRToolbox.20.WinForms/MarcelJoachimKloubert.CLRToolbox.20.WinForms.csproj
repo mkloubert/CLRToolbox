@@ -44,10 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BorderlessMoveableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Helpers\WinFormsHelper.InvokeSafe.cs">
       <DependentUpon>WinFormsHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\WinFormsHelper.cs" />
+    <Compile Include="Helpers\WinFormsHelper.UnmakeMoveable.cs">
+      <DependentUpon>WinFormsHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\WinFormsHelper.MakeMoveable.cs">
+      <DependentUpon>WinFormsHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\WinFormsHelper.SendMessage.cs">
+      <DependentUpon>WinFormsHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

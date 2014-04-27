@@ -4,16 +4,16 @@
 
 using MarcelJoachimKloubert.CLRToolbox.Configuration;
 using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
+using MarcelJoachimKloubert.CLRToolbox.WinForms.Controls;
 using System;
 using System.IO;
-using System.Windows.Forms;
 
 namespace MarcelJoachimKloubert.CryptoDrop.Forms
 {
     /// <summary>
     /// The main form.
     /// </summary>
-    public partial class MainForm : Form
+    public partial class MainForm : BorderlessMoveableForm
     {
         #region Constructors (1)
 
@@ -27,11 +27,22 @@ namespace MarcelJoachimKloubert.CryptoDrop.Forms
 
         #endregion Constructors
 
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the configuration for that application.
+        /// </summary>
         public IConfigRepository Config
         {
             get;
             private set;
         }
+
+        #endregion Properties
+
+        #region Methods (1)
+
+        // Private Methods (1) 
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -41,5 +52,7 @@ namespace MarcelJoachimKloubert.CryptoDrop.Forms
             this.Config = new IniFileConfigRepository(configFile,
                                                       isReadOnly: false);
         }
+
+        #endregion Methods
     }
 }

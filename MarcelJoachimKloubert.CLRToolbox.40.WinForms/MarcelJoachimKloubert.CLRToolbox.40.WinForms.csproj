@@ -47,11 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Controls\BorderlessMoveableForm.cs">
+      <Link>Controls\BorderlessMoveableForm.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20.winforms\helpers\WinFormsHelper.cs">
       <Link>Helpers\WinFormsHelper.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20.winforms\helpers\WinFormsHelper.InvokeSafe.cs">
       <Link>Helpers\WinFormsHelper.InvokeSafe.cs</Link>
+      <DependentUpon>WinFormsHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Helpers\WinFormsHelper.MakeMoveable.cs">
+      <Link>Helpers\WinFormsHelper.MakeMoveable.cs</Link>
+      <DependentUpon>WinFormsHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Helpers\WinFormsHelper.SendMessage.cs">
+      <Link>Helpers\WinFormsHelper.SendMessage.cs</Link>
+      <DependentUpon>WinFormsHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Helpers\WinFormsHelper.UnmakeMoveable.cs">
+      <Link>Helpers\WinFormsHelper.UnmakeMoveable.cs</Link>
       <DependentUpon>WinFormsHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\ClrToolboxWinFormsExtensionMethods.cs">
@@ -62,6 +78,18 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.InvokeSafe.cs">
       <Link>Extensions\Controls.InvokeSafe.cs</Link>
+      <DependentUpon>Controls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.MakeMoveable.cs">
+      <Link>Extensions\Controls.MakeMoveable.cs</Link>
+      <DependentUpon>Controls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.SendMessage.cs">
+      <Link>Extensions\Controls.SendMessage.cs</Link>
+      <DependentUpon>Controls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\Extensions\Controls.UnmakeMoveable.cs">
+      <Link>Extensions\Controls.UnmakeMoveable.cs</Link>
       <DependentUpon>Controls.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

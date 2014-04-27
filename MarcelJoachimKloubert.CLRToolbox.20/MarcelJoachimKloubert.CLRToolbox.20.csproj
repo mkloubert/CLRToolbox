@@ -163,6 +163,9 @@
     <Compile Include="Helpers\CollectionHelper.ForAllAsync.Impl.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.IndexOf.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.IsEmpty.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>

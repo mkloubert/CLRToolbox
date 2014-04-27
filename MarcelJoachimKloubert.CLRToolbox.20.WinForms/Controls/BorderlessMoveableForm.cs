@@ -58,7 +58,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.WinForms.Controls
         }
 
         /// <summary>
-        /// Sets up that form or its controls for handling form move.
+        /// Sets up that form or its controls for handling form move by dragging it or its controls.
         /// </summary>
         /// <param name="controlsThatHandleFormMove">The list that defines what controls should handle the form move.</param>
         protected virtual void SetupMoveableForm(IList<Control> controlsThatHandleFormMove)

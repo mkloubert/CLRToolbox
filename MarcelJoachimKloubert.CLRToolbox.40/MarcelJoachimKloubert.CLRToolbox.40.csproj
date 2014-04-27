@@ -368,6 +368,10 @@
       <Link>Helpers\CollectionHelper.ForAllAsync.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IndexOf.cs">
+      <Link>Helpers\CollectionHelper.IndexOf.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IsEmpty.cs">
       <Link>Helpers\CollectionHelper.IsEmpty.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -2056,6 +2060,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForAllAsync.cs">
       <Link>Extensions\Collections.ForAllAsync.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.IndexOf.cs">
+      <Link>Extensions\Collections.IndexOf.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.IsEmpty.cs">

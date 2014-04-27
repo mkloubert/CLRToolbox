@@ -381,6 +381,10 @@
       <Link>Helpers\CollectionHelper.ForAllAsync.Impl.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IndexOf.cs">
+      <Link>Helpers\CollectionHelper.IndexOf.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IsEmpty.cs">
       <Link>Helpers\CollectionHelper.IsEmpty.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -2037,6 +2041,9 @@
     <Compile Include="Diagnostics\Remoting\RemoteLogMessage.cs" />
     <Compile Include="Diagnostics\Remoting\RemoteLogMessageSender.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
+    <Compile Include="Extensions\Collections.IndexOf.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Collections.IsEmpty.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>

@@ -57,10 +57,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
 
         // Protected Methods (5) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ObservableCollection{T}.ClearItems()" />
+        /// <inheriteddoc />
         protected override void ClearItems()
         {
             lock (this._SYNC)
@@ -69,10 +66,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ObservableCollection{T}.InsertItem(int, T)" />
+        /// <inheriteddoc />
         protected override void InsertItem(int index, T item)
         {
             lock (this._SYNC)
@@ -81,10 +75,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ObservableCollection{T}.MoveItem(int, int)" />
+        /// <inheriteddoc />
         protected override void MoveItem(int oldIndex, int newIndex)
         {
             lock (this._SYNC)
@@ -93,10 +84,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ObservableCollection{T}.RemoveItem(int)" />
+        /// <inheriteddoc />
         protected override void RemoveItem(int index)
         {
             lock (this._SYNC)
@@ -105,10 +93,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ObservableCollection{T}.SetItem(int, T)" />
+        /// <inheriteddoc />
         protected override void SetItem(int index, T item)
         {
             lock (this._SYNC)

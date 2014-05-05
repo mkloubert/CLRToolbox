@@ -2,8 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
     #region INTERFACE: IForAllItemExecutionContext<T>
@@ -17,7 +15,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         #region Properties (1)
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IForAllItemExecutionContext{T}.Item" />
         public T Item
@@ -26,7 +24,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
             set;
         }
 
-        #endregion Properties
+        #endregion INTERFACE: IForAllItemExecutionContext<T>
     }
 
     #endregion
@@ -44,7 +42,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         #region Properties (1)
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IForAllItemExecutionContext{T, S}.State" />
         public S State

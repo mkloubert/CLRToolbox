@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30324.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.DragNBatch", "MarcelJoachimKloubert.DragNBatch\MarcelJoachimKloubert.DragNBatch.csproj", "{E4BA2661-5FE9-43B8-8EDA-C91E2AA472E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External libs", "External libs", "{996DB3B2-4AEB-4193-B856-CCDFED70FDEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45", "..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj", "{C24AE28B-5BE0-44A7-9232-11E090AA0641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.45.WPF", "..\..\MarcelJoachimKloubert.CLRToolbox.45.WPF\MarcelJoachimKloubert.CLRToolbox.45.WPF.csproj", "{2751DBEF-1C83-4D9D-B255-5A5D9291C6A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PlugIns", "PlugIns", "{8F340946-6F25-42EA-8A8F-017A03DB0E11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn", "MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn\MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn.csproj", "{73F9E7FE-2DAC-454E-90E0-431B582B7DD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4BA2661-5FE9-43B8-8EDA-C91E2AA472E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4BA2661-5FE9-43B8-8EDA-C91E2AA472E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4BA2661-5FE9-43B8-8EDA-C91E2AA472E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4BA2661-5FE9-43B8-8EDA-C91E2AA472E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2751DBEF-1C83-4D9D-B255-5A5D9291C6A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2751DBEF-1C83-4D9D-B255-5A5D9291C6A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2751DBEF-1C83-4D9D-B255-5A5D9291C6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2751DBEF-1C83-4D9D-B255-5A5D9291C6A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F9E7FE-2DAC-454E-90E0-431B582B7DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F9E7FE-2DAC-454E-90E0-431B582B7DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F9E7FE-2DAC-454E-90E0-431B582B7DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F9E7FE-2DAC-454E-90E0-431B582B7DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C24AE28B-5BE0-44A7-9232-11E090AA0641} = {996DB3B2-4AEB-4193-B856-CCDFED70FDEE}
+		{2751DBEF-1C83-4D9D-B255-5A5D9291C6A4} = {996DB3B2-4AEB-4193-B856-CCDFED70FDEE}
+		{73F9E7FE-2DAC-454E-90E0-431B582B7DD7} = {8F340946-6F25-42EA-8A8F-017A03DB0E11}
+	EndGlobalSection
+EndGlobal

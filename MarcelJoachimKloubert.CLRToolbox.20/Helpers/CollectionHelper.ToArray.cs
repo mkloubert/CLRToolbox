@@ -2,8 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections.Generic;
 
@@ -30,12 +29,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
 
             List<T> list = seq as List<T>;
-            if (list == null)
+            if (list != null)
             {
-                list = new List<T>(seq);
+                return list.ToArray();
             }
 
-            return list.ToArray();
+            return new TMArrayBuffer<T>(seq).ToArray();
         }
 
         #endregion Methods

@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static bool IsNotEmpty<T>(IEnumerable<T> seq)
         {
-            return !IsEmpty<T>(seq);
+            if (seq == null)
+            {
+                throw new ArgumentNullException("seq");
+            }
+
+            IGeneralList genList = seq as IGeneralList;
+            if (seq != null)
+            {
+                return genList.IsNotEmpty;
+            }
+
+            return IsEmpty<T>(seq) == false;
         }
 
         /// <summary>
@@ -39,7 +51,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static bool IsNotEmpty(IEnumerable seq)
         {
-            return !IsEmpty(seq);
+            if (seq == null)
+            {
+                throw new ArgumentNullException("seq");
+            }
+
+            IGeneralList genList = seq as IGeneralList;
+            if (seq != null)
+            {
+                return genList.IsNotEmpty;
+            }
+
+            return IsEmpty(seq) == false;
         }
 
         #endregion Methods

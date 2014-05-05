@@ -2,7 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections;
 using System;
 using System.Collections;
 
@@ -22,6 +22,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <exception cref="ArgumentNullException"><paramref name="seq" /> is <see langword="null" />.</exception>
         public static object[] ToArray(IEnumerable seq)
         {
+            if (seq == null)
+            {
+                throw new ArgumentNullException("seq");
+            }
+
+            IGeneralList genList = seq as IGeneralList;
+            if (genList != null)
+            {
+                // use build-in
+                return genList.ToArray();
+            }
+
             return ToArray<object>(AsSequence<object>(seq));
         }
 

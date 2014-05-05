@@ -534,6 +534,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IIdentifiable.cs">
       <Link>IIdentifiable.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IInitializable.cs">
+      <Link>IInitializable.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\CompareFileSystemItemsEventArgs.cs">
       <Link>IO\CompareFileSystemItemsEventArgs.cs</Link>
     </Compile>

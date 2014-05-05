@@ -55,6 +55,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\behaviours\WebBrowser.cs">
       <Link>Behaviours\WebBrowser.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Controls\BorderlessMoveableWindow.cs">
+      <Link>Controls\BorderlessMoveableWindow.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\controls\SVGImage.xaml.cs">
       <Link>Controls\SVGImage.xaml.cs</Link>
       <DependentUpon>SVGImage.xaml</DependentUpon>
@@ -62,11 +65,17 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\CommandValueConverterBase.cs">
       <Link>Data\CommandValueConverterBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\Impl\BooleanToVisibilityConverter.cs">
+      <Link>Data\Impl\BooleanToVisibilityConverter.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\Impl\CommandValueConverter.cs">
       <Link>Data\Impl\CommandValueConverter.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\Impl\DelegateToCommandValueConverter.cs">
       <Link>Data\Impl\DelegateToCommandValueConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\MultiParamValueConverterBase.cs">
+      <Link>Data\MultiParamValueConverterBase.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Data\ValueConverterBase.cs">
       <Link>Data\ValueConverterBase.cs</Link>

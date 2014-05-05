@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -64,10 +65,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentNullException("selector");
             }
 
-            long i = 0;
-            foreach (TSrc item in seq)
+            using (IEnumerator<TSrc> e = seq.GetEnumerator())
             {
-                yield return selector(item, i++);
+                long i = -1;
+
+                while (e.MoveNext())
+                {
+                    yield return selector(e.Current, ++i);
+                }
             }
         }
 

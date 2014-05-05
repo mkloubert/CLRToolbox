@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +27,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static bool IsEmpty<T>(IEnumerable<T> seq)
         {
+            if (seq == null)
+            {
+                throw new ArgumentNullException("seq");
+            }
+
+            IGeneralList genList = seq as IGeneralList;
+            if (genList != null)
+            {
+                // use build-in
+                return genList.IsEmpty;
+            }
+
             return Count<T>(seq) < 1;
         }
 
@@ -39,6 +52,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static bool IsEmpty(IEnumerable seq)
         {
+            if (seq == null)
+            {
+                throw new ArgumentNullException("seq");
+            }
+
+            IGeneralList genList = seq as IGeneralList;
+            if (genList != null)
+            {
+                // use build-in
+                return genList.IsEmpty;
+            }
+
             return Count(seq) < 1;
         }
 

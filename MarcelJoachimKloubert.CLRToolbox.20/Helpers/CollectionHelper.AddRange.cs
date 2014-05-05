@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         // Public Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="List{T}.AddRange(IEnumerable{T})" />
         public static void AddRange<T>(ICollection<T> coll, IEnumerable<T> items)

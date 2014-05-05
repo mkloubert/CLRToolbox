@@ -1,0 +1,57 @@
+﻿<mjkTBCtrls:BorderlessMoveableWindow x:Class="MarcelJoachimKloubert.DragNBatch.Windows.MainWindow"
+                                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                     xmlns:mjkTBConv="clr-namespace:MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl;assembly=MarcelJoachimKloubert.CLRToolbox.WPF"
+                                     xmlns:mjkTBCtrls="clr-namespace:MarcelJoachimKloubert.CLRToolbox.Windows.Controls;assembly=MarcelJoachimKloubert.CLRToolbox.WPF"
+                                     Loaded="Window_Loaded"
+                                     Width="128" Height="128">
+
+    <Window.Resources>
+        <mjkTBConv:BooleanToVisibilityConverter x:Key="tmBooleanToVisibilityConverter" />
+    </Window.Resources>
+    
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Select plugin..."
+                      ItemsSource="{Binding Path=PlugIns, Mode=OneWay}">
+                
+                <MenuItem.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=DisplayName, Mode=OneWay}" />
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
+        </ContextMenu>
+    </Window.ContextMenu>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border x:Name="Border_Info"
+                AllowDrop="True"
+                Drop="Border_Info_Drop"
+                Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                Padding="8"
+                VerticalAlignment="Stretch">
+
+            <TextBlock HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center">Drop your files here...</TextBlock>
+        </Border>
+
+        <ProgressBar Grid.Row="1"
+                     Height="16px"
+                     Visibility="{Binding Path=IsRunning, Mode=OneWay,
+                                          Converter={StaticResource tmBooleanToVisibilityConverter}}" />
+
+        <ProgressBar Grid.Row="2"
+                     Height="16px"
+                     Visibility="{Binding Path=IsRunning, Mode=OneWay,
+                                          Converter={StaticResource tmBooleanToVisibilityConverter}}" />
+    </Grid>
+</mjkTBCtrls:BorderlessMoveableWindow>

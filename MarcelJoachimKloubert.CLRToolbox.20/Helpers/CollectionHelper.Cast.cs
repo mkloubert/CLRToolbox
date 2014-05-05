@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +36,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             if (typedSeq != null)
             {
                 return typedSeq;
+            }
+
+            IGeneralList genList = seq as IGeneralList;
+            if (genList != null)
+            {
+                // use build-in
+                return genList.Cast<T>();
             }
 
             return CastInner<T>(seq);

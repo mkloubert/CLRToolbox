@@ -2,7 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     static partial class CollectionHelper
     {
-        #region Methods (1)
+        #region Methods (2)
 
         // Public Methods (1) 
 
@@ -28,6 +28,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentNullException("seq");
             }
 
+            IGeneralList genList = seq as IGeneralList;
+            if (genList != null)
+            {
+                // use build-in
+                return genList.OfType<T>();
+            }
+
+            return OfTypeInner<T>(seq);
+        }
+
+        // Private Methods (1) 
+
+        private static IEnumerable<T> OfTypeInner<T>(IEnumerable seq)
+        {
             foreach (object item in seq)
             {
                 if (item is T)

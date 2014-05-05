@@ -63,7 +63,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
     #endregion
 
-    #region CLASS: ForAllItemExecutionException<T>
+    #region CLASS: ForAllItemExecutionException<T, S>
 
     /// <summary>
     /// An exception that occured by execution an <see cref="IForAllItemExecutionContext{T, S}" />.

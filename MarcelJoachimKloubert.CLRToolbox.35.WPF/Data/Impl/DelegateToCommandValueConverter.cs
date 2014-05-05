@@ -2,13 +2,12 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Execution.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Input;
-using MarcelJoachimKloubert.CLRToolbox.Execution.Impl;
-using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl
 {
@@ -26,19 +25,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl
         /// <exception cref="ArgumentNullException">
         /// <paramref name="sync" /> is <see langword="null" />.
         /// </exception>
-        protected DelegateToCommandValueConverter(object sync)
+        public DelegateToCommandValueConverter(object sync)
             : base(sync)
         {
-
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateToCommandValueConverter" /> class.
         /// </summary>
-        protected DelegateToCommandValueConverter()
+        public DelegateToCommandValueConverter()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -47,10 +44,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl
 
         // Public Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ValueConverterBase{TInput, TOutput, TParam}.Convert(TInput, TParam, CultureInfo)" />
+        /// <inheriteddoc />
         public override ICommand Convert(Delegate @delegate, object parameter, CultureInfo culture)
         {
             ICommand result = null;

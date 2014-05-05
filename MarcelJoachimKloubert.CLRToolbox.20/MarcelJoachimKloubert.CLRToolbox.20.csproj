@@ -52,10 +52,16 @@
       <DependentUpon>DelegateCache.cs</DependentUpon>
     </Compile>
     <Compile Include="Caching\DelegateCache.cs" />
+    <Compile Include="Collections\GeneralList.cs" />
+    <Compile Include="Collections\GeneralList.Interface.cs">
+      <DependentUpon>GeneralList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collections\Generic\TMArrayBuffer.cs" />
     <Compile Include="Collections\Generic\DelegateComparer.cs" />
     <Compile Include="Collections\Generic\DelegateEqualityComparer.cs" />
     <Compile Include="Collections\Generic\ForAllItemExecutionException.cs" />
     <Compile Include="Collections\Generic\SimpleForAllItemExecutionContext.cs" />
+    <Compile Include="Collections\IGeneralList.cs" />
     <Compile Include="Collections\ObjectModel\TMReadOnlyDictionary.cs" />
     <Compile Include="ComponentModel\INotificationObject.cs" />
     <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
@@ -173,6 +179,12 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Randomize.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.RangeLong.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.Range.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Select.cs">
@@ -329,6 +341,7 @@
     <Compile Include="Helpers\ValueHelper.cs" />
     <Compile Include="IErrorHandler.cs" />
     <Compile Include="IHasName.cs" />
+    <Compile Include="IInitializable.cs" />
     <Compile Include="IO\FoundDifferentFileSystemItemsEventArgs.cs" />
     <Compile Include="IO\CompareFileSystemItemsEventArgs.cs" />
     <Compile Include="IO\ConsoleBase.cs" />

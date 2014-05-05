@@ -54,9 +54,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
 
         #endregion Properties
 
-        #region Methods (32)
+        #region Methods (33)
 
-        // Public Methods (32) 
+        // Public Methods (33) 
 
         /// <inheriteddoc />
         public void AddRange(IEnumerable items)
@@ -69,6 +69,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
             foreach (object i in items)
             {
                 this.Add(i);
+            }
+        }
+        
+        /// <inheriteddoc />
+        public void AddRangeOf<T>(IEnumerable items)
+        {
+            if (items == null)
+            {
+                throw new ArgumentNullException("items");
+            }
+
+            foreach (object i in items)
+            {
+                if (i is T)
+                {
+                    this.Add(i);
+                }
             }
         }
 

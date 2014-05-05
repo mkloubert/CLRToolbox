@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
 
         #endregion Data Members
 
-        #region Operations (36)
+        #region Operations (37)
 
         /// <summary>
         /// Adds a list of items.
@@ -37,6 +37,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <paramref name="items" /> is <see langword="null" />.
         /// </exception>
         void AddRange(IEnumerable items);
+        
+        /// <summary>
+        /// Adds a list of items of a specific type which are not null.
+        /// </summary>
+        /// <typeparam name="T">type of items to filter from <paramref name="items" />.</typeparam>
+        /// <param name="items">The items to add.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="items" /> is <see langword="null" />.
+        /// </exception>
+        void AddRangeOf<T>(IEnumerable items);
 
         /// <summary>
         /// Returns that list as generic list.

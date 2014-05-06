@@ -41,12 +41,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 Thread thread = Thread.CurrentThread;
 
                 MemberInfo member = null;
+#if !MONO2 && !MONO20 && !MONO4 && !MONO40
                 try
                 {
 #pragma warning disable 618
-                    StackTrace st = new StackTrace(thread, false);
+					global::System.Diagnostics.StackTrace st = new global::System.Diagnostics.StackTrace(thread, false);
 #pragma warning restore 618
-                    StackFrame sf = st.GetFrame(2);
+					global::System.Diagnostics.StackFrame sf = st.GetFrame(2);
 
                     member = sf.GetMethod();
                 }
@@ -55,6 +56,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                     member = null;
                 }
 
+#endif
                 // collect categories
                 List<LoggerFacadeCategories> listOfCategories = new List<LoggerFacadeCategories>();
 

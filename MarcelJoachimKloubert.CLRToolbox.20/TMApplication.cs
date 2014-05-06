@@ -104,7 +104,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 }
                 finally
                 {
-                    CodeAccessPermission.RevertAssert();
+#if !MONO2 && !MONO20 && !MONO4 && !MONO40
+                    global::System.Security.CodeAccessPermission.RevertAssert();
+#endif
                 }
 
                 if (string.Equals(str + "\\" + _FILE_IEEXEC_EXE, currentProcess.MainModule.FileName, StringComparison.OrdinalIgnoreCase))

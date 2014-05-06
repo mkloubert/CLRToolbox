@@ -55,7 +55,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// Describes an object that can has to be initialized and needs a context object to do that.
     /// </summary>
     /// <typeparam name="TContext">Type of the object that is used to initialize</typeparam>
-#if NET20 || NET35 || WINDOWS_PHONE
+#if NET20 || NET35 || WINDOWS_PHONE || MONO2 || MONO20
     public interface IInitializable<TContext> : IInitializable
 #else
     public interface IInitializable<in TContext> : IInitializable

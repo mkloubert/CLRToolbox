@@ -739,7 +739,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Timing
         }
 
         #endregion Methods
-#if !NET2 && !NET20 && !NET35
+#if !NET2 && !NET20 && !NET35 && !MONO2 && !MONO20
         /// <summary>
         /// 
         /// </summary>

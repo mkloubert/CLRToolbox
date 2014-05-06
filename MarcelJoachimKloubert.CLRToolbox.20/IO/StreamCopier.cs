@@ -318,7 +318,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #endregion Methods
 
-#if !NET2 && !NET20 && !NET35 && !WINDOWS_PHONE
+#if !NET2 && !NET20 && !NET35 && !WINDOWS_PHONE && !MONO2 && !MONO20
         /// <summary>
         /// Creates a task that executes a copy process async.
         /// </summary>

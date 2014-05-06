@@ -152,14 +152,6 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.cs">
       <Link>Data\CommonConverter.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.OnChangeTypeExtension.cs">
-      <Link>Data\CommonConverter.OnChangeTypeExtension.cs</Link>
-      <DependentUpon>CommonConverter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\CommonConverter.ParseInputValueForChangeType.cs">
-      <Link>Data\CommonConverter.ParseInputValueForChangeType.cs</Link>
-      <DependentUpon>CommonConverter.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\ContentProviderBase.cs">
       <Link>Data\ContentProviderBase.cs</Link>
     </Compile>
@@ -643,10 +635,6 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsString.cs">
       <Link>Helpers\StringHelper.AsString.cs</Link>
-      <DependentUpon>StringHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.AsStringExtension.cs">
-      <Link>Helpers\StringHelper.AsStringExtension.cs</Link>
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\StringHelper.cs">

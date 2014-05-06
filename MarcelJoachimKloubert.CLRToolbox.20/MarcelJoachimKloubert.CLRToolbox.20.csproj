@@ -89,12 +89,6 @@
     <Compile Include="Configuration\ReadOnlyConfigRepositoryWrapper.cs" />
     <Compile Include="Data\AdoDatabaseBase.cs" />
     <Compile Include="Data\AdoDataConnection.cs" />
-    <Compile Include="Data\CommonConverter.OnChangeTypeExtension.cs">
-      <DependentUpon>CommonConverter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Data\CommonConverter.ParseInputValueForChangeType.cs">
-      <DependentUpon>CommonConverter.cs</DependentUpon>
-    </Compile>
     <Compile Include="Data\CommonConverter.cs" />
     <Compile Include="Data\ContentProviderBase.cs" />
     <Compile Include="Data\ConverterBase.cs" />
@@ -331,9 +325,6 @@
       <DependentUpon>NetHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.AsHexString.cs">
-      <DependentUpon>StringHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\StringHelper.AsStringExtension.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.ToUnsecureString.cs">

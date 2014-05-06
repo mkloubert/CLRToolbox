@@ -120,9 +120,45 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         }
         // Private Methods (2) 
 
-        partial void OnChangeTypeExtension(Type targetType, ref object targetValue, IFormatProvider provider, ref bool handled);
+        private void OnChangeTypeExtension(Type targetType, ref object targetValue, IFormatProvider provider, ref bool handled)
+        {
+            if (provider == null)
+            {
+#if !WINDOWS_PHONE
+                targetValue = global::System.Convert.ChangeType(targetValue, targetType);
+#else
+                targetValue = global::System.Convert.ChangeType(targetValue, targetType, provider);
+#endif
+                handled = true;
+            }
+        }
 
-        partial void ParseInputValueForChangeType(Type targetType, ref object targetValue, IFormatProvider provider);
+        private void ParseInputValueForChangeType(Type targetType, ref object targetValue, IFormatProvider provider)
+        {
+            if (!targetType.Equals(typeof(global::System.DBNull)))
+            {
+                if (DBNull.Value.Equals(targetValue))
+                {
+                    targetValue = null;
+                }
+            }
+            else
+            {
+                // target type is DBNull
+
+                if (targetValue == null)
+                {
+                    targetValue = DBNull.Value;
+                }
+                else
+                {
+                    if (!DBNull.Value.Equals(targetValue))
+                    {
+                        throw new InvalidCastException();
+                    }
+                }
+            }
+        }
 
         #endregion Methods
     }

@@ -161,7 +161,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         }
         // Private Methods (1) 
 
-        static partial void AsStringExtension(object obj, ref bool handled, ref StringBuilder result);
+
+        private static void AsStringExtension(object obj, ref bool handled, ref global::System.Text.StringBuilder result)
+        {
+#if !WINDOWS_PHONE
+            if (obj is global::System.Xml.XmlReader)
+            {
+                global::System.Xml.XmlReader xmlReader = (global::System.Xml.XmlReader)obj;
+
+                global::System.Xml.XmlDocument xmlDoc = new global::System.Xml.XmlDocument();
+                xmlDoc.Load(xmlReader);
+
+                result.Append(AsString(xmlDoc, true));
+                handled = true;
+            }
+            else if (obj is global::System.Xml.XmlNode)
+            {
+                // old skool XML
+
+                result.Append(((global::System.Xml.XmlNode)obj).OuterXml);
+                handled = true;
+            }
+#endif
+        }
 
         #endregion Methods
     }

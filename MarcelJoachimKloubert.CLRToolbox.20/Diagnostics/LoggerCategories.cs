@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
     /// <summary>
     /// List of log categories.
     /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
     [global::System.Runtime.Serialization.DataContract]
 #endif
     [Flags]
@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Unknown
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Unknown = 0,
@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Information
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Information = 1,
@@ -35,7 +35,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Warnings
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Warnings = 2,
@@ -43,7 +43,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Errors
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Errors = 4,
@@ -51,7 +51,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Fatal errors
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         FatalErrors = 8,
@@ -59,7 +59,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Debug
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Debug = 16,
@@ -67,7 +67,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Verbose
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Verbose = 32,
@@ -75,7 +75,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Trace
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Trace = 64,
@@ -83,7 +83,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// Tests
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         Assert = 128,
@@ -91,7 +91,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <summary>
         /// TODOs
         /// </summary>
-#if !NET20
+#if !NET2 && !NET20 && !MONO2 && !MONO20
         [global::System.Runtime.Serialization.EnumMember]
 #endif
         TODO = 256,

@@ -45,9 +45,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 try
                 {
 #pragma warning disable 618
-					global::System.Diagnostics.StackTrace st = new global::System.Diagnostics.StackTrace(thread, false);
+                    global::System.Diagnostics.StackTrace st = new global::System.Diagnostics.StackTrace(thread, false);
 #pragma warning restore 618
-					global::System.Diagnostics.StackFrame sf = st.GetFrame(2);
+                    global::System.Diagnostics.StackFrame sf = st.GetFrame(2);
 
                     member = sf.GetMethod();
                 }

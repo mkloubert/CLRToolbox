@@ -8,7 +8,7 @@
     <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Web</RootNamespace>
     <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Web</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\MarcelJoachimKloubert.CLRToolbox.20.Web\MarcelJoachimKloubert.CLRToolbox.Web.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\MarcelJoachimKloubert.CLRToolbox.20.Web\MarcelJoachimKloubert.CLRToolbox.Web.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,13 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\..\..\MarcelJoachimKloubert.CLRToolbox.35.Web\_Embedded\DotNetWikiBot\DotNetWikiBot.cs">
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35.Web\_Embedded\DotNetWikiBot\DotNetWikiBot.cs">
       <Link>_Embedded\DotNetWikiBot\DotNetWikiBot.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.Mono4.csproj">
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.Mono4\MarcelJoachimKloubert.CLRToolbox.Mono4.csproj">
       <Project>{06B775C2-6D47-4A17-9257-39768CBCF9B0}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.Mono4</Name>
     </ProjectReference>

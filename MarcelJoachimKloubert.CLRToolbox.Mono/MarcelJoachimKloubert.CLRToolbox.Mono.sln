@@ -5,13 +5,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MONO 2.0", "MONO 2.0", "{1F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Mono2", "MarcelJoachimKloubert.CLRToolbox.Mono2\MarcelJoachimKloubert.CLRToolbox.Mono2.csproj", "{C8B71792-8BAF-4529-A9AF-6FCCA7FDF3CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Mono2.Web", "MarcelJoachimKloubert.CLRToolbox.Mono2\MarcelJoachimKloubert.CLRToolbox.Mono2.Web\MarcelJoachimKloubert.CLRToolbox.Mono2.Web.csproj", "{95F2B64B-5167-44D4-873F-FEA9B2B1D18C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Mono2.Web", "MarcelJoachimKloubert.CLRToolbox.Mono2.Web\MarcelJoachimKloubert.CLRToolbox.Mono2.Web.csproj", "{95F2B64B-5167-44D4-873F-FEA9B2B1D18C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MONO 4.0", "MONO 4.0", "{1E28DE8A-C3CB-45FD-BC4C-7EE768D26713}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Mono4", "MarcelJoachimKloubert.CLRToolbox.Mono4\MarcelJoachimKloubert.CLRToolbox.Mono4.csproj", "{06B775C2-6D47-4A17-9257-39768CBCF9B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Mono4.Web", "MarcelJoachimKloubert.CLRToolbox.Mono4\MarcelJoachimKloubert.CLRToolbox.Mono4.Web\MarcelJoachimKloubert.CLRToolbox.Mono4.Web.csproj", "{A2EE9E21-B022-40DC-908F-2C569DB8A5DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Mono4.Web", "MarcelJoachimKloubert.CLRToolbox.Mono4.Web\MarcelJoachimKloubert.CLRToolbox.Mono4.Web.csproj", "{A2EE9E21-B022-40DC-908F-2C569DB8A5DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

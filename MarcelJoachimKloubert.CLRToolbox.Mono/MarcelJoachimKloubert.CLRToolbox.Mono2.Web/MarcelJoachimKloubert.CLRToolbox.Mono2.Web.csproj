@@ -8,7 +8,7 @@
     <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Web</RootNamespace>
     <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Web</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\MarcelJoachimKloubert.CLRToolbox.20.Web\MarcelJoachimKloubert.CLRToolbox.Web.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\MarcelJoachimKloubert.CLRToolbox.20.Web\MarcelJoachimKloubert.CLRToolbox.Web.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -44,7 +44,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.Mono2.csproj">
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.Mono2\MarcelJoachimKloubert.CLRToolbox.Mono2.csproj">
       <Project>{C8B71792-8BAF-4529-A9AF-6FCCA7FDF3CF}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.Mono2</Name>
     </ProjectReference>

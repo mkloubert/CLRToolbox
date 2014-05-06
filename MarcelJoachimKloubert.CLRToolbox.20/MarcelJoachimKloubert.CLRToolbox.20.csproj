@@ -56,6 +56,10 @@
     <Compile Include="Collections\GeneralList.Interface.cs">
       <DependentUpon>GeneralList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Collections\Generic\SynchronizedList.cs" />
+    <Compile Include="Collections\Generic\SynchronizedList.Interface.cs">
+      <DependentUpon>SynchronizedList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collections\Generic\TMArrayBuffer.cs" />
     <Compile Include="Collections\Generic\DelegateComparer.cs" />
     <Compile Include="Collections\Generic\DelegateEqualityComparer.cs" />

@@ -74,6 +74,13 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Caching\DelegateCache.cs">
       <Link>Caching\DelegateCache.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\GeneralList.cs">
+      <Link>Collections\GeneralList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\GeneralList.Interface.cs">
+      <Link>Collections\GeneralList.Interface.cs</Link>
+      <DependentUpon>GeneralList.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\DelegateComparer.cs">
       <Link>Collections\Generic\DelegateComparer.cs</Link>
     </Compile>
@@ -88,6 +95,19 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedList.cs">
+      <Link>Collections\Generic\SynchronizedList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedList.Interface.cs">
+      <Link>Collections\Generic\SynchronizedList.Interface.cs</Link>
+      <DependentUpon>SynchronizedList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\TMArrayBuffer.cs">
+      <Link>Collections\Generic\TMArrayBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\IGeneralList.cs">
+      <Link>Collections\IGeneralList.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyDictionary.cs">
       <Link>Collections\ObjectModel\TMReadOnlyDictionary.cs</Link>
@@ -335,6 +355,10 @@
       <Link>Helpers\CollectionHelper.AsSequence.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Cast.cs">
+      <Link>Helpers\CollectionHelper.Cast.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Count.cs">
       <Link>Helpers\CollectionHelper.Count.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -366,8 +390,20 @@
       <Link>Helpers\CollectionHelper.IsNotEmpty.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.OfType.cs">
+      <Link>Helpers\CollectionHelper.OfType.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Randomize.cs">
       <Link>Helpers\CollectionHelper.Randomize.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Range.cs">
+      <Link>Helpers\CollectionHelper.Range.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.RangeLong.cs">
+      <Link>Helpers\CollectionHelper.RangeLong.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Select.cs">
@@ -396,6 +432,10 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Take.cs">
       <Link>Helpers\CollectionHelper.Take.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.cs">
+      <Link>Helpers\CollectionHelper.ToArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ToArray.IEnumerable.cs">
@@ -1120,10 +1160,6 @@
       <Link>Extensions\ValuesAndObjects.IsTrue.cs</Link>
       <DependentUpon>ValuesAndObjects.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Cast.cs">
-      <Link>Helpers\CollectionHelper.Cast.cs</Link>
-      <DependentUpon>CollectionHelper.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Empty.cs">
       <Link>Helpers\CollectionHelper.Empty.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -1132,20 +1168,12 @@
       <Link>Helpers\CollectionHelper.FirstOrDefault.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.OfType.cs">
-      <Link>Helpers\CollectionHelper.OfType.cs</Link>
-      <DependentUpon>CollectionHelper.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.Single.cs">
       <Link>Helpers\CollectionHelper.Single.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.SingleOrDefault.cs">
       <Link>Helpers\CollectionHelper.SingleOrDefault.cs</Link>
-      <DependentUpon>CollectionHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\CollectionHelper.ToArray.cs">
-      <Link>Helpers\CollectionHelper.ToArray.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\MethodHelper.Constructor.cs">
@@ -1165,6 +1193,7 @@
     <Compile Include="TMObject.Fields.cs" />
     <Compile Include="_Compatibility\System\ComponentModel\CancelEvent.cs" />
     <Compile Include="_Compatibility\System\ConsoleColor.cs" />
+    <Compile Include="_Compatibility\System\ICloneable.cs" />
     <Compile Include="_Compatibility\System\IO\ErrorEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

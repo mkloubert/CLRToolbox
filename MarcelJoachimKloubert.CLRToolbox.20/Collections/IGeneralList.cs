@@ -37,7 +37,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <paramref name="items" /> is <see langword="null" />.
         /// </exception>
         void AddRange(IEnumerable items);
-        
+
         /// <summary>
         /// Adds a list of items of a specific type which are not null.
         /// </summary>
@@ -56,7 +56,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// that method the instance of that object is returned.
         /// </returns>
         IList<object> AsList();
-        
+
         /// <summary>
         /// Returns that list as generic list.
         /// </summary>

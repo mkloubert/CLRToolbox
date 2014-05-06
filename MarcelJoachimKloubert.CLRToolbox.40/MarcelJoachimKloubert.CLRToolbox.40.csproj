@@ -89,6 +89,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedList.cs">
+      <Link>Collections\Generic\SynchronizedList.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedList.Interface.cs">
+      <Link>Collections\Generic\SynchronizedList.Interface.cs</Link>
+      <DependentUpon>SynchronizedList.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\TMArrayBuffer.cs">
       <Link>Collections\Generic\TMArrayBuffer.cs</Link>
     </Compile>

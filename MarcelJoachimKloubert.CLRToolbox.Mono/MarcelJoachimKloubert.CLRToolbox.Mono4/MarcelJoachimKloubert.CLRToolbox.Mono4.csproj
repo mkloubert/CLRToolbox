@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{06B775C2-6D47-4A17-9257-39768CBCF9B0}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Mono4</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Mono4</AssemblyName>
+    <RootNamespace>MarcelJoachimKloubert.CLRToolbox</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>

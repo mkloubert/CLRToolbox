@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C8B71792-8BAF-4529-A9AF-6FCCA7FDF3CF}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Mono2</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Mono2</AssemblyName>
+    <RootNamespace>MarcelJoachimKloubert.CLRToolbox</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.snk</AssemblyOriginatorKeyFile>
@@ -21,6 +21,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.Mono2.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>

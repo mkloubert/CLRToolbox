@@ -7,6 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Mono4</RootNamespace>
     <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Mono4</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

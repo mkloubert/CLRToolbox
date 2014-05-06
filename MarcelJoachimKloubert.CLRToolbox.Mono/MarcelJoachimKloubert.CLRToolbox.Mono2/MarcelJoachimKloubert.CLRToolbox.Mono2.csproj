@@ -8,6 +8,8 @@
     <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Mono2</RootNamespace>
     <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Mono2</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

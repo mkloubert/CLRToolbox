@@ -2,16 +2,15 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.Resources;
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
-using MarcelJoachimKloubert.CLRToolbox.Resources;
-using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Objects
 {
@@ -53,26 +52,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         protected ObjectContextBase(object obj)
             : this(obj, new object())
         {
-
         }
 
-        #endregion Constructors
+        #endregion CLASS: ObjectContextBase
 
         #region Properties (2)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IObjectContext.Assembly" />
+        /// <inheriteddoc />
         public virtual Assembly Assembly
         {
             get { return this.Object.GetType().Assembly; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IObjectContext.Object" />
+        /// <inheriteddoc />
         public object Object
         {
             get;
@@ -85,10 +77,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         // Public Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IObjectContext.CalculateHash()" />
+        /// <inheriteddoc />
         public virtual byte[] CalculateHash()
         {
             lock (this._SYNC)
@@ -118,19 +107,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IObjectContext.GetHashAsHexString()" />
+        /// <inheriteddoc />
         public string GetHashAsHexString()
         {
             return StringHelper.AsHexString(this.CalculateHash());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IResourceLocator.TryGetResourceStream(IEnumerable{char})" />
+        /// <inheriteddoc />
         public Stream TryGetResourceStream(IEnumerable<char> resourceName)
         {
             string @namespace = null;
@@ -149,7 +132,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             else
             {
                 @namespace = this.Object.GetType().Namespace;
-                if (!StringHelper.IsNullOrWhiteSpace(@namespace))
+                if (StringHelper.IsNullOrWhiteSpace(@namespace) == false)
                 {
                     @namespace += ".";
                 }
@@ -158,7 +141,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             }
 
             string fullResName = StringHelper.AsString(resourceName);
-            if (!StringHelper.IsNullOrWhiteSpace(@namespace))
+            if (StringHelper.IsNullOrWhiteSpace(@namespace) == false)
             {
                 fullResName = @namespace.Trim() + "." + fullResName;
             }
@@ -174,6 +157,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             return matchingRes != null ? this.Assembly
                                              .GetManifestResourceStream(matchingRes) : null;
         }
+
         // Protected Methods (1) 
 
         /// <summary>
@@ -184,7 +168,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         {
             // assembly file path
             string asmFile = this.AssemblyFile;
-            if (!StringHelper.IsNullOrWhiteSpace(asmFile))
+            if (StringHelper.IsNullOrWhiteSpace(asmFile) == false)
             {
                 try
                 {
@@ -216,7 +200,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             if (asm != null)
             {
                 string fullAsmName = asm.FullName;
-                if (!StringHelper.IsNullOrWhiteSpace(fullAsmName))
+                if (StringHelper.IsNullOrWhiteSpace(fullAsmName) == false)
                 {
                     byte[] data = Encoding.UTF8.GetBytes(fullAsmName);
                     dataToHash.Write(data, 0, data.Length);
@@ -241,7 +225,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
             // full name of the type of the underlying object
             string objTypeName = this.Object.GetType().FullName;
-            if (!StringHelper.IsNullOrWhiteSpace(objTypeName))
+            if (StringHelper.IsNullOrWhiteSpace(objTypeName) == false)
             {
                 byte[] data = Encoding.UTF8.GetBytes(objTypeName);
                 dataToHash.Write(data, 0, data.Length);
@@ -256,7 +240,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
     #region CLASS: ObjectContextBase<TObj>
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <see cref="ObjectContextBase" />
     public abstract partial class ObjectContextBase<TObj> : ObjectContextBase, IObjectContext<TObj>
@@ -274,7 +258,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         protected ObjectContextBase(TObj obj, object syncRoot)
             : base(obj, syncRoot)
         {
-
         }
 
         /// <summary>
@@ -287,17 +270,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         protected ObjectContextBase(TObj obj)
             : base(obj)
         {
-
         }
 
         #endregion Constructors
 
         #region Properties (1)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IObjectContext{TObj}.Object" />
+        /// <inheriteddoc />
         public new TObj Object
         {
             get { return (TObj)base.Object; }

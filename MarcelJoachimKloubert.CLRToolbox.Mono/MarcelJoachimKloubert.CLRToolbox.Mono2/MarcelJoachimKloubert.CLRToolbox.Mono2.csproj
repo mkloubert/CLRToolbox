@@ -1038,5 +1038,14 @@
       <Link>WritableTuple.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.Interface.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.Interface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyList.cs">
+      <Link>_Compatibility\System\Collections\Generic\IReadOnlyList.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

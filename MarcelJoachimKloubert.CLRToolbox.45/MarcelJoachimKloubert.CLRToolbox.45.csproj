@@ -97,6 +97,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.Interface.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.Interface.cs</Link>
+      <DependentUpon>SynchronizedDictionary.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedList.cs">
       <Link>Collections\Generic\SynchronizedList.cs</Link>
     </Compile>

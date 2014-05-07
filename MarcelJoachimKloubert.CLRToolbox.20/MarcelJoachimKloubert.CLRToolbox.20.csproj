@@ -57,6 +57,10 @@
     <Compile Include="Collections\GeneralList.Interface.cs">
       <DependentUpon>GeneralList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Collections\Generic\SynchronizedDictionary.cs" />
+    <Compile Include="Collections\Generic\SynchronizedDictionary.Interface.cs">
+      <DependentUpon>SynchronizedDictionary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collections\Generic\SynchronizedList.cs" />
     <Compile Include="Collections\Generic\SynchronizedList.Interface.cs">
       <DependentUpon>SynchronizedList.cs</DependentUpon>
@@ -625,6 +629,7 @@
     </Compile>
     <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyCollection.cs" />
     <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs" />
+    <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyList.cs" />
     <Compile Include="_Compatibility\System\Collections\IStructuralComparable.cs" />
     <Compile Include="_Compatibility\System\Collections\IStructuralEquatable.cs" />
     <Compile Include="_Compatibility\System\Func.cs" />

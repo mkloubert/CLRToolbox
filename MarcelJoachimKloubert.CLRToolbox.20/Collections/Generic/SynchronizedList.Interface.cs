@@ -3,7 +3,10 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox.Data;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
@@ -24,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         #endregion Properties
 
-        #region Methods (6)
+        #region Methods (7)
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -50,6 +53,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         bool IList.Contains(object value)
         {
             return ((IList)this).IndexOf(value) > -1;
+        }
+
+        /// <inheriteddoc />
+        void ICollection.CopyTo(Array array, int index)
+        {
+            this.CopyTo((T[])array, index);
         }
 
         int IList.IndexOf(object value)

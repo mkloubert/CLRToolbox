@@ -90,6 +90,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.Interface.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.Interface.cs</Link>
+      <DependentUpon>SynchronizedDictionary.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedList.cs">
       <Link>Collections\Generic\SynchronizedList.cs</Link>
     </Compile>
@@ -1085,6 +1092,9 @@
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_compatibility\system\collections\generic\IReadOnlyDictionary.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyList.cs">
+      <Link>_Compatibility\System\Collections\Generic\IReadOnlyList.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\freeimage\classes\FreeImageBitmap.cs">
       <Link>_Embedded\FreeImage\Classes\FreeImageBitmap.cs</Link>

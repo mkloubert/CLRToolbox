@@ -1276,6 +1276,15 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Helpers\StringHelper.IsNullOrWhiteSpace.cs">
       <Link>Helpers\StringHelper.IsNullOrWhiteSpace.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.Interface.cs">
+      <Link>Collections\Generic\SynchronizedDictionary.Interface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyList.cs">
+      <Link>_Compatibility\System\Collections\Generic\IReadOnlyList.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

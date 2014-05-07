@@ -271,10 +271,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
         }
         // Protected Methods (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ServiceLocatorBase.OnGetAllInstances(Type, object)" />
+        /// <inheriteddoc />
         protected override IEnumerable<object> OnGetAllInstances(Type serviceType, object key)
         {
             IEnumerable<object> result = null;
@@ -324,10 +321,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ServiceLocatorBase.OnGetInstance(Type, object)" />
+        /// <inheriteddoc />
         protected override object OnGetInstance(Type serviceType, object key)
         {
             object result = null;

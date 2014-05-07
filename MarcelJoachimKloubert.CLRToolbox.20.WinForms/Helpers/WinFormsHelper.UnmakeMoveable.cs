@@ -36,16 +36,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// Removes the feature from controls to handle the move of a form.
         /// </summary>
         /// <param name="ctrls">The controls.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="ctrls" /> is <see langword="null" />.
-        /// </exception>
         public static void UnmakeMoveable(Control.ControlCollection ctrls)
         {
-            if (ctrls == null)
-            {
-                throw new ArgumentNullException("ctrls");
-            }
-
             IEnumerable allControls = ctrls ?? (IEnumerable)CollectionHelper.Empty<Control>();
 
             UnmakeMoveable(CollectionHelper.Cast<Control>(allControls));

@@ -48,7 +48,6 @@
             this.TrackBar_CurrentSong.Name = "TrackBar_CurrentSong";
             this.TrackBar_CurrentSong.Size = new System.Drawing.Size(104, 45);
             this.TrackBar_CurrentSong.TabIndex = 3;
-            this.TrackBar_CurrentSong.ValueChanged += new System.EventHandler(this.TrackBar_CurrentSong_ValueChanged);
             // 
             // MainForm
             // 

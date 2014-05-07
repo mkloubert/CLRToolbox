@@ -15,11 +15,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
     /// </summary>
     public sealed partial class DelegateServiceLocator : ServiceLocatorBase
     {
-        #region Fields (3)
+        #region Fields (5)
 
         private readonly IServiceLocator _BASE_LOCATOR;
         private readonly IDictionary<Type, InstanceProvider> _MULTI_PROVIDERS = new Dictionary<Type, InstanceProvider>();
+        private MultiInstanceFallbackProvider _multiInstanceFallback;
         private readonly IDictionary<Type, InstanceProvider> _SINGLE_PROVIDERS = new Dictionary<Type, InstanceProvider>();
+        private SingleInstanceFallbackProvider _singleInstanceFallback;
 
         #endregion Fields
 
@@ -60,7 +62,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (3)
 
         /// <summary>
         /// Gets the base service locator, if defined.
@@ -70,29 +72,71 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
             get { return this._BASE_LOCATOR; }
         }
 
+        /// <summary>
+        /// Gets or sets the provider that is invoked if that object is not able
+        /// to locate instances for a specific service type.
+        /// </summary>
+        public MultiInstanceFallbackProvider MultiInstanceFallback
+        {
+            get { return this._multiInstanceFallback; }
+
+            set { this._multiInstanceFallback = value; }
+        }
+        
+        /// <summary>
+        /// Gets or sets the provider that is invoked if that object is not able
+        /// to locate an instance for a specific service type.
+        /// </summary>
+        public SingleInstanceFallbackProvider SingleInstanceFallback
+        {
+            get { return this._singleInstanceFallback; }
+
+            set { this._singleInstanceFallback = value; }
+        }
+
         #endregion Properties
 
-        #region Delegates and Events (2)
+        #region Delegates and Events (4)
 
-        // Delegates (2) 
+        // Delegates (4) 
 
         /// <summary>
-        /// Delgates a function / method that provides a list of instances of a service.
+        /// Describes a function / method that provides a list of instances of a service.
         /// </summary>
         /// <typeparam name="T">Type of the service.</typeparam>
-        /// <param name="baseLocator">The base locator (if defined).</param>
+        /// <param name="locator">The underlying locator.</param>
         /// <param name="key">The used key.</param>
         /// <returns>The list of instances or <see langword="null" /> to throw a <see cref="ServiceActivationException" />.</returns>
-        public delegate IEnumerable<T> MultiInstanceProvider<T>(IServiceLocator baseLocator, object key);
+        public delegate IEnumerable<T> MultiInstanceProvider<T>(DelegateServiceLocator locator, object key);
 
         /// <summary>
-        /// Delgates a function / method that provides a single instance of a service.
+        /// Describes a function / method that provides a list of instances of a service
+        /// if that object itself is not able to locate instances for the defined service type.
+        /// </summary>
+        /// <param name="locator">The underlying locator.</param>
+        /// <param name="key">The used key.</param>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <returns>The list of instances or <see langword="null" /> to throw a <see cref="ServiceActivationException" />.</returns>
+        public delegate IEnumerable<object> MultiInstanceFallbackProvider(DelegateServiceLocator locator, object key, Type serviceType);
+
+        /// <summary>
+        /// Describes a function / method that provides a single instance of a service.
         /// </summary>
         /// <typeparam name="T">Type of the service.</typeparam>
-        /// <param name="baseLocator">The base locator (if defined).</param>
+        /// <param name="locator">The underlying locator.</param>
         /// <param name="key">The used key.</param>
-        /// <returns>The list of instances or <see langword="null" />  to throw a <see cref="ServiceActivationException" />.</returns>
-        public delegate T SingleInstanceProvider<T>(IServiceLocator baseLocator, object key);
+        /// <returns>The list of instances or <see langword="null" /> to throw a <see cref="ServiceActivationException" />.</returns>
+        public delegate T SingleInstanceProvider<T>(DelegateServiceLocator locator, object key);
+        
+        /// <summary>
+        /// Describes a fallback function / method that provides a single instance of a service
+        /// if that object itself is not able to locate an instance for the defined service type.
+        /// </summary>
+        /// <param name="locator">The underlying locator.</param>
+        /// <param name="key">The used key.</param>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <returns>The list of instances or <see langword="null" /> to throw a <see cref="ServiceActivationException" />.</returns>
+        public delegate object SingleInstanceFallbackProvider(DelegateServiceLocator locator, object key, Type serviceType);
 
         #endregion Delegates and Events
 
@@ -251,6 +295,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                     throw new ServiceActivationException(serviceType, key);
                 }
             }
+            
+            bool tryFallback = true;
 
             if (result == null)
             {
@@ -258,8 +304,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                 {
                     // use base service locator instead
 
+                    tryFallback = false;
                     result = this._BASE_LOCATOR
                                  .GetAllInstances(serviceType, key);
+                }
+            }
+
+            if (tryFallback)
+            {
+                // try by fallback, if defined
+
+                MultiInstanceFallbackProvider fb = this.MultiInstanceFallback;
+                if (fb != null)
+                {
+                    result = fb(this, key, serviceType);
                 }
             }
 
@@ -286,14 +344,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
                 }
             }
 
+            bool tryFallback = true;
+
             if (result == null)
             {
                 if (this._BASE_LOCATOR != null)
                 {
                     // use base service locator instead
 
+                    tryFallback = false;
                     result = this._BASE_LOCATOR
                                  .GetInstance(serviceType, key);
+                }
+            }
+
+            if (tryFallback)
+            {
+                // try by fallback, if defined
+
+                SingleInstanceFallbackProvider fb = this.SingleInstanceFallback;
+                if (fb != null)
+                {
+                    result = fb(this, key, serviceType);
                 }
             }
 
@@ -303,11 +375,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
         private static SingleInstanceProvider<T> MultiToSingle<T>(MultiInstanceProvider<T> provider)
         {
-            return new SingleInstanceProvider<T>(delegate(IServiceLocator baseLocator, object key)
+            return new SingleInstanceProvider<T>(delegate(DelegateServiceLocator locator, object key)
                 {
                     Type serviceType = typeof(T);
 
-                    IEnumerable<T> result = provider(baseLocator, key);
+                    IEnumerable<T> result = provider(locator, key);
                     if (result == null)
                     {
                         throw new ServiceActivationException(serviceType, key);
@@ -326,11 +398,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl
 
         private static MultiInstanceProvider<T> SingleToMulti<T>(SingleInstanceProvider<T> provider)
         {
-            return new MultiInstanceProvider<T>(delegate(IServiceLocator baseLocator, object key)
+            return new MultiInstanceProvider<T>(delegate(DelegateServiceLocator locator, object key)
                 {
                     try
                     {
-                        T instance = provider(baseLocator, key);
+                        T instance = provider(locator, key);
                         if (instance != null)
                         {
                             return new T[] { instance };

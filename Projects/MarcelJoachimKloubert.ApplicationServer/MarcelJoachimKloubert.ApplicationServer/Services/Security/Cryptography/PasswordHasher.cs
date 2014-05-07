@@ -3,13 +3,13 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
+using MarcelJoachimKloubert.CLRToolbox.Security.Cryptography;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Text;
-using MarcelJoachimKloubert.ApplicationServer.Security.Cryptography;
-using MarcelJoachimKloubert.CLRToolbox.Extensions;
-using MarcelJoachimKloubert.CLRToolbox.Security.Cryptography;
 using AppServerImpl = MarcelJoachimKloubert.ApplicationServer.ApplicationServer;
 
 namespace MarcelJoachimKloubert.ApplicationServer.Services.Security.Cryptography
@@ -53,11 +53,15 @@ namespace MarcelJoachimKloubert.ApplicationServer.Services.Security.Cryptography
 
         // Protected Methods (1) 
 
-        protected override void OnHash(byte[] data, Stream targetStream)
+        protected override void OnHash(Stream srcStream, Stream targetStream)
         {
-            var hash = this._INNER_HASHER.Hash(data);
+            using (var temp = new MemoryStream())
+            {
+                srcStream.CopyTo(srcStream);
 
-            targetStream.Write(hash, 0, hash.Length);
+                var hash = this._INNER_HASHER.Hash(temp.ToArray());
+                targetStream.Write(hash, 0, hash.Length);
+            }
         }
 
         #endregion Methods

@@ -47,10 +47,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
-    <Reference Include="FreeImageNET, Version=3.15.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\FreeImageNET.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=4.3.1.9429, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -265,26 +261,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Libs\FreeImage\freeimage-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FreeImageNET.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="FreeImageNET.XML" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FreeImage.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Libs\FreeImage\GPLv3.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Libs\FreeImage\GPLv2.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="_Res\btnicon_rich_text_color.png" />
   </ItemGroup>
   <ItemGroup>
@@ -369,6 +345,11 @@
       <Project>{c24ae28b-5be0-44a7-9232-11e090aa0641}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.45</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FreeImage.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

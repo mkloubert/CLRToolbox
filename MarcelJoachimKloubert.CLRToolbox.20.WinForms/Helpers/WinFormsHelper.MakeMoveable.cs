@@ -77,24 +77,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// Adds the feature to all controls of a form to handle moving of that form by dragging its content or its controls.
         /// </summary>
         /// <param name="frm">The form that contains the controls.</param>
-        /// <param name="setupControlForMove">
+        /// <param name="setupControlsForMove">
         /// The action that is invoked to define what controls should be setupped.
         /// If <see langword="null" /> nothing is done.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="frm" /> is <see langword="null" />.
         /// </exception>
-        public static void MakeMoveable(Form frm, Action<IList<Control>> setupControlForMove)
+        public static void MakeMoveable(Form frm, Action<IList<Control>> setupControlsForMove)
         {
             if (frm == null)
             {
                 throw new ArgumentNullException("frm");
             }
 
-            if (setupControlForMove != null)
+            if (setupControlsForMove != null)
             {
                 List<Control> controlsThatHandleFormMove = new List<Control>();
-                setupControlForMove(controlsThatHandleFormMove);
+                setupControlsForMove(controlsThatHandleFormMove);
 
                 foreach (Control c in controlsThatHandleFormMove)
                 {

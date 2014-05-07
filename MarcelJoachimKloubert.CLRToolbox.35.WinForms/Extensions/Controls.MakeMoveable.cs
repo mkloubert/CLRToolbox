@@ -36,9 +36,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions.Windows.Forms
         ///
         /// </summary>
         /// <see cref="WinFormsHelper.MakeMoveable(Form, Action{IList{Control}})" />
-        public static void MakeMoveable(this Form frm, Action<IList<Control>> setupControlForMove)
+        public static void MakeMoveable(this Form frm, Action<IList<Control>> setupControlsForMove)
         {
-            WinFormsHelper.MakeMoveable(frm, setupControlForMove);
+            WinFormsHelper.MakeMoveable(frm, setupControlsForMove);
         }
 
         #endregion Methods

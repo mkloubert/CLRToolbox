@@ -7,6 +7,7 @@ using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Composition;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows;
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl;
 using MarcelJoachimKloubert.DragNBatch.PlugIns;
 using System;
 using System.Collections.Generic;
@@ -77,17 +78,28 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
                             ctx.AssemblyFile = file.FullName;
 
                             var container = new CompositionContainer(catalog,
-                                                                     isThreadSafe: false);
+                                                                     isThreadSafe: true);
                             container.ComposeExportedValue<global::MarcelJoachimKloubert.DragNBatch.PlugIns.IPlugInContext>(ctx);
 
                             var instances = new MultiInstanceComposer<IPlugIn>(container);
                             instances.RefeshIfNeeded();
+
+                            // service locator
+                            {
+                                var mefLocator = new ExportProviderServiceLocator(container);
+
+                                var sl = new DelegateServiceLocator(mefLocator);
+
+                                ctx.ServiceLocator = sl;
+                            }
 
                             var initializedPlugIns = new List<IPlugIn>();
                             foreach (var i in instances.Instances)
                             {
                                 try
                                 {
+                                    i.Initialize(ctx);
+
                                     initializedPlugIns.Add(i);
                                 }
                                 catch (Exception ex)

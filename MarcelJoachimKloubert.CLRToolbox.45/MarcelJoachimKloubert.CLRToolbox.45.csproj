@@ -444,6 +444,10 @@
       <Link>Helpers\CollectionHelper.SingleOrDefault.Predicate.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Skip.cs">
+      <Link>Helpers\CollectionHelper.Skip.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Sort.cs">
       <Link>Helpers\CollectionHelper.Sort.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
@@ -904,6 +908,12 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ObjectContextBase.dotNET.cs">
       <Link>Objects\ObjectContextBase.dotNET.cs</Link>
       <DependentUpon>ObjectContextBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ObjectFactory.cs">
+      <Link>Objects\ObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ProxyBuilder.cs">
+      <Link>Objects\ProxyBuilder.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Resources\IResourceLocator.cs">
       <Link>Resources\IResourceLocator.cs</Link>

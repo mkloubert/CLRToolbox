@@ -1285,6 +1285,15 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyList.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyList.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Skip.cs">
+      <Link>Helpers\CollectionHelper.Skip.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ObjectFactory.cs">
+      <Link>Objects\ObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ProxyBuilder.cs">
+      <Link>Objects\ProxyBuilder.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

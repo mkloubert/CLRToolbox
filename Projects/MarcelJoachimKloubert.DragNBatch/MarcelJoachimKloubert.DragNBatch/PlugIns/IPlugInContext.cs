@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.ServiceLocation;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -10,7 +11,7 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
     /// <summary>
     /// Describes a plug in context.
     /// </summary>
-    public interface IPlugInContext
+    public interface IPlugInContext : IServiceLocator
     {
         #region Data Members (3)
 

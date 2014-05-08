@@ -6,7 +6,6 @@ using MarcelJoachimKloubert.CLRToolbox.Windows.Controls;
 using MarcelJoachimKloubert.DragNBatch.ViewModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
 
 namespace MarcelJoachimKloubert.DragNBatch.Windows
 {
@@ -15,7 +14,7 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
     /// </summary>
     public partial class MainWindow : BorderlessMoveableWindow
     {
-        #region Constructors (1) 
+        #region Constructors (1)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow" /> class.
@@ -25,9 +24,9 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
             this.InitializeComponent();
         }
 
-        #endregion Constructors 
+        #endregion Constructors
 
-        #region Methods (3) 
+        #region Methods (3)
 
         // Private Methods (3) 
 
@@ -58,6 +57,6 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
             this.DataContext = vm;
         }
 
-        #endregion Methods 
+        #endregion Methods
     }
 }

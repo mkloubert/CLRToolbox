@@ -88,10 +88,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <returns>A list of current handlers.</returns>
         public List<LogMessageHandler> GetHandlers()
         {
+            List<LogMessageHandler> result;
+
             lock (this._SYNC)
             {
-                return new List<LogMessageHandler>(this._DELEGATES);
+                result = new List<LogMessageHandler>(this._DELEGATES);
             }
+
+            return result;
         }
 
         /// <summary>
@@ -109,10 +113,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                 throw new ArgumentNullException("handler");
             }
 
+            bool result;
+
             lock (this._SYNC)
             {
-                return this._DELEGATES.Remove(handler);
+                result = this._DELEGATES.Remove(handler);
             }
+
+            return result;
         }
         // Protected Methods (1) 
 

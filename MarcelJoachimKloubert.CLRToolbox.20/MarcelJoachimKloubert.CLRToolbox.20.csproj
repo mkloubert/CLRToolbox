@@ -208,6 +208,9 @@
     <Compile Include="Helpers\CollectionHelper.Single.Predicate.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Skip.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.Sort.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
@@ -534,6 +537,8 @@
     <Compile Include="Objects\ObjectContextBase.dotNET.cs">
       <DependentUpon>ObjectContextBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\ObjectFactory.cs" />
+    <Compile Include="Objects\ProxyBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\IResourceLocator.cs" />
     <Compile Include="Resources\ResourceRootNamespaceAttribute.cs" />

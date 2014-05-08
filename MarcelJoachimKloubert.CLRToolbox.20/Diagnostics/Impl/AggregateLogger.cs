@@ -106,10 +106,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <returns>A list of current loggers.</returns>
         public List<ILoggerFacade> GetLoggers()
         {
+            List<ILoggerFacade> result;
+
             lock (this._SYNC)
             {
-                return new List<ILoggerFacade>(this._LOGGERS);
+                result = new List<ILoggerFacade>(this._LOGGERS);
             }
+
+            return result;
         }
 
         /// <summary>
@@ -127,10 +131,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                 throw new ArgumentNullException("logger");
             }
 
+            bool result;
+
             lock (this._SYNC)
             {
-                return this._LOGGERS.Remove(logger);
+                result = this._LOGGERS.Remove(logger);
             }
+
+            return result;
         }
         // Protected Methods (1) 
 

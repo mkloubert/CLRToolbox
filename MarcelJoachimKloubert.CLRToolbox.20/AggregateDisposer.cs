@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
@@ -31,20 +32,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </exception>
         public AggregateDisposer(IEnumerable<IDisposable> list)
         {
-            if (list == null)
-            {
-                throw new ArgumentNullException("list");
-            }
-
-            foreach (IDisposable obj in list)
-            {
-                if (obj == null)
-                {
-                    continue;
-                }
-
-                this.AddInner(obj);
-            }
+            this.AddRange(list);
         }
 
         /// <summary>
@@ -68,7 +56,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Delegates and Events
 
-        #region Methods (8)
+        #region Methods (9)
 
         // Public Methods (5) 
 
@@ -109,10 +97,8 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
             lock (this._SYNC)
             {
-                foreach (IDisposable obj in list)
-                {
-                    this.AddInner(obj);
-                }
+                CollectionHelper.ForEach(list,
+                                         this.AddRangeItemAction);
             }
         }
 
@@ -153,11 +139,16 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </exception>
         public bool Remove(IDisposable obj)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException("obj");
+            }
+
             bool result;
 
             lock (this._SYNC)
             {
-                result = this.RemoveInner(obj);
+                result = this._OBJECTS.Remove(obj);
             }
 
             return result;
@@ -172,53 +163,11 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
             try
             {
-                var eventHandler = this.DisposingObject;
+                AggregateException ex = CollectionHelper.ForAll(this._OBJECTS,
+                                                                this.CreateDisposeItemAction(disposing),
+                                                                false);
 
-                foreach (IDisposable obj in this._OBJECTS)
-                {
-                    try
-                    {
-                        DisposeObjectEventArgs e = new DisposeObjectEventArgs(obj, disposing);
-                        if (eventHandler != null)
-                        {
-                            eventHandler(this, e);
-                        }
-
-                        if (e.Cancel)
-                        {
-                            continue;
-                        }
-
-                        try
-                        {
-                            if (e.IsDispoing)
-                            {
-                                bool doDispose = true;
-
-                                ITMDisposable tmDisp = obj as ITMDisposable;
-                                if (tmDisp != null)
-                                {
-                                    // only if disposed
-                                    doDispose = tmDisp.IsDisposed == false;
-                                }
-
-                                if (doDispose)
-                                {
-                                    obj.Dispose();
-                                }
-                            }
-                        }
-                        finally
-                        {
-                            this._OBJECTS
-                                .Remove(obj);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        errors.Add(ex);
-                    }
-                }
+                errors.AddRange(ex.InnerExceptions);
             }
             catch (Exception ex)
             {
@@ -237,7 +186,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             }
         }
 
-        // Private Methods (2) 
+        // Private Methods (3) 
 
         private bool AddInner(IDisposable obj)
         {
@@ -255,14 +204,61 @@ namespace MarcelJoachimKloubert.CLRToolbox
             return false;
         }
 
-        private bool RemoveInner(IDisposable obj)
+        private void AddRangeItemAction(IForEachItemExecutionContext<IDisposable> ctx)
         {
-            if (obj == null)
+            if (ctx.Item == null)
             {
-                throw new ArgumentNullException("obj");
+                return;
             }
 
-            return this._OBJECTS.Remove(obj);
+            this.AddInner(ctx.Item);
+        }
+
+        private Action<IForAllItemExecutionContext<IDisposable>> CreateDisposeItemAction(bool disposing)
+        {
+            return delegate(IForAllItemExecutionContext<IDisposable> ctx)
+                {
+                    EventHandler<DisposeObjectEventArgs> eventHandler = this.DisposingObject;
+                    IDisposable obj = ctx.Item;
+
+                    DisposeObjectEventArgs e = new DisposeObjectEventArgs(obj, disposing);
+                    if (eventHandler != null)
+                    {
+                        eventHandler(this, e);
+                    }
+
+                    if (e.Cancel)
+                    {
+                        return;
+                    }
+
+                    try
+                    {
+                        if (e.IsDispoing == false)
+                        {
+                            return;
+                        }
+
+                        bool doDispose = true;
+
+                        ITMDisposable tmDisp = obj as ITMDisposable;
+                        if (tmDisp != null)
+                        {
+                            // only if disposed
+                            doDispose = tmDisp.IsDisposed == false;
+                        }
+
+                        if (doDispose)
+                        {
+                            obj.Dispose();
+                        }
+                    }
+                    finally
+                    {
+                        this._OBJECTS
+                            .Remove(obj);
+                    }
+                };
         }
 
         #endregion Methods

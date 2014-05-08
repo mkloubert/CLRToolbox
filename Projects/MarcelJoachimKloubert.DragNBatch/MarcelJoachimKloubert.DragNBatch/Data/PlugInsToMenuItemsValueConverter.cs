@@ -2,11 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Data;
 using MarcelJoachimKloubert.DragNBatch.PlugIns;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -33,22 +33,31 @@ namespace MarcelJoachimKloubert.DragNBatch.Data
 
             var result = new List<MenuItem>();
 
-            foreach (var pi in plugIns.OfType<IPlugIn>()
-                                      .Select(p => new
-                                              {
-                                                  DisplayText = p.GetDisplayName(culture),
-                                                  PlugIn = p,
-                                              })
-                                      .OrderBy(x => x.DisplayText, StringComparer.Create(culture, true)))
-            {
-                MenuItem newItem = new MenuItem();
-                newItem.Header = pi.DisplayText;
-                newItem.IsCheckable = false;
-                newItem.Tag = pi.PlugIn;
-                newItem.Click += CreateClickHandler(newItem, result);
+            plugIns.OfType<IPlugIn>()
+                   .Select(p => new
+                           {
+                               DisplayText = p.GetDisplayName(culture),
+                               PlugIn = p,
+                           })
+                   .OrderBy(x => x.DisplayText, StringComparer.Create(culture, true))
+                   .ForEach(ctx =>
+                            {
+                                var x = ctx.Item;
 
-                result.Add(newItem);
-            }
+                                MenuItem newItem = new MenuItem();
+                                newItem.Header = x.DisplayText;
+                                newItem.IsCheckable = false;
+                                newItem.Tag = x.PlugIn;
+                                newItem.Click += CreateClickHandler(newItem, ctx.State.MenuItems);
+
+                                ctx.State
+                                   .MenuItems
+                                   .Add(newItem);
+                            }, actionState: new
+                            {
+                                Culture = culture,
+                                MenuItems = result,
+                            });
 
             return result;
         }
@@ -58,17 +67,12 @@ namespace MarcelJoachimKloubert.DragNBatch.Data
         {
             if (menuItems == null)
             {
-                yield break;
+                return null;
             }
 
-            foreach (var mi in menuItems.OfType<MenuItem>())
-            {
-                var p = mi.Tag as IPlugIn;
-                if (p != null)
-                {
-                    yield return p;
-                }
-            }
+            return menuItems.OfType<MenuItem>()
+                            .Select(mi => mi.Tag)
+                            .OfType<IPlugIn>();
         }
 
         // Private Methods (1) 
@@ -77,18 +81,19 @@ namespace MarcelJoachimKloubert.DragNBatch.Data
         {
             return (sender, e) =>
                 {
-                    foreach (var i in allItems)
-                    {
-                        i.IsChecked = item.Equals(i) ? true : false;
-
-                        if (i.IsChecked)
+                    allItems.ForEach(ctx =>
                         {
-                            App.Current
-                               .MainWindow
-                               .ViewModel
-                               .SelectedPlugIn = i.Tag as IPlugIn;
-                        }
-                    }
+                            var i = ctx.Item;
+                            i.IsChecked = item.Equals(i) ? true : false;
+
+                            if (i.IsChecked)
+                            {
+                                App.Current
+                                   .MainWindow
+                                   .ViewModel
+                                   .SelectedPlugIn = i.Tag as IPlugIn;
+                            }
+                        });
                 };
         }
 

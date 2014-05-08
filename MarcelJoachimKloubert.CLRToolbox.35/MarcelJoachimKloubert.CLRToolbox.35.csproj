@@ -2101,7 +2101,9 @@
     <Compile Include="Diagnostics\Remoting\RemoteLogMessage.cs" />
     <Compile Include="Diagnostics\Remoting\RemoteLogMessageSender.cs" />
     <Compile Include="Extensions\ClrToolboxExtensionMethods.cs" />
-    <Compile Include="Extensions\Collections.ForEach.cs" />
+    <Compile Include="Extensions\Collections.ForEach.cs">
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Collections.IndexOf.cs">
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>

@@ -2124,6 +2124,10 @@
       <Link>Extensions\Collections.ForAllAsync.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForEach.cs">
+      <Link>Extensions\Collections.ForEach.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.IndexOf.cs">
       <Link>Extensions\Collections.IndexOf.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>

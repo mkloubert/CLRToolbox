@@ -2,11 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-using System;
-using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
@@ -17,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         // Public Methods (6) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CollectionHelper.ForAllAsync{T}(IEnumerable{T}, Action{IForAllItemExecutionContext{T}})" />
         public static AggregateException ForAllAsync<T>(this IEnumerable<T> items,
@@ -28,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CollectionHelper.ForAll{T}(IEnumerable{T}, Action{IForAllItemExecutionContext{T}}, bool)" />
         public static AggregateException ForAllAsync<T>(this IEnumerable<T> items,
@@ -41,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, S)" />
         public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
@@ -54,12 +53,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, Func{T, S})" />
+        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, Func{T, long, S})" />
         public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
                                                            Action<IForAllItemExecutionContext<T, S>> action,
-                                                           Func<T, S> actionStateFactory)
+                                                           Func<T, long, S> actionStateFactory)
         {
             return CollectionHelper.ForAllAsync<T, S>(items,
                                                       action,
@@ -67,7 +66,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, S, bool)" />
         public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
@@ -82,12 +81,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, Func{T, S}, bool)" />
+        /// <see cref="CollectionHelper.ForAllAsync{T, S}(IEnumerable{T}, Action{IForAllItemExecutionContext{T, S}}, Func{T, long, S}, bool)" />
         public static AggregateException ForAllAsync<T, S>(this IEnumerable<T> items,
                                                            Action<IForAllItemExecutionContext<T, S>> action,
-                                                           Func<T, S> actionStateFactory,
+                                                           Func<T, long, S> actionStateFactory,
                                                            bool throwExceptions)
         {
             return CollectionHelper.ForAllAsync<T, S>(items,

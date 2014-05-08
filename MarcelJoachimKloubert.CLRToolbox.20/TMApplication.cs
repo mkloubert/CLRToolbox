@@ -2,14 +2,14 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Security;
 using System.Security.Permissions;
 using System.Text;
 
@@ -20,15 +20,28 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public static class TMApplication
     {
-        #region Fields (3)
+        #region Fields (4)
 
         private const string _FILE_IEEXEC_EXE = "ieexec.exe";
         private static bool _isExiting;
         private static readonly object _SYNC = new object();
+        private static IDictionary<string, object> _VARS;
 
         #endregion Fields
 
-        #region Properties (5)
+        #region Constructors (1)
+
+        /// <summary>
+        /// Initializes the <see cref="TMApplication" /> class.
+        /// </summary>
+        static TMApplication()
+        {
+            _VARS = new SynchronizedDictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, true));
+        }
+
+        #endregion Constructors
+
+        #region Properties (6)
 
         /// <summary>
         /// Gets the underlying application domain.
@@ -70,6 +83,17 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public static int ProcessBits
         {
             get { return IntPtr.Size * 8; }
+        }
+
+        /// <summary>
+        /// Gets the list of globals vars.
+        /// </summary>
+        /// <remarks>
+        /// The names of the vars are case insensitive.
+        /// </remarks>
+        public static IDictionary<string, object> Vars
+        {
+            get { return _VARS; }
         }
 
         #endregion Properties
@@ -170,6 +194,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 ExitInternal();
             }
         }
+
         // Private Methods (1) 
 
         private static bool ExitInternal()

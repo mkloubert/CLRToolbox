@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -15,43 +14,118 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
     /// </summary>
     public sealed class ObjectFactory : TMObject
     {
-        #region Fields (4)
+        #region Fields (3)
 
-        private readonly AssemblyBuilder _ASM_BUILDER;
         private static ObjectFactory _instance;
         private readonly IDictionary<Type, Type> _INTERFACE_PROXY_TYPES = new Dictionary<Type, Type>();
         private readonly ModuleBuilder _MOD_BUILDER;
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (8)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
         /// </summary>
         /// <param name="domain">The underlying app domain.</param>
-        /// <param name="asmName">The name of the dynamic assembly for <see cref="ObjectFactory.AssemblyBuilder" /> property.</param>
+        /// <param name="asm">The assembly from where to take the name for the dynamic assembly from.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="domain" /> and/or <paramref name="asmName" /> are <see langword="null" /> references.
+        /// <paramref name="domain" /> is a <see langword="null" /> references.
+        /// </exception>
+        /// <exception cref="NullReferenceException">
+        /// <paramref name="asm" /> is a <see langword="null" /> reference.
+        /// </exception>
+        public ObjectFactory(AppDomain domain, Assembly asm)
+            : this(domain, asm.GetName())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
+        /// </summary>
+        /// <param name="domain">The underlying app domain.</param>
+        /// <param name="asmName">The name of the dynamic assembly.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="asmName" /> is a <see langword="null" /> reference.
+        /// </exception>
+        /// <exception cref="NullReferenceException">
+        /// <paramref name="domain" /> is a <see langword="null" /> reference.
         /// </exception>
         public ObjectFactory(AppDomain domain, AssemblyName asmName)
+            : this(domain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.RunAndSave))
         {
-            if (domain == null)
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
+        /// </summary>
+        /// <param name="modBuilder">The value for the <see cref="ObjectFactory.ModuleBuilder" /> property.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="modBuilder" /> is a <see langword="null" /> references.
+        /// </exception>
+        public ObjectFactory(ModuleBuilder modBuilder)
+        {
+            if (modBuilder == null)
             {
-                throw new ArgumentNullException("domain");
+                throw new ArgumentNullException("modBuilder");
             }
 
-            if (asmName == null)
+            this._MOD_BUILDER = modBuilder;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
+        /// </summary>
+        /// <param name="asmBuilder">The assembly builder to use.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="asmBuilder" /> is a <see langword="null" /> references.
+        /// </exception>
+        public ObjectFactory(AssemblyBuilder asmBuilder)
+        {
+            if (asmBuilder == null)
             {
-                throw new ArgumentNullException("asmName");
+                throw new ArgumentNullException("asmBuilder");
             }
 
-            this._ASM_BUILDER = domain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.RunAndSave);
+            this._MOD_BUILDER = asmBuilder.DefineDynamicModule(string.Format("TMDynamicObjectFactoryModule_{0:N}_{1}",
+                                                                             Guid.NewGuid(),
+                                                                             this.GetHashCode()));
+        }
 
-            this._MOD_BUILDER = this._ASM_BUILDER
-                                    .DefineDynamicModule(string.Format("TMDynamicObjectFactoryModule_{0:N}_{1}",
-                                                                       Guid.NewGuid(),
-                                                                       this.GetHashCode()));
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
+        /// </summary>
+        /// <param name="asm">The assembly from where to take the name for the dynamic assembly from.</param>
+        /// <exception cref="NullReferenceException">
+        /// <paramref name="asm" /> is a <see langword="null" /> reference.
+        /// </exception>
+        public ObjectFactory(Assembly asm)
+            : this(AppDomain.CurrentDomain, asm)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
+        /// </summary>
+        /// <param name="asmName">The name of the dynamic assembly.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="asmName" /> is a <see langword="null" /> reference.
+        /// </exception>
+        public ObjectFactory(AssemblyName asmName)
+            : this(AppDomain.CurrentDomain, asmName)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory" /> class.
+        /// </summary>
+        /// <param name="domain">The underlying app domain.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="domain" /> is a <see langword="null" /> reference.
+        /// </exception>
+        public ObjectFactory(AppDomain domain)
+            : this(domain, Assembly.GetCallingAssembly().GetName())
+        {
         }
 
         /// <summary>
@@ -64,15 +138,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         #endregion Constructors
 
-        #region Properties (3)
-
-        /// <summary>
-        /// Gets the underlying assembly builder.
-        /// </summary>
-        public AssemblyBuilder AssemblyBuilder
-        {
-            get { return this._ASM_BUILDER; }
-        }
+        #region Properties (2)
 
         /// <summary>
         /// Gets the default singleton instance of that class.

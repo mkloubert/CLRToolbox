@@ -8,12 +8,14 @@ using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections
 {
     /// <summary>
     /// Simple implementation of <see cref="IGeneralList" /> based on <see cref="List{T}" />.
     /// </summary>
+    [DebuggerDisplay("GeneralList.Count = {Count}")]
     public partial class GeneralList : List<object>, IGeneralList
     {
         #region Constructors (3)
@@ -71,7 +73,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
                 this.Add(i);
             }
         }
-        
+
         /// <inheriteddoc />
         public void AddRangeOf<T>(IEnumerable items)
         {
@@ -118,49 +120,49 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         }
 
         /// <inheriteddoc />
-        public void ForEach<T>(Action<T, int> action)
+        public void ForEach<T>(Action<IForEachItemExecutionContext<T>> action)
         {
             ForEach<T>(action, false);
         }
 
         /// <inheriteddoc />
-        public void ForEach<T>(Action<T, int> action, bool takeAll)
+        public void ForEach<T>(Action<IForEachItemExecutionContext<T>> action, bool takeAll)
         {
             if (action == null)
             {
                 throw new ArgumentNullException("action");
             }
 
-            this.ForEach<T, object>(delegate(T item, int index, object state)
+            this.ForEach<T, object>(delegate(IForEachItemExecutionContext<T, object> ctx)
                                     {
-                                        action(item, index);
+                                        action(ctx);
                                     }, takeAll);
         }
 
         /// <inheriteddoc />
-        public void ForEach<T, TState>(Action<T, int, TState> action, TState actionState)
+        public void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, TState actionState)
         {
             ForEach<T, TState>(action, actionState, false);
         }
 
         /// <inheriteddoc />
-        public void ForEach<T, TState>(Action<T, int, TState> action, TState actionState, bool takeAll)
+        public void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, TState actionState, bool takeAll)
         {
             this.ForEach<T, TState>(action,
-                                    delegate(int index)
+                                    delegate(T item, long index)
                                     {
                                         return actionState;
                                     });
         }
 
         /// <inheriteddoc />
-        public void ForEach<T, TState>(Action<T, int, TState> action, Func<int, TState> actionStateFactory)
+        public void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, Func<T, long, TState> actionStateFactory)
         {
             ForEach<T, TState>(action, actionStateFactory, false);
         }
 
         /// <inheriteddoc />
-        public void ForEach<T, TState>(Action<T, int, TState> action, Func<int, TState> actionStateFactory, bool takeAll)
+        public void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, Func<T, long, TState> actionStateFactory, bool takeAll)
         {
             if (action == null)
             {
@@ -172,21 +174,39 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
                 throw new ArgumentNullException("actionStateFactory");
             }
 
-            using (IEnumerator<object> e = this.GetEnumerator())
+            IEnumerable<object> allItems = this;
+
+            IEnumerable<object> filteredItems = CollectionHelper.Where(allItems,
+                                                                       delegate(object item)
+                                                                       {
+                                                                           return item is T || takeAll;
+                                                                       });
+
+            IEnumerable<T> castedItems = CollectionHelper.Select(filteredItems,
+                                                                 delegate(object item)
+                                                                 {
+                                                                     return GlobalConverter.Current
+                                                                                           .ChangeType<T>(item);
+                                                                 });
+
+            using (IEnumerator<T> e = castedItems.GetEnumerator())
             {
-                int index = -1;
+                long index = -1;
 
                 while (e.MoveNext())
                 {
-                    ++index;
+                    SimpleForEachItemExecutionContext<T, TState> ctx = new SimpleForEachItemExecutionContext<T, TState>();
+                    ctx.Cancel = false;
+                    ctx.Index = ++index;
+                    ctx.Item = e.Current;
+                    ctx.State = actionStateFactory(ctx.Item, ctx.Index);
 
-                    object item = e.Current;
-                    if (item is T || takeAll)
+                    action(ctx);
+
+                    if (ctx.Cancel)
                     {
-                        action(GlobalConverter.Current
-                                              .ChangeType<T>(item),
-                               index,
-                               actionStateFactory(index));
+                        // cancel whole operation
+                        break;
                     }
                 }
             }

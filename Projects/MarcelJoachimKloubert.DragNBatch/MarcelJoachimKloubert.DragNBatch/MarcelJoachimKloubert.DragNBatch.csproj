@@ -68,6 +68,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\PlugInsToMenuItemsValueConverter.cs" />
     <Compile Include="PlugIns\IPlugIn.cs" />
     <Compile Include="PlugIns\IPlugInContext.cs" />
     <Compile Include="PlugIns\PlugInBase.cs" />

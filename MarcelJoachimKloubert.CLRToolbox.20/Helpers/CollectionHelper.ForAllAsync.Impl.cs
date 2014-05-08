@@ -2,10 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -39,7 +38,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static AggregateException ForAllAsync<T, S>(IEnumerable<T> items,
                                                            Action<IForAllItemExecutionContext<T, S>> action,
-                                                           Func<T, S> actionStateFactory,
+                                                           Func<T, long, S> actionStateFactory,
                                                            bool throwExceptions)
         {
             //TODO replace with async logic

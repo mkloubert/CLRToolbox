@@ -1056,5 +1056,14 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ProxyBuilder.cs">
       <Link>Objects\ProxyBuilder.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForEach.cs">
+      <Link>Helpers\CollectionHelper.ForEach.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\IForEachItemExecutionContext.cs">
+      <Link>Collections\Generic\IForEachItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForEachItemExecutionContext.cs">
+      <Link>Collections\Generic\SimpleForEachItemExecutionContext.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

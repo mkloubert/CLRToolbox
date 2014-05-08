@@ -9,9 +9,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <summary>
         /// An unique object for sync operations.
         /// </summary>
-        [NonSerializedAttribute]
+        [NonSerialized]
         protected readonly object _SYNC;
-        [NonSerializedAttribute]
+        [NonSerialized]
         private object _tag;
 
         #endregion Fields

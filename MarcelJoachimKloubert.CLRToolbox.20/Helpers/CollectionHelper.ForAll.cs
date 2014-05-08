@@ -2,10 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -70,10 +69,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                                          action(ctxClone);
                                      },
-                                     delegate(T i)
-                                     {
-                                         return null;
-                                     },
+                                     (object)null,
                                      throwExceptions);
         }
 
@@ -124,7 +120,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <remarks>Exceptions are thrown.</remarks>
         public static AggregateException ForAll<T, S>(IEnumerable<T> items,
                                                       Action<IForAllItemExecutionContext<T, S>> action,
-                                                      Func<T, S> actionStateFactory)
+                                                      Func<T, long, S> actionStateFactory)
         {
             return ForAll<T, S>(items,
                                 action,
@@ -159,7 +155,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         {
             return ForAll<T, S>(items,
                                 action,
-                                delegate(T i)
+                                delegate(T i, long index)
                                 {
                                     return actionState;
                                 },
@@ -189,7 +185,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static AggregateException ForAll<T, S>(IEnumerable<T> items,
                                                       Action<IForAllItemExecutionContext<T, S>> action,
-                                                      Func<T, S> actionStateFactory,
+                                                      Func<T, long, S> actionStateFactory,
                                                       bool throwExceptions)
         {
             if (items == null)
@@ -213,13 +209,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             {
                 using (IEnumerator<T> enumerator = items.GetEnumerator())
                 {
+                    long index = -1;
+
                     while (enumerator.MoveNext())
                     {
                         SimpleForAllItemExecutionContext<T, S> ctx = new SimpleForAllItemExecutionContext<T, S>();
                         try
                         {
+                            ctx.Index = ++index;
                             ctx.Item = enumerator.Current;
-                            ctx.State = actionStateFactory(ctx.Item);
+                            ctx.State = actionStateFactory(ctx.Item, ctx.Index);
 
                             action(ctx);
                         }

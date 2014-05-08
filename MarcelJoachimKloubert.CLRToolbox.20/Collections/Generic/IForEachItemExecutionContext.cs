@@ -5,48 +5,36 @@
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
-    #region INTERFACE: IForAllItemExecutionContext<T>
+    #region INTERFACE: IForEachItemExecutionContext<T>
 
     /// <summary>
     /// Describes a context for an item in a foreach environment.
     /// </summary>
     /// <typeparam name="T">Type of the underlying item.</typeparam>
-    public interface IForAllItemExecutionContext<T>
+    public interface IForEachItemExecutionContext<T> : IForAllItemExecutionContext<T>
     {
-        #region Data Members (2)
+        #region Data Members (1)
 
         /// <summary>
-        /// Gets the zero based index.
+        /// Gets or sets if the whole operation should be canceled or not.
         /// </summary>
-        long Index { get; }
-
-        /// <summary>
-        /// Gets the underlying item object.
-        /// </summary>
-        T Item { get; }
-
+        bool Cancel { get; set; }
+        
         #endregion Data Members
     }
 
     #endregion
 
-    #region INTERFACE: IForAllItemExecutionContext<T, S>
+    #region INTERFACE: IForEachItemExecutionContext<T, S>
 
     /// <summary>
     /// Describes a context for an item in a foreach environment with a state object.
     /// </summary>
     /// <typeparam name="T">Type of the underlying item.</typeparam>
     /// <typeparam name="S">Type of the underlying state object.</typeparam>
-    public interface IForAllItemExecutionContext<T, S> : IForAllItemExecutionContext<T>
+    public interface IForEachItemExecutionContext<T, S> : IForEachItemExecutionContext<T>, IForAllItemExecutionContext<T, S>
     {
-        #region Data Members (1)
-
-        /// <summary>
-        /// Gets the underlying state object.
-        /// </summary>
-        S State { get; }
-
-        #endregion Data Members
+        
     }
 
     #endregion

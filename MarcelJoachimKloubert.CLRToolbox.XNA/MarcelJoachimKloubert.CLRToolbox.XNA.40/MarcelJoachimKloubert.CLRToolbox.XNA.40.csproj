@@ -93,8 +93,14 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\IForAllItemExecutionContext.cs">
       <Link>Collections\Generic\IForAllItemExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\IForEachItemExecutionContext.cs">
+      <Link>Collections\Generic\IForEachItemExecutionContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForAllItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForAllItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForEachItemExecutionContext.cs">
+      <Link>Collections\Generic\SimpleForEachItemExecutionContext.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SynchronizedDictionary.cs">
       <Link>Collections\Generic\SynchronizedDictionary.cs</Link>
@@ -378,6 +384,10 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForAllAsync.Impl.cs">
       <Link>Helpers\CollectionHelper.ForAllAsync.Impl.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForEach.cs">
+      <Link>Helpers\CollectionHelper.ForEach.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.IndexOf.cs">
@@ -1013,6 +1023,10 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForAllAsync.cs">
       <Link>Extensions\Collections.ForAllAsync.cs</Link>
+      <DependentUpon>Collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForEach.cs">
+      <Link>Extensions\Collections.ForEach.cs</Link>
       <DependentUpon>Collections.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.IndexOf.cs">

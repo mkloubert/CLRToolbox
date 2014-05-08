@@ -57,6 +57,8 @@
     <Compile Include="Collections\GeneralList.Interface.cs">
       <DependentUpon>GeneralList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Collections\Generic\IForEachItemExecutionContext.cs" />
+    <Compile Include="Collections\Generic\SimpleForEachItemExecutionContext.cs" />
     <Compile Include="Collections\Generic\SynchronizedDictionary.cs" />
     <Compile Include="Collections\Generic\SynchronizedDictionary.Interface.cs">
       <DependentUpon>SynchronizedDictionary.cs</DependentUpon>
@@ -170,6 +172,9 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.ForAllAsync.Impl.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.ForEach.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.IndexOf.cs">

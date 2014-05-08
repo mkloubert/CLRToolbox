@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
@@ -30,7 +29,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
         protected CommandValueConverterBase(object sync)
             : base(sync)
         {
-
         }
 
         /// <summary>
@@ -39,17 +37,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
         protected CommandValueConverterBase()
             : base()
         {
-
         }
 
         #endregion Constructors
 
         #region Methods (2)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ValueConverterBase{TInput, TOutput, TParam}.Convert(TInput, TParam, CultureInfo)" />
+        /// <inheriteddoc />
         public override sealed ICommand Convert(ICommand<TParam> inputCmd, TParam parameter, CultureInfo culture)
         {
             ICommand result = null;
@@ -76,10 +70,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ValueConverterBase{TInput, TOutput, TParam}.ConvertBack(TOutput, TParam, CultureInfo)" />
+        /// <inheriteddoc />
         public override sealed ICommand<TParam> ConvertBack(ICommand inputCmd, TParam parameter, CultureInfo culture)
         {
             ICommand<TParam> result = null;

@@ -55,11 +55,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl
                 if (method != null)
                 {
                     ParameterInfo[] @params = method.GetParameters();
-                    if (@params.LongLength < 2)
+                    if (@params.Length < 2)
                     {
                         object obj = @delegate.Target;
 
-                        if (@params.LongLength == 0)
+                        if (@params.Length == 0)
                         {
                             result = new SimpleCommand(new DelegateCommand.ExecuteHandlerNoParameter(delegate()
                                 {

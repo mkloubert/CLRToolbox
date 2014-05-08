@@ -2,12 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -41,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static AggregateException ForAllAsync<T, S>(IEnumerable<T> items,
                                                            Action<IForAllItemExecutionContext<T, S>> action,
-                                                           Func<T, S> actionStateFactory,
+                                                           Func<T, long, S> actionStateFactory,
                                                            bool throwExceptions)
         {
             if (items == null)
@@ -63,10 +62,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             var syncRoot = new object();
 
             // create tuples from items
+            long itemIndex = -1;
             var tuples = items.Select(i => new ForAllTuple<T, S>(
                     action: action,
                     actionStateFactory: actionStateFactory,
                     exceptions: exceptions,
+                    index: ++itemIndex,
                     item: i,
                     syncRoot: syncRoot
                 ));
@@ -82,8 +83,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                             var ctx = new SimpleForAllItemExecutionContext<T, S>();
                             try
                             {
+                                ctx.Index = tuple.INDEX;
                                 ctx.Item = tuple.ITEM;
-                                ctx.State = tuple.ACTION_STATE_FACTORY(ctx.Item);
+                                ctx.State = tuple.ACTION_STATE_FACTORY(ctx.Item, ctx.Index);
 
                                 tuple.ACTION(ctx);
                             }
@@ -158,11 +160,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
         private sealed class ForAllTuple<T, S>
         {
-            #region Fields (5)
+            #region Fields (6)
 
             internal readonly Action<IForAllItemExecutionContext<T, S>> ACTION;
-            internal readonly Func<T, S> ACTION_STATE_FACTORY;
+            internal readonly Func<T, long, S> ACTION_STATE_FACTORY;
             internal readonly ICollection<Exception> EXCEPTION_LIST;
+            internal readonly long INDEX;
             internal readonly T ITEM;
             internal readonly object SYNC;
 
@@ -170,15 +173,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
             #region Constructors (1)
 
-            internal ForAllTuple(T item,
+            internal ForAllTuple(long index,
+                                 T item,
                                  Action<IForAllItemExecutionContext<T, S>> action,
-                                 Func<T, S> actionStateFactory,
+                                 Func<T, long, S> actionStateFactory,
                                  ICollection<Exception> exceptions,
                                  object syncRoot)
             {
                 this.ACTION = action;
                 this.ACTION_STATE_FACTORY = actionStateFactory;
                 this.EXCEPTION_LIST = exceptions;
+                this.INDEX = index;
                 this.ITEM = item;
                 this.SYNC = syncRoot;
             }

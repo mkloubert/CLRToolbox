@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox
@@ -37,17 +36,13 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public TMObject()
             : this(new object())
         {
-
         }
 
         #endregion Constructors
 
         #region Properties (1)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITMObject.Tag" />
+        /// <inheriteddoc />
         public virtual object Tag
         {
             get { return this._tag; }

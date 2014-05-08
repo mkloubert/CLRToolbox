@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
@@ -41,10 +40,10 @@ namespace MarcelJoachimKloubert.CLRToolbox
             {
                 if (obj == null)
                 {
-                    throw new NullReferenceException("obj");
+                    continue;
                 }
 
-                this.Add(obj);
+                this.AddInner(obj);
             }
         }
 
@@ -83,10 +82,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </exception>
         public bool Add(IDisposable obj)
         {
+            bool result;
+
             lock (this._SYNC)
             {
-                return this.AddInner(obj);
+                result = this.AddInner(obj);
             }
+
+            return result;
         }
 
         /// <summary>
@@ -94,7 +97,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </summary>
         /// <param name="list">The objects to add.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="list" /> or at least one item in 
+        /// <paramref name="list" /> or at least one item in
         /// <paramref name="list" /> is <see langword="null" />.
         /// </exception>
         public void AddRange(IEnumerable<IDisposable> list)
@@ -130,10 +133,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <returns>The new list of stored objects.</returns>
         public List<IDisposable> GetObjects()
         {
+            List<IDisposable> result;
+
             lock (this._SYNC)
             {
-                return new List<IDisposable>(this._OBJECTS);
+                result = new List<IDisposable>(this._OBJECTS);
             }
+
+            return result;
         }
 
         /// <summary>
@@ -146,11 +153,16 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </exception>
         public bool Remove(IDisposable obj)
         {
+            bool result;
+
             lock (this._SYNC)
             {
-                return this.RemoveInner(obj);
+                result = this.RemoveInner(obj);
             }
+
+            return result;
         }
+
         // Protected Methods (1) 
 
         /// <inheriteddoc />
@@ -224,6 +236,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 }
             }
         }
+
         // Private Methods (2) 
 
         private bool AddInner(IDisposable obj)

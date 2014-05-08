@@ -23,17 +23,24 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
     /// </summary>
     public sealed class MainViewModel : NotificationObjectBase
     {
-        private bool _isRunning;
+        #region Fields (2)
 
+        private bool _isRunning;
+        private IPlugIn _selectedPlugIn;
+
+        #endregion Fields
+
+        #region Properties (3)
+
+        /// <summary>
+        /// Gets if a batch process is currently running or not.
+        /// </summary>
         public bool IsRunning
         {
             get { return this._isRunning; }
 
             private set { this.SetProperty(ref this._isRunning, value); }
         }
-
-
-        #region Properties (1)
 
         /// <summary>
         /// Gets the list of loaded plugins.
@@ -42,6 +49,16 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Gets or sets the selected plug in.
+        /// </summary>
+        public IPlugIn SelectedPlugIn
+        {
+            get { return this._selectedPlugIn; }
+
+            set { this.SetProperty(ref this._selectedPlugIn, value); }
         }
 
         #endregion Properties

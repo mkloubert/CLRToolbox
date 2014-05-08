@@ -3,24 +3,19 @@
                                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                      xmlns:mjkTBConv="clr-namespace:MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl;assembly=MarcelJoachimKloubert.CLRToolbox.WPF"
                                      xmlns:mjkTBCtrls="clr-namespace:MarcelJoachimKloubert.CLRToolbox.Windows.Controls;assembly=MarcelJoachimKloubert.CLRToolbox.WPF"
-                                     Loaded="Window_Loaded"
+                                     xmlns:locData="clr-namespace:MarcelJoachimKloubert.DragNBatch.Data"
                                      Width="128" Height="128">
 
     <Window.Resources>
         <mjkTBConv:BooleanToVisibilityConverter x:Key="tmBooleanToVisibilityConverter" />
+        <locData:PlugInsToMenuItemsValueConverter x:Key="tmPlugInsToMenuItemsValueConverter" />
     </Window.Resources>
     
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Select plugin..."
-                      ItemsSource="{Binding Path=PlugIns, Mode=OneWay}">
-                
-                <MenuItem.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=DisplayName, Mode=OneWay}" />
-                    </DataTemplate>
-                </MenuItem.ItemTemplate>
-            </MenuItem>
+                      ItemsSource="{Binding Path=PlugIns, Mode=OneWay,
+                                            Converter={StaticResource tmPlugInsToMenuItemsValueConverter}}" />
         </ContextMenu>
     </Window.ContextMenu>
     

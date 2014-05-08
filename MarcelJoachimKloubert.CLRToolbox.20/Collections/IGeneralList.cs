@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -91,7 +92,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <remarks>
         /// Only that items are taken which can be catsed to target type.
         /// </remarks>
-        void ForEach<T>(Action<T, int> action);
+        void ForEach<T>(Action<IForEachItemExecutionContext<T>> action);
 
         /// <summary>
         /// Invokes an action for the items of that list by using casted versions of each item.
@@ -104,7 +105,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <exception cref="ArgumentNullException">
         /// <paramref name="action" /> is <see langword="null" />.
         /// </exception>
-        void ForEach<T>(Action<T, int> action, bool takeAll);
+        void ForEach<T>(Action<IForEachItemExecutionContext<T>> action, bool takeAll);
 
         /// <summary>
         /// Invokes an action for the items of that list by using casted versions of each item.
@@ -123,7 +124,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <remarks>
         /// Only that items are taken which can be catsed to target type.
         /// </remarks>
-        void ForEach<T, TState>(Action<T, int, TState> action, TState actionState);
+        void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, TState actionState);
 
         /// <summary>
         /// Invokes an action for the items of that list by using casted versions of each item.
@@ -142,7 +143,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <exception cref="ArgumentNullException">
         /// <paramref name="action" /> is <see langword="null" />.
         /// </exception>
-        void ForEach<T, TState>(Action<T, int, TState> action, TState actionState, bool takeAll);
+        void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, TState actionState, bool takeAll);
 
         /// <summary>
         /// Invokes an action for the items of that list by using casted versions of each item.
@@ -161,7 +162,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <remarks>
         /// Only that items are taken which can be catsed to target type.
         /// </remarks>
-        void ForEach<T, TState>(Action<T, int, TState> action, Func<int, TState> actionStateFactory);
+        void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, Func<T, long, TState> actionStateFactory);
 
         /// <summary>
         /// Invokes an action for the items of that list by using casted versions of each item.
@@ -180,7 +181,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections
         /// <exception cref="ArgumentNullException">
         /// <paramref name="action" /> and/or <paramref name="actionStateFactory" /> are <see langword="null" />.
         /// </exception>
-        void ForEach<T, TState>(Action<T, int, TState> action, Func<int, TState> actionStateFactory, bool takeAll);
+        void ForEach<T, TState>(Action<IForEachItemExecutionContext<T, TState>> action, Func<T, long, TState> actionStateFactory, bool takeAll);
 
         /// <summary>
         /// Returns an item of that list casted / converted.

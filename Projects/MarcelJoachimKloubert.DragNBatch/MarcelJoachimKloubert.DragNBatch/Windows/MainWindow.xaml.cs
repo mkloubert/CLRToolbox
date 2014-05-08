@@ -22,13 +22,33 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
         public MainWindow()
         {
             this.InitializeComponent();
+
+            // ViewModel
+            {
+                var vm = new MainViewModel();
+                vm.Error += this.ViewModel_Error;
+                vm.ReloadPlugIns();
+
+                this.ViewModel = vm;
+            }
         }
 
         #endregion Constructors
 
-        #region Methods (3)
+        #region Properties (1)
 
-        // Private Methods (3) 
+        public MainViewModel ViewModel
+        {
+            get { return this.DataContext as MainViewModel; }
+
+            set { this.DataContext = value; }
+        }
+
+        #endregion Properties
+
+        #region Methods (2)
+
+        // Private Methods (2) 
 
         private void Border_Info_Drop(object sender, DragEventArgs e)
         {
@@ -38,7 +58,7 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
             }
         }
 
-        private void MainViewModel_Error(object sender, ErrorEventArgs e)
+        private void ViewModel_Error(object sender, ErrorEventArgs e)
         {
             try
             {
@@ -46,15 +66,6 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
             catch
             {
             }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            var vm = new MainViewModel();
-            vm.Error += this.MainViewModel_Error;
-            vm.ReloadPlugIns();
-
-            this.DataContext = vm;
         }
 
         #endregion Methods

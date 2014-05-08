@@ -1294,6 +1294,18 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Objects\ProxyBuilder.cs">
       <Link>Objects\ProxyBuilder.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.ForEach.cs">
+      <Link>Helpers\CollectionHelper.ForEach.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\IForEachItemExecutionContext.cs">
+      <Link>Helpers\IForEachItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForEachItemExecutionContext.cs">
+      <Link>Helpers\SimpleForEachItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForEach.cs">
+      <Link>Extensions\Collections.ForEach.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

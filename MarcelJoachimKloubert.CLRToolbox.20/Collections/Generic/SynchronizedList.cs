@@ -6,6 +6,7 @@ using MarcelJoachimKloubert.CLRToolbox.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
@@ -13,11 +14,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
     /// A thread safe list.
     /// </summary>
     /// <typeparam name="T">Type of the items.</typeparam>
-    public partial class SynchronizedList<T> : IList<T>, IList, IReadOnlyList<T>
+#if !WINDOWS_PHONE
+    [global::System.Serializable]
+#endif
+    [DebuggerDisplay("SynchronizedList<{TypeOfItems}>.Count = {Count}")]
+    public partial class SynchronizedList<T> :
+#if !WINDOWS_PHONE
+        global::System.MarshalByRefObject,
+#endif
+        IList<T>, IList, IReadOnlyList<T>
     {
         #region Fields (2)
 
         private readonly List<T> _ITEMS;
+#if !WINDOWS_PHONE
+        [global::System.NonSerialized]
+#endif
         private readonly object _SYNC;
 
         #endregion Fields
@@ -82,7 +94,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         #endregion Constructors
 
-        #region Properties (6)
+        #region Properties (7)
 
         /// <inheriteddoc />
         public int Count
@@ -146,6 +158,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
                     this._ITEMS[index] = value;
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Type" /> object of the generic parameter that is defined for the items.
+        /// </summary>
+        public Type TypeOfItems
+        {
+            get { return typeof(T); }
         }
 
         #endregion Properties

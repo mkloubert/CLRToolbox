@@ -2,10 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
@@ -72,10 +71,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                                               action(ctxClone);
                                           },
-                                          delegate(T i)
-                                          {
-                                              return null;
-                                          },
+                                          (object)null,
                                           throwExceptions);
         }
 
@@ -128,7 +124,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// <remarks>Exceptions are thrown.</remarks>
         public static AggregateException ForAllAsync<T, S>(IEnumerable<T> items,
                                                            Action<IForAllItemExecutionContext<T, S>> action,
-                                                           Func<T, S> actionStateFactory)
+                                                           Func<T, long, S> actionStateFactory)
         {
             return ForAllAsync<T, S>(items,
                                      action,
@@ -164,7 +160,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         {
             return ForAllAsync<T, S>(items,
                                      action,
-                                     delegate(T i)
+                                     delegate(T i, long index)
                                      {
                                          return actionState;
                                      },

@@ -11,6 +11,14 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
     /// </summary>
     public interface IPlugIn : ITMDisposable, IIdentifiable, IHasName, IInitializable<IPlugInContext>
     {
+        #region Methods (1)
 
+        /// <summary>
+        /// Handles files.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        void HandleFiles(IHandleFilesContext context);
+
+        #endregion Methods
     }
 }

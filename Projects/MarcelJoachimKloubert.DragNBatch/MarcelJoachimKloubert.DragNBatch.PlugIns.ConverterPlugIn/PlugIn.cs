@@ -25,9 +25,9 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn
 
         #endregion Constructors
 
-        #region Methods (2)
+        #region Methods (3)
 
-        // Protected Methods (2) 
+        // Protected Methods (3) 
 
         /// <inheriteddoc />
         protected override void OnDispose(bool disposing)
@@ -45,6 +45,12 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn
             }
 
             return "Converter PlugIn";
+        }
+        
+        /// <inheriteddoc />
+        protected override void OnHandleFiles(IHandleFilesContext context)
+        {
+            
         }
 
         #endregion Methods

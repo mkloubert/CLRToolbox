@@ -76,9 +76,9 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
 
         #endregion Delegates and Events
 
-        #region Methods (9)
+        #region Methods (11)
 
-        // Public Methods (7) 
+        // Public Methods (8) 
 
         /// <inheriteddoc />
         public bool Equals(IIdentifiable other)
@@ -125,6 +125,12 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
         {
             return this.Id.GetHashCode();
         }
+        
+        /// <inheriteddoc />
+        public void HandleFiles(IHandleFilesContext context)
+        {
+            this.OnHandleFiles(context);
+        }
 
         /// <inheriteddoc />
         public void Initialize()
@@ -156,13 +162,19 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
             }
         }
 
-        // Protected Methods (2) 
+        // Protected Methods (3) 
 
         /// <inheriteddoc />
         protected virtual IEnumerable<char> OnGetDisplayName(CultureInfo culture)
         {
             return this.Name;
         }
+        
+        /// <summary>
+        /// The logic for the <see cref="PlugInBase.HandleFiles(IHandleFilesContext)" /> method.
+        /// </summary>
+        /// <param name="context">The underlying context.</param>
+        protected abstract void OnHandleFiles(IHandleFilesContext context);
 
         /// <summary>
         /// The logic for the <see cref="PlugInBase.Initialize(IPlugInContext)" /> method.

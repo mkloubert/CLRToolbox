@@ -69,9 +69,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\PlugInsToMenuItemsValueConverter.cs" />
+    <Compile Include="PlugIns\IHandleFilesContext.cs" />
     <Compile Include="PlugIns\IPlugIn.cs" />
     <Compile Include="PlugIns\IPlugInContext.cs" />
     <Compile Include="PlugIns\PlugInBase.cs" />
+    <Compile Include="ViewModel\HandleFilesContext.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlugInContext.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">

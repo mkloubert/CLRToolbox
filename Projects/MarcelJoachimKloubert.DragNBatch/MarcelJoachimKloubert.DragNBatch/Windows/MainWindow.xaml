@@ -4,7 +4,10 @@
                                      xmlns:mjkTBConv="clr-namespace:MarcelJoachimKloubert.CLRToolbox.Windows.Data.Impl;assembly=MarcelJoachimKloubert.CLRToolbox.WPF"
                                      xmlns:mjkTBCtrls="clr-namespace:MarcelJoachimKloubert.CLRToolbox.Windows.Controls;assembly=MarcelJoachimKloubert.CLRToolbox.WPF"
                                      xmlns:locData="clr-namespace:MarcelJoachimKloubert.DragNBatch.Data"
-                                     Width="128" Height="128">
+                                     Width="128" Height="128"
+                                     AllowDrop="{Binding Path=CanHandleFiles, Mode=OneWay}"
+                                     DragEnter="MainWindow_Info_DragEnter"
+                                     Drop="MainWindow_Info_Drop">
 
     <Window.Resources>
         <mjkTBConv:BooleanToVisibilityConverter x:Key="tmBooleanToVisibilityConverter" />
@@ -27,8 +30,6 @@
         </Grid.RowDefinitions>
 
         <Border x:Name="Border_Info"
-                AllowDrop="True"
-                Drop="Border_Info_Drop"
                 Grid.Row="0"
                 HorizontalAlignment="Stretch"
                 Padding="8"

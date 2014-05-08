@@ -44,28 +44,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 
         // Public Methods (8) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetAllInstances{S}()" />
+        /// <inheriteddoc />
         public IEnumerable<S> GetAllInstances<S>()
         {
             return this.GetAllInstances<S>(null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetAllInstances(Type)" />
+        /// <inheriteddoc />
         public IEnumerable<object> GetAllInstances(Type serviceType)
         {
             return this.GetAllInstances(serviceType, null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetAllInstances{S}(object)" />
+        /// <inheriteddoc />
         public IEnumerable<S> GetAllInstances<S>(object key)
         {
             IEnumerable<object> instances = this.GetAllInstances(typeof(S), key);
@@ -74,10 +65,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
             return CollectionHelper.OfType<S>(castedInstances);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetAllInstances(Type, object)" />
+        /// <inheriteddoc />
         public IEnumerable<object> GetAllInstances(Type serviceType, object key)
         {
             if (serviceType == null)
@@ -110,45 +98,36 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
                 throw exceptionToThrow;
             }
 
-            foreach (object obj in result)
+            using (IEnumerator<object> e = result.GetEnumerator())
             {
-                yield return ParseValue(obj);
+                while (e.MoveNext())
+                {
+                    yield return ParseValue(e.Current);
+                }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetInstance{S}()" />
+        /// <inheriteddoc />
         public S GetInstance<S>()
         {
             return (S)this.GetInstance(typeof(S));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetInstance{S}(object)" />
+        /// <inheriteddoc />
         public S GetInstance<S>(object key)
         {
             return (S)this.GetInstance(typeof(S),
                                        key);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetInstance(Type)" />
+        /// <inheriteddoc />
         public object GetInstance(Type serviceType)
         {
             return this.GetInstance(serviceType,
                                     null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IServiceLocator.GetInstance(Type, object)" />
+        /// <inheriteddoc />
         public object GetInstance(Type serviceType, object key)
         {
             if (serviceType == null)

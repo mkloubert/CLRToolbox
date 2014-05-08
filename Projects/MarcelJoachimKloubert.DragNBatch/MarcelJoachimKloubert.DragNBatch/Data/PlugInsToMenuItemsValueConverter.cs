@@ -36,7 +36,7 @@ namespace MarcelJoachimKloubert.DragNBatch.Data
             plugIns.OfType<IPlugIn>()
                    .Select(p => new
                            {
-                               DisplayText = p.GetDisplayName(culture),
+                               DisplayText = p.GetDisplayName(CultureInfo.CurrentUICulture),
                                PlugIn = p,
                            })
                    .OrderBy(x => x.DisplayText, StringComparer.Create(culture, true))

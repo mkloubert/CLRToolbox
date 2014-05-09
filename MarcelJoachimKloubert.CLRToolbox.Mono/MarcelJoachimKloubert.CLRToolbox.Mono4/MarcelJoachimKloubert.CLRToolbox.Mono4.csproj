@@ -1309,6 +1309,189 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.TextWriterEntry.cs">
       <Link>IO\AggregateTextWriter.TextWriterEntry.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\SharpZipBaseException.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\SharpZipBaseException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Constants.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Exception.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2Exception.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2InputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2InputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2OutputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\BZip2\BZip2OutputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Checksums\Adler32.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Checksums\Adler32.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Checksums\CRC32.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Checksums\CRC32.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Checksums\IChecksum.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Checksums\IChecksum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Checksums\StrangeCRC.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Checksums\StrangeCRC.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\FileSystemScanner.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\FileSystemScanner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\INameTransform.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\INameTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\IScanFilter.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\IScanFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\NameFilter.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\NameFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\PathFilter.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\PathFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\StreamUtils.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\StreamUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Core\WindowsPathUtils.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Core\WindowsPathUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Encryption\PkzipClassic.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Encryption\PkzipClassic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Encryption\ZipAESStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Encryption\ZipAESStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Encryption\ZipAESTransform.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Encryption\ZipAESTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\GZip\GZIPConstants.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\GZip\GZIPConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\GZip\GZipException.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\GZip\GZipException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\GZip\GzipInputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\GZip\GzipInputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\GZip\GzipOutputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\GZip\GzipOutputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Lzw\LzwConstants.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Lzw\LzwConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Lzw\LzwException.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Lzw\LzwException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Lzw\LzwInputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Lzw\LzwInputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\InvalidHeaderException.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\InvalidHeaderException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarArchive.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarArchive.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarBuffer.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarEntry.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarException.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarHeader.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarInputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarInputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Tar\TarOutputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Tar\TarOutputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\FastZip.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\FastZip.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\IEntryFactory.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\IEntryFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\WindowsNameTransform.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\WindowsNameTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipConstants.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipEntry.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipEntryFactory.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipEntryFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipException.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipExtraData.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipExtraData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipFile.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipHelperStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipHelperStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipInputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipInputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipNameTransform.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipNameTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\ZipOutputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\ZipOutputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Deflater.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Deflater.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterConstants.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterEngine.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterHuffman.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterHuffman.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterPending.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\DeflaterPending.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Inflater.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Inflater.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\InflaterDynHeader.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\InflaterDynHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\InflaterHuffmanTree.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\InflaterHuffmanTree.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\PendingBuffer.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\PendingBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\DeflaterOutputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\DeflaterOutputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\InflaterInputStream.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\InflaterInputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\OutputWindow.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\OutputWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\StreamManipulator.cs">
+      <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\StreamManipulator.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -1337,5 +1520,6 @@
     <Folder Include="_Compatibility\" />
     <Folder Include="ComponentModel\ComponentModel\" />
     <Folder Include="Diagnostics\Remoting\" />
+    <Folder Include="_Embedded\" />
   </ItemGroup>
 </Project>

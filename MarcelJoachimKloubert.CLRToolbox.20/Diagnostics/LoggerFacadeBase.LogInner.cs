@@ -2,13 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 

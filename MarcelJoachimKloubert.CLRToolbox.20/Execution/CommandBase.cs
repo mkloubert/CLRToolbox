@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution
@@ -25,7 +24,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         protected CommandBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         protected CommandBase()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -43,16 +40,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
 
         // Events (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ICommand{TParam}.CanExecuteChanged" />
+        /// <inheriteddoc />
         public event EventHandler CanExecuteChanged;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ICommand{TParam}.ExecutionError" />
+        /// <inheriteddoc />
         public event EventHandler<ExecutionErrorEventArgs<TParam>> ExecutionError;
 
         #endregion Delegates and Events
@@ -61,22 +52,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
 
         // Public Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ICommand{TParam}.CanExecute(TParam)" />
+        /// <inheriteddoc />
         public virtual bool CanExecute(TParam param)
         {
             return true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ICommand{TParam}.Execute(TParam)" />
+        /// <inheriteddoc />
         public bool? Execute(TParam param)
         {
-            if (!this.CanExecute(param))
+            if (this.CanExecute(param) == false)
             {
                 return null;
             }
@@ -113,6 +98,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
 
             return false;
         }
+
         // Protected Methods (1) 
 
         /// <summary>
@@ -120,6 +106,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         /// </summary>
         /// <param name="param">The parameter for the execution.</param>
         protected abstract void OnExecute(TParam param);
+
         // Private Methods (1) 
 
         private bool RaiseExecutionError(TParam param, Exception ex)

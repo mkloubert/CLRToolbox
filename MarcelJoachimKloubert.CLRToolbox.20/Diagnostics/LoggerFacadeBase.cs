@@ -2,11 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 {
@@ -51,7 +50,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         protected LoggerFacadeBase(bool isThreadSafe)
             : this(isThreadSafe, new object())
         {
-
         }
 
         /// <summary>
@@ -64,7 +62,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         protected LoggerFacadeBase(object syncRoot)
             : this(true, syncRoot)
         {
-
         }
 
         /// <summary>
@@ -73,7 +70,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         protected LoggerFacadeBase()
             : this(true)
         {
-
         }
 
         #endregion Constructors
@@ -82,10 +78,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         // Public Methods (5) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ILoggerFacade.Log(object)" />
+        /// <inheriteddoc />
         public void Log(object msg)
         {
             this.LogInner(DateTimeOffset.Now,
@@ -95,10 +88,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                           msg);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ILoggerFacade.Log(ILogMessage)" />
+        /// <inheriteddoc />
         public void Log(ILogMessage msgObj)
         {
             if (msgObj == null)
@@ -116,10 +106,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ILoggerFacade.Log(object, IEnumerable{char})" />
+        /// <inheriteddoc />
         public void Log(object msg, IEnumerable<char> tag)
         {
             this.LogInner(DateTimeOffset.Now,
@@ -129,10 +116,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                           msg);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ILoggerFacade.Log(object, LoggerFacadeCategories)" />
+        /// <inheriteddoc />
         public void Log(object msg, LoggerFacadeCategories categories)
         {
             this.LogInner(DateTimeOffset.Now,
@@ -142,10 +126,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                           msg);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ILoggerFacade.Log(object, IEnumerable{char}, LoggerFacadeCategories)" />
+        /// <inheriteddoc />
         public void Log(object msg, IEnumerable<char> tag, LoggerFacadeCategories categories)
         {
             this.LogInner(DateTimeOffset.Now,
@@ -154,6 +135,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                           StringHelper.AsString(tag),
                           msg);
         }
+
         // Protected Methods (4) 
 
         /// <summary>
@@ -216,6 +198,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// </summary>
         /// <param name="msg">The message to log.</param>
         protected abstract void OnLog(ILogMessage msg);
+
         // Private Methods (4) 
 
         private static LogMessage CloneLogMessageInner(ILogMessage src)

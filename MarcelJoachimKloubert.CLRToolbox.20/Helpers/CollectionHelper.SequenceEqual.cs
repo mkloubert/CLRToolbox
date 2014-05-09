@@ -62,7 +62,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </param>
         /// <returns>Both sequences contain the same data.</returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="left" /> and/or <see cref="right" /> are <see langword="null" />.
+        /// <paramref name="left" /> and/or <paramref name="right" /> are <see langword="null" />.
         /// </exception>
         public static bool SequenceEqual<T>(IEnumerable<T> left, IEnumerable<T> right, Func<T, T, bool> equalsFunc)
         {

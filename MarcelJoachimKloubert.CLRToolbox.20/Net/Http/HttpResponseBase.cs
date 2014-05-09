@@ -2,13 +2,12 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
@@ -17,11 +16,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
     /// </summary>
     public abstract partial class HttpResponseBase : TMObject, IHttpResponse
     {
-        #region Fields (8)
+        #region Fields (9)
 
         private Encoding _charset;
         private bool? _compress;
         private string _contentType;
+        private bool _directOutput;
         private bool _documentNotFound;
         private bool _isForbidden;
         private HttpStatusCode _statusCode = HttpStatusCode.OK;
@@ -42,7 +42,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         protected HttpResponseBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -51,26 +50,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         protected HttpResponseBase()
             : base()
         {
-
         }
 
         #endregion Constructors
 
         #region Properties (12)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.CanSetStreamCapacity" />
+        /// <inheriteddoc />
         public virtual bool CanSetStreamCapacity
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Charset" />
+        /// <inheriteddoc />
         public Encoding Charset
         {
             get { return this._charset; }
@@ -78,10 +70,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._charset = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Compress" />
+        /// <inheriteddoc />
         public bool? Compress
         {
             get { return this._compress; }
@@ -89,10 +78,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._compress = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.ContentType" />
+        /// <inheriteddoc />
         public string ContentType
         {
             get { return this._contentType; }
@@ -101,19 +87,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IHttpResponse.DirectOutput" />
         public bool DirectOutput
         {
-            get;
-            set;
+            get { return this._directOutput; }
+
+            set { this._directOutput = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.DocumentNotFound" />
+        /// <inheriteddoc />
         public bool DocumentNotFound
         {
             get { return this._documentNotFound; }
@@ -121,28 +105,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._documentNotFound = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.FrontendVars" />
+        /// <inheriteddoc />
         public abstract IDictionary<string, object> FrontendVars
         {
             get;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Headers" />
+        /// <inheriteddoc />
         public abstract IDictionary<string, string> Headers
         {
             get;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.IsForbidden" />
+        /// <inheriteddoc />
         public bool IsForbidden
         {
             get { return this._isForbidden; }
@@ -150,10 +125,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._isForbidden = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.StatusCode" />
+        /// <inheriteddoc />
         public HttpStatusCode StatusCode
         {
             get { return this._statusCode; }
@@ -161,10 +133,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._statusCode = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.StatusDescription" />
+        /// <inheriteddoc />
         public string StatusDescription
         {
             get { return this._statusDescription; }
@@ -172,10 +141,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._statusDescription = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Stream" />
+        /// <inheriteddoc />
         public Stream Stream
         {
             get { return this._stream; }
@@ -187,10 +153,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
         // Public Methods (16) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Append(IEnumerable{byte})" />
+        /// <inheriteddoc />
         public HttpResponseBase Append(IEnumerable<byte> data)
         {
             lock (this._SYNC)
@@ -217,19 +180,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Append(IEnumerable{char})" />
+        /// <inheriteddoc />
         public HttpResponseBase Append(IEnumerable<char> chars)
         {
             return this.Append(this.CharsToBytes(chars));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Clear()" />
+        /// <inheriteddoc />
         public virtual HttpResponseBase Clear()
         {
             lock (this._SYNC)
@@ -239,10 +196,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Prefix(IEnumerable{byte})" />
+        /// <inheriteddoc />
         public HttpResponseBase Prefix(IEnumerable<byte> data)
         {
             lock (this._SYNC)
@@ -271,37 +225,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Prefix(IEnumerable{char})" />
+        /// <inheriteddoc />
         public HttpResponseBase Prefix(IEnumerable<char> chars)
         {
             return this.Prefix(this.CharsToBytes(chars));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.SetDefaultStreamCapacity()" />
+        /// <inheriteddoc />
         public HttpResponseBase SetDefaultStreamCapacity()
         {
             return this.SetStreamCapacityInner(null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.SetStream(Stream)" />
+        /// <inheriteddoc />
         public HttpResponseBase SetStream(Stream stream)
         {
             return this.SetStream(stream, false);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.SetStream(Stream, bool)" />
+        /// <inheriteddoc />
         public HttpResponseBase SetStream(Stream stream, bool disposeOld)
         {
             lock (this._SYNC)
@@ -313,19 +255,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.SetStreamCapacity(int)" />
+        /// <inheriteddoc />
         public HttpResponseBase SetStreamCapacity(int capacity)
         {
             return this.SetStreamCapacityInner(capacity);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.SetupForJson()" />
+        /// <inheriteddoc />
         public HttpResponseBase SetupForJson()
         {
             this.Charset = Encoding.UTF8;
@@ -335,10 +271,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Write(IEnumerable{byte})" />
+        /// <inheriteddoc />
         public HttpResponseBase Write(IEnumerable<byte> data)
         {
             byte[] dataArray = CollectionHelper.AsArray(data);
@@ -354,28 +287,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Write(IEnumerable{char})" />
+        /// <inheriteddoc />
         public HttpResponseBase Write(IEnumerable<char> chars)
         {
             return this.Write(this.CharsToBytes(chars));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Write(object)" />
+        /// <inheriteddoc />
         public HttpResponseBase Write(object obj)
         {
             return this.Write(obj, true);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.Write(object, bool)" />
+        /// <inheriteddoc />
         public HttpResponseBase Write(object obj, bool handleDBNullAsNull)
         {
             if (obj is IEnumerable<byte>)
@@ -386,10 +310,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             return this.Write(StringHelper.AsString(obj, handleDBNullAsNull));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.WriteJavaScript(IEnumerable{char})" />
+        /// <inheriteddoc />
         public HttpResponseBase WriteJavaScript(IEnumerable<char> js)
         {
             return this.Write("<script type=\"text/javascript\">\n\n")
@@ -397,10 +318,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
                        .Write("\n\n</script>");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpResponse.WriteJson{T}(T)" />
+        /// <inheriteddoc />
         public HttpResponseBase WriteJson<T>(T obj)
         {
             StringBuilder json = new StringBuilder();
@@ -413,6 +331,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 
             return this;
         }
+
         // Protected Methods (5) 
 
         /// <summary>
@@ -481,6 +400,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         {
             throw new NotImplementedException();
         }
+
         // Private Methods (1) 
 
         private HttpResponseBase SetStreamCapacityInner(int? capacity)

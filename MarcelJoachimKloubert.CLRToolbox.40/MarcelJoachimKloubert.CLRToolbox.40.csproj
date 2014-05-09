@@ -25,6 +25,7 @@
     <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.xml</DocumentationFile>
     <NoWarn>3021</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -311,10 +312,6 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.cs">
       <Link>Diagnostics\LoggerFacadeBase.LogMessage.cs</Link>
-      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
-      <Link>Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs</Link>
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
@@ -691,6 +688,13 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IInitializable.cs">
       <Link>IInitializable.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.cs">
+      <Link>IO\AggregateTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.TextWriterEntry.cs">
+      <Link>IO\AggregateTextWriter.TextWriterEntry.cs</Link>
+      <DependentUpon>AggregateTextWriter.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\CompareFileSystemItemsEventArgs.cs">
       <Link>IO\CompareFileSystemItemsEventArgs.cs</Link>

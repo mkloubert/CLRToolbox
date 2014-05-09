@@ -74,7 +74,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         #endregion Constructors
 
-        #region Methods (13)
+        #region Methods (14)
 
         // Public Methods (5) 
 
@@ -199,7 +199,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         /// <param name="msg">The message to log.</param>
         protected abstract void OnLog(ILogMessage msg);
 
-        // Private Methods (4) 
+        // Private Methods (5) 
 
         private static LogMessage CloneLogMessageInner(ILogMessage src)
         {
@@ -222,7 +222,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             return result;
         }
 
-        static partial void CreateCopyOfLogMessageExtension(ILogMessage src, LogMessage copy, object msgVal);
+        private static void CreateCopyOfLogMessageExtension(ILogMessage src, LogMessage copy, object msgVal)
+        {
+#if !WINDOWS_PHONE
+            copy.Context = src.Context;
+#endif
+        }
+
+        private void LogInnerExtension(LogMessage logMsg,
+                                       DateTimeOffset time,
+                                       Assembly asm,
+                                       LoggerFacadeCategories? categories,
+                                       string tag,
+                                       object msg)
+        {
+#if !WINDOWS_PHONE
+            logMsg.Context = global::System.Threading.Thread.CurrentContext;
+            logMsg.Principal = global::System.Threading.Thread.CurrentPrincipal;
+#endif
+        }
 
         private void OnLog_NonThreadSafe(ILogMessage msg)
         {

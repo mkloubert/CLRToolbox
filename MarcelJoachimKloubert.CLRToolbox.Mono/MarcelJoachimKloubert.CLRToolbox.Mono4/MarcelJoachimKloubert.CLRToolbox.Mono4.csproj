@@ -304,9 +304,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.cs">
       <Link>Diagnostics\LoggerFacadeBase.LogMessage.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
-      <Link>Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
       <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
     </Compile>
@@ -1305,6 +1302,12 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Collections.ForEach.cs">
       <Link>Extensions\Collections.ForEach.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.cs">
+      <Link>IO\AggregateTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.TextWriterEntry.cs">
+      <Link>IO\AggregateTextWriter.TextWriterEntry.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

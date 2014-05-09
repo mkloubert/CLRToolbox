@@ -24,6 +24,7 @@
     <DocumentationFile>bin\Debug\MarcelJoachimKloubert.CLRToolbox.Mono2.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>3021</NoWarn>
+    <LangVersion>ISO-2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -33,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>ISO-2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -286,9 +288,6 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.cs">
       <Link>Diagnostics\LoggerFacadeBase.LogMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
-      <Link>Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
       <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
@@ -1064,6 +1063,12 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\Generic\SimpleForEachItemExecutionContext.cs">
       <Link>Collections\Generic\SimpleForEachItemExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.cs">
+      <Link>IO\AggregateTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.TextWriterEntry.cs">
+      <Link>IO\AggregateTextWriter.TextWriterEntry.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

@@ -21,6 +21,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
     /// </summary>
     public abstract partial class ObjectContextBase : ServiceLocatorBase, IObjectContext
     {
+        #region Fields (1)
+
+        private readonly object _OBJECT;
+
+        #endregion CLASS: ObjectContextBase
+
         #region Constructors (2)
 
         /// <summary>
@@ -39,7 +45,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
                 throw new ArgumentNullException("obj");
             }
 
-            this.Object = obj;
+            this._OBJECT = obj;
         }
 
         /// <summary>
@@ -67,8 +73,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         /// <inheriteddoc />
         public object Object
         {
-            get;
-            private set;
+            get { return this._OBJECT; }
         }
 
         #endregion Properties

@@ -24,6 +24,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>3021</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -136,9 +137,6 @@
       <DependentUpon>ILogMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\Impl\ConsoleLogger.cs" />
-    <Compile Include="Diagnostics\LoggerFacadeBase.LogMessage.dotNET.cs">
-      <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="DisposeObjectEventArgs.cs" />
     <Compile Include="ErrorHandlerBase.cs" />
     <Compile Include="Execution\Functions\FunctionBase.Classes.cs">
@@ -350,6 +348,10 @@
     <Compile Include="IErrorHandler.cs" />
     <Compile Include="IHasName.cs" />
     <Compile Include="IInitializable.cs" />
+    <Compile Include="IO\AggregateTextWriter.cs" />
+    <Compile Include="IO\AggregateTextWriter.TextWriterEntry.cs">
+      <DependentUpon>AggregateTextWriter.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\FoundDifferentFileSystemItemsEventArgs.cs" />
     <Compile Include="IO\CompareFileSystemItemsEventArgs.cs" />
     <Compile Include="IO\ConsoleBase.cs" />

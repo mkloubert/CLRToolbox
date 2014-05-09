@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Net
 {
     /// <summary>
@@ -10,26 +9,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net
     /// </summary>
     public sealed class SimpleTcpAddress : ITcpAddress
     {
+        #region Fields (2)
+
+        private string _address;
+        private int _port;
+
+        #endregion Properties
+
         #region Properties (2)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITcpAddress.Address" />
+        /// <inheriteddoc />
         public string Address
         {
-            get;
-            set;
+            get { return this._address; }
+
+            set { this._address = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITcpAddress.Port" />
+        /// <inheriteddoc />
         public int Port
         {
-            get;
-            set;
+            get { return this._port; }
+
+            set { this._port = value; }
         }
 
         #endregion Properties
@@ -39,7 +41,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net
         // Public Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="object.ToString()" />
         public override string ToString()

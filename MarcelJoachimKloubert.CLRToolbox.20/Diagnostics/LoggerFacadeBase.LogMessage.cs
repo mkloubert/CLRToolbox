@@ -21,6 +21,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
             private Assembly _assembly;
             private IList<LoggerFacadeCategories> _categories;
+#if !WINDOWS_PHONE
+            private global::System.Runtime.Remoting.Contexts.Context _context;
+#endif
             private Guid _id;
             private string _logTag;
             private MemberInfo _member;
@@ -31,7 +34,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
             #endregion Fields
 
-            #region Properties (9)
+            #region Properties (10)
 
             public Assembly Assembly
             {
@@ -46,6 +49,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
                 set { this._categories = value; }
             }
+#if !WINDOWS_PHONE
+
+            public global::System.Runtime.Remoting.Contexts.Context Context
+            {
+                get { return this._context; }
+
+                set { this._context = value; }
+            }
+
+#endif
 
             public Guid Id
             {

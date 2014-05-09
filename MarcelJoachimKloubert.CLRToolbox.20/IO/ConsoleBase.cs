@@ -46,10 +46,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         // Public Methods (8) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.ReadLine()" />
+        /// <inheriteddoc />
         public string ReadLine()
         {
             using (StringWriter writer = new StringWriter())
@@ -60,19 +57,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.Write(object)" />
+        /// <inheriteddoc />
         public ConsoleBase Write(object obj)
         {
             return this.Write(this.ToConsoleString(obj));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.Write(IEnumerable{char})" />
+        /// <inheriteddoc />
         public ConsoleBase Write(IEnumerable<char> chars)
         {
             this.OnWrite(StringHelper.AsString(chars));
@@ -80,29 +71,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             return this;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.Write(IEnumerable{char}, object[])" />
+        /// <inheriteddoc />
         public ConsoleBase Write(IEnumerable<char> format, params object[] args)
         {
             return this.Write(string.Format(StringHelper.AsString(format) ?? string.Empty,
                                             CollectionHelper.AsArray(this.ToConsoleArguments(args))));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.WriteLine()" />
+        /// <inheriteddoc />
         public ConsoleBase WriteLine()
         {
             return this.Write(this.GetNewLineForOutput());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.WriteLine(object)" />
+        /// <inheriteddoc />
         public ConsoleBase WriteLine(object obj)
         {
             return this.Write(string.Format("{0}{1}",
@@ -110,10 +92,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                                             this.GetNewLineForOutput()));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.WriteLine(IEnumerable{char})" />
+        /// <inheriteddoc />
         public ConsoleBase WriteLine(IEnumerable<char> chars)
         {
             return this.Write(string.Format("{0}{1}",
@@ -121,10 +100,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                                             this.GetNewLineForOutput()));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IConsole.WriteLine(IEnumerable{char}, object[])" />
+        /// <inheriteddoc />
         public ConsoleBase WriteLine(IEnumerable<char> format, params object[] args)
         {
             return this.Write(string.Format("{0}{1}",

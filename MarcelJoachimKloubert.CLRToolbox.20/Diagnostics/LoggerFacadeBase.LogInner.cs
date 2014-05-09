@@ -73,17 +73,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
                 listOfCategories.Sort();
 
-                LogMessage orgMsg = new LogMessage()
-                    {
-                        Assembly = asm,
-                        Categories = listOfCategories.ToArray(),
-                        Id = Guid.NewGuid(),
-                        LogTag = StringHelper.AsString(tag),
-                        Member = member,
-                        Message = msg,
-                        Thread = thread,
-                        Time = time,
-                    };
+                LogMessage orgMsg = new LogMessage();
+                orgMsg.Assembly = asm;
+                orgMsg.Categories = listOfCategories.ToArray();
+                orgMsg.Id = Guid.NewGuid();
+                orgMsg.LogTag = StringHelper.AsString(tag);
+                orgMsg.Member = member;
+                orgMsg.Message = msg;
+                orgMsg.Thread = thread;
+                orgMsg.Time = time;
 
                 this.LogInnerExtension(orgMsg,
                                        time,
@@ -138,13 +136,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 // ignore errors
             }
         }
-
-        partial void LogInnerExtension(LogMessage logMsg,
-                                       DateTimeOffset time,
-                                       Assembly asm,
-                                       LoggerFacadeCategories? categories,
-                                       string tag,
-                                       object msg);
 
         #endregion Methods
     }

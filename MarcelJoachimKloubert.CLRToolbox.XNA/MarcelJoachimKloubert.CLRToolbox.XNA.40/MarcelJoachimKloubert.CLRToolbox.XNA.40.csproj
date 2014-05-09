@@ -593,6 +593,13 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IInitializable.cs">
       <Link>IInitializable.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.cs">
+      <Link>IO\AggregateTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\AggregateTextWriter.TextWriterEntry.cs">
+      <Link>IO\AggregateTextWriter.TextWriterEntry.cs</Link>
+      <DependentUpon>AggregateTextWriter.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\CompareFileSystemItemsEventArgs.cs">
       <Link>IO\CompareFileSystemItemsEventArgs.cs</Link>
     </Compile>
@@ -950,6 +957,9 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\WritableTuple.cs">
       <Link>WritableTuple.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Action.cs">
+      <Link>_Compatibility\System\Action.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\AggregateException.cs">
       <Link>_Compatibility\System\AggregateException.cs</Link>

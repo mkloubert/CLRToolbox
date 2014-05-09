@@ -1017,6 +1017,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\security\UsernamePasswordValidator.cs">
       <Link>Security\UsernamePasswordValidator.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Serialization\CommonSerializer.cs">
+      <Link>Serialization\CommonSerializer.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\serialization\ISerializer.cs">
       <Link>Serialization\ISerializer.cs</Link>
     </Compile>

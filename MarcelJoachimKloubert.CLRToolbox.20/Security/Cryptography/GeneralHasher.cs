@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
@@ -46,7 +45,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
         public GeneralHasher(HashAlgorithm algo)
             : this(algo, null)
         {
-
         }
 
         #endregion Constructors
@@ -78,6 +76,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Security.Cryptography
             return new GeneralHasher(new TAlgo(),
                                      salt);
         }
+
         // Protected Methods (1) 
 
         /// <inheriteddoc />

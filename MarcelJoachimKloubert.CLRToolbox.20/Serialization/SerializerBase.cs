@@ -2,11 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Serialization
 {
@@ -28,7 +27,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
         protected SerializerBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -37,7 +35,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
         protected SerializerBase()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -46,19 +43,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
 
         // Public Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ISerializer.FromJson(IEnumerable{char})" />
+        /// <inheriteddoc />
         public IDictionary<string, object> FromJson(IEnumerable<char> json)
         {
             return this.FromJson<IDictionary<string, object>>(json);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ISerializer.FromJson{T}(IEnumerable{char})" />
+        /// <inheriteddoc />
         public T FromJson<T>(IEnumerable<char> json)
         {
             string jsonStr = StringHelper.AsString(json);
@@ -73,10 +64,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ISerializer.ToJson{T}(T)" />
+        /// <inheriteddoc />
         public string ToJson<T>(T obj)
         {
             if (obj == null ||
@@ -90,6 +78,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
 
             return jsonBuilder != null ? jsonBuilder.ToString() : null;
         }
+
         // Protected Methods (2) 
 
         /// <summary>
@@ -103,7 +92,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
         /// <summary>
         /// The logic for <see cref="SerializerBase.ToJson{T}(T)" /> method.
         /// </summary>
-        /// <typeparam name="T">Typf of the object to serialize.</typeparam>
+        /// <typeparam name="T">Type of the object to serialize.</typeparam>
         /// <param name="objToSerialize">Object to serialize.</param>
         /// <param name="jsonBuilder">
         /// The <see cref="StringBuilder" /> to write the JSON data to.

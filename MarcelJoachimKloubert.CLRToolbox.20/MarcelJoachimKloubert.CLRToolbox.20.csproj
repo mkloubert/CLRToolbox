@@ -589,6 +589,7 @@
     <Compile Include="Security\Cryptography\Passwords\GeneralPasswordHasher.cs" />
     <Compile Include="Security\Cryptography\Passwords\IPasswordHasher.cs" />
     <Compile Include="Security\UsernamePasswordValidator.cs" />
+    <Compile Include="Serialization\CommonSerializer.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Json\JsonParameterResult.cs" />
     <Compile Include="Serialization\Json\SimpleJsonResult.cs" />

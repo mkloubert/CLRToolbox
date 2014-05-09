@@ -27,7 +27,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static bool SequenceEqual<T>(IEnumerable<T> left, IEnumerable<T> right)
         {
-            return SequenceEqual<T>(left, right, null);
+            return SequenceEqual<T>(left, right,
+                                    (IEqualityComparer<T>)null);
         }
 
         /// <summary>
@@ -45,6 +46,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static bool SequenceEqual<T>(IEnumerable<T> left, IEnumerable<T> right, IEqualityComparer<T> comparer)
         {
+            return SequenceEqual<T>(left, right,
+                                    comparer != null ? new Func<T, T, bool>(comparer.Equals)
+                                                     : null);
+        }
+
+        /// <summary>
+        /// Determines whether two sequences are equal by comparing the elements by using the default equality comparer for their type.
+        /// </summary>
+        /// <typeparam name="T">Type of the items.</typeparam>
+        /// <param name="left">The left sequence.</param>
+        /// <param name="right">The right sequence.</param>
+        /// <param name="equalsFunc">
+        /// The optional comparer function to use. This value can be <see langword="null" /> to use a default comparer.
+        /// </param>
+        /// <returns>Both sequences contain the same data.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="left" /> and/or <see cref="right" /> are <see langword="null" />.
+        /// </exception>
+        public static bool SequenceEqual<T>(IEnumerable<T> left, IEnumerable<T> right, Func<T, T, bool> equalsFunc)
+        {
             if (left == null)
             {
                 throw new ArgumentNullException("left");
@@ -55,17 +76,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentNullException("right");
             }
 
-            Func<T, T, bool> equalsFunc;
-            if (comparer == null)
+            if (equalsFunc == null)
             {
                 equalsFunc = delegate(T x, T y)
-                    {
-                        return object.Equals(x, y);
-                    };
-            }
-            else
-            {
-                equalsFunc = comparer.Equals;
+                             {
+                                 return object.Equals(x, y);
+                             };
             }
 
             long? countLeft = TryGetCountFromProperty<T>(left);

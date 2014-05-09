@@ -60,9 +60,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         public IEnumerable<S> GetAllInstances<S>(object key)
         {
             IEnumerable<object> instances = this.GetAllInstances(typeof(S), key);
-            IEnumerable<S> castedInstances = CollectionHelper.Cast<S>(instances);
 
-            return CollectionHelper.OfType<S>(castedInstances);
+            return CollectionHelper.Cast<S>(instances);
         }
 
         /// <inheriteddoc />
@@ -102,7 +101,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
             {
                 while (e.MoveNext())
                 {
-                    yield return ParseValue(e.Current);
+                    object obj = ParseValue(e.Current);
+                    if (obj != null)
+                    {
+                        yield return obj;
+                    }
                 }
             }
         }

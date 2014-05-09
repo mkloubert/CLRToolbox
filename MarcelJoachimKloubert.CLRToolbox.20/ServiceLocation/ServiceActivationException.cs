@@ -4,16 +4,20 @@
 
 
 using System;
+using System.Diagnostics;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
 {
     /// <summary>
     /// Is thrown if a service could be be located by a <see cref="IServiceLocator" /> object.
     /// </summary>
+    [DebuggerDisplay("ServiceActivationException = {ServiceType}; {Key}")]
     public partial class ServiceActivationException : Exception
     {
-        #region Fields (1)
+        #region Fields (3)
 
+        private readonly object _KEY;
+        private readonly Type _SERVICE_TYPE;
         /// <summary>
         /// Stores the default message of that exception.
         /// </summary>
@@ -42,8 +46,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
                 throw new ArgumentNullException("serviceType");
             }
 
-            this.ServiceType = serviceType;
-            this.Key = key;
+            this._SERVICE_TYPE = serviceType;
+            this._KEY = key;
         }
 
         /// <summary>
@@ -62,8 +66,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
                 throw new ArgumentNullException("serviceType");
             }
 
-            this.ServiceType = serviceType;
-            this.Key = key;
+            this._SERVICE_TYPE = serviceType;
+            this._KEY = key;
         }
 
         #endregion Constructors
@@ -75,8 +79,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// </summary>
         public object Key
         {
-            get;
-            private set;
+            get { return this._KEY; }
         }
 
         /// <summary>
@@ -84,8 +87,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ServiceLocation
         /// </summary>
         public Type ServiceType
         {
-            get;
-            private set;
+            get { return this._SERVICE_TYPE; }
         }
 
         #endregion Properties

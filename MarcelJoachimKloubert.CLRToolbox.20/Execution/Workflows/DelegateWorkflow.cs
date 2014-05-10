@@ -199,7 +199,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <summary>
-        /// Starts exeution of a delegate based workflow.
+        /// Starts exeution of that workflow by using a custom action.
         /// </summary>
         /// <param name="startAction">The start action.</param>
         /// <exception cref="ArgumentNullException">
@@ -219,10 +219,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <summary>
-        /// Starts exeution of a delegate based workflow.
+        /// Starts exeution of that workflow by using a custom action.
         /// </summary>
         /// <typeparam name="S">Type of the state object.</typeparam>
-        /// <param name="startAction">The start action.</param>
+        /// <param name="startAction">The custom start action.</param>
         /// <param name="actionState">The state object for <paramref name="startAction" />.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="startAction" /> is <see langword="null" />.
@@ -237,10 +237,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <summary>
-        /// Starts exeution of a delegate based workflow.
+        /// Starts exeution of that workflow by using a custom action.
         /// </summary>
         /// <typeparam name="S">Type of the state object.</typeparam>
-        /// <param name="startAction">The start action.</param>
+        /// <param name="startAction">The custom start action.</param>
         /// <param name="actionStateFactory">The function that provides the state object for <paramref name="startAction" />.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="startAction" /> and/or <paramref name="actionStateFactory" /> are <see langword="null" />.
@@ -669,6 +669,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         #endregion Properties
 
         #region Methods (1)
+
+        // Public Methods (1) 
+        
+        /// <summary>
+        /// Starts exeution of that workflow by using a custom action.
+        /// </summary>
+        /// <param name="startAction">The custom start action.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="startAction" /> is <see langword="null" />.
+        /// </exception>
+        /// <remarks>
+        /// <see cref="DelegateWorkflow{TState}.DefaultActionStateFactory" /> is used to generate the state
+        /// object for the context argument of <paramref name="startAction" />.
+        /// </remarks>
+        public void Execute(WorkflowAction<TState> startAction)
+        {
+            this.Execute<TState>(startAction, this.DefaultActionStateFactory);
+        }
+
+        // Protected Methods (1) 
 
         /// <inheriteddoc />
         protected override IEnumerable<Action> GetActionIterator()

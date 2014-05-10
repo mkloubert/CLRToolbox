@@ -12,5 +12,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// </summary>
     public interface IWorkflow : ITMObject, IEnumerable<Action>
     {
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the object for thread safe operations.
+        /// </summary>
+        object SyncRoot { get; }
+
+        #endregion Methods
+
+        #region Methods (1)
+
+        /// <summary>
+        /// Executes the workflow.
+        /// </summary>
+        void Execute();
+
+        #endregion Methods
     }
 }

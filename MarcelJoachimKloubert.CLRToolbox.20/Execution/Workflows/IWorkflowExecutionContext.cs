@@ -43,12 +43,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         bool ContinueOnError { get; set; }
 
         /// <summary>
-        /// Gets global variables that should be used over the whole workflow execution chain.
+        /// Gets variables that should be used over the whole workflow execution chain.
         /// </summary>
         /// <remarks>
         /// The keys of the dictionary are handled case insensitive.
         /// </remarks>
-        IDictionary<string, object> GlobalVars { get; }
+        IDictionary<string, object> ExecutionVars { get; }
 
         /// <summary>
         /// Gets the current zero based index.
@@ -103,22 +103,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// Gets the underlying workflow.
         /// </summary>
         IWorkflow Workflow { get; }
+        
+        /// <summary>
+        /// Gets the dictionary that defines the variables of <see cref="IWorkflowExecutionContext.Workflow" />.
+        /// </summary>
+        IDictionary<string, object> WorkflowVars { get; }
 
         #endregion INTERFACE: IWorkflowExecutionContext
 
-        #region Operations (13)
+        #region Operations (17)
 
         /// <summary>
-        /// Returns a value of <see cref="IWorkflowExecutionContext.GlobalVars" /> property strong typed.
+        /// Returns a value of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the global var.</param>
-        /// <returns>The strong typed version of global var.</returns>
+        /// <param name="name">The name of the var.</param>
+        /// <returns>The strong typed version of the var.</returns>
         /// <exception cref="InvalidOperationException"><paramref name="name" /> does not exist.</exception>
-        T GetGlobalVar<T>(IEnumerable<char> name);
+        T GetExecutionVar<T>(IEnumerable<char> name);
 
         /// <summary>
-        /// Returns the value of <see cref="IWorkflowExecutionContext.NextVars" /> property strong typed.
+        /// Returns a value of <see cref="IWorkflowExecutionContext.NextVars" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="name">The name of the var.</param>
@@ -136,36 +141,45 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         T GetPreviousVar<T>(IEnumerable<char> name);
 
         /// <summary>
-        /// Returns the value of <see cref="IWorkflowExecutionContext.Workflow" /> property strong typed.
+        /// Returns a value of <see cref="IWorkflowExecutionContext.Workflow" /> property strong typed.
         /// </summary>
         /// <typeparam name="W">Target type.</typeparam>
         /// <returns>The strong typed version of <see cref="IWorkflowExecutionContext.Workflow" />.</returns>
         W GetWorkflow<W>() where W : global::MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.IWorkflow;
-        
-        /// <summary>
-        /// Tries to return a value of <see cref="IWorkflowExecutionContext.GlobalVars" /> property strong typed.
-        /// </summary>
-        /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the global var.</param>
-        /// <param name="value">The field where to write the found value to.</param>
-        /// <returns>Var exists or not.</returns>
-        bool TryGetGlobal<T>(IEnumerable<char> name, out T value);
 
         /// <summary>
-        /// Tries to return a value of <see cref="IWorkflowExecutionContext.GlobalVars" /> property strong typed.
+        /// Returns a value of <see cref="IWorkflowExecutionContext.WorkflowVars" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the global var.</param>
+        /// <param name="name">The name of the var.</param>
+        /// <returns>The strong typed version of <see cref="IWorkflowExecutionContext.WorkflowVars" />.</returns>
+        /// <exception cref="InvalidOperationException"><paramref name="name" /> does not exist.</exception>
+        T GetWorkflowVar<T>(IEnumerable<char> name);
+
+        /// <summary>
+        /// Tries to return a value of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="name">The name of the var.</param>
+        /// <param name="value">The field where to write the found value to.</param>
+        /// <returns>Var exists or not.</returns>
+        bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value);
+
+        /// <summary>
+        /// Tries to return a value of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="name">The name of the var.</param>
         /// <param name="value">The field where to write the found value to.</param>
         /// <param name="defaultValue">
         /// The default value for <paramref name="name" />
         /// if <paramref name="value" /> does not exist.
         /// </param>
         /// <returns>Var exists or not.</returns>
-        bool TryGetGlobal<T>(IEnumerable<char> name, out T value, T defaultValue);
+        bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value, T defaultValue);
 
         /// <summary>
-        /// Tries to return a value of <see cref="IWorkflowExecutionContext.GlobalVars" /> property strong typed.
+        /// Tries to return a value of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="name">The name of the var.</param>
@@ -178,7 +192,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <exception cref="ArgumentNullException">
         /// <paramref name="defaultValueProvider" /> is <see langword="null" />.
         /// </exception>
-        bool TryGetGlobalVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider);
+        bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider);
 
         /// <summary>
         /// Tries to return a value of <see cref="IWorkflowExecutionContext.NextVars" /> property strong typed.
@@ -255,6 +269,44 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <paramref name="defaultValueProvider" /> is <see langword="null" />.
         /// </exception>
         bool TryGetPreviousVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider);
+
+        /// <summary>
+        /// Tries to return a value of <see cref="IWorkflowExecutionContext.WorkflowVars" /> property strong typed.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="name">The name of the var.</param>
+        /// <param name="value">The field where to write the found value to.</param>
+        /// <returns>Var exists or not.</returns>
+        bool TryGetWorkflowVar<T>(IEnumerable<char> name, out T value);
+
+        /// <summary>
+        /// Tries to return a value of <see cref="IWorkflowExecutionContext.WorkflowVars" /> property strong typed.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="name">The name of the var.</param>
+        /// <param name="value">The field where to write the found value to.</param>
+        /// <param name="defaultValue">
+        /// The default value for <paramref name="name" />
+        /// if <paramref name="value" /> does not exist.
+        /// </param>
+        /// <returns>Var exists or not.</returns>
+        bool TryGetWorkflowVar<T>(IEnumerable<char> name, out T value, T defaultValue);
+
+        /// <summary>
+        /// Tries to return a value of <see cref="IWorkflowExecutionContext.WorkflowVars" /> property strong typed.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="name">The name of the var.</param>
+        /// <param name="value">The field where to write the found value to.</param>
+        /// <param name="defaultValueProvider">
+        /// The logic that produces the default value for <paramref name="name" />
+        /// if <paramref name="value" /> does not exist.
+        /// </param>
+        /// <returns>Var exists or not.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="defaultValueProvider" /> is <see langword="null" />.
+        /// </exception>
+        bool TryGetWorkflowVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider);
 
         #endregion Operations
     }

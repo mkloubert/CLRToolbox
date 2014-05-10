@@ -16,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// </summary>
     public class SimpleWorkflowExecutionContext : IWorkflowExecutionContext
     {
-        #region Fields (9)
+        #region Fields (10)
 
         private bool _continueOnError;
         private IDictionary<string, object> _globalVars;
@@ -32,10 +32,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         private object _syncRoot;
         private bool _throwErrors;
         private IWorkflow _workflow;
+        private IDictionary<string, object> _workflowVars;
 
         #endregion CLASS: SimpleWorkflowExecutionContext
 
-        #region Properties (10)
+        #region Properties (11)
 
         /// <inheriteddoc />
         public bool ContinueOnError
@@ -46,7 +47,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <inheriteddoc />
-        public IDictionary<string, object> GlobalVars
+        public IDictionary<string, object> ExecutionVars
         {
             get { return this._globalVars; }
 
@@ -115,17 +116,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             set { this._workflow = value; }
         }
 
+        /// <inheriteddoc />
+        public IDictionary<string, object> WorkflowVars
+        {
+            get { return this._workflowVars; }
+
+            set { this._workflowVars = value; }
+        }
+
         #endregion Properties
 
-        #region Methods (14)
+        #region Methods (17)
 
-        // Public Methods (13) 
+        // Public Methods (17) 
 
         /// <inheriteddoc />
-        public T GetGlobalVar<T>(IEnumerable<char> name)
+        public T GetExecutionVar<T>(IEnumerable<char> name)
         {
             T result;
-            if (this.TryGetGlobal<T>(name, out result))
+            if (this.TryGetExecutionVar<T>(name, out result))
             {
                 throw new InvalidOperationException();
             }
@@ -163,17 +172,39 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             return GlobalConverter.Current
                                   .ChangeType<W>(this.Workflow);
         }
-
+        
         /// <inheriteddoc />
-        public bool TryGetGlobal<T>(IEnumerable<char> name, out T value)
+        public T GetWorkflowVar<T>(IEnumerable<char> name)
         {
-            return this.TryGetGlobal<T>(name, out value, default(T));
+            T result;
+            if (this.TryGetWorkflowVar<T>(name, out result))
+            {
+                throw new InvalidOperationException();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Parses a char sequence to use it as variable name.
+        /// </summary>
+        /// <param name="name">The char sequence.</param>
+        /// <returns>The parsed char sequence.</returns>
+        public static string ParseVarName(IEnumerable<char> name)
+        {
+            return StringHelper.AsString(name) ?? string.Empty;
         }
 
         /// <inheriteddoc />
-        public bool TryGetGlobal<T>(IEnumerable<char> name, out T value, T defaultValue)
+        public bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value)
         {
-            return this.TryGetGlobalVar<T>(name, out value,
+            return this.TryGetExecutionVar<T>(name, out value, default(T));
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value, T defaultValue)
+        {
+            return this.TryGetExecutionVar<T>(name, out value,
                                         delegate(string varName)
                                         {
                                             return defaultValue;
@@ -181,7 +212,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
         
         /// <inheriteddoc />
-        public bool TryGetGlobalVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
+        public bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
         {
             if (defaultValueProvider == null)
             {
@@ -190,7 +221,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
             lock (this.SyncRoot)
             {
-                IDictionary<string, object> dict = this.GlobalVars;
+                IDictionary<string, object> dict = this.ExecutionVars;
                 if (dict != null)
                 {
                     object foundValue;
@@ -296,11 +327,48 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             return false;
         }
 
-        // Private Methods (1) 
-
-        private static string ParseVarName(IEnumerable<char> name)
+        /// <inheriteddoc />
+        public bool TryGetWorkflowVar<T>(IEnumerable<char> name, out T value)
         {
-            return StringHelper.AsString(name) ?? string.Empty;
+            return this.TryGetWorkflowVar<T>(name, out value, default(T));
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetWorkflowVar<T>(IEnumerable<char> name, out T value, T defaultValue)
+        {
+            return this.TryGetWorkflowVar<T>(name, out value,
+                                             delegate(string varName)
+                                             {
+                                                 return defaultValue;
+                                             });
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetWorkflowVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
+        {
+            if (defaultValueProvider == null)
+            {
+                throw new ArgumentNullException("defaultValueProvider");
+            }
+
+            lock (this.Workflow.SyncRoot)
+            {
+                IDictionary<string, object> dict = this.WorkflowVars;
+                if (dict != null)
+                {
+                    object foundValue;
+                    if (dict.TryGetValue(ParseVarName(name), out foundValue))
+                    {
+                        value = GlobalConverter.Current
+                                               .ChangeType<T>(foundValue);
+
+                        return true;
+                    }
+                }
+            }
+
+            value = defaultValueProvider(StringHelper.AsString(name));
+            return false;
         }
 
         #endregion Methods

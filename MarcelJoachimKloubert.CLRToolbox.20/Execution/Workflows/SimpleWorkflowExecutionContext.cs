@@ -117,31 +117,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Properties
 
-        #region Methods (15)
+        #region Methods (14)
 
-        // Public Methods (17) 
-
-        /// <inheriteddoc />
-        public void ClearGlobalVars()
-        {
-            lock (this.SyncRoot)
-            {
-                this.GlobalVars.Clear();
-            }
-        }
-
-        /// <inheriteddoc />
-        public bool ContainsGlobalVar(IEnumerable<char> name)
-        {
-            bool result;
-
-            lock (this.SyncRoot)
-            {
-                result = this.GlobalVars.ContainsKey(ParseVarName(name));
-            }
-
-            return result;
-        }
+        // Public Methods (13) 
 
         /// <inheriteddoc />
         public T GetGlobalVar<T>(IEnumerable<char> name)
@@ -186,28 +164,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                                   .ChangeType<W>(this.Workflow);
         }
 
-        /// <inheriteddoc />
-        public bool RemoveGlobalVar(IEnumerable<char> name)
-        {
-            bool result;
-
-            lock (this.SyncRoot)
-            {
-                result = this.GlobalVars.Remove(ParseVarName(name));
-            }
-
-            return result;
-        }
-
-        /// <inheriteddoc />
-        public void SetGlobalVar(IEnumerable<char> name, object value)
-        {
-            lock (this.SyncRoot)
-            {
-                this.GlobalVars[ParseVarName(name)] = value;
-            }
-        }
-        
         /// <inheriteddoc />
         public bool TryGetGlobal<T>(IEnumerable<char> name, out T value)
         {

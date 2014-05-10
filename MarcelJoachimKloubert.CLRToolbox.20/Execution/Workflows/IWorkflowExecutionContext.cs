@@ -106,19 +106,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion INTERFACE: IWorkflowExecutionContext
 
-        #region Operations (17)
-
-        /// <summary>
-        /// Clears <see cref="IWorkflowExecutionContext.GlobalVars" /> and keeps sure that this operation is thread safe.
-        /// </summary>
-        void ClearGlobalVars();
-
-        /// <summary>
-        /// Checks if a variable exists in <see cref="IWorkflowExecutionContext.GlobalVars" /> and keeps sure that this operation is thread safe.
-        /// </summary>
-        /// <param name="name">The name of the var.</param>
-        /// <returns>Exists or not.</returns>
-        bool ContainsGlobalVar(IEnumerable<char> name);
+        #region Operations (13)
 
         /// <summary>
         /// Returns a value of <see cref="IWorkflowExecutionContext.GlobalVars" /> property strong typed.
@@ -153,20 +141,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <typeparam name="W">Target type.</typeparam>
         /// <returns>The strong typed version of <see cref="IWorkflowExecutionContext.Workflow" />.</returns>
         W GetWorkflow<W>() where W : global::MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.IWorkflow;
-        
-        /// <summary>
-        /// Removes a value from <see cref="IWorkflowExecutionContext.GlobalVars" /> and keeps sure that this operation is thread safe.
-        /// </summary>
-        /// <param name="name">The name of the var.</param>
-        /// <returns>Value was removed or not.</returns>
-        bool RemoveGlobalVar(IEnumerable<char> name);
-
-        /// <summary>
-        /// Sets a value in <see cref="IWorkflowExecutionContext.GlobalVars" /> and keeps sure that this operation is thread safe.
-        /// </summary>
-        /// <param name="name">The name of the var.</param>
-        /// <param name="value">The value to set.</param>
-        void SetGlobalVar(IEnumerable<char> name, object value);
         
         /// <summary>
         /// Tries to return a value of <see cref="IWorkflowExecutionContext.GlobalVars" /> property strong typed.

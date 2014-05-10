@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -94,6 +93,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
             return this._DICTIONARY
                        .TryGetValue(key, out value);
         }
+
         // Private Methods (1) 
 
         IEnumerator IEnumerable.GetEnumerator()

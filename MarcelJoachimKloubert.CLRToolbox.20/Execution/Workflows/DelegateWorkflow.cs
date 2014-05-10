@@ -76,9 +76,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         #endregion Constructors
-        
+
         #region Properties (3)
-        
+
         /// <inheriteddoc />
         public object SyncRoot
         {

@@ -103,7 +103,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// Gets the underlying workflow.
         /// </summary>
         IWorkflow Workflow { get; }
-        
+
         /// <summary>
         /// Gets the dictionary that defines the variables of <see cref="IWorkflowExecutionContext.Workflow" />.
         /// </summary>
@@ -215,7 +215,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </param>
         /// <returns>Var exists or not.</returns>
         bool TryGetNextVar<T>(IEnumerable<char> name, out T value, T defaultValue);
-        
+
         /// <summary>
         /// Tries to return a value of <see cref="IWorkflowExecutionContext.NextVars" /> property strong typed.
         /// </summary>
@@ -253,7 +253,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </param>
         /// <returns>Var exists or not.</returns>
         bool TryGetPreviousVar<T>(IEnumerable<char> name, out T value, T defaultValue);
-        
+
         /// <summary>
         /// Tries to return a value of <see cref="IWorkflowExecutionContext.PreviousVars" /> property strong typed.
         /// </summary>

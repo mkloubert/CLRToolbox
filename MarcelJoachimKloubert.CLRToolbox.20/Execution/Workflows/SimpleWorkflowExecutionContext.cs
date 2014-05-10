@@ -61,7 +61,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
             set { this._index = value; }
         }
-        
+
         /// <inheriteddoc />
         public bool IsFirst
         {
@@ -172,7 +172,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             return GlobalConverter.Current
                                   .ChangeType<W>(this.Workflow);
         }
-        
+
         /// <inheriteddoc />
         public T GetWorkflowVar<T>(IEnumerable<char> name)
         {
@@ -210,7 +210,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                                             return defaultValue;
                                         });
         }
-        
+
         /// <inheriteddoc />
         public bool TryGetExecutionVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
         {
@@ -254,7 +254,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                                              return defaultValue;
                                          });
         }
-        
+
         /// <inheriteddoc />
         public bool TryGetNextVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
         {
@@ -298,7 +298,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                                                  return defaultValue;
                                              });
         }
-        
+
         /// <inheriteddoc />
         public bool TryGetPreviousVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
         {

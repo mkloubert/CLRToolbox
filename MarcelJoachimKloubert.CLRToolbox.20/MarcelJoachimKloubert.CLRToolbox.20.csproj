@@ -489,6 +489,7 @@
       <DependentUpon>SystemConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="IO\TextReaderWriterConsole.cs" />
+    <Compile Include="IO\TextWriterWrapperBase.cs" />
     <Compile Include="IO\ZeroByteStream.cs" />
     <Compile Include="IRunnable.cs" />
     <Compile Include="ITMDisposable.cs" />

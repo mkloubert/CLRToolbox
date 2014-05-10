@@ -810,6 +810,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextReaderWriterConsole.cs">
       <Link>IO\TextReaderWriterConsole.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextWriterWrapperBase.cs">
+      <Link>IO\TextWriterWrapperBase.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\IO\ZeroByteStream.cs">
       <Link>IO\ZeroByteStream.cs</Link>
     </Compile>

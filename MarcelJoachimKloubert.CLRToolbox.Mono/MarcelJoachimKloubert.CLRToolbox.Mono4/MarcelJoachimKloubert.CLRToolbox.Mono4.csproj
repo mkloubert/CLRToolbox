@@ -1492,6 +1492,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\StreamManipulator.cs">
       <Link>_Embedded\ICSharpCode.SharpZLib\Zip\Compression\Streams\StreamManipulator.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextWriterWrapperBase.cs">
+      <Link>IO\TextWriterWrapperBase.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

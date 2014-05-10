@@ -46,6 +46,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         #endregion Properties
 
+        #region Delegates and Events (1)
+
+        // Delegates (1) 
+
+        /// <summary>
+        /// Describes a function or method that provides a name (or a part) by a
+        /// </summary>
+        /// <param name="type">The type the name (part) is (or should be) based on.</param>
+        /// <returns>The name (part).</returns>
+        public delegate IEnumerable<char> TypeNameProvider(Type type);
+
+        #endregion Delegates and Events
+
         #region Methods (5)
 
         // Public Methods (4) 
@@ -77,7 +90,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         /// <paramref name="modBuilder" /> is <see langword="null" />.
         /// </exception>
         public Type CreateType(ModuleBuilder modBuilder,
-                               Func<Type, IEnumerable<char>> proxyTypeNamePrefixProvider)
+                               TypeNameProvider proxyTypeNamePrefixProvider)
         {
             return this.CreateType(modBuilder,
                                    proxyTypeNamePrefixProvider,
@@ -100,8 +113,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         /// <paramref name="modBuilder" /> is <see langword="null" />.
         /// </exception>
         public Type CreateType(ModuleBuilder modBuilder,
-                               Func<Type, IEnumerable<char>> proxyTypeNamePrefixProvider,
-                               Func<Type, IEnumerable<char>> proxyTypeNameSuffixProvider)
+                               TypeNameProvider proxyTypeNamePrefixProvider,
+                               TypeNameProvider proxyTypeNameSuffixProvider)
         {
             return this.CreateType(modBuilder,
                                    proxyTypeNamePrefixProvider,
@@ -124,9 +137,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         /// <paramref name="modBuilder" /> is <see langword="null" />.
         /// </exception>
         public Type CreateType(ModuleBuilder modBuilder,
-                               Func<Type, IEnumerable<char>> proxyTypeNamePrefixProvider,
-                               Func<Type, IEnumerable<char>> proxyTypeNameProvider,
-                               Func<Type, IEnumerable<char>> proxyTypeNameSuffixProvider)
+                               TypeNameProvider proxyTypeNamePrefixProvider,
+                               TypeNameProvider proxyTypeNameProvider,
+                               TypeNameProvider proxyTypeNameSuffixProvider)
         {
             if (modBuilder == null)
             {

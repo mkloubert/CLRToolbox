@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.DelegateWorkflow" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="6.5" Width="2.75" />
+    <Members>
+      <Field Name="_IS_THREAD_SAFE" Hidden="true" />
+      <Method Name="Execute_NonThreadSafe" Hidden="true" />
+      <Method Name="Execute_ThreadSafe" Hidden="true" />
+      <Method Name="GetActionIterator" Hidden="true" />
+      <Method Name="IEnumerable.GetEnumerator" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQBQAAAAAAAAAAgAAAAAEAAgAAEAAAAA=</HashCode>
+      <FileName>Execution\Workflows\DelegateWorkflow.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.SimpleWorkflowExecutionContext">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <Members>
+      <Field Name="_continueOnError" Hidden="true" />
+      <Field Name="_globalVars" Hidden="true" />
+      <Field Name="_index" Hidden="true" />
+      <Field Name="_next" Hidden="true" />
+      <Field Name="_nextVars" Hidden="true" />
+      <Field Name="_previousVars" Hidden="true" />
+      <Field Name="_syncRoot" Hidden="true" />
+      <Field Name="_throwErrors" Hidden="true" />
+      <Field Name="_workflow" Hidden="true" />
+      <Method Name="ParseVarName" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>0gAAAQgAACgYMIgBAAIgEABABAAoAAAgIkEEABAAAAA=</HashCode>
+      <FileName>Execution\Workflows\SimpleWorkflowExecutionContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.SimpleWorkflowExecutionContext&lt;S&gt;">
+    <Position X="4" Y="0.5" Width="2.75" />
+    <Members>
+      <Field Name="_state" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Execution\Workflows\SimpleWorkflowExecutionContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.IWorkflow">
+    <Position X="11" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Execution\Workflows\IWorkflow.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.IWorkflowExecutionContext">
+    <Position X="7.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>wgAAAAgAACgIMIgAAAIAEABABAAgAAAAIkEEAAAAAAA=</HashCode>
+      <FileName>Execution\Workflows\IWorkflowExecutionContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.IWorkflowExecutionContext&lt;S&gt;">
+    <Position X="11" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Execution\Workflows\IWorkflowExecutionContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.WorkflowAction&lt;S&gt;">
+    <Position X="11" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Execution\Workflows\IWorkflowExecutionContext.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.WorkflowActionNoState">
+    <Position X="11" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Execution\Workflows\IWorkflowExecutionContext.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

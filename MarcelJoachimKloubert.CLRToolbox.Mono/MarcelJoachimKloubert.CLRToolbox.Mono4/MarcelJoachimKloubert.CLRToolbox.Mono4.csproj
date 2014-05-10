@@ -1498,6 +1498,21 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Any.cs">
       <Link>Helpers\CollectionHelper.Any.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.All.cs">
+      <Link>Helpers\CollectionHelper.All.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\DelegateWorkflow.cs">
+      <Link>Execution\Workflows\DelegateWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\IWorkflow.cs">
+      <Link>Execution\Workflows\IWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\IWorkflowExecutionContext.cs">
+      <Link>Execution\Workflows\IWorkflowExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\SimpleWorkflowExecutionContext.cs">
+      <Link>Execution\Workflows\SimpleWorkflowExecutionContext.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -1527,5 +1542,6 @@
     <Folder Include="ComponentModel\ComponentModel\" />
     <Folder Include="Diagnostics\Remoting\" />
     <Folder Include="_Embedded\" />
+    <Folder Include="Execution\Workflows\" />
   </ItemGroup>
 </Project>

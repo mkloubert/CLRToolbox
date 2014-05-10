@@ -344,6 +344,18 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Impl\DelegateCommand.cs">
       <Link>Execution\Impl\DelegateCommand.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\DelegateWorkflow.cs">
+      <Link>Execution\Workflows\DelegateWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\IWorkflow.cs">
+      <Link>Execution\Workflows\IWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\IWorkflowExecutionContext.cs">
+      <Link>Execution\Workflows\IWorkflowExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\SimpleWorkflowExecutionContext.cs">
+      <Link>Execution\Workflows\SimpleWorkflowExecutionContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Factories\EqualityComparerFactory.cs">
       <Link>Factories\EqualityComparerFactory.cs</Link>
     </Compile>
@@ -353,6 +365,10 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.AddRange.cs">
       <Link>Helpers\CollectionHelper.AddRange.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.All.cs">
+      <Link>Helpers\CollectionHelper.All.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Any.cs">

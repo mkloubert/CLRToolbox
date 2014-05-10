@@ -21,12 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         private bool _continueOnError;
         private IDictionary<string, object> _globalVars;
         private long _index;
-
-        /// <summary>
-        /// Stores the value for the <see cref="SimpleWorkflowExecutionContext.Next" /> property.
-        /// </summary>
-        protected Delegate _next;
-
+        private WorkflowActionNoState _next;
         private IDictionary<string, object> _nextVars;
         private IReadOnlyDictionary<string, object> _previousVars;
         private object _syncRoot;
@@ -69,7 +64,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <inheriteddoc />
-        public WorkflowActionNoState Next
+        public virtual WorkflowActionNoState Next
         {
             get { return (WorkflowActionNoState)this._next; }
 
@@ -384,20 +379,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// <typeparam name="S">Type of the underlying state objects.</typeparam>
     public sealed class SimpleWorkflowExecutionContext<S> : SimpleWorkflowExecutionContext, IWorkflowExecutionContext<S>
     {
-        #region Fields (1)
+        #region Fields (2)
 
+        private WorkflowAction<S> _next;
         private S _state;
 
         #endregion Fields
 
-        #region Properties (2)
-
+        #region Properties (3)
+        
         /// <inheriteddoc />
-        public new WorkflowAction<S> Next
+        public override WorkflowActionNoState Next
         {
-            get { return (WorkflowAction<S>)this._next; }
+            get { return base.Next; }
 
-            set { this._next = value; }
+            set
+            {
+                base.Next = value;
+                this._next = value == null ? null : new WorkflowAction<S>(delegate(IWorkflowExecutionContext<S> ctx)
+                    {
+                        value(ctx);
+                    });
+            }
         }
 
         /// <inheriteddoc />
@@ -406,6 +409,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             get { return this._state; }
 
             set { this._state = value; }
+        }
+
+        WorkflowAction<S> IWorkflowExecutionContext<S>.Next
+        {
+            get { return this._next; }
+
+            set
+            {
+                this._next = value;
+                this.Next = value == null ? null : new WorkflowActionNoState(delegate(IWorkflowExecutionContext ctx)
+                            {
+                                value((IWorkflowExecutionContext<S>)ctx);
+                            });
+            }
         }
 
         #endregion Properties

@@ -1,4 +1,5 @@
-﻿using MarcelJoachimKloubert.CLRToolbox.Objects;
+﻿using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
+using MarcelJoachimKloubert.CLRToolbox.Objects;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
@@ -29,6 +30,30 @@ namespace MarcelJoachimKloubert.Sandbox
             if (obj != null)
             {
             }
+
+            var workflow = DelegateWorkflow.Create(Station_A1, isThreadSafe: true);
+            foreach (var action in workflow)
+            {
+                action();
+            }
+
+            // better for thread safe operations
+            workflow.Execute();
+        }
+
+        private static void Station_A1(IWorkflowExecutionContext ctx)
+        {
+            ctx.Next = Station_B1;
+        }
+
+        private static void Station_B1(IWorkflowExecutionContext ctx)
+        {
+            ctx.Next = Station_C1;
+        }
+
+        private static void Station_C1(IWorkflowExecutionContext ctx)
+        {
+
         }
     }
 }

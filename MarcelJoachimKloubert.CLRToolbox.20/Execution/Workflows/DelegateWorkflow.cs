@@ -113,7 +113,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Properties
 
-        #region Methods (18)
+        #region Methods (22)
 
         // Public Methods (13) 
 
@@ -185,11 +185,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <inheriteddoc />
         public void Execute()
         {
-            CollectionHelper.ForEach(this,
-                                     delegate(IForEachItemExecutionContext<Action> ctx)
-                                     {
-                                         ctx.Item();
-                                     });
+            Action actionToInvoke;
+            if (this._IS_THREAD_SAFE)
+            {
+                actionToInvoke = this.Execute_ThreadSafe;
+            }
+            else
+            {
+                actionToInvoke = this.Execute_NonThreadSafe;
+            }
+
+            actionToInvoke();
         }
 
         /// <summary>
@@ -241,16 +247,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </exception>
         public void Execute<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
         {
-            if (startAction == null)
-            {
-                throw new ArgumentNullException("startAction");
-            }
-
-            if (actionStateFactory == null)
-            {
-                throw new ArgumentNullException("actionStateFactory");
-            }
-
             Action<WorkflowAction<S>, Func<long, S>> actionToInvoke;
             if (this._IS_THREAD_SAFE)
             {
@@ -267,8 +263,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <inheriteddoc />
         public IEnumerator<Action> GetEnumerator()
         {
-            return this.GetActionIterator()
-                       .GetEnumerator();
+            Func<IEnumerator<Action>> funcToInvoke;
+            if (this._IS_THREAD_SAFE)
+            {
+                funcToInvoke = this.GetEnumerator_ThreadSafe;
+            }
+            else
+            {
+                funcToInvoke = this.GetEnumerator_NonThreadSafe;
+            }
+
+            return funcToInvoke();
         }
 
         /// <summary>
@@ -405,7 +410,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             bool throwErrors = true;
             while (currentAction != null)
             {
-                yield return new Action(delegate()
+                yield return delegate()
                     {
                         SimpleWorkflowExecutionContext<S> ctx = new SimpleWorkflowExecutionContext<S>();
                         ctx.ContinueOnError = false;
@@ -438,8 +443,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                         previousVars = new TMReadOnlyDictionary<string, object>(ctx.NextVars);
                         throwErrors = ctx.ThrowErrors;
 
-                        currentAction = ctx.Next;
-                    });
+                        currentAction = ((IWorkflowExecutionContext<S>)ctx).Next;
+                    };
             }
 
             if (throwErrors && occuredErrors.Count > 0)
@@ -448,56 +453,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             }
         }
 
-        // Private Methods (3) 
+        // Private Methods (7) 
+
+        private void Execute_NonThreadSafe()
+        {
+            CollectionHelper.ForEach(this,
+                                     delegate(IForEachItemExecutionContext<Action> ctx)
+                                     {
+                                         ctx.Item();
+                                     });
+        }
 
         private void Execute_NonThreadSafe<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
         {
-            List<Exception> occuredErrors = new List<Exception>();
+            CollectionHelper.ForEach(this.GetActionIterator<S>(startAction, actionStateFactory),
+                                     delegate(IForEachItemExecutionContext<Action> ctx)
+                                     {
+                                         ctx.Item();
+                                     });
+        }
 
-            WorkflowAction<S> currentAction = startAction;
-            Dictionary<string, object> globalVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
-            long index = -1;
-            IReadOnlyDictionary<string, object> previousVars = null;
-            object syncRoot = new object();
-            bool throwErrors = true;
-            while (currentAction != null)
+        private void Execute_ThreadSafe()
+        {
+            lock (this._SYNC)
             {
-                SimpleWorkflowExecutionContext<S> ctx = new SimpleWorkflowExecutionContext<S>();
-                ctx.ContinueOnError = false;
-                ctx.ExecutionVars = globalVars;
-                ctx.Index = ++index;
-                ctx.Next = null;
-                ctx.NextVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
-                ctx.PreviousVars = previousVars;
-                ctx.State = actionStateFactory(ctx.Index);
-                ctx.SyncRoot = syncRoot;
-                ctx.ThrowErrors = throwErrors;
-                ctx.Workflow = this;
-
-                // execution
-                try
-                {
-                    currentAction(ctx);
-                }
-                catch (Exception ex)
-                {
-                    occuredErrors.Add(ex);
-
-                    if (ctx.ContinueOnError == false)
-                    {
-                        throw;
-                    }
-                }
-
-                previousVars = new TMReadOnlyDictionary<string, object>(ctx.NextVars);
-                throwErrors = ctx.ThrowErrors;
-
-                currentAction = ctx.Next;
-            }
-
-            if (throwErrors && occuredErrors.Count > 0)
-            {
-                throw new AggregateException(occuredErrors);
+                this.Execute_NonThreadSafe();
             }
         }
 
@@ -507,6 +487,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             {
                 this.Execute_NonThreadSafe<S>(startAction, actionStateFactory);
             }
+        }
+
+        private IEnumerator<Action> GetEnumerator_NonThreadSafe()
+        {
+            return this.GetActionIterator()
+                       .GetEnumerator();
+        }
+
+        private IEnumerator<Action> GetEnumerator_ThreadSafe()
+        {
+            IEnumerator<Action> result;
+
+            lock (this._SYNC)
+            {
+                result = this.GetEnumerator_NonThreadSafe();
+            }
+
+            return result;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

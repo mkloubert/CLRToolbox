@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 
@@ -30,7 +29,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         public AggregateLogger()
             : base(true)
         {
-
         }
 
         #endregion Constructors
@@ -140,12 +138,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
             return result;
         }
+
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="LoggerFacadeBase.OnLog(ILogMessage)" />
+        /// <inheriteddoc />
         protected override void OnLog(ILogMessage msg)
         {
             foreach (ILoggerFacade logger in this._LOGGERS)

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Runtime.Serialization;
 
@@ -11,6 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
     /// <summary>
     /// Contains data of the sender.
     /// </summary>
+    [Serializable]
     [DataContract]
     public sealed class RemoteLogMessageSender : MarshalByRefObject
     {

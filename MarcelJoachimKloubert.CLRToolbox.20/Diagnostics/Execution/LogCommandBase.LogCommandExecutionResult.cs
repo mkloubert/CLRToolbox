@@ -2,7 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -30,40 +30,49 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
             {
                 get { return this._command; }
 
-                set { this._command = value; }
+                internal set { this._command = value; }
             }
 
             public bool DoLogMessage
             {
                 get { return this._doLogMessage; }
 
-                set { this._doLogMessage = value; }
+                internal set { this._doLogMessage = value; }
             }
 
             public IList<Exception> Errors
             {
                 get { return this._errors; }
 
-                set { this._errors = value; }
+                internal set { this._errors = value; }
             }
 
             public bool HasFailed
             {
-                get { return this.Errors.Count > 0; }
+                get
+                {
+                    IList<Exception> errs = this.Errors;
+                    return errs != null &&
+                           CollectionHelper.Any(errs,
+                                                delegate(Exception ex, long index)
+                                                {
+                                                    return ex != null;
+                                                });
+                }
             }
 
             public ILogMessage Message
             {
                 get { return this._message; }
 
-                set { this._message = value; }
+                internal set { this._message = value; }
             }
 
             public object MessageValueToLog
             {
                 get { return this._messageValueToLog; }
 
-                set { this._messageValueToLog = value; }
+                internal set { this._messageValueToLog = value; }
             }
 
             #endregion Properties

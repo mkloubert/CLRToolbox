@@ -1495,6 +1495,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\IO\TextWriterWrapperBase.cs">
       <Link>IO\TextWriterWrapperBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Any.cs">
+      <Link>Helpers\CollectionHelper.Any.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

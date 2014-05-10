@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using MarcelJoachimKloubert.CLRToolbox.IO;
 using System;
@@ -44,7 +43,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         public ConsoleLogger()
             : this(null)
         {
-
         }
 
         #endregion Constructors

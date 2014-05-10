@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 
@@ -30,7 +29,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         public DelegateLogger()
             : base(true)
         {
-
         }
 
         #endregion Constructors
@@ -122,12 +120,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
             return result;
         }
+
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="LoggerFacadeBase.OnLog(ILogMessage)" />
+        /// <inheriteddoc />
         protected override void OnLog(ILogMessage msg)
         {
             foreach (LogMessageHandler handler in this._DELEGATES)

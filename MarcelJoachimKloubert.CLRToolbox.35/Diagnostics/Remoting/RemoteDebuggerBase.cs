@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
 {
     /// <summary>
@@ -26,7 +25,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
         /// </summary>
         protected RemoteDebuggerBase()
         {
-
         }
 
         #endregion Constructors
@@ -35,22 +33,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
 
         // Public Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebugger.Close()" />
+        /// <inheriteddoc />
         public abstract void Close();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebugger.Open(string, string, byte[])" />
+        /// <inheriteddoc />
         public abstract void Open(string user, string pwd, byte[] client);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebugger.SendMessage(int, string)" />
+        /// <inheriteddoc />
         public abstract string SendMessage(int id, string args);
 
         #endregion Methods

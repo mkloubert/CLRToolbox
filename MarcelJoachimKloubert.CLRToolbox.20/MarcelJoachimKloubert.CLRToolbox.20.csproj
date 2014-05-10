@@ -151,6 +151,9 @@
     <Compile Include="Factories\EqualityComparerFactory.Strings.cs">
       <DependentUpon>EqualityComparerFactory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CollectionHelper.Any.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CollectionHelper.Cast.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>

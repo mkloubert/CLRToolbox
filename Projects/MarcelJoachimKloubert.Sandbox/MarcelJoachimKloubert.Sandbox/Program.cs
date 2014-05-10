@@ -1,17 +1,11 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
     public interface ITest
     {
         bool IchBinEinKunterbuntesProperty { get; }
+
         string IchBinEinKunterbuntesProperty2 { get; }
     }
 
@@ -20,9 +14,9 @@ namespace MarcelJoachimKloubert.Sandbox
         public bool A { get; set; }
     }
 
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ObjectFactory of = ObjectFactory.Instance;
 
@@ -34,7 +28,6 @@ namespace MarcelJoachimKloubert.Sandbox
 
             if (obj != null)
             {
-
             }
         }
     }

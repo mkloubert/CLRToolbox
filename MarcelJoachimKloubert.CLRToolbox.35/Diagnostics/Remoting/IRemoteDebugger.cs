@@ -2,13 +2,12 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.ServiceModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
 {
     /// <summary>
-    /// Describes a contract that represents a connection from a client to a server/host.
+    /// Describes a contract that represents a debugger connection from a client to a server/host.
     /// </summary>
     [ServiceContract(CallbackContract = typeof(IRemoteDebuggerCallback),
                      Namespace = "http://wcf.marcel-kloubert.de",

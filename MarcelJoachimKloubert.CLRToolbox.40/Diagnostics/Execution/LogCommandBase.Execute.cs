@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
@@ -14,7 +13,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
         // Public Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="ILogCommand.Execute(ILogMessage)"/>
         public new ILogCommandExecutionResult Execute(ILogMessage orgMsg)

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -49,6 +48,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
                 set { this._categories = value; }
             }
+
 #if !WINDOWS_PHONE
 
             public global::System.Runtime.Remoting.Contexts.Context Context

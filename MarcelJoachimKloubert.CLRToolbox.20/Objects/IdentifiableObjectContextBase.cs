@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.IO;
 
@@ -12,8 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
     /// A basic context for an <see cref="IIdentifiable" /> object.
     /// </summary>
     /// <typeparam name="TObj">The type of the object.</typeparam>
-    public abstract class IdentifiableObjectContextBase<TObj> : ObjectContextBase<TObj>
-        where TObj : global::MarcelJoachimKloubert.CLRToolbox.IIdentifiable
+    public abstract class IdentifiableObjectContextBase<TObj> : ObjectContextBase<TObj> where TObj : global::MarcelJoachimKloubert.CLRToolbox.IIdentifiable
     {
         #region Constructors (2)
 
@@ -28,7 +26,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         protected IdentifiableObjectContextBase(TObj idObj, object syncRoot)
             : base(idObj, syncRoot)
         {
-
         }
 
         /// <summary>
@@ -41,7 +38,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
         protected IdentifiableObjectContextBase(TObj idObj)
             : base(idObj)
         {
-
         }
 
         #endregion Constructors
@@ -50,10 +46,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ObjectContextBase.OnCalculateHash(ref MemoryStream)" />
+        /// <inheriteddoc />
         protected override void OnCalculateHash(ref MemoryStream dataToHash)
         {
             base.OnCalculateHash(ref dataToHash);

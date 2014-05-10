@@ -2,11 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.Execution;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution.Impl
 {
@@ -64,10 +62,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution.Impl
 
         // Public Methods (5) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="CommandBase{TParam}.CanExecute(TParam)" />
+        /// <inheriteddoc />
         public override bool CanExecute(ILogMessage param)
         {
             return this._CAN_EXECUTE_LOG_MESSAGE(param);
@@ -139,21 +134,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution.Impl
                           canExecuteLogMessage,
                           CollectionHelper.AsArray(args));
         }
+
         // Protected Methods (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="LogCommandBase.GetExecutionArguments(ILogMessage)" />
+        /// <inheriteddoc />
         protected override IEnumerable<object> GetExecutionArguments(ILogMessage msg)
         {
             return this._ARGUMENTS;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="LogCommandBase.OnExecute(ILogCommandExecutionContext)" />
+        /// <inheriteddoc />
         protected override void OnExecute(ILogCommandExecutionContext context)
         {
             this._EXECUTE_LOG_MESSAGE(context);

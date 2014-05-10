@@ -26,18 +26,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 
         #endregion Constructors
 
-        #region Methods (3)
+        #region Methods (4)
 
-        // Protected Methods (2) 
+        // Protected Methods (3) 
 
         /// <summary>
-        /// Returns the list of arguments for a 
+        /// Returns the list of arguments for an execution.
         /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
+        /// <param name="msg">The log message from where to get the arguments from.</param>
+        /// <returns>The list of arguments.</returns>
         protected virtual IEnumerable<object> GetExecutionArguments(ILogMessage msg)
         {
             return null;
+        }
+
+        /// <inheriteddoc />
+        protected override sealed void OnExecute(ILogMessage param)
+        {
+            LogCommandExecutionContext ctx = this.CreateBasicExecutionContext(param);
+
+            this.OnExecute(ctx);
         }
 
         /// <summary>
@@ -60,16 +68,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
         }
 
         #endregion Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="CommandBase{TParam}.OnExecute(TParam)"/>
-        protected override sealed void OnExecute(ILogMessage param)
-        {
-            LogCommandExecutionContext ctx = this.CreateBasicExecutionContext(param);
-
-            this.OnExecute(ctx);
-        }
     }
 }

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 
@@ -27,7 +26,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
         bool DoLogMessage { get; }
 
         /// <summary>
-        /// Gets a readonly list of errors the had been thrown while command was executed. 
+        /// Gets a readonly list of errors that had been thrown while command was executed.
         /// </summary>
         IList<Exception> Errors { get; }
 

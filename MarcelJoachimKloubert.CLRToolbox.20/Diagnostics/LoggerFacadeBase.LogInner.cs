@@ -92,42 +92,62 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
                 ILogMessage messageToLog = orgMsg;
 
-                ILogCommand logCmd = msg as ILogCommand;
-                if (logCmd != null)
+                bool checkAgain;
+                do
                 {
-                    // logic to execute
+                    checkAgain = false;
 
-                    messageToLog = null;
-                    if (logCmd.CanExecute(orgMsg))
+                    if (messageToLog == null)
                     {
-                        ILogCommandExecutionResult result = logCmd.Execute(orgMsg);
-                        if (result != null)
-                        {
-                            if (result.DoLogMessage)
-                            {
-                                // send 'result.MessageValueToLog'
-                                // to "real" logger logic
+                        break;
+                    }
 
-                                messageToLog = CreateCopyOfLogMessage(orgMsg,
-                                                                      result.MessageValueToLog);
+                    ILogCommand logCmd = messageToLog.Message as ILogCommand;
+                    if (logCmd != null)
+                    {
+                        // logic to execute
+
+                        messageToLog = null;
+                        if (logCmd.CanExecute(orgMsg))
+                        {
+                            ILogCommandExecutionResult result = logCmd.Execute(orgMsg);
+                            if (result != null)
+                            {
+                                if (result.HasFailed)
+                                {
+                                    throw new AggregateException(result.Errors);
+                                }
+
+                                if (result.DoLogMessage)
+                                {
+                                    // send 'result.MessageValueToLog'
+                                    // to "real" logger logic
+
+                                    messageToLog = CreateCopyOfLogMessage(orgMsg,
+                                                                          result.MessageValueToLog);
+                                }
+                            }
+                        }
+
+                        // maybe 'messageToLog' can be a log command again
+                        checkAgain = true;
+                    }
+                    else
+                    {
+                        ICommand<ILogMessage> cmd = messageToLog.Message as ICommand<ILogMessage>;
+                        if (cmd != null)
+                        {
+                            // general command
+
+                            messageToLog = null;
+                            if (cmd.CanExecute(orgMsg))
+                            {
+                                cmd.Execute(orgMsg);
                             }
                         }
                     }
                 }
-                else
-                {
-                    ICommand<ILogMessage> cmd = msg as ICommand<ILogMessage>;
-                    if (cmd != null)
-                    {
-                        // general command
-
-                        messageToLog = null;
-                        if (cmd.CanExecute(orgMsg))
-                        {
-                            cmd.Execute(orgMsg);
-                        }
-                    }
-                }
+                while (checkAgain);
 
                 this._ON_LOG_ACTION(messageToLog);
             }

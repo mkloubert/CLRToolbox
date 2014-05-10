@@ -2,15 +2,15 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Runtime.Serialization;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
 {
     /// <summary>
-    /// Contains serializable data 
+    /// Contains serializable data
     /// </summary>
+    [Serializable]
     [DataContract]
     public sealed class RemoteLogMessage : MarshalByRefObject
     {

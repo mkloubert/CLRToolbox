@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
 {
     /// <summary>
@@ -26,7 +25,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
         /// </summary>
         protected RemoteDebuggerCallbackBase()
         {
-
         }
 
         #endregion Constructors
@@ -35,40 +33,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Remoting
 
         // Public Methods (6) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebuggerCallback.Debug(string)" />
+        /// <inheriteddoc />
         public abstract void Debug(string value);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebuggerCallback.ErrorOutput(string)" />
+        /// <inheriteddoc />
         public abstract void ErrorOutput(string value);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebuggerCallback.Log(RemoteLogMessage)" />
+        /// <inheriteddoc />
         public abstract void Log(RemoteLogMessage msg);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebuggerCallback.SendMessage(int, string)" />
+        /// <inheriteddoc />
         public abstract string SendMessage(int id, string args);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebuggerCallback.StandardOutput(string)" />
+        /// <inheriteddoc />
         public abstract void StandardOutput(string value);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IRemoteDebuggerCallback.Trace(string)" />
+        /// <inheriteddoc />
         public abstract void Trace(string value);
 
         #endregion Methods

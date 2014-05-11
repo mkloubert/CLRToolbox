@@ -2,7 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-#if (!NET2 || NET20 || NET35 || WINDOWS_PHONE || MONO2 || MONO20)
+#if !(NET2 || NET20 || NET35 || WINDOWS_PHONE || MONO2 || MONO20)
 #define KNOWS_TASKS
 #endif
 
@@ -151,13 +151,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                     try
                     {
-#if !KNOWS_TASKS
+#if KNOWS_TASKS
+                        global::System.Threading.Tasks.Task.Factory.StartNew(asyncAction);
+#else
                         global::System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
                             {
                                 asyncAction();
                             });
-#else
-                        global::System.Threading.Tasks.Task.Factory.StartNew(asyncAction);
 #endif
                     }
                     catch (Exception ex)

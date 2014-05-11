@@ -126,7 +126,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                             }
                         };
 
-                    Action asyncAction = delegate()
+                    Action<object> asyncAction = delegate(object s)
                         {
                             object result = null;
 
@@ -152,12 +152,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                     try
                     {
 #if KNOWS_TASKS
-                        global::System.Threading.Tasks.Task.Factory.StartNew(asyncAction);
+                        global::System.Threading.Tasks.Task.Factory.StartNew(action: asyncAction,
+                                                                             state: null);
 #else
-                        global::System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
-                            {
-                                asyncAction();
-                            });
+                        global::System.Threading.ThreadPool.QueueUserWorkItem(new global::System.Threading.WaitCallback(asyncAction));
 #endif
                     }
                     catch (Exception ex)

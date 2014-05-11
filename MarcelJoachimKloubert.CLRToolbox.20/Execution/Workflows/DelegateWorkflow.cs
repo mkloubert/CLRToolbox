@@ -93,7 +93,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </exception>
         public static DelegateWorkflow Create(WorkflowActionNoState defaultStartAction, object syncRoot)
         {
-            return Create(defaultStartAction, false, syncRoot);
+            return Create(defaultStartAction, true, syncRoot);
         }
 
         /// <summary>

@@ -59,7 +59,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </exception>
         /// <remarks>Object will NOT work thread safe.</remarks>
         public WorkflowBase(object syncRoot)
-            : this(false, syncRoot)
+            : this(true, syncRoot)
         {
         }
 

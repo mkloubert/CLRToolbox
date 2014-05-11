@@ -4,11 +4,9 @@
 
 using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
-using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
@@ -18,15 +16,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// <summary>
     /// A workflow that is based on delegates.
     /// </summary>
-    public class DelegateWorkflow : TMObject, IWorkflow
+    public class DelegateWorkflow : WorkflowBase
     {
-        #region Fields (2)
-
-        private readonly bool _IS_THREAD_SAFE;
-        private readonly IDictionary<string, object> _VARS;
-
-        #endregion CLASS: DelegateWorkflow
-
         #region Constructors (4)
 
         /// <summary>
@@ -38,10 +29,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <paramref name="syncRoot" /> is <see langword="null" />.
         /// </exception>
         public DelegateWorkflow(bool isThreadSafe, object syncRoot)
-            : base(syncRoot)
+            : base(isThreadSafe, syncRoot)
         {
-            this._IS_THREAD_SAFE = isThreadSafe;
-            this._VARS = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
         }
 
         /// <summary>
@@ -49,7 +38,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         /// <param name="isThreadSafe">Instance should work thread safe or not.</param>
         public DelegateWorkflow(bool isThreadSafe)
-            : this(isThreadSafe, new object())
+            : base(isThreadSafe)
         {
         }
 
@@ -62,7 +51,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </exception>
         /// <remarks>Object will NOT work thread safe.</remarks>
         public DelegateWorkflow(object syncRoot)
-            : this(false, syncRoot)
+            : base(syncRoot)
         {
         }
 
@@ -71,51 +60,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         /// <remarks>Object will NOT work thread safe.</remarks>
         public DelegateWorkflow()
-            : this(new object())
+            : base()
         {
         }
 
-        #endregion Constructors
+        #endregion CLASS: DelegateWorkflow
 
-        #region Properties (3)
+        #region Methods (10)
 
-        /// <inheriteddoc />
-        public object SyncRoot
-        {
-            get { return this._SYNC; }
-        }
-
-        /// <summary>
-        /// Gets or sets a value of the variables of that workflow.
-        /// </summary>
-        /// <param name="name">The name of the var.</param>
-        /// <returns>The value of the var.</returns>
-        /// <remarks>
-        /// The variable names are NOT case sensitive.
-        /// </remarks>
-        public object this[IEnumerable<char> name]
-        {
-            get { return this.Vars[SimpleWorkflowExecutionContext.ParseVarName(name)]; }
-
-            set { this.Vars[SimpleWorkflowExecutionContext.ParseVarName(name)] = value; }
-        }
-
-        /// <summary>
-        /// Gets the variables of that workflow as dictionary.
-        /// </summary>
-        /// <remarks>
-        /// The variable names are NOT case sensitive.
-        /// </remarks>
-        public IDictionary<string, object> Vars
-        {
-            get { return this._VARS; }
-        }
-
-        #endregion Properties
-
-        #region Methods (22)
-
-        // Public Methods (13) 
+        // Public Methods (7) 
 
         /// <summary>
         /// Creates a new instance by using a <see cref="WorkflowActionNoState" /> based action.
@@ -182,41 +135,25 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                                                 syncRoot);
         }
 
-        /// <inheriteddoc />
-        public object Execute()
-        {
-            Action actionToInvoke;
-            if (this._IS_THREAD_SAFE)
-            {
-                actionToInvoke = this.Execute_ThreadSafe;
-            }
-            else
-            {
-                actionToInvoke = this.Execute_NonThreadSafe;
-            }
-
-            actionToInvoke();
-            return null;
-        }
-
         /// <summary>
         /// Starts exeution of that workflow by using a custom action.
         /// </summary>
         /// <param name="startAction">The start action.</param>
+        /// <returns>The result of the last execution.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="startAction" /> is <see langword="null" />.
         /// </exception>
-        public void Execute(WorkflowActionNoState startAction)
+        public object Execute(WorkflowActionNoState startAction)
         {
             if (startAction == null)
             {
                 throw new ArgumentNullException("startAction");
             }
 
-            this.Execute<object>(delegate(IWorkflowExecutionContext<object> context)
-                                 {
-                                     startAction(context);
-                                 }, (object)null);
+            return this.Execute<object>(delegate(IWorkflowExecutionContext<object> context)
+                                        {
+                                            startAction(context);
+                                        }, (object)null);
         }
 
         /// <summary>
@@ -225,16 +162,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <typeparam name="S">Type of the state object.</typeparam>
         /// <param name="startAction">The custom start action.</param>
         /// <param name="actionState">The state object for <paramref name="startAction" />.</param>
+        /// <returns>The result of the last execution.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="startAction" /> is <see langword="null" />.
         /// </exception>
-        public void Execute<S>(WorkflowAction<S> startAction, S actionState)
+        public object Execute<S>(WorkflowAction<S> startAction, S actionState)
         {
-            this.Execute<S>(startAction,
-                            delegate(long index)
-                            {
-                                return actionState;
-                            });
+            return this.Execute<S>(startAction,
+                                   delegate(long index)
+                                   {
+                                       return actionState;
+                                   });
         }
 
         /// <summary>
@@ -243,144 +181,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <typeparam name="S">Type of the state object.</typeparam>
         /// <param name="startAction">The custom start action.</param>
         /// <param name="actionStateFactory">The function that provides the state object for <paramref name="startAction" />.</param>
+        /// <returns>The result of the last execution.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="startAction" /> and/or <paramref name="actionStateFactory" /> are <see langword="null" />.
         /// </exception>
-        public void Execute<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
+        public object Execute<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
         {
-            Action<WorkflowAction<S>, Func<long, S>> actionToInvoke;
-            if (this._IS_THREAD_SAFE)
+            Func<WorkflowAction<S>, Func<long, S>, object> funcToInvoke;
+            if (this.Synchronized)
             {
-                actionToInvoke = this.Execute_ThreadSafe;
+                funcToInvoke = this.Execute_ThreadSafe;
             }
             else
             {
-                actionToInvoke = this.Execute_NonThreadSafe;
+                funcToInvoke = this.Execute_NonThreadSafe;
             }
 
-            actionToInvoke(startAction, actionStateFactory);
+            return funcToInvoke(startAction, actionStateFactory);
         }
 
-        /// <inheriteddoc />
-        public IEnumerator<Action> GetEnumerator()
-        {
-            Func<IEnumerator<Action>> funcToInvoke;
-            if (this._IS_THREAD_SAFE)
-            {
-                funcToInvoke = this.GetEnumerator_ThreadSafe;
-            }
-            else
-            {
-                funcToInvoke = this.GetEnumerator_NonThreadSafe;
-            }
-
-            return funcToInvoke();
-        }
+        // Protected Methods (1) 
 
         /// <summary>
-        /// Returns a value of <see cref="DelegateWorkflow.Vars" /> property strong typed.
-        /// </summary>
-        /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the var.</param>
-        /// <returns>The strong typed version of var.</returns>
-        /// <exception cref="InvalidOperationException"><paramref name="name" /> does not exist.</exception>
-        public T GetVar<T>(IEnumerable<char> name)
-        {
-            T result;
-            if (this.TryGetVar<T>(name, out result))
-            {
-                throw new InvalidOperationException();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Tries to return a value of <see cref="DelegateWorkflow.Vars" /> property strong typed.
-        /// </summary>
-        /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the var.</param>
-        /// <param name="value">The field where to write the found value to.</param>
-        /// <returns>Var exists or not.</returns>
-        public bool TryGetVar<T>(IEnumerable<char> name, out T value)
-        {
-            return this.TryGetVar<T>(name, out value, default(T));
-        }
-
-        /// <summary>
-        /// Tries to return a value of <see cref="DelegateWorkflow.Vars" /> property strong typed.
-        /// </summary>
-        /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the var.</param>
-        /// <param name="value">The field where to write the found value to.</param>
-        /// <param name="defaultValue">
-        /// The default value for <paramref name="name" />
-        /// if <paramref name="value" /> does not exist.
-        /// </param>
-        /// <returns>Var exists or not.</returns>
-        public bool TryGetVar<T>(IEnumerable<char> name, out T value, T defaultValue)
-        {
-            return this.TryGetVar<T>(name, out value,
-                                     delegate(string varName)
-                                     {
-                                         return defaultValue;
-                                     });
-        }
-
-        /// <summary>
-        /// Tries to return a value of <see cref="DelegateWorkflow.Vars" /> property strong typed.
-        /// </summary>
-        /// <typeparam name="T">Target type.</typeparam>
-        /// <param name="name">The name of the var.</param>
-        /// <param name="value">The field where to write the found value to.</param>
-        /// <param name="defaultValueProvider">
-        /// The logic that produces the default value for <paramref name="name" />
-        /// if <paramref name="value" /> does not exist.
-        /// </param>
-        /// <returns>Var exists or not.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="defaultValueProvider" /> is <see langword="null" />.
-        /// </exception>
-        public bool TryGetVar<T>(IEnumerable<char> name, out T value, Func<string, T> defaultValueProvider)
-        {
-            if (defaultValueProvider == null)
-            {
-                throw new ArgumentNullException("defaultValueProvider");
-            }
-
-            lock (this.SyncRoot)
-            {
-                IDictionary<string, object> dict = this.Vars;
-                if (dict != null)
-                {
-                    object foundValue;
-                    if (dict.TryGetValue(SimpleWorkflowExecutionContext.ParseVarName(name), out foundValue))
-                    {
-                        value = GlobalConverter.Current
-                                               .ChangeType<T>(foundValue);
-
-                        return true;
-                    }
-                }
-            }
-
-            value = defaultValueProvider(StringHelper.AsString(name));
-            return false;
-        }
-
-        // Protected Methods (2) 
-
-        /// <summary>
-        /// Returns the iterator for <see cref="DelegateWorkflow.GetEnumerator()" />.
-        /// </summary>
-        /// <returns>The iterator.</returns>
-        protected virtual IEnumerable<Action> GetActionIterator()
-        {
-            yield break;
-        }
-
-        /// <summary>
-        /// Returns the iterator for <see cref="DelegateWorkflow.GetEnumerator()" />.
+        /// Returns the iterator for <see cref="WorkflowBase.GetEnumerator()" />.
         /// </summary>
         /// <typeparam name="S">Type of the state object.</typeparam>
         /// <param name="startAction">The start action.</param>
@@ -389,7 +212,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <exception cref="ArgumentNullException">
         /// <paramref name="startAction" /> and/or <paramref name="actionStateFactory" /> are <see langword="null" />.
         /// </exception>
-        protected IEnumerable<Action> GetActionIterator<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
+        protected IEnumerable<WorkflowFunc> GetFunctionIterator<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
         {
             if (startAction == null)
             {
@@ -407,6 +230,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             Dictionary<string, object> execVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
             long index = -1;
             IReadOnlyDictionary<string, object> previousVars = null;
+            object result = null;
             object syncRoot = new object();
             bool throwErrors = true;
             while (currentAction != null)
@@ -420,6 +244,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                         ctx.Next = null;
                         ctx.NextVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
                         ctx.PreviousVars = previousVars;
+                        ctx.Result = result;
                         ctx.State = actionStateFactory(ctx.Index);
                         ctx.SyncRoot = syncRoot;
                         ctx.ThrowErrors = throwErrors;
@@ -430,6 +255,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                         try
                         {
                             currentAction(ctx);
+
+                            result = ctx.Result;
                         }
                         catch (Exception ex)
                         {
@@ -445,6 +272,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                         throwErrors = ctx.ThrowErrors;
 
                         currentAction = ((IWorkflowExecutionContext<S>)ctx).Next;
+
+                        return ctx;
                     };
             }
 
@@ -454,63 +283,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             }
         }
 
-        // Private Methods (7) 
+        // Private Methods (2) 
 
-        private void Execute_NonThreadSafe()
+        private object Execute_NonThreadSafe<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
         {
-            CollectionHelper.ForEach(this,
-                                     delegate(IForEachItemExecutionContext<Action> ctx)
+            object result = null;
+            CollectionHelper.ForEach(this.GetFunctionIterator<S>(startAction, actionStateFactory),
+                                     delegate(IForEachItemExecutionContext<WorkflowFunc> ctx)
                                      {
-                                         ctx.Item();
+                                         result = ctx.Item();
                                      });
-        }
-
-        private void Execute_NonThreadSafe<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
-        {
-            CollectionHelper.ForEach(this.GetActionIterator<S>(startAction, actionStateFactory),
-                                     delegate(IForEachItemExecutionContext<Action> ctx)
-                                     {
-                                         ctx.Item();
-                                     });
-        }
-
-        private void Execute_ThreadSafe()
-        {
-            lock (this._SYNC)
-            {
-                this.Execute_NonThreadSafe();
-            }
-        }
-
-        private void Execute_ThreadSafe<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
-        {
-            lock (this._SYNC)
-            {
-                this.Execute_NonThreadSafe<S>(startAction, actionStateFactory);
-            }
-        }
-
-        private IEnumerator<Action> GetEnumerator_NonThreadSafe()
-        {
-            return this.GetActionIterator()
-                       .GetEnumerator();
-        }
-
-        private IEnumerator<Action> GetEnumerator_ThreadSafe()
-        {
-            IEnumerator<Action> result;
-
-            lock (this._SYNC)
-            {
-                result = this.GetEnumerator_NonThreadSafe();
-            }
 
             return result;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        private object Execute_ThreadSafe<S>(WorkflowAction<S> startAction, Func<long, S> actionStateFactory)
         {
-            return this.GetEnumerator();
+            object result;
+
+            lock (this._SYNC)
+            {
+                result = this.Execute_NonThreadSafe<S>(startAction, actionStateFactory);
+            }
+
+            return result;
         }
 
         #endregion Methods
@@ -535,7 +331,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Fields
 
-        #region Constructors (9)
+        #region Constructors (6)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateWorkflow{TState}" /> class.
@@ -672,7 +468,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         #region Methods (1)
 
         // Public Methods (1) 
-        
+
         /// <summary>
         /// Starts exeution of that workflow by using a custom action.
         /// </summary>
@@ -692,10 +488,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         // Protected Methods (1) 
 
         /// <inheriteddoc />
-        protected override IEnumerable<Action> GetActionIterator()
+        protected override IEnumerable<WorkflowFunc> GetFunctionIterator()
         {
-            return this.GetActionIterator<TState>(this.DefaultStartAction,
-                                                  this.DefaultActionStateFactory);
+            return this.GetFunctionIterator<TState>(this.DefaultStartAction,
+                                                    this.DefaultActionStateFactory);
         }
 
         #endregion Methods

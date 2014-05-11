@@ -1288,5 +1288,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.MakeAsync.cs">
       <Link>Helpers\ExecutionHelper.MakeAsync.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowBase.cs">
+      <Link>Execution\Workflows\WorkflowBase.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// </summary>
     public interface IWorkflowExecutionContext
     {
-        #region Data Members (10)
+        #region Data Members (12)
 
         /// <summary>
         /// Gets or sets if the execution should be continued if execution fails.
@@ -59,6 +59,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// Gets if that context represents the first execution in the workflow chain or not.
         /// </summary>
         bool IsFirst { get; }
+
+        /// <summary>
+        /// Gets if that context represents the last execution in the workflow chain or not.
+        /// With other words: <see cref="IWorkflowExecutionContext.Next" /> is <see langword="null" />.
+        /// </summary>
+        bool IsLast { get; }
 
         /// <summary>
         /// Gets or sets the next action to invoke.
@@ -90,6 +96,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         IReadOnlyDictionary<string, object> PreviousVars { get; }
 
         /// <summary>
+        /// Gets or sets the result object for an <see cref="IWorkflow.Execute()" /> method.
+        /// </summary>
+        object Result { get; set; }
+
+        /// <summary>
         /// Gets the object for thread safe operations.
         /// </summary>
         object SyncRoot { get; }
@@ -109,9 +120,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         IDictionary<string, object> WorkflowVars { get; }
 
-        #endregion Data Members
+        #endregion INTERFACE: IWorkflowExecutionContext
 
-        #region Operations (17)
+        #region Operations (18)
 
         /// <summary>
         /// Returns a value of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
@@ -132,13 +143,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         T GetNextVar<T>(IEnumerable<char> name);
 
         /// <summary>
-        /// Returns the value of <see cref="IWorkflowExecutionContext.PreviousVars" /> property strong typed.
+        /// Returns a value of <see cref="IWorkflowExecutionContext.PreviousVars" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="name">The name of the var.</param>
         /// <returns>The strong typed version of <see cref="IWorkflowExecutionContext.PreviousVars" />.</returns>
         /// <exception cref="InvalidOperationException"><paramref name="name" /> does not exist.</exception>
         T GetPreviousVar<T>(IEnumerable<char> name);
+
+        /// <summary>
+        /// Returns the value of <see cref="IWorkflowExecutionContext.Result" /> property strong typed.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <returns>The strong typed version of <see cref="IWorkflowExecutionContext.Result" />.</returns>
+        T GetResult<T>();
 
         /// <summary>
         /// Returns a value of <see cref="IWorkflowExecutionContext.Workflow" /> property strong typed.

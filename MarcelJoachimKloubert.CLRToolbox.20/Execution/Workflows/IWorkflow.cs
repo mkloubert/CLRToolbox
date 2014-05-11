@@ -2,15 +2,26 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using System;
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 {
+    #region DELEGATE: WorkflowFunc
+
+    /// <summary>
+    /// Describes a function / methods that is a function of a workflow.
+    /// </summary>
+    /// <returns>The context that is / was in use.</returns>
+    public delegate IWorkflowExecutionContext WorkflowFunc();
+
+    #endregion DELEGATE: WorkflowFunc
+
+    #region INTERFACE: IWorkflow
+
     /// <summary>
     /// Describes a workflow.
     /// </summary>
-    public interface IWorkflow : ITMObject, IEnumerable<Action>
+    public interface IWorkflow : ITMObject, IEnumerable<WorkflowFunc>
     {
         #region Properties (1)
 
@@ -19,7 +30,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         object SyncRoot { get; }
 
-        #endregion Methods
+        #endregion INTERFACE: IWorkflow
 
         #region Methods (1)
 
@@ -31,4 +42,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Methods
     }
+
+    #endregion
 }

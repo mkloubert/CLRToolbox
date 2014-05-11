@@ -16,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// </summary>
     public class SimpleWorkflowExecutionContext : IWorkflowExecutionContext
     {
-        #region Fields (10)
+        #region Fields (11)
 
         private bool _continueOnError;
         private IDictionary<string, object> _globalVars;
@@ -24,6 +24,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         private WorkflowActionNoState _next;
         private IDictionary<string, object> _nextVars;
         private IReadOnlyDictionary<string, object> _previousVars;
+        private object _result;
         private object _syncRoot;
         private bool _throwErrors;
         private IWorkflow _workflow;
@@ -31,7 +32,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion CLASS: SimpleWorkflowExecutionContext
 
-        #region Properties (11)
+        #region Properties (13)
 
         /// <inheriteddoc />
         public bool ContinueOnError
@@ -64,6 +65,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <inheriteddoc />
+        public bool IsLast
+        {
+            get { return this.Next == null; }
+        }
+
+        /// <inheriteddoc />
         public virtual WorkflowActionNoState Next
         {
             get { return (WorkflowActionNoState)this._next; }
@@ -85,6 +92,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             get { return this._previousVars; }
 
             set { this._previousVars = value; }
+        }
+
+        /// <inheriteddoc />
+        public object Result
+        {
+            get { return this._result; }
+
+            set { this._result = value; }
         }
 
         /// <inheriteddoc />
@@ -121,9 +136,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Properties
 
-        #region Methods (17)
+        #region Methods (18)
 
-        // Public Methods (17) 
+        // Public Methods (18) 
 
         /// <inheriteddoc />
         public T GetExecutionVar<T>(IEnumerable<char> name)
@@ -159,6 +174,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             }
 
             return result;
+        }
+
+        /// <inheriteddoc />
+        public T GetResult<T>()
+        {
+            return GlobalConverter.Current
+                                  .ChangeType<T>(this.Result);
         }
 
         /// <inheriteddoc />
@@ -387,7 +409,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         #endregion Fields
 
         #region Properties (3)
-        
+
         /// <inheriteddoc />
         public override WorkflowActionNoState Next
         {

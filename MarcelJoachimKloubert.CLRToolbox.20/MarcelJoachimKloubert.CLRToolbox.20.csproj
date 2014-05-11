@@ -153,6 +153,7 @@
     <Compile Include="Execution\Workflows\IWorkflow.cs" />
     <Compile Include="Execution\Workflows\IWorkflowExecutionContext.cs" />
     <Compile Include="Execution\Workflows\SimpleWorkflowExecutionContext.cs" />
+    <Compile Include="Execution\Workflows\WorkflowBase.cs" />
     <Compile Include="Factories\EqualityComparerFactory.cs" />
     <Compile Include="Factories\EqualityComparerFactory.Strings.cs">
       <DependentUpon>EqualityComparerFactory.cs</DependentUpon>

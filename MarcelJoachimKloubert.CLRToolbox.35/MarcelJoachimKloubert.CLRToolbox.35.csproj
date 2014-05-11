@@ -384,6 +384,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\SimpleWorkflowExecutionContext.cs">
       <Link>Execution\Workflows\SimpleWorkflowExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowBase.cs">
+      <Link>Execution\Workflows\WorkflowBase.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\factories\EqualityComparerFactory.cs">
       <Link>Factories\EqualityComparerFactory.cs</Link>
     </Compile>

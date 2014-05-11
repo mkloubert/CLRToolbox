@@ -403,12 +403,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     {
         #region Fields (2)
 
-        private WorkflowAction<S> _next;
+        private WorkflowAction<S> _nextWithState;
         private S _state;
 
         #endregion Fields
 
-        #region Properties (3)
+        #region Properties (4)
 
         /// <inheriteddoc />
         public override WorkflowActionNoState Next
@@ -418,9 +418,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             set
             {
                 base.Next = value;
-                this._next = value == null ? null : new WorkflowAction<S>(delegate(IWorkflowExecutionContext<S> ctx)
+                this._nextWithState = value == null ? null : new WorkflowAction<S>(delegate(IWorkflowExecutionContext<S> ctx)
                     {
                         value(ctx);
+                    });
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IWorkflowExecutionContext{S}.Next" />
+        public WorkflowAction<S> NextWithState
+        {
+            get { return this._nextWithState; }
+
+            set
+            {
+                this._nextWithState = value;
+                this.Next = value == null ? null : new WorkflowActionNoState(delegate(IWorkflowExecutionContext ctx)
+                    {
+                        value((IWorkflowExecutionContext<S>)ctx);
                     });
             }
         }
@@ -435,16 +453,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         WorkflowAction<S> IWorkflowExecutionContext<S>.Next
         {
-            get { return this._next; }
+            get { return this.NextWithState; }
 
-            set
-            {
-                this._next = value;
-                this.Next = value == null ? null : new WorkflowActionNoState(delegate(IWorkflowExecutionContext ctx)
-                            {
-                                value((IWorkflowExecutionContext<S>)ctx);
-                            });
-            }
+            set { this.NextWithState = value; }
         }
 
         #endregion Properties

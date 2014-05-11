@@ -1,5 +1,6 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
@@ -31,7 +32,7 @@ namespace MarcelJoachimKloubert.Sandbox
             {
             }
 
-            var workflow = DelegateWorkflow.Create(Station_A1, isThreadSafe: true);
+            var workflow = DelegateWorkflow.Create(Station_A1);
             foreach (var action in workflow)
             {
                 action();
@@ -53,7 +54,7 @@ namespace MarcelJoachimKloubert.Sandbox
 
         private static void Station_C1(IWorkflowExecutionContext ctx)
         {
-
+            var result = new Dictionary<string, object>();
         }
     }
 }

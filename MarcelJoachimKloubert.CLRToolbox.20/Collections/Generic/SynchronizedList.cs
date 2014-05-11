@@ -22,7 +22,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 #if !WINDOWS_PHONE
         global::System.MarshalByRefObject,
 #endif
-        IList<T>, IList, IReadOnlyList<T>
+ IList<T>, IList, IReadOnlyList<T>
     {
         #region Fields (2)
 
@@ -170,9 +170,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         #endregion Properties
 
-        #region Methods (9)
+        #region Methods (11)
 
-        // Public Methods (9) 
+        // Public Methods (11) 
         
         /// <inheriteddoc />
         public void Add(T item)
@@ -269,6 +269,39 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
             {
                 this._ITEMS.RemoveAt(index);
             }
+        }
+
+        /// <summary>
+        /// Returns the items of that list as new array.
+        /// </summary>
+        /// <returns>That list as new array.</returns>
+        public T[] ToArray()
+        {
+            T[] result;
+
+            lock (this._SYNC)
+            {
+                result = new T[this._ITEMS.Count];
+                this._ITEMS.CopyTo(result, 0);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a copy of that list as <see cref="List{T}" /> object.
+        /// </summary>
+        /// <returns>The copy of that list.</returns>
+        public List<T> ToList()
+        {
+            List<T> result;
+
+            lock (this._SYNC)
+            {
+                result = new List<T>(this._ITEMS);
+            }
+
+            return result;
         }
 
         #endregion Methods

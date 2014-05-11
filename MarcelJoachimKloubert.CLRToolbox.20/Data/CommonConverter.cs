@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 
@@ -25,7 +24,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         public CommonConverter(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         public CommonConverter()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -43,10 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConverterBase.OnChangeType(Type, ref object, IFormatProvider)" />
+        /// <inheriteddoc />
         protected override void OnChangeType(Type targetType, ref object targetValue, IFormatProvider provider)
         {
             this.ParseInputValueForChangeType(targetType, ref targetValue, provider);
@@ -79,7 +73,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
                     }
                 }
 
-                if (!handled)
+                if (handled == false)
                 {
                     string str = StringHelper.AsString(targetValue);
                     if (str != null &&
@@ -112,12 +106,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
                                        provider,
                                        ref changeTypeExtensionHandled);
 
-            if (!changeTypeExtensionHandled)
+            if (changeTypeExtensionHandled == false)
             {
                 // use BCL logic
                 targetValue = global::System.Convert.ChangeType(targetValue, targetType, provider);
             }
         }
+
         // Private Methods (2) 
 
         private void OnChangeTypeExtension(Type targetType, ref object targetValue, IFormatProvider provider, ref bool handled)
@@ -135,9 +130,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         private void ParseInputValueForChangeType(Type targetType, ref object targetValue, IFormatProvider provider)
         {
-            if (!targetType.Equals(typeof(global::System.DBNull)))
+            if (targetType.Equals(typeof(global::System.DBNull)) == false)
             {
-                if (DBNull.Value.Equals(targetValue))
+                if (global::System.DBNull.Value.Equals(targetValue))
                 {
                     targetValue = null;
                 }
@@ -148,11 +143,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
                 if (targetValue == null)
                 {
-                    targetValue = DBNull.Value;
+                    targetValue = global::System.DBNull.Value;
                 }
                 else
                 {
-                    if (!DBNull.Value.Equals(targetValue))
+                    if (global::System.DBNull.Value.Equals(targetValue) == false)
                     {
                         throw new InvalidCastException();
                     }

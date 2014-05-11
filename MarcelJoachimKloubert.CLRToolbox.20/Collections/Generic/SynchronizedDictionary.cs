@@ -289,9 +289,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         #endregion Properties
 
-        #region Methods (7)
+        #region Methods (8)
 
-        // Public Methods (7) 
+        // Public Methods (8) 
 
         /// <inheriteddoc />
         public void Add(TKey key, TValue value)
@@ -368,6 +368,48 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
             {
                 result = this._DICT
                              .TryGetValue(key, out value);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the items of that dictionary as new array.
+        /// </summary>
+        /// <returns>That dictionary as new array.</returns>
+        public KeyValuePair<TKey, TValue>[] ToArray()
+        {
+            KeyValuePair<TKey, TValue>[] result;
+
+            lock (this._SYNC)
+            {
+                result = new KeyValuePair<TKey, TValue>[this._DICT.Count];
+                ((ICollection<KeyValuePair<TKey, TValue>>)this._DICT).CopyTo(result, 0);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a copy of that dictionary as <see cref="Dictionary{TKey, TValue}" /> object.
+        /// </summary>
+        /// <returns>The copy of that list.</returns>
+        public Dictionary<TKey, TValue> ToDictionary()
+        {
+            Dictionary<TKey, TValue> result;
+
+            lock (this._SYNC)
+            {
+                IEqualityComparer<TKey> keyComparer = this._DICT.Comparer;
+
+                if (keyComparer != null)
+                {
+                    result = new Dictionary<TKey, TValue>(this._DICT, keyComparer);
+                }
+                else
+                {
+                    result = new Dictionary<TKey, TValue>(this._DICT);
+                }
             }
 
             return result;

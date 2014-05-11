@@ -88,6 +88,14 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
+        /// Gets the start time of the application.
+        /// </summary>
+        public static DateTimeOffset StartTime
+        {
+            get { return (StartTimeProvider ?? GetStartTime)(); }
+        }
+
+        /// <summary>
         /// Gets or sets a custom handler that returns the value of <see cref="AppTime.StartTime" />.
         /// If the value is <see langword="null" /> the default logic is called.
         /// </summary>
@@ -96,14 +104,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
             get { return _startTimeProvider; }
 
             set { _startTimeProvider = value; }
-        }
-
-        /// <summary>
-        /// Gets the start time of the application.
-        /// </summary>
-        public static DateTimeOffset StartTime
-        {
-            get { return (StartTimeProvider ?? GetStartTime)(); }
         }
 
         /// <summary>

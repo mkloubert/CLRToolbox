@@ -12,10 +12,11 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     public static class AppTime
     {
-        #region Fields (3)
+        #region Fields (4)
 
         private static TimeProvider _nowProvider;
         private static TimeSpanProvider _runTimeProvider;
+        private static TimeProvider _startTimeProvider;
         /// <summary>
         /// Stores the real start time of the app.
         /// </summary>
@@ -46,7 +47,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Constructors
 
-        #region Properties (5)
+        #region Properties (8)
 
         /// <summary>
         /// Gets the current time.
@@ -87,6 +88,25 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
+        /// Gets or sets a custom handler that returns the value of <see cref="AppTime.StartTime" />.
+        /// If the value is <see langword="null" /> the default logic is called.
+        /// </summary>
+        public static TimeProvider StartTimeProvider
+        {
+            get { return _startTimeProvider; }
+
+            set { _startTimeProvider = value; }
+        }
+
+        /// <summary>
+        /// Gets the start time of the application.
+        /// </summary>
+        public static DateTimeOffset StartTime
+        {
+            get { return (StartTimeProvider ?? GetStartTime)(); }
+        }
+
+        /// <summary>
         /// Gets the date part of <see cref="AppTime.Now" />.
         /// </summary>
         public static DateTime Today
@@ -114,9 +134,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Delegates and Events
 
-        #region Methods (2)
-
-        // Private Methods (2) 
+        #region Methods (3)
+        
+        // Private Methods (3) 
 
         private static DateTimeOffset GetNow()
         {
@@ -126,6 +146,11 @@ namespace MarcelJoachimKloubert.CLRToolbox
         private static TimeSpan GetRunTime()
         {
             return DateTimeOffset.Now - START_TIME;
+        }
+
+        private static DateTimeOffset GetStartTime()
+        {
+            return START_TIME;
         }
 
         #endregion Methods

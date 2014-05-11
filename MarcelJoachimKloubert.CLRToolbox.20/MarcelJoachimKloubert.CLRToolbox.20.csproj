@@ -137,6 +137,11 @@
       <DependentUpon>ILogMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\Impl\ConsoleLogger.cs" />
+    <Compile Include="Diagnostics\Tests\Assert.AreSame.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.cs" />
+    <Compile Include="Diagnostics\Tests\AssertException.cs" />
     <Compile Include="DisposeObjectEventArgs.cs" />
     <Compile Include="ErrorHandlerBase.cs" />
     <Compile Include="Execution\Functions\FunctionBase.Classes.cs">
@@ -168,6 +173,9 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.AsSequence.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.Concat.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Count.cs">
@@ -335,6 +343,13 @@
     </Compile>
     <Compile Include="Helpers\EntityHelper.TryGetTableNameAndSchema.cs">
       <DependentUpon>EntityHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\ReflectionHelper.GetExplicitOperators.cs">
+      <DependentUpon>ReflectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ReflectionHelper.GetImplicitOperators.cs">
+      <DependentUpon>ReflectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.Append.cs">
       <DependentUpon>StringHelper.cs</DependentUpon>
@@ -1016,6 +1031,7 @@
   <ItemGroup>
     <None Include="_Embedded\FreeImage\Dist\3.1.6.0\x86\FreeImage.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

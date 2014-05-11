@@ -1,6 +1,8 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
+using System;
 using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Extensions;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
@@ -14,6 +16,11 @@ namespace MarcelJoachimKloubert.Sandbox
     public class Test
     {
         public bool A { get; set; }
+
+        public static explicit operator string(Test t)
+        {
+            return t == null ? null : t.ToString();
+        }
     }
 
     internal class Program
@@ -55,6 +62,11 @@ namespace MarcelJoachimKloubert.Sandbox
         private static void Station_C1(IWorkflowExecutionContext ctx)
         {
             var result = new Dictionary<string, object>();
+
+            foreach (var op in typeof(Test).GetExplicitOperators())
+            {
+
+            }
         }
     }
 }

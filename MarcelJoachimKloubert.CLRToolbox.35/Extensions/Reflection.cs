@@ -6,6 +6,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
     static partial class ClrToolboxExtensionMethods
     {
-        // Net
+        // reflection
     }
 }

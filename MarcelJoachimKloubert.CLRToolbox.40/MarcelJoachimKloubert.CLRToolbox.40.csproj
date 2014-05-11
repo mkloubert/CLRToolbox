@@ -317,6 +317,16 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
       <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\tests\Assert.AreSame.cs">
+      <Link>Diagnostics\Tests\Assert.AreSame.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\tests\Assert.cs">
+      <Link>Diagnostics\Tests\Assert.cs</Link>
+    </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\tests\AssertException.cs">
+      <Link>Diagnostics\Tests\AssertException.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\DisposableBase.cs">
       <Link>DisposableBase.cs</Link>
     </Compile>
@@ -407,6 +417,10 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Cast.cs">
       <Link>Helpers\CollectionHelper.Cast.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Concat.cs">
+      <Link>Helpers\CollectionHelper.Concat.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.Count.cs">
@@ -651,6 +665,17 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\NetHelper.SetBasicAuth.SecureString.cs">
       <Link>Helpers\NetHelper.SetBasicAuth.SecureString.cs</Link>
       <DependentUpon>NetHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ReflectionHelper.cs">
+      <Link>Helpers\ReflectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ReflectionHelper.GetExplicitOperators.cs">
+      <Link>Helpers\ReflectionHelper.GetExplicitOperators.cs</Link>
+      <DependentUpon>ReflectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ReflectionHelper.GetImplicitOperators.cs">
+      <Link>Helpers\ReflectionHelper.GetImplicitOperators.cs</Link>
+      <DependentUpon>ReflectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ScriptHelper.cs">
       <Link>Helpers\ScriptHelper.cs</Link>
@@ -2347,6 +2372,17 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Net.SetBasicAuth.SecureString.cs">
       <Link>Extensions\Net.SetBasicAuth.SecureString.cs</Link>
       <DependentUpon>Net.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Reflection.cs">
+      <Link>Extensions\Reflection.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Reflection.GetExplicitOperators.cs">
+      <Link>Extensions\Reflection.GetExplicitOperators.cs</Link>
+      <DependentUpon>Reflection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Reflection.GetImplicitOperators.cs">
+      <Link>Extensions\Reflection.GetImplicitOperators.cs</Link>
+      <DependentUpon>Reflection.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Scripting.cs">
       <Link>Extensions\Scripting.cs</Link>

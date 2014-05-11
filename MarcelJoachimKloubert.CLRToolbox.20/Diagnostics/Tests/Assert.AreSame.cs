@@ -14,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         // Public Methods (4) 
 
         /// <summary>
-        /// Checks if one or more objects represents the same reference.
+        /// Checks if one or more objects represent the same reference.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
@@ -25,7 +25,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         }
 
         /// <summary>
-        /// Checks if one or more objects represents the same reference.
+        /// Checks if one or more objects represent the same reference.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
@@ -36,7 +36,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         }
 
         /// <summary>
-        /// Checks if one or more objects represents the same reference.
+        /// Checks if one or more objects represent the same reference.
         /// </summary>
         /// <param name="message">The message to display if check fails.</param>
         /// <param name="x">The first object to check.</param>
@@ -48,7 +48,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         }
 
         /// <summary>
-        /// Checks if one or more objects represents the same reference.
+        /// Checks if one or more objects represent the same reference.
         /// </summary>
         /// <param name="message">The message to display if check fails.</param>
         /// <param name="x">The first object to check.</param>

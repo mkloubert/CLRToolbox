@@ -151,7 +151,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                     try
                     {
-#if KNOWS_TASKS
+#if !KNOWS_TASKS
                         global::System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
                             {
                                 asyncAction();

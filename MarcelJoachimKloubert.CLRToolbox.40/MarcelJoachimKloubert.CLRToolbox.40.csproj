@@ -351,11 +351,17 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\functions\IFunctionLocator.cs">
       <Link>Execution\Functions\IFunctionLocator.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\IAsyncExecutionResult.cs">
+      <Link>Execution\IAsyncExecutionResult.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\ICommand.cs">
       <Link>Execution\ICommand.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\impl\DelegateCommand.cs">
       <Link>Execution\Impl\DelegateCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
+      <Link>Execution\SimpleAsyncExecutionResult.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\workflows\DelegateWorkflow.cs">
       <Link>Execution\Workflows\DelegateWorkflow.cs</Link>
@@ -590,6 +596,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.TryParse.cs">
       <Link>Helpers\EnumHelper.TryParse.cs</Link>
       <DependentUpon>EnumHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.cs">
+      <Link>Helpers\ExecutionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.MakeAsync.cs">
+      <Link>Helpers\ExecutionHelper.MakeAsync.cs</Link>
+      <DependentUpon>ExecutionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CopyTo.cs">
       <Link>Helpers\IOHelper.CopyTo.cs</Link>
@@ -2279,6 +2292,13 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Data.ToEnumerable.SqlClient.cs">
       <Link>Extensions\Data.ToEnumerable.SqlClient.cs</Link>
       <DependentUpon>Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Execution.cs">
+      <Link>Extensions\Execution.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Execution.MakeAsync.cs">
+      <Link>Extensions\Execution.MakeAsync.cs</Link>
+      <DependentUpon>Execution.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.CreateDirectoryDeep.cs">
       <Link>Extensions\IO.CreateDirectoryDeep.cs</Link>

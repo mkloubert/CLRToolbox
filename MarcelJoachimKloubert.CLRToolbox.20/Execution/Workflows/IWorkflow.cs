@@ -26,7 +26,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <summary>
         /// Executes the workflow.
         /// </summary>
-        void Execute();
+        /// <returns>The result of the execution.</returns>
+        object Execute();
 
         #endregion Methods
     }

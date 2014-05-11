@@ -109,7 +109,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         IDictionary<string, object> WorkflowVars { get; }
 
-        #endregion INTERFACE: IWorkflowExecutionContext
+        #endregion Data Members
 
         #region Operations (17)
 

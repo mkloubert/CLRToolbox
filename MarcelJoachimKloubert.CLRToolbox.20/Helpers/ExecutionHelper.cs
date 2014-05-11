@@ -7,7 +7,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
     /// <summary>
     /// Helper class for enum operations.
     /// </summary>
-    public static partial class EnumHelper
+    public static partial class ExecutionHelper
     {
     }
 }

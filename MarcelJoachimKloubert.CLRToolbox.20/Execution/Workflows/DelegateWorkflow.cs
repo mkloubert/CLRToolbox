@@ -183,7 +183,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <inheriteddoc />
-        public void Execute()
+        public object Execute()
         {
             Action actionToInvoke;
             if (this._IS_THREAD_SAFE)
@@ -196,6 +196,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             }
 
             actionToInvoke();
+            return null;
         }
 
         /// <summary>

@@ -147,6 +147,8 @@
     <Compile Include="Execution\Functions\IFunction.cs" />
     <Compile Include="Execution\Functions\IFunctionExecutionContext.cs" />
     <Compile Include="Execution\Functions\IFunctionLocator.cs" />
+    <Compile Include="Execution\SimpleAsyncExecutionResult.cs" />
+    <Compile Include="Execution\IAsyncExecutionResult.cs" />
     <Compile Include="Execution\Workflows\DelegateWorkflow.cs" />
     <Compile Include="Execution\Workflows\IWorkflow.cs" />
     <Compile Include="Execution\Workflows\IWorkflowExecutionContext.cs" />
@@ -272,6 +274,10 @@
     </Compile>
     <Compile Include="Helpers\CompressionHelper.GZip.cs">
       <DependentUpon>CompressionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ExecutionHelper.cs" />
+    <Compile Include="Helpers\ExecutionHelper.MakeAsync.cs">
+      <DependentUpon>ExecutionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IOHelper.ReadGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>

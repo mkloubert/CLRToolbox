@@ -1276,5 +1276,17 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\SimpleWorkflowExecutionContext.cs">
       <Link>Execution\Workflows\SimpleWorkflowExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\IAsyncExecutionResult.cs">
+      <Link>Execution\IAsyncExecutionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
+      <Link>Execution\SimpleAsyncExecutionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.cs">
+      <Link>Helpers\ExecutionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.MakeAsync.cs">
+      <Link>Helpers\ExecutionHelper.MakeAsync.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

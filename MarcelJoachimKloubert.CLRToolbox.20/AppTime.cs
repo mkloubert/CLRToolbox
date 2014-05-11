@@ -47,7 +47,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Constructors
 
-        #region Properties (8)
+        #region Properties (7)
 
         /// <summary>
         /// Gets the current time.

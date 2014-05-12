@@ -595,8 +595,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <exception cref="InvalidCastException">
         /// <paramref name="expr" /> does NOT represent a property expression.
         /// </exception>
-        protected bool Set<T>(global::System.Linq.Expressions.Expression<global::System.Func<T>> expr,
-                              T value)
+        protected bool Set<T>(T value,
+                              global::System.Linq.Expressions.Expression<global::System.Func<T>> expr)
         {
             return this.Set<T>(value,
                                GetPropertyName<T>(expr));

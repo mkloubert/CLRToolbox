@@ -1301,7 +1301,6 @@
     <Compile Include="IO\SystemConsole.XNA.cs" />
     <Compile Include="Objects\ObjectContextBase.XNA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TMObject.Fields.cs" />
     <Compile Include="_Compatibility\System\ComponentModel\CancelEvent.cs" />
     <Compile Include="_Compatibility\System\ConsoleColor.cs" />
     <Compile Include="_Compatibility\System\ICloneable.cs" />

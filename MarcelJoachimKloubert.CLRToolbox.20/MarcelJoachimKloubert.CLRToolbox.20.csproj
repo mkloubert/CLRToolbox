@@ -652,12 +652,6 @@
     <Compile Include="Data\GlobalConverter.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="TMObject.cs" />
-    <Compile Include="TMObject.dotNET.cs">
-      <DependentUpon>TMObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TMObject.Fields.cs">
-      <DependentUpon>TMObject.cs</DependentUpon>
-    </Compile>
     <Compile Include="TrafficLights.cs" />
     <Compile Include="Values\ProgressValue.cs" />
     <Compile Include="WritableTuple.cs" />

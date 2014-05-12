@@ -1018,12 +1018,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.cs">
       <Link>TMObject.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.dotNET.cs">
-      <Link>TMObject.dotNET.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\TMObject.Fields.cs">
-      <Link>TMObject.Fields.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\TrafficLights.cs">
       <Link>TrafficLights.cs</Link>
     </Compile>

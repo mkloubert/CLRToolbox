@@ -2,6 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
+#if !WINDOWS_PHONE
+#define CAN_SERIALIZE
+#endif
+
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox
@@ -9,8 +13,28 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <summary>
     /// The mother of all objects.
     /// </summary>
-    public partial class TMObject : ITMObject
+    public partial class TMObject :
+#if CAN_SERIALIZE
+        global::System.MarshalByRefObject,
+#endif
+        ITMObject
     {
+        #region Fields (2)
+
+        /// <summary>
+        /// An unique object for sync operations.
+        /// </summary>
+#if CAN_SERIALIZE
+        [global::System.NonSerialized]
+#endif
+        protected readonly object _SYNC;
+#if CAN_SERIALIZE
+        [global::System.NonSerialized]
+#endif
+        private object _tag;
+
+        #endregion Fields
+
         #region Constructors (2)
 
         /// <summary>

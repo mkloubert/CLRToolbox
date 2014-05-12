@@ -2,13 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.ComponentModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 {
     partial interface INotificationObject : INotifyPropertyChanging
     {
-
     }
 }

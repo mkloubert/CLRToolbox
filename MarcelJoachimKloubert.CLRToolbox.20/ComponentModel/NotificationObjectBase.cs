@@ -28,10 +28,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     {
         #region Fields (1)
 
-        /// <summary>
-        /// Stores all property values.
-        /// </summary>
-        protected readonly IDictionary<string, object> _PROPERTY_VALUES;
+        private readonly IDictionary<string, object> _PROPERTY_VALUES;
 
         #endregion Fields
 
@@ -144,12 +141,39 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #endregion Properties
 
-        #region Methods (22)
+        #region Methods (23)
+        
+        // Public Methods (1)
+ 
+        /// <summary>
+        /// Returns the current list of properties and their values.
+        /// </summary>
+        /// <returns>The list of property and their values.</returns>
+        public virtual IDictionary<string, object> GetPropertyValues()
+        {
+            IDictionary<string, object> result = null;
+            this.InvokeForPropertyStorage(delegate(IDictionary<string, object> propertyValues, NotificationObjectBase obj)
+                                          {
+                                              result = obj.CreatePropertyStorage();
+
+                                              CollectionHelper.ForEach(propertyValues,
+                                                                       delegate(IForEachItemExecutionContext<KeyValuePair<string, object>, IDictionary<string, object>> ctx)
+                                                                       {
+                                                                           IDictionary<string, object> r = ctx.State;
+                                                                           KeyValuePair<string, object> item = ctx.Item;
+
+                                                                           r.Add(item.Key,
+                                                                                 item.Value);
+                                                                       }, result);
+                                          }, this);
+
+            return result;
+        }
 
         // Protected Methods (22) 
 
         /// <summary>
-        /// Creates the value for <see cref="NotificationObjectBase._PROPERTY_VALUES" /> field.
+        /// Creates a new dictionary especially for use in <see cref="NotificationObjectBase._PROPERTY_VALUES" /> field.
         /// </summary>
         /// <returns>The created instance.</returns>
         protected virtual IDictionary<string, object> CreatePropertyStorage()

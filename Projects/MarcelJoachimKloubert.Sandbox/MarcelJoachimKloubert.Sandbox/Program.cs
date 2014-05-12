@@ -42,7 +42,7 @@ namespace MarcelJoachimKloubert.Sandbox
             var workflow = DelegateWorkflow.Create(Station_A1);
             foreach (var action in workflow)
             {
-                action();
+                action(new object[] { "TM", "MK" });
             }
 
             // better for thread safe operations

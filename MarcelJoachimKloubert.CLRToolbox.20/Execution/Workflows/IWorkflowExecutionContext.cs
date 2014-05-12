@@ -130,12 +130,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         #region Operations (22)
 
         /// <summary>
-        /// Returns a value of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
+        /// Returns an argument of <see cref="IWorkflowExecutionContext.ExecutionVars" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="index">The index in <see cref="IWorkflowExecutionContext.ExecutionArguments" />.</param>
         /// <returns>The strong typed version of the var.</returns>
-        /// <exception cref="IndexOutOfRangeException"><paramref name="index" /> does not exist.</exception>
+        /// <exception cref="IndexOutOfRangeException">Argument not stored in <paramref name="index" />.</exception>
         T GetExecutionArgument<T>(int index);
 
         /// <summary>
@@ -189,16 +189,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         T GetWorkflowVar<T>(IEnumerable<char> name);
 
         /// <summary>
-        /// Tries to return a value of <see cref="IWorkflowExecutionContext.ExecutionArguments" /> property strong typed.
+        /// Tries to return an argument of <see cref="IWorkflowExecutionContext.ExecutionArguments" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="index">The zero based index in <see cref="IWorkflowExecutionContext.ExecutionArguments" />.</param>
         /// <param name="value">The field where to write the found value to.</param>
-        /// <returns>Var exists or not.</returns>
+        /// <returns>Argument exists or not.</returns>
         bool TryGetExecutionArgument<T>(int index, out T value);
 
         /// <summary>
-        /// Tries to return a value of <see cref="IWorkflowExecutionContext.ExecutionArguments" /> property strong typed.
+        /// Tries to return an argument of <see cref="IWorkflowExecutionContext.ExecutionArguments" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="index">The zero based index in <see cref="IWorkflowExecutionContext.ExecutionArguments" />.</param>
@@ -207,11 +207,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// The default value for <paramref name="index" />
         /// if <paramref name="value" /> does not exist.
         /// </param>
-        /// <returns>Var exists or not.</returns>
+        /// <returns>Argument exists or not.</returns>
         bool TryGetExecutionArgument<T>(int index, out T value, T defaultValue);
 
         /// <summary>
-        /// Tries to return a value of <see cref="IWorkflowExecutionContext.ExecutionArguments" /> property strong typed.
+        /// Tries to return an argument of <see cref="IWorkflowExecutionContext.ExecutionArguments" /> property strong typed.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="index">The zero based index in <see cref="IWorkflowExecutionContext.ExecutionArguments" />.</param>
@@ -220,7 +220,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// The logic that produces the default value for <paramref name="index" />
         /// if <paramref name="value" /> does not exist.
         /// </param>
-        /// <returns>Var exists or not.</returns>
+        /// <returns>Argument exists or not.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="defaultValueProvider" /> is <see langword="null" />.
         /// </exception>

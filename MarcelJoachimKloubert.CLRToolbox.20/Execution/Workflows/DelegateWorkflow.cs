@@ -239,7 +239,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                     {
                         SimpleWorkflowExecutionContext<S> ctx = new SimpleWorkflowExecutionContext<S>();
                         ctx.ContinueOnError = false;
-                        ctx.ExecutionArguments = args ?? new object[] { null };
+                        ctx.ExecutionArguments = new TMReadOnlyList<object>(args ?? new object[] { null });
                         ctx.ExecutionVars = execVars;
                         ctx.Index = ++index;
                         ctx.Next = null;

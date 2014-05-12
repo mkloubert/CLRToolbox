@@ -146,9 +146,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         // Public Methods (1)
  
         /// <summary>
-        /// Returns the current list of properties and their values.
+        /// Returns the current list of properties and their values as NEW dictionary.
         /// </summary>
-        /// <returns>The list of property and their values.</returns>
+        /// <returns>The new list of properties and their values.</returns>
         public virtual IDictionary<string, object> GetPropertyValues()
         {
             IDictionary<string, object> result = null;

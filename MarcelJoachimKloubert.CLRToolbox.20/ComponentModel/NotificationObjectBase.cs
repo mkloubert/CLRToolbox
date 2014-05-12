@@ -131,7 +131,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
             set
             {
-                if (EqualityComparer<object>.Default.Equals(base.Tag, value) == false)
+                if (object.Equals(base.Tag, value) == false)
                 {
 #if KNOWS_PROPERTY_CHANGING
                     this.OnPropertyChanging("Tag");
@@ -665,9 +665,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                     if (areDifferent)
                     {
 #if KNOWS_PROPERTY_CHANGING
-
                         this.OnPropertyChanging(name);
-
 #endif
                         propertyValues[name] = newValue;
                         this.OnPropertyChanged(name);
@@ -738,9 +736,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                       T newValue,
                                       [global::System.Runtime.CompilerServices.CallerMemberName] global::System.Collections.Generic.IEnumerable<char> propertyName = null)
         {
-            if (global::System.Collections.Generic.EqualityComparer<T>.Default.Equals(field, newValue) == false)
+            if (object.Equals(field, newValue) == false)
             {
+#if KNOWS_PROPERTY_CHANGING
                 this.OnPropertyChanging(propertyName);
+#endif
                 field = newValue;
                 this.OnPropertyChanged(propertyName);
 

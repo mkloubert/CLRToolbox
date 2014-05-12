@@ -74,7 +74,9 @@
     <Compile Include="Collections\Generic\ForAllItemExecutionException.cs" />
     <Compile Include="Collections\Generic\SimpleForAllItemExecutionContext.cs" />
     <Compile Include="Collections\IGeneralList.cs" />
+    <Compile Include="Collections\ObjectModel\TMReadOnlyCollection.cs" />
     <Compile Include="Collections\ObjectModel\TMReadOnlyDictionary.cs" />
+    <Compile Include="Collections\ObjectModel\TMReadOnlyList.cs" />
     <Compile Include="ComponentModel\INotificationObject.cs" />
     <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
       <DependentUpon>INotificationObject.cs</DependentUpon>
@@ -276,10 +278,6 @@
     </Compile>
     <Compile Include="Helpers\CompressionHelper.GZip.cs">
       <DependentUpon>CompressionHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\ExecutionHelper.cs" />
-    <Compile Include="Helpers\ExecutionHelper.MakeAsync.cs">
-      <DependentUpon>ExecutionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IOHelper.ReadGuid.cs">
       <DependentUpon>IOHelper.cs</DependentUpon>

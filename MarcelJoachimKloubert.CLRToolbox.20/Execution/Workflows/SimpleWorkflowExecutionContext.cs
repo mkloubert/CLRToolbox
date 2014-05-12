@@ -16,9 +16,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// </summary>
     public class SimpleWorkflowExecutionContext : IWorkflowExecutionContext
     {
-        #region Fields (11)
+        #region Fields (12)
 
         private bool _continueOnError;
+        private IReadOnlyList<object> _executionArguments;
         private IDictionary<string, object> _globalVars;
         private long _index;
         private WorkflowActionNoState _next;
@@ -32,7 +33,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion CLASS: SimpleWorkflowExecutionContext
 
-        #region Properties (13)
+        #region Properties (14)
 
         /// <inheriteddoc />
         public bool ContinueOnError
@@ -40,6 +41,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             get { return this._continueOnError; }
 
             set { this._continueOnError = value; }
+        }
+
+        /// <inheriteddoc />
+        public IReadOnlyList<object> ExecutionArguments
+        {
+            get { return this._executionArguments; }
+
+            set { this._executionArguments = value; }
         }
 
         /// <inheriteddoc />
@@ -136,15 +145,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Properties
 
-        #region Methods (18)
+        #region Methods (22)
 
-        // Public Methods (18) 
+        // Public Methods (22) 
+        
+        /// <inheriteddoc />
+        public T GetExecutionArgument<T>(int index)
+        {
+            T result;
+            if (this.TryGetExecutionArgument<T>(index, out result) == false)
+            {
+                throw new ArgumentOutOfRangeException("index");
+            }
+
+            return result;
+        }
 
         /// <inheriteddoc />
         public T GetExecutionVar<T>(IEnumerable<char> name)
         {
             T result;
-            if (this.TryGetExecutionVar<T>(name, out result))
+            if (this.TryGetExecutionVar<T>(name, out result) == false)
             {
                 throw new InvalidOperationException();
             }
@@ -156,7 +177,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         public T GetNextVar<T>(IEnumerable<char> name)
         {
             T result;
-            if (this.TryGetNextVar<T>(name, out result))
+            if (this.TryGetNextVar<T>(name, out result) == false)
             {
                 throw new InvalidOperationException();
             }
@@ -168,7 +189,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         public T GetPreviousVar<T>(IEnumerable<char> name)
         {
             T result;
-            if (this.TryGetPreviousVar<T>(name, out result))
+            if (this.TryGetPreviousVar<T>(name, out result) == false)
             {
                 throw new InvalidOperationException();
             }
@@ -194,7 +215,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         public T GetWorkflowVar<T>(IEnumerable<char> name)
         {
             T result;
-            if (this.TryGetWorkflowVar<T>(name, out result))
+            if (this.TryGetWorkflowVar<T>(name, out result) == false)
             {
                 throw new InvalidOperationException();
             }
@@ -210,6 +231,49 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         public static string ParseVarName(IEnumerable<char> name)
         {
             return StringHelper.AsString(name) ?? string.Empty;
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetExecutionArgument<T>(int index, out T value)
+        {
+            return this.TryGetExecutionArgument<T>(index, out value, default(T));
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetExecutionArgument<T>(int index, out T value, T defaultValue)
+        {
+            return this.TryGetExecutionArgument<T>(index, out value,
+                                                   delegate(int i)
+                                                   {
+                                                       return defaultValue;
+                                                   });
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetExecutionArgument<T>(int index, out T value, Func<int, T> defaultValueProvider)
+        {
+            if (defaultValueProvider == null)
+            {
+                throw new ArgumentNullException("defaultValueProvider");
+            }
+
+            lock (this.SyncRoot)
+            {
+                IReadOnlyList<object> list = this.ExecutionArguments;
+                if (list != null)
+                {
+                    if ((index > -1) && (index < list.Count))
+                    {
+                        value = GlobalConverter.Current
+                                               .ChangeType<T>(list[index]);
+
+                        return true;
+                    }
+                }
+            }
+
+            value = defaultValueProvider(index);
+            return false;
         }
 
         /// <inheriteddoc />
@@ -426,7 +490,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IWorkflowExecutionContext{S}.Next" />
         public WorkflowAction<S> NextWithState

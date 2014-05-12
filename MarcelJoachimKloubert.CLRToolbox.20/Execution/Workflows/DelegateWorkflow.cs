@@ -235,10 +235,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             bool throwErrors = true;
             while (currentAction != null)
             {
-                yield return delegate()
+                yield return delegate(object[] args)
                     {
                         SimpleWorkflowExecutionContext<S> ctx = new SimpleWorkflowExecutionContext<S>();
                         ctx.ContinueOnError = false;
+                        ctx.ExecutionArguments = args ?? new object[] { null };
                         ctx.ExecutionVars = execVars;
                         ctx.Index = ++index;
                         ctx.Next = null;

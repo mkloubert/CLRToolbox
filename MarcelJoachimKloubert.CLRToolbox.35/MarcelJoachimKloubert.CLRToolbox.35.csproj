@@ -114,8 +114,14 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\IGeneralList.cs">
       <Link>Collections\IGeneralList.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyCollection.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyCollection.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\collections\objectmodel\TMReadOnlyDictionary.cs">
       <Link>Collections\ObjectModel\TMReadOnlyDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyList.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyList.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\INotificationObject.cs">
       <Link>ComponentModel\INotificationObject.cs</Link>
@@ -618,13 +624,6 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\EnumHelper.TryParse.cs">
       <Link>Helpers\EnumHelper.TryParse.cs</Link>
       <DependentUpon>EnumHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.cs">
-      <Link>Helpers\ExecutionHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.MakeAsync.cs">
-      <Link>Helpers\ExecutionHelper.MakeAsync.cs</Link>
-      <DependentUpon>ExecutionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\IOHelper.CopyTo.cs">
       <Link>Helpers\IOHelper.CopyTo.cs</Link>
@@ -2265,10 +2264,6 @@
     <Compile Include="Extensions\Data.ExecuteEnumerableReader.SqlClient.cs">
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\Execution.MakeAsync.cs">
-      <DependentUpon>Execution.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Extensions\Execution.cs" />
     <Compile Include="Extensions\IO.CreateDirectoryDeep.cs">
       <DependentUpon>IO.cs</DependentUpon>
     </Compile>

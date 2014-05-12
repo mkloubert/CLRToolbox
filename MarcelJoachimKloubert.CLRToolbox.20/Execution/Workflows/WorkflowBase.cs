@@ -118,14 +118,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Properties
 
-        #region Methods (13)
+        #region Methods (14)
 
         // Public Methods (6) 
 
         /// <inheriteddoc />
-        public object Execute()
+        public object Execute(IEnumerable<object> args)
         {
-            Func<object> funcToInvoke;
+            return this.Execute(CollectionHelper.AsArray(args));
+        }
+
+        /// <inheriteddoc />
+        public object Execute(params object[] args)
+        {
+            Func<object[], object> funcToInvoke;
             if (this.Synchronized)
             {
                 funcToInvoke = this.Execute_ThreadSafe;
@@ -135,7 +141,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                 funcToInvoke = this.Execute_NonThreadSafe;
             }
 
-            return funcToInvoke();
+            return funcToInvoke(args);
         }
 
         /// <inheriteddoc />
@@ -258,25 +264,28 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         // Private Methods (5) 
 
-        private object Execute_NonThreadSafe()
+        private object Execute_NonThreadSafe(object[] args)
         {
             object result = null;
             CollectionHelper.ForEach(this,
-                                     delegate(IForEachItemExecutionContext<WorkflowFunc> ctx)
+                                     delegate(IForEachItemExecutionContext<WorkflowFunc, object[]> ctx)
                                      {
-                                         result = ctx.Item();
-                                     });
+                                         WorkflowFunc func = ctx.Item;
+                                         object[] funcArgs = ctx.State;
+
+                                         result = func(funcArgs);
+                                     }, args);
 
             return result;
         }
 
-        private object Execute_ThreadSafe()
+        private object Execute_ThreadSafe(object[] args)
         {
             object result = null;
 
             lock (this._SYNC)
             {
-                result = this.Execute_NonThreadSafe();
+                result = this.Execute_NonThreadSafe(args);
             }
 
             return result;

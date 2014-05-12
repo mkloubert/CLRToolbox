@@ -1268,12 +1268,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
       <Link>Execution\SimpleAsyncExecutionResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.cs">
-      <Link>Helpers\ExecutionHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.MakeAsync.cs">
-      <Link>Helpers\ExecutionHelper.MakeAsync.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowBase.cs">
       <Link>Execution\Workflows\WorkflowBase.cs</Link>
     </Compile>
@@ -1303,6 +1297,12 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromOptions.cs">
       <Link>ComponentModel\ReceiveNotificationFromOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyList.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyCollection.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyCollection.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

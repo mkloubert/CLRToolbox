@@ -1501,18 +1501,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
       <Link>Execution\SimpleAsyncExecutionResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.cs">
-      <Link>Helpers\ExecutionHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\ExecutionHelper.MakeAsync.cs">
-      <Link>Helpers\ExecutionHelper.MakeAsync.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Execution.cs">
-      <Link>Extensions\Execution.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\Execution.MakeAsync.cs">
-      <Link>Extensions\Execution.MakeAsync.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowBase.cs">
       <Link>Execution\Workflows\WorkflowBase.cs</Link>
     </Compile>
@@ -1554,6 +1542,12 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Func.cs">
       <Link>_Compatibility\System\Func.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyList.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyCollection.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyCollection.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

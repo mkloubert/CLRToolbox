@@ -127,17 +127,11 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
       <Link>ComponentModel\NotificationObjectBase.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromAttribute.cs">
+      <Link>ComponentModel\ReceiveNotificationFromAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChanging.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChanging.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.Tag.cs">
-      <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromOptions.cs">
+      <Link>ComponentModel\ReceiveNotificationFromOptions.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
       <Link>Configuration\ConfigRepositoryBase.cs</Link>
@@ -1218,6 +1212,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\IStructuralEquatable.cs">
       <Link>_Compatibility\System\Collections\IStructuralEquatable.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Func.cs">
+      <Link>_Compatibility\System\Func.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\ITuple.cs">
       <Link>_Compatibility\System\ITuple.cs</Link>
     </Compile>
@@ -2160,7 +2157,6 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\Newtonsoft.Json\WriteState.cs">
       <Link>_Embedded\Newtonsoft.Json\WriteState.cs</Link>
     </Compile>
-    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange35.cs" />
     <Compile Include="Data\Entities\EntityBase.GetPropertyName.cs" />
     <Compile Include="Data\Entities\EntityBase.PropertyChanged.LINQ.cs" />
     <Compile Include="Data\Entities\EntityBase.PropertyChanging.LINQ.cs" />

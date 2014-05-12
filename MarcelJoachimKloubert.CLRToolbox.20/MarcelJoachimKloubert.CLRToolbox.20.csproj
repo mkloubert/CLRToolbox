@@ -79,16 +79,9 @@
     <Compile Include="ComponentModel\INotificationObject.INotifyPropertyChanging.cs">
       <DependentUpon>INotificationObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComponentModel\NotificationObjectBase.Tag.cs">
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="ComponentModel\NotificationObjectBase.cs" />
-    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChange.cs">
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ComponentModel\NotificationObjectBase.PropertyChanging.cs">
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ComponentModel\ReceiveNotificationFromAttribute.cs" />
+    <Compile Include="ComponentModel\ReceiveNotificationFromOptions.cs" />
     <Compile Include="Configuration\ConfigRepositoryBase.cs" />
     <Compile Include="Configuration\IConfigRepository.cs" />
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />

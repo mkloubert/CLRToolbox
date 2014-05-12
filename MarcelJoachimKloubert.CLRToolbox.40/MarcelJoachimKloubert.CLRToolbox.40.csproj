@@ -130,17 +130,11 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
       <Link>ComponentModel\NotificationObjectBase.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromAttribute.cs">
+      <Link>ComponentModel\ReceiveNotificationFromAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChanging.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChanging.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.Tag.cs">
-      <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromOptions.cs">
+      <Link>ComponentModel\ReceiveNotificationFromOptions.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
       <Link>Configuration\ConfigRepositoryBase.cs</Link>
@@ -1187,6 +1181,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyList.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyList.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Func.cs">
+      <Link>_Compatibility\System\Func.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\_embedded\freeimage\classes\FreeImageBitmap.cs">
       <Link>_Embedded\FreeImage\Classes\FreeImageBitmap.cs</Link>
     </Compile>
@@ -2122,10 +2119,6 @@
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Collections\ObjectModel\SynchronizedObservableCollection.cs">
       <Link>Collections\ObjectModel\SynchronizedObservableCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\ComponentModel\NotificationObjectBase.PropertyChange35.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChange35.cs</Link>
-      <DependentUpon>NotificationObjectBase.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Data\Entities\EntityBase.GetPropertyName.cs">
       <Link>Data\Entities\EntityBase.GetPropertyName.cs</Link>

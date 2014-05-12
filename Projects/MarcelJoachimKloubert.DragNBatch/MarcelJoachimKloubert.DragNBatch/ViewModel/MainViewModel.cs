@@ -24,18 +24,13 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
     /// </summary>
     public sealed class MainViewModel : NotificationObjectBase
     {
-        #region Fields (2)
-
-        private IPlugIn _selectedPlugIn;
-        private Task _task;
-
-        #endregion Fields
-
         #region Properties (5)
 
         /// <summary>
         /// Gets if the application can currently handling files and directories or not.
         /// </summary>
+        [ReceiveNotificationFrom("SelectedPlugIn")]
+        [ReceiveNotificationFrom("Task")]
         public bool CanHandleFiles
         {
             get
@@ -48,6 +43,7 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         /// <summary>
         /// Gets if a batch process is currently running or not.
         /// </summary>
+        [ReceiveNotificationFrom("Task")]
         public bool IsRunning
         {
             get { return this.Task != null; }
@@ -67,15 +63,9 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         /// </summary>
         public IPlugIn SelectedPlugIn
         {
-            get { return this._selectedPlugIn; }
+            get { return this.Get<IPlugIn>(); }
 
-            set
-            {
-                if (this.SetProperty(ref this._selectedPlugIn, value))
-                {
-                    this.OnPropertyChanged(() => this.CanHandleFiles);
-                }
-            }
+            set { this.Set(value); }
         }
 
         /// <summary>
@@ -83,16 +73,9 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         /// </summary>
         public Task Task
         {
-            get { return this._task; }
+            get { return this.Get<Task>(); }
 
-            private set
-            {
-                if (this.SetProperty(ref this._task, value))
-                {
-                    this.OnPropertyChanged(() => this.IsRunning);
-                    this.OnPropertyChanged(() => this.CanHandleFiles);
-                }
-            }
+            private set { this.Set(value); }
         }
 
         #endregion Properties

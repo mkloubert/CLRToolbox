@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.ComponentModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
@@ -10,8 +9,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     /// <summary>
     /// Describes a notification object.
     /// </summary>
-    public partial interface INotificationObject : IErrorHandler,
-                                                   INotifyPropertyChanged
+    public partial interface INotificationObject : IErrorHandler, INotifyPropertyChanged
     {
         #region Delegates and Events (1)
 

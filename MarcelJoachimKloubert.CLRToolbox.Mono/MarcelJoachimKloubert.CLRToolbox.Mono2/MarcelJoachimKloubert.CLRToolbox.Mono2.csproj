@@ -154,15 +154,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.cs">
       <Link>ComponentModel\NotificationObjectBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChange.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChange.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.PropertyChanging.cs">
-      <Link>ComponentModel\NotificationObjectBase.PropertyChanging.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\NotificationObjectBase.Tag.cs">
-      <Link>ComponentModel\NotificationObjectBase.Tag.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
       <Link>Configuration\ConfigRepositoryBase.cs</Link>
     </Compile>
@@ -1312,6 +1303,12 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\AssertException.cs">
       <Link>Diagnostics\Tests\AssertException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromAttribute.cs">
+      <Link>ComponentModel\ReceiveNotificationFromAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromOptions.cs">
+      <Link>ComponentModel\ReceiveNotificationFromOptions.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

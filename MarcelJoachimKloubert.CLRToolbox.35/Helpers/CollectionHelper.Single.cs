@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         // Public Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="Enumerable.Single{TSource}(IEnumerable{TSource})" />
         /// <remarks>Replaced in .NET 3.5 for .NET 2.0</remarks>

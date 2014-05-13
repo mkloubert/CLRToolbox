@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
@@ -38,7 +39,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             : base(syncRoot)
         {
             this._IS_THREAD_SAFE = isThreadSafe;
-            this._VARS = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+            this._VARS = this.CreateVarStorage();
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #region Methods (14)
 
-        // Public Methods (6) 
+        // Public Methods (7) 
 
         /// <inheriteddoc />
         public object Execute(IEnumerable<object> args)
@@ -252,6 +253,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         }
 
         // Protected Methods (2) 
+        
+        /// <summary>
+        /// Creates an empty storage for variables.
+        /// </summary>
+        /// <returns>The created storage.</returns>
+        protected virtual IDictionary<string, object> CreateVarStorage()
+        {
+            return new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+        }
 
         /// <summary>
         /// Returns the iterator for <see cref="WorkflowBase.GetEnumerator()" />.

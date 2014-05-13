@@ -227,15 +227,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             List<Exception> occuredErrors = new List<Exception>();
 
             WorkflowAction<S> currentAction = startAction;
-            Dictionary<string, object> execVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+            IDictionary<string, object> execVars = this.CreateVarStorage();
             bool hasBeenCanceled = false; 
             long index = -1;
             IReadOnlyDictionary<string, object> previousVars = null;
             object result = null;
             object syncRoot = new object();
             bool throwErrors = true;
-            while (hasBeenCanceled == false &&
-                   currentAction != null)
+            while ((hasBeenCanceled == false) &&
+                   (currentAction != null))
             {
                 yield return delegate(object[] args)
                     {
@@ -247,7 +247,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                         ctx.HasBeenCanceled = hasBeenCanceled;
                         ctx.Index = ++index;
                         ctx.Next = null;
-                        ctx.NextVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+                        ctx.NextVars = this.CreateVarStorage();
                         ctx.PreviousVars = previousVars;
                         ctx.Result = result;
                         ctx.State = actionStateFactory(ctx.Index);
@@ -288,7 +288,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                     };
             }
 
-            if (throwErrors && occuredErrors.Count > 0)
+            if (throwErrors &&
+                (occuredErrors.Count > 0))
             {
                 throw new AggregateException(occuredErrors);
             }

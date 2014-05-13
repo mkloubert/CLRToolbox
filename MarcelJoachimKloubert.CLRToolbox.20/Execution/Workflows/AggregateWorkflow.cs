@@ -30,9 +30,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         {
         }
 
-        #endregion Constructors
+        #endregion
 
-        #region Methods (4)
+        #region Methods (5)
 
         // Public Methods (4) 
 
@@ -107,19 +107,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             return result;
         }
 
-        // Public Methods (5) 
+        // Protected Methods (1) 
 
         /// <inheriteddoc />
         protected override IEnumerable<WorkflowFunc> GetFunctionIterator()
         {
-            IEnumerable<WorkflowFunc> result;
-
-            lock (this._SYNC)
-            {
-                result = CollectionHelper.SelectMany<WorkflowFunc>(this._WORKFLOWS);
-            }
-
-            return result;
+            return CollectionHelper.SelectMany<WorkflowFunc>(this._WORKFLOWS);
         }
 
         #endregion Methods

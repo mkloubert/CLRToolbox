@@ -280,7 +280,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                 throw new ArgumentNullException("obj");
             }
 
-            string constract = WorkflowAttributeBase.ParseContractName(contractName);
+            string contract = WorkflowAttributeBase.ParseContractName(contractName);
 
             Type type = obj.GetType();
             IEnumerable<MethodInfo> allMethods = GetMethodsByType(type);
@@ -302,12 +302,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                                                IEnumerable<WorkflowStartAttribute> wfStartAttribs =
                                                    CollectionHelper.OfType<WorkflowStartAttribute>(attribs);
 
-                                               // filter out by contract name
+                                               // filter by contract name
                                                IEnumerable<WorkflowStartAttribute> wfStartAttribForMethod =
                                                    CollectionHelper.Where(wfStartAttribs,
                                                                           delegate(WorkflowStartAttribute a)
                                                                           {
-                                                                              return a.Contract == constract;
+                                                                              return a.Contract == contract;
                                                                           });
 
                                                return CollectionHelper.Any(wfStartAttribForMethod);
@@ -316,108 +316,109 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                 currentMethod = CollectionHelper.SingleOrDefault(methodsWithAttribs);
             }
 
-            Dictionary<string, object> execVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+            IDictionary<string, object> execVars = this.CreateVarStorage();
             bool hasBeenCanceled = false;
             long index = -1;
             IReadOnlyDictionary<string, object> previousVars = null;
             object result = null;
             object syncRoot = new object();
             bool throwErrors = true;
-            while (hasBeenCanceled == false &&
-                   currentMethod != null)
+            while ((hasBeenCanceled == false) &&
+                   (currentMethod != null))
             {
                 yield return delegate(object[] args)
-                {
-                    SimpleWorkflowExecutionContext ctx = new SimpleWorkflowExecutionContext();
-                    ctx.Cancel = false;
-                    ctx.ContinueOnError = false;
-                    ctx.ExecutionArguments = new TMReadOnlyList<object>(args ?? new object[] { null });
-                    ctx.ExecutionVars = execVars;
-                    ctx.HasBeenCanceled = hasBeenCanceled;
-                    ctx.Index = ++index;
-                    ctx.NextVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
-                    ctx.PreviousVars = previousVars;
-                    ctx.Result = result;
-                    ctx.SyncRoot = syncRoot;
-                    ctx.ThrowErrors = throwErrors;
-                    ctx.Workflow = this;
-                    ctx.WorkflowVars = this.Vars;
-
-                    // first try to find method for next step
-                    MethodInfo nextMethod = null;
                     {
-                        // search for 'NextWorkflowStepAttribute'
-                        object[] attribs = currentMethod.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.NextWorkflowStepAttribute),
-                                                                             true);
+                        SimpleWorkflowExecutionContext ctx = new SimpleWorkflowExecutionContext();
+                        ctx.Cancel = false;
+                        ctx.ContinueOnError = false;
+                        ctx.ExecutionArguments = new TMReadOnlyList<object>(args ?? new object[] { null });
+                        ctx.ExecutionVars = execVars;
+                        ctx.HasBeenCanceled = hasBeenCanceled;
+                        ctx.Index = ++index;
+                        ctx.NextVars = this.CreateVarStorage();
+                        ctx.PreviousVars = previousVars;
+                        ctx.Result = result;
+                        ctx.SyncRoot = syncRoot;
+                        ctx.ThrowErrors = throwErrors;
+                        ctx.Workflow = this;
+                        ctx.WorkflowVars = this.Vars;
 
-                        // strong typed sequence
-                        IEnumerable<NextWorkflowStepAttribute> nextStepAttribs = CollectionHelper.OfType<NextWorkflowStepAttribute>(attribs);
-
-                        // filter out by contract name
-                        NextWorkflowStepAttribute nextStep = CollectionHelper.SingleOrDefault(nextStepAttribs,
-                                                                                              delegate(NextWorkflowStepAttribute a)
-                                                                                              {
-                                                                                                  return a.Contract == constract;
-                                                                                              });
-
-                        if (nextStep != null)
+                        // first try to find method for next step
+                        MethodInfo nextMethod = null;
                         {
-                            IEnumerable<MethodInfo> nextMethods = CollectionHelper.Where(allMethods,
-                                                                                         delegate(MethodInfo m)
-                                                                                         {
-                                                                                             return m.Name == nextStep.Member;
-                                                                                         });
+                            // search for 'NextWorkflowStepAttribute'
+                            object[] attribs = currentMethod.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.NextWorkflowStepAttribute),
+                                                                                 true);
 
-                            nextMethod = CollectionHelper.SingleOrDefault(nextMethods,
-                                                                          delegate(MethodInfo m)
-                                                                          {
-                                                                              return m.GetParameters().Length > 0;
-                                                                          });
+                            // strong typed sequence
+                            IEnumerable<NextWorkflowStepAttribute> nextStepAttribs = CollectionHelper.OfType<NextWorkflowStepAttribute>(attribs);
 
-                            if (nextMethod == null)
+                            // filter by contract name
+                            NextWorkflowStepAttribute nextStep = CollectionHelper.SingleOrDefault(nextStepAttribs,
+                                                                                                  delegate(NextWorkflowStepAttribute a)
+                                                                                                  {
+                                                                                                      return a.Contract == contract;
+                                                                                                  });
+
+                            if (nextStep != null)
                             {
-                                nextMethod = CollectionHelper.Single(nextMethods,
-                                                                     delegate(MethodInfo m)
-                                                                     {
-                                                                         return m.GetParameters().Length < 1;
-                                                                     });
+                                IEnumerable<MethodInfo> nextMethods = CollectionHelper.Where(allMethods,
+                                                                                             delegate(MethodInfo m)
+                                                                                             {
+                                                                                                 return m.Name == nextStep.Member;
+                                                                                             });
+
+                                nextMethod = CollectionHelper.SingleOrDefault(nextMethods,
+                                                                              delegate(MethodInfo m)
+                                                                              {
+                                                                                  return m.GetParameters().Length > 0;
+                                                                              });
+
+                                if (nextMethod == null)
+                                {
+                                    nextMethod = CollectionHelper.Single(nextMethods,
+                                                                         delegate(MethodInfo m)
+                                                                         {
+                                                                             return m.GetParameters().Length < 1;
+                                                                         });
+                                }
                             }
                         }
-                    }
 
-                    // execution
-                    InvokeWorkflowMethod(obj, currentMethod,
-                                         ctx,
-                                         occuredErrors);
+                        // execution
+                        InvokeWorkflowMethod(obj, currentMethod,
+                                             ctx,
+                                             occuredErrors);
 
-                    WorkflowActionNoState nextAction = ctx.Next;
-                    if (nextAction == null)
-                    {
-                        currentMethod = nextMethod;
-                    }
-                    else
-                    {
-                        obj = nextAction.Target;
-                        currentMethod = nextAction.Method;
+                        WorkflowActionNoState nextAction = ctx.Next;
+                        if (nextAction == null)
+                        {
+                            currentMethod = nextMethod;
+                        }
+                        else
+                        {
+                            obj = nextAction.Target;
+                            currentMethod = nextAction.Method;
 
-                        type = currentMethod.ReflectedType;
-                        allMethods = GetMethodsByType(type);
-                    }
+                            type = currentMethod.ReflectedType;
+                            allMethods = GetMethodsByType(type);
+                        }
 
-                    previousVars = new TMReadOnlyDictionary<string, object>(ctx.NextVars);
-                    throwErrors = ctx.ThrowErrors;
+                        previousVars = new TMReadOnlyDictionary<string, object>(ctx.NextVars);
+                        throwErrors = ctx.ThrowErrors;
 
-                    if (ctx.Cancel)
-                    {
-                        hasBeenCanceled = true;
-                        ctx.HasBeenCanceled = hasBeenCanceled;
-                    }
+                        if (ctx.Cancel)
+                        {
+                            hasBeenCanceled = true;
+                            ctx.HasBeenCanceled = hasBeenCanceled;
+                        }
 
-                    return ctx;
-                };
+                        return ctx;
+                    };
             }
 
-            if (throwErrors && occuredErrors.Count > 0)
+            if (throwErrors &&
+                (occuredErrors.Count > 0))
             {
                 throw new AggregateException(occuredErrors);
             }

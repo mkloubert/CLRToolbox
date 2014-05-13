@@ -486,6 +486,10 @@
       <Link>Helpers\CollectionHelper.Select.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SelectMany.cs">
+      <Link>Helpers\CollectionHelper.SelectMany.cs</Link>
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SequenceEqual.cs">
       <Link>Helpers\CollectionHelper.SequenceEqual.cs</Link>
       <DependentUpon>CollectionHelper.cs</DependentUpon>

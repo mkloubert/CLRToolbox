@@ -1561,6 +1561,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowStartAttribute.cs">
       <Link>Execution\Workflows\WorkflowStartAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SelectMany.cs">
+      <Link>Helpers\CollectionHelper.SelectMany.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

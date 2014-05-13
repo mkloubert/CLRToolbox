@@ -149,6 +149,7 @@
     <Compile Include="Execution\Functions\IFunctionLocator.cs" />
     <Compile Include="Execution\SimpleAsyncExecutionResult.cs" />
     <Compile Include="Execution\IAsyncExecutionResult.cs" />
+    <Compile Include="Execution\Workflows\AggregateWorkflow.cs" />
     <Compile Include="Execution\Workflows\AttributeWorkflow.cs" />
     <Compile Include="Execution\Workflows\DelegateWorkflow.cs" />
     <Compile Include="Execution\Workflows\IWorkflow.cs" />
@@ -214,6 +215,9 @@
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.Select.cs">
+      <DependentUpon>CollectionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.SelectMany.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CollectionHelper.SequenceEqual.cs">

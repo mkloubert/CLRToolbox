@@ -228,24 +228,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
             using (IEnumerator<TSrc> eSRC = src.GetEnumerator())
             {
-                long index = -1;
+                long idxSrc = -1;
 
                 while (eSRC.MoveNext())
                 {
-                    ++index;
+                    ++idxSrc;
                     TSrc srcItem = eSRC.Current;
 
-                    IEnumerable<TColl> seqColl = collSelector(srcItem, index);
+                    IEnumerable<TColl> seqColl = collSelector(srcItem, idxSrc);
 
-                    using (IEnumerator<TColl> e = seqColl.GetEnumerator())
+                    using (IEnumerator<TColl> eCOLL = seqColl.GetEnumerator())
                     {
-                        long index2 = -1;
+                        long idxColl = -1;
 
-                        while (e.MoveNext())
+                        while (eCOLL.MoveNext())
                         {
-                            ++index2;
+                            ++idxColl;
 
-                            yield return resSelector(srcItem, e.Current, index2);
+                            yield return resSelector(srcItem, eCOLL.Current, idxColl);
                         }
                     }
                 }

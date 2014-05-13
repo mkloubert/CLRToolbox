@@ -26,9 +26,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         public static IEnumerable<TResult> SelectMany<TResult>(IEnumerable src)
         {
             return SelectMany<object, TResult>(Cast<object>(src),
-                                               delegate(object s)
+                                               delegate(object source)
                                                {
-                                                   return (IEnumerable<TResult>)s;
+                                                   return (IEnumerable<TResult>)source;
                                                });
         }
 
@@ -54,9 +54,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
 
             return SelectMany<TSrc, TResult>(src,
-                                             delegate(TSrc s, long index)
+                                             delegate(TSrc source, long indexSource)
                                              {
-                                                 return selector(s);
+                                                 return selector(source);
                                              });
         }
 
@@ -78,9 +78,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         {
             return SelectMany<TSrc, TResult, TResult>(src,
                                                       selector,
-                                                      delegate(TSrc s, TResult c, long index)
+                                                      delegate(TSrc source, long indexSource,
+                                                               TResult coll, long indexColl)
                                                       {
-                                                          return c;
+                                                          return coll;
                                                       });
         }
 
@@ -115,13 +116,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
 
             return SelectMany<TSrc, TColl, TResult>(src,
-                                                    delegate(TSrc s, long index)
+                                                    delegate(TSrc source, long indexSource)
                                                     {
-                                                        return collSelector(s);
+                                                        return collSelector(source);
                                                     },
-                                                    delegate(TSrc s, TColl c, long index)
+                                                    delegate(TSrc source, long indexSource, TColl coll, long indexColl)
                                                     {
-                                                        return resSelector(s, c);
+                                                        return resSelector(source, coll);
                                                     });
         }
 
@@ -152,9 +153,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
             return SelectMany<TSrc, TColl, TResult>(src,
                                                     collSelector,
-                                                    delegate(TSrc s, TColl c, long index)
+                                                    delegate(TSrc source, long indexSrc,
+                                                             TColl coll, long indexColl)
                                                     {
-                                                        return resSelector(s, c);
+                                                        return resSelector(source, coll);
                                                     });
         }
 
@@ -176,7 +178,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static IEnumerable<TResult> SelectMany<TSrc, TColl, TResult>(IEnumerable<TSrc> src,
                                                                             Func<TSrc, IEnumerable<TColl>> collSelector,
-                                                                            Func<TSrc, TColl, long, TResult> resSelector)
+                                                                            Func<TSrc, long, TColl, long, TResult> resSelector)
         {
             if (collSelector == null)
             {
@@ -184,9 +186,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             }
 
             return SelectMany<TSrc, TColl, TResult>(src,
-                                                    delegate(TSrc s, long index)
+                                                    delegate(TSrc source, long indexSrc)
                                                     {
-                                                        return collSelector(s);
+                                                        return collSelector(source);
                                                     },
                                                     resSelector);
         }
@@ -209,7 +211,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
         /// </exception>
         public static IEnumerable<TResult> SelectMany<TSrc, TColl, TResult>(IEnumerable<TSrc> src,
                                                                             Func<TSrc, long, IEnumerable<TColl>> collSelector,
-                                                                            Func<TSrc, TColl, long, TResult> resSelector)
+                                                                            Func<TSrc, long, TColl, long, TResult> resSelector)
         {
             if (src == null)
             {
@@ -245,7 +247,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                         {
                             ++idxColl;
 
-                            yield return resSelector(srcItem, eCOLL.Current, idxColl);
+                            yield return resSelector(srcItem, idxSrc,
+                                                     eCOLL.Current, idxColl);
                         }
                     }
                 }

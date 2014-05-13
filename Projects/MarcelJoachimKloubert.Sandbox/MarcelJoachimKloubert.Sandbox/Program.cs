@@ -90,18 +90,16 @@ namespace MarcelJoachimKloubert.Sandbox
             }
 
             var workflow = DelegateWorkflow.Create(Station_A1);
-            foreach (var action in workflow)
-            {
-                action(new object[] { "TM", "MK" });
-            }
 
             var t2 = new Test2();
 
-            var workflow2 = new AttributeWorkflow();
-            workflow2.ExecuteFor(t2, "  WUrSt ");
+            var workflow2 = AttributeWorkflow.Create(t2);
 
-            // better for thread safe operations
-            workflow.Execute();
+            var aggWF = new AggregateWorkflow();
+            aggWF.Add(workflow);
+            aggWF.Add(workflow2);
+
+            aggWF.Execute();
         }
 
         private static void Station_A1(IWorkflowExecutionContext ctx)

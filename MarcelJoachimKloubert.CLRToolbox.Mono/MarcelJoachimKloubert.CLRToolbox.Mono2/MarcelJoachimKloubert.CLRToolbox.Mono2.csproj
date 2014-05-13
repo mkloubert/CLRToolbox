@@ -1319,5 +1319,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SelectMany.cs">
       <Link>Helpers\CollectionHelper.SelectMany.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AggregateWorkflow.cs">
+      <Link>Execution\Workflows\AggregateWorkflow.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

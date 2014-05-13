@@ -67,9 +67,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion CLASS: AttributeWorkflow
 
-        #region Methods (18)
+        #region Methods (19)
         
-        // Public Methods (14) 
+        // Public Methods (15) 
 
         /// <summary>
         /// Creates a new instance for a specific object.
@@ -81,6 +81,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         public static AttributeWorkflow<T> Create<T>(T obj)
         {
             return new AttributeWorkflow<T>(obj);
+        }
+        
+        /// <summary>
+        /// Creates a new instance for a specific object and contract.
+        /// </summary>
+        /// <param name="obj">The value for the <see cref="AttributeWorkflow{TObj}.Object" /> property.</param>
+        /// <param name="contractName">The value for the <see cref="AttributeWorkflow{TObj}.Contract" /> property.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="obj" /> is <see langword="null" />.
+        /// </exception>
+        public static AttributeWorkflow<T> Create<T>(T obj, IEnumerable<char> contractName)
+        {
+            return new AttributeWorkflow<T>(obj, contractName);
         }
 
         /// <summary>
@@ -494,7 +507,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion Fields
 
-        #region Constructors (10)
+        #region Constructors (11)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeWorkflow{TObj}" /> class.
@@ -628,7 +641,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             : this(obj, false, syncRoot)
         {
         }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttributeWorkflow{TObj}" /> class.
+        /// </summary>
+        /// <param name="obj">The value for the <see cref="AttributeWorkflow{TObj}.Object" /> property.</param>
+        /// <param name="contractName">The value for the <see cref="AttributeWorkflow{TObj}.Contract" /> property.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="obj" /> is <see langword="null" />.
+        /// </exception>
+        public AttributeWorkflow(TObj obj, IEnumerable<char> contractName)
+            : this(obj, contractName, false)
+        {
+
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeWorkflow{TObj}" /> class.
         /// </summary>

@@ -9,7 +9,7 @@ using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 
-namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
+namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
 {
     #region CLASS: DelegateWorkflow
 

@@ -373,14 +373,14 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
       <Link>Execution\SimpleAsyncExecutionResult.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AggregateWorkflow.cs">
-      <Link>Execution\Workflows\AggregateWorkflow.cs</Link>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\workflows\impl\AggregateWorkflow.cs">
+      <Link>Execution\Workflows\Impl\AggregateWorkflow.cs</Link>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AttributeWorkflow.cs">
-      <Link>Execution\Workflows\AttributeWorkflow.cs</Link>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\workflows\impl\AttributeWorkflow.cs">
+      <Link>Execution\Workflows\Impl\AttributeWorkflow.cs</Link>
     </Compile>
-    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\workflows\DelegateWorkflow.cs">
-      <Link>Execution\Workflows\DelegateWorkflow.cs</Link>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\workflows\impl\DelegateWorkflow.cs">
+      <Link>Execution\Workflows\Impl\DelegateWorkflow.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\workflows\IWorkflow.cs">
       <Link>Execution\Workflows\IWorkflow.cs</Link>

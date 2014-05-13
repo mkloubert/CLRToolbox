@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
+namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
 {
     #region CLASS: AttributeWorkflow
 

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
@@ -15,8 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
     /// <summary>
     /// A basic function.
     /// </summary>
-    public abstract partial class FunctionBase : TMObject,
-                                                 IFunction
+    public abstract partial class FunctionBase : TMObject, IFunction
     {
         #region Fields (1)
 
@@ -47,7 +45,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
         protected FunctionBase(Guid id)
             : this(id, new object())
         {
-
         }
 
         #endregion Constructors
@@ -245,6 +242,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
                                                     , this.Id
                                                     , this.GetHashCode());
         }
+
         // Protected Methods (6) 
 
         /// <summary>

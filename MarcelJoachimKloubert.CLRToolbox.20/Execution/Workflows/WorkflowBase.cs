@@ -260,7 +260,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// <returns>The created storage.</returns>
         protected virtual IDictionary<string, object> CreateVarStorage()
         {
-            return new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+            return new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, true));
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         private IList<Exception> _errors;
         private object _result;
 
-        #endregion INTERFACE: IAsyncExecutionResult
+        #endregion Fields
 
         #region Properties (3)
 

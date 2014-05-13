@@ -72,7 +72,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </returns>
         public static string GetContractName(Type type)
         {
-            return type != null ? type.FullName : null;
+            return type != null ? string.Format("{0}\n{1}",
+                                                type.Assembly,
+                                                type.FullName) : null;
         }
 
         /// <summary>
@@ -80,7 +82,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         public static string ParseContractName(IEnumerable<char> contract)
         {
-            string result = (StringHelper.AsString(contract) ?? string.Empty).ToUpper().Trim();
+            if (contract == null)
+            {
+                return null;
+            }
+
+            string result = StringHelper.AsString(contract).ToUpper().Trim();
             if (result == string.Empty)
             {
                 result = null;

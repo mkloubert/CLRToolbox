@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions

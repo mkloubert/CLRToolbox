@@ -1483,9 +1483,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.All.cs">
       <Link>Helpers\CollectionHelper.All.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\DelegateWorkflow.cs">
-      <Link>Execution\Workflows\DelegateWorkflow.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\IWorkflow.cs">
       <Link>Execution\Workflows\IWorkflow.cs</Link>
     </Compile>
@@ -1549,9 +1546,6 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyCollection.cs">
       <Link>Collections\ObjectModel\TMReadOnlyCollection.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AttributeWorkflow.cs">
-      <Link>Execution\Workflows\AttributeWorkflow.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\NextWorkflowStepAttribute.cs">
       <Link>Execution\Workflows\NextWorkflowStepAttribute.cs</Link>
     </Compile>
@@ -1564,8 +1558,14 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Helpers\CollectionHelper.SelectMany.cs">
       <Link>Helpers\CollectionHelper.SelectMany.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AggregateWorkflow.cs">
-      <Link>Execution\Workflows\AggregateWorkflow.cs</Link>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\Impl\AggregateWorkflow.cs">
+      <Link>Execution\Workflows\Impl\AggregateWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\Impl\AttributeWorkflow.cs">
+      <Link>Execution\Workflows\Impl\AttributeWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\Impl\DelegateWorkflow.cs">
+      <Link>Execution\Workflows\Impl\DelegateWorkflow.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -1598,5 +1598,6 @@
     <Folder Include="_Embedded\" />
     <Folder Include="Execution\Workflows\" />
     <Folder Include="Diagnostics\Tests\" />
+    <Folder Include="Execution\Workflows\Impl\" />
   </ItemGroup>
 </Project>

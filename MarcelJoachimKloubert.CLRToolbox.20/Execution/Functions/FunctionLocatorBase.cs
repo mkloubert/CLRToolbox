@@ -2,18 +2,16 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 {
     /// <summary>
     /// A basic function locator.
     /// </summary>
-    public abstract class FunctionLocatorBase : TMObject,
-                                                IFunctionLocator
+    public abstract class FunctionLocatorBase : TMObject, IFunctionLocator
     {
         #region Constructors (2)
 
@@ -27,7 +25,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
         protected FunctionLocatorBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -36,7 +33,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
         protected FunctionLocatorBase()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -45,16 +41,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
         // Public Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IFunctionLocator.GetAllFunctions()" />
+        /// <inheriteddoc />
         public IEnumerable<IFunction> GetAllFunctions()
         {
             IEnumerable<IFunction> nonNullFuncList = this.OnGetAllFunctions() ?? CollectionHelper.Empty<IFunction>();
 
             return CollectionHelper.OfType<IFunction>(nonNullFuncList);
         }
+
         // Protected Methods (1) 
 
         /// <summary>

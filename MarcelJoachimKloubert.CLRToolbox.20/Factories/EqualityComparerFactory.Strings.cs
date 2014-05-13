@@ -2,9 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Factories
 {
@@ -18,7 +17,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Factories
         /// Creates a case insensitive <see cref="IEqualityComparer{T}" /> for <see cref="string" />.
         /// </summary>
         /// <returns>The created comparer.</returns>
-        /// /// <remarks>
+        /// <remarks>
         /// Strings are trimmed and empty strings are handled as <see langword="null" /> references.
         /// </remarks>
         public static IEqualityComparer<string> CreateCaseInsensitiveStringComparer()
@@ -48,14 +47,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Factories
         public static IEqualityComparer<string> CreateCaseInsensitiveStringComparer(bool trim, bool emptyIsNull)
         {
             return new DelegateEqualityComparer<string>(delegate(string x, string y)
-            {
-                return ParseString(x, trim, emptyIsNull) ==
-                       ParseString(y, trim, emptyIsNull);
-            }, delegate(string obj)
-            {
-                string str = ParseString(obj, trim, emptyIsNull);
-                return str != null ? str.GetHashCode() : 0;
-            });
+                                                        {
+                                                            return ParseString(x, trim, emptyIsNull) ==
+                                                                   ParseString(y, trim, emptyIsNull);
+                                                        }, delegate(string obj)
+                                                        {
+                                                            string str = ParseString(obj, trim, emptyIsNull);
+                                                            return str != null ? str.GetHashCode() : 0;
+                                                        });
         }
 
         /// <summary>
@@ -66,6 +65,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Factories
         {
             return CreateCaseInsensitiveStringComparer(true, true);
         }
+
         // Private Methods (1) 
 
         private static string ParseString(string str, bool trim, bool emptyIsNull)

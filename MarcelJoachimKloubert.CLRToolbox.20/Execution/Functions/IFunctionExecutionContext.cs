@@ -2,10 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using System;
 using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 {
@@ -18,6 +17,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
     public delegate void FunctionExecutionContextCallback(IFunctionExecutionContext context);
 
     #endregion
+
+    #region INTERFACE: IFunctionExecutionContext
 
     /// <summary>
     /// Describes an execution context of an <see cref="IFunction" />.
@@ -125,4 +126,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
         #endregion Operations
     }
+
+    #endregion
 }

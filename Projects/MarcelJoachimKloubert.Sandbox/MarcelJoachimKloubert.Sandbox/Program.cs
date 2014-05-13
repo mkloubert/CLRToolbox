@@ -1,9 +1,8 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
-using MarcelJoachimKloubert.CLRToolbox.Objects;
-using System;
-using System.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
-using System.Linq;
+using MarcelJoachimKloubert.CLRToolbox.Objects;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
@@ -28,7 +27,6 @@ namespace MarcelJoachimKloubert.Sandbox
     {
         public virtual void Step4(IWorkflowExecutionContext ctx)
         {
-
         }
     }
 
@@ -40,14 +38,12 @@ namespace MarcelJoachimKloubert.Sandbox
         [NextWorkflowStep("Step1", "Wurst")]
         public void Start()
         {
-
         }
 
         [NextWorkflowStep("Step3")]
         [NextWorkflowStep("Step2", "Wurst")]
         public void Step1()
         {
-
         }
 
         [NextWorkflowStep("Step3")]
@@ -58,18 +54,15 @@ namespace MarcelJoachimKloubert.Sandbox
 
         public void Step3(IWorkflowExecutionContext ctx)
         {
-
         }
 
         [NextWorkflowStep("Step5")]
         public override void Step4(IWorkflowExecutionContext ctx)
         {
-
         }
 
         public void Step5()
         {
-
         }
     }
 
@@ -118,7 +111,6 @@ namespace MarcelJoachimKloubert.Sandbox
 
             foreach (var op in typeof(Test).GetExplicitOperators())
             {
-
             }
         }
     }

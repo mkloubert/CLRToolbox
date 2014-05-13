@@ -31,7 +31,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution
         /// </summary>
         object Result { get; }
 
-        #endregion Data Members
+        #endregion
 
         #region Methods (1)
 

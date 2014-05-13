@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
@@ -20,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         private readonly CanExecutePredicate _CAN_EXECUTE_PREDICATE;
         private readonly ExecuteHandler _EXECUTE_ACTION;
 
-        #endregion Fields
+        #endregion
 
         #region Constructors (2)
 
@@ -54,7 +53,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         public DelegateCommand(ExecuteHandler executeAction)
             : this(executeAction, null)
         {
-
         }
 
         #endregion Constructors
@@ -82,19 +80,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
 
         // Public Methods (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="CommandBase{TParam}.CanExecute(TParam)" />
+        /// <inheriteddoc />
         public override bool CanExecute(TParam param)
         {
             return this._CAN_EXECUTE_PREDICATE(param);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="CommandBase{TParam}.OnExecute(TParam)" />
+        /// <inheriteddoc />
         protected override sealed void OnExecute(TParam param)
         {
             this._EXECUTE_ACTION(param);
@@ -126,7 +118,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
                                CanExecutePredicate canExecutePredicate)
             : base(executeAction, canExecutePredicate)
         {
-
         }
 
         /// <summary>
@@ -158,7 +149,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         public DelegateCommand(ExecuteHandler executeAction)
             : base(executeAction)
         {
-
         }
 
         /// <summary>
@@ -183,16 +173,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
 
         // Delegates (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="DelegateCommand{TParam}.CanExecutePredicate" />.
+        /// <inheriteddoc />
         public delegate bool CanExecuteHandlerNoParameter();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="DelegateCommand{TParam}.ExecuteHandler" />.
+        /// <inheriteddoc />
         public delegate void ExecuteHandlerNoParameter();
 
         #endregion Delegates and Events

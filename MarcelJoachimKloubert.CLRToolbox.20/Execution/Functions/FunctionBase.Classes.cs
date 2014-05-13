@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
@@ -28,7 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             private string _resultMessage;
             private IDictionary<string, object> _resultParameters;
 
-            #endregion Fields
+            #endregion Fields
 
             #region Properties (5)
 

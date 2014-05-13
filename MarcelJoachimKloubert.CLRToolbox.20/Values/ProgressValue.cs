@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using System;
 
@@ -13,12 +12,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
     /// </summary>
     public sealed class ProgressValue : NotificationObjectBase
     {
-        #region Fields (4)
+        #region Fields (2)
 
         private readonly double _MAXIMUM;
         private readonly double _MINIMUM;
-        private double _step = 1;
-        private double _value;
 
         #endregion Fields
 
@@ -42,7 +39,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
             this._MINIMUM = min;
             this._MAXIMUM = max;
 
-            this._value = min;
+            this.Value = min;
         }
 
         /// <summary>
@@ -55,7 +52,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
         public ProgressValue(double max)
             : this(0, max)
         {
-
         }
 
         /// <summary>
@@ -65,7 +61,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
         public ProgressValue()
             : this(100)
         {
-
         }
 
         #endregion Constructors
@@ -91,6 +86,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
         /// <summary>
         /// Gets the percentage value.
         /// </summary>
+        [ReceiveNotificationFrom("Value")]
         public double Percentage
         {
             get
@@ -98,10 +94,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
                 double range = this.Maximum - this.Minimum;
                 if (range == 0)
                 {
-                    return 0;
+                    return 0d;
                 }
 
-                return (this._value - this.Minimum) / range * 100.0f;
+                return (this.Value - this.Minimum) / range * 100.0d;
             }
         }
 
@@ -110,20 +106,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
         /// </summary>
         public double Step
         {
-            get { return this._step; }
+            get { return this.Get<double>("Step"); }
 
-            set
-            {
-                lock (this._SYNC)
-                {
-                    if (value != this._step)
-                    {
-                        this.OnPropertyChanging("Step");
-                        this._step = value;
-                        this.OnPropertyChanged("Step");
-                    }
-                }
-            }
+            set { this.Set(value, "Step"); }
         }
 
         /// <summary>
@@ -135,29 +120,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
         /// </remarks>
         public double Value
         {
-            get { return this._value; }
+            get { return this.Get<double>("Value"); }
 
             set
             {
-                lock (this._SYNC)
+                if (value < this.Minimum)
                 {
-                    if (value != this._value)
-                    {
-                        if (value < this.Minimum)
-                        {
-                            value = this.Minimum;
-                        }
-
-                        if (value > this.Maximum)
-                        {
-                            value = this.Maximum;
-                        }
-
-                        this.OnPropertyChanging("Value");
-                        this._value = value;
-                        this.OnPropertyChanged("Value");
-                    }
+                    value = this.Minimum;
                 }
+
+                if (value > this.Maximum)
+                {
+                    value = this.Maximum;
+                }
+
+                this.Set(value, "Value");
             }
         }
 
@@ -166,7 +143,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Values
         #region Methods (4)
 
         // Public Methods (4) 
-        
+
         /// <summary>
         /// Resets <see cref="ProgressValue.Value" /> by the value of <see cref="ProgressValue.Maximum" />.
         /// </summary>

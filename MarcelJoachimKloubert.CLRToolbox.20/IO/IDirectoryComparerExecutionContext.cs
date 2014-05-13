@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// <summary>
     /// Execution context of a <see cref="DirectoryComparer" />.
     /// </summary>
-    public interface IDirectoryComparerExecutionContext
+    public interface IDirectoryComparerExecutionContext : INotificationObject
     {
         #region Data Members (7)
 
@@ -97,6 +98,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// <summary>
         /// Starts the execution.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Operation is currently running.
+        /// </exception>
         void Start();
 
         #endregion Operations

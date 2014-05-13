@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     {
         #region Nested Classes (1)
 
-        private sealed class DirectoryComparerExecutionContext<TState> : IDirectoryComparerExecutionContext<TState>
+        private sealed class DirectoryComparerExecutionContext<TState> : NotificationObjectBase, IDirectoryComparerExecutionContext<TState>
         {
-            #region Fields (9)
+            #region Fields (1)
 
             private readonly DirectoryComparer _COMPARER;
-            private DateTimeOffset? _endTime;
-            private IList<Exception> _errors;
-            private bool _isCanceling;
-            private bool _isRunning;
-            private bool _recurive;
-            private DateTimeOffset? _startTime;
-            private TState _state;
-            private readonly object _SYNC = new object();
 
             #endregion Fields
 
@@ -40,12 +33,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             #region Properties (8)
 
+            [ReceiveNotificationFrom("EndTime")]
+            [ReceiveNotificationFrom("StartTime")]
             public TimeSpan? Duration
             {
                 get
                 {
-                    DateTimeOffset? st = this._startTime;
-                    DateTimeOffset? et = this._endTime;
+                    DateTimeOffset? st = this.StartTime;
+                    DateTimeOffset? et = this.EndTime;
 
                     if (st.HasValue && et.HasValue)
                     {
@@ -58,51 +53,58 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             public DateTimeOffset? EndTime
             {
-                get { return this._endTime; }
+                get { return this.Get<DateTimeOffset?>("EndTime"); }
 
-                private set { this._endTime = value; }
+                private set { this.Set(value, "EndTime"); }
             }
 
             public IList<Exception> Errors
             {
-                get { return this._errors; }
+                get { return this.Get<IList<Exception>>("Errors"); }
 
-                private set { this._errors = value; }
+                private set { this.Set(value, "Errors"); }
             }
 
             public bool IsCanceling
             {
-                get { return this._isCanceling; }
+                get { return this.Get<bool>("IsCanceling"); }
 
-                private set { this._isCanceling = value; }
+                private set { this.Set(value, "IsCanceling"); }
             }
-
+            
+            [ReceiveNotificationFrom("EndTime")]
+            [ReceiveNotificationFrom("StartTime")]
             public bool IsRunning
             {
-                get { return this._isRunning; }
+                get
+                {
+                    DateTimeOffset? st = this.StartTime;
+                    DateTimeOffset? et = this.EndTime;
 
-                internal set { this._isRunning = value; }
+                    return st.HasValue &&
+                           (et.HasValue == false);
+                }
             }
 
             public bool Recursive
             {
-                get { return this._recurive; }
+                get { return this.Get<bool>("Recursive"); }
 
-                internal set { this._recurive = value; }
+                internal set { this.Set(value, "Recursive"); }
             }
 
             public DateTimeOffset? StartTime
             {
-                get { return this._startTime; }
+                get { return this.Get<DateTimeOffset?>("StartTime"); }
 
-                private set { this._startTime = value; }
+                private set { this.Set(value, "StartTime"); }
             }
 
             public TState State
             {
-                get { return this._state; }
+                get { return this.Get<TState>("State"); }
 
-                internal set { this._state = value; }
+                internal set { this.Set(value, "State"); }
             }
 
             #endregion Properties
@@ -121,7 +123,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             #endregion Delegates and Events
 
-            #region Methods (7)
+            #region Methods (6)
 
             // Public Methods (3) 
 
@@ -132,55 +134,61 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             public void Cancel(bool wait)
             {
-                if (this.IsCanceling == false)
-                {
-                    this.IsCanceling = true;
-                }
+                this.IsCanceling = true;
 
                 if (wait)
                 {
-                    while (this.IsRunning && this.IsCanceling)
-                    { }
-
-                    this.IsCanceling = false;
+                    try
+                    {
+                        while (this.IsRunning && this.IsCanceling)
+                        { }
+                    }
+                    finally
+                    {
+                        this.IsCanceling = false;
+                    }
                 }
             }
 
             public void Start()
             {
-                lock (this._SYNC)
+                if (this.IsRunning)
                 {
-                    this._startTime = AppTime.Now;
-                    List<Exception> occuredErrors = new List<Exception>();
+                    throw new InvalidOperationException();
+                }
 
-                    try
-                    {
-                        this._isCanceling = false;
-                        this._isRunning = true;
-                        this._errors = null;
+                this.EndTime = null;
+                this.StartTime = AppTime.Now;
 
-                        this.RaiseEventHandler(this.Started);
+                List<Exception> occuredErrors = new List<Exception>();
 
-                        DirectoryInfo src = new DirectoryInfo(this._COMPARER.Source);
-                        DirectoryInfo dest = new DirectoryInfo(this._COMPARER.Destination);
-                        this.CompareDirectories(src, dest, occuredErrors);
-                    }
-                    catch (Exception ex)
-                    {
-                        occuredErrors.Add(ex);
-                    }
-                    finally
-                    {
-                        this._errors = occuredErrors.ToArray();
-                        this._isRunning = false;
-                        this._isCanceling = false;
+                try
+                {
+                    this.IsCanceling = false;
+                    this.Errors = null;
 
-                        this._endTime = AppTime.Now;
-                        this.RaiseEventHandler(this.Completed);
-                    }
+                    this.RaiseEventHandler(this.Started);
+
+                    DirectoryInfo src = new DirectoryInfo(this._COMPARER.Source);
+                    DirectoryInfo dest = new DirectoryInfo(this._COMPARER.Destination);
+                    this.CompareDirectories(src, dest, occuredErrors);
+                }
+                catch (Exception ex)
+                {
+                    occuredErrors.Add(ex);
+                }
+                finally
+                {
+                    this.EndTime = AppTime.Now;
+
+                    this.Errors = occuredErrors.ToArray();
+                    this.IsCanceling = false;
+                        
+                    this.RaiseEventHandler(this.Completed);
                 }
             }
-            // Private Methods (4) 
+
+            // Private Methods (3) 
 
             private void CompareDirectories(DirectoryInfo src, DirectoryInfo dest, ICollection<Exception> errList)
             {
@@ -263,7 +271,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
                                 if (destDir.Exists)
                                 {
-
                                 }
                                 else
                                 {
@@ -316,7 +323,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
                                 if (srcDir.Exists)
                                 {
-
                                 }
                                 else
                                 {
@@ -369,10 +375,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
                                 if (destFile.Exists)
                                 {
-#if !WINDOWS_PHONE
-                                    if (NormalizeTimestamp(file.LastWriteTimeUtc) != NormalizeTimestamp(destFile.LastWriteTimeUtc))
-#else
+#if WINDOWS_PHONE
+                                    
                                     if (NormalizeTimestamp(file.LastWriteTime) != NormalizeTimestamp(destFile.LastWriteTime))
+#else
+                                    if (NormalizeTimestamp(file.LastWriteTimeUtc) != NormalizeTimestamp(destFile.LastWriteTimeUtc))
 #endif
 
                                     {
@@ -430,7 +437,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
                                 if (srcFile.Exists)
                                 {
-
                                 }
                                 else
                                 {
@@ -484,17 +490,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             {
                 return new DateTime(input.Year, input.Month, input.Day,
                                     input.Hour, input.Minute, input.Second);
-            }
-
-            private bool RaiseEventHandler(EventHandler handler)
-            {
-                if (handler != null)
-                {
-                    handler(this, EventArgs.Empty);
-                    return true;
-                }
-
-                return false;
             }
 
             private bool? RaiseEventIfDifferent(CompareFileSystemItemsEventArgs e)

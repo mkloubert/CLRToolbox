@@ -120,7 +120,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                                                     {
                                                         return collSelector(source);
                                                     },
-                                                    delegate(TSrc source, long indexSource, TColl coll, long indexColl)
+                                                    delegate(TSrc source, long indexSource,
+                                                             TColl coll, long indexColl)
                                                     {
                                                         return resSelector(source, coll);
                                                     });

@@ -10,6 +10,10 @@
 #define KNOWS_LAMBDA_EXPRESSIONS
 #endif
 
+#if !(WINDOWS_PHONE)
+#define KNOWS_TYPE_DESCRIPTOR
+#endif
+
 #define KNOWS_PROPERTY_CHANGING
 
 using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
@@ -220,7 +224,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// </exception>
         protected T Get<T>(
 #if KNOWS_CALLER_MEMBER_NAME
-[global::System.Runtime.CompilerServices.CallerMemberName]
+                           [global::System.Runtime.CompilerServices.CallerMemberName]
                            global::System.Collections.Generic.IEnumerable<char> propertyName = null
 #else
                            global::System.Collections.Generic.IEnumerable<char> propertyName
@@ -520,6 +524,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                 throw new global::System.ArgumentException("propertyName");
             }
 
+#if KNOWS_TYPE_DESCRIPTOR && DEBUG
+
+            if (global::System.ComponentModel.TypeDescriptor.GetProperties(this)[pn] == null)
+            {
+                throw new global::System.MissingMemberException(this.GetType().FullName,
+                                                                pn);
+            }
+
+#endif
+
             global::System.ComponentModel.PropertyChangingEventHandler handler = this.PropertyChanging;
             if (handler != null)
             {
@@ -626,6 +640,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                 throw new ArgumentException("propertyName");
             }
 
+#if KNOWS_TYPE_DESCRIPTOR && DEBUG
+
+            if (global::System.ComponentModel.TypeDescriptor.GetProperties(this)[pn] == null)
+            {
+                throw new global::System.MissingMemberException(this.GetType().FullName,
+                                                                pn);
+            }
+
+#endif
+
             PropertyChangedEventHandler handler = this.PropertyChanged;
             if (handler != null)
             {
@@ -652,7 +676,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// </exception>
         protected bool Set<T>(T value,
 #if KNOWS_CALLER_MEMBER_NAME
- [global::System.Runtime.CompilerServices.CallerMemberName]
+                              [global::System.Runtime.CompilerServices.CallerMemberName]
                               global::System.Collections.Generic.IEnumerable<char> propertyName = null
 #else
                               global::System.Collections.Generic.IEnumerable<char> propertyName

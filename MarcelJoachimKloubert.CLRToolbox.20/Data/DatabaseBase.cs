@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data
@@ -25,7 +24,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         protected DatabaseBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         protected DatabaseBase()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -42,7 +39,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         #region Properties (1)
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IDatabase.CanUpdate" />
         public abstract bool CanUpdate
@@ -57,7 +54,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
         // Public Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IDatabase.Update()" />
         public void Update()
@@ -74,6 +71,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
                 this.OnUpdate();
             }
         }
+
         // Protected Methods (1) 
 
         /// <summary>

@@ -1304,5 +1304,17 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyCollection.cs">
       <Link>Collections\ObjectModel\TMReadOnlyCollection.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AttributeWorkflow.cs">
+      <Link>Execution\Workflows\AttributeWorkflow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\NextWorkflowStepAttribute.cs">
+      <Link>Execution\Workflows\NextWorkflowStepAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowAttributeBase.cs">
+      <Link>Execution\Workflows\WorkflowAttributeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowStartAttribute.cs">
+      <Link>Execution\Workflows\WorkflowStartAttribute.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

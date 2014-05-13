@@ -23,6 +23,55 @@ namespace MarcelJoachimKloubert.Sandbox
         }
     }
 
+    public class Test2Parent
+    {
+        public virtual void Step4(IWorkflowExecutionContext ctx)
+        {
+
+        }
+    }
+
+    public class Test2 : Test2Parent
+    {
+        [WorkflowStart]
+        [WorkflowStart("wurst")]
+        [NextWorkflowStep("Step2")]
+        [NextWorkflowStep("Step1", "Wurst")]
+        public void Start()
+        {
+
+        }
+
+        [NextWorkflowStep("Step3")]
+        [NextWorkflowStep("Step2", "Wurst")]
+        public void Step1()
+        {
+
+        }
+
+        [NextWorkflowStep("Step3")]
+        public void Step2(IWorkflowExecutionContext ctx)
+        {
+            ctx.Next = this.Step4;
+        }
+
+        public void Step3(IWorkflowExecutionContext ctx)
+        {
+
+        }
+
+        [NextWorkflowStep("Step5")]
+        public override void Step4(IWorkflowExecutionContext ctx)
+        {
+
+        }
+
+        public void Step5()
+        {
+
+        }
+    }
+
     internal class Program
     {
         private static void Main(string[] args)
@@ -44,6 +93,11 @@ namespace MarcelJoachimKloubert.Sandbox
             {
                 action(new object[] { "TM", "MK" });
             }
+
+            var t2 = new Test2();
+
+            var workflow2 = new AttributeWorkflow();
+            workflow2.ExecuteFor(t2, "  WUrSt ");
 
             // better for thread safe operations
             workflow.Execute();

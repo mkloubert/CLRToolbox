@@ -18,9 +18,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     {
         #region Fields (12)
 
+        private bool _cancel;
         private bool _continueOnError;
         private IReadOnlyList<object> _executionArguments;
         private IDictionary<string, object> _globalVars;
+        private bool _hasBeenCanceled;
         private long _index;
         private WorkflowActionNoState _next;
         private IDictionary<string, object> _nextVars;
@@ -33,7 +35,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
         #endregion CLASS: SimpleWorkflowExecutionContext
 
-        #region Properties (14)
+        #region Properties (16)
+
+        /// <inheriteddoc />
+        public bool Cancel
+        {
+            get { return this._cancel; }
+
+            set { this._cancel = value; }
+        }
 
         /// <inheriteddoc />
         public bool ContinueOnError
@@ -57,6 +67,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             get { return this._globalVars; }
 
             set { this._globalVars = value; }
+        }
+
+        /// <inheriteddoc />
+        public bool HasBeenCanceled
+        {
+            get { return this._hasBeenCanceled; }
+
+            set { this._hasBeenCanceled = value; }
         }
 
         /// <inheriteddoc />
@@ -148,7 +166,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         #region Methods (22)
 
         // Public Methods (22) 
-        
+
         /// <inheriteddoc />
         public T GetExecutionArgument<T>(int index)
         {

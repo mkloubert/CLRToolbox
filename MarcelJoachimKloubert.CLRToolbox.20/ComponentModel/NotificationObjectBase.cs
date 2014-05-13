@@ -119,7 +119,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         #region Properties (1)
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="TMObject.Tag" />
         public override object Tag
@@ -142,9 +142,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         #endregion Properties
 
         #region Methods (23)
-        
+
         // Public Methods (1)
- 
+
         /// <summary>
         /// Returns the current list of properties and their values as NEW dictionary.
         /// </summary>
@@ -220,7 +220,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// </exception>
         protected T Get<T>(
 #if KNOWS_CALLER_MEMBER_NAME
-                           [global::System.Runtime.CompilerServices.CallerMemberName]
+[global::System.Runtime.CompilerServices.CallerMemberName]
                            global::System.Collections.Generic.IEnumerable<char> propertyName = null
 #else
                            global::System.Collections.Generic.IEnumerable<char> propertyName
@@ -652,7 +652,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// </exception>
         protected bool Set<T>(T value,
 #if KNOWS_CALLER_MEMBER_NAME
-                              [global::System.Runtime.CompilerServices.CallerMemberName]
+ [global::System.Runtime.CompilerServices.CallerMemberName]
                               global::System.Collections.Generic.IEnumerable<char> propertyName = null
 #else
                               global::System.Collections.Generic.IEnumerable<char> propertyName
@@ -711,7 +711,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                                // strong typed sequence
                                                IEnumerable<ReceiveNotificationFromAttribute> receiveFromAttribs =
                                                    CollectionHelper.OfType<ReceiveNotificationFromAttribute>(attribs);
-
 
                                                IEnumerable<ReceiveNotificationFromAttribute> receiveFromAttribsForProperty =
                                                    CollectionHelper.Where(receiveFromAttribs,

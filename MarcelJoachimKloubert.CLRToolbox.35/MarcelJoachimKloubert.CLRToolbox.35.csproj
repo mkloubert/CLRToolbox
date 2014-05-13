@@ -382,6 +382,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
       <Link>Execution\SimpleAsyncExecutionResult.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\AttributeWorkflow.cs">
+      <Link>Execution\Workflows\AttributeWorkflow.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\DelegateWorkflow.cs">
       <Link>Execution\Workflows\DelegateWorkflow.cs</Link>
     </Compile>
@@ -391,11 +394,20 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\IWorkflowExecutionContext.cs">
       <Link>Execution\Workflows\IWorkflowExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\NextWorkflowStepAttribute.cs">
+      <Link>Execution\Workflows\NextWorkflowStepAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\SimpleWorkflowExecutionContext.cs">
       <Link>Execution\Workflows\SimpleWorkflowExecutionContext.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowAttributeBase.cs">
+      <Link>Execution\Workflows\WorkflowAttributeBase.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowBase.cs">
       <Link>Execution\Workflows\WorkflowBase.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\WorkflowStartAttribute.cs">
+      <Link>Execution\Workflows\WorkflowStartAttribute.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\factories\EqualityComparerFactory.cs">
       <Link>Factories\EqualityComparerFactory.cs</Link>

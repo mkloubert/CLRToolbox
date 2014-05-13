@@ -149,11 +149,15 @@
     <Compile Include="Execution\Functions\IFunctionLocator.cs" />
     <Compile Include="Execution\SimpleAsyncExecutionResult.cs" />
     <Compile Include="Execution\IAsyncExecutionResult.cs" />
+    <Compile Include="Execution\Workflows\AttributeWorkflow.cs" />
     <Compile Include="Execution\Workflows\DelegateWorkflow.cs" />
     <Compile Include="Execution\Workflows\IWorkflow.cs" />
     <Compile Include="Execution\Workflows\IWorkflowExecutionContext.cs" />
+    <Compile Include="Execution\Workflows\NextWorkflowStepAttribute.cs" />
     <Compile Include="Execution\Workflows\SimpleWorkflowExecutionContext.cs" />
+    <Compile Include="Execution\Workflows\WorkflowAttributeBase.cs" />
     <Compile Include="Execution\Workflows\WorkflowBase.cs" />
+    <Compile Include="Execution\Workflows\WorkflowStartAttribute.cs" />
     <Compile Include="Factories\EqualityComparerFactory.cs" />
     <Compile Include="Factories\EqualityComparerFactory.Strings.cs">
       <DependentUpon>EqualityComparerFactory.cs</DependentUpon>

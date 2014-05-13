@@ -35,7 +35,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     /// </summary>
     public interface IWorkflowExecutionContext
     {
-        #region Data Members (13)
+        #region Data Members (16)
+
+        /// <summary>
+        /// Gets or sets if the whole operation should be canceled or not.
+        /// </summary>
+        bool Cancel { get; set; }
 
         /// <summary>
         /// Gets or sets if the execution should be continued if execution fails.
@@ -54,6 +59,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// The keys of the dictionary are handled case insensitive.
         /// </remarks>
         IDictionary<string, object> ExecutionVars { get; }
+
+        /// <summary>
+        /// Gets if the whole operation has been canceled or not.
+        /// </summary>
+        bool HasBeenCanceled { get; }
 
         /// <summary>
         /// Gets the current zero based index.
@@ -125,7 +135,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         /// </summary>
         IDictionary<string, object> WorkflowVars { get; }
 
-        #endregion
+        #endregion INTERFACE: IWorkflowExecutionContext
 
         #region Operations (22)
 

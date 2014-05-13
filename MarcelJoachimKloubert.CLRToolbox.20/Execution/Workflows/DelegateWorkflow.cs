@@ -64,7 +64,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
         {
         }
 
-        #endregion CLASS: DelegateWorkflow
+        #endregion
 
         #region Methods (10)
 
@@ -228,19 +228,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
 
             WorkflowAction<S> currentAction = startAction;
             Dictionary<string, object> execVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
+            bool hasBeenCanceled = false; 
             long index = -1;
             IReadOnlyDictionary<string, object> previousVars = null;
             object result = null;
             object syncRoot = new object();
             bool throwErrors = true;
-            while (currentAction != null)
+            while (hasBeenCanceled == false &&
+                   currentAction != null)
             {
                 yield return delegate(object[] args)
                     {
                         SimpleWorkflowExecutionContext<S> ctx = new SimpleWorkflowExecutionContext<S>();
+                        ctx.Cancel = false;
                         ctx.ContinueOnError = false;
                         ctx.ExecutionArguments = new TMReadOnlyList<object>(args ?? new object[] { null });
                         ctx.ExecutionVars = execVars;
+                        ctx.HasBeenCanceled = hasBeenCanceled;
                         ctx.Index = ++index;
                         ctx.Next = null;
                         ctx.NextVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, false));
@@ -273,6 +277,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
                         throwErrors = ctx.ThrowErrors;
 
                         currentAction = ((IWorkflowExecutionContext<S>)ctx).Next;
+                        
+                        if (ctx.Cancel)
+                        {
+                            hasBeenCanceled = true;
+                            ctx.HasBeenCanceled = hasBeenCanceled;
+                        }
 
                         return ctx;
                     };

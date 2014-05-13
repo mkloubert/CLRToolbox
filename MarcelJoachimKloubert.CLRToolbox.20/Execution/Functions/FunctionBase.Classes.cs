@@ -88,20 +88,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
         #region CLASS: FunctionExecutionContext
 
-        private sealed class FunctionExecutionContext : NotificationObjectBase,
-                                                        IFunctionExecutionContext
+        private sealed class FunctionExecutionContext : NotificationObjectBase, IFunctionExecutionContext
         {
-            #region Fields (11)
+            #region Fields (2)
 
-            private bool _isCanceled;
-            private FunctionExecutionContextCallback _completedCallback;
-            private OnExecuteContext _currentContext;
-            private IList<Exception> _errors;
-            private FunctionExecutionContextCallback _failedCallback;
-            private int? _resultCode;
-            private string _resultMessage;
-            private IReadOnlyDictionary<string, object> _resultParameters;
-            private FunctionExecutionContextCallback _succeededCallback;
             internal FunctionBase Function;
             internal IReadOnlyDictionary<string, object> InputParameters;
 
@@ -111,83 +101,40 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
             public bool IsCanceled
             {
-                get { return this._isCanceled; }
+                get { return this.Get<bool>("IsCanceled"); }
 
-                private set
-                {
-                    if (value != this._isCanceled)
-                    {
-                        this.OnPropertyChanging("IsCanceled");
-                        this._isCanceled = value;
-                        this.OnPropertyChanged("IsCanceled");
-                    }
-                }
+                private set { this.Set(value, "IsCanceled"); }
             }
 
             public FunctionExecutionContextCallback CompletedCallback
             {
-                get { return this._completedCallback; }
+                get { return this.Get<FunctionExecutionContextCallback>("CompletedCallback"); }
 
-                set
-                {
-                    if (!object.Equals(value, this._completedCallback))
-                    {
-                        this.OnPropertyChanging("CompletedCallback");
-                        this._completedCallback = value;
-                        this.OnPropertyChanged("CompletedCallback");
-                    }
-                }
+                set { this.Set(value, "CompletedCallback"); }
             }
 
             internal OnExecuteContext CurrentContext
             {
-                get { return this._currentContext; }
+                get { return this.Get<OnExecuteContext>("CurrentContext"); }
 
-                set
-                {
-                    if (!object.Equals(this._currentContext, value))
-                    {
-                        this.OnPropertyChanging("CurrentContext");
-                        this.OnPropertyChanging("IsBusy");
-
-                        this._currentContext = value;
-
-                        this.OnPropertyChanged("CurrentContext");
-                        this.OnPropertyChanged("IsBusy");
-                    }
-                }
+                set { this.Set(value, "CurrentContext"); }
             }
 
             public IList<Exception> Errors
             {
-                get { return this._errors; }
+                get { return this.Get<IList<Exception>>("Errors"); }
 
-                internal set
-                {
-                    if (!object.Equals(this._errors, value))
-                    {
-                        this.OnPropertyChanging("Errors");
-                        this._errors = value;
-                        this.OnPropertyChanged("Errors");
-                    }
-                }
+                internal set { this.Set(value, "Errors"); }
             }
 
             public FunctionExecutionContextCallback FailedCallback
             {
-                get { return this._failedCallback; }
+                get { return this.Get<FunctionExecutionContextCallback>("FailedCallback"); }
 
-                set
-                {
-                    if (!object.Equals(value, this._failedCallback))
-                    {
-                        this.OnPropertyChanging("FailedCallback");
-                        this._failedCallback = value;
-                        this.OnPropertyChanged("FailedCallback");
-                    }
-                }
+                set { this.Set(value, "FailedCallback"); }
             }
 
+            [ReceiveNotificationFrom("CurrentContext")]
             public bool IsBusy
             {
                 get { return this.CurrentContext != null; }
@@ -195,62 +142,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 
             public int? ResultCode
             {
-                get { return this._resultCode; }
+                get { return this.Get<int?>("ResultCode"); }
 
-                private set
-                {
-                    if (value != this._resultCode)
-                    {
-                        this.OnPropertyChanging("ResultCode");
-                        this._resultCode = value;
-                        this.OnPropertyChanged("ResultCode");
-                    }
-                }
+                private set { this.Set(value, "ResultCode"); }
             }
 
             public string ResultMessage
             {
-                get { return this._resultMessage; }
+                get { return this.Get<string>("ResultMessage"); }
 
-                private set
-                {
-                    if (value != this._resultMessage)
-                    {
-                        this.OnPropertyChanging("ResultMessage");
-                        this._resultMessage = value;
-                        this.OnPropertyChanged("ResultMessage");
-                    }
-                }
+                private set { this.Set(value, "ResultMessage"); }
             }
 
             public IReadOnlyDictionary<string, object> ResultParameters
             {
-                get { return this._resultParameters; }
+                get { return this.Get<IReadOnlyDictionary<string, object>>("ResultParameters"); }
 
-                internal set
-                {
-                    if (!object.Equals(this._resultParameters, value))
-                    {
-                        this.OnPropertyChanging("ResultParameters");
-                        this._resultParameters = value;
-                        this.OnPropertyChanged("ResultParameters");
-                    }
-                }
+                internal set { this.Set(value, "ResultParameters"); }
             }
 
             public FunctionExecutionContextCallback SucceededCallback
             {
-                get { return this._succeededCallback; }
+                get { return this.Get<FunctionExecutionContextCallback>("SucceededCallback"); }
 
-                set
-                {
-                    if (!object.Equals(value, this._succeededCallback))
-                    {
-                        this.OnPropertyChanging("SucceededCallback");
-                        this._succeededCallback = value;
-                        this.OnPropertyChanged("SucceededCallback");
-                    }
-                }
+                set { this.Set(value, "SucceededCallback"); }
             }
 
             IFunction IFunctionExecutionContext.Function

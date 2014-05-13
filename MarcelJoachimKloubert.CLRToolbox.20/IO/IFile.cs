@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Data;
 
 namespace MarcelJoachimKloubert.CLRToolbox.IO
@@ -12,6 +11,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// </summary>
     public interface IFile : IHasName, IContentProvider
     {
-
     }
 }

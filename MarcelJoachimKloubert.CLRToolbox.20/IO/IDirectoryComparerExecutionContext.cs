@@ -52,7 +52,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         /// </summary>
         DateTimeOffset? StartTime { get; }
 
-        #endregion Data Members
+        #endregion
 
         #region Delegates and Events (4)
 

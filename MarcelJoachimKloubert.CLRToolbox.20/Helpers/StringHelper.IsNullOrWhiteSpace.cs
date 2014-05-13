@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
@@ -25,12 +24,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 return true;
             }
 
-            foreach (char c in chars)
+            using (IEnumerator<char> e = chars.GetEnumerator())
             {
-                if (char.IsWhiteSpace(c) == false)
+                while (e.MoveNext())
                 {
-                    // a non-whitespace character found
-                    return false;
+                    if (char.IsWhiteSpace(e.Current) == false)
+                    {
+                        // a non-whitespace character found
+                        return false;
+                    }
                 }
             }
 

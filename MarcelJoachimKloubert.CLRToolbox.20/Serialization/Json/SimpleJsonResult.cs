@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Serialization.Json
 {
     #region CLASS: SimpleJsonResult<T>
@@ -19,7 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization.Json
         private string _msg;
         private T _tag;
 
-        #endregion Fields
+        #endregion Fields
 
         #region Properties (3)
 
@@ -65,7 +64,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization.Json
     /// </summary>
     public sealed partial class SimpleJsonResult : SimpleJsonResult<object>
     {
-
     }
 
     #endregion

@@ -12,8 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization
     /// <summary>
     /// A basic serializer.
     /// </summary>
-    public abstract class SerializerBase : TMObject,
-                                           ISerializer
+    public abstract class SerializerBase : TMObject, ISerializer
     {
         #region Constructors (2)
 

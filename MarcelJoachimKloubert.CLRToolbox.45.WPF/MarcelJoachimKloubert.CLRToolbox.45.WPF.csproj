@@ -56,6 +56,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\behaviours\WebBrowser.cs">
       <Link>Behaviours\WebBrowser.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.35.wpf\collections\objectmodel\DispatcherObservableCollection.cs">
+      <Link>Collections\ObjectModel\DispatcherObservableCollection.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Controls\BorderlessMoveableWindow.cs">
       <Link>Controls\BorderlessMoveableWindow.cs</Link>
     </Compile>

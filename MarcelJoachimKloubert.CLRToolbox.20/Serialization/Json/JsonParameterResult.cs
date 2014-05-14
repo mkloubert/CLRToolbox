@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Serialization.Json
@@ -12,6 +11,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Serialization.Json
     /// </summary>
     public sealed class JsonParameterResult : SimpleJsonResult<IDictionary<string, object>>
     {
-
     }
 }

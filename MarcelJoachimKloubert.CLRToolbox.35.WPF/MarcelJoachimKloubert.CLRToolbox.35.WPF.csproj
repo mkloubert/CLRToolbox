@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviours\WebBrowser.cs" />
+    <Compile Include="Collections\ObjectModel\DispatcherObservableCollection.cs" />
     <Compile Include="Collections\ObjectModel\SynchronizedObservableCollection.cs" />
     <Compile Include="Controls\BorderlessMoveableWindow.cs" />
     <Compile Include="Controls\SVGImage.xaml.cs">

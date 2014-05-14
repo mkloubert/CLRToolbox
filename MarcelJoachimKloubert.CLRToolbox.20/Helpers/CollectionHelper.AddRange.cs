@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using System;
 using System.Collections.Generic;
 
@@ -29,17 +30,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                 throw new ArgumentNullException("items");
             }
 
-            List<T> list = items as List<T>;
+            List<T> list = coll as List<T>;
             if (list != null)
             {
+                // use build in method
                 list.AddRange(items);
             }
             else
             {
-                foreach (T i in items)
-                {
-                    coll.Add(i);
-                }
+                ForEach(items,
+                        delegate(IForEachItemExecutionContext<T, ICollection<T>> ctx)
+                        {
+                            ICollection<T> c = ctx.State;
+
+                            c.Add(ctx.Item);
+                        }, coll);
             }
         }
 

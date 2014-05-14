@@ -2,7 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
@@ -51,7 +53,35 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
 
         #endregion Constructors
 
-        #region Methods (7)
+        #region Methods (8)
+
+        // Public Methods (1) 
+
+        /// <summary>
+        /// Adds a list of items.
+        /// </summary>
+        /// <param name="itemsToAdd">The items to add.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="itemsToAdd" /> is <see langword="null" />.
+        /// </exception>
+        public void AddRange(IEnumerable<T> itemsToAdd)
+        {
+            if (itemsToAdd == null)
+            {
+                throw new ArgumentNullException("itemsToAdd");
+            }
+
+            CollectionHelper.ForEach(itemsToAdd,
+                                     ctx =>
+                                     {
+                                         ctx.State
+                                            .Collection.Add(ctx.Item);
+                                     },
+                                     new
+                                     {
+                                         Collection = this,
+                                     });
+        }
 
         // Protected Methods (7) 
 

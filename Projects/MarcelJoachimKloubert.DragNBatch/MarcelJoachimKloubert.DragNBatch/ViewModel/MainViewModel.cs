@@ -2,12 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Composition;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
-using MarcelJoachimKloubert.CLRToolbox.Extensions.Windows;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel;
 using MarcelJoachimKloubert.DragNBatch.PlugIns;
 using System;
 using System.Collections.Generic;
@@ -52,7 +51,7 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         /// <summary>
         /// Gets the list of loaded plugins.
         /// </summary>
-        public SynchronizedObservableCollection<IPlugIn> PlugIns
+        public DispatcherObservableCollection<IPlugIn> PlugIns
         {
             get;
             private set;
@@ -96,8 +95,6 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
                 var plugInDir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "PlugIns"));
                 if (plugInDir.Exists)
                 {
-                    this.PlugIns.Clear();
-
                     foreach (var file in plugInDir.GetFiles("*.dll"))
                     {
                         try
@@ -152,30 +149,8 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
                     }
                 }
 
-                App.Current
-                   .BeginInvoke((a, state) =>
-                       {
-                           try
-                           {
-                               // clear
-                               state.ViewModel
-                                    .PlugIns
-                                    .Clear();
-
-                               // add plug ins
-                               state.ViewModel
-                                    .PlugIns
-                                    .AddRange(state.LoadedPlugIns);
-                           }
-                           catch (Exception ex)
-                           {
-                               this.OnError(ex);
-                           }
-                       }, new
-                       {
-                           LoadedPlugIns = loadedPlugIns.ToArray(),
-                           ViewModel = this,
-                       });
+                this.PlugIns.Clear();
+                this.PlugIns.AddRange(loadedPlugIns);
             }
             catch (Exception ex)
             {
@@ -199,7 +174,7 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
                 {
                     try
                     {
-                        var newTask = this.CreateHandleFilesTask(plugIn, context);
+                        var newTask = CreateHandleFilesTask(this, plugIn, context);
                         this.Task = newTask;
 
                         newTask.Start();
@@ -226,27 +201,30 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         /// <inheriteddoc />
         protected override void OnConstructor()
         {
-            this.PlugIns = new SynchronizedObservableCollection<IPlugIn>();
+            this.PlugIns = DispatcherObservableCollection.Create<IPlugIn>();
         }
 
         // Private Methods (1) 
-        private Task CreateHandleFilesTask(IPlugIn plugIn, IHandleFilesContext ctx)
+        private static Task CreateHandleFilesTask(MainViewModel viewModel, IPlugIn plugIn, IHandleFilesContext ctx)
         {
-            return new Task(() =>
+            return new Task((state) =>
                 {
+                    MainViewModel vm = (MainViewModel)state;
+
                     try
                     {
                         plugIn.HandleFiles(ctx);
                     }
                     catch (Exception ex)
                     {
-                        this.OnError(ex);
+                        vm.OnError(ex);
                     }
                     finally
                     {
-                        this.Task = null;
+                        vm.Task = null;
                     }
-                });
+                }, state: viewModel
+                 , creationOptions: TaskCreationOptions.LongRunning);
         }
 
         #endregion Methods

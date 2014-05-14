@@ -18,7 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
 
         // Private Methods (2) 
 
-        private void LogInner(DateTimeOffset time,
+        private bool LogInner(DateTimeOffset time,
                               Assembly asm,
                               LoggerFacadeCategories? categories,
                               string tag,
@@ -150,10 +150,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 while (checkAgain);
 
                 this._ON_LOG_ACTION(messageToLog);
+                return true;
             }
             catch
             {
                 // ignore errors
+                return false;
             }
         }
 

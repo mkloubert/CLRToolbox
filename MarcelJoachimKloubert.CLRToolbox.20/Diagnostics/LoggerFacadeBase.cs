@@ -79,17 +79,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
         // Public Methods (5) 
 
         /// <inheriteddoc />
-        public void Log(object msg)
+        public bool Log(object msg)
         {
-            this.LogInner(DateTimeOffset.Now,
-                          Assembly.GetCallingAssembly(),
-                          null,
-                          null,
-                          msg);
+            return this.LogInner(DateTimeOffset.Now,
+                                 Assembly.GetCallingAssembly(),
+                                 null,
+                                 null,
+                                 msg);
         }
 
         /// <inheriteddoc />
-        public void Log(ILogMessage msgObj)
+        public bool Log(ILogMessage msgObj)
         {
             if (msgObj == null)
             {
@@ -99,41 +99,43 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
             try
             {
                 this._ON_LOG_ACTION(msgObj);
+                return true;
             }
             catch
             {
                 // ignore errors
+                return false;
             }
         }
 
         /// <inheriteddoc />
-        public void Log(object msg, IEnumerable<char> tag)
+        public bool Log(object msg, IEnumerable<char> tag)
         {
-            this.LogInner(DateTimeOffset.Now,
-                          Assembly.GetCallingAssembly(),
-                          null,
-                          StringHelper.AsString(tag),
-                          msg);
+            return this.LogInner(DateTimeOffset.Now,
+                                 Assembly.GetCallingAssembly(),
+                                 null,
+                                 StringHelper.AsString(tag),
+                                 msg);
         }
 
         /// <inheriteddoc />
-        public void Log(object msg, LoggerFacadeCategories categories)
+        public bool Log(object msg, LoggerFacadeCategories categories)
         {
-            this.LogInner(DateTimeOffset.Now,
-                          Assembly.GetCallingAssembly(),
-                          categories,
-                          null,
-                          msg);
+            return this.LogInner(DateTimeOffset.Now,
+                                 Assembly.GetCallingAssembly(),
+                                 categories,
+                                 null,
+                                 msg);
         }
 
         /// <inheriteddoc />
-        public void Log(object msg, IEnumerable<char> tag, LoggerFacadeCategories categories)
+        public bool Log(object msg, IEnumerable<char> tag, LoggerFacadeCategories categories)
         {
-            this.LogInner(DateTimeOffset.Now,
-                          Assembly.GetCallingAssembly(),
-                          categories,
-                          StringHelper.AsString(tag),
-                          msg);
+            return this.LogInner(DateTimeOffset.Now,
+                                 Assembly.GetCallingAssembly(),
+                                 categories,
+                                 StringHelper.AsString(tag),
+                                 msg);
         }
 
         // Protected Methods (4) 

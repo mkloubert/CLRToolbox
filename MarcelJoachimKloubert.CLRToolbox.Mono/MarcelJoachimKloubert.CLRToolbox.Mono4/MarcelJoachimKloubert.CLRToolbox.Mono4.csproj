@@ -1567,6 +1567,12 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Workflows\Impl\DelegateWorkflow.cs">
       <Link>Execution\Workflows\Impl\DelegateWorkflow.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DummyLogger.cs">
+      <Link>Diagnostics\Impl\DummyLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\FallbackLogger.cs">
+      <Link>Diagnostics\Impl\FallbackLogger.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

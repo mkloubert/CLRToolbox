@@ -287,6 +287,12 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DelegateLogger.cs">
       <Link>Diagnostics\Impl\DelegateLogger.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DummyLogger.cs">
+      <Link>Diagnostics\Impl\DummyLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\FallbackLogger.cs">
+      <Link>Diagnostics\Impl\FallbackLogger.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerCategories.cs">
       <Link>Diagnostics\LoggerCategories.cs</Link>
     </Compile>

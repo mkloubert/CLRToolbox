@@ -132,6 +132,8 @@
       <DependentUpon>ILogMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\Impl\ConsoleLogger.cs" />
+    <Compile Include="Diagnostics\Impl\DummyLogger.cs" />
+    <Compile Include="Diagnostics\Impl\FallbackLogger.cs" />
     <Compile Include="Diagnostics\Tests\Assert.AreSame.cs">
       <DependentUpon>Assert.cs</DependentUpon>
     </Compile>
@@ -997,6 +999,7 @@
     <Compile Include="Helpers\CollectionHelper.Empty.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>
+    <None Include="Diagnostics\Diagnostics.cd" />
     <None Include="Execution\Workflows\Workflows.cd" />
     <None Include="MarcelJoachimKloubert.CLRToolbox.snk" />
     <EmbeddedResource Include="_Embedded\ICSharpCode.SharpZLib\doc\ReadMe.rtf" />

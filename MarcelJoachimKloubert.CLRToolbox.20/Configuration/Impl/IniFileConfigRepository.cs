@@ -226,7 +226,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                 {
                     // nullable struct
 
-                    if (!StringHelper.IsNullOrWhiteSpace(strValue))
+                    if (StringHelper.IsNullOrWhiteSpace(strValue) == false)
                     {
                         valueToReturn = strValue;
                         targetType = Nullable.GetUnderlyingType(targetType);
@@ -278,24 +278,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                                                            StringHelper.AsString(this.ParseIniSectionKey(item.Key)),
                                                            StringHelper.AsString(this.ToIniSectionValue(item.Value))));
                         }
+
                         writer.WriteLine();
                     }
 
                     writer.Flush();
-                    writer.Close();
-                }
 
-                FileInfo iniFile = new FileInfo(this.FilePath);
-                if (iniFile.Exists)
-                {
-                    iniFile.Delete();
-                    iniFile.Refresh();
-                }
+                    FileInfo iniFile = new FileInfo(this.FilePath);
+                    if (iniFile.Exists)
+                    {
+                        iniFile.Delete();
+                        iniFile.Refresh();
+                    }
 
-                temp.Position = 0;
-                using (FileStream iniFileStream = iniFile.OpenWrite())
-                {
-                    IOHelper.CopyTo(temp, iniFileStream);
+                    temp.Position = 0;
+                    using (FileStream iniFileStream = iniFile.OpenWrite())
+                    {
+                        IOHelper.CopyTo(temp, iniFileStream);
+                    }
                 }
             }
         }

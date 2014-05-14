@@ -151,6 +151,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\IniFileConfigRepository.cs">
       <Link>Configuration\Impl\IniFileConfigRepository.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\Impl\JsonFileConfigRepository.cs">
+      <Link>Configuration\Impl\JsonFileConfigRepository.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\configuration\impl\KeyValuePairConfigRepository.cs">
       <Link>Configuration\Impl\KeyValuePairConfigRepository.cs</Link>
     </Compile>

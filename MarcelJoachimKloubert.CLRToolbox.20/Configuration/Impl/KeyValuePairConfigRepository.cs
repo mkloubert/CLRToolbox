@@ -143,7 +143,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         protected virtual void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet, bool invokeOnUpdated)
         {
             IDictionary<string, object> catValues;
-            if (!this._CONFIG_VALUES.TryGetValue(category, out catValues))
+            if (this._CONFIG_VALUES.TryGetValue(category, out catValues) == false)
             {
                 catValues = this.CreateEmptyDictionaryForCategory(category);
                 if (catValues == null)

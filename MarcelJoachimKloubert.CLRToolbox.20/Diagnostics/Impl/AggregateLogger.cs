@@ -2,6 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -33,9 +35,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
         #endregion Constructors
 
-        #region Methods (6)
+        #region Methods (8)
 
-        // Public Methods (5) 
+        // Public Methods (7) 
 
         /// <summary>
         /// Adds a logger.
@@ -66,6 +68,44 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             {
                 this._LOGGERS.Clear();
             }
+        }
+
+        /// <summary>
+        /// Creates a new instance from an inital list of loggers.
+        /// </summary>
+        /// <param name="loggers">The initial list of loggers to add to the new instance.</param>
+        /// <returns>The new instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="loggers" /> is <see langword="null" />.
+        /// </exception>
+        public static AggregateLogger Create(IEnumerable<ILoggerFacade> loggers)
+        {
+            if (loggers == null)
+            {
+                throw new ArgumentNullException("loggers");
+            }
+
+            AggregateLogger result = new AggregateLogger();
+            CollectionHelper.ForEach(loggers,
+                                     delegate(IForEachItemExecutionContext<ILoggerFacade> ctx)
+                                     {
+                                         result.Add(ctx.Item);
+                                     });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a new instance from an inital list of loggers.
+        /// </summary>
+        /// <param name="loggers">The initial list of loggers to add to the new instance.</param>
+        /// <returns>The new instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="loggers" /> is <see langword="null" />.
+        /// </exception>
+        public static AggregateLogger Create(params ILoggerFacade[] loggers)
+        {
+            return Create((IEnumerable<ILoggerFacade>)loggers);
         }
 
         /// <summary>
@@ -144,16 +184,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <inheriteddoc />
         protected override void OnLog(ILogMessage msg)
         {
+            bool? allFailed = null;
+            List<Exception> occuredExceptions = new List<Exception>();
+
             foreach (ILoggerFacade logger in this._LOGGERS)
             {
                 try
                 {
                     logger.Log(CloneLogMessage(msg));
+
+                    allFailed = false;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // ignore errors here
+                    if (allFailed.HasValue == false)
+                    {
+                        allFailed = true;
+                    }
+
+                    occuredExceptions.Add(ex);
                 }
+            }
+
+            if (allFailed == true)
+            {
+                throw new AggregateException(occuredExceptions);
             }
         }
 

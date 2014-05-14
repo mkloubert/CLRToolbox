@@ -2,6 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -45,9 +47,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
         #endregion Delegates and Events
 
-        #region Methods (5)
+        #region Methods (7)
 
-        // Public Methods (4) 
+        // Public Methods (6) 
 
         /// <summary>
         /// Adds a handler.
@@ -78,6 +80,44 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             {
                 this._DELEGATES.Clear();
             }
+        }
+
+        /// <summary>
+        /// Creates a new instance from an inital list of handlers.
+        /// </summary>
+        /// <param name="handlers">The initial list of handlers to add to the new instance.</param>
+        /// <returns>The new instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="handlers" /> is <see langword="null" />.
+        /// </exception>
+        public static DelegateLogger Create(IEnumerable<LogMessageHandler> handlers)
+        {
+            if (handlers == null)
+            {
+                throw new ArgumentNullException("handlers");
+            }
+
+            DelegateLogger result = new DelegateLogger();
+            CollectionHelper.ForEach(handlers,
+                                     delegate(IForEachItemExecutionContext<LogMessageHandler> ctx)
+                                     {
+                                         result.Add(ctx.Item);
+                                     });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a new instance from an inital list of handlers.
+        /// </summary>
+        /// <param name="handlers">The initial list of handlers to add to the new instance.</param>
+        /// <returns>The new instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="handlers" /> is <see langword="null" />.
+        /// </exception>
+        public static DelegateLogger Create(params LogMessageHandler[] handlers)
+        {
+            return Create((IEnumerable<LogMessageHandler>)handlers);
         }
 
         /// <summary>
@@ -126,16 +166,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <inheriteddoc />
         protected override void OnLog(ILogMessage msg)
         {
+            bool? allFailed = null;
+            List<Exception> occuredExceptions = new List<Exception>();
+
             foreach (LogMessageHandler handler in this._DELEGATES)
             {
                 try
                 {
                     handler(CloneLogMessage(msg));
+
+                    allFailed = false;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // ignore errors here
+                    if (allFailed.HasValue == false)
+                    {
+                        allFailed = true;
+                    }
+
+                    occuredExceptions.Add(ex);
                 }
+            }
+
+            if (allFailed == true)
+            {
+                throw new AggregateException(occuredExceptions);
             }
         }
 

@@ -2,6 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -11,11 +13,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
     /// A logger that defines a main logger and fallbacks that are called if
     /// the main logger fails.
     /// </summary>
-    public sealed class FallbackLogger : LoggerFacadeBase
+    public sealed class FallbackLogger : LoggerFacadeWrapperBase
     {
-        #region Fields (2)
+        #region Fields (1)
 
-        private readonly ILoggerFacade _MAIN_LOGGER;
         private readonly List<ILoggerFacade> _FALLBACK_LOGGERS = new List<ILoggerFacade>();
 
         #endregion Fields
@@ -33,14 +34,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// Logging is thread safe.
         /// </remarks>
         public FallbackLogger(ILoggerFacade mainLogger)
-            : base(true)
+            : base(mainLogger, true)
         {
-            if (mainLogger == null)
-            {
-                throw new ArgumentNullException("mainLogger");
-            }
-
-            this._MAIN_LOGGER = mainLogger;
         }
 
         #endregion Constructors
@@ -52,14 +47,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// </summary>
         public ILoggerFacade MainLogger
         {
-            get { return this._MAIN_LOGGER; }
+            get { return this._INNER_LOGGER; }
         }
 
-        #endregion
+        #endregion Properties
 
-        #region Methods (6)
+        #region Methods (8)
 
-        // Public Methods (5) 
+        // Public Methods (7) 
 
         /// <summary>
         /// Adds a fallback logger.
@@ -68,7 +63,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <exception cref="ArgumentNullException">
         /// <paramref name="logger" /> is <see langword="null" />.
         /// </exception>
-        public void AddFallback(ILoggerFacade logger)
+        public void Add(ILoggerFacade logger)
         {
             if (logger == null)
             {
@@ -84,12 +79,53 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <summary>
         /// Clears the list of fallback loggers.
         /// </summary>
-        public void ClearFallbacks()
+        public void Clear()
         {
             lock (this._SYNC)
             {
                 this._FALLBACK_LOGGERS.Clear();
             }
+        }
+
+        /// <summary>
+        /// Creates a new instance from an inital list of loggers.
+        /// </summary>
+        /// <param name="mainLogger">The value for the <see cref="FallbackLogger.MainLogger" /> property.</param>
+        /// <param name="loggers">The initial list of loggers to add to the new instance.</param>
+        /// <returns>The new instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="mainLogger" /> and/or <paramref name="loggers" /> are <see langword="null" />.
+        /// </exception>
+        public static FallbackLogger Create(ILoggerFacade mainLogger, IEnumerable<ILoggerFacade> loggers)
+        {
+            if (loggers == null)
+            {
+                throw new ArgumentNullException("loggers");
+            }
+
+            FallbackLogger result = new FallbackLogger(mainLogger);
+            CollectionHelper.ForEach(loggers,
+                                     delegate(IForEachItemExecutionContext<ILoggerFacade> ctx)
+                                     {
+                                         result.Add(ctx.Item);
+                                     });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a new instance from an inital list of loggers.
+        /// </summary>
+        /// <param name="mainLogger">The value for the <see cref="FallbackLogger.MainLogger" /> property.</param>
+        /// <param name="loggers">The initial list of loggers to add to the new instance.</param>
+        /// <returns>The new instance.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="mainLogger" /> and/or <paramref name="loggers" /> are <see langword="null" />.
+        /// </exception>
+        public static FallbackLogger Create(ILoggerFacade mainLogger, params ILoggerFacade[] loggers)
+        {
+            return Create(mainLogger,
+                          (IEnumerable<ILoggerFacade>)loggers);
         }
 
         /// <summary>
@@ -116,7 +152,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <exception cref="ArgumentNullException">
         /// <paramref name="logger" /> is <see langword="null" />.
         /// </exception>
-        public bool RemoveFallback(ILoggerFacade logger)
+        public bool Remove(ILoggerFacade logger)
         {
             if (logger == null)
             {
@@ -140,25 +176,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         {
             List<Exception> occuredExceptions = new List<Exception>();
             bool throwExceptions = false;
+            int index = 0;
 
             using (IEnumerator<ILoggerFacade> e = this._FALLBACK_LOGGERS.GetEnumerator())
             {
-                ILoggerFacade currentLogger = this._MAIN_LOGGER;
+                ILoggerFacade currentLogger = this._INNER_LOGGER;
                 while (currentLogger != null)
                 {
-                    bool findNextFallback = false;
+                    bool searchForNextFallback = false;
                     throwExceptions = false;
 
                     try
                     {
                         if (currentLogger.Log(msg) == false)
                         {
-                            throw new Exception();
+                            throw new Exception(string.Format("Logger #{0} ({1}; {2}) failed!",
+                                                              index,
+                                                              currentLogger.GetType().FullName,
+                                                              currentLogger.GetHashCode()));
                         }
                     }
                     catch (Exception ex)
                     {
-                        findNextFallback = true;
+                        searchForNextFallback = true;
                         throwExceptions = true;
 
                         occuredExceptions.Add(ex);
@@ -168,11 +208,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                         currentLogger = null;
                     }
 
-                    if (findNextFallback)
+                    if (searchForNextFallback)
                     {
                         if (e.MoveNext())
                         {
                             currentLogger = e.Current;
+                            ++index;
                         }
                     }
                 }

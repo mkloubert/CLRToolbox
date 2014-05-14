@@ -1573,6 +1573,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\FallbackLogger.cs">
       <Link>Diagnostics\Impl\FallbackLogger.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\MarkdownSharp\Markdown.cs">
+      <Link>_Embedded\MarkdownSharp\Markdown.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -1605,5 +1608,6 @@
     <Folder Include="Execution\Workflows\" />
     <Folder Include="Diagnostics\Tests\" />
     <Folder Include="Execution\Workflows\Impl\" />
+    <Folder Include="_Embedded\MarkdownSharp\" />
   </ItemGroup>
 </Project>

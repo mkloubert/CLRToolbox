@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,7 +61,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: options,
                    scheduler: Task.Factory.Scheduler)
         {
-
         }
 
         /// <summary>
@@ -84,7 +82,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: Task.Factory.CreationOptions,
                    scheduler: scheduler)
         {
-
         }
 
         /// <summary>
@@ -106,7 +103,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: options,
                    scheduler: scheduler)
         {
-
         }
 
         /// <summary>
@@ -124,7 +120,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: Task.Factory.CreationOptions,
                    scheduler: Task.Factory.Scheduler)
         {
-
         }
 
         /// <summary>
@@ -142,7 +137,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: options,
                    scheduler: Task.Factory.Scheduler)
         {
-
         }
 
         /// <summary>
@@ -162,7 +156,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: Task.Factory.CreationOptions,
                    scheduler: scheduler)
         {
-
         }
 
         /// <summary>
@@ -178,7 +171,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                    options: Task.Factory.CreationOptions,
                    scheduler: Task.Factory.Scheduler)
         {
-
         }
 
         #endregion Constructors

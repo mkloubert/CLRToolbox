@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.ObjectModel;
 
@@ -48,58 +47,101 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel
         public SynchronizedObservableCollection()
             : this(new object())
         {
-
         }
 
         #endregion Constructors
 
-        #region Methods (5)
+        #region Methods (7)
 
-        // Protected Methods (5) 
+        // Protected Methods (7) 
 
         /// <inheriteddoc />
         protected override void ClearItems()
         {
-            lock (this._SYNC)
-            {
-                base.ClearItems();
-            }
+            this.InvokeForCollection((coll) => base.ClearItems());
         }
 
         /// <inheriteddoc />
         protected override void InsertItem(int index, T item)
         {
+            this.InvokeForCollection((coll, state) => base.InsertItem(state.Index, state.Item),
+                                     new
+                                     {
+                                         Index = index,
+                                         Item = item,
+                                     });
+        }
+
+        /// <summary>
+        /// Invokes an action for that collection.
+        /// </summary>
+        /// <param name="action">The action to invoke.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="action" /> is <see langword="null" />.
+        /// </exception>
+        protected void InvokeForCollection(Action<SynchronizedObservableCollection<T>> action)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+
+            this.InvokeForCollection<object>((coll, state) => action(coll),
+                                             (object)null);
+        }
+
+        /// <summary>
+        /// Invokes an action for that collection.
+        /// </summary>
+        /// <typeparam name="S">Type of the state object for <paramref name="action" />.</typeparam>
+        /// <param name="action">The action to invoke.</param>
+        /// <param name="actionState">The additional object for <paramref name="action" />.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="action" /> is <see langword="null" />.
+        /// </exception>
+        protected virtual void InvokeForCollection<S>(Action<SynchronizedObservableCollection<T>, S> action, S actionState)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+
             lock (this._SYNC)
             {
-                base.InsertItem(index, item);
+                action(this, actionState);
             }
         }
 
         /// <inheriteddoc />
         protected override void MoveItem(int oldIndex, int newIndex)
         {
-            lock (this._SYNC)
-            {
-                base.MoveItem(oldIndex, newIndex);
-            }
+            this.InvokeForCollection((coll, state) => base.MoveItem(state.OldIndex, state.NewIndex),
+                                     new
+                                     {
+                                         OldIndex = oldIndex,
+                                         NewIndex = newIndex,
+                                     });
         }
 
         /// <inheriteddoc />
         protected override void RemoveItem(int index)
         {
-            lock (this._SYNC)
-            {
-                base.RemoveItem(index);
-            }
+            this.InvokeForCollection((coll, state) => base.RemoveItem(state.Index),
+                                     new
+                                     {
+                                         Index = index,
+                                     });
         }
 
         /// <inheriteddoc />
         protected override void SetItem(int index, T item)
         {
-            lock (this._SYNC)
-            {
-                base.SetItem(index, item);
-            }
+            this.InvokeForCollection((coll, state) => base.SetItem(state.Index, state.Item),
+                                     new
+                                     {
+                                         Index = index,
+                                         Item = item,
+                                     });
         }
 
         #endregion Methods

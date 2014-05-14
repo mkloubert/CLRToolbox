@@ -1576,6 +1576,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Embedded\MarkdownSharp\Markdown.cs">
       <Link>_Embedded\MarkdownSharp\Markdown.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\WorkflowLogger.cs">
+      <Link>Diagnostics\Impl\WorkflowLogger.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

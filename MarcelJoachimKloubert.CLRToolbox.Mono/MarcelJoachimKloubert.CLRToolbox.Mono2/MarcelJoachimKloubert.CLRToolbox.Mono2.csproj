@@ -1329,5 +1329,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\FallbackLogger.cs">
       <Link>Diagnostics\Impl\FallbackLogger.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\WorkflowLogger.cs">
+      <Link>Diagnostics\Impl\WorkflowLogger.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

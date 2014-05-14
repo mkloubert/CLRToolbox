@@ -251,7 +251,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                                          {
                                              ctx.Cancel = true;
                                          }
-                                     }, CollectionHelper.ToArray(additionalArgs));
+                                     }, CollectionHelper.ToArray(allArgs));
         }
 
         // Private Methods (1)

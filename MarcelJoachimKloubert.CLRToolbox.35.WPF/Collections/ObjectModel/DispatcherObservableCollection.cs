@@ -208,15 +208,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel
                 throw new ArgumentNullException("action");
             }
 
-            Action<DispatcherObservableCollection<T>> syncAction = (coll) =>
+            Action syncAction = () =>
                 {
-                    lock (coll._SYNC)
+                    lock (this._SYNC)
                     {
-                        action(coll, actionState);
+                        action(this, actionState);
                     }
                 };
 
-            Action<DispatcherObservableCollection<T>, Dispatcher, Action<DispatcherObservableCollection<T>>, DispatcherPriority> dispAction;
+            Action<Dispatcher, Action, DispatcherPriority> dispAction;
             if (this.IsBackground)
             {
                 dispAction = InvokeForCollection_BeginInvoke;
@@ -226,8 +226,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel
                 dispAction = InvokeForCollection_Invoke;
             }
 
-            dispAction(this,
-                       this.Provider(this),
+            dispAction(this.Provider(this),
                        syncAction,
                        this.Priority);
         }
@@ -239,24 +238,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel
             return Application.Current.Dispatcher;
         }
 
-        private static void InvokeForCollection_BeginInvoke(DispatcherObservableCollection<T> coll,
-                                                            Dispatcher disp,
-                                                            Action<DispatcherObservableCollection<T>> syncAction,
+        private static void InvokeForCollection_BeginInvoke(Dispatcher disp,
+                                                            Action syncAction,
                                                             DispatcherPriority prio)
         {
             disp.BeginInvoke(syncAction,
-                             prio,
-                             coll);
+                             prio);
         }
 
-        private static void InvokeForCollection_Invoke(DispatcherObservableCollection<T> coll,
-                                                       Dispatcher disp,
-                                                       Action<DispatcherObservableCollection<T>> syncAction,
+        private static void InvokeForCollection_Invoke(Dispatcher disp,
+                                                       Action syncAction,
                                                        DispatcherPriority prio)
         {
             disp.Invoke(syncAction,
-                        prio,
-                        coll);
+                        prio);
         }
 
         #endregion Methods

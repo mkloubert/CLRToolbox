@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #endregion Fields
 
-        #region Constructors (1)
+        #region Constructors (2)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReceiveNotificationFromAttribute" /> class.
@@ -29,6 +29,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <param name="senderName">
         /// The value for the <see cref="ReceiveNotificationFromAttribute.SenderName" /> property.
         /// </param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="senderName" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="senderName" /> is <see langword="null" />.
+        /// </exception>
         public ReceiveNotificationFromAttribute(string senderName)
             : this(senderName, ReceiveNotificationFromOptions.Default)
         {
@@ -43,13 +49,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <param name="options">
         /// The value for the <see cref="ReceiveNotificationFromAttribute.Options" /> property.
         /// </param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="senderName" /> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="senderName" /> is <see langword="null" />.
+        /// </exception>
         public ReceiveNotificationFromAttribute(string senderName,
                                                 ReceiveNotificationFromOptions? options)
         {
-            this._SENDER_NAME = (senderName ?? string.Empty).Trim();
+            if (senderName == null)
+            {
+                throw new ArgumentNullException("senderName");
+            }
+
+            this._SENDER_NAME = senderName.Trim();
             if (this._SENDER_NAME == string.Empty)
             {
-                this._SENDER_NAME = null;
+                throw new ArgumentException("senderName");
             }
 
             this._OPTIONS = options;

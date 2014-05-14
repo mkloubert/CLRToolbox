@@ -138,23 +138,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         /// <inheriteddoc />
         protected override void OnLog(ILogMessage msg)
         {
+            List<Exception> occuredExceptions = new List<Exception>();
+            bool throwExceptions = false;
+
             using (IEnumerator<ILoggerFacade> e = this._FALLBACK_LOGGERS.GetEnumerator())
             {
                 ILoggerFacade currentLogger = this._MAIN_LOGGER;
                 while (currentLogger != null)
                 {
                     bool findNextFallback = false;
+                    throwExceptions = false;
 
                     try
                     {
                         if (currentLogger.Log(msg) == false)
                         {
-                            findNextFallback = true;
+                            throw new Exception();
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         findNextFallback = true;
+                        throwExceptions = true;
+
+                        occuredExceptions.Add(ex);
                     }
                     finally
                     {
@@ -169,6 +176,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
                         }
                     }
                 }
+            }
+
+            if (throwExceptions)
+            {
+                throw new AggregateException(occuredExceptions);
             }
         }
 

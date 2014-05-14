@@ -228,7 +228,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             // as first argument for the workflow
             object[] basicArgs = new object[] { msg };
 
-            // additional arguments from 'ArgumentProvider' property
+            // additional arguments from 'ProviderOfArguments' property
             IEnumerable<object> additionalArgs = CollectionHelper.AsSequence<object>(this._PROVIDER_OF_ARGUMENTS(this));
 
             // concat both

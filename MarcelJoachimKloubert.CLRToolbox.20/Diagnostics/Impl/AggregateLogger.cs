@@ -190,11 +190,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             CollectionHelper.ForEach(this._LOGGERS,
                                      delegate(IForEachItemExecutionContext<ILoggerFacade> ctx)
                                      {
-                                         ILoggerFacade logger = ctx.Item;
-
                                          try
                                          {
-                                             logger.Log(CloneLogMessage(msg));
+                                             ctx.Item
+                                                .Log(CloneLogMessage(msg));
 
                                              allFailed = false;
                                          }

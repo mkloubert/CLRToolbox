@@ -172,11 +172,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             CollectionHelper.ForEach(this._DELEGATES,
                                      delegate(IForEachItemExecutionContext<LogMessageHandler> ctx)
                                      {
-                                         LogMessageHandler handler = ctx.Item;
-
                                          try
                                          {
-                                             handler(CloneLogMessage(msg));
+                                             ctx.Item(CloneLogMessage(msg));
 
                                              allFailed = false;
                                          }

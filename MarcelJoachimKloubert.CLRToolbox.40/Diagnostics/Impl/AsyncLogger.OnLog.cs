@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Threading.Tasks;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
@@ -13,10 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="LoggerFacadeBase.OnLog(ILogMessage)" />
+        /// <inheriteddoc />
         protected override void OnLog(ILogMessage msg)
         {
             Task.Factory

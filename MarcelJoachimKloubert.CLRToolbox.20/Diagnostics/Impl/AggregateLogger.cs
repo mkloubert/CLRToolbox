@@ -187,24 +187,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             bool? allFailed = null;
             List<Exception> occuredExceptions = new List<Exception>();
 
-            foreach (ILoggerFacade logger in this._LOGGERS)
-            {
-                try
-                {
-                    logger.Log(CloneLogMessage(msg));
+            CollectionHelper.ForEach(this._LOGGERS,
+                                     delegate(IForEachItemExecutionContext<ILoggerFacade> ctx)
+                                     {
+                                         ILoggerFacade logger = ctx.Item;
 
-                    allFailed = false;
-                }
-                catch (Exception ex)
-                {
-                    if (allFailed.HasValue == false)
-                    {
-                        allFailed = true;
-                    }
+                                         try
+                                         {
+                                             logger.Log(CloneLogMessage(msg));
 
-                    occuredExceptions.Add(ex);
-                }
-            }
+                                             allFailed = false;
+                                         }
+                                         catch (Exception ex)
+                                         {
+                                             if (allFailed.HasValue == false)
+                                             {
+                                                 allFailed = true;
+                                             }
+
+                                             occuredExceptions.Add(ex);
+                                         }
+                                     });
 
             if (allFailed == true)
             {

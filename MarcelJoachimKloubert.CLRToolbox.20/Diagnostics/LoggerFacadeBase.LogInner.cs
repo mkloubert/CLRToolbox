@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Execution;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
@@ -39,7 +40,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 Thread thread = Thread.CurrentThread;
 
                 MemberInfo member = null;
-#if !MONO2 && !MONO20 && !MONO4 && !MONO40
+#if !(MONO2 || MONO20 || MONO4 || MONO40)
+
                 try
                 {
 #pragma warning disable 618
@@ -51,7 +53,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 }
                 catch
                 {
-                    member = null;
+                    // ignore errors here
                 }
 
 #endif
@@ -61,14 +63,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 string strCategories = categories.ToString();
                 if (StringHelper.IsNullOrWhiteSpace(strCategories) == false)
                 {
-                    foreach (string s in strCategories.Split(','))
-                    {
-                        LoggerFacadeCategories loggerCat = (LoggerFacadeCategories)Enum.Parse(typeof(global::MarcelJoachimKloubert.CLRToolbox.Diagnostics.LoggerFacadeCategories), s, false);
-                        if (listOfCategories.Contains(loggerCat) == false)
-                        {
-                            listOfCategories.Add(loggerCat);
-                        }
-                    }
+                    CollectionHelper.ForEach(strCategories.Split(','),
+                                             delegate(IForEachItemExecutionContext<string, List<LoggerFacadeCategories>> ctx)
+                                             {
+                                                 List<LoggerFacadeCategories> loc = ctx.State;
+
+                                                 LoggerFacadeCategories loggerCat = (LoggerFacadeCategories)Enum.Parse(typeof(global::MarcelJoachimKloubert.CLRToolbox.Diagnostics.LoggerFacadeCategories),
+                                                                                                                       ctx.Item,    // enum value name
+                                                                                                                       false);
+
+                                                 if (loc.Contains(loggerCat) == false)
+                                                 {
+                                                     loc.Add(loggerCat);
+                                                 }
+                                             }, listOfCategories);
                 }
 
                 listOfCategories.Sort();
@@ -83,12 +91,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics
                 orgMsg.Thread = thread;
                 orgMsg.Time = time;
 
-                this.LogInnerExtension(orgMsg,
-                                       time,
-                                       asm,
-                                       categories,
-                                       tag,
-                                       msg);
+#if !WINDOWS_PHONE
+
+                try
+                {
+                    orgMsg.Context = global::System.Threading.Thread.CurrentContext;
+                }
+                catch
+                {
+                    // ignore errors here
+                }
+
+                try
+                {
+                    orgMsg.Principal = global::System.Threading.Thread.CurrentPrincipal;
+                }
+                catch
+                {
+                    // ignore errors here
+                }
+
+#endif
 
                 ILogMessage messageToLog = orgMsg;
 

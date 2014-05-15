@@ -135,6 +135,7 @@
     <Compile Include="Diagnostics\Impl\ConsoleLogger.cs" />
     <Compile Include="Diagnostics\Impl\DummyLogger.cs" />
     <Compile Include="Diagnostics\Impl\FallbackLogger.cs" />
+    <Compile Include="Diagnostics\Impl\TextWriterLogger.cs" />
     <Compile Include="Diagnostics\Impl\WorkflowLogger.cs" />
     <Compile Include="Diagnostics\Tests\Assert.AreSame.cs">
       <DependentUpon>Assert.cs</DependentUpon>

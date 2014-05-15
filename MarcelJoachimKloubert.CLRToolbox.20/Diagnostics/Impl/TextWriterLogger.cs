@@ -25,7 +25,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         #region Constructors (8)
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -47,7 +47,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="isThreadSafe">Logger should be thread safe or not.</param>
@@ -61,7 +61,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -75,7 +75,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -89,7 +89,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -102,7 +102,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="syncRoot">The unique object for thread safe operations.</param>
@@ -115,7 +115,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="isThreadSafe">Logger should be thread safe or not.</param>
@@ -128,7 +128,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Initializes a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <exception cref="ArgumentNullException">
@@ -222,7 +222,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         #region Methods (12)
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -237,7 +237,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="isThreadSafe">Logger should be thread safe or not.</param>
@@ -251,7 +251,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -265,7 +265,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -279,7 +279,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="disposer">The optional disposer for the instance of the result of <paramref name="provider" />.</param>
@@ -292,7 +292,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="isThreadSafe">Logger should be thread safe or not.</param>
@@ -305,7 +305,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <param name="syncRoot">The unique object for thread safe operations.</param>
@@ -318,7 +318,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <param name="provider">The function that returns the <see cref="TextWriter" /> instance that should be used for logging operation.</param>
         /// <exception cref="ArgumentNullException">
@@ -330,7 +330,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <typeparam name="W">Type of the writer.</typeparam>
         /// <param name="writer">The text writer to use.</param>
@@ -343,7 +343,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <typeparam name="W">Type of the writer.</typeparam>
         /// <param name="writer">The text writer to use.</param>
@@ -357,7 +357,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <typeparam name="W">Type of the writer.</typeparam>
         /// <param name="writer">The text writer to use.</param>
@@ -371,7 +371,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TextWriterLogger" /> class.
+        /// Creates a new instance of the <see cref="TextWriterLogger{W}" /> class.
         /// </summary>
         /// <typeparam name="W">Type of the writer.</typeparam>
         /// <param name="writer">The text writer to use.</param>

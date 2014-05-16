@@ -1335,5 +1335,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\TextWriterLogger.cs">
       <Link>Diagnostics\Impl\TextWriterLogger.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryWrapper.cs">
+      <Link>Configuration\ConfigRepositoryWrapper.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -440,9 +440,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel
             }
 
             return new DispatcherObservableCollection<T>((coll) => disp,
-                                                          prio,
-                                                          isBackground,
-                                                          syncRoot);
+                                                         prio,
+                                                         isBackground,
+                                                         syncRoot);
         }
 
         /// <summary>
@@ -464,9 +464,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel
             }
 
             return new DispatcherObservableCollection<T>((coll) => dispObj.Dispatcher,
-                                                          prio,
-                                                          isBackground,
-                                                          syncRoot);
+                                                         prio,
+                                                         isBackground,
+                                                         syncRoot);
         }
 
         #endregion Methods

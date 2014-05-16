@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
@@ -15,7 +14,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
     /// </summary>
     public abstract partial class ConfigRepositoryBase : IConfigRepository
     {
-        #region Fields (1)
+        #region Fields (2)
+
+        private readonly bool _IS_THREAD_SAFE;
 
         /// <summary>
         /// An unique object for sync operations.
@@ -24,7 +25,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigRepositoryBase" /> class.
+        /// </summary>
+        /// <param name="sync">The value for <see cref="ConfigRepositoryBase._SYNC" /> field.</param>
+        /// <param name="isThreadSafe">The value for <see cref="ConfigRepositoryBase.Synchronized" /> property.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="sync" /> is <see langword="null" />.
+        /// </exception>
+        protected ConfigRepositoryBase(object sync, bool isThreadSafe)
+        {
+            if (sync == null)
+            {
+                throw new ArgumentNullException("sync");
+            }
+
+            this._SYNC = sync;
+            this._IS_THREAD_SAFE = isThreadSafe;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigRepositoryBase" /> class.
@@ -34,13 +54,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <paramref name="sync" /> is <see langword="null" />.
         /// </exception>
         protected ConfigRepositoryBase(object sync)
+            : this(sync, true)
         {
-            if (sync == null)
-            {
-                throw new ArgumentNullException("sync");
-            }
-
-            this._SYNC = sync;
         }
 
         /// <summary>
@@ -49,10 +64,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         protected ConfigRepositoryBase()
             : this(new object())
         {
-
         }
 
         #endregion Constructors
+
+        #region Delegates and events (1)
+
+        private delegate TResult RepoFunc<T1, T2, T3, T4, TResult>(Func<ConfigRepositoryBase, T1, T2, T3, T4, TResult> func,
+                                                                   T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+
+        #endregion Delegates and events
 
         #region Properties (2)
 
@@ -68,24 +89,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             get { return true; }
         }
 
+        /// <inheriteddoc />
+        public bool Synchronized
+        {
+            get { return this._IS_THREAD_SAFE; }
+        }
+
         #endregion Properties
 
-        #region Methods (33)
+        #region Methods (40)
 
         // Public Methods (21) 
 
         /// <inheriteddoc />
         public bool Clear()
         {
-            lock (this._SYNC)
-            {
-                this.ThrowIfNotWritable();
+            return this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo)
+                                       {
+                                           repo.ThrowIfNotWritable();
 
-                bool result = false;
-                this.OnClear(ref result);
+                                           bool result = false;
+                                           repo.OnClear(ref result);
 
-                return result;
-            }
+                                           return result;
+                                       });
         }
 
         /// <inheriteddoc />
@@ -97,18 +124,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         public bool ContainsValue(IEnumerable<char> name, IEnumerable<char> category)
         {
-            lock (this._SYNC)
-            {
-                string configCategory;
-                string configName;
-                this.PrepareCategoryAndName(category, name,
-                                            out configCategory, out configName);
+            return this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, IEnumerable<char> c)
+                                       {
+                                           string configCategory;
+                                           string configName;
+                                           repo.PrepareCategoryAndName(c, n,
+                                                                       out configCategory, out configName);
 
-                bool result = false;
-                this.OnContainsValue(configCategory, configName, ref result);
+                                           bool result = false;
+                                           repo.OnContainsValue(configCategory, configName,
+                                                                ref result);
 
-                return result;
-            }
+                                           return result;
+                                       }, name, category);
         }
 
         /// <inheriteddoc />
@@ -120,38 +148,39 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         public bool DeleteValue(IEnumerable<char> name, IEnumerable<char> category)
         {
-            lock (this._SYNC)
-            {
-                this.ThrowIfNotWritable();
+            return this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, IEnumerable<char> c)
+                                       {
+                                           repo.ThrowIfNotWritable();
 
-                string configCategory;
-                string configName;
-                this.PrepareCategoryAndName(category, name,
-                                            out configCategory, out configName);
+                                           string configCategory;
+                                           string configName;
+                                           repo.PrepareCategoryAndName(c, n,
+                                                                       out configCategory, out configName);
 
-                bool result = false;
-                this.OnDeleteValue(configCategory, configName, ref result);
+                                           bool result = false;
+                                           repo.OnDeleteValue(configCategory, configName,
+                                                              ref result);
 
-                return result;
-            }
+                                           return result;
+                                       }, name, category);
         }
 
         /// <inheriteddoc />
         public IList<string> GetCategoryNames()
         {
-            lock (this._SYNC)
-            {
-                List<IEnumerable<char>> names = new List<IEnumerable<char>>();
-                this.OnGetCategoryNames(names);
+            return this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo)
+                                       {
+                                           List<IEnumerable<char>> names = new List<IEnumerable<char>>();
+                                           repo.OnGetCategoryNames(names);
 
-                List<string> result = new List<string>();
-                foreach (IEnumerable<char> name in names)
-                {
-                    result.Add(StringHelper.AsString(name));
-                }
+                                           List<string> result = new List<string>();
+                                           foreach (IEnumerable<char> name in names)
+                                           {
+                                               result.Add(StringHelper.AsString(name));
+                                           }
 
-                return result;
-            }
+                                           return result;
+                                       });
         }
 
         /// <inheriteddoc />
@@ -175,13 +204,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         public T GetValue<T>(IEnumerable<char> name, IEnumerable<char> category)
         {
-            T result;
-            if (!this.TryGetValue<T>(name, out result, category))
-            {
-                throw new ArgumentOutOfRangeException();
-            }
+            return this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, IEnumerable<char> c)
+                                       {
+                                           T result;
+                                           if (repo.TryGetValue<T>(n, out result, c) == false)
+                                           {
+                                               throw new ArgumentOutOfRangeException("name+category");
+                                           }
 
-            return result;
+                                           return result;
+                                       }, name, category);
         }
 
         /// <inheriteddoc />
@@ -217,22 +249,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         public bool SetValue<T>(IEnumerable<char> name, T value, IEnumerable<char> category)
         {
-            lock (this._SYNC)
-            {
-                this.ThrowIfNotWritable();
+            return this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, T v, IEnumerable<char> c)
+                                       {
+                                           repo.ThrowIfNotWritable();
 
-                string configCategory;
-                string configName;
-                this.PrepareCategoryAndName(category, name,
-                                            out configCategory, out configName);
+                                           string configCategory;
+                                           string configName;
+                                           repo.PrepareCategoryAndName(c, n,
+                                                                       out configCategory, out configName);
 
-                bool result = false;
-                this.OnSetValue<T>(configCategory, configName,
-                                   value,
-                                   ref result);
+                                           bool result = false;
+                                           repo.OnSetValue<T>(configCategory, configName,
+                                                              v,
+                                                              ref result);
 
-                return result;
-            }
+                                           return result;
+                                       }, name, value, category);
         }
 
         /// <inheriteddoc />
@@ -271,36 +303,41 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, T defaultVal)
         {
-            lock (this._SYNC)
-            {
-                this.ThrowIfNotReadable();
+            T temp = defaultVal;
+            bool result = this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, IEnumerable<char> c, T dv)
+                                              {
+                                                  repo.ThrowIfNotReadable();
 
-                bool result = false;
+                                                  bool r = false;
 
-                string configCategory;
-                string configName;
-                this.PrepareCategoryAndName(category, name,
-                                            out configCategory, out configName);
+                                                  string configCategory;
+                                                  string configName;
+                                                  repo.PrepareCategoryAndName(c, n,
+                                                                              out configCategory, out configName);
 
-                T foundValue = default(T);
-                this.OnTryGetValue<T>(configCategory, configName,
-                                      ref foundValue,
-                                      ref result);
+                                                  T foundValue = default(T);
+                                                  repo.OnTryGetValue<T>(configCategory, configName,
+                                                                        ref foundValue,
+                                                                        ref r);
 
-                if (result)
-                {
-                    value = foundValue;
-                }
-                else
-                {
-                    // not found => use default
-                    value = defaultVal;
-                }
+                                                  if (r)
+                                                  {
+                                                      temp = foundValue;
+                                                  }
+                                                  else
+                                                  {
+                                                      // not found => use default
+                                                      temp = defaultVal;
+                                                  }
 
-                return result;
-            }
+                                                  return r;
+                                              }, name, category, defaultVal);
+
+            value = temp;
+            return result;
         }
-        // Protected Methods (12) 
+
+        // Protected Methods (17) 
 
         /// <summary>
         /// Creates a key/value pair collection for a new category.
@@ -329,6 +366,152 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             }
 
             return GlobalConverter.Current.ChangeType<T>(input);
+        }
+
+        /// <summary>
+        /// Invokes a function for that repository.
+        /// </summary>
+        /// <typeparam name="TResult">Type of the result.</typeparam>
+        /// <param name="func">The function to invoke.</param>
+        /// <returns>The result of <paramref name="func" />.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="func" /> is <see langword="null" />.
+        /// </exception>
+        protected TResult InvokeRepoFunc<TResult>(Func<ConfigRepositoryBase, TResult> func)
+        {
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
+
+            return this.InvokeRepoFunc<Func<ConfigRepositoryBase, TResult>, TResult>(
+                   delegate(ConfigRepositoryBase r, Func<ConfigRepositoryBase, TResult> f)
+                   {
+                       return f(r);
+                   }, func);
+        }
+
+        /// <summary>
+        /// Invokes a function for that repository.
+        /// </summary>
+        /// <typeparam name="T1">Type of the 1st argument.</typeparam>
+        /// <typeparam name="TResult">Type of the result.</typeparam>
+        /// <param name="func">The function to invoke.</param>
+        /// <param name="arg1">The 1st argument.</param>
+        /// <returns>The result of <paramref name="func" />.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="func" /> is <see langword="null" />.
+        /// </exception>
+        protected TResult InvokeRepoFunc<T1, TResult>(Func<ConfigRepositoryBase, T1, TResult> func,
+                                                      T1 arg1)
+        {
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
+
+            return this.InvokeRepoFunc<T1, Func<ConfigRepositoryBase, T1, TResult>, TResult>(
+                   delegate(ConfigRepositoryBase r, T1 a1, Func<ConfigRepositoryBase, T1, TResult> f)
+                   {
+                       return f(r, a1);
+                   }, arg1, func);
+        }
+
+        /// <summary>
+        /// Invokes a function for that repository.
+        /// </summary>
+        /// <typeparam name="T1">Type of the 1st argument.</typeparam>
+        /// <typeparam name="T2">Type of the 2nd argument.</typeparam>
+        /// <typeparam name="TResult">Type of the result.</typeparam>
+        /// <param name="func">The function to invoke.</param>
+        /// <param name="arg1">The 1st argument.</param>
+        /// <param name="arg2">The 2nd argument.</param>
+        /// <returns>The result of <paramref name="func" />.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="func" /> is <see langword="null" />.
+        /// </exception>
+        protected TResult InvokeRepoFunc<T1, T2, TResult>(Func<ConfigRepositoryBase, T1, T2, TResult> func,
+                                                          T1 arg1, T2 arg2)
+        {
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
+
+            return this.InvokeRepoFunc<T1, T2, Func<ConfigRepositoryBase, T1, T2, TResult>, TResult>(
+                delegate(ConfigRepositoryBase r, T1 a1, T2 a2, Func<ConfigRepositoryBase, T1, T2, TResult> f)
+                {
+                    return f(r, a1, a2);
+                }, arg1, arg2, func);
+        }
+        
+        /// <summary>
+        /// Invokes a function for that repository.
+        /// </summary>
+        /// <typeparam name="T1">Type of the 1st argument.</typeparam>
+        /// <typeparam name="T2">Type of the 2nd argument.</typeparam>
+        /// <typeparam name="T3">Type of the 3rd argument.</typeparam>
+        /// <typeparam name="TResult">Type of the result.</typeparam>
+        /// <param name="func">The function to invoke.</param>
+        /// <param name="arg1">The 1st argument.</param>
+        /// <param name="arg2">The 2nd argument.</param>
+        /// <param name="arg3">The 3rd argument.</param>
+        /// <returns>The result of <paramref name="func" />.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="func" /> is <see langword="null" />.
+        /// </exception>
+        protected TResult InvokeRepoFunc<T1, T2, T3, TResult>(Func<ConfigRepositoryBase, T1, T2, T3, TResult> func,
+                                                              T1 arg1, T2 arg2, T3 arg3)
+        {
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
+
+            return this.InvokeRepoFunc<T1, T2, T3, Func<ConfigRepositoryBase, T1, T2, T3, TResult>, TResult>(
+                delegate(ConfigRepositoryBase r, T1 a1, T2 a2, T3 a3, Func<ConfigRepositoryBase, T1, T2, T3, TResult> f)
+                {
+                    return f(r, a1, a2, a3);
+                }, arg1, arg2, arg3, func);
+        }
+
+        /// <summary>
+        /// Invokes a function for that repository.
+        /// </summary>
+        /// <typeparam name="T1">Type of the 1st argument.</typeparam>
+        /// <typeparam name="T2">Type of the 2nd argument.</typeparam>
+        /// <typeparam name="T3">Type of the 3rd argument.</typeparam>
+        /// <typeparam name="T4">Type of the 4th argument.</typeparam>
+        /// <typeparam name="TResult">Type of the result.</typeparam>
+        /// <param name="func">The function to invoke.</param>
+        /// <param name="arg1">The 1st argument.</param>
+        /// <param name="arg2">The 2nd argument.</param>
+        /// <param name="arg3">The 3rd argument.</param>
+        /// <param name="arg4">The 4th argument.</param>
+        /// <returns>The result of <paramref name="func" />.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="func" /> is <see langword="null" />.
+        /// </exception>
+        protected TResult InvokeRepoFunc<T1, T2, T3, T4, TResult>(Func<ConfigRepositoryBase, T1, T2, T3, T4, TResult> func,
+                                                                  T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        {
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
+
+            RepoFunc<T1, T2, T3, T4, TResult> funcToInvoke;
+            if (this._IS_THREAD_SAFE)
+            {
+                funcToInvoke = this.InvokeRepoAction_ThreadSafe;
+            }
+            else
+            {
+                funcToInvoke = this.InvokeRepoAction_NonThreadSafe;
+            }
+
+            return funcToInvoke(func,
+                                arg1, arg2, arg3, arg4);
         }
 
         /// <summary>
@@ -424,7 +607,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
         protected void ThrowIfNotReadable()
         {
-            if (!this.CanRead)
+            if (this.CanRead == false)
             {
                 throw new InvalidOperationException();
             }
@@ -436,7 +619,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <exception cref="InvalidOperationException">Repository cannot be written.</exception>
         protected void ThrowIfNotWritable()
         {
-            if (!this.CanWrite)
+            if (this.CanWrite == false)
             {
                 throw new InvalidOperationException();
             }
@@ -455,6 +638,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
             if (DBNull.Value.Equals(result))
             {
                 result = null;
+            }
+
+            return result;
+        }
+
+        // Private Methods (2) 
+
+        private TResult InvokeRepoAction_NonThreadSafe<T1, T2, T3, T4, TResult>(Func<ConfigRepositoryBase, T1, T2, T3, T4, TResult> func,
+                                                                                T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        {
+            return func(this,
+                        arg1, arg2, arg3, arg4);
+        }
+
+        private TResult InvokeRepoAction_ThreadSafe<T1, T2, T3, T4, TResult>(Func<ConfigRepositoryBase, T1, T2, T3, T4, TResult> func,
+                                                                             T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        {
+            TResult result;
+
+            lock (this._SYNC)
+            {
+                result = this.InvokeRepoAction_NonThreadSafe<T1, T2, T3, T4, TResult>(func,
+                                                                                      arg1, arg2, arg3, arg4);
             }
 
             return result;

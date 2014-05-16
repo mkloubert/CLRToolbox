@@ -13,7 +13,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
     /// </summary>
     public interface IConfigRepository
     {
-        #region Data Members (2)
+        #region Data Members (3)
 
         /// <summary>
         /// Gets if that repository can be written.
@@ -24,6 +24,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// Gets if that repository can be written.
         /// </summary>
         bool CanWrite { get; }
+
+        /// <summary>
+        /// Gets if that object handles thread safe or not.
+        /// </summary>
+        bool Synchronized { get; }
 
         #endregion Data Members
 

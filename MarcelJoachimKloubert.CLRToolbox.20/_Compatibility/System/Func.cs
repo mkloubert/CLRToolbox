@@ -4,7 +4,7 @@
 
 namespace System
 {
-#if NET20 || NET2 || MONO2 || MONO20
+#if (NET20 || NET2 || MONO2 || MONO20)
     #region DELEGATE: Func<TResult>
 
     /// <summary>
@@ -54,5 +54,19 @@ namespace System
     public delegate TResult Func<T1, T2, T3, T4, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
 
     #endregion DELEGATE: Func<T1, T2, T3, T4, TResult>
+#endif
+
+#if (NET20 || NET2 || MONO2 || MONO20 || NET35 || WINDOWS_PHONE)
+    
+    #region DELEGATE: Func<T1, T2, T3, T4, T5, TResult>
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <see href="http://msdn.microsoft.com/en-us/library/dd268303%28v=vs.110%29.aspx" />
+    public delegate TResult Func<T1, T2, T3, T4, T5, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+
+    #endregion DELEGATE: Func<T1, T2, T3, T4, T5, TResult>
+
 #endif
 }

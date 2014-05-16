@@ -86,6 +86,7 @@
     <Compile Include="ComponentModel\ReceiveNotificationFromOptions.cs" />
     <Compile Include="Configuration\ConfigRepositoryBase.cs" />
     <Compile Include="Configuration\IConfigRepository.cs" />
+    <Compile Include="Configuration\ConfigRepositoryWrapper.cs" />
     <Compile Include="Configuration\Impl\JsonFileConfigRepository.cs" />
     <Compile Include="Configuration\Impl\KeyValuePairConfigRepository.cs" />
     <Compile Include="Configuration\Impl\IniFileConfigRepository.cs" />

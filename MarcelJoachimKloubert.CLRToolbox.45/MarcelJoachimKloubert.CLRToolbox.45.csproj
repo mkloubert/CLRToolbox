@@ -149,6 +149,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
       <Link>Configuration\ConfigRepositoryBase.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryWrapper.cs">
+      <Link>Configuration\ConfigRepositoryWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\IConfigRepository.cs">
       <Link>Configuration\IConfigRepository.cs</Link>
     </Compile>

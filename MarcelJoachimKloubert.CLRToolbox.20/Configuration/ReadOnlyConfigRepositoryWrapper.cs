@@ -2,51 +2,40 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.Configuration.Impl;
 using System;
-using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 {
+    #region CLASS: ReadOnlyConfigRepositoryWrapper<TConf>
+
     /// <summary>
     /// A read-only wrapper for an <see cref="IConfigRepository" />.
     /// </summary>
-    public sealed class ReadOnlyConfigRepositoryWrapper : ConfigRepositoryBase
+    public class ReadOnlyConfigRepositoryWrapper<TConf> : ConfigRepositoryWrapper<TConf> where TConf : global::MarcelJoachimKloubert.CLRToolbox.Configuration.IConfigRepository
     {
-        #region Fields (1)
-
-        private readonly IConfigRepository _REPO;
-
-        #endregion Fields
-
         #region Constructors (1)
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReadOnlyConfigRepositoryWrapper"/> class.
+        /// Initializes a new instance of the <see cref="ReadOnlyConfigRepositoryWrapper{TConf}" /> class.
         /// </summary>
-        /// <param name="repo">The base config repository.</param>
+        /// <param name="innerConf">The base config repository.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="repo" /> is <see langword="null" />.
+        /// <paramref name="innerConf" /> is <see langword="null" />.
         /// </exception>
-        public ReadOnlyConfigRepositoryWrapper(IConfigRepository repo)
+        public ReadOnlyConfigRepositoryWrapper(TConf innerConf)
+            : base(innerConf, null)
         {
-            if (repo == null)
-            {
-                throw new ArgumentNullException("repo");
-            }
-
-            this._REPO = repo;
         }
 
-        #endregion Constructors
+        #endregion Constructors
 
         #region Properties (2)
 
         /// <inheriteddoc />
         public override bool CanRead
         {
-            get { return this._REPO.CanRead; }
+            get { return this.InnerConfig.CanRead; }
         }
 
         /// <inheriteddoc />
@@ -56,47 +45,33 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         }
 
         #endregion Properties
-
-        #region Methods (5)
-
-        // Protected Methods (5) 
-
-        /// <inheriteddoc />
-        protected override void OnClear(ref bool wasCleared)
-        {
-            throw new InvalidOperationException();
-        }
-
-        /// <inheriteddoc />
-        protected override void OnDeleteValue(string category, string name, ref bool deleted)
-        {
-            throw new InvalidOperationException();
-        }
-
-        /// <inheriteddoc />
-        protected override void OnGetCategoryNames(ICollection<IEnumerable<char>> names)
-        {
-            IList<string> categories = this._REPO.GetCategoryNames();
-            if (categories != null)
-            {
-                CollectionHelper.AddRange(names,
-                                          CollectionHelper.Cast<IEnumerable<char>>(categories));
-            }
-        }
-
-        /// <inheriteddoc />
-        protected override void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet)
-        {
-            throw new InvalidOperationException();
-        }
-
-        /// <inheriteddoc />
-        protected override void OnTryGetValue<T>(string category, string name, ref T foundValue, ref bool valueWasFound)
-        {
-            valueWasFound = this._REPO
-                                .TryGetValue<T>(name, out foundValue, category);
-        }
-
-        #endregion Methods
     }
+
+    #endregion
+
+    #region CLASS: ReadOnlyConfigRepositoryWrapper
+
+    /// <summary>
+    /// A simple implementation of <see cref="ReadOnlyConfigRepositoryWrapper{TConf}" /> class.
+    /// </summary>
+    public sealed class ReadOnlyConfigRepositoryWrapper : ReadOnlyConfigRepositoryWrapper<global::MarcelJoachimKloubert.CLRToolbox.Configuration.IConfigRepository>
+    {
+        #region Constructors (1)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadOnlyConfigRepositoryWrapper"/> class.
+        /// </summary>
+        /// <param name="innerConf">The base config repository.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="innerConf" /> is <see langword="null" />.
+        /// </exception>
+        public ReadOnlyConfigRepositoryWrapper(IConfigRepository innerConf)
+            : base(innerConf)
+        {
+        }
+
+        #endregion Constructors
+    }
+
+    #endregion
 }

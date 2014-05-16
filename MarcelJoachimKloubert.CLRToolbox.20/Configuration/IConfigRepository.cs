@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
     /// <summary>
     /// Describes a repository that provides configuration data stored in categories as key/value pairs.
     /// </summary>
-    public interface IConfigRepository
+    public interface IConfigRepository : ITMObject
     {
         #region Data Members (3)
 

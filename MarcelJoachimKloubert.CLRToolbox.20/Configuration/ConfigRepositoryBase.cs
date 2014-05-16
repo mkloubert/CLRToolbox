@@ -12,7 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
     /// <summary>
     /// A basic repository that provides configuration data stored in categories as key/value pairs.
     /// </summary>
-    public abstract partial class ConfigRepositoryBase : IConfigRepository
+    public abstract partial class ConfigRepositoryBase : TMObject, IConfigRepository
     {
         #region Fields (2)
 
@@ -444,7 +444,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                     return f(r, a1, a2);
                 }, arg1, arg2, func);
         }
-        
+
         /// <summary>
         /// Invokes a function for that repository.
         /// </summary>

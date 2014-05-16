@@ -121,9 +121,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         protected override void OnGetCategoryNames(ICollection<IEnumerable<char>> names)
         {
+            IEnumerable<string> catNames = this._INNER_CONF
+                                               .GetCategoryNames() ?? CollectionHelper.Empty<string>();
+
             CollectionHelper.AddRange(names,
-                                      CollectionHelper.Cast<IEnumerable<char>>(this._INNER_CONF
-                                                                                   .GetCategoryNames()));
+                                      CollectionHelper.Cast<IEnumerable<char>>(catNames));
         }
 
         /// <inheriteddoc />

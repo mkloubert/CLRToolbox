@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
 {
     /// <summary>

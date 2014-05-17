@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
@@ -31,7 +30,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         public SimpleHttpRequestContext(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -40,17 +38,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         public SimpleHttpRequestContext()
             : base()
         {
-
         }
 
         #endregion Constructors
 
         #region Properties (2)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpRequestContext.Request" />
+        /// <inheriteddoc />
         public IHttpRequest Request
         {
             get { return this._request; }
@@ -58,10 +52,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
             set { this._request = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IHttpRequestContext.Response" />
+        /// <inheriteddoc />
         public IHttpResponse Response
         {
             get { return this._response; }

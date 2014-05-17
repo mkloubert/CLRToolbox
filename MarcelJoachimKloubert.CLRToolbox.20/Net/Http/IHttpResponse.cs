@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -136,7 +135,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <returns>That instance.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="stream" /> is <see langword="null" />.
-        /// </exception> 
+        /// </exception>
         /// <remarks>Old stream is NOT disposed.</remarks>
         IHttpResponse SetStream(Stream stream);
 
@@ -148,7 +147,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Net.Http
         /// <returns>That instance.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="stream" /> is <see langword="null" />.
-        /// </exception> 
+        /// </exception>
         IHttpResponse SetStream(Stream stream, bool disposeOld);
 
         /// <summary>

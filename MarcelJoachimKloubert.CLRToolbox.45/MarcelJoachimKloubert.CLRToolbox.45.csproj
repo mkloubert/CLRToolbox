@@ -127,6 +127,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyCollection.cs">
       <Link>Collections\ObjectModel\TMReadOnlyCollection.cs</Link>
     </Compile>
+    <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\collections\objectmodel\TMReadOnlyDictionary.cs">
+      <Link>Collections\ObjectModel\TMReadOnlyDictionary.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Collections\ObjectModel\TMReadOnlyList.cs">
       <Link>Collections\ObjectModel\TMReadOnlyList.cs</Link>
     </Compile>
@@ -2337,25 +2340,6 @@
       <Link>Extensions\Data.ToEnumerable.SqlClient.cs</Link>
       <DependentUpon>Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.CreateDirectoryDeep.cs">
-      <Link>Extensions\IO.CreateDirectoryDeep.cs</Link>
-      <DependentUpon>IO.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.cs">
-      <Link>Extensions\IO.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.ReadGuid.cs">
-      <Link>Extensions\IO.ReadGuid.cs</Link>
-      <DependentUpon>IO.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.ToByteArray.cs">
-      <Link>Extensions\IO.ToByteArray.cs</Link>
-      <DependentUpon>IO.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\IO.WriteGuid.cs">
-      <Link>Extensions\IO.WriteGuid.cs</Link>
-      <DependentUpon>IO.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\LinqExpressions.cs">
       <Link>Extensions\LinqExpressions.cs</Link>
     </Compile>
@@ -2550,7 +2534,6 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.40\ServiceLocation\Impl\MefServiceLocator.cs">
       <Link>ServiceLocation\Impl\MefServiceLocator.cs</Link>
     </Compile>
-    <Compile Include="Collections\ObjectModel\TMReadOnlyDictionary.cs" />
     <Compile Include="Data\Entities\EntityBase.SetProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

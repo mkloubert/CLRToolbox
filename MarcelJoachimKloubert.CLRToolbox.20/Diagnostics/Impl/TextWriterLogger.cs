@@ -196,7 +196,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
 
             try
             {
-                //TODO
+
+
+                writer.Flush();
             }
             finally
             {

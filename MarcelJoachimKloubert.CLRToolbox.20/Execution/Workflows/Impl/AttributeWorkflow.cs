@@ -187,9 +187,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         /// </summary>
         /// <param name="contract">The contract.</param>
         /// <returns>The execution result.</returns>
-        /// <exception cref="NullReferenceException">
-        /// <paramref name="contract" /> is <see langword="null" />.
-        /// </exception>
         public object Execute(Type contract)
         {
             return this.Execute(WorkflowAttributeBase.GetContractName(contract));
@@ -226,9 +223,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         /// <returns>The execution result.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="obj" /> is <see langword="null" />.
-        /// </exception>
-        /// <exception cref="NullReferenceException">
-        /// <paramref name="contract" /> is <see langword="null" />.
         /// </exception>
         public object ExecuteFor(object obj, Type contract)
         {
@@ -369,6 +363,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
                                                                                                  return m.Name == nextStep.Member;
                                                                                              });
 
+                                // first: try find with parameter
                                 nextMethod = CollectionHelper.SingleOrDefault(nextMethods,
                                                                               delegate(MethodInfo m)
                                                                               {
@@ -377,6 +372,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
 
                                 if (nextMethod == null)
                                 {
+                                    // first: now find WITHOUT parameter
                                     nextMethod = CollectionHelper.Single(nextMethods,
                                                                          delegate(MethodInfo m)
                                                                          {

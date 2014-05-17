@@ -242,10 +242,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Impl
             CollectionHelper.ForEach(this._WORKFLOW,
                                      delegate(IForEachItemExecutionContext<WorkflowFunc, object[]> ctx)
                                      {
-                                         WorkflowFunc func = ctx.Item;
-                                         object[] args = ctx.State;
-
-                                         IWorkflowExecutionContext res = func(args);
+                                         IWorkflowExecutionContext res = ctx.Item(ctx.State);
 
                                          if (res.HasBeenCanceled)
                                          {

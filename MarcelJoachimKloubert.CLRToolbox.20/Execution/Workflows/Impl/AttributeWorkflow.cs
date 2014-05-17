@@ -496,9 +496,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
     #region CLASS: AttributeWorkflow<TObj>
 
     /// <summary>
-    ///
+    /// An <see cref="AttributeWorkflow" /> with a default object and contract.
     /// </summary>
-    /// <typeparam name="TObj"></typeparam>
+    /// <typeparam name="TObj">Type of the default object.</typeparam>
     public class AttributeWorkflow<TObj> : AttributeWorkflow
     {
         #region Fields (2)

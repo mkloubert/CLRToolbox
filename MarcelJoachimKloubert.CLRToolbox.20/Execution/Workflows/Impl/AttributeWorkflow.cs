@@ -192,7 +192,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         /// </exception>
         public object Execute(Type contract)
         {
-            return this.Execute(contract.FullName);
+            return this.Execute(WorkflowAttributeBase.GetContractName(contract));
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         /// </summary>
         /// <param name="contractName">The name of the contract.</param>
         /// <returns>The execution result.</returns>
-        public object Execute(IEnumerable<char> contractName)
+        public virtual object Execute(IEnumerable<char> contractName)
         {
             return this.ExecuteFor(this, contractName);
         }
@@ -213,7 +213,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         /// <exception cref="ArgumentNullException">
         /// <paramref name="obj" /> is <see langword="null" />.
         /// </exception>
-        public object ExecuteFor(object obj)
+        public virtual object ExecuteFor(object obj)
         {
             return this.ExecuteFor(obj, (IEnumerable<char>)null);
         }
@@ -232,7 +232,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         /// </exception>
         public object ExecuteFor(object obj, Type contract)
         {
-            return this.ExecuteFor(obj, contract.FullName);
+            return this.ExecuteFor(obj,
+                                   WorkflowAttributeBase.GetContractName(contract));
         }
 
         /// <summary>
@@ -502,9 +503,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
     public class AttributeWorkflow<TObj> : AttributeWorkflow
     {
         #region Fields (2)
-
-        private readonly TObj _OBJECT;
+        
         private readonly string _CONTRACT;
+        private readonly TObj _OBJECT;
 
         #endregion Fields
 
@@ -654,7 +655,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
         public AttributeWorkflow(TObj obj, IEnumerable<char> contractName)
             : this(obj, contractName, false)
         {
-
         }
 
         /// <summary>
@@ -691,15 +691,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl
 
         #endregion Methods
 
-        #region Methods (1)
+        #region Methods (3)
+        
+        // Pubic Methods (2) 
+        
+        /// <inheriteddoc />
+        public override object Execute(IEnumerable<char> contractName)
+        {
+            return this.ExecuteFor(this._OBJECT, contractName);
+        }
+
+        /// <inheriteddoc />
+        public override object ExecuteFor(object obj)
+        {
+            return this.ExecuteFor(obj, this._CONTRACT);
+        }
 
         // Protected Methods (1) 
 
         /// <inheriteddoc />
         protected override IEnumerable<WorkflowFunc> GetFunctionIterator()
         {
-            return this.GetFunctionIterator(this.Object,
-                                            this.Contract);
+            return this.GetFunctionIterator(this._OBJECT,
+                                            this._CONTRACT);
         }
 
         #endregion Methods

@@ -2,13 +2,12 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox
 {
@@ -166,6 +165,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             return new WritableTuple<T1, T2, T3, T4, T5, T6, T7, TRest>(item1, item2, item3, item4, item5, item6, item7, rest);
         }
+
         // Internal Methods (8) 
 
         internal static int CombineHashCodes(int h1)
@@ -180,35 +180,41 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         internal static int CombineHashCodes(int h1, int h2, int h3)
         {
-            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2), h3);
+            return CombineHashCodes(CombineHashCodes(h1, h2),
+                                    h3);
         }
 
         internal static int CombineHashCodes(int h1, int h2, int h3, int h4)
         {
-            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2), WritableTuple.CombineHashCodes(h3, h4));
+            return CombineHashCodes(CombineHashCodes(h1, h2),
+                                    CombineHashCodes(h3, h4));
         }
 
         internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5)
         {
-            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), h5);
+            return CombineHashCodes(CombineHashCodes(h1, h2, h3, h4),
+                                    h5);
         }
 
         internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5, int h6)
         {
-            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), WritableTuple.CombineHashCodes(h5, h6));
+            return CombineHashCodes(CombineHashCodes(h1, h2, h3, h4),
+                                    CombineHashCodes(h5, h6));
         }
 
         internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5, int h6, int h7)
         {
-            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), WritableTuple.CombineHashCodes(h5, h6, h7));
+            return CombineHashCodes(CombineHashCodes(h1, h2, h3, h4),
+                                    CombineHashCodes(h5, h6, h7));
         }
 
         internal static int CombineHashCodes(int h1, int h2, int h3, int h4, int h5, int h6, int h7, int h8)
         {
-            return WritableTuple.CombineHashCodes(WritableTuple.CombineHashCodes(h1, h2, h3, h4), WritableTuple.CombineHashCodes(h5, h6, h7, h8));
+            return CombineHashCodes(CombineHashCodes(h1, h2, h3, h4),
+                                    CombineHashCodes(h5, h6, h7, h8));
         }
 
-        #endregion Methods
+        #endregion Methods
     }
 
     #endregion
@@ -220,6 +226,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// </summary>
     /// <typeparam name="T1">Type of the first item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1> :
@@ -248,6 +255,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item1 = item1;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -267,6 +275,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
             ((ISerializable)this).GetObjectData(info, context);
         }
+
 #endif
 
         /// <summary>
@@ -274,7 +283,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -284,7 +292,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         // Public Methods (3) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="IComparable.CompareTo(object)" />
         public int CompareTo(object other)
@@ -293,7 +301,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="object.Equals(object)" />
         public override bool Equals(object other)
@@ -302,7 +310,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="object.GetHashCode()" />
         public override int GetHashCode()
@@ -394,6 +402,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             return (int)getHashCodeMethod.Invoke(null,
                                                  CollectionHelper.ToArray(hashCodes));
         }
+
 #if !WINDOWS_PHONE
 
         void global::System.Runtime.Serialization.ISerializable.GetObjectData(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
@@ -412,7 +421,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 property.SetValue(this, value, new object[0]);
             }
         }
+
 #endif
+
         private PropertyInfo[] GetTupleProperties()
         {
             IEnumerable<PropertyInfo> properties = CollectionHelper.Where(this.GetType()
@@ -472,6 +483,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T1">Type of the first item.</typeparam>
     /// <typeparam name="T2">Type of the second item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1, T2> : WritableTuple<T1>
@@ -494,6 +506,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item2 = item2;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -507,15 +520,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -546,6 +559,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T2">Type of the second item.</typeparam>
     /// <typeparam name="T3">Type of the third item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1, T2, T3> : WritableTuple<T1, T2>
@@ -569,6 +583,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item3 = item3;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -582,15 +597,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -622,6 +637,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T3">Type of the third item.</typeparam>
     /// <typeparam name="T4">Type of the fourth item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1, T2, T3, T4> : WritableTuple<T1, T2, T3>
@@ -646,6 +662,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item4 = item4;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -659,15 +676,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -700,6 +717,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T4">Type of the fourth item.</typeparam>
     /// <typeparam name="T5">Type of the fifth item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1, T2, T3, T4, T5> : WritableTuple<T1, T2, T3, T4>
@@ -725,6 +743,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item5 = item5;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -738,15 +757,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -780,6 +799,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T5">Type of the fifth item.</typeparam>
     /// <typeparam name="T6">Type of the sixth item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1, T2, T3, T4, T5, T6> : WritableTuple<T1, T2, T3, T4, T5>
@@ -806,6 +826,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item6 = item6;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -819,15 +840,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -862,6 +883,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T6">Type of the sixth item.</typeparam>
     /// <typeparam name="T7">Type of the seventh item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public class WritableTuple<T1, T2, T3, T4, T5, T6, T7> : WritableTuple<T1, T2, T3, T4, T5, T6>
@@ -889,6 +911,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._item7 = item7;
         }
+
 #if !WINDOWS_PHONE
 
         /// <summary>
@@ -902,15 +925,15 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors
@@ -946,6 +969,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
     /// <typeparam name="T7">Type of the seventh item.</typeparam>
     /// <typeparam name="TRest">Type of the extension item.</typeparam>
 #if !WINDOWS_PHONE
+
     [global::System.Serializable]
 #endif
     public sealed class WritableTuple<T1, T2, T3, T4, T5, T6, T7, TRest> : WritableTuple<T1, T2, T3, T4, T5, T6, T7>
@@ -974,20 +998,21 @@ namespace MarcelJoachimKloubert.CLRToolbox
         {
             this._rest = rest;
         }
+
 #if !WINDOWS_PHONE
 
         private WritableTuple(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
-
         }
+
 #endif
+
         /// <summary>
         /// Initializes a new instance of <see cref="WritableTuple{T1, T2, T3, T4, T5, T6, T7, TRest}" /> class.
         /// </summary>
         public WritableTuple()
         {
-
         }
 
         #endregion Constructors

@@ -39,7 +39,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             : base(syncRoot)
         {
             this._IS_THREAD_SAFE = isThreadSafe;
-            this._VARS = this.CreateVarStorage();
+            this._VARS = this.CreateVarStorage() ?? new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -280,10 +280,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
             CollectionHelper.ForEach(this,
                                      delegate(IForEachItemExecutionContext<WorkflowFunc, object[]> ctx)
                                      {
-                                         WorkflowFunc func = ctx.Item;
-                                         object[] funcArgs = ctx.State;
-
-                                         result = func(funcArgs);
+                                         result = ctx.Item(ctx.State);
                                      }, args);
 
             return result;

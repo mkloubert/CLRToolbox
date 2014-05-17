@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
@@ -14,14 +15,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
     /// </summary>
     public abstract partial class ConfigRepositoryBase : TMObject, IConfigRepository
     {
-        #region Fields (2)
+        #region Fields (1)
 
         private readonly bool _IS_THREAD_SAFE;
-
-        /// <summary>
-        /// An unique object for sync operations.
-        /// </summary>
-        protected readonly object _SYNC = new object();
 
         #endregion Fields
 
@@ -30,26 +26,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigRepositoryBase" /> class.
         /// </summary>
-        /// <param name="sync">The value for <see cref="ConfigRepositoryBase._SYNC" /> field.</param>
+        /// <param name="sync">The value for <see cref="TMObject._SYNC" /> field.</param>
         /// <param name="isThreadSafe">The value for <see cref="ConfigRepositoryBase.Synchronized" /> property.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="sync" /> is <see langword="null" />.
         /// </exception>
         protected ConfigRepositoryBase(object sync, bool isThreadSafe)
+            : base(sync)
         {
             if (sync == null)
             {
                 throw new ArgumentNullException("sync");
             }
 
-            this._SYNC = sync;
             this._IS_THREAD_SAFE = isThreadSafe;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigRepositoryBase" /> class.
         /// </summary>
-        /// <param name="sync">The value for <see cref="ConfigRepositoryBase._SYNC" /> field.</param>
+        /// <param name="sync">The value for <see cref="TMObject._SYNC" /> field.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="sync" /> is <see langword="null" />.
         /// </exception>
@@ -97,9 +93,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 
         #endregion Properties
 
-        #region Methods (40)
+        #region Methods (42)
 
-        // Public Methods (21) 
+        // Public Methods (23) 
 
         /// <inheriteddoc />
         public bool Clear()
@@ -174,10 +170,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                                            repo.OnGetCategoryNames(names);
 
                                            List<string> result = new List<string>();
-                                           foreach (IEnumerable<char> name in names)
-                                           {
-                                               result.Add(StringHelper.AsString(name));
-                                           }
+                                           CollectionHelper.ForEach(names,
+                                                                    delegate(IForEachItemExecutionContext<IEnumerable<char>, List<string>> ctx)
+                                                                    {
+                                                                        ctx.State
+                                                                           .Add(StringHelper.AsString(ctx.Item));
+                                                                    }, result);
 
                                            return result;
                                        });
@@ -209,7 +207,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                                            T result;
                                            if (repo.TryGetValue<T>(n, out result, c) == false)
                                            {
-                                               throw new ArgumentOutOfRangeException("name+category");
+                                               throw new InvalidOperationException();
                                            }
 
                                            return result;
@@ -303,8 +301,30 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <inheriteddoc />
         public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, T defaultVal)
         {
-            T temp = defaultVal;
-            bool result = this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, IEnumerable<char> c, T dv)
+            return this.TryGetValue<T>(name, out value, category,
+                                       delegate(string c, string n)
+                                       {
+                                           return defaultVal;
+                                       });
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category, DefaultConfigValueProvider<object> defaultValProvider)
+        {
+            return this.TryGetValue<object>(name, out value, category,
+                                            defaultValProvider);
+        }
+
+        /// <inheriteddoc />
+        public bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, DefaultConfigValueProvider<T> defaultValProvider)
+        {
+            if (defaultValProvider == null)
+            {
+                throw new ArgumentNullException("defaultValProvider");
+            }
+
+            T temp = default(T);
+            bool result = this.InvokeRepoFunc(delegate(ConfigRepositoryBase repo, IEnumerable<char> n, IEnumerable<char> c, DefaultConfigValueProvider<T> dvp)
                                               {
                                                   repo.ThrowIfNotReadable();
 
@@ -327,11 +347,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                                                   else
                                                   {
                                                       // not found => use default
-                                                      temp = defaultVal;
+                                                      temp = dvp(configCategory, configName);
                                                   }
 
                                                   return r;
-                                              }, name, category, defaultVal);
+                                              }, name, category, defaultValProvider);
 
             value = temp;
             return result;
@@ -365,7 +385,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
                 input = null;
             }
 
-            return GlobalConverter.Current.ChangeType<T>(input);
+            return GlobalConverter.Current
+                                  .ChangeType<T>(input);
         }
 
         /// <summary>

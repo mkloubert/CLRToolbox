@@ -3,6 +3,8 @@
 // s. http://blog.marcel-kloubert.de
 
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -27,18 +29,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyValuePairConfigRepository" /> class.
         /// </summary>
-        /// <param name="sync">The value for <see cref="ConfigRepositoryBase._SYNC" /> field.</param>
+        /// <param name="sync">The value for <see cref="TMObject._SYNC" /> field.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="sync" /> is <see langword="null" />.
         /// </exception>
         public KeyValuePairConfigRepository(object sync)
             : base(sync)
         {
-            this._CONFIG_VALUES = this.CreateInitalConfigValueCollection();
-            if (this._CONFIG_VALUES == null)
-            {
-                throw new NullReferenceException();
-            }
+            this._CONFIG_VALUES = this.CreateInitalConfigValueCollection() ?? new Dictionary<string, IDictionary<string, object>>(); ;
         }
 
         /// <summary>
@@ -62,7 +60,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
         /// <returns>The inital value for <see cref="KeyValuePairConfigRepository._CONFIG_VALUES" />.</returns>
         protected virtual IDictionary<string, IDictionary<string, object>> CreateInitalConfigValueCollection()
         {
-            return new Dictionary<string, IDictionary<string, object>>();
+            // create default instance
+            return null;
         }
 
         /// <summary>
@@ -114,16 +113,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnGetCategoryNames(ICollection{IEnumerable{char}})" />
+        /// <inheriteddoc />
         protected override sealed void OnGetCategoryNames(ICollection<IEnumerable<char>> names)
         {
-            foreach (string name in this._CONFIG_VALUES.Keys)
-            {
-                names.Add(name);
-            }
+            CollectionHelper.ForEach(this._CONFIG_VALUES.Keys,
+                                     delegate(IForEachItemExecutionContext<string, ICollection<IEnumerable<char>>> ctx)
+                                     {
+                                         ctx.State
+                                            .Add(ctx.Item);
+                                     }, names);
         }
 
         /// <summary>
@@ -165,10 +163,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnSetValue{T}(string, string, T, ref bool)"/>
+        /// <inheriteddoc />
         protected override sealed void OnSetValue<T>(string category, string name, T value, ref bool valueWasSet)
         {
             this.OnSetValue<T>(category,
@@ -178,10 +173,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
                                true);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConfigRepositoryBase.OnTryGetValue{T}(string, string, ref T, ref bool)" />
+        /// <inheriteddoc />
         protected override void OnTryGetValue<T>(string category, string name, ref T foundValue, ref bool valueWasFound)
         {
             IDictionary<string, object> catValues;
@@ -204,10 +196,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration.Impl
             // dummy
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConfigRepositoryBase.PrepareCategoryAndName(IEnumerable{char}, IEnumerable{char}, out string, out string)" />
+        /// <inheriteddoc />
         protected override void PrepareCategoryAndName(IEnumerable<char> category, IEnumerable<char> name,
                                                        out string newCategory, out string newName)
         {

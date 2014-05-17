@@ -7,6 +7,19 @@ using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Configuration
 {
+    #region DELEGATE: DefaultConfigValueProvider
+
+    /// <summary>
+    /// Describes a method or function that provides a default value especially for an <see cref="IConfigRepository" /> object.
+    /// </summary>
+    /// <typeparam name="T">Type of the default value.</typeparam>
+    /// <param name="category">The name of the category.</param>
+    /// <param name="name">The name of the value.</param>
+    /// <returns>The default value.</returns>
+    public delegate T DefaultConfigValueProvider<T>(string category, string name);
+
+    #endregion
+
     /// <summary>
     /// Describes a repository that provides configuration data stored in categories as key/value pairs.
     /// </summary>
@@ -218,6 +231,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <summary>
         /// Tries to return a config value.
         /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The variable where to found value to.</param>
+        /// <param name="category">The optional category.</param>
+        /// <param name="defaultValProvider">
+        /// The logic that provides the value that is written to <paramref name="value" /> if not found.
+        /// </param>
+        /// <returns>Value was found or not.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="defaultValProvider" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        bool TryGetValue(IEnumerable<char> name, out object value, IEnumerable<char> category, DefaultConfigValueProvider<object> defaultValProvider);
+
+        /// <summary>
+        /// Tries to return a config value.
+        /// </summary>
         /// <typeparam name="T">The target type.</typeparam>
         /// <param name="name">The name.</param>
         /// <param name="value">The variable where to found value to.</param>
@@ -228,6 +257,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Configuration
         /// <returns>Value was found or not.</returns>
         /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
         bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, T defaultVal);
+
+        /// <summary>
+        /// Tries to return a config value.
+        /// </summary>
+        /// <typeparam name="T">The target type.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The variable where to found value to.</param>
+        /// <param name="category">The optional category.</param>
+        /// <param name="defaultValProvider">
+        /// The logic that provides the value that is written to <paramref name="value" /> if not found.
+        /// </param>
+        /// <returns>Value was found or not.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="defaultValProvider" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">Repository cannot be read.</exception>
+        bool TryGetValue<T>(IEnumerable<char> name, out T value, IEnumerable<char> category, DefaultConfigValueProvider<T> defaultValProvider);
 
         #endregion Operations
     }

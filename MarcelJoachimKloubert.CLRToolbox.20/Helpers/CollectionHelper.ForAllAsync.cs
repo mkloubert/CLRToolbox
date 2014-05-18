@@ -67,6 +67,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
                                           delegate(IForAllItemExecutionContext<T, object> ctx)
                                           {
                                               SimpleForAllItemExecutionContext<T> ctxClone = new SimpleForAllItemExecutionContext<T>();
+                                              ctxClone.Index = ctx.Index;
                                               ctxClone.Item = ctx.Item;
 
                                               action(ctxClone);

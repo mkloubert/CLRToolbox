@@ -67,6 +67,8 @@
     <Compile Include="Data\ValueConverterBase.Interface.cs">
       <DependentUpon>ValueConverterBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Execution\Jobs\AsyncDispatcherJobScheduler.cs" />
+    <Compile Include="Execution\Jobs\DispatcherJobScheduler.cs" />
     <Compile Include="Extensions\ClrToolboxWpfExtensionMethods.cs" />
     <Compile Include="Extensions\Dispatcher.cs" />
     <Compile Include="Extensions\Imaging.cs" />
@@ -131,6 +133,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

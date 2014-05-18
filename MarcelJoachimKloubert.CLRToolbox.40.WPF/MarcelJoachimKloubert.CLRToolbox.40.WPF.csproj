@@ -86,6 +86,12 @@
       <Link>Data\ValueConverterBase.Interface.cs</Link>
       <DependentUpon>ValueConverterBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Execution\Jobs\AsyncDispatcherJobScheduler.cs">
+      <Link>Execution\Jobs\AsyncDispatcherJobScheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Execution\Jobs\DispatcherJobScheduler.cs">
+      <Link>Execution\Jobs\DispatcherJobScheduler.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\ClrToolboxWpfExtensionMethods.cs">
       <Link>Extensions\ClrToolboxWpfExtensionMethods.cs</Link>
     </Compile>

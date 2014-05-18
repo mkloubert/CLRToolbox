@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox
@@ -30,7 +29,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected DisposableBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -39,7 +37,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected DisposableBase()
             : base()
         {
-
         }
 
         /// <summary>
@@ -54,10 +51,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #region Properties (1)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITMDisposable.IsDisposed" />
+        /// <inheriteddoc />
         public virtual bool IsDisposed
         {
             get { return this._isDisposed; }
@@ -71,16 +65,10 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         // Events (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITMDisposable.Disposed" />
+        /// <inheriteddoc />
         public event EventHandler Disposed;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ITMDisposable.Disposing" />
+        /// <inheriteddoc />
         public event EventHandler Disposing;
 
         #endregion Delegates and Events
@@ -89,15 +77,13 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         // Public Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IDisposable.Dispose()" />
+        /// <inheriteddoc />
         public void Dispose()
         {
             this.DisposeInner(true);
             GC.SuppressFinalize(this);
         }
+
         // Protected Methods (2) 
 
         /// <summary>
@@ -121,6 +107,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 throw new ObjectDisposedException(this.GetType().FullName);
             }
         }
+
         // Private Methods (1) 
 
         private void DisposeInner(bool disposing)

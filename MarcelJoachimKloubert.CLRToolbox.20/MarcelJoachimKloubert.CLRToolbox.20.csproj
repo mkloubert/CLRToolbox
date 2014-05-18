@@ -155,6 +155,9 @@
     <Compile Include="Execution\Functions\IFunction.cs" />
     <Compile Include="Execution\Functions\IFunctionExecutionContext.cs" />
     <Compile Include="Execution\Functions\IFunctionLocator.cs" />
+    <Compile Include="Execution\Jobs\AsyncJobScheduler.cs" />
+    <Compile Include="Execution\Jobs\IJob.cs" />
+    <Compile Include="Execution\Jobs\JobScheduler.cs" />
     <Compile Include="Execution\SimpleAsyncExecutionResult.cs" />
     <Compile Include="Execution\IAsyncExecutionResult.cs" />
     <Compile Include="Execution\Workflows\Impl\AggregateWorkflow.cs" />

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.IO;
 
@@ -25,7 +24,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected ErrorHandlerBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
         protected ErrorHandlerBase()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -43,10 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         // Events (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IErrorHandler.Error" />
+        /// <inheriteddoc />
         public event ErrorEventHandler Error;
 
         #endregion Delegates and Events

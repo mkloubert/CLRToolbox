@@ -70,6 +70,7 @@
     <Folder Include="Diagnostics\Tests\" />
     <Folder Include="Execution\Workflows\Impl\" />
     <Folder Include="Execution\Commands\" />
+    <Folder Include="Execution\Jobs\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Action.cs">
@@ -1344,6 +1345,15 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\Impl\DelegateCommand.cs">
       <Link>Execution\Commands\Impl\DelegateCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJob.cs">
+      <Link>Execution\Jobs\IJob.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobScheduler.cs">
+      <Link>Execution\Jobs\JobScheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\AsyncJobScheduler.cs">
+      <Link>Execution\Jobs\AsyncJobScheduler.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

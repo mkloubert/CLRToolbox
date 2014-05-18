@@ -47,16 +47,89 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
         /// </summary>
         public MainViewModel ViewModel
         {
-            get { return this.DataContext as MainViewModel; }
+            get
+            {
+                return this.Dispatcher
+                           .Invoke(() => this.DataContext as MainViewModel);
+            }
 
-            set { this.DataContext = value; }
+            set
+            {
+                this.BeginInvoke((win, winState) =>
+                   {
+                       win.DataContext = winState.Value;
+                   }, new
+                   {
+                       Value = value,
+                   });
+            }
         }
 
         #endregion Properties
 
-        #region Methods (5)
+        #region Methods (8)
 
-        // Private Methods (5) 
+        // Private Methods (8) 
+
+        private void HandleFilesContext_CurrentStepProgessUpdated(HandleFilesContext context, double newValue)
+        {
+            var vm = this.ViewModel;
+            if (vm == null)
+            {
+                return;
+            }
+
+            App.Current
+               .BeginInvoke((app, appState) =>
+               {
+                   appState.ViewModel
+                           .CurrentStepProgress = ToProgressValue(appState.Value);
+               }, new
+               {
+                   Value = newValue,
+                   ViewModel = vm,
+               });
+        }
+
+        private void HandleFilesContext_OverallProgessUpdated(HandleFilesContext context, double newValue)
+        {
+            var vm = this.ViewModel;
+            if (vm == null)
+            {
+                return;
+            }
+
+            App.Current
+               .BeginInvoke((app, appState) =>
+               {
+                   appState.ViewModel
+                           .OverallProgress = ToProgressValue(appState.Value);
+               }, new
+               {
+                   Value = newValue,
+                   ViewModel = vm,
+               });
+        }
+
+        private void HandleFilesContext_StatusTextUpdated(HandleFilesContext context, string newText)
+        {
+            var vm = this.ViewModel;
+            if (vm == null)
+            {
+                return;
+            }
+
+            App.Current
+               .BeginInvoke((app, appState) =>
+               {
+                   appState.ViewModel
+                           .DropText = appState.Text;
+               }, new
+               {
+                   Text = newText,
+                   ViewModel = vm,
+               });
+        }
 
         private void MainWindow_Info_DragEnter(object sender, DragEventArgs e)
         {
@@ -121,9 +194,8 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
                         }
                         catch
                         {
+                            return false;
                         }
-
-                        return false;
                     });
                 ctx.Files = paths.Where(fp =>
                                         {
@@ -133,10 +205,17 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
                                             }
                                             catch
                                             {
+                                                return false;
                                             }
-
-                                            return false;
                                         });
+
+                ctx.CurrentStepProgessUpdated = this.HandleFilesContext_CurrentStepProgessUpdated;
+                ctx.OverallProgessUpdated = this.HandleFilesContext_OverallProgessUpdated;
+                ctx.StatusTextUpdated = this.HandleFilesContext_StatusTextUpdated;
+
+                ctx.CurrentStepProgess = 0;
+                ctx.OverallProgess = 0;
+                ctx.StatusText = null;
 
                 vm.HandleFiles(plugIn, ctx);
             }
@@ -171,6 +250,30 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
             catch
             {
             }
+        }
+
+        private static int ToProgressValue(double input)
+        {
+            int result;
+            try
+            {
+                result = (int)input;
+            }
+            catch
+            {
+                result = 0;
+            }
+
+            if (result < 0)
+            {
+                result = 0;
+            }
+            else if (result > 100)
+            {
+                result = 100;
+            }
+
+            return result;
         }
 
         private void ViewModel_Error(object sender, ErrorEventArgs e)

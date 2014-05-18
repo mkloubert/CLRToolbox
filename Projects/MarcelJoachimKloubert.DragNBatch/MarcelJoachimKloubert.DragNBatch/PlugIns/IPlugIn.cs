@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox;
+using System.Globalization;
 
 namespace MarcelJoachimKloubert.DragNBatch.PlugIns
 {
@@ -11,7 +12,14 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
     /// </summary>
     public interface IPlugIn : ITMDisposable, IIdentifiable, IHasName, IInitializable<IPlugInContext>
     {
-        #region Methods (1)
+        #region Methods (2)
+
+        /// <summary>
+        /// Returns the drop text for a specific culture.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        /// <returns>The drop text.</returns>
+        string GetDropText(CultureInfo culture);
 
         /// <summary>
         /// Handles files.

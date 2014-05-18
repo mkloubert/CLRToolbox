@@ -4,7 +4,6 @@
 
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Composition;
-using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.ServiceLocation.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Collections.ObjectModel;
 using MarcelJoachimKloubert.DragNBatch.PlugIns;
@@ -12,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
     /// </summary>
     public sealed class MainViewModel : NotificationObjectBase
     {
-        #region Properties (5)
+        #region Properties (8)
 
         /// <summary>
         /// Gets if the application can currently handling files and directories or not.
@@ -39,6 +39,20 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
             }
         }
 
+        public int CurrentStepProgress
+        {
+            get { return this.Get<int>(); }
+
+            set { this.Set(value); }
+        }
+
+        public string DropText
+        {
+            get { return this.Get<string>(); }
+
+            set { this.Set(value); }
+        }
+
         /// <summary>
         /// Gets if a batch process is currently running or not.
         /// </summary>
@@ -46,6 +60,13 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         public bool IsRunning
         {
             get { return this.Task != null; }
+        }
+
+        public int OverallProgress
+        {
+            get { return this.Get<int>(); }
+
+            set { this.Set(value); }
         }
 
         /// <summary>
@@ -64,7 +85,35 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         {
             get { return this.Get<IPlugIn>(); }
 
-            set { this.Set(value); }
+            set
+            {
+                if (this.Set(value))
+                {
+                    CultureInfo culture = CultureInfo.CurrentUICulture;
+                    string newText = null;
+
+                    var curPlugIn = this.Get<IPlugIn>();
+                    if (curPlugIn == null)
+                    {
+                        switch (culture.ThreeLetterISOLanguageName)
+                        {
+                            case "deu":
+                                newText = "Wähle bitte ein PlugIn aus...";
+                                break;
+
+                            default:
+                                newText = "Please select a PlugIn...";
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        newText = curPlugIn.GetDropText(culture);
+                    }
+
+                    this.DropText = newText;
+                }
+            }
         }
 
         /// <summary>
@@ -170,7 +219,7 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
 
             lock (this._SYNC)
             {
-                if (this.IsRunning)
+                if (this.IsRunning == false)
                 {
                     try
                     {
@@ -202,6 +251,8 @@ namespace MarcelJoachimKloubert.DragNBatch.ViewModel
         protected override void OnConstructor()
         {
             this.PlugIns = DispatcherObservableCollection.Create<IPlugIn>();
+
+            this.SelectedPlugIn = null;
         }
 
         // Private Methods (1) 

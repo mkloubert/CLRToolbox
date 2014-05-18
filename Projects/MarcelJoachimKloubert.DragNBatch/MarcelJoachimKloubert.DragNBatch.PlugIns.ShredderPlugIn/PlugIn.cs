@@ -6,9 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
-using System.Threading;
 
-namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn
+namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ShredderPlugIn
 {
     [Export(typeof(global::MarcelJoachimKloubert.DragNBatch.PlugIns.IPlugIn))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
@@ -20,7 +19,7 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn
         /// Initializes a new instance of the <see cref="PlugIn" /> class.
         /// </summary>
         public PlugIn()
-            : base(id: new Guid("{5420CA3F-6A8D-4123-82CD-2DD1F4712248}"))
+            : base(id: new Guid("{AF6B4523-41E9-4F73-8113-EE377B84607A}"))
         {
         }
 
@@ -28,7 +27,7 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn
 
         #region Methods (3)
 
-        // Protected Methods (3) 
+        // Protected Methods (4) 
 
         /// <inheriteddoc />
         protected override void OnDispose(bool disposing)
@@ -37,34 +36,32 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns.ConverterPlugIn
         }
 
         /// <inheriteddoc />
+        protected override IEnumerable<char> OnGetDropText(CultureInfo culture)
+        {
+            switch (culture.ThreeLetterISOLanguageName)
+            {
+                case "deu":
+                    return "Ziehe Dateien und Verzeichnisse hierher, um sie zu sauber zu löschen...";
+            }
+
+            return "Drop files and folder here if you want to shredder them...";
+        }
+
+        /// <inheriteddoc />
         protected override IEnumerable<char> OnGetDisplayName(CultureInfo culture)
         {
             switch (culture.ThreeLetterISOLanguageName)
             {
                 case "deu":
-                    return "Konverter Plug-In";
+                    return "Shredder Plug-In";
             }
 
-            return "Converter PlugIn";
+            return "Shredder PlugIn";
         }
 
         /// <inheriteddoc />
         protected override void OnHandleFiles(IHandleFilesContext context)
         {
-            for (var i = 0; i < 2; i++)
-            {
-                for (var ii = 0; ii < 10; ii++)
-                {
-                    context.StatusText = string.Format("{0} / 10; {1} / 2",
-                                                       ii + 1,
-                                                       i + 1);
-                    Thread.Sleep(1000);
-
-                    context.SetCurrentStepProgess(ii + 1, 10);
-                }
-
-                context.SetOverallProgess(i + 1, 2);
-            }
         }
 
         #endregion Methods

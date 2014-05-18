@@ -76,9 +76,9 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
 
         #endregion Delegates and Events
 
-        #region Methods (11)
+        #region Methods (13)
 
-        // Public Methods (8) 
+        // Public Methods (9) 
 
         /// <inheriteddoc />
         public bool Equals(IIdentifiable other)
@@ -121,11 +121,23 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
         }
 
         /// <inheriteddoc />
+        public string GetDropText(CultureInfo culture)
+        {
+            if (culture == null)
+            {
+                throw new ArgumentNullException("culture");
+            }
+
+            return this.OnGetDropText(culture)
+                       .AsString();
+        }
+
+        /// <inheriteddoc />
         public override int GetHashCode()
         {
             return this.Id.GetHashCode();
         }
-        
+
         /// <inheriteddoc />
         public void HandleFiles(IHandleFilesContext context)
         {
@@ -162,14 +174,30 @@ namespace MarcelJoachimKloubert.DragNBatch.PlugIns
             }
         }
 
-        // Protected Methods (3) 
+        // Protected Methods (4) 
 
         /// <inheriteddoc />
         protected virtual IEnumerable<char> OnGetDisplayName(CultureInfo culture)
         {
             return this.Name;
         }
-        
+
+        /// <summary>
+        /// The logic for the <see cref="PlugInBase.GetDropText(CultureInfo)" /> method.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        /// <returns>The drop text.</returns>
+        protected virtual IEnumerable<char> OnGetDropText(CultureInfo culture)
+        {
+            switch (culture.ThreeLetterISOLanguageName)
+            {
+                case "deu":
+                    return "Dateien und Verzeichnisse in dieses Feld ziehen...";
+            }
+
+            return "Drop your files here";
+        }
+
         /// <summary>
         /// The logic for the <see cref="PlugInBase.HandleFiles(IHandleFilesContext)" /> method.
         /// </summary>

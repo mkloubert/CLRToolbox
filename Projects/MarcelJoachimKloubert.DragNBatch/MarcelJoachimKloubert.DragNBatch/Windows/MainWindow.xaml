@@ -22,32 +22,42 @@
         </ContextMenu>
     </Window.ContextMenu>
     
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Border BorderThickness="1"
+            BorderBrush="Black">
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Border x:Name="Border_Info"
-                Grid.Row="0"
-                HorizontalAlignment="Stretch"
-                Padding="8"
-                VerticalAlignment="Stretch">
+            <Border x:Name="Border_Info"
+                    Grid.Row="0"
+                    HorizontalAlignment="Stretch"
+                    Padding="8"
+                    VerticalAlignment="Stretch">
 
-            <TextBlock HorizontalAlignment="Center"
-                       TextAlignment="Center"
-                       VerticalAlignment="Center">Drop your files here...</TextBlock>
-        </Border>
+                <TextBlock HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           Text="{Binding Path=DropText, Mode=OneWay}"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center" />
+            </Border>
 
-        <ProgressBar Grid.Row="1"
-                     Height="16px"
-                     Visibility="{Binding Path=IsRunning, Mode=OneWay,
-                                          Converter={StaticResource tmBooleanToVisibilityConverter}}" />
+            <ProgressBar Grid.Row="1"
+                         Height="16px"
+                         Minimum="0" Maximum="100"
+                         Value="{Binding Path=CurrentStepProgress, Mode=OneWay}"
+                         Visibility="{Binding Path=IsRunning, Mode=OneWay,
+                                              Converter={StaticResource tmBooleanToVisibilityConverter}}" />
 
-        <ProgressBar Grid.Row="2"
-                     Height="16px"
-                     Visibility="{Binding Path=IsRunning, Mode=OneWay,
-                                          Converter={StaticResource tmBooleanToVisibilityConverter}}" />
-    </Grid>
+            <ProgressBar Grid.Row="2"
+                         Height="16px"
+                         Minimum="0" Maximum="100"
+                         Value="{Binding Path=OverallProgress, Mode=OneWay}"
+                         Visibility="{Binding Path=IsRunning, Mode=OneWay,
+                                              Converter={StaticResource tmBooleanToVisibilityConverter}}" />
+        </Grid>
+    </Border>
 </mjkTBCtrls:BorderlessMoveableWindow>

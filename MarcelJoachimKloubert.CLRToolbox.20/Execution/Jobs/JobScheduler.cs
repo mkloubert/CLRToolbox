@@ -156,9 +156,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// Handles a job item.
         /// </summary>
         /// <param name="context">The underlying item context.</param>
-        protected virtual void HandleJobItem(IForAllItemExecutionContext<IJob> context)
+        protected virtual void HandleJobItem(IForAllItemExecutionContext<IJob, DateTimeOffset> ctx)
         {
-            //TODO
+            IJob job = ctx.Item;
+            DateTimeOffset time = ctx.State;
         }
 
         /// <summary>
@@ -186,7 +187,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         protected virtual void HandleJobs(DateTimeOffset time)
         {
             CollectionHelper.ForAll(this.GetJobsToExecute(time),
-                                    this.HandleJobItem);
+                                    this.HandleJobItem,
+                                    time);
         }
 
         /// <inheriteddoc />

@@ -214,7 +214,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
         protected override void HandleJobs(DateTimeOffset time)
         {
             CollectionHelper.ForAllAsync(this.GetJobsToExecute(time),
-                                         this.HandleJobItem);
+                                         this.HandleJobItem,
+                                         time);
         }
 
         #endregion Methods

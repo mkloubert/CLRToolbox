@@ -40,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="DisposableBase" /> class.
+        /// Finalizes the current instance of the <see cref="DisposableBase" /> class.
         /// </summary>
         ~DisposableBase()
         {

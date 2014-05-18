@@ -12,7 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
     /// </summary>
     public interface IJobExecutionContext : IIdentifiable
     {
-        #region Methods (3)
+        #region Properties (3)
 
         /// <summary>
         /// Gets the underlying job.
@@ -20,15 +20,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         IJob Job { get; }
 
         /// <summary>
-        /// Gets the dictionary that stores the result parameters / values.
+        /// Gets the dictionary that stores the parameters / values for the result.
         /// </summary>
-        IDictionary<string, object> Result { get; }
+        IDictionary<string, object> ResultVars { get; }
 
         /// <summary>
-        /// Gets the execuction time.
+        /// Gets the execution / start time.
         /// </summary>
         DateTimeOffset Time { get; }
 
-        #endregion Methods
+        #endregion Properties
     }
 }

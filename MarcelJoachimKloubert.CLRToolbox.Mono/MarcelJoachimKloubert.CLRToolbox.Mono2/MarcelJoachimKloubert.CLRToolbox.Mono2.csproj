@@ -1370,5 +1370,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobScheduler.JobExecutionResult.cs">
       <Link>Execution\Jobs\JobScheduler.JobExecutionResult.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobScheduler.cs">
+      <Link>Execution\Jobs\IJobScheduler.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

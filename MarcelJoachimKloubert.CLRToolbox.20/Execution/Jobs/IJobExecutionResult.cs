@@ -30,14 +30,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         bool HasFailed { get; }
 
         /// <summary>
-        /// Gets the dictionary that stores the result parameters / values.
-        /// </summary>
-        IReadOnlyDictionary<string, object> Result { get; }
-
-        /// <summary>
         /// Gets the time execution has been completed.
         /// </summary>
         DateTimeOffset Time { get; }
+
+        /// <summary>
+        /// Gets the dictionary that stores the result parameters / values.
+        /// </summary>
+        /// <remarks>
+        /// These are normally the data from an instance of an <see cref="IJobExecutionContext.ResultVars" /> property.
+        /// </remarks>
+        IReadOnlyDictionary<string, object> Vars { get; }
 
         #endregion Properties
     }

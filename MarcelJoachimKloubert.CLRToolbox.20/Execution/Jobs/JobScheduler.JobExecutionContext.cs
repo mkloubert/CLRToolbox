@@ -44,7 +44,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
             
             /// <inheriteddoc />
-            public IDictionary<string, object> Result
+            public IDictionary<string, object> ResultVars
             {
                 get { return this._result; }
 

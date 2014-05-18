@@ -4,6 +4,7 @@
 
 using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
@@ -15,24 +16,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
     /// <summary>
     /// A class for handling scheduled jobs.
     /// </summary>
-    public partial class JobScheduler : DisposableBase, IRunnable, IInitializable
+    public partial class JobScheduler : NotificationObjectBase, IJobScheduler
     {
-        #region Fields (5)
-
-        private bool _isInitialized;
-        private bool _isRunning;
-
+        #region Fields (2)
+        
         /// <summary>
         /// Stores the function / method that provides available jobs.
         /// </summary>
         protected readonly JobProvider _PROVIDER;
 
-        private DateTimeOffset? _startTime;
         private Timer _timer;
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JobScheduler" /> class.
@@ -65,9 +62,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         {
         }
 
+        /// <summary>
+        /// Finalizes the current instance of the <see cref="JobScheduler" /> class.
+        /// </summary>
+        ~JobScheduler()
+        {
+            this.DisposeInner(false);
+        }
+
         #endregion Constructors
 
-        #region Events and delegates (5)
+        #region Events and delegates (7)
 
         /// <summary>
         /// Describes a function that provides available jobs.
@@ -75,6 +80,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// <param name="scheduler">The underlying scheduler.</param>
         /// <returns>The list of available jobs.</returns>
         public delegate IEnumerable<IJob> JobProvider(JobScheduler scheduler);
+        
+        /// <inheriteddoc />
+        public event EventHandler Disposed;
+
+        /// <inheriteddoc />
+        public event EventHandler Disposing;
 
         /// <summary>
         /// Is invoked when a job has been executed.
@@ -96,9 +107,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
         #endregion Methods
 
-        #region Methods (16)
+        #region Methods (18)
 
-        // Public Methods (4) 
+        // Public Methods (5) 
+
+        /// <inheriteddoc />
+        public void Dispose()
+        {
+            this.DisposeInner(true);
+            GC.SuppressFinalize(this);
+        }
 
         /// <inheriteddoc />
         public void Initialize()
@@ -169,7 +187,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
         }
 
-        // Protected Methods (9) 
+        // Protected Methods (10) 
 
         /// <summary>
         /// Disposes the underlying timer.
@@ -195,7 +213,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             try
             {
                 execCtx.Job = ctx.Item;
-                execCtx.Result = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, true));
+                execCtx.ResultVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, true));
                 execCtx.Time = ctx.State;
 
                 execCtx.Job
@@ -210,7 +228,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                 AggregateException aggEx = ex as AggregateException;
                 if (aggEx != null)
                 {
-                    occuredErrors.AddRange(aggEx.InnerExceptions);
+                    occuredErrors.AddRange(CollectionHelper.OfType<Exception>(aggEx.InnerExceptions));
                 }
                 else
                 {
@@ -221,7 +239,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             JobExecutionResult result = new JobExecutionResult();
             result.Context = execCtx;
             result.Errors = occuredErrors.ToArray();
-            result.Result = new TMReadOnlyDictionary<string, object>(execCtx.Result);
+            result.Vars = new TMReadOnlyDictionary<string, object>(execCtx.ResultVars);
             result.Time = completedAt;
 
             this.RaiseEventHandler(this.Executed,
@@ -258,8 +276,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                                     time);
         }
 
-        /// <inheriteddoc />
-        protected override void OnDispose(bool disposing)
+        /// <summary>
+        /// The logic for the <see cref="JobScheduler.Dispose()" /> method
+        /// and the finalizer.
+        /// </summary>
+        /// <param name="disposing">
+        /// Is called from <see cref="JobScheduler.Dispose()" /> method (<see langword="true" />)
+        /// or the finalizer (<see langword="false" />).
+        /// </param>
+        protected virtual void OnDispose(bool disposing)
         {
             if (disposing)
             {
@@ -296,6 +321,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         }
 
         /// <summary>
+        /// Throws an exception if that object has already been disposed.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">That object has already been disposed.</exception>
+        protected void ThrowIfDisposed()
+        {
+            if (this.IsDisposed)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName);
+            }
+        }
+
+        /// <summary>
         /// Throws an exception if that object has not been initiaized yet.
         /// </summary>
         /// <exception cref="InvalidOperationException">
@@ -309,7 +346,34 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
         }
 
-        // Private Methods (3) 
+        // Private Methods (4) 
+
+        private void DisposeInner(bool disposing)
+        {
+            lock (this._SYNC)
+            {
+                lock (this._SYNC)
+                {
+                    if (disposing && this.IsDisposed)
+                    {
+                        return;
+                    }
+
+                    if (disposing)
+                    {
+                        this.RaiseEventHandler(this.Disposing);
+                    }
+
+                    this.OnDispose(disposing);
+
+                    if (disposing)
+                    {
+                        this.RaiseEventHandler(this.Disposed);
+                        this.IsDisposed = true;
+                    }
+                }
+            }
+        }
 
         private void OnStart(bool isRestarting)
         {
@@ -378,7 +442,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
         #endregion Methods
 
-        #region Properties (6)
+        #region Properties (7)
 
         /// <inheriteddoc />
         public virtual bool CanRestart
@@ -397,21 +461,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         {
             get { return true; }
         }
+        
+        /// <inheriteddoc />
+        public bool IsDisposed
+        {
+            get { return this.Get<bool>("IsDisposed"); }
+
+            private set { this.Set(value, "IsDisposed"); }
+        }
 
         /// <inheriteddoc />
         public bool IsInitialized
         {
-            get { return this._isInitialized; }
+            get { return this.Get<bool>("IsInitialized"); }
 
-            private set { this._isInitialized = value; }
+            private set { this.Set(value, "IsInitialized"); }
         }
 
         /// <inheriteddoc />
         public bool IsRunning
         {
-            get { return this._isRunning; }
+            get { return this.Get<bool>("IsRunning"); }
 
-            private set { this._isRunning = value; }
+            private set { this.Set(value, "IsRunning"); }
         }
         
         /// <summary>
@@ -419,9 +491,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// </summary>
         public DateTimeOffset? StartTime
         {
-            get { return this._startTime; }
+            get { return this.Get<DateTimeOffset?>("StartTime"); }
 
-            private set { this._startTime = value; }
+            private set { this.Set(value, "StartTime"); }
         }
 
         #endregion Properties

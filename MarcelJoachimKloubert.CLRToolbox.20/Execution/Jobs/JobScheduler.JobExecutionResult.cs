@@ -21,8 +21,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
             private JobExecutionContext _context;
             private IList<Exception> _errors;
-            private IReadOnlyDictionary<string, object> _result;
             private DateTimeOffset _time;
+            private IReadOnlyDictionary<string, object> _vars;
 
             #endregion Fields
 
@@ -60,14 +60,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
 
             /// <inheriteddoc />
-            public IReadOnlyDictionary<string, object> Result
-            {
-                get { return this._result; }
-
-                set { this._result = value; }
-            }
-            
-            /// <inheriteddoc />
             public DateTimeOffset Time
             {
                 get { return this._time; }
@@ -75,6 +67,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                 set { this._time = value; }
             }
 
+            /// <inheriteddoc />
+            public IReadOnlyDictionary<string, object> Vars
+            {
+                get { return this._vars; }
+
+                set { this._vars = value; }
+            }
+            
             IJobExecutionContext IJobExecutionResult.Context
             {
                 get { return this.Context; }

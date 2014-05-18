@@ -1355,5 +1355,20 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\AsyncJobScheduler.cs">
       <Link>Execution\Jobs\AsyncJobScheduler.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobExecutionContext.cs">
+      <Link>Execution\Jobs\IJobExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobExecutionResult.cs">
+      <Link>Execution\Jobs\IJobExecutionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobExecutionResultEventArgs.cs">
+      <Link>Execution\Jobs\JobExecutionResultEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobScheduler.JobExecutionContext.cs">
+      <Link>Execution\Jobs\JobScheduler.JobExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobScheduler.JobExecutionResult.cs">
+      <Link>Execution\Jobs\JobScheduler.JobExecutionResult.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -51,6 +51,12 @@
       <Link>Controls\BorderlessMoveableForm.cs</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Execution\Jobs\AsyncWinFormsJobScheduler.cs">
+      <Link>Execution\Jobs\AsyncWinFormsJobScheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Execution\Jobs\WinFormsJobScheduler.cs">
+      <Link>Execution\Jobs\WinFormsJobScheduler.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\Helpers\WinFormsHelper.cs">
       <Link>Helpers\WinFormsHelper.cs</Link>
     </Compile>

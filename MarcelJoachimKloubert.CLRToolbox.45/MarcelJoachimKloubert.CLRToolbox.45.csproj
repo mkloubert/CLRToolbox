@@ -407,8 +407,25 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJob.cs">
       <Link>Execution\Jobs\IJob.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobExecutionContext.cs">
+      <Link>Execution\Jobs\IJobExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobExecutionResult.cs">
+      <Link>Execution\Jobs\IJobExecutionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobExecutionResultEventArgs.cs">
+      <Link>Execution\Jobs\JobExecutionResultEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\execution\jobs\JobScheduler.cs">
       <Link>Execution\Jobs\JobScheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobScheduler.JobExecutionContext.cs">
+      <Link>Execution\Jobs\JobScheduler.JobExecutionContext.cs</Link>
+      <DependentUpon>JobScheduler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobScheduler.JobExecutionResult.cs">
+      <Link>Execution\Jobs\JobScheduler.JobExecutionResult.cs</Link>
+      <DependentUpon>JobScheduler.cs</DependentUpon>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
       <Link>Execution\SimpleAsyncExecutionResult.cs</Link>

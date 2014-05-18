@@ -21,7 +21,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
         /// <param name="provider">The job provider.</param>
         /// <param name="syncRoot">The unique object for sync operations.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="provider" /> and/or <paramref name="syncRoot" /> is <see langword="null" />.
+        /// <paramref name="provider" /> and/or <paramref name="syncRoot" /> are <see langword="null" />.
         /// </exception>
         public AsyncDispatcherJobScheduler(JobProvider provider, object syncRoot)
             : base(provider, syncRoot)

@@ -157,7 +157,16 @@
     <Compile Include="Execution\Functions\IFunctionLocator.cs" />
     <Compile Include="Execution\Jobs\AsyncJobScheduler.cs" />
     <Compile Include="Execution\Jobs\IJob.cs" />
+    <Compile Include="Execution\Jobs\IJobExecutionContext.cs" />
+    <Compile Include="Execution\Jobs\IJobExecutionResult.cs" />
+    <Compile Include="Execution\Jobs\JobExecutionResultEventArgs.cs" />
     <Compile Include="Execution\Jobs\JobScheduler.cs" />
+    <Compile Include="Execution\Jobs\JobScheduler.JobExecutionContext.cs">
+      <DependentUpon>JobScheduler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Execution\Jobs\JobScheduler.JobExecutionResult.cs">
+      <DependentUpon>JobScheduler.cs</DependentUpon>
+    </Compile>
     <Compile Include="Execution\SimpleAsyncExecutionResult.cs" />
     <Compile Include="Execution\IAsyncExecutionResult.cs" />
     <Compile Include="Execution\Workflows\Impl\AggregateWorkflow.cs" />

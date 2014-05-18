@@ -22,6 +22,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// </returns>
         bool CanExecute(DateTimeOffset time);
 
+        /// <summary>
+        /// Executes that job.
+        /// </summary>
+        /// <param name="ctx">The underlying context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="ctx" /> is <see langword="null" />.
+        /// </exception>
+        void Execute(IJobExecutionContext ctx);
+
         #endregion Methods
     }
 }

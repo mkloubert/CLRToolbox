@@ -48,6 +48,8 @@
     <Compile Include="Controls\BorderlessMoveableForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Execution\Jobs\AsyncWinFormsJobScheduler.cs" />
+    <Compile Include="Execution\Jobs\WinFormsJobScheduler.cs" />
     <Compile Include="Helpers\WinFormsHelper.InvokeSafe.cs">
       <DependentUpon>WinFormsHelper.cs</DependentUpon>
     </Compile>

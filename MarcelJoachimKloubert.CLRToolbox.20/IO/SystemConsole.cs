@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.IO;
 
@@ -25,7 +24,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         public SystemConsole(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         public SystemConsole()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -43,28 +40,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         // Protected Methods (3) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConsoleBase.GetNewLineForOutput()" />
+        /// <inheriteddoc />
         protected override string GetNewLineForOutput()
         {
             return global::System.Console.Out.NewLine;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConsoleBase.OnReadLine(TextWriter)" />
+        /// <inheriteddoc />
         protected override void OnReadLine(TextWriter line)
         {
             line.Write(global::System.Console.ReadLine());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="ConsoleBase.OnWrite(string)" />
+        /// <inheriteddoc />
         protected override void OnWrite(string text)
         {
             global::System.Console.Write(text);

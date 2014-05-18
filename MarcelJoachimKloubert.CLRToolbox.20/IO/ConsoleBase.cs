@@ -2,12 +2,11 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.IO
 {
@@ -28,7 +27,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         protected ConsoleBase(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -37,7 +35,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         protected ConsoleBase()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -108,6 +105,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
                                                           CollectionHelper.AsArray(this.ToConsoleArguments(args))),
                                             this.GetNewLineForOutput()));
         }
+
         // Protected Methods (5) 
 
         /// <summary>
@@ -144,10 +142,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             }
 
             List<object> result = new List<object>();
-            foreach (object a in args)
-            {
-                result.Add(this.ToConsoleString(a));
-            }
+            CollectionHelper.AddRange(result,
+                                      CollectionHelper.Select(CollectionHelper.Cast<object>(args), 
+                                                              delegate(object a)
+                                                              {
+                                                                  return (object)this.ToConsoleString(a);
+                                                              }));
 
             return result.ToArray();
         }

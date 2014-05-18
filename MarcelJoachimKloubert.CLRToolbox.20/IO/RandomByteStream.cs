@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.Security.Cryptography;
 
@@ -11,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// <summary>
     /// A stream that returns random bytes when reading.
     /// </summary>
-    public abstract class RandomByteStream : ReadOnlyStreamBase
+    public sealed class RandomByteStream : ReadOnlyStreamBase
     {
         #region Fields (1)
 
@@ -36,9 +35,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             }
 
             this._RANDOM_BYTE_FILLER = delegate(byte[] buffer)
-            {
-                rng.GetBytes(buffer);
-            };
+                {
+                    rng.GetBytes(buffer);
+                };
         }
 
         /// <summary>
@@ -56,9 +55,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             }
 
             this._RANDOM_BYTE_FILLER = delegate(byte[] buffer)
-            {
-                r.NextBytes(buffer);
-            };
+                {
+                    r.NextBytes(buffer);
+                };
         }
 
         /// <summary>
@@ -68,7 +67,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         public RandomByteStream()
             : this(new RNGCryptoServiceProvider())
         {
-
         }
 
         #endregion Constructors

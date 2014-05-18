@@ -69,6 +69,7 @@
     <Folder Include="Execution\Workflows\" />
     <Folder Include="Diagnostics\Tests\" />
     <Folder Include="Execution\Workflows\Impl\" />
+    <Folder Include="Execution\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Action.cs">
@@ -329,14 +330,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DelegateLogger.cs">
       <Link>Diagnostics\Impl\DelegateLogger.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\CommandBase.cs">
-      <Link>Execution\CommandBase.cs</Link>
-    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ExecutionErrorEventArgs.cs">
       <Link>Execution\ExecutionErrorEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ICommand.cs">
-      <Link>Execution\ICommand.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\FunctionBase.Classes.cs">
       <Link>Execution\Functions\FunctionBase.Classes.cs</Link>
@@ -355,9 +350,6 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Functions\IFunctionLocator.cs">
       <Link>Execution\Functions\IFunctionLocator.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Impl\DelegateCommand.cs">
-      <Link>Execution\Impl\DelegateCommand.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Factories\EqualityComparerFactory.cs">
       <Link>Factories\EqualityComparerFactory.cs</Link>
@@ -1343,6 +1335,15 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\EventLogger.cs">
       <Link>Diagnostics\Impl\EventLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\CommandBase.cs">
+      <Link>Execution\Commands\CommandBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\ICommand.cs">
+      <Link>Execution\Commands\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\Impl\DelegateCommand.cs">
+      <Link>Execution\Commands\Impl\DelegateCommand.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

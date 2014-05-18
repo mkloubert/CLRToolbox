@@ -2,7 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using MarcelJoachimKloubert.CLRToolbox.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Commands;
 using MarcelJoachimKloubert.CLRToolbox.Windows.Input;
 using System;
 using System.Globalization;
@@ -11,11 +11,11 @@ using System.Windows.Input;
 namespace MarcelJoachimKloubert.CLRToolbox.Windows.Data
 {
     /// <summary>
-    /// Basic value converter that converts <see cref="global::MarcelJoachimKloubert.CLRToolbox.Execution.ICommand{TParam}" /> to
+    /// Basic value converter that converts <see cref="global::MarcelJoachimKloubert.CLRToolbox.Execution.Commands.ICommand{TParam}" /> to
     /// <see cref="global::System.Windows.Input.ICommand" /> and back.
     /// </summary>
     /// <typeparam name="TParam">Type of the command parameters.</typeparam>
-    public abstract class CommandValueConverterBase<TParam> : ValueConverterBase<global::MarcelJoachimKloubert.CLRToolbox.Execution.ICommand<TParam>, global::System.Windows.Input.ICommand, TParam>
+    public abstract class CommandValueConverterBase<TParam> : ValueConverterBase<global::MarcelJoachimKloubert.CLRToolbox.Execution.Commands.ICommand<TParam>, global::System.Windows.Input.ICommand, TParam>
     {
         #region Constructors (2)
 

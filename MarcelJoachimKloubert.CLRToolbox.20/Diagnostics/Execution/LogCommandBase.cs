@@ -2,10 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-using System.Collections.Generic;
-using MarcelJoachimKloubert.CLRToolbox.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Commands;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 {
@@ -21,7 +20,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
         /// </summary>
         protected LogCommandBase()
         {
-
         }
 
         #endregion Constructors
@@ -53,6 +51,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
         /// </summary>
         /// <param name="context">The execution context.</param>
         protected abstract void OnExecute(ILogCommandExecutionContext context);
+
         // Private Methods (1) 
 
         private LogCommandExecutionContext CreateBasicExecutionContext(ILogMessage msg)

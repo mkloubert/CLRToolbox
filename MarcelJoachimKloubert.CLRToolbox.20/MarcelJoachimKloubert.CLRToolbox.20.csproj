@@ -444,10 +444,10 @@
       <DependentUpon>LoggerFacadeBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\LoggerFacadeWrapperBase.cs" />
-    <Compile Include="Execution\CommandBase.cs" />
+    <Compile Include="Execution\Commands\CommandBase.cs" />
     <Compile Include="Execution\ExecutionErrorEventArgs.cs" />
-    <Compile Include="Execution\ICommand.cs" />
-    <Compile Include="Execution\Impl\DelegateCommand.cs" />
+    <Compile Include="Execution\Commands\ICommand.cs" />
+    <Compile Include="Execution\Commands\Impl\DelegateCommand.cs" />
     <Compile Include="Helpers\CollectionHelper.AddRange.cs">
       <DependentUpon>CollectionHelper.cs</DependentUpon>
     </Compile>

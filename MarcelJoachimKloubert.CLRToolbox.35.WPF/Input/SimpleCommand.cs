@@ -2,9 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Data;
-using MarcelJoachimKloubert.CLRToolbox.Execution.Impl;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Commands.Impl;
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
@@ -32,7 +31,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
             : base(executeAction,
                    canExecutePredicate)
         {
-
         }
 
         /// <summary>
@@ -45,21 +43,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
         public SimpleCommand(ExecuteHandler executeAction)
             : base(executeAction)
         {
-
         }
 
-        #endregion Constructors
+        #endregion
+        
+        #region Methods (2)
+
+        // Private Methods (2) 
 
         bool global::System.Windows.Input.ICommand.CanExecute(object parameter)
         {
             return this.CanExecute(GlobalConverter.Current
                                                   .ChangeType<TParam>(parameter));
         }
+
         void global::System.Windows.Input.ICommand.Execute(object parameter)
         {
             this.Execute(GlobalConverter.Current
                                         .ChangeType<TParam>(parameter));
         }
+
+        #endregion Methods
     }
 
     #endregion
@@ -86,7 +90,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
             : base(executeAction,
                    canExecutePredicate)
         {
-
         }
 
         /// <summary>
@@ -102,7 +105,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
             : base(executeAction,
                    canExecutePredicate)
         {
-
         }
 
         /// <summary>
@@ -115,7 +117,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
         public SimpleCommand(ExecuteHandler executeAction)
             : base(executeAction)
         {
-
         }
 
         /// <summary>
@@ -128,7 +129,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Input
         public SimpleCommand(ExecuteHandlerNoParameter executeAction)
             : base(executeAction)
         {
-
         }
 
         #endregion Constructors

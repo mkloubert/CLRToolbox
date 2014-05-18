@@ -4,7 +4,7 @@
 
 using System;
 
-namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
+namespace MarcelJoachimKloubert.CLRToolbox.Execution.Commands.Impl
 {
     #region CLASS: DelegateCommand<TParam>
 
@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Impl
         private readonly CanExecutePredicate _CAN_EXECUTE_PREDICATE;
         private readonly ExecuteHandler _EXECUTE_ACTION;
 
-        #endregion
+        #endregion CLASS: DelegateCommand<TParam>
 
         #region Constructors (2)
 

@@ -2,7 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
-using MarcelJoachimKloubert.CLRToolbox.Execution;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Commands;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Execution
 {

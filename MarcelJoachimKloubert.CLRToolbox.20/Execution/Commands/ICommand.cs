@@ -4,7 +4,7 @@
 
 using System;
 
-namespace MarcelJoachimKloubert.CLRToolbox.Execution
+namespace MarcelJoachimKloubert.CLRToolbox.Execution.Commands
 {
     /// <summary>
     /// Describes a command.

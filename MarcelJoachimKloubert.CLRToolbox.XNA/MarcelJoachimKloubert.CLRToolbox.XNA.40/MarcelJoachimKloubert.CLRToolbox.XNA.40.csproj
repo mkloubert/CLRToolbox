@@ -344,8 +344,14 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ErrorHandlerBase.cs">
       <Link>ErrorHandlerBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\CommandBase.cs">
-      <Link>Execution\CommandBase.cs</Link>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\CommandBase.cs">
+      <Link>Execution\Commands\CommandBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\ICommand.cs">
+      <Link>Execution\Commands\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Commands\Impl\DelegateCommand.cs">
+      <Link>Execution\Commands\Impl\DelegateCommand.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ExecutionErrorEventArgs.cs">
       <Link>Execution\ExecutionErrorEventArgs.cs</Link>
@@ -371,12 +377,6 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\IAsyncExecutionResult.cs">
       <Link>Execution\IAsyncExecutionResult.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\ICommand.cs">
-      <Link>Execution\ICommand.cs</Link>
-    </Compile>
-    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Impl\DelegateCommand.cs">
-      <Link>Execution\Impl\DelegateCommand.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\SimpleAsyncExecutionResult.cs">
       <Link>Execution\SimpleAsyncExecutionResult.cs</Link>

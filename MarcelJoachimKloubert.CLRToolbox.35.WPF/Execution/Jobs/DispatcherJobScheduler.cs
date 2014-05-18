@@ -112,10 +112,27 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
         /// <returns>The dispatcher to use.</returns>
         public delegate Dispatcher DispatcherProvider(DispatcherJobScheduler scheduler);
 
-        #endregion Methods
+        #endregion Events and delegates
+
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the underlying dispatcher.
+        /// </summary>
+        public Dispatcher Dispatcher
+        {
+            get
+            {
+                var t = this._timer;
+
+                return t != null ? t.Dispatcher : null;
+            }
+        }
+
+        #endregion Properties
 
         #region Methods (12)
-        
+
         // Public Methods (6) 
         
         /// <summary>

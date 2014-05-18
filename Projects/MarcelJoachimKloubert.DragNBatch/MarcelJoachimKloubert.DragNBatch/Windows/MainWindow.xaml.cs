@@ -47,15 +47,11 @@ namespace MarcelJoachimKloubert.DragNBatch.Windows
         /// </summary>
         public MainViewModel ViewModel
         {
-            get
-            {
-                return this.Dispatcher
-                           .Invoke(() => this.DataContext as MainViewModel);
-            }
+            get { return this.Invoke((win) => win.DataContext as MainViewModel); }
 
             set
             {
-                this.BeginInvoke((win, winState) =>
+                this.Invoke((win, winState) =>
                    {
                        win.DataContext = winState.Value;
                    }, new

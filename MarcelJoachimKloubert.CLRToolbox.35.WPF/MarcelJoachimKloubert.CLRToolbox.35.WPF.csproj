@@ -71,6 +71,9 @@
     <Compile Include="Execution\Jobs\DispatcherJobScheduler.cs" />
     <Compile Include="Extensions\ClrToolboxWpfExtensionMethods.cs" />
     <Compile Include="Extensions\Dispatcher.cs" />
+    <Compile Include="Extensions\Dispatcher.Invoke.cs">
+      <DependentUpon>Dispatcher.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Imaging.cs" />
     <Compile Include="Extensions\Imaging.SaveAsBmp.cs">
       <DependentUpon>Imaging.cs</DependentUpon>

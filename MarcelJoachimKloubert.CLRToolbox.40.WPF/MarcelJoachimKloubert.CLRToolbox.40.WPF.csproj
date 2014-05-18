@@ -102,6 +102,10 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Dispatcher.cs">
       <Link>Extensions\Dispatcher.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Dispatcher.Invoke.cs">
+      <Link>Extensions\Dispatcher.Invoke.cs</Link>
+      <DependentUpon>Dispatcher.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\Extensions\Imaging.cs">
       <Link>Extensions\Imaging.cs</Link>
     </Compile>

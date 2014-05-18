@@ -143,10 +143,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
             List<object> result = new List<object>();
             CollectionHelper.AddRange(result,
-                                      CollectionHelper.Select(CollectionHelper.Cast<object>(args), 
+                                      CollectionHelper.Select(CollectionHelper.Cast<object>(args),
                                                               delegate(object a)
                                                               {
-                                                                  return (object)this.ToConsoleString(a);
+                                                                  return (object)StringHelper.AsString(this.ToConsoleString(a));
                                                               }));
 
             return result.ToArray();

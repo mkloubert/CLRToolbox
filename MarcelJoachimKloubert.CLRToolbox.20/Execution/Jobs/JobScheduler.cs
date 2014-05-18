@@ -19,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
     public partial class JobScheduler : NotificationObjectBase, IJobScheduler
     {
         #region Fields (2)
-        
+
         /// <summary>
         /// Stores the function / method that provides available jobs.
         /// </summary>
@@ -72,24 +72,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
         #endregion Constructors
 
-        #region Events and delegates (7)
+        #region Events and delegates (6)
 
-        /// <summary>
-        /// Describes a function that provides available jobs.
-        /// </summary>
-        /// <param name="scheduler">The underlying scheduler.</param>
-        /// <returns>The list of available jobs.</returns>
-        public delegate IEnumerable<IJob> JobProvider(JobScheduler scheduler);
-        
         /// <inheriteddoc />
         public event EventHandler Disposed;
 
         /// <inheriteddoc />
         public event EventHandler Disposing;
 
-        /// <summary>
-        /// Is invoked when a job has been executed.
-        /// </summary>
+        /// <inheriteddoc />
         public event EventHandler<JobExecutionResultEventArgs> Executed;
 
         /// <inheriteddoc />
@@ -99,13 +90,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// Is invoked when that scheduler has been started.
         /// </summary>
         public event EventHandler Started;
-        
+
         /// <summary>
         /// Is invoked when that scheduler has been stopped.
         /// </summary>
         public event EventHandler Stopped;
 
-        #endregion Methods
+        #endregion Events and delegates
 
         #region Methods (18)
 
@@ -410,7 +401,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
 
             this.StopTimer();
-            
+
             this.StartTime = null;
             this.IsRunning = false;
 
@@ -461,7 +452,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         {
             get { return true; }
         }
-        
+
         /// <inheriteddoc />
         public bool IsDisposed
         {
@@ -485,7 +476,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
             private set { this.Set(value, "IsRunning"); }
         }
-        
+
         /// <summary>
         /// Gets the start time or <see langword="null" /> if not running.
         /// </summary>

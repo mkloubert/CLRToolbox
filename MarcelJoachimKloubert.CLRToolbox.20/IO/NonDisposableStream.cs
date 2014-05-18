@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 using System.IO;
 
@@ -12,9 +11,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
     /// A wrapper for a <see cref="Stream" /> that keeps sure that <see cref="Stream.Dispose()" /> method of
     /// <see cref="StreamWrapperBase._BASE_STREAM" /> field is NOT called from here.
     /// </summary>
-    /// <remarks>
-    /// The finalizer logic 
-    /// </remarks>
     public sealed partial class NonDisposableStream : StreamWrapperBase
     {
         #region Fields (1)
@@ -54,7 +50,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
         public NonDisposableStream(Stream baseStream)
             : this(baseStream, CallBehaviour.CallFinalizerPart)
         {
-
         }
 
         #endregion Constructors
@@ -63,10 +58,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         // Protected Methods (1) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="StreamWrapperBase.Dispose(bool)" />
+        /// <inheriteddoc />
         protected override void Dispose(bool disposing)
         {
             if (disposing)

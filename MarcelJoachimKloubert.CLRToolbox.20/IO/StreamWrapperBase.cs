@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.IO;
@@ -52,55 +51,37 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         #region Properties (8)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.CanRead" />
+        /// <inheriteddoc />
         public override bool CanRead
         {
             get { return this._BASE_STREAM.CanRead; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.CanSeek" />
+        /// <inheriteddoc />
         public override bool CanSeek
         {
             get { return this._BASE_STREAM.CanSeek; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.CanTimeout" />
+        /// <inheriteddoc />
         public override bool CanTimeout
         {
             get { return this._BASE_STREAM.CanTimeout; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.CanWrite" />
+        /// <inheriteddoc />
         public override bool CanWrite
         {
             get { return this._BASE_STREAM.CanWrite; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Length" />
+        /// <inheriteddoc />
         public override long Length
         {
             get { return this._BASE_STREAM.Length; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Position" />
+        /// <inheriteddoc />
         public override long Position
         {
             get { return this._BASE_STREAM.Position; }
@@ -108,10 +89,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             set { this._BASE_STREAM.Position = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.ReadTimeout" />
+        /// <inheriteddoc />
         public override int ReadTimeout
         {
             get { return this._BASE_STREAM.ReadTimeout; }
@@ -119,10 +97,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
             set { this._BASE_STREAM.ReadTimeout = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.WriteTimeout" />
+        /// <inheriteddoc />
         public override int WriteTimeout
         {
             get { return this._BASE_STREAM.WriteTimeout; }
@@ -136,161 +111,114 @@ namespace MarcelJoachimKloubert.CLRToolbox.IO
 
         // Public Methods (15) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.BeginRead(byte[], int, int, AsyncCallback, object)" />
+        /// <inheriteddoc />
         public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             return this._BASE_STREAM
                        .BeginRead(buffer, offset, count, callback, state);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.BeginRead(byte[], int, int, AsyncCallback, object)" />
+        /// <inheriteddoc />
         public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             return this._BASE_STREAM
                        .BeginWrite(buffer, offset, count, callback, state);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Close()" />
+        /// <inheriteddoc />
         public override void Close()
         {
             this._BASE_STREAM
                 .Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.EndRead(IAsyncResult)" />
+        /// <inheriteddoc />
         public override int EndRead(IAsyncResult asyncResult)
         {
             return this._BASE_STREAM
                        .EndRead(asyncResult);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.EndWrite(IAsyncResult)" />
+        /// <inheriteddoc />
         public override void EndWrite(IAsyncResult asyncResult)
         {
             this._BASE_STREAM
                 .EndWrite(asyncResult);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="object.Equals(object)" />
+        /// <inheriteddoc />
         public override bool Equals(object obj)
         {
             return this._BASE_STREAM
                        .Equals(obj);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Flush()" />
+        /// <inheriteddoc />
         public override void Flush()
         {
             this._BASE_STREAM
                 .Flush();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="object.GetHashCode()" />
+        /// <inheriteddoc />
         public override int GetHashCode()
         {
             return this._BASE_STREAM
                        .GetHashCode();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Read(byte[], int, int)" />
+        /// <inheriteddoc />
         public override int Read(byte[] buffer, int offset, int count)
         {
             return this._BASE_STREAM
                        .Read(buffer, offset, count);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.ReadByte()" />
+        /// <inheriteddoc />
         public override int ReadByte()
         {
             return this._BASE_STREAM
                        .ReadByte();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Seek(long, SeekOrigin)" />
+        /// <inheriteddoc />
         public override long Seek(long offset, SeekOrigin origin)
         {
             return this._BASE_STREAM
                        .Seek(offset, origin);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.SetLength(long)" />
+        /// <inheriteddoc />
         public override void SetLength(long value)
         {
             this._BASE_STREAM
                 .SetLength(value);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="object.ToString()" />
+        /// <inheriteddoc />
         public override string ToString()
         {
             return this._BASE_STREAM
                        .ToString();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Write(byte[], int, int)" />
+        /// <inheriteddoc />
         public override void Write(byte[] buffer, int offset, int count)
         {
             this._BASE_STREAM
                 .Write(buffer, offset, count);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.WriteByte(byte)" />
+        /// <inheriteddoc />
         public override void WriteByte(byte value)
         {
             this._BASE_STREAM
                 .WriteByte(value);
         }
+
         // Protected Methods (2) 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="Stream.Dispose(bool)" />
+        /// <inheriteddoc />
         protected override void Dispose(bool disposing)
         {
             this.InvokeDispose(disposing);

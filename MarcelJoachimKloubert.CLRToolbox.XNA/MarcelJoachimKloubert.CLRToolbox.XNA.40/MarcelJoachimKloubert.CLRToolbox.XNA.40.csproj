@@ -293,6 +293,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\DummyLogger.cs">
       <Link>Diagnostics\Impl\DummyLogger.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\EventLogger.cs">
+      <Link>Diagnostics\Impl\EventLogger.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\FallbackLogger.cs">
       <Link>Diagnostics\Impl\FallbackLogger.cs</Link>
     </Compile>
@@ -318,6 +321,9 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LoggerFacadeWrapperBase.cs">
       <Link>Diagnostics\LoggerFacadeWrapperBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LogMessageEventArgs.cs">
+      <Link>Diagnostics\LogMessageEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreSame.cs">
       <Link>Diagnostics\Tests\Assert.AreSame.cs</Link>

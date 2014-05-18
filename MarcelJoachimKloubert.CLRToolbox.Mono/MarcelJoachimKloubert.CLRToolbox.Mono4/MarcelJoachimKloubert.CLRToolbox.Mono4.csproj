@@ -1585,6 +1585,12 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryWrapper.cs">
       <Link>Configuration\ConfigRepositoryWrapper.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LogMessageEventArgs.cs">
+      <Link>Diagnostics\LogMessageEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Impl\EventLogger.cs">
+      <Link>Diagnostics\Impl\EventLogger.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

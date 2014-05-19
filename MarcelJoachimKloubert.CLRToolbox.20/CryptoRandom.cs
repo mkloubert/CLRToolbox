@@ -179,6 +179,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
                         randVal = Math.Abs(BitConverter.ToInt64(rng, 0));
                     }
                 }
+                while (randVal < 0);
 
                 unchecked
                 {

@@ -36,6 +36,12 @@ namespace MarcelJoachimKloubert.Sandbox
             set { this.Set<int>(value); }
         }
 
+        [ReceiveNotificationFrom("A")]
+        public long B
+        {
+            get { return this.A * 2; }
+        }
+
         [ReceiveValueFrom("A")]
         public void ReceiveNewValueFromA_1()
         {

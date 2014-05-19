@@ -275,13 +275,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                 throw new ArgumentException("propertyName");
             }
 
-            return this.InvokeForPropertyStorage(delegate(IDictionary<string, object> propertyValues, string name)
+            return this.InvokeForPropertyStorage(delegate(IDictionary<string, object> propertyValues)
                                                  {
                                                      object value;
-                                                     propertyValues.TryGetValue(name, out value);
+                                                     propertyValues.TryGetValue(pn, out value);
 
                                                      return value;
-                                                 }, pn);
+                                                 });
         }
 
         /// <summary>

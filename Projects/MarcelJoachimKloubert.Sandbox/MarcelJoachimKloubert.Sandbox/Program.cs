@@ -53,7 +53,7 @@ namespace MarcelJoachimKloubert.Sandbox
 
         }
 
-        [ReceiveValueFrom("A")]
+        [ReceiveValueFrom("A", ReceiveValueFromOptions.IfEqual)]
         public static void ReceiveNewValueFromA_4(int newValue, long oldValue, IEnumerable<char> senderName)
         {
 
@@ -66,7 +66,7 @@ namespace MarcelJoachimKloubert.Sandbox
 
         }
 
-        [ReceiveValueFrom("A", ReceiveValueFromOptions.EvenIfEqual)]
+        [ReceiveValueFrom("A", ReceiveValueFromOptions.IfEqual | ReceiveValueFromOptions.IfDifferent)]
         protected static void ReceiveNewValueFromA_6(int newValue, int oldValue, string senderName, Test3 obj, MemberTypes type)
         {
 

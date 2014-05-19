@@ -25,11 +25,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <summary>
         /// Only if values are different
         /// </summary>
-        OnlyIfDifferent = 2,
+        IfDifferent = 2,
 
         /// <summary>
         /// Even if old and new value are equal
         /// </summary>
-        EvenIfEqual = 4,
+        IfEqual = 4,
     }
 }

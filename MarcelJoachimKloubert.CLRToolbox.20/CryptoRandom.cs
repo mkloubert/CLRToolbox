@@ -272,22 +272,24 @@ namespace MarcelJoachimKloubert.CLRToolbox
             this._RNG.GetBytes(data);
 
             byte[] seed = CollectionHelper.AsArray(this._PROVIDER(this));
-            if (seed != null &&
-                seed.Length > 0)
+            if ((seed == null) ||
+                (seed.Length < 1))
             {
-                for (int i = 0; i < data.Length; i++)
+                return;
+            }
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                try
                 {
-                    try
+                    unchecked
                     {
-                        unchecked
-                        {
-                            data[i] = (byte)(data[i] ^ seed[i % seed.Length]);
-                        }
+                        data[i] = (byte)(data[i] ^ seed[i % seed.Length]);
                     }
-                    catch
-                    {
-                        // ignore
-                    }
+                }
+                catch
+                {
+                    // ignore
                 }
             }
         }

@@ -712,8 +712,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
             return result;
         }
 
-#if KNOWS_CALLER_MEMBER_NAME
-
         /// <summary>
         /// Raises the <see cref="NotificationObjectBase.PropertyChanged" /> and <see cref="NotificationObjectBase.PropertyChanging" />
         /// events if two values are different and automatically overwrites the underlying field.
@@ -730,7 +728,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// </returns>
         protected bool SetProperty<T>(ref T field,
                                       T newValue,
-                                      [global::System.Runtime.CompilerServices.CallerMemberName] global::System.Collections.Generic.IEnumerable<char> propertyName = null)
+#if KNOWS_CALLER_MEMBER_NAME
+                                      [global::System.Runtime.CompilerServices.CallerMemberName]
+                                      global::System.Collections.Generic.IEnumerable<char> propertyName = null
+#else
+                                      global::System.Collections.Generic.IEnumerable<char> propertyName
+#endif
+        )
         {
             if (object.Equals(field, newValue) == false)
             {
@@ -746,8 +750,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
             // both are the same
             return false;
         }
-
-#endif
 
         // Private Methods (4) 
 

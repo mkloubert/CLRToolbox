@@ -1386,5 +1386,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveValueFromOptions.cs">
       <Link>ComponentModel\ReceiveValueFromOptions.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\CryptoRandom.cs">
+      <Link>CryptoRandom.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

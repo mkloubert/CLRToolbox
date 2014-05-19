@@ -166,6 +166,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ReadOnlyConfigRepositoryWrapper.cs">
       <Link>Configuration\ReadOnlyConfigRepositoryWrapper.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\CryptoRandom.cs">
+      <Link>CryptoRandom.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\AdoDatabaseBase.cs">
       <Link>Data\AdoDatabaseBase.cs</Link>
     </Compile>

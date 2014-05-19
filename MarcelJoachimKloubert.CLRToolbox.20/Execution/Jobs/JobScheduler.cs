@@ -303,7 +303,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// </summary>
         protected virtual void StartTimer()
         {
-            this._timer = new Timer(this.Timer_Elapsed, null, 750, Timeout.Infinite);
+            this._timer = new Timer(this.Timer_Elapsed, null,
+                                    750, Timeout.Infinite);
         }
 
         /// <summary>

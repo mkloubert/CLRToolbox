@@ -137,7 +137,7 @@ namespace MarcelJoachimKloubert.Sandbox
         private static void Main(string[] args)
         {
             var r = new CryptoRandom();
-            var rv = r.Next(-1, 1000);
+            var rv = r.Next(-1000, 1000);
 
             ObjectFactory of = ObjectFactory.Instance;
 

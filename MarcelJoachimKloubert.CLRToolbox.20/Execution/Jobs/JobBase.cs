@@ -58,7 +58,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// <paramref name="syncRoot" /> is <see langword="null" />.
         /// </exception>
         protected JobBase(Guid id, object syncRoot)
-            : this(id, true, syncRoot)
+            : this(id, false, syncRoot)
         {
         }
 
@@ -77,7 +77,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// </summary>
         /// <param name="id">The value for <see cref="JobBase.Id" /> property.</param>
         protected JobBase(Guid id)
-            : this(id, true)
+            : this(id, false)
         {
         }
 

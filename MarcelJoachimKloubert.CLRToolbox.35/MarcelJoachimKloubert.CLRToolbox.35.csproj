@@ -427,6 +427,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobScheduler.cs">
       <Link>Execution\Jobs\IJobScheduler.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobBase.cs">
+      <Link>Execution\Jobs\JobBase.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobExecutionResultEventArgs.cs">
       <Link>Execution\Jobs\JobExecutionResultEventArgs.cs</Link>
     </Compile>

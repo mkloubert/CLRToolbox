@@ -206,6 +206,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             {
                 execCtx.Job = ctx.Item;
                 execCtx.ResultVars = new Dictionary<string, object>(EqualityComparerFactory.CreateCaseInsensitiveStringComparer(true, true));
+                execCtx.SyncRoot = new object();
                 execCtx.Time = ctx.State;
 
                 execCtx.Job

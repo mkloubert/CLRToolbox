@@ -16,16 +16,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// </summary>
         protected class JobExecutionContext : TMObject, IJobExecutionContext
         {
-            #region Fields (4)
+            #region Fields (5)
 
             private IJob _job;
             private Guid _id;
             private IDictionary<string, object> _result;
+            private object _syncRoot;
             private DateTimeOffset _time;
 
             #endregion Fields
 
-            #region Properties (4)
+            #region Properties (5)
 
             /// <inheriteddoc />
             public IJob Job
@@ -49,6 +50,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                 get { return this._result; }
 
                 set { this._result = value; }
+            }
+
+            /// <inheriteddoc />
+            public object SyncRoot
+            {
+                get { return this._syncRoot; }
+
+                set { this._syncRoot = value; }
             }
 
             /// <inheriteddoc />

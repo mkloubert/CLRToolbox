@@ -162,6 +162,7 @@
     <Compile Include="Execution\Jobs\IJobExecutionContext.cs" />
     <Compile Include="Execution\Jobs\IJobExecutionResult.cs" />
     <Compile Include="Execution\Jobs\IJobScheduler.cs" />
+    <Compile Include="Execution\Jobs\JobBase.cs" />
     <Compile Include="Execution\Jobs\JobExecutionResultEventArgs.cs" />
     <Compile Include="Execution\Jobs\JobScheduler.cs" />
     <Compile Include="Execution\Jobs\JobScheduler.JobExecutionContext.cs">

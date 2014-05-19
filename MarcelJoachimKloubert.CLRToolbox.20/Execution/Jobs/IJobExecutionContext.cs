@@ -12,7 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
     /// </summary>
     public interface IJobExecutionContext : IIdentifiable
     {
-        #region Properties (3)
+        #region Properties (4)
 
         /// <summary>
         /// Gets the underlying job.
@@ -23,6 +23,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// Gets the dictionary that stores the parameters / values for the result.
         /// </summary>
         IDictionary<string, object> ResultVars { get; }
+
+        /// <summary>
+        /// Gets the object thread safe operations.
+        /// </summary>
+        object SyncRoot { get; }
 
         /// <summary>
         /// Gets the execution / start time.

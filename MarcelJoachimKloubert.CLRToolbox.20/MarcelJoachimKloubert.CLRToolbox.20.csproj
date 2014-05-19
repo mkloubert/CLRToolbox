@@ -158,6 +158,7 @@
     <Compile Include="Execution\Functions\IFunctionExecutionContext.cs" />
     <Compile Include="Execution\Functions\IFunctionLocator.cs" />
     <Compile Include="Execution\Jobs\AsyncJobScheduler.cs" />
+    <Compile Include="Execution\Jobs\DelegateJob.cs" />
     <Compile Include="Execution\Jobs\IJob.cs" />
     <Compile Include="Execution\Jobs\IJobExecutionContext.cs" />
     <Compile Include="Execution\Jobs\IJobExecutionResult.cs" />

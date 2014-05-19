@@ -413,6 +413,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\AsyncJobScheduler.cs">
       <Link>Execution\Jobs\AsyncJobScheduler.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\DelegateJob.cs">
+      <Link>Execution\Jobs\DelegateJob.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJob.cs">
       <Link>Execution\Jobs\IJob.cs</Link>
     </Compile>

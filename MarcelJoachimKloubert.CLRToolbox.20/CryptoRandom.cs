@@ -209,6 +209,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             do
             {
                 long randVal;
+                do
                 {
                     byte[] rng = new byte[8];
                     this.GetRandomBytes(rng);

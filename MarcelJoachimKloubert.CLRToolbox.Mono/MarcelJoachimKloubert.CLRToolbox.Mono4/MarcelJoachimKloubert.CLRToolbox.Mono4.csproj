@@ -1636,6 +1636,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\JobBase.cs">
       <Link>Execution\Jobs\JobBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\DelegateJob.cs">
+      <Link>Execution\Jobs\DelegateJob.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

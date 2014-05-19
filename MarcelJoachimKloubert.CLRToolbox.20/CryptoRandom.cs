@@ -204,7 +204,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
             }
 
             long moveBy = - (long)minValue;
-            long movedMaxValue = (long)maxValue + moveBy;    // move also the max value the same way
+            long movedMaxValue = (long)maxValue + moveBy;
 
             int result;
             do

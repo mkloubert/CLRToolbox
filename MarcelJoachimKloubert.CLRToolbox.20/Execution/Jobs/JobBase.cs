@@ -3,8 +3,6 @@
 // s. http://blog.marcel-kloubert.de
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 {
@@ -14,16 +12,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
     public abstract class JobBase : TMObject, IJob
     {
         #region Fields (3)
-        
+
         private readonly Func<DateTimeOffset, bool> _CAN_EXECUTE_ACTION;
         private readonly Action<IJobExecutionContext> _EXECUTE_ACTION;
         private readonly Guid _ID;
         private readonly bool _IS_THREAD_SAFE;
 
         #endregion Fields
-        
+
         #region Constructors (1)
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="JobBase" /> class.
         /// </summary>
@@ -151,7 +149,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         }
 
         // Protected Methods (2) 
-        
+
         /// <summary>
         /// The logic for the <see cref="JobBase.CanExecute(DateTimeOffset)" /> method.
         /// </summary>
@@ -169,7 +167,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         protected abstract void OnExecute(IJobExecutionContext ctx);
 
         // Private Methods (3) 
-        
+
         private bool OnCanExecute_NonThreadSafe(DateTimeOffset time)
         {
             bool result = false;

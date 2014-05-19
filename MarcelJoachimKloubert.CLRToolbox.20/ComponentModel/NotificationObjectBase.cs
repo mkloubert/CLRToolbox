@@ -824,7 +824,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         private void Handle_ReceiveValueFrom<T>(string nameOfSender, bool hasBeenNotified, T newValue, object oldValue)
         {
             BindingFlags memberBindFlags = BindingFlags.Public | BindingFlags.NonPublic |
-                               BindingFlags.Instance | BindingFlags.Static;
+                                           BindingFlags.Instance | BindingFlags.Static;
 
             IEnumerable<MemberInfo> members = CollectionHelper.Concat<MemberInfo>(this.GetType().GetFields(memberBindFlags),
                                                                                   this.GetType().GetMethods(memberBindFlags),

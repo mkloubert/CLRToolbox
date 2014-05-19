@@ -237,20 +237,29 @@ namespace MarcelJoachimKloubert.CLRToolbox
                 throw new ArgumentNullException("data");
             }
 
-            if (data.Length > 0)
+            if (data.Length < 1)
             {
-                this._RNG.GetBytes(data);
+                return;
+            }
 
-                byte[] seed = CollectionHelper.AsArray(this._PROVIDER(this));
-                if (seed != null &&
-                    seed.Length > 0)
+            this._RNG.GetBytes(data);
+
+            byte[] seed = CollectionHelper.AsArray(this._PROVIDER(this));
+            if (seed != null &&
+                seed.Length > 0)
+            {
+                for (int i = 0; i < data.Length; i++)
                 {
-                    for (int i = 0; i < data.Length; i++)
+                    try
                     {
                         unchecked
                         {
                             data[i] = (byte)(data[i] ^ seed[i % seed.Length]);
                         }
+                    }
+                    catch
+                    {
+                        // ignore
                     }
                 }
             }

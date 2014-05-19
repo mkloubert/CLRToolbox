@@ -80,7 +80,10 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 
                     using (IEnumerator<T> e = seqToConcat.GetEnumerator())
                     {
-                        yield return e.Current;
+                        while (e.MoveNext())
+                        {
+                            yield return e.Current;
+                        }
                     }
                 }
             }

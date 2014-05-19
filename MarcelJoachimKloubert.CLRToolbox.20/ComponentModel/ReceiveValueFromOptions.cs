@@ -7,10 +7,10 @@ using System;
 namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 {
     /// <summary>
-    /// Options for <see cref="ReceiveNotificationFromAttribute" />.
+    /// Options for <see cref="ReceiveValueFromAttribute" />.
     /// </summary>
     [Flags]
-    public enum ReceiveNotificationFromOptions
+    public enum ReceiveValueFromOptions
     {
         /// <summary>
         /// Default options
@@ -18,7 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         Default = 0,
 
         /// <summary>
-        /// Only if values are different
+        /// Receive only if value is different.
         /// </summary>
         OnlyIfDifferent = 1,
     }

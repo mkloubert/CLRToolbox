@@ -3,6 +3,7 @@
 // s. http://blog.marcel-kloubert.de
 
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
+using MarcelJoachimKloubert.CLRToolbox.Sessions;
 using System;
 using System.Collections.Generic;
 
@@ -32,6 +33,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         /// Is invoked when a job has been executed.
         /// </summary>
         event EventHandler<JobExecutionResultEventArgs> Executed;
+
+        #endregion Events and delegates
+
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the current session (if available).
+        /// </summary>
+        ISession<IJobScheduler> Session { get; }
 
         #endregion Events and delegates
     }

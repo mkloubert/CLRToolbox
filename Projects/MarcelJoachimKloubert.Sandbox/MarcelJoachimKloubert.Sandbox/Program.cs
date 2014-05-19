@@ -1,8 +1,10 @@
-﻿using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
+﻿using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
+using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
@@ -21,6 +23,68 @@ namespace MarcelJoachimKloubert.Sandbox
         {
             return t == null ? null : t.ToString();
         }
+    }
+
+    class Test3 : NotificationObjectBase
+    {
+        public int A
+        {
+            get { return this.Get<int>(); }
+
+            set { this.Set<int>(value); }
+        }
+
+        [ReceiveValueFrom("A")]
+        public void ReceiveNewValueFromA_1()
+        {
+
+        }
+
+        [ReceiveValueFrom("A")]
+        public void ReceiveNewValueFromA_2(int newValue)
+        {
+
+        }
+
+        [ReceiveValueFrom("A")]
+        private void ReceiveNewValueFromA_3(int newValue, object oldValue)
+        {
+
+        }
+
+        [ReceiveValueFrom("A")]
+        public static void ReceiveNewValueFromA_4(int newValue, long oldValue, IEnumerable<char> senderName)
+        {
+
+        }
+
+
+        [ReceiveValueFrom("A")]
+        private static void ReceiveNewValueFromA_5(int newValue, int oldValue, string senderName, NotificationObjectBase obj)
+        {
+
+        }
+
+        [ReceiveValueFrom("A")]
+        protected static void ReceiveNewValueFromA_6(int newValue, int oldValue, string senderName, Test3 obj, MemberTypes type)
+        {
+
+        }
+
+        private long _a2;
+        [ReceiveValueFrom("A")]
+        protected long A2
+        {
+            get { return this._a2; }
+
+            set
+            {
+                this._a2 = value;
+            }
+        }
+
+        [ReceiveValueFrom("A")]
+        protected double _a3;
     }
 
     public class Test2Parent
@@ -85,6 +149,11 @@ namespace MarcelJoachimKloubert.Sandbox
             var workflow = DelegateWorkflow.Create(Station_A1);
 
             var t2 = new Test2();
+
+            var t3 = new Test3();
+            t3.A = 5979;
+            t3.A = 5979;
+            t3.A = 23979;
 
             var workflow2 = AttributeWorkflow.Create(t2);
 

@@ -122,30 +122,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
 
         #region Properties (1)
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <see cref="TMObject.Tag" />
+        /// <inheriteddoc />
         public override object Tag
         {
-            get { return base.Tag; }
+            get { return this.Get<object>("Tag"); }
 
-            set
-            {
-                if (object.Equals(base.Tag, value) == false)
-                {
-#if KNOWS_PROPERTY_CHANGING
-                    this.OnPropertyChanging("Tag");
-#endif
-                    base.Tag = value;
-                    this.OnPropertyChanged("Tag");
-                }
-            }
+            set { this.Set(value, "Tag"); }
         }
 
         #endregion Properties
 
-        #region Methods (23)
+        #region Methods (25)
 
         // Public Methods (1)
 
@@ -694,17 +681,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                 throw new ArgumentException("propertyName");
             }
 
-            bool notify = this.InvokeForPropertyStorage(delegate(IDictionary<string, object> propertyValues, Tuple<NotificationObjectBase, string, T> tuple)
+            object oldValue = null;
+            bool notify = this.InvokeForPropertyStorage(delegate(IDictionary<string, object> propertyValues)
                 {
-                    NotificationObjectBase obj = tuple.Item1;
-                    string name = tuple.Item2;
-                    T newValue = tuple.Item3;
                     bool areDifferent = true;
 
-                    object oldValue;
-                    if (propertyValues.TryGetValue(name, out oldValue))
+                    if (propertyValues.TryGetValue(pn, out oldValue))
                     {
-                        if (object.Equals(newValue, oldValue))
+                        if (object.Equals(value, oldValue))
                         {
                             areDifferent = false;
                         }
@@ -713,16 +697,135 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                     if (areDifferent)
                     {
 #if KNOWS_PROPERTY_CHANGING
-                        this.OnPropertyChanging(name);
+                        this.OnPropertyChanging(pn);
 #endif
-                        propertyValues[name] = newValue;
-                        this.OnPropertyChanged(name);
+                        propertyValues[pn] = value;
+                        this.OnPropertyChanged(pn);
                     }
 
                     return areDifferent;
-                }, Tuple.Create(this, pn, value));
+                });
 
-            if (notify)
+            // ReceiveValueFrom
+            {
+                BindingFlags memberBindFlags = BindingFlags.Public | BindingFlags.NonPublic |
+                                               BindingFlags.Instance | BindingFlags.Static;
+
+                IEnumerable<MemberInfo> members = CollectionHelper.Concat<MemberInfo>(this.GetType().GetFields(memberBindFlags),
+                                                                                      this.GetType().GetMethods(memberBindFlags),
+                                                                                      this.GetType().GetProperties(memberBindFlags));
+
+                IEnumerable<MemberInfo> receiveFromMembers =
+                    CollectionHelper.Where(members,
+                                           delegate(MemberInfo member)
+                                           {
+                                               // search for 'ReceiveValueFromAttribute'
+                                               object[] attribs = member.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.ComponentModel.ReceiveValueFromAttribute),
+                                                                                             true);
+
+                                               // strong typed sequence
+                                               IEnumerable<ReceiveValueFromAttribute> receiveFromAttribs =
+                                                   CollectionHelper.OfType<ReceiveValueFromAttribute>(attribs);
+
+                                               IEnumerable<ReceiveValueFromAttribute> receiveFromAttribsForMember =
+                                                   CollectionHelper.Where(receiveFromAttribs,
+                                                                          delegate(ReceiveValueFromAttribute a)
+                                                                          {
+                                                                              if (a.SenderName != pn)
+                                                                              {
+                                                                                  return false;
+                                                                              }
+
+                                                                              ReceiveValueFromOptions aOpts = a.Options ?? ReceiveValueFromOptions.Default;
+
+                                                                              if (HasOptionFlag(aOpts, ReceiveValueFromOptions.Default))
+                                                                              {
+                                                                                  aOpts = ReceiveValueFromOptions.OnlyIfDifferent;
+                                                                              }
+
+                                                                              if (HasOptionFlag(aOpts, ReceiveValueFromOptions.OnlyIfDifferent))
+                                                                              {
+                                                                                  if (notify)
+                                                                                  {
+                                                                                      // notify means different value
+                                                                                      return true;
+                                                                                  }
+                                                                              }
+                                                                              else
+                                                                              {
+                                                                                  return true;
+                                                                              }
+
+                                                                              return false;
+                                                                          });
+
+                                               // only if there is at least one attribute
+                                               // that has the 'SenderName' of 'pn'
+                                               return CollectionHelper.Any(receiveFromAttribsForMember);
+                                           });
+
+                CollectionHelper.ForAll(receiveFromMembers,
+                                        delegate(IForAllItemExecutionContext<MemberInfo> ctx)
+                                        {
+                                            MemberInfo m = ctx.Item;
+                                            Type valueType = typeof(T);
+
+                                            if (m is FieldInfo)
+                                            {
+                                                FieldInfo field = (FieldInfo)m;
+
+                                                field.SetValue(this, value);
+                                            }
+                                            else if (m is MethodBase)
+                                            {
+                                                MethodBase method = (MethodBase)m;
+                                                object[] invokationParams;
+
+                                                ParameterInfo[] methodParams = method.GetParameters();
+                                                if (methodParams.Length < 1)
+                                                {
+                                                    // no parameters
+                                                    invokationParams = new object[0];
+                                                }
+                                                else if (methodParams.Length == 1)
+                                                {
+                                                    // (T newValue)
+                                                    invokationParams = new object[] { value };
+                                                }
+                                                else if (methodParams.Length == 2)
+                                                {
+                                                    // (T newValue, T oldValue)
+                                                    invokationParams = new object[] { value, oldValue };
+                                                }
+                                                else if (methodParams.Length == 3)
+                                                {
+                                                    // (T newValue, T oldValue, string senderName)
+                                                    invokationParams = new object[] { value, oldValue, pn };
+                                                }
+                                                else if (methodParams.Length == 4)
+                                                {
+                                                    // (T newValue, T oldValue, string senderName, NotificationObjectBase obj)
+                                                    invokationParams = new object[] { value, oldValue, pn, this };
+                                                }
+                                                else
+                                                {
+                                                    // (T newValue, T oldValue, string senderName, NotificationObjectBase obj, MemberTypes senderType)
+                                                    invokationParams = new object[] { value, oldValue, pn, this, MemberTypes.Property };
+                                                }
+
+                                                method.Invoke(this,
+                                                              invokationParams);
+                                            }
+                                            else if (m is PropertyInfo)
+                                            {
+                                                PropertyInfo property = (PropertyInfo)m;
+
+                                                property.SetValue(this, value, null);
+                                            }
+                                        });
+            }
+
+            // ReceiveNotificationFrom
             {
                 IEnumerable<PropertyInfo> receiveFromProperties =
                     CollectionHelper.Where(this.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance),
@@ -740,7 +843,32 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                                    CollectionHelper.Where(receiveFromAttribs,
                                                                           delegate(ReceiveNotificationFromAttribute a)
                                                                           {
-                                                                              return a.SenderName == pn;
+                                                                              if (a.SenderName != pn)
+                                                                              {
+                                                                                  return false;
+                                                                              }
+
+                                                                              ReceiveNotificationFromOptions aOpts = a.Options ?? ReceiveNotificationFromOptions.Default;
+
+                                                                              if (HasOptionFlag(aOpts, ReceiveNotificationFromOptions.Default))
+                                                                              {
+                                                                                  aOpts = ReceiveNotificationFromOptions.OnlyIfDifferent;
+                                                                              }
+
+                                                                              if (HasOptionFlag(aOpts, ReceiveNotificationFromOptions.OnlyIfDifferent))
+                                                                              {
+                                                                                  if (notify)
+                                                                                  {
+                                                                                      // notify means different value
+                                                                                      return true;
+                                                                                  }
+                                                                              }
+                                                                              else
+                                                                              {
+                                                                                  return true;
+                                                                              }
+
+                                                                              return false;
                                                                           });
 
                                                // only if there is at least one attribute
@@ -749,15 +877,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                            });
 
                 CollectionHelper.ForAll(receiveFromProperties,
-                                        delegate(IForAllItemExecutionContext<PropertyInfo, NotificationObjectBase> ctx)
+                                        delegate(IForAllItemExecutionContext<PropertyInfo> ctx)
                                         {
-                                            NotificationObjectBase obj = ctx.State;
                                             PropertyInfo prop = ctx.Item;
+
 #if KNOWS_PROPERTY_CHANGING
-                                            obj.OnPropertyChanging(prop.Name);
+                                            this.OnPropertyChanging(prop.Name);
 #endif
-                                            obj.OnPropertyChanged(prop.Name);
-                                        }, this);
+                                            this.OnPropertyChanged(prop.Name);
+                                        });
             }
 
             return notify;
@@ -799,6 +927,20 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         }
 
 #endif
+
+        // Private Methods (2) 
+
+        private static bool HasOptionFlag(ReceiveNotificationFromOptions opts, ReceiveNotificationFromOptions value)
+        {
+            return (opts == value) ||
+                   ((opts & value) != 0);
+        }
+
+        private static bool HasOptionFlag(ReceiveValueFromOptions opts, ReceiveValueFromOptions value)
+        {
+            return (opts == value) ||
+                   ((opts & value) != 0);
+        }
 
         #endregion Methods
     }

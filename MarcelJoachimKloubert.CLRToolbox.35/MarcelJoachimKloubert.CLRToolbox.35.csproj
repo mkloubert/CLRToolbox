@@ -139,6 +139,12 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveNotificationFromOptions.cs">
       <Link>ComponentModel\ReceiveNotificationFromOptions.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveValueFromAttribute.cs">
+      <Link>ComponentModel\ReceiveValueFromAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveValueFromOptions.cs">
+      <Link>ComponentModel\ReceiveValueFromOptions.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Configuration\ConfigRepositoryBase.cs">
       <Link>Configuration\ConfigRepositoryBase.cs</Link>
     </Compile>
@@ -1210,6 +1216,12 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\ServiceLocation\ServiceLocatorBase.ParseValue.cs">
       <Link>ServiceLocation\ServiceLocatorBase.ParseValue.cs</Link>
       <DependentUpon>ServiceLocatorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Sessions\ISession.cs">
+      <Link>Sessions\ISession.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Sessions\SimpleSession.cs">
+      <Link>Sessions\SimpleSession.cs</Link>
     </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\templates\ITemplate.cs">
       <Link>Templates\ITemplate.cs</Link>

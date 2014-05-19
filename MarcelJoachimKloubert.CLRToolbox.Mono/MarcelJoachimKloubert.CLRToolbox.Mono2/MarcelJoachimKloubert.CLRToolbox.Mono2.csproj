@@ -71,6 +71,7 @@
     <Folder Include="Execution\Workflows\Impl\" />
     <Folder Include="Execution\Commands\" />
     <Folder Include="Execution\Jobs\" />
+    <Folder Include="Sessions\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Action.cs">
@@ -1372,6 +1373,18 @@
     </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Execution\Jobs\IJobScheduler.cs">
       <Link>Execution\Jobs\IJobScheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Sessions\ISession.cs">
+      <Link>Sessions\ISession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Sessions\SimpleSession.cs">
+      <Link>Sessions\SimpleSession.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveValueFromAttribute.cs">
+      <Link>ComponentModel\ReceiveValueFromAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\ComponentModel\ReceiveValueFromOptions.cs">
+      <Link>ComponentModel\ReceiveValueFromOptions.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

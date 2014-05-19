@@ -7,6 +7,7 @@ using MarcelJoachimKloubert.CLRToolbox.Collections.ObjectModel;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Factories;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using MarcelJoachimKloubert.CLRToolbox.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -139,8 +140,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                     throw new InvalidOperationException();
                 }
 
-                this.OnStop(true);
-                this.OnStart(true);
+                this.OnStop();
+                this.OnStart();
             }
         }
 
@@ -157,7 +158,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                     throw new InvalidOperationException();
                 }
 
-                this.OnStart(false);
+                this.OnStart();
             }
         }
 
@@ -174,7 +175,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
                     throw new InvalidOperationException();
                 }
 
-                this.OnStop(false);
+                this.OnStop();
             }
         }
 
@@ -285,6 +286,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             {
                 this.StopTimer();
             }
+
+            this.Session = null;
         }
 
         /// <summary>
@@ -366,7 +369,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
         }
 
-        private void OnStart(bool isRestarting)
+        private void OnStart()
         {
             if (this.IsRunning)
             {
@@ -375,25 +378,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
             try
             {
-                this.StartTime = AppTime.Now;
-                this.IsRunning = true;
+                SimpleSession<IJobScheduler> newSession = new SimpleSession<IJobScheduler>();
+                newSession.Id = Guid.NewGuid();
+                newSession.Parent = this;
+                newSession.Time = AppTime.Now;
 
+                this.Session = newSession;
                 this.StartTimer();
 
                 this.RaiseEventHandler(this.Started);
             }
             catch
             {
-                this.StartTime = null;
-                this.IsRunning = false;
-
+                this.Session = null;
                 this.RaiseEventHandler(this.Stopped);
 
                 throw;
             }
         }
 
-        private void OnStop(bool isRestarting)
+        private void OnStop()
         {
             if (this.IsRunning == false)
             {
@@ -401,9 +405,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
             }
 
             this.StopTimer();
-
-            this.StartTime = null;
-            this.IsRunning = false;
+            this.Session = null;
 
             this.RaiseEventHandler(this.Stopped);
         }
@@ -433,7 +435,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
         #endregion Methods
 
-        #region Properties (7)
+        #region Properties (8)
 
         /// <inheriteddoc />
         public virtual bool CanRestart
@@ -470,21 +472,32 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         }
 
         /// <inheriteddoc />
+        [ReceiveNotificationFrom("Session")]
         public bool IsRunning
         {
-            get { return this.Get<bool>("IsRunning"); }
+            get { return this.Session != null; }
+        }
 
-            private set { this.Set(value, "IsRunning"); }
+        /// <inheriteddoc />
+        public ISession<IJobScheduler> Session
+        {
+            get { return this.Get<ISession<IJobScheduler>>("Session"); }
+
+            private set { this.Set(value, "Session"); }
         }
 
         /// <summary>
         /// Gets the start time or <see langword="null" /> if not running.
         /// </summary>
+        [ReceiveNotificationFrom("Session")]
         public DateTimeOffset? StartTime
         {
-            get { return this.Get<DateTimeOffset?>("StartTime"); }
+            get
+            {
+                ISession<IJobScheduler> session = this.Session;
 
-            private set { this.Set(value, "StartTime"); }
+                return session == null ? (DateTimeOffset?)null : session.Time;
+            }
         }
 
         #endregion Properties

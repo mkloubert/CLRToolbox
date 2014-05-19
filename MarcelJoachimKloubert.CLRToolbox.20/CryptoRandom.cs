@@ -174,16 +174,32 @@ namespace MarcelJoachimKloubert.CLRToolbox
                     byte[] rng = new byte[8];
                     this.GetRandomBytes(rng);
 
-                    unchecked
+                    try
                     {
-                        randVal = Math.Abs(BitConverter.ToInt64(rng, 0));
+                        unchecked
+                        {
+                            randVal = Math.Abs(BitConverter.ToInt64(rng, 0));
+                        }
+                    }
+                    catch
+                    {
+                        // try again
+                        randVal = -1;
                     }
                 }
                 while (randVal < 0);
-
-                unchecked
+                
+                try
                 {
-                    result = (int)((randVal % movedMaxValue) - moveBy);
+                    unchecked
+                    {
+                        result = (int)((randVal % movedMaxValue) - moveBy);
+                    }
+                }
+                catch
+                {
+                    // try again
+                    result = maxValue;
                 }
             }
             while ((result < minValue) ||

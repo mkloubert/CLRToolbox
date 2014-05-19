@@ -170,10 +170,10 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public static CryptoRandom Create(RNGCryptoServiceProvider rng, IEnumerable<byte> seed)
         {
             return new CryptoRandom(rng,
-                                 delegate(CryptoRandom r)
-                                 {
-                                     return seed;
-                                 });
+                                    delegate(CryptoRandom r)
+                                    {
+                                        return seed;
+                                    });
         }
 
         /// <inheriteddoc />

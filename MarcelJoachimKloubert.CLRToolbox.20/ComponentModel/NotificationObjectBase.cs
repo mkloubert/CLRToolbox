@@ -736,11 +736,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                                                                   return false;
                                                                               }
 
-                                                                              ReceiveValueFromOptions aOpts = a.Options ?? ReceiveValueFromOptions.Default;
+                                                                              ReceiveValueFromOptions aOpts = a.Options;
 
                                                                               if (HasOptionFlag(aOpts, ReceiveValueFromOptions.Default))
                                                                               {
                                                                                   aOpts = ReceiveValueFromOptions.OnlyIfDifferent;
+                                                                              }
+
+                                                                              if (HasOptionFlag(aOpts, ReceiveValueFromOptions.EvenIfEqual))
+                                                                              {
+                                                                                  return true;
                                                                               }
 
                                                                               if (HasOptionFlag(aOpts, ReceiveValueFromOptions.OnlyIfDifferent))
@@ -848,11 +853,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
                                                                                   return false;
                                                                               }
 
-                                                                              ReceiveNotificationFromOptions aOpts = a.Options ?? ReceiveNotificationFromOptions.Default;
+                                                                              ReceiveNotificationFromOptions aOpts = a.Options;
 
                                                                               if (HasOptionFlag(aOpts, ReceiveNotificationFromOptions.Default))
                                                                               {
                                                                                   aOpts = ReceiveNotificationFromOptions.OnlyIfDifferent;
+                                                                              }
+
+                                                                              if (HasOptionFlag(aOpts, ReceiveNotificationFromOptions.EvenIfEqual))
+                                                                              {
+                                                                                  return true;
                                                                               }
 
                                                                               if (HasOptionFlag(aOpts, ReceiveNotificationFromOptions.OnlyIfDifferent))

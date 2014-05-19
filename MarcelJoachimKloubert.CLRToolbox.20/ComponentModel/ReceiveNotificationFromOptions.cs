@@ -13,13 +13,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     public enum ReceiveNotificationFromOptions
     {
         /// <summary>
+        /// None
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Default options
         /// </summary>
-        Default = 0,
+        Default = 1,
 
         /// <summary>
         /// Only if values are different
         /// </summary>
-        OnlyIfDifferent = 1,
+        OnlyIfDifferent = 2,
+
+        /// <summary>
+        /// Even if old and new value are equal
+        /// </summary>
+        EvenIfEqual = 4,
     }
 }

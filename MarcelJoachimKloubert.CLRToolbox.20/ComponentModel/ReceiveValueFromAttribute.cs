@@ -16,12 +16,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     {
         #region Fields (2)
 
-        private readonly ReceiveValueFromOptions? _OPTIONS;
+        private readonly ReceiveValueFromOptions _OPTIONS;
         private readonly string _SENDER_NAME;
 
         #endregion Fields
 
-        #region Constructors (2)
+        #region Constructors (3)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReceiveValueFromAttribute" /> class.
@@ -56,7 +56,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <paramref name="senderName" /> is <see langword="null" />.
         /// </exception>
         public ReceiveValueFromAttribute(string senderName,
-                                         ReceiveValueFromOptions? options)
+                                         ReceiveValueFromOptions options)
         {
             if (senderName == null)
             {
@@ -79,7 +79,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <summary>
         /// Gets the options.
         /// </summary>
-        public ReceiveValueFromOptions? Options
+        public ReceiveValueFromOptions Options
         {
             get { return this._OPTIONS; }
         }

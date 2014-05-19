@@ -3,6 +3,7 @@ using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -65,7 +66,7 @@ namespace MarcelJoachimKloubert.Sandbox
 
         }
 
-        [ReceiveValueFrom("A")]
+        [ReceiveValueFrom("A", ReceiveValueFromOptions.EvenIfEqual)]
         protected static void ReceiveNewValueFromA_6(int newValue, int oldValue, string senderName, Test3 obj, MemberTypes type)
         {
 

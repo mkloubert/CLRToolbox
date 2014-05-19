@@ -16,7 +16,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     {
         #region Fields (2)
 
-        private readonly ReceiveNotificationFromOptions? _OPTIONS;
+        private readonly ReceiveNotificationFromOptions _OPTIONS;
         private readonly string _SENDER_NAME;
 
         #endregion Fields
@@ -56,7 +56,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <paramref name="senderName" /> is <see langword="null" />.
         /// </exception>
         public ReceiveNotificationFromAttribute(string senderName,
-                                                ReceiveNotificationFromOptions? options)
+                                                ReceiveNotificationFromOptions options)
         {
             if (senderName == null)
             {
@@ -79,7 +79,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
         /// <summary>
         /// Gets the options.
         /// </summary>
-        public ReceiveNotificationFromOptions? Options
+        public ReceiveNotificationFromOptions Options
         {
             get { return this._OPTIONS; }
         }

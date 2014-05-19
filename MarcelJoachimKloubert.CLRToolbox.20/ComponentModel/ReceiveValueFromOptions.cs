@@ -13,13 +13,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.ComponentModel
     public enum ReceiveValueFromOptions
     {
         /// <summary>
-        /// Default options
+        /// None
         /// </summary>
-        Default = 0,
+        None = 0,
 
         /// <summary>
-        /// Receive only if value is different.
+        /// Default options
         /// </summary>
-        OnlyIfDifferent = 1,
+        Default = 1,
+
+        /// <summary>
+        /// Only if values are different
+        /// </summary>
+        OnlyIfDifferent = 2,
+
+        /// <summary>
+        /// Even if old and new value are equal
+        /// </summary>
+        EvenIfEqual = 4,
     }
 }

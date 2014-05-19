@@ -1,6 +1,6 @@
 # CLR Toolbox
 
-If you want to access the [documentation](https://github.com/mkloubert/CLRToolbox/wiki/Documentation) quickly, please click [here](https://github.com/mkloubert/CLRToolbox/wiki/Documentation).
+If you want to access the [documentation](https://github.com/mkloubert/CLRToolbox/wiki) quickly, please click [here](https://github.com/mkloubert/CLRToolbox/wiki).
 
 **CLR Toolbox** is a collection of own and third party classes which are written in C# and that target on:
 

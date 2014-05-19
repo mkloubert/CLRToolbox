@@ -95,9 +95,20 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Events and delegates
 
-        #region Methods (9)
+        #region Methods (11)
 
-        // Public Methods (6)
+        // Public Methods (8)
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="CryptoRandom" /> class.
+        /// </summary>
+        /// <remarks>
+        /// The method uses <see cref="Environment.TickCount" /> as seed value.
+        /// </remarks>
+        public static CryptoRandom Create()
+        {
+            return Create(new RNGCryptoServiceProvider());
+        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="CryptoRandom" /> class.
@@ -116,6 +127,22 @@ namespace MarcelJoachimKloubert.CLRToolbox
         public static CryptoRandom Create(double? seed)
         {
             return Create(ToBinary(seed));
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="CryptoRandom" /> class.
+        /// </summary>
+        /// <param name="rng">The random data provider.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="rng" /> is <see langword="null" />.
+        /// </exception>
+        /// <remarks>
+        /// The method uses <see cref="Environment.TickCount" /> as seed value.
+        /// </remarks>
+        public static CryptoRandom Create(RNGCryptoServiceProvider rng)
+        {
+            return Create(rng,
+                          Environment.TickCount);
         }
 
         /// <summary>

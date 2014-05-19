@@ -5,6 +5,7 @@
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography;
 
 namespace MarcelJoachimKloubert.CLRToolbox
@@ -189,6 +190,7 @@ namespace MarcelJoachimKloubert.CLRToolbox
         }
 
         /// <inheriteddoc />
+        [DebuggerStepThrough]
         public override int Next(int minValue, int maxValue)
         {
             if (minValue > maxValue)
@@ -202,7 +204,6 @@ namespace MarcelJoachimKloubert.CLRToolbox
             }
 
             long moveBy = - (long)minValue;
-            long movedMinValue = (long)minValue + moveBy;    // move to value 0
             long movedMaxValue = (long)maxValue + moveBy;    // move also the max value the same way
 
             int result;

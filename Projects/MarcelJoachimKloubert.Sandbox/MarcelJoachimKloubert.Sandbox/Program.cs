@@ -1,4 +1,5 @@
-﻿using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
+﻿using MarcelJoachimKloubert.CLRToolbox;
+using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
@@ -135,6 +136,9 @@ namespace MarcelJoachimKloubert.Sandbox
     {
         private static void Main(string[] args)
         {
+            var r = new CryptoRandom();
+            var rv = r.Next(-1, 1000);
+
             ObjectFactory of = ObjectFactory.Instance;
 
             var obj = of.CreateProxyForInterface<ITest>();

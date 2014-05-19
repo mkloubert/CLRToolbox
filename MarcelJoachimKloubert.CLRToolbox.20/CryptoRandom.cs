@@ -95,9 +95,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Events and delegates
 
-        #region Methods (11)
+        #region Methods (13)
 
-        // Public Methods (8)
+        // Public Methods (10)
 
         /// <summary>
         /// Creates a new instance of the <see cref="CryptoRandom" /> class.
@@ -174,6 +174,18 @@ namespace MarcelJoachimKloubert.CLRToolbox
                                     {
                                         return seed;
                                     });
+        }
+
+        /// <inheriteddoc />
+        public override int Next()
+        {
+            return this.Next(int.MaxValue);
+        }
+
+        /// <inheriteddoc />
+        public override int Next(int maxValue)
+        {
+            return this.Next(0, maxValue);
         }
 
         /// <inheriteddoc />

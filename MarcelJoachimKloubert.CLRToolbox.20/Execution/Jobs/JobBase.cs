@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
     /// </summary>
     public abstract class JobBase : TMObject, IJob
     {
-        #region Fields (3)
+        #region Fields (4)
 
         private readonly Func<DateTimeOffset, bool> _CAN_EXECUTE_ACTION;
         private readonly Action<IJobExecutionContext> _EXECUTE_ACTION;
@@ -20,7 +20,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
         #endregion Fields
 
-        #region Constructors (1)
+        #region Constructors (4)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JobBase" /> class.

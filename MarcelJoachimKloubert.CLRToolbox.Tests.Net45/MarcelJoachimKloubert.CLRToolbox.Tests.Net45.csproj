@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4F110AE-01E4-4323-8167-31F4010E80F2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Tests.Net45</RootNamespace>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Tests.Net45</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45.Web\MarcelJoachimKloubert.CLRToolbox.45.Web.csproj">
+      <Project>{2f8d4198-6de0-43be-91ca-5b4b2bbcdae0}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.45.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45.WinForms\MarcelJoachimKloubert.CLRToolbox.45.WinForms.csproj">
+      <Project>{91083992-d3b6-4ce4-8d5f-add6ab343d7d}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.45.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45.WPF\MarcelJoachimKloubert.CLRToolbox.45.WPF.csproj">
+      <Project>{2751dbef-1c83-4d9d-b255-5a5d9291c6a4}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.45.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj">
+      <Project>{c24ae28b-5be0-44a7-9232-11e090aa0641}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.45</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

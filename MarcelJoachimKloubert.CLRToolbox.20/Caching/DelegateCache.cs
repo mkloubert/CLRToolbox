@@ -2,11 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
-using System;
-using System.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Data;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
+using System;
+using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Caching
 {
@@ -33,7 +32,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
         public DelegateCache(object syncRoot)
             : base(syncRoot)
         {
-
         }
 
         /// <summary>
@@ -42,7 +40,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
         public DelegateCache()
             : base()
         {
-
         }
 
         #endregion Constructors
@@ -211,10 +208,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
         {
             this.SaveInner(func, timeout);
         }
+
         // Protected Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="DisposableBase.OnDispose(bool)" />
         protected override void OnDispose(bool disposing)
@@ -222,6 +220,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
             this._ITEMS
                 .Clear();
         }
+
         // Private Methods (5) 
 
         private object InvokeInner(Delegate @delegate, params object[] args)

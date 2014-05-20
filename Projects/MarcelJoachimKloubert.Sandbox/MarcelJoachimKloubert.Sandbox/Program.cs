@@ -7,6 +7,7 @@ using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Xml;
 
 namespace MarcelJoachimKloubert.Sandbox
 {
@@ -137,7 +138,7 @@ namespace MarcelJoachimKloubert.Sandbox
         private static void Main(string[] args)
         {
             var xml = XmlDocumentFactory.Parse(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
-<verzeichnis a=""12"" xmlns=""http://www.w3.org/1999/xhtml"">
+<verzeichnis x:a=""12"" xmlns:x=""http://www.w3.org/1999/xhtml"">
      <titel>Wikipedia Städteverzeichnis</titel>
      <eintrag>
           <stichwort>Genf</stichwort>
@@ -148,6 +149,9 @@ namespace MarcelJoachimKloubert.Sandbox
           <eintragstext>Köln ist eine Stadt, die ...</eintragstext>
      </eintrag>
 </verzeichnis>");
+
+            var xml2 = new XmlDocument();
+            xml2.LoadXml(xml.ToString());
 
             foreach (var e in xml.Elements())
             {

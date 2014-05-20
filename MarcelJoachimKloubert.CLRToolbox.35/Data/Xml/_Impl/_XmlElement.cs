@@ -22,7 +22,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (2)
+        #region Properties (3)
 
         internal new XElement _Object
         {
@@ -32,6 +32,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
         public string LocalName
         {
             get { return this._Object.Name.LocalName; }
+        }
+
+        public override string NamespaceUri
+        {
+            get { return this._Object.Name.NamespaceName; }
         }
 
         #endregion Properties

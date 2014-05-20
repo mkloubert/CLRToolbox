@@ -24,11 +24,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         internal XmlNode _Object
         {
             get { return this._InnerObject; }
+        }
+
+        public virtual string NamespaceUri
+        {
+            get { return this._Object.NamespaceURI; }
         }
 
         #endregion Properties

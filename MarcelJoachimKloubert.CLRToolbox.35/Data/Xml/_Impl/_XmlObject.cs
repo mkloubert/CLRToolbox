@@ -25,6 +25,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
             private set;
         }
 
+        public virtual string NamespaceUri
+        {
+            get { return null; }
+        }
+
         #endregion Properties
 
         #region Methods (1)

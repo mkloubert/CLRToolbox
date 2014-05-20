@@ -9,5 +9,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlObject : ITMObject
     {
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the URI of the namespace (if available).
+        /// </summary>
+        string NamespaceUri { get; }
+
+        #endregion Properties
     }
 }

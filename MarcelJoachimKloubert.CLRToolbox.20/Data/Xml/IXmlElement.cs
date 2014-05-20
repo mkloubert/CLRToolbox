@@ -2,6 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using System.Collections.Generic;
+
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
 {
     /// <summary>
@@ -9,5 +11,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlElement : IXmlContainer
     {
+        #region Methods (1)
+
+        /// <summary>
+        /// Returns a sequence of all attributes.
+        /// </summary>
+        /// <returns>The sequences of attributes.</returns>
+        IEnumerable<IXmlAttribute> Attributes();
+
+        #endregion Methods
     }
 }

@@ -2281,6 +2281,17 @@
     <Compile Include="Data\IQueryableDatabase.cs" />
     <Compile Include="Data\QueryableAdoDatabaseBase.cs" />
     <Compile Include="Data\QueryableDatabaseBase.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlAttribute.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlCDData.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlComment.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlContainer.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlDocument.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlDocumentType.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlElement.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlNode.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlObject.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlProcessingInstructions.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlText.cs" />
     <Compile Include="Diagnostics\Remoting\IRemoteDebugger.cs" />
     <Compile Include="Diagnostics\Remoting\IRemoteDebuggerCallback.cs" />
     <Compile Include="Diagnostics\Remoting\RemoteDebuggerBase.cs" />

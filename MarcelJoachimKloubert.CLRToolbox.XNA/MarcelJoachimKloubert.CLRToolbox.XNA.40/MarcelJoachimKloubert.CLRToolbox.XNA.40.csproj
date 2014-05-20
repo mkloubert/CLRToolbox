@@ -1192,6 +1192,39 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\QueryableDatabaseBase.cs">
       <Link>Data\QueryableDatabaseBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlAttribute.cs">
+      <Link>Data\Xml\_Impl\_XmlAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlCDData.cs">
+      <Link>Data\Xml\_Impl\_XmlCDData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlComment.cs">
+      <Link>Data\Xml\_Impl\_XmlComment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlContainer.cs">
+      <Link>Data\Xml\_Impl\_XmlContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlDocument.cs">
+      <Link>Data\Xml\_Impl\_XmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlDocumentType.cs">
+      <Link>Data\Xml\_Impl\_XmlDocumentType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlElement.cs">
+      <Link>Data\Xml\_Impl\_XmlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlNode.cs">
+      <Link>Data\Xml\_Impl\_XmlNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlObject.cs">
+      <Link>Data\Xml\_Impl\_XmlObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlProcessingInstructions.cs">
+      <Link>Data\Xml\_Impl\_XmlProcessingInstructions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlText.cs">
+      <Link>Data\Xml\_Impl\_XmlText.cs</Link>
+    </Compile>
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Extensions\ClrToolboxExtensionMethods.cs">
       <Link>Extensions\ClrToolboxExtensionMethods.cs</Link>
     </Compile>

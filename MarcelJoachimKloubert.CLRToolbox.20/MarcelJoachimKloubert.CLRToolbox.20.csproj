@@ -142,6 +142,18 @@
     <Compile Include="Data\Xml\IXmlObject.cs" />
     <Compile Include="Data\Xml\IXmlProcessingInstruction.cs" />
     <Compile Include="Data\Xml\IXmlText.cs" />
+    <Compile Include="Data\Xml\XmlDocumentFactory.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlAttribute.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlCDData.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlComment.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlContainer.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlDocument.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlDocumentType.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlElement.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlNode.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlObject.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlProcessingInstructions.cs" />
+    <Compile Include="Data\Xml\_Impl\_XmlText.cs" />
     <Compile Include="Diagnostics\GlobalLogger.cs" />
     <Compile Include="Diagnostics\ILogMessage.dotNET.cs">
       <DependentUpon>ILogMessage.cs</DependentUpon>

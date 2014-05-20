@@ -2,6 +2,8 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using System.Collections.Generic;
+
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
 {
     /// <summary>
@@ -9,5 +11,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlNode : IXmlObject
     {
+        #region Methods (1)
+
+        /// <summary>
+        /// Returns a sequence of all nodes by XPath.
+        /// </summary>
+        /// <param name="xpath">The XPath string.</param>
+        /// <returns>The sequences of attributes.</returns>
+        IEnumerable<IXmlNode> SelectNodes(IEnumerable<char> xpath);
+
+        #endregion Methods
     }
 }

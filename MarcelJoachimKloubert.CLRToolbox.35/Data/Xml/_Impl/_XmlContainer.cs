@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -28,13 +29,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Properties
 
-        #region Methods (1)
+        #region Methods (3)
+
+        public IEnumerator<IXmlNode> GetEnumerator()
+        {
+            return this.Nodes()
+                       .GetEnumerator();
+        }
 
         public virtual IEnumerable<IXmlNode> Nodes()
         {
             return this._Object
                        .Nodes()
                        .Select(n => CreateByNode(n));
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
 
         #endregion Methods

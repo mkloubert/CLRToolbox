@@ -26,5 +26,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
         }
 
         #endregion Properties
+
+        #region Methods (1)
+
+        public override string ToString()
+        {
+            return this._Object.ToString();
+        } 
+
+        #endregion Methods
     }
 }

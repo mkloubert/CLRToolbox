@@ -9,7 +9,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// <summary>
     /// Describes a node that contains other nodes.
     /// </summary>
-    public interface IXmlContainer : IXmlNode
+    public interface IXmlContainer : IXmlNode, IEnumerable<IXmlNode>
     {
         #region Methods (1)
 

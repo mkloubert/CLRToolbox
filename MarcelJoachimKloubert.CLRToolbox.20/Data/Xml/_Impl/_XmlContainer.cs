@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using System.Collections;
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
@@ -19,7 +20,18 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #region Methods (1)
 
+        public IEnumerator<IXmlNode> GetEnumerator()
+        {
+            return this.Nodes()
+                       .GetEnumerator();
+        }
+
         public abstract IEnumerable<IXmlNode> Nodes();
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
 
         #endregion Methods
     }

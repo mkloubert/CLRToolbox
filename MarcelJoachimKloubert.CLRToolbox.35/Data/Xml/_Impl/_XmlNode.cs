@@ -4,10 +4,13 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+
 #if WINDOWS_PHONE
 #else
+
 using System.Linq;
 using System.Xml.XPath;
+
 #endif
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
@@ -49,6 +52,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
             if (node is XElement)
             {
                 return new _XmlElement(node as XElement);
+            }
+
+            if (node is XCData)
+            {
+                return new _XmlCDData(node as XCData);
+            }
+
+            if (node is XText)
+            {
+                return new _XmlText(node as XText);
+            }
+
+            if (node is XComment)
+            {
+                return new _XmlComment(node as XComment);
             }
 
             return new _XmlNode(node);

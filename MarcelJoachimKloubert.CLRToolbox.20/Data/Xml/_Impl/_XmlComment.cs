@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
     {
         #region Constructors (1)
 
-        internal _XmlComment(object xmlObject)
+        internal _XmlComment(XmlNode xmlObject)
             : base(xmlObject)
         {
         }

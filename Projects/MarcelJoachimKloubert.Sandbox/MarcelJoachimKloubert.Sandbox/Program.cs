@@ -1,10 +1,10 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox;
 using MarcelJoachimKloubert.CLRToolbox.ComponentModel;
+using MarcelJoachimKloubert.CLRToolbox.Data.Xml;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows;
 using MarcelJoachimKloubert.CLRToolbox.Execution.Workflows.Impl;
 using MarcelJoachimKloubert.CLRToolbox.Extensions;
 using MarcelJoachimKloubert.CLRToolbox.Objects;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -27,7 +27,7 @@ namespace MarcelJoachimKloubert.Sandbox
         }
     }
 
-    class Test3 : NotificationObjectBase
+    internal class Test3 : NotificationObjectBase
     {
         public int A
         {
@@ -45,41 +45,35 @@ namespace MarcelJoachimKloubert.Sandbox
         [ReceiveValueFrom("A")]
         public void ReceiveNewValueFromA_1()
         {
-
         }
 
         [ReceiveValueFrom("A")]
         public void ReceiveNewValueFromA_2(int newValue)
         {
-
         }
 
         [ReceiveValueFrom("A")]
         private void ReceiveNewValueFromA_3(int newValue, object oldValue)
         {
-
         }
 
         [ReceiveValueFrom("A", ReceiveValueFromOptions.IfEqual)]
         public static void ReceiveNewValueFromA_4(int newValue, long oldValue, IEnumerable<char> senderName)
         {
-
         }
-
 
         [ReceiveValueFrom("A")]
         private static void ReceiveNewValueFromA_5(int newValue, int oldValue, string senderName, NotificationObjectBase obj)
         {
-
         }
 
         [ReceiveValueFrom("A", ReceiveValueFromOptions.IfEqual | ReceiveValueFromOptions.IfDifferent)]
         protected static void ReceiveNewValueFromA_6(int newValue, int oldValue, string senderName, Test3 obj, MemberTypes type)
         {
-
         }
 
         private long _a2;
+
         [ReceiveValueFrom("A")]
         protected long A2
         {
@@ -142,6 +136,32 @@ namespace MarcelJoachimKloubert.Sandbox
     {
         private static void Main(string[] args)
         {
+            var xml = XmlDocumentFactory.Parse(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<verzeichnis a=""12"" xmlns=""http://www.w3.org/1999/xhtml"">
+     <titel>Wikipedia Städteverzeichnis</titel>
+     <eintrag>
+          <stichwort>Genf</stichwort>
+          <eintragstext>Genf ist der Sitz von ...</eintragstext>
+     </eintrag>
+     <eintrag>
+          <stichwort>Köln</stichwort>
+          <eintragstext>Köln ist eine Stadt, die ...</eintragstext>
+     </eintrag>
+</verzeichnis>");
+
+            foreach (var e in xml.Elements())
+            {
+                foreach (var a in e.Attributes())
+                {
+
+                }
+
+                foreach (var n2 in e)
+                {
+
+                }
+            }
+
             var r = new CryptoRandom();
             var rv = r.Next(-1000, 1000);
 

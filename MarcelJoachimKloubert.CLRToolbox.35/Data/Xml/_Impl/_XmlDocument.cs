@@ -22,11 +22,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         internal new XDocument _Object
         {
             get { return (XDocument)base._Object; }
+        }
+
+        public IXmlElement Root
+        {
+            get
+            {
+                XElement rootElement = this._Object.Root;
+
+                return rootElement != null ? new _XmlElement(rootElement) : null;
+            }
         }
 
         #endregion Properties

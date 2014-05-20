@@ -1705,6 +1705,9 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\Data\Xml\_Impl\_XmlText.cs">
       <Link>Data\Xml\_Impl\_XmlText.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\XmlDocumentFactory.cs">
+      <Link>Data\Xml\XmlDocumentFactory.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

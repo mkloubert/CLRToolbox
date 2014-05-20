@@ -3,14 +3,24 @@
 // s. http://blog.marcel-kloubert.de
 
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
 {
     /// <summary>
     /// Describes a XML element.
     /// </summary>
-    public interface IXmlElement : IXmlContainer
+    public interface IXmlElement : IXmlContainer, IXmlSerializable
     {
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the local name of that element.
+        /// </summary>
+        string LocalName { get; }
+
+        #endregion Properties
+
         #region Methods (1)
 
         /// <summary>

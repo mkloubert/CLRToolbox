@@ -10,7 +10,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
     {
         #region Constructors (1)
 
-        internal _XmlText(object xmlObject)
+        internal _XmlText(XmlText xmlObject)
+            : base(xmlObject)
+        {
+        }
+
+        protected internal _XmlText(XmlNode xmlObject)
             : base(xmlObject)
         {
         }

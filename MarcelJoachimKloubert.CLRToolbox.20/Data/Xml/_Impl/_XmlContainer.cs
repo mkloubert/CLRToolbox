@@ -2,8 +2,10 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 {
@@ -11,14 +13,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
     {
         #region Constructors (1)
 
-        protected internal _XmlContainer(object xmlObject)
+        protected internal _XmlContainer(XmlNode xmlObject)
             : base(xmlObject)
         {
         }
 
         #endregion Constructors
 
-        #region Methods (1)
+        #region Methods (4)
+
+        public IEnumerable<IXmlElement> Elements()
+        {
+            return CollectionHelper.OfType<IXmlElement>(this.Nodes());
+        }
 
         public IEnumerator<IXmlNode> GetEnumerator()
         {

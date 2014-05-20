@@ -11,29 +11,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
     {
         #region Fields (1)
 
-        private readonly object _OBJECT;
+        protected internal XmlNode _InnerObject;
 
         #endregion Fields
 
         #region Constructors (1)
 
-        protected internal _XmlObject(object xmlObject)
+        protected internal _XmlObject(XmlNode xmlObject)
         {
-            this._OBJECT = xmlObject;
+            this._InnerObject = xmlObject;
         }
 
         #endregion Constructors
 
         #region Properties (1)
 
-        internal object _Object
+        internal XmlNode _Object
         {
-            get { return this._OBJECT; }
+            get { return this._InnerObject; }
         }
 
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (3)
 
         internal static IEnumerable<IXmlAttribute> GetAttributesFromList(XmlAttributeCollection attribs)
         {
@@ -90,6 +90,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
                     yield return new _XmlNode(node);
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return this._Object.OuterXml ?? string.Empty;
         }
 
         #endregion Methods

@@ -10,18 +10,23 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
     {
         #region Constructors (1)
 
-        internal _XmlAttribute(object xmlObject)
+        internal _XmlAttribute(XmlAttribute xmlObject)
             : base(xmlObject)
         {
         }
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         internal new XmlAttribute _Object
         {
             get { return (XmlAttribute)base._Object; }
+        }
+        
+        public string LocalName
+        {
+            get { return this._Object.LocalName; }
         }
 
         #endregion Properties

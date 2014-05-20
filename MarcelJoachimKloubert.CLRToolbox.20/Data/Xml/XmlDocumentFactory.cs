@@ -87,8 +87,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
         /// </summary>
         /// <param name="builder">The string builder that contains XML data.</param>
         /// <returns>The new document.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="builder" /> is <see langword="null" />.
+        /// </exception>
         public static IXmlDocument Parse(StringBuilder builder)
         {
+            if (builder == null)
+            {
+                throw new ArgumentNullException("builder");
+            }
+
             return _XmlDocument.Parse(builder);
         }
 

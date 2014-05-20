@@ -12,20 +12,65 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
     {
         #region Constructors (1)
 
-        internal _XmlNode(object xmlObject)
+        internal _XmlNode(XmlNode xmlObject)
             : base(xmlObject)
         {
         }
 
         #endregion Constructors
+        
+        #region Properties (1)
 
-        #region Methods (1)
-
-        public virtual IEnumerable<IXmlNode> SelectNodes(IEnumerable<char> xpath)
+        public IEnumerable<IXmlElement> this[IEnumerable<char> xpath]
         {
-            XmlNode node = (XmlNode)this._Object;
+            get { return this.SelectElements(xpath); }
+        }
 
-            return GetNodesFromList(node.SelectNodes(StringHelper.AsString(xpath)));
+        #endregion Properties
+
+        #region Methods (2)
+
+        internal static IXmlNode CreateByNode(XmlNode node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            if (node is XmlDocument)
+            {
+                return new _XmlDocument(node as XmlDocument);
+            }
+
+            if (node is XmlElement)
+            {
+                return new _XmlElement(node as XmlElement);
+            }
+
+            if (node is XmlCDataSection)
+            {
+                return new _XmlCDData(node as XmlCDataSection);
+            }
+
+            if (node is XmlText)
+            {
+                return new _XmlText(node as XmlText);
+            }
+
+            if (node is XmlComment)
+            {
+                return new _XmlComment(node as XmlComment);
+            }
+
+            return new _XmlNode(node);
+        }
+
+        public virtual IEnumerable<IXmlElement> SelectElements(IEnumerable<char> xpath)
+        {
+            IEnumerable<IXmlNode> selectedNodes = GetNodesFromList(this._Object
+                                                                       .SelectNodes(StringHelper.AsString(xpath)));
+
+            return CollectionHelper.OfType<IXmlElement>(selectedNodes);
         }
 
         #endregion Methods

@@ -17,11 +17,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         internal new XAttribute _Object
         {
             get { return (XAttribute)base._Object; }
+        }
+
+        public string LocalName
+        {
+            get { return this._Object.Name.LocalName; }
         }
 
         #endregion Properties

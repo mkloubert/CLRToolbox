@@ -26,7 +26,12 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
+
+        public IEnumerable<IXmlElement> this[IEnumerable<char> xpath]
+        {
+            get { return this.SelectElements(xpath); }
+        }
 
         internal new XNode _Object
         {
@@ -35,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (3)
 
         internal static IXmlNode CreateByNode(XNode node)
         {
@@ -72,15 +77,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
             return new _XmlNode(node);
         }
 
-        public virtual IEnumerable<IXmlNode> SelectNodes(IEnumerable<char> xpath)
+        public virtual IEnumerable<IXmlElement> SelectElements(IEnumerable<char> xpath)
         {
 #if !WINDOWS_PHONE
             return this._Object
                        .XPathSelectElements(global::MarcelJoachimKloubert.CLRToolbox.Helpers.StringHelper.AsString(xpath))
-                       .Select(n => CreateByNode(n));
+                       .Select(n => CreateByNode(n))
+                       .OfType<IXmlElement>();
 #else
             throw new global::System.NotSupportedException();
 #endif
+        }
+
+        public override string ToString()
+        {
+            return this._Object.ToString();
         }
 
         #endregion Methods

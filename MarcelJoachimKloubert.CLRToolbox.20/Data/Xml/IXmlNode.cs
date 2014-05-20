@@ -11,14 +11,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlNode : IXmlObject
     {
+        #region Properties (1)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <see cref="IXmlNode.SelectElements(IEnumerable{char})" />
+        IEnumerable<IXmlElement> this[IEnumerable<char> xpath] { get; }
+
+        #endregion Methods
+
         #region Methods (1)
 
         /// <summary>
-        /// Returns a sequence of all nodes by XPath.
+        /// Returns a sequence of elements by XPath.
         /// </summary>
         /// <param name="xpath">The XPath string.</param>
-        /// <returns>The sequences of attributes.</returns>
-        IEnumerable<IXmlNode> SelectNodes(IEnumerable<char> xpath);
+        /// <returns>The sequences of elements.</returns>
+        IEnumerable<IXmlElement> SelectElements(IEnumerable<char> xpath);
 
         #endregion Methods
     }

@@ -9,5 +9,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlDocument : IXmlContainer
     {
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the root element (if available).
+        /// </summary>
+        IXmlElement Root { get; }
+
+        #endregion Properties
     }
 }

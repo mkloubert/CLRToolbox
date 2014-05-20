@@ -29,7 +29,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Properties
 
-        #region Methods (3)
+        #region Methods (4)
+
+        public IEnumerable<IXmlElement> Elements()
+        {
+            return this.Nodes()
+                       .OfType<IXmlElement>();
+        }
 
         public IEnumerator<IXmlNode> GetEnumerator()
         {

@@ -4,7 +4,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 {
@@ -19,16 +22,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         internal new XElement _Object
         {
             get { return (XElement)base._Object; }
         }
 
+        public string LocalName
+        {
+            get { return this._Object.Name.LocalName; }
+        }
+
         #endregion Properties
 
-        #region Methods (2)
+        #region Methods (4)
 
         public virtual IEnumerable<IXmlAttribute> Attributes()
         {
@@ -37,11 +45,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
                        .Select(a => (IXmlAttribute)new _XmlAttribute(a));
         }
 
+        XmlSchema IXmlSerializable.GetSchema()
+        {
+            return null;
+        }
+
         public override IEnumerable<IXmlNode> Nodes()
         {
             return this._Object
                        .Nodes()
                        .Select(n => (IXmlNode)new _XmlNode(n));
+        }
+
+        void IXmlSerializable.ReadXml(XmlReader reader)
+        {
+            ((IXmlSerializable)this._Object).ReadXml(reader);
+        }
+
+        void IXmlSerializable.WriteXml(XmlWriter writer)
+        {
+            ((IXmlSerializable)this._Object).WriteXml(writer);
         }
 
         #endregion

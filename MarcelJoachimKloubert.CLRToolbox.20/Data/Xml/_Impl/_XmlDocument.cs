@@ -21,11 +21,21 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         #endregion Constructors
 
-        #region Properties (1)
+        #region Properties (2)
 
         internal new XmlDocument _Object
         {
             get { return (XmlDocument)base._Object; }
+        }
+
+        public IXmlElement Root
+        {
+            get
+            {
+                XmlElement rootElement = this._Object.DocumentElement;
+
+                return rootElement != null ? new _XmlElement(rootElement) : null;
+            }
         }
 
         #endregion Properties
@@ -36,7 +46,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
         {
             return GetNodesFromList(this._Object.ChildNodes);
         }
-
 
         internal static _XmlDocument Load(TextReader reader)
         {
@@ -64,7 +73,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml._Impl
 
         internal static _XmlDocument Parse(StringBuilder builder)
         {
-            return Parse(builder != null ? builder.ToString() : null);
+            return Parse(builder.ToString());
         }
 
         internal static _XmlDocument Parse(IEnumerable<char> xml)

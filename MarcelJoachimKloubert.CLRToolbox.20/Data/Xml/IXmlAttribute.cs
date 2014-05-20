@@ -9,5 +9,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlAttribute : IXmlObject
     {
+        #region Properties (1)
+
+        /// <summary>
+        /// Gets the local name of that attribute.
+        /// </summary>
+        string LocalName { get; }
+
+        #endregion Properties
     }
 }

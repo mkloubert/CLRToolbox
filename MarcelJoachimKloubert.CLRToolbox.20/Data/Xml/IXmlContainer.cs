@@ -11,7 +11,13 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data.Xml
     /// </summary>
     public interface IXmlContainer : IXmlNode, IEnumerable<IXmlNode>
     {
-        #region Methods (1)
+        #region Methods (2)
+
+        /// <summary>
+        /// Returns a sequence of all elements.
+        /// </summary>
+        /// <returns>The sequences of elements.</returns>
+        IEnumerable<IXmlElement> Elements();
 
         /// <summary>
         /// Returns a sequence of all nodes.

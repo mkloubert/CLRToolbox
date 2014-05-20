@@ -307,6 +307,9 @@
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\data\xml\IXmlText.cs">
       <Link>Data\Xml\IXmlText.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\XmlDocumentFactory.cs">
+      <Link>Data\Xml\XmlDocumentFactory.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\execution\ILogCommand.cs">
       <Link>Diagnostics\Execution\ILogCommand.cs</Link>
     </Compile>

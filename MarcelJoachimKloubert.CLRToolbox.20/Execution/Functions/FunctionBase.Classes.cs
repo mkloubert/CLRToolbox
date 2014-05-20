@@ -12,7 +12,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
 {
     partial class FunctionBase
     {
-        #region CLASS: ExecuteContext
+        #region CLASS: OnExecuteContext
 
         /// <summary>
         /// A context for a <see cref="FunctionBase.OnExecute(OnExecuteContext)" /> call.
@@ -124,7 +124,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
             {
                 get { return this.Get<IList<Exception>>("Errors"); }
 
-                internal set { this.Set(value, "Errors"); }
+                private set { this.Set(value, "Errors"); }
             }
 
             public FunctionExecutionContextCallback FailedCallback

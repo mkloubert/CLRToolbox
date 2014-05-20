@@ -131,6 +131,17 @@
     <Compile Include="Data\IDataConnection.cs" />
     <Compile Include="Data\TMColumnAttribute.cs" />
     <Compile Include="Data\TMTableAttribute.cs" />
+    <Compile Include="Data\Xml\IXmlAttribute.cs" />
+    <Compile Include="Data\Xml\IXmlCData.cs" />
+    <Compile Include="Data\Xml\IXmlComment.cs" />
+    <Compile Include="Data\Xml\IXmlContainer.cs" />
+    <Compile Include="Data\Xml\IXmlDocument.cs" />
+    <Compile Include="Data\Xml\IXmlDocumentType.cs" />
+    <Compile Include="Data\Xml\IXmlElement.cs" />
+    <Compile Include="Data\Xml\IXmlNode.cs" />
+    <Compile Include="Data\Xml\IXmlObject.cs" />
+    <Compile Include="Data\Xml\IXmlProcessingInstruction.cs" />
+    <Compile Include="Data\Xml\IXmlText.cs" />
     <Compile Include="Diagnostics\GlobalLogger.cs" />
     <Compile Include="Diagnostics\ILogMessage.dotNET.cs">
       <DependentUpon>ILogMessage.cs</DependentUpon>

@@ -50,14 +50,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
             {
                 using (IEnumerator<T> enumerator = seq.GetEnumerator())
                 {
-                    if (!enumerator.MoveNext())
+                    if (enumerator.MoveNext() == false)
                     {
                         // no element => return default
                         return default(T);
                     }
 
                     T result = enumerator.Current;
-                    if (!enumerator.MoveNext())
+                    if (enumerator.MoveNext() == false)
                     {
                         return result;
                     }

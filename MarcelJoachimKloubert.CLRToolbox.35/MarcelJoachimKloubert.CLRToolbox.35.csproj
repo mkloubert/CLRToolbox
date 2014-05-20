@@ -264,6 +264,39 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\TMTableAttribute.cs">
       <Link>Data\TMTableAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlAttribute.cs">
+      <Link>Data\Xml\IXmlAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlCData.cs">
+      <Link>Data\Xml\IXmlCData.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlComment.cs">
+      <Link>Data\Xml\IXmlComment.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlContainer.cs">
+      <Link>Data\Xml\IXmlContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlDocument.cs">
+      <Link>Data\Xml\IXmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlDocumentType.cs">
+      <Link>Data\Xml\IXmlDocumentType.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlElement.cs">
+      <Link>Data\Xml\IXmlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlNode.cs">
+      <Link>Data\Xml\IXmlNode.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlObject.cs">
+      <Link>Data\Xml\IXmlObject.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlProcessingInstruction.cs">
+      <Link>Data\Xml\IXmlProcessingInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\IXmlText.cs">
+      <Link>Data\Xml\IXmlText.cs</Link>
+    </Compile>
     <Compile Include="..\marceljoachimkloubert.clrtoolbox.20\diagnostics\execution\ILogCommand.cs">
       <Link>Diagnostics\Execution\ILogCommand.cs</Link>
     </Compile>

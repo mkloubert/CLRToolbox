@@ -204,7 +204,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
                 }
 
                 result.InputParameters = new TMReadOnlyDictionary<string, object>(paramsDict);
-                if (!this.CheckInputParameters(result.InputParameters))
+                if (this.CheckInputParameters(result.InputParameters) == false)
                 {
                     throw new ArgumentException("parameters");
                 }
@@ -232,7 +232,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
         /// <inheriteddoc />
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         /// <inheriteddoc />
@@ -250,7 +250,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Functions
         /// </summary>
         /// <param name="inputParams">The parameters to validate.</param>
         /// <returns>Are valid or not.</returns>
-        protected bool CheckInputParameters(IReadOnlyDictionary<string, object> inputParams)
+        protected virtual bool CheckInputParameters(IReadOnlyDictionary<string, object> inputParams)
         {
             return inputParams != null;
         }

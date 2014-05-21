@@ -4,11 +4,11 @@ using System;
 namespace MarcelJoachimKloubert.CLRToolbox.Tests
 {
     [TestFixture]
-    public class RandomTests
+    public partial class RandomTests
     {
         #region Methods
 
-        [Test]
+        [Test(Description = "Test 'CryptoRandom' class")]
         public void CryptoRandomTest1()
         {
             CryptoRandom r = new CryptoRandom();
@@ -29,7 +29,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             }
         }
 
-        [Test]
+        [Test(Description = "Test 'CryptoRandom' class with seed value")]
         public void CryptoRandomSeed()
         {
             CryptoRandom r = CryptoRandom.Create(Guid.NewGuid().ToByteArray());

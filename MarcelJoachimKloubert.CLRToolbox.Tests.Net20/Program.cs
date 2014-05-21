@@ -7,6 +7,53 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 {
     internal static class Program
     {
+        #region Fields (1)
+
+        private static object _SYNC = new object();
+
+        #endregion Fields
+
+        #region Methods (4)
+
+        private static void InvokeConsole(Action action)
+        {
+            InvokeConsole(action, null);
+        }
+
+        private static void InvokeConsole(Action action, ConsoleColor? foreColor)
+        {
+            InvokeConsole(action, foreColor, null);
+        }
+
+        private static void InvokeConsole(Action action, ConsoleColor? foreColor, ConsoleColor? bgColor)
+        {
+            lock (_SYNC)
+            {
+                ConsoleColor oldForeColor = Console.ForegroundColor;
+                ConsoleColor oldBgColor = Console.BackgroundColor;
+
+                try
+                {
+                    if (foreColor.HasValue)
+                    {
+                        Console.ForegroundColor = foreColor.Value;
+                    }
+
+                    if (bgColor.HasValue)
+                    {
+                        Console.BackgroundColor = bgColor.Value;
+                    }
+
+                    action();
+                }
+                finally
+                {
+                    Console.ForegroundColor = oldForeColor;
+                    Console.BackgroundColor = oldBgColor;
+                }
+            }
+        }
+
         private static void Main(string[] args)
         {
             List<Type> allTypes = new List<Type>(Assembly.GetExecutingAssembly().GetTypes());
@@ -66,17 +113,31 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
                     try
                     {
-                        Console.Write("\t{0} ... ", method.Name);
+                        TestAttribute ta = (TestAttribute)testAttribs[0];
+
+                        Console.Write("\t'{0}' ... ",
+                                      ta.Description == null ? method.Name : ta.Description);
 
                         method.Invoke(obj, null);
-                        Console.WriteLine("[OK]");
+
+                        InvokeConsole(delegate()
+                                      {
+                                          Console.WriteLine("[OK]");
+                                      }, ConsoleColor.Green
+                                       , ConsoleColor.Black);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("[ERROR: {0}]",
-                                          (ex.GetBaseException() ?? ex).Message);
+                        InvokeConsole(delegate()
+                                      {
+                                          Console.WriteLine("[ERROR: {0}]",
+                                                            (ex.GetBaseException() ?? ex).Message);
+                                      }, ConsoleColor.Red
+                                       , ConsoleColor.Black);
                     }
                 }
+
+                Console.WriteLine();
             }
 
             Console.WriteLine();
@@ -85,5 +146,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
             Console.ReadLine();
         }
+
+        #endregion Methods
     }
 }

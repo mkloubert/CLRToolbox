@@ -6,12 +6,42 @@ using System.Threading;
 namespace MarcelJoachimKloubert.CLRToolbox.Tests
 {
     [TestFixture]
-    public class DelegateCacheTests
+    public partial class DelegateCacheTests
     {
         #region Methods
 
-        [Test]
-        public void Test1()
+        [Test(Description = "'CachedAction' tests")]
+        public void ActionTest()
+        {
+            DelegateCache cache = new DelegateCache();
+
+            int val = -1;
+            DelegateCache.CachedAction action = delegate()
+                {
+                    ++val;
+                };
+
+            cache.SaveAction(action, TimeSpan.FromSeconds(3));
+
+            for (int i = 0; i < 4; i++)
+            {
+                cache.InvokeAction(action);
+
+                if (i < 3)
+                {
+                    Assert.AreEqual(val, 0);
+                }
+                else
+                {
+                    Assert.AreEqual(val, 1);
+                }
+
+                Thread.Sleep(1100);
+            }
+        }
+
+        [Test(Description = "'CachedFunc<TResult>' tests")]
+        public void FuncTest()
         {
             DelegateCache cache = new DelegateCache();
 

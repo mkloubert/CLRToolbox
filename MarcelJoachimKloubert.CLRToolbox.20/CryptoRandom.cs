@@ -96,20 +96,9 @@ namespace MarcelJoachimKloubert.CLRToolbox
 
         #endregion Events and delegates
 
-        #region Methods (13)
+        #region Methods (14)
 
-        // Public Methods (10)
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CryptoRandom" /> class.
-        /// </summary>
-        /// <remarks>
-        /// The method uses <see cref="Environment.TickCount" /> as seed value.
-        /// </remarks>
-        public static CryptoRandom Create()
-        {
-            return Create(new RNGCryptoServiceProvider());
-        }
+        // Public Methods (11)
 
         /// <summary>
         /// Creates a new instance of the <see cref="CryptoRandom" /> class.
@@ -125,9 +114,18 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// Creates a new instance of the <see cref="CryptoRandom" /> class.
         /// </summary>
         /// <param name="seed">The seed to use.</param>
-        public static CryptoRandom Create(double? seed)
+        public static CryptoRandom Create(double seed)
         {
             return Create(ToBinary(seed));
+        }
+        
+        /// <summary>
+        /// Creates a new instance of the <see cref="CryptoRandom" /> class.
+        /// </summary>
+        /// <param name="seed">The seed to use.</param>
+        public static CryptoRandom Create(Guid seed)
+        {
+            return Create(seed.ToByteArray());
         }
 
         /// <summary>
@@ -154,10 +152,24 @@ namespace MarcelJoachimKloubert.CLRToolbox
         /// <exception cref="ArgumentNullException">
         /// <paramref name="rng" /> is <see langword="null" />.
         /// </exception>
-        public static CryptoRandom Create(RNGCryptoServiceProvider rng, double? seed)
+        public static CryptoRandom Create(RNGCryptoServiceProvider rng, double seed)
         {
             return Create(rng,
                           ToBinary(seed));
+        }
+        
+        /// <summary>
+        /// Creates a new instance of the <see cref="CryptoRandom" /> class.
+        /// </summary>
+        /// <param name="rng">The random data provider.</param>
+        /// <param name="seed">The seed to use.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="rng" /> is <see langword="null" />.
+        /// </exception>
+        public static CryptoRandom Create(RNGCryptoServiceProvider rng, Guid seed)
+        {
+            return Create(rng,
+                          seed.ToByteArray());
         }
 
         /// <summary>

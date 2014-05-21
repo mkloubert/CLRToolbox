@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace MarcelJoachimKloubert.CLRToolbox.Tests
 {
     [TestFixture]
-    public class CollectionTests
+    public partial class CollectionTests
     {
         #region Fields (1)
 

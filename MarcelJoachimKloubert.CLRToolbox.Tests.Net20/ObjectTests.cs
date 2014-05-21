@@ -1,36 +1,173 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Objects;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Tests
 {
     [TestFixture]
-    public class ObjectTests
+    public partial class ObjectTests
     {
-        private readonly Random _RANDOM = new Random();
+        #region Fields (3)
 
-        public interface ITest1
+        private readonly Random _RANDOM = new Random();
+        private readonly ObjectFactory _FACTORY;
+        private readonly PropertyInfo[] _INTERFACE_TEST1_PROPERTIES;
+
+        #endregion Fields
+
+        #region Constructors (1)
+
+        public ObjectTests()
         {
-            int A { get; set; }
+            this._FACTORY = new ObjectFactory();
+            this._INTERFACE_TEST1_PROPERTIES = typeof(ITest1).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
-        #region Methods
+        #endregion Constructors
+
+        #region Methods (1)
+
+        // Public Methods (1) 
 
         [Test]
-        public void ObjectFactoryTest1()
+        public void ObjectFactory_CheckFactoryInstances()
         {
-            PropertyInfo[] test1InterfaceProperties = typeof(ITest1).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            Assert.AreNotSame(this._FACTORY,
+                              ObjectFactory.Instance);
 
-            ObjectFactory factory = new ObjectFactory();
-            ObjectFactory defFactory = ObjectFactory.Instance;
+            Assert.AreSame(ObjectFactory.Instance,
+                           ObjectFactory.Instance);
+        }
 
-            ITest1 a = factory.CreateProxyForInterface<ITest1>();
-            ITest1 b = defFactory.CreateProxyForInterface<ITest1>();
-            ITest1 c = factory.CreateProxyForInterface<ITest1>();
-            ITest1 d = defFactory.CreateProxyForInterface<ITest1>();
+        [Test]
+        public void ObjectFactory_CheckObjectInstances()
+        {
+            ITest1 a1;
+            ITest1 a2;
+            ITest1 b;
+            ITest1 c;
+            ITest1 d1;
+            ITest1 d2;
+            this.CreateNewTest1Instances(out a1, out a2, out b, out c, out d1, out d2);
 
-            ITest1[] instances = new ITest1[] { a, b, c, d };
+            // check 'a1' with others
+            Assert.AreNotSame(a1, b);
+            Assert.AreSame(a1, a1);
+            Assert.AreSame(a1, a2);
+            Assert.AreNotSame(a1, c);
+            Assert.AreNotSame(a1, d1);
+            Assert.AreNotSame(a1, d2);
+            
+            // check 'a2' with others
+            Assert.AreNotSame(a2, b);
+            Assert.AreSame(a2, a2);
+            Assert.AreNotSame(a2, c);
+            Assert.AreNotSame(a2, d1);
+            Assert.AreNotSame(a2, d2);
+
+            // check 'b' with others
+            Assert.AreSame(b, b);
+            Assert.AreNotSame(b, c);
+            Assert.AreNotSame(b, d1);
+            Assert.AreNotSame(b, d2);
+
+            // check 'c' with others
+            Assert.AreSame(c, c);
+            Assert.AreNotSame(c, d1);
+            Assert.AreNotSame(c, d2);
+
+            // check 'd1' with others
+            Assert.AreSame(d1, d1);
+            Assert.AreSame(d1, d2);
+
+            // check 'd2' with others
+            Assert.AreSame(d2, d2);
+        }
+
+        [Test]
+        public void ObjectFactory_CheckObjectProxyTypes()
+        {
+            ITest1 a1;
+            ITest1 a2;
+            ITest1 b;
+            ITest1 c;
+            ITest1 d1;
+            ITest1 d2;
+            this.CreateNewTest1Instances(out a1, out a2, out b, out c, out d1, out d2);
+
+            // a1
+            {
+                Assert.AreEqual(a1.GetType().FullName,
+                                a2.GetType().FullName);
+
+                Assert.AreNotEqual(a1.GetType().FullName,
+                                   b.GetType().FullName);
+
+                Assert.AreEqual(a1.GetType().FullName,
+                                c.GetType().FullName);
+
+                Assert.AreNotEqual(a1.GetType().FullName,
+                                   d1.GetType().FullName);
+
+                Assert.AreNotEqual(a1.GetType().FullName,
+                                   d2.GetType().FullName);
+            }
+
+            // a1
+            {
+                Assert.AreNotEqual(a2.GetType().FullName,
+                                   b.GetType().FullName);
+
+                Assert.AreEqual(a2.GetType().FullName,
+                                c.GetType().FullName);
+
+                Assert.AreNotEqual(a2.GetType().FullName,
+                                   d1.GetType().FullName);
+
+                Assert.AreNotEqual(a2.GetType().FullName,
+                                   d2.GetType().FullName);
+            }
+
+            // b
+            {
+                Assert.AreNotEqual(b.GetType().FullName,
+                                   c.GetType().FullName);
+
+                Assert.AreEqual(b.GetType().FullName,
+                                d1.GetType().FullName);
+
+                Assert.AreEqual(b.GetType().FullName,
+                                d2.GetType().FullName);
+            }
+
+            // c
+            {
+                Assert.AreNotEqual(c.GetType().FullName,
+                                   d1.GetType().FullName);
+
+                Assert.AreNotEqual(c.GetType().FullName,
+                                   d2.GetType().FullName);
+            }
+
+            // d1 + d2
+            {
+                Assert.AreEqual(d1.GetType().FullName,
+                                d2.GetType().FullName);
+            }
+        }
+
+        [Test]
+        public void ObjectFactory_CheckObjectProxyProperties()
+        {
+            ITest1 a1;
+            ITest1 a2;
+            ITest1 b;
+            ITest1 c;
+            ITest1 d1;
+            ITest1 d2;
+            List<ITest1> instances = this.CreateNewTest1Instances(out a1, out a2, out b, out c, out d1, out d2);
 
             foreach (ITest1 t in instances)
             {
@@ -39,11 +176,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
                 // check if number of properties are equal
                 Assert.AreEqual(objProperties.Length,
-                                test1InterfaceProperties.Length);
+                                this._INTERFACE_TEST1_PROPERTIES.Length);
 
                 // check if all properties exists in propxy type
                 // and if types are the same
-                foreach (PropertyInfo property in test1InterfaceProperties)
+                foreach (PropertyInfo property in this._INTERFACE_TEST1_PROPERTIES)
                 {
                     PropertyInfo objProp = objType.GetProperty(property.Name,
                                                                BindingFlags.Public | BindingFlags.Instance);
@@ -53,53 +190,74 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
                                     objProp.PropertyType);
                 }
             }
+        }
 
-            Assert.AreNotEqual(a.GetType().Name,
-                               b.GetType().Name);
 
-            Assert.AreEqual(a.GetType().Name,
-                            c.GetType().Name);
+        [Test(Description = "Checks if the getter and setter of the 'ITest1.A' property works.")]
+        public void ObjectFactory_CheckObjectProxyPropertiesGettersAndSettes()
+        {
+            ITest1 a1;
+            ITest1 a2;
+            ITest1 b;
+            ITest1 c;
+            ITest1 d1;
+            ITest1 d2;
+            this.CreateNewTest1Instances(out a1, out a2, out b, out c, out d1, out d2);
 
-            Assert.AreNotEqual(b.GetType().Name,
-                               c.GetType().Name);
+            object valA1 = new object();
+            object valA2 = new object();
+            object valB = new object();
+            object valC = new object();
+            object valD1 = new object();
+            object valD2 = new object();
+
+            a1.A = valA1;
+            Assert.AreSame(a1.A, valA1);
+            Assert.AreSame(a2.A, valA1);
             
-            Assert.AreEqual(b.GetType().Name,
-                            d.GetType().Name);
-
-            Assert.AreNotSame(a, b);
-            Assert.AreSame(a, a);
-            Assert.AreNotSame(a, c);
-            Assert.AreNotSame(a, d);
-            
-            Assert.AreNotSame(b, a);
-            Assert.AreSame(b, b);
-            Assert.AreNotSame(b, c);
-            Assert.AreNotSame(b, d);
-            
-            Assert.AreNotSame(c, a);
-            Assert.AreSame(c, c);
-            Assert.AreNotSame(c, b);
-            Assert.AreNotSame(c, d);
-            
-            Assert.AreNotSame(d, a);
-            Assert.AreNotSame(d, b);
-            Assert.AreNotSame(d, c);
-            Assert.AreSame(d, d);
-
-            int valA = _RANDOM.Next();
-            int valB = _RANDOM.Next();
-            int valC = _RANDOM.Next();
-
-            a.A = valA;
-            Assert.AreEqual(a.A, valA);
+            a2.A = valA2;
+            Assert.AreSame(a1.A, valA2);
+            Assert.AreSame(a2.A, valA2);
 
             b.A = valB;
-            Assert.AreEqual(b.A, valB);
+            Assert.AreSame(b.A, valB);
 
             c.A = valC;
-            Assert.AreEqual(c.A, valC);
+            Assert.AreSame(c.A, valC);
+
+            d1.A = valD1;
+            Assert.AreSame(d1.A, valD1);
+            Assert.AreSame(d2.A, valD1);
+
+            d2.A = valD2;
+            Assert.AreSame(d1.A, valD2);
+            Assert.AreSame(d2.A, valD2);
+        }
+
+        private List<ITest1> CreateNewTest1Instances(out ITest1 a1, out ITest1 a2,
+                                                     out ITest1 b,
+                                                     out ITest1 c,
+                                                     out ITest1 d1, out ITest1 d2)
+        {
+            a1 = this._FACTORY.CreateProxyForInterface<ITest1>();
+            a2 = a1;
+            b = ObjectFactory.Instance.CreateProxyForInterface<ITest1>();
+            c = this._FACTORY.CreateProxyForInterface<ITest1>();
+            d1 = ObjectFactory.Instance.CreateProxyForInterface<ITest1>();
+            d2 = d1;
+
+            return new List<ITest1> { a1, a2, b, c, d1, d2 };
         }
 
         #endregion Methods
+
+        public interface ITest1
+        {
+            #region Data Members (1)
+
+            object A { get; set; }
+
+            #endregion Data Members
+        }
     }
 }

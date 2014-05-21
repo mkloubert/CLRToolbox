@@ -52,8 +52,20 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\CollectionTests.cs">
       <Link>CollectionTests.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\DelegateCacheTests.cs">
+      <Link>DelegateCacheTests.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\ObjectTests.cs">
+      <Link>ObjectTests.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\Program.cs">
       <Link>Program.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\RandomTests.cs">
+      <Link>RandomTests.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\StringTests.cs">
+      <Link>StringTests.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

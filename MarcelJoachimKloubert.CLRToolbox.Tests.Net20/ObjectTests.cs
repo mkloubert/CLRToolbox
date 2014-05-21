@@ -27,9 +27,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
         #endregion Constructors
 
-        #region Methods (1)
-
-        // Public Methods (1) 
+        #region Methods (6)
 
         [Test]
         public void ObjectFactory_CheckFactoryInstances()
@@ -59,7 +57,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             Assert.AreNotSame(a1, c);
             Assert.AreNotSame(a1, d1);
             Assert.AreNotSame(a1, d2);
-            
+
             // check 'a2' with others
             Assert.AreNotSame(a2, b);
             Assert.AreSame(a2, a2);
@@ -192,7 +190,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             }
         }
 
-
         [Test(Description = "Checks if the getter and setter of the 'ITest1.A' property works.")]
         public void ObjectFactory_CheckObjectProxyPropertiesGettersAndSettes()
         {
@@ -214,7 +211,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             a1.A = valA1;
             Assert.AreSame(a1.A, valA1);
             Assert.AreSame(a2.A, valA1);
-            
+
             a2.A = valA2;
             Assert.AreSame(a1.A, valA2);
             Assert.AreSame(a2.A, valA2);
@@ -246,7 +243,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             d1 = ObjectFactory.Instance.CreateProxyForInterface<ITest1>();
             d2 = d1;
 
-            return new List<ITest1> { a1, a2, b, c, d1, d2 };
+            return new List<ITest1>(new ITest1[] { a1, a2, b, c, d1, d2 });
         }
 
         #endregion Methods

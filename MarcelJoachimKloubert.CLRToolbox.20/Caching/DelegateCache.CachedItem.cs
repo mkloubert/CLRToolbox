@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Caching
@@ -11,14 +10,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
     {
         #region Nested Classes (1)
 
-        private sealed class CachedItem : TMObject, ITMEquatable<Delegate>
+        private sealed class CachedItem : IEquatable<Delegate>
         {
-            #region Fields (5)
+            #region Fields (7)
 
             private DateTimeOffset? _cachedUntil;
             private bool _hasBeenInvoked;
             private object _lastResult;
-            private TimeSpan? _timeout;
+            private readonly object _SYNC = new object();
+            internal TimeSpan? Timeout;
             internal readonly Delegate DELEGATE;
 
             #endregion Fields
@@ -35,7 +35,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
             #endregion Constructors
 
-            #region Properties (3)
+            #region Properties (2)
 
             internal bool HasExpired
             {
@@ -45,7 +45,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
                     DateTimeOffset? cu = this._cachedUntil;
                     return cu.HasValue &&
-                           cu.Value < now;
+                           (cu.Value < now);
                 }
             }
 
@@ -54,13 +54,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
                 get { return this._lastResult; }
 
                 private set { this._lastResult = value; }
-            }
-
-            internal TimeSpan? Timeout
-            {
-                get { return this._timeout; }
-
-                set { this._timeout = value; }
             }
 
             #endregion Properties
@@ -86,8 +79,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
             public override int GetHashCode()
             {
-                return base.GetHashCode();
+                return this.DELEGATE == null ? 0 : this.DELEGATE.GetHashCode();
             }
+
             // Private Methods (2) 
 
             private DateTimeOffset GetNow()
@@ -109,13 +103,17 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
                     this._cachedUntil = null;
                 }
             }
+
             // Internal Methods (2) 
 
             internal object Invoke(params object[] args)
             {
+                object result;
+
                 lock (this._SYNC)
                 {
-                    if (this.HasExpired || !this._hasBeenInvoked)
+                    if (this.HasExpired ||
+                        (this._hasBeenInvoked == false))
                     {
                         this._hasBeenInvoked = true;
 
@@ -127,16 +125,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
                         this.UpdateCachedUntil();
                     }
 
-                    return this.LastResult;
+                    result = this.LastResult;
                 }
+
+                return result;
             }
 
             internal bool Reset()
             {
+                bool result;
+
                 lock (this._SYNC)
                 {
-                    return !(this._hasBeenInvoked = false);
+                    result = !(this._hasBeenInvoked = false);
                 }
+
+                return result;
             }
 
             #endregion Methods

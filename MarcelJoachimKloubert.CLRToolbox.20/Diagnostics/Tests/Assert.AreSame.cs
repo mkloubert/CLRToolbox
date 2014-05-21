@@ -11,7 +11,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         // Public Methods (2) 
 
         /// <summary>
-        /// Checks if two objects are the same reference.
+        /// Checks if two objects have the same reference.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
@@ -22,7 +22,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         }
 
         /// <summary>
-        /// Checks if two objects are the same reference.
+        /// Checks if two objects have the same reference.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>

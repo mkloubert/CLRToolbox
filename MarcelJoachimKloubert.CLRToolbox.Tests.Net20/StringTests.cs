@@ -66,11 +66,22 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             char[] e = "  ".ToCharArray();
             char[] f = null;
 
+            // check 'a'
             Assert.IsFalse(StringHelper.IsNullOrWhiteSpace(a));
+
+            // check 'b'
             Assert.IsTrue(StringHelper.IsNullOrWhiteSpace(b));
+
+            // check 'c'
             Assert.IsFalse(StringHelper.IsNullOrWhiteSpace(c));
+
+            // check 'd'
             Assert.IsTrue(StringHelper.IsNullOrWhiteSpace(d));
+
+            // check 'e'
             Assert.IsTrue(StringHelper.IsNullOrWhiteSpace(e));
+
+            // check 'f'
             Assert.IsTrue(StringHelper.IsNullOrWhiteSpace(f));
         }
 

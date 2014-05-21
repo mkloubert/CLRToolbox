@@ -1,5 +1,5 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Caching;
-using NUnit.Framework;
+using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests;
 using System;
 using System.Threading;
 
@@ -10,7 +10,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
     {
         #region Methods
 
-        [Test(Description = "'CachedAction' tests")]
+        [Test]
         public void ActionTest()
         {
             DelegateCache cache = new DelegateCache();
@@ -40,7 +40,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             }
         }
 
-        [Test(Description = "'CachedFunc<TResult>' tests")]
+        [Test]
         public void FuncTest()
         {
             DelegateCache cache = new DelegateCache();

@@ -11,26 +11,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         // Public Methods (2) 
 
         /// <summary>
-        /// Checks if two objects have the same reference.
+        /// Checks if two objects DO NOT have the same reference.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
         /// <exception cref="AssertException">Check failed.</exception>
-        public static void AreSame(object x, object y)
+        public static void AreNotSame(object x, object y)
         {
-            AreSame(x, y, null);
+            AreNotSame(x, y, null);
         }
 
         /// <summary>
-        /// Checks if two objects have the same reference.
+        /// Checks if two objects DO NOT have the same reference.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
         /// <param name="message">The message to display if check fails.</param>
         /// <exception cref="AssertException">Check failed.</exception>
-        public static void AreSame(object x, object y, string message)
+        public static void AreNotSame(object x, object y, string message)
         {
-            if (object.ReferenceEquals(x, y))
+            if (object.ReferenceEquals(x, y) == false)
             {
                 return;
             }
@@ -38,7 +38,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
             ThrowAssertException(message,
                                  delegate()
                                  {
-                                     return string.Format("Unique instances:\nx = {0}\ny = {1}",
+                                     return string.Format("Same instances:\nx = {0}\ny = {1}",
                                                           AreSame_ToObjectDisplayText(x),
                                                           AreSame_ToObjectDisplayText(y));
                                  });

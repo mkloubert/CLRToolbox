@@ -1,5 +1,5 @@
-﻿using MarcelJoachimKloubert.CLRToolbox.Objects;
-using NUnit.Framework;
+﻿using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests;
+using MarcelJoachimKloubert.CLRToolbox.Objects;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -176,8 +176,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
                 Assert.AreEqual(objProperties.Length,
                                 this._INTERFACE_TEST1_PROPERTIES.Length);
 
-                // check if all properties exists in propxy type
-                // and if types are the same
+                // check if all properties exists in proxy type
+                // and if property types are the same
                 foreach (PropertyInfo property in this._INTERFACE_TEST1_PROPERTIES)
                 {
                     PropertyInfo objProp = objType.GetProperty(property.Name,
@@ -190,7 +190,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             }
         }
 
-        [Test(Description = "Checks if the getter and setter of the 'ITest1.A' property works.")]
+        [Test]
         public void ObjectFactory_CheckObjectProxyPropertiesGettersAndSettes()
         {
             ITest1 a1;

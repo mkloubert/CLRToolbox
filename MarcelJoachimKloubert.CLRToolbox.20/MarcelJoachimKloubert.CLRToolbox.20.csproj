@@ -165,11 +165,40 @@
     <Compile Include="Diagnostics\Impl\TextWriterLogger.cs" />
     <Compile Include="Diagnostics\Impl\WorkflowLogger.cs" />
     <Compile Include="Diagnostics\LogMessageEventArgs.cs" />
+    <Compile Include="Diagnostics\Tests\Assert.AreEqual.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.AreNotEqual.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.AreNotSame.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diagnostics\Tests\Assert.AreSame.cs">
       <DependentUpon>Assert.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\Tests\Assert.cs" />
+    <Compile Include="Diagnostics\Tests\Assert.IsFalse.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.IsNotFalse.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.IsNotNull.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.IsNotTrue.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.IsNull.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics\Tests\Assert.IsTrue.cs">
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diagnostics\Tests\AssertException.cs" />
+    <Compile Include="Diagnostics\Tests\TestAttribute.cs" />
+    <Compile Include="Diagnostics\Tests\TestFixtureAttribute.cs" />
     <Compile Include="DisposeObjectEventArgs.cs" />
     <Compile Include="ErrorHandlerBase.cs" />
     <Compile Include="Execution\Functions\FunctionBase.Classes.cs">

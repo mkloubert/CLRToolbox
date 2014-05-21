@@ -1,5 +1,5 @@
-﻿using MarcelJoachimKloubert.CLRToolbox.Helpers;
-using NUnit.Framework;
+﻿using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests;
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Tests
@@ -9,7 +9,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
     {
         #region Methods
 
-        [Test(Description = "'AsString' helper method")]
+        [Test]
         public void AsString()
         {
             string a = "TM";
@@ -56,7 +56,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
                             g.Value.ToString());
         }
 
-        [Test(Description = "'IsNullOrWhiteSpace' helper method")]
+        [Test]
         public void IsNullOrWhiteSpace()
         {
             string a = "TM";

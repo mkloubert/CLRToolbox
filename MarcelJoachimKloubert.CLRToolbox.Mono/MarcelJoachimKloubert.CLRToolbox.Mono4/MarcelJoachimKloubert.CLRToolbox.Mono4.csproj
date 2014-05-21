@@ -1708,6 +1708,39 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Data\Xml\XmlDocumentFactory.cs">
       <Link>Data\Xml\XmlDocumentFactory.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreEqual.cs">
+      <Link>Diagnostics\Tests\Assert.AreEqual.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreNotEqual.cs">
+      <Link>Diagnostics\Tests\Assert.AreNotEqual.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreNotSame.cs">
+      <Link>Diagnostics\Tests\Assert.AreNotSame.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsFalse.cs">
+      <Link>Diagnostics\Tests\Assert.IsFalse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNotFalse.cs">
+      <Link>Diagnostics\Tests\Assert.IsNotFalse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNotNull.cs">
+      <Link>Diagnostics\Tests\Assert.IsNotNull.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNotTrue.cs">
+      <Link>Diagnostics\Tests\Assert.IsNotTrue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNull.cs">
+      <Link>Diagnostics\Tests\Assert.IsNull.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsTrue.cs">
+      <Link>Diagnostics\Tests\Assert.IsTrue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\TestAttribute.cs">
+      <Link>Diagnostics\Tests\TestAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\TestFixtureAttribute.cs">
+      <Link>Diagnostics\Tests\TestFixtureAttribute.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

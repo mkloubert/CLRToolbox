@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -76,7 +76,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
             foreach (Type type in allTypes)
             {
-                object[] testFixureAttribs = type.GetCustomAttributes(typeof(TestFixtureAttribute), true);
+                object[] testFixureAttribs = type.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests.TestFixtureAttribute), true);
                 if (testFixureAttribs.Length < 1)
                 {
                     continue;
@@ -105,7 +105,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
                 foreach (MethodInfo method in allMethods)
                 {
-                    object[] testAttribs = method.GetCustomAttributes(typeof(TestAttribute), true);
+                    object[] testAttribs = method.GetCustomAttributes(typeof(global::MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests.TestAttribute), true);
                     if (testAttribs.Length < 1)
                     {
                         continue;
@@ -115,8 +115,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
                     {
                         TestAttribute ta = (TestAttribute)testAttribs[0];
 
-                        Console.Write("\t'{0}' ... ",
-                                      ta.Description == null ? method.Name : ta.Description);
+                        Console.Write("\t'{0}' ... ", method.Name);
 
                         method.Invoke(obj, null);
 

@@ -1,6 +1,6 @@
 ﻿using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
+using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
 
         #endregion Fields
 
-        #region Methods
+        #region Methods (5)
 
         [Test]
         public void AsArrayMethod()
@@ -50,9 +50,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
                             index);
         }
 
-        /// <summary>
-        /// Test <see cref="CollectionHelper.Range(int, int)" /> method.
-        /// </summary>
         [Test]
         public void RangeMethod()
         {
@@ -95,9 +92,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             Assert.IsFalse(CollectionHelper.SequenceEqual(numbers2, number1Array));
         }
 
-        /// <summary>
-        /// Test <see cref="CollectionHelper.ToArray{T}(IEnumerable{T})" /> method.
-        /// </summary>
         [Test]
         public void ToArrayMethod()
         {

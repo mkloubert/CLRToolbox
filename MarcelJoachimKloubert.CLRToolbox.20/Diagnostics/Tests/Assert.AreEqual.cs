@@ -11,26 +11,26 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         // Public Methods (2) 
 
         /// <summary>
-        /// Checks if two objects have the same reference.
+        /// Checks if two objects are equal.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
         /// <exception cref="AssertException">Check failed.</exception>
-        public static void AreSame(object x, object y)
+        public static void AreEqual(object x, object y)
         {
-            AreSame(x, y, null);
+            AreEqual(x, y, null);
         }
 
         /// <summary>
-        /// Checks if two objects have the same reference.
+        /// Checks if two objects are equal.
         /// </summary>
         /// <param name="x">The first object to check.</param>
         /// <param name="y">The second object to check.</param>
         /// <param name="message">The message to display if check fails.</param>
         /// <exception cref="AssertException">Check failed.</exception>
-        public static void AreSame(object x, object y, string message)
+        public static void AreEqual(object x, object y, string message)
         {
-            if (object.ReferenceEquals(x, y))
+            if (object.Equals(ToEquatableValue(x), ToEquatableValue(y)))
             {
                 return;
             }
@@ -38,9 +38,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
             ThrowAssertException(message,
                                  delegate()
                                  {
-                                     return string.Format("Unique instances:\nx = {0}\ny = {1}",
-                                                          AreSame_ToObjectDisplayText(x),
-                                                          AreSame_ToObjectDisplayText(y));
+                                     return string.Format("Are NOT equal:\nx = {0}\ny = {1}",
+                                                          AreEqual_ToObjectDisplayText(x),
+                                                          AreEqual_ToObjectDisplayText(y));
                                  });
         }
 

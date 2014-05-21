@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests;
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Tests
@@ -8,7 +8,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
     {
         #region Methods (2)
 
-        [Test(Description = "'CryptoRandom' instance")]
+        [Test]
         public void CryptoRandomTest1()
         {
             CryptoRandom r = new CryptoRandom();
@@ -33,7 +33,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Tests
             }
         }
 
-        [Test(Description = "'CryptoRandom' instance with seed value")]
+        [Test]
         public void CryptoRandomSeed()
         {
             CryptoRandom r = CryptoRandom.Create(Guid.NewGuid().ToByteArray());

@@ -395,6 +395,18 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\LogMessageEventArgs.cs">
       <Link>Diagnostics\LogMessageEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreEqual.cs">
+      <Link>Diagnostics\Tests\Assert.AreEqual.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreNotEqual.cs">
+      <Link>Diagnostics\Tests\Assert.AreNotEqual.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreNotSame.cs">
+      <Link>Diagnostics\Tests\Assert.AreNotSame.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.AreSame.cs">
       <Link>Diagnostics\Tests\Assert.AreSame.cs</Link>
       <DependentUpon>Assert.cs</DependentUpon>
@@ -402,8 +414,38 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.cs">
       <Link>Diagnostics\Tests\Assert.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsFalse.cs">
+      <Link>Diagnostics\Tests\Assert.IsFalse.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNotFalse.cs">
+      <Link>Diagnostics\Tests\Assert.IsNotFalse.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNotNull.cs">
+      <Link>Diagnostics\Tests\Assert.IsNotNull.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNotTrue.cs">
+      <Link>Diagnostics\Tests\Assert.IsNotTrue.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsNull.cs">
+      <Link>Diagnostics\Tests\Assert.IsNull.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\Assert.IsTrue.cs">
+      <Link>Diagnostics\Tests\Assert.IsTrue.cs</Link>
+      <DependentUpon>Assert.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\AssertException.cs">
       <Link>Diagnostics\Tests\AssertException.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\TestAttribute.cs">
+      <Link>Diagnostics\Tests\TestAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\TestFixtureAttribute.cs">
+      <Link>Diagnostics\Tests\TestFixtureAttribute.cs</Link>
     </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\DisposableBase.cs">
       <Link>DisposableBase.cs</Link>

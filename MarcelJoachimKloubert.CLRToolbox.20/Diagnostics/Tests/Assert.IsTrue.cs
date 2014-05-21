@@ -11,26 +11,24 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
         // Public Methods (2) 
 
         /// <summary>
-        /// Checks if two objects have the same reference.
+        /// Checks if a value is <see langword="true" />.
         /// </summary>
-        /// <param name="x">The first object to check.</param>
-        /// <param name="y">The second object to check.</param>
+        /// <param name="value">The value to check.</param>
         /// <exception cref="AssertException">Check failed.</exception>
-        public static void AreSame(object x, object y)
+        public static void IsTrue(bool? value)
         {
-            AreSame(x, y, null);
+            IsTrue(value, null);
         }
 
         /// <summary>
-        /// Checks if two objects have the same reference.
+        /// Checks if a value is <see langword="true" />.
         /// </summary>
-        /// <param name="x">The first object to check.</param>
-        /// <param name="y">The second object to check.</param>
+        /// <param name="value">The value to check.</param>
         /// <param name="message">The message to display if check fails.</param>
         /// <exception cref="AssertException">Check failed.</exception>
-        public static void AreSame(object x, object y, string message)
+        public static void IsTrue(bool? value, string message)
         {
-            if (object.ReferenceEquals(x, y))
+            if (value == true)
             {
                 return;
             }
@@ -38,9 +36,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
             ThrowAssertException(message,
                                  delegate()
                                  {
-                                     return string.Format("Unique instances:\nx = {0}\ny = {1}",
-                                                          AreSame_ToObjectDisplayText(x),
-                                                          AreSame_ToObjectDisplayText(y));
+                                     return string.Format("Expected TRUE:\nvalue = {0}",
+                                                          value.HasValue ? value.ToString() : "(null)");
                                  });
         }
 

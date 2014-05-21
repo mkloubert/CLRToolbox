@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BC2F98EE-BD44-43DD-A97A-B3710C7E21E9}</ProjectGuid>
+    <ProjectGuid>{27899432-06C9-4F0C-A530-CE590826E014}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Tests</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Tests.Net35</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Tests.Net20</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>3</LangVersion>
+    <LangVersion>ISO-2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,49 +43,30 @@
       <HintPath>..\Libs\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\CollectionTests.cs">
-      <Link>CollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\DelegateCacheTests.cs">
-      <Link>DelegateCacheTests.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\ObjectTests.cs">
-      <Link>ObjectTests.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\Program.cs">
-      <Link>Program.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\RandomTests.cs">
-      <Link>RandomTests.cs</Link>
-    </Compile>
-    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\StringTests.cs">
-      <Link>StringTests.cs</Link>
-    </Compile>
+    <Compile Include="CollectionTests.cs" />
+    <Compile Include="DelegateCacheTests.cs" />
+    <Compile Include="ObjectTests.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomTests.cs" />
+    <Compile Include="StringTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.35.Web\MarcelJoachimKloubert.CLRToolbox.35.Web.csproj">
-      <Project>{eb4171bb-7d68-4497-9e3b-fb9eca6ba992}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.35.Web</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.20.Web\MarcelJoachimKloubert.CLRToolbox.20.Web.csproj">
+      <Project>{2be8a6c6-a3b9-4a60-80c8-530a7c308794}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.20.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\MarcelJoachimKloubert.CLRToolbox.35.WinForms.csproj">
-      <Project>{20fce78b-acec-43be-b3b9-b14b912edaa8}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.35.WinForms</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.20.WinForms\MarcelJoachimKloubert.CLRToolbox.20.WinForms.csproj">
+      <Project>{6162a233-c998-43c0-b78b-fb090310d6b5}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.20.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.35.WPF\MarcelJoachimKloubert.CLRToolbox.35.WPF.csproj">
-      <Project>{455d157b-0ff7-4c06-aa9a-41ca0e8772d7}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.35.WPF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.35\MarcelJoachimKloubert.CLRToolbox.35.csproj">
-      <Project>{dcd0a910-1d32-43f1-bc05-edb6c19722ae}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.35</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\MarcelJoachimKloubert.CLRToolbox.20.csproj">
+      <Project>{231dba7a-c365-4712-bbed-19700f464cab}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.20</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

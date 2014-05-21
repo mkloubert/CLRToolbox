@@ -45,13 +45,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRTo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{201470AE-B469-4F87-B1CC-D87D837A0704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net20", "MarcelJoachimKloubert.CLRToolbox.Tests.Net20\MarcelJoachimKloubert.CLRToolbox.Tests.Net20.csproj", "{27899432-06C9-4F0C-A530-CE590826E014}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net20", "Tests\MarcelJoachimKloubert.CLRToolbox.Tests.Net20\MarcelJoachimKloubert.CLRToolbox.Tests.Net20.csproj", "{27899432-06C9-4F0C-A530-CE590826E014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net35", "MarcelJoachimKloubert.CLRToolbox.Tests.Net35\MarcelJoachimKloubert.CLRToolbox.Tests.Net35.csproj", "{BC2F98EE-BD44-43DD-A97A-B3710C7E21E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net35", "Tests\MarcelJoachimKloubert.CLRToolbox.Tests.Net35\MarcelJoachimKloubert.CLRToolbox.Tests.Net35.csproj", "{BC2F98EE-BD44-43DD-A97A-B3710C7E21E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net40", "MarcelJoachimKloubert.CLRToolbox.Tests.Net40\MarcelJoachimKloubert.CLRToolbox.Tests.Net40.csproj", "{F8B8E839-8145-4387-ABBC-93C250C18F28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net40", "Tests\MarcelJoachimKloubert.CLRToolbox.Tests.Net40\MarcelJoachimKloubert.CLRToolbox.Tests.Net40.csproj", "{F8B8E839-8145-4387-ABBC-93C250C18F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net45", "MarcelJoachimKloubert.CLRToolbox.Tests.Net45\MarcelJoachimKloubert.CLRToolbox.Tests.Net45.csproj", "{F4F110AE-01E4-4323-8167-31F4010E80F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarcelJoachimKloubert.CLRToolbox.Tests.Net45", "Tests\MarcelJoachimKloubert.CLRToolbox.Tests.Net45\MarcelJoachimKloubert.CLRToolbox.Tests.Net45.csproj", "{F4F110AE-01E4-4323-8167-31F4010E80F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

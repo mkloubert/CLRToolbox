@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8B8E839-8145-4387-ABBC-93C250C18F28}</ProjectGuid>
+    <ProjectGuid>{BC2F98EE-BD44-43DD-A97A-B3710C7E21E9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MarcelJoachimKloubert.CLRToolbox.Tests</RootNamespace>
-    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Tests.Net40</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AssemblyName>MarcelJoachimKloubert.CLRToolbox.Tests.Net35</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>4</LangVersion>
+    <LangVersion>3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -72,24 +71,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.40.Web\MarcelJoachimKloubert.CLRToolbox.40.Web.csproj">
-      <Project>{dc3ca98c-2b04-4603-ac85-7ea34ecd393b}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.40.Web</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.35.Web\MarcelJoachimKloubert.CLRToolbox.35.Web.csproj">
+      <Project>{eb4171bb-7d68-4497-9e3b-fb9eca6ba992}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.35.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.40.WinForms\MarcelJoachimKloubert.CLRToolbox.40.WinForms.csproj">
-      <Project>{bc5d8ca7-49d2-4554-adaa-465dc41d71a9}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.40.WinForms</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.35.WinForms\MarcelJoachimKloubert.CLRToolbox.35.WinForms.csproj">
+      <Project>{20fce78b-acec-43be-b3b9-b14b912edaa8}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.35.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.40.WPF\MarcelJoachimKloubert.CLRToolbox.40.WPF.csproj">
-      <Project>{e170965a-d068-40e8-a37f-f480b6f1cb5f}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.40.WPF</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.35.WPF\MarcelJoachimKloubert.CLRToolbox.35.WPF.csproj">
+      <Project>{455d157b-0ff7-4c06-aa9a-41ca0e8772d7}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.35.WPF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.40\MarcelJoachimKloubert.CLRToolbox.40.csproj">
-      <Project>{50e0cdb2-bc51-4c46-949a-387e3534041f}</Project>
-      <Name>MarcelJoachimKloubert.CLRToolbox.40</Name>
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.35\MarcelJoachimKloubert.CLRToolbox.35.csproj">
+      <Project>{dcd0a910-1d32-43f1-bc05-edb6c19722ae}</Project>
+      <Name>MarcelJoachimKloubert.CLRToolbox.35</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

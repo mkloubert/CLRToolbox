@@ -75,19 +75,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45.Web\MarcelJoachimKloubert.CLRToolbox.45.Web.csproj">
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.45.Web\MarcelJoachimKloubert.CLRToolbox.45.Web.csproj">
       <Project>{2f8d4198-6de0-43be-91ca-5b4b2bbcdae0}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.45.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45.WinForms\MarcelJoachimKloubert.CLRToolbox.45.WinForms.csproj">
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.45.WinForms\MarcelJoachimKloubert.CLRToolbox.45.WinForms.csproj">
       <Project>{91083992-d3b6-4ce4-8d5f-add6ab343d7d}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.45.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45.WPF\MarcelJoachimKloubert.CLRToolbox.45.WPF.csproj">
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.45.WPF\MarcelJoachimKloubert.CLRToolbox.45.WPF.csproj">
       <Project>{2751dbef-1c83-4d9d-b255-5a5d9291c6a4}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.45.WPF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj">
+    <ProjectReference Include="..\..\MarcelJoachimKloubert.CLRToolbox.45\MarcelJoachimKloubert.CLRToolbox.45.csproj">
       <Project>{c24ae28b-5be0-44a7-9232-11e090aa0641}</Project>
       <Name>MarcelJoachimKloubert.CLRToolbox.45</Name>
     </ProjectReference>

@@ -35,7 +35,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
             #endregion Constructors
 
-            #region Properties (2)
+            #region Properties (1)
 
             internal bool HasExpired
             {
@@ -47,13 +47,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
                     return cu.HasValue &&
                            (cu.Value < now);
                 }
-            }
-
-            internal object LastResult
-            {
-                get { return this._lastResult; }
-
-                private set { this._lastResult = value; }
             }
 
             #endregion Properties
@@ -79,7 +72,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
             public override int GetHashCode()
             {
-                return this.DELEGATE == null ? 0 : this.DELEGATE.GetHashCode();
+                return this.DELEGATE
+                           .GetHashCode();
             }
 
             // Private Methods (2) 
@@ -117,15 +111,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
                     {
                         this._hasBeenInvoked = true;
 
-                        this.LastResult = this.DELEGATE
-                                              .Method
-                                              .Invoke(this.DELEGATE.Target,
-                                                      args ?? new object[] { null });
+                        this._lastResult = this.DELEGATE
+                                               .Method
+                                               .Invoke(this.DELEGATE.Target,
+                                                       args ?? new object[] { null });
 
                         this.UpdateCachedUntil();
                     }
 
-                    result = this.LastResult;
+                    result = this._lastResult;
                 }
 
                 return result;

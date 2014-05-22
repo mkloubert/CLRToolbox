@@ -211,10 +211,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
         // Protected Methods (1) 
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <see cref="DisposableBase.OnDispose(bool)" />
+        /// <inheriteddoc />
         protected override void OnDispose(bool disposing)
         {
             this._ITEMS
@@ -323,11 +320,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
 
         private CachedItem TryFindCachedItem(Delegate @delegate)
         {
-            return CollectionHelper.SingleOrDefault(this._ITEMS,
-                                                    delegate(CachedItem item)
-                                                    {
-                                                        return item.Equals(@delegate);
-                                                    });
+            return CollectionHelper.FirstOrDefault(this._ITEMS,
+                                                   delegate(CachedItem item)
+                                                   {
+                                                       return item.Equals(@delegate);
+                                                   });
         }
 
         #endregion Methods

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Helpers
 {
     /// <summary>
@@ -10,6 +9,5 @@ namespace MarcelJoachimKloubert.CLRToolbox.Helpers
     /// </summary>
     public static partial class CompressionHelper
     {
-
     }
 }

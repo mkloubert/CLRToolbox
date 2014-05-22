@@ -14,7 +14,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
     public static partial class Assert
     {
         #region Methods (7)
-        
+
         private static string AreEqual_ToObjectDisplayText(object obj)
         {
             if (obj == null)
@@ -86,7 +86,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Diagnostics.Tests
                 return null;
             }
 
-            if ((obj is sbyte) || 
+            if ((obj is sbyte) ||
                 (obj is short) ||
                 (obj is int))
             {

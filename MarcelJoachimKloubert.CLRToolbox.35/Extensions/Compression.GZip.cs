@@ -2,10 +2,9 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
+using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System.Collections.Generic;
 using System.IO;
-using MarcelJoachimKloubert.CLRToolbox.Helpers;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Extensions
 {
@@ -16,7 +15,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         // Public Methods (6) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CompressionHelper.GZip(IEnumerable{byte})" />
         public static byte[] GZip(this IEnumerable<byte> data)
@@ -25,7 +24,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CompressionHelper.GZip(Stream)" />
         public static byte[] GZip(this Stream src)
@@ -34,7 +33,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CompressionHelper.GZip(Stream, int)" />
         public static byte[] GZip(this Stream src, int bufferSize)
@@ -43,7 +42,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CompressionHelper.GZip(IEnumerable{byte}, Stream)" />
         public static void GZip(this IEnumerable<byte> data, Stream dest)
@@ -52,7 +51,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CompressionHelper.GZip(Stream, Stream)" />
         public static void GZip(this Stream src, Stream dest)
@@ -61,7 +60,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="CompressionHelper.GZip(Stream, Stream, int)" />
         public static void GZip(this Stream src, Stream dest, int bufferSize)

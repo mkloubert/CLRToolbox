@@ -172,6 +172,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.WinForms.Execution.Jobs
         /// <inheriteddoc />
         protected override void StartTimer()
         {
+            this._timer.Interval = (int)this.TimerInterval.TotalMilliseconds;
             this._timer.Start();
         }
 

@@ -276,11 +276,15 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
         /// <returns>The list of trusted assembly keys.</returns>
         public List<byte[]> GetTrustedAssemblyKeys()
         {
+            List<byte[]> result;
+
             lock (this._SYNC)
             {
-                return new List<byte[]>(this._TRUSTED_ASM_KEYS
-                                            .Select(a => a.ToArray()));
+                result = new List<byte[]>(this._TRUSTED_ASM_KEYS
+                                              .Select(a => a.ToArray()));
             }
+
+            return result;
         }
 
         /// <summary>
@@ -351,8 +355,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Composition
                 throw new ArgumentNullException("type");
             }
 
-            return this.IsTrustedAssembly(type.Assembly);
+            return this.IsTrustedAssembly(asm: type.Assembly);
         }
+
         // Private Methods (1) 
 
         object ICloneable.Clone()

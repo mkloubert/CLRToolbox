@@ -305,7 +305,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         protected virtual void StartTimer()
         {
             this._timer = new Timer(this.Timer_Elapsed, null,
-                                    750, Timeout.Infinite);
+                                    this.TimerInterval, TimeSpan.FromMilliseconds(-1));
         }
 
         /// <summary>
@@ -438,6 +438,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
         #endregion Methods
 
         #region Properties (8)
+        
+        // Public Properties (8) 
 
         /// <inheriteddoc />
         public virtual bool CanRestart
@@ -500,6 +502,16 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Jobs
 
                 return session == null ? (DateTimeOffset?)null : session.Time;
             }
+        }
+
+        // Protected Properties (1) 
+
+        /// <summary>
+        /// Gets the check interval for an underlying timer.
+        /// </summary>
+        protected virtual TimeSpan TimerInterval
+        {
+            get { return TimeSpan.FromMilliseconds(750); }
         }
 
         #endregion Properties

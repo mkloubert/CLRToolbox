@@ -134,7 +134,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
         #region Methods (12)
 
         // Public Methods (6) 
-        
+
         /// <summary>
         /// Creates a new instance of the <see cref="DispatcherJobScheduler" /> class.
         /// </summary>
@@ -151,7 +151,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
                           prio,
                           new object());
         }
-        
+
         /// <summary>
         /// Creates a new instance of the <see cref="DispatcherJobScheduler" /> class.
         /// </summary>
@@ -168,7 +168,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
                           DispatcherPriority.Background,
                           syncRoot);
         }
-        
+
         /// <summary>
         /// Creates a new instance of the <see cref="DispatcherJobScheduler" /> class.
         /// </summary>
@@ -193,7 +193,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
                                                   return disp;
                                               }, syncRoot);
         }
-        
+
         /// <summary>
         /// Creates a new instance of the <see cref="DispatcherJobScheduler" /> class.
         /// </summary>
@@ -210,7 +210,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
                           prio,
                           new object());
         }
-        
+
         /// <summary>
         /// Creates a new instance of the <see cref="DispatcherJobScheduler" /> class.
         /// </summary>
@@ -227,7 +227,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
                           DispatcherPriority.Background,
                           syncRoot);
         }
-        
+
         /// <summary>
         /// Creates a new instance of the <see cref="DispatcherJobScheduler" /> class.
         /// </summary>
@@ -254,7 +254,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
         }
 
         // Protected Methods (4) 
-        
+
         /// <inheriteddoc />
         protected override void DisposeTimer()
         {
@@ -298,6 +298,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Windows.Execution.Jobs
                 return;
             }
 
+            t.Interval = this.TimerInterval;
             t.Start();
         }
 

@@ -36,7 +36,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
 
         #endregion Constructors
 
-        #region Methods (3)
+        #region Methods (2)
 
         // Protected Methods (1) 
 
@@ -91,7 +91,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
             if (targetValue == null)
             {
                 if (targetType.IsValueType &&
-                    Nullable.GetUnderlyingType(targetType) == null)
+                    (Nullable.GetUnderlyingType(targetType) == null))
                 {
                     // a (non-nullable) struct, so create instance by use the default parameter-less constructor
                     targetValue = Activator.CreateInstance(targetType);
@@ -100,33 +100,11 @@ namespace MarcelJoachimKloubert.CLRToolbox.Data
                 return;
             }
 
-            bool changeTypeExtensionHandled = false;
-            this.OnChangeTypeExtension(targetType,
-                                       ref targetValue,
-                                       provider,
-                                       ref changeTypeExtensionHandled);
-
-            if (changeTypeExtensionHandled == false)
-            {
-                // use BCL logic
-                targetValue = global::System.Convert.ChangeType(targetValue, targetType, provider);
-            }
+            // use BCL logic
+            targetValue = global::System.Convert.ChangeType(targetValue, targetType, provider);
         }
 
-        // Private Methods (2) 
-
-        private void OnChangeTypeExtension(Type targetType, ref object targetValue, IFormatProvider provider, ref bool handled)
-        {
-            if (provider == null)
-            {
-#if !WINDOWS_PHONE
-                targetValue = global::System.Convert.ChangeType(targetValue, targetType);
-#else
-                targetValue = global::System.Convert.ChangeType(targetValue, targetType, provider);
-#endif
-                handled = true;
-            }
-        }
+        // Private Methods (1) 
 
         private void ParseInputValueForChangeType(Type targetType, ref object targetValue, IFormatProvider provider)
         {

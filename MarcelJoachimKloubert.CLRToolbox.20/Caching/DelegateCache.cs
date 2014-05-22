@@ -257,14 +257,19 @@ namespace MarcelJoachimKloubert.CLRToolbox.Caching
                 throw new ArgumentNullException("delegate");
             }
 
-            bool result = false;
+            bool result;
 
             lock (this._SYNC)
             {
                 CachedItem item = this.TryFindCachedItem(@delegate);
+
                 if (item != null)
                 {
                     result = this._ITEMS.Remove(item);
+                }
+                else
+                {
+                    result = false;
                 }
             }
 

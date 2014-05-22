@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
     #region INTERFACE: IForEachItemExecutionContext<T>
@@ -19,8 +18,8 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         /// Gets or sets if the whole operation should be canceled or not.
         /// </summary>
         bool Cancel { get; set; }
-        
-        #endregion Data Members
+
+        #endregion Data Members
     }
 
     #endregion
@@ -34,7 +33,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
     /// <typeparam name="S">Type of the underlying state object.</typeparam>
     public interface IForEachItemExecutionContext<T, S> : IForEachItemExecutionContext<T>, IForAllItemExecutionContext<T, S>
     {
-        
     }
 
     #endregion

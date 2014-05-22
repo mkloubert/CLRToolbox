@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 {
     #region INTERFACE: IForAllItemExecutionContext<T>
@@ -25,7 +24,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         /// </summary>
         T Item { get; }
 
-        #endregion Data Members
+        #endregion Data Members
     }
 
     #endregion

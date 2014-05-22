@@ -749,6 +749,7 @@
     <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyCollection.cs" />
     <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyDictionary.cs" />
     <Compile Include="_Compatibility\System\Collections\Generic\IReadOnlyList.cs" />
+    <Compile Include="_Compatibility\System\Collections\Generic\ISet.cs" />
     <Compile Include="_Compatibility\System\Collections\IStructuralComparable.cs" />
     <Compile Include="_Compatibility\System\Collections\IStructuralEquatable.cs" />
     <Compile Include="_Compatibility\System\Func.cs" />

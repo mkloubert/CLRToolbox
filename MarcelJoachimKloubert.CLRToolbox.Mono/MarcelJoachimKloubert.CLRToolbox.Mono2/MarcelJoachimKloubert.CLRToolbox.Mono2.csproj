@@ -1499,5 +1499,8 @@
     <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\Diagnostics\Tests\TestFixtureAttribute.cs">
       <Link>Diagnostics\Tests\TestFixtureAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\ISet.cs">
+      <Link>_Compatibility\System\Collections\Generic\ISet.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
@@ -20,7 +19,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         private readonly EqualsHandler _EQUALS;
         private readonly GetHashCodeHandler _GET_HASH_CODE;
 
-        #endregion Fields
+        #endregion Fields
 
         #region Constructors (4)
 
@@ -58,7 +57,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         public DelegateEqualityComparer(EqualsHandler equalsHandler)
             : this(equalsHandler, null)
         {
-
         }
 
         /// <summary>
@@ -75,7 +73,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         public DelegateEqualityComparer(GetHashCodeHandler getHashCodeHandler)
             : this(null, getHashCodeHandler)
         {
-
         }
 
         /// <summary>
@@ -88,7 +85,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         public DelegateEqualityComparer()
             : this(null, null)
         {
-
         }
 
         #endregion Constructors
@@ -104,6 +100,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         /// <param name="y">The right value.</param>
         /// <returns>Are equal or not.</returns>
         public delegate bool EqualsHandler(T x, T y);
+
         /// <summary>
         /// Describes a handler for <see cref="DelegateEqualityComparer{T}.GetHashCode(T)" /> method.
         /// </summary>
@@ -118,7 +115,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         // Public Methods (2) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="EqualityComparer{T}.Equals(T, T)" />
         public override bool Equals(T x, T y)
@@ -127,7 +124,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="EqualityComparer{T}.GetHashCode(T)" />
         public override int GetHashCode(T obj)
@@ -152,7 +149,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         // Public Methods (4) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer()" />
         public static DelegateEqualityComparer<T> Create<T>(T dummyObj)
@@ -161,7 +158,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer(DelegateEqualityComparer{T}.EqualsHandler)" />
         public static DelegateEqualityComparer<T> Create<T>(T dummyObj,
@@ -169,8 +166,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         {
             return new DelegateEqualityComparer<T>(equalsHandler);
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer(DelegateEqualityComparer{T}.GetHashCodeHandler)" />
         public static DelegateEqualityComparer<T> Create<T>(T dummyObj,
@@ -178,8 +176,9 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         {
             return new DelegateEqualityComparer<T>(getHashCodeHandler);
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="DelegateEqualityComparer{T}.DelegateEqualityComparer(DelegateEqualityComparer{T}.EqualsHandler, DelegateEqualityComparer{T}.GetHashCodeHandler)" />
         public static DelegateEqualityComparer<T> Create<T>(T dummyObj,

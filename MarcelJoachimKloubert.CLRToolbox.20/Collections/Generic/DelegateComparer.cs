@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System.Collections.Generic;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
@@ -42,7 +41,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         public DelegateComparer()
             : this(null)
         {
-
         }
 
         #endregion Constructors
@@ -66,7 +64,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         // Public Methods (1) 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="Comparer{T}.Compare(T, T)" />
         public override int Compare(T x, T y)

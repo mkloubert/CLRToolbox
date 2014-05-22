@@ -1368,6 +1368,9 @@
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\IReadOnlyList.cs">
       <Link>_Compatibility\System\Collections\Generic\IReadOnlyList.cs</Link>
     </Compile>
+    <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\Generic\ISet.cs">
+      <Link>_Compatibility\System\Collections\Generic\ISet.cs</Link>
+    </Compile>
     <Compile Include="..\MarcelJoachimKloubert.CLRToolbox.20\_Compatibility\System\Collections\IStructuralComparable.cs">
       <Link>_Compatibility\System\Collections\IStructuralComparable.cs</Link>
     </Compile>

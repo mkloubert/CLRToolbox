@@ -2,7 +2,6 @@
 
 // s. http://blog.marcel-kloubert.de
 
-
 using System;
 
 namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
@@ -19,7 +18,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
 
         private readonly IForAllItemExecutionContext<T> _CONTEXT;
 
-        #endregion Fields
+        #endregion Fields
 
         #region Constructors (1)
 
@@ -89,7 +88,6 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
                                             Exception ex)
             : base(context, ex)
         {
-
         }
 
         #endregion Constructors
@@ -97,7 +95,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Collections.Generic
         #region Properties (1)
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <see cref="ForAllItemExecutionException{T}.Context" />
         public new IForAllItemExecutionContext<T, S> Context

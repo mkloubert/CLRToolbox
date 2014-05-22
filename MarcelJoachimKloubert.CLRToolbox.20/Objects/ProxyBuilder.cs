@@ -2,6 +2,7 @@
 
 // s. http://blog.marcel-kloubert.de
 
+using MarcelJoachimKloubert.CLRToolbox.Collections.Generic;
 using MarcelJoachimKloubert.CLRToolbox.Helpers;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
 
         #endregion Delegates and Events
 
-        #region Methods (5)
+        #region Methods (6)
 
         // Public Methods (4) 
 
@@ -242,16 +243,29 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
             return typeBuilder.CreateType();
         }
 
-        // Private Methods (1) 
+        // Private Methods (2) 
 
         private static void CollectProperties(ICollection<PropertyInfo> properties, Type type)
         {
+            List<Type> handledTypes = new List<Type>();
+            CollectProperties(properties, type, handledTypes);
+        }
+
+        private static void CollectProperties(ICollection<PropertyInfo> properties, Type type, ICollection<Type> handledTypes)
+        {
+            if (handledTypes.Contains(type))
+            {
+                return;
+            }
+
             CollectionHelper.AddRange(properties, type.GetProperties());
 
-            foreach (Type subInterface in type.GetInterfaces())
-            {
-                CollectProperties(properties, subInterface);
-            }
+            CollectionHelper.ForEach(type.GetInterfaces(),
+                                     delegate(IForEachItemExecutionContext<Type> ctx)
+                                     {
+                                         CollectProperties(properties, ctx.Item,
+                                                           handledTypes);
+                                     });
         }
 
         #endregion Methods

@@ -58,17 +58,14 @@ namespace MarcelJoachimKloubert.CLRToolbox.Objects
     #region INTERFACE: IObjectContext<TObj>
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <see cref="IObjectContext" />
     public interface IObjectContext<TObj> : IObjectContext
     {
         #region Data Members (1)
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <see cref="IObjectContext.Object" />
+        /// <inheriteddoc />
         new TObj Object { get; }
 
         #endregion Data Members

@@ -478,7 +478,7 @@ namespace MarcelJoachimKloubert.CLRToolbox.Execution.Workflows
     #region CLASS: SimpleWorkflowExecutionContext<S>
 
     /// <summary>
-    /// Simple implementation of <see cref="SimpleWorkflowExecutionContext{S}" /> interface.
+    /// Simple implementation of <see cref="IWorkflowExecutionContext{S}" /> interface.
     /// </summary>
     /// <typeparam name="S">Type of the underlying state objects.</typeparam>
     public sealed class SimpleWorkflowExecutionContext<S> : SimpleWorkflowExecutionContext, IWorkflowExecutionContext<S>
